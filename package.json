@@ -1,0 +1,27 @@
+{
+  "name": "data-visualization",
+  "version": "0.0.1",
+  "description": "Data visualization is the graphical representation of information and data. By using visual elements like charts, graphs, and maps, data visualization repository provide an accessible way to see and understand trends, outliers, and patterns in data.",
+  "scripts": {
+    "start": "webpack --watch --colors --progress | webpack-dev-server --port 8888 --hot --inline"
+  },
+  "dependencies": {
+    "vue": "^2.6.14",
+    "vuex": "^3.6.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-vue": "^2.0.2",
+    "babel-runtime": "^6.26.0",
+    "webpack": "^4.43.0",
+    "css-loader": "^3.6.0",
+    "sass-loader": "^8.0.2",
+    "vue-hot-reload-api": "^2.3.4",
+    "vue-loader": "^15.9.8",
+    "vue-template-compiler": "^2.6.14",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.10.3"
+  }
+}
