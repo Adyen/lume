@@ -24,7 +24,7 @@ module.exports = {
                 loader: 'babel-loader'
             },
             {
-                test: /\.css$/,
+                test: /\.s[ac]ss|\.css$/,
                 use: [
                     'vue-style-loader',
                     'css-loader',
