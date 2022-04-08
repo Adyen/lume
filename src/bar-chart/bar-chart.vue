@@ -3,17 +3,19 @@
     ref="svg"
     class="root"
   >
-    <axis
-      :scale="xScale"
-      orientation="bottom"
-      :transform.native="`translate(${margin}, ${height + margin})`"
-    />
-    <axis
-      :scale="yScale"
-      orientation="left"
-      :transform.native="`translate(${margin}, ${margin})`"
-    />
-    <g :transform="`translate(${margin}, ${margin})`">
+    <template v-f="showAxes">
+      <axis
+          :scale="xScale"
+          orientation="bottom"
+          :transform.native="`translate(${margin}, ${height + margin})`"
+      />
+      <axis
+          :scale="yScale"
+          orientation="left"
+          :transform.native="`translate(${margin}, ${margin})`"
+      />
+    </template>
+    <g :transform="barGroupsTransform">
       <bar-group
         v-for="(bar, index) in data"
         :key="`bar-group-${index}`"
@@ -54,6 +56,10 @@ export default {
     margin: {
       type: Number,
       default: defaultMargin
+    },
+    showAxes: {
+      type: Boolean,
+      default: true
     }
   },
   data: () => ({
@@ -71,28 +77,31 @@ export default {
     },
     xScale() {
       return d3
-        .scaleBand()
-        .rangeRound([0, this.width])
-        .domain(this.data.map((value, index) => index))
-        .padding(this.padding)
+          .scaleBand()
+          .rangeRound([0, this.width])
+          .domain(this.data.map((value, index) => index))
+          .padding(this.padding)
     },
     ghostCorrection() {
       return this.xScale.step() * this.xScale.paddingInner() / 2;
-    }
+    },
+    barGroupsTransform() {
+      const margin = this.showAxes ? this.margin : 0;
+      return `translate(${margin}, ${margin})`;
+    },
   },
   mounted() {
     this.svg = this.$refs.svg;
-    this.width = this.svg.clientWidth - (this.margin * 2);
-    this.height = this.svg.clientHeight - (this.margin * 2);
-    window.addEventListener('resize', this.handleResize);
+    this.determineWidthAndHeight();
+    window.addEventListener('resize', this.determineWidthAndHeight);
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener('resize', this.determineWidthAndHeight);
   },
   methods: {
-    handleResize() {
-      this.width = this.svg.clientWidth;
-      this.height = this.svg.clientHeight;
+    determineWidthAndHeight() {
+      this.width = this.svg.clientWidth - (this.margin * 2);
+      this.height = this.svg.clientHeight - (this.margin * 2);
     },
     getBarConfig(bar, index) {
       return {

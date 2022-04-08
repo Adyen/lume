@@ -5,6 +5,7 @@
         v-if="overlay"
         v-bind="overlay"
         :fill="`rgba(0, 0, 0, ${isHovered ? .3 : 0})`"
+        :animate="false"
         @mouseover.native="$emit('mouseover', $event)"
         @mouseout.native="$emit('mouseout')"
     />

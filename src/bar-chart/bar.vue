@@ -1,13 +1,13 @@
 <template>
   <g
       :transform="transform"
-      class="transition"
+      :class="{ 'transition': animate }"
   >
     <rect
         :height="height"
         :width="width"
         :fill="fill"
-        class="transition"
+        :class="{ 'transition': animate }"
     />
   </g>
 </template>
@@ -31,6 +31,10 @@ export default {
     fill: {
       type: String,
       required: true
+    },
+    animate: {
+      type: Boolean,
+      default: true
     }
   }
 }
