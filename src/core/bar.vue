@@ -13,7 +13,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     height: {
