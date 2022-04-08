@@ -17,6 +17,7 @@
     "babel-preset-vue": "^2.0.2",
     "babel-runtime": "^6.26.0",
     "css-loader": "^3.6.0",
+    "sass": "^1.43.4",
     "sass-loader": "^8.0.2",
     "vue-hot-reload-api": "^2.3.4",
     "vue-loader": "^15.9.8",

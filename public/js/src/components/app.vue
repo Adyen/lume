@@ -7,6 +7,9 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+div {
+  $size: 500px;
+  width: $size;
+}
 </style>
