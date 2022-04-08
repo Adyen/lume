@@ -1,9 +1,9 @@
 <template>
   <svg
-    ref="svg"
-    class="root"
+      ref="svg"
+      class="root"
   >
-    <template v-if="showAxes">
+    <template v-f="showAxes">
       <axis
           :scale="xScale"
           orientation="bottom"
@@ -16,30 +16,30 @@
       />
     </template>
     <g :transform="barGroupsTransform">
-      <bar-group
-        v-for="(bar, index) in data"
-        :key="`bar-group-${index}`"
-        :bar="getBarConfig(bar, index)"
-        :overlay="getOverlayConfig(bar, index)"
-        :is-hovered="hoveredIndex === index"
-        @mouseover="handleMouseover(index, $event)"
-        @mouseout="handleMouseout"
+      <bars-group
+          v-for="(bars, index) in data"
+          :key="`bar-group-${index}`"
+          :bars="getBarsConfig(bars, index)"
+          :overlay="getOverlayConfig(bars, index)"
+          :is-hovered="hoveredIndex === index"
+          @mouseover="handleMouseover(index, $event)"
+          @mouseout="handleMouseout"
       />
     </g>
   </svg>
 </template>
 
 <script>
-import BarGroup from './bar-group.vue';
+import BarsGroup from './bars-group.vue';
 import Axis from "../core/axis.vue";
 
-const defaultHeight = 400;
 const defaultPadding = .1;
 const fallbackFillColor = 'red';
 const defaultMargin = 30;
+const fillColors = ['red', 'green', 'blue', 'brown'];
 
 export default {
-  components: { Axis, BarGroup },
+  components: { Axis, BarsGroup },
   props: {
     data: {
       type: Array,
@@ -73,7 +73,7 @@ export default {
       return d3
           .scaleLinear()
           .rangeRound([0, this.height])
-          .domain([Math.max(...this.data), 0]);
+          .domain([this.maxValue, 0]);
     },
     xScale() {
       return d3
@@ -81,6 +81,10 @@ export default {
           .rangeRound([0, this.width])
           .domain(this.data.map((value, index) => index))
           .padding(this.padding)
+    },
+    maxValue() {
+      let accumulatedValues = this.data.map(valueSet => valueSet.reduce((acc, curr) => acc + curr, 0));
+      return Math.max(...accumulatedValues);
     },
     ghostCorrection() {
       return this.xScale.step() * this.xScale.paddingInner() / 2;
@@ -103,15 +107,18 @@ export default {
       this.width = this.svg.clientWidth - (this.margin * 2);
       this.height = this.svg.clientHeight - (this.margin * 2);
     },
-    getBarConfig(bar, index) {
-      return {
-        transform: `translate(${this.xScale(index)}, ${this.yScale(bar)})`,
-        width: this.xScale.bandwidth(),
-        height: this.height - this.yScale(bar),
-        fill: this.fill || fallbackFillColor
-      };
+    getBarsConfig(bars, barsIndex) {
+      return bars.reduce((acc, bar, barIndex) => {
+        const offsetY = acc.map(({ height }) => height).reduce((sum, curr) => sum + curr, 0);
+        return [...acc, {
+          transform: `translate(${this.xScale(barsIndex)}, ${this.yScale(bar) - offsetY})`,
+          width: this.xScale.bandwidth(),
+          height: this.height - this.yScale(bar),
+          fill: fillColors[barIndex % fillColors.length]
+        }];
+      }, []);
     },
-    getOverlayConfig(bar, index) {
+    getOverlayConfig(bars, index) {
       return {
         transform: `translate(${this.xScale(index) - this.ghostCorrection}, 0)`,
         width: this.xScale.step(),

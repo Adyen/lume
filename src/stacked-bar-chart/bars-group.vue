@@ -1,6 +1,10 @@
 <template>
   <g>
-    <bar v-bind="bar" />
+    <bar
+        v-for="(bar, index) in bars"
+        :key="`bar-${index}`"
+        v-bind="bar"
+    />
     <bar
         v-if="overlay"
         v-bind="overlay"
@@ -18,8 +22,8 @@ import Bar from '../core/bar.vue';
 export default {
   components: { Bar },
   props: {
-    bar: {
-      type: Object,
+    bars: {
+      type: Array,
       required: true
     },
     overlay: {
@@ -30,6 +34,7 @@ export default {
       type: Boolean,
       required: true
     }
-  }
+  },
+  created() { console.log(this.bars); }
 }
 </script>
