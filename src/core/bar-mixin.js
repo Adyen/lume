@@ -11,6 +11,10 @@ export default {
             type: Array,
             required: true
         },
+        labels: {
+            type: Array,
+            default: null
+        },
         padding: {
             type: Number,
             default: defaultPadding
@@ -36,29 +40,49 @@ export default {
     }),
     computed: {
         yScale() {
+            console.log(this.minValue);
             return d3
                 .scaleLinear()
                 .rangeRound([0, this.height])
-                .domain([this.maxValue, 0]);
+                .domain([this.maxValue, this.minValue]);
         },
         xScale() {
             return d3
                 .scaleBand()
                 .rangeRound([0, this.width])
-                .domain(this.data.map((value, index) => index))
+                .domain(this.domain)
                 .padding(this.padding)
+        },
+        domain() {
+          return this.labels || this.data.map((value, index) => index);
+        },
+        accumulatedValues() {
+            return this.data.map(valueSet => valueSet.length > 0 ? valueSet.reduce((acc, curr) => acc + curr, 0) : valueSet);
         },
         maxValue() {
             // Make sure we can handle both single values and arrays of values
-            let accumulatedValues = this.data.map(valueSet => valueSet.length > 0 ? valueSet.reduce((acc, curr) => acc + curr, 0) : valueSet);
-            return Math.max(...accumulatedValues);
+            return Math.max(...this.accumulatedValues);
+        },
+        minValue() {
+            return Math.min(0, ...this.accumulatedValues);
+        },
+        hasNegativeValues() {
+            return this.accumulatedValues.some(value => value < 0);
+        },
+        barGroupsTransform() {
+            return `translate(${this.computedMargin}, ${this.computedMargin})`;
+        },
+        negativeTransform() {
+            return `translate(${this.computedMargin}, ${this.computedMargin + this.yScale(0)})`
+        },
+        computedMargin() {
+            return this.showAxes ? this.margin : 0;
+        },
+        negativeHeight() {
+            return this.height - this.yScale(0);
         },
         ghostCorrection() {
             return this.xScale.step() * this.xScale.paddingInner() / 2;
-        },
-        barGroupsTransform() {
-            const margin = this.showAxes ? this.margin : 0;
-            return `translate(${margin}, ${margin})`;
         },
     },
     mounted() {
@@ -76,7 +100,7 @@ export default {
         },
         $getOverlayConfig(bars, index) {
             return {
-                transform: `translate(${this.xScale(index) - this.ghostCorrection}, 0)`,
+                transform: `translate(${this.xScale(this.domain[index]) - this.ghostCorrection}, 0)`,
                 width: this.xScale.step(),
                 height: this.height
             };
