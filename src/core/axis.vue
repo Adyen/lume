@@ -1,9 +1,10 @@
 <template>
-  <g ref="root"></g>
+  <g ref="root" :transform.native="this.computedTransform"></g>
 </template>
 
 <script>
-const allowedValues = ['left', 'top', 'right', 'bottom'];
+const allowedOrientations = ['left', 'top', 'right', 'bottom'];
+const allowedPositions = ['left', 'top', 'right', 'bottom'];
 
 export default {
   props: {
@@ -13,15 +14,27 @@ export default {
     },
     orientation: {
       type: String,
-      validator: value => !!value && allowedValues.includes(value)
+      validator: value => !!value && allowedOrientations.includes(value)
     },
+    position: {
+      type: String,
+      validator: value => !!value && allowedPositions.includes(value)
+    },
+    containerSize: {
+      type: Object,
+      default: {}
+    },
+    transform: {
+      type: String,
+      default: null
+    }
   },
   watch: {
     'scale': 'recallAxis'
   },
   computed: {
     axis() {
-      switch(this.orientation) {
+      switch (this.orientation) {
         case 'left':
           return d3.axisLeft(this.scale);
         case 'top':
@@ -30,9 +43,13 @@ export default {
           return d3.axisRight(this.scale);
         case 'bottom':
           return d3.axisBottom(this.scale);
-          default:
-            throw new Error('Illegal orientation type specified')
+        default:
+          throw new Error('Illegal orientation type specified')
       }
+    },
+    computedTransform() {
+      if (this.transform) return this.transform;
+      return this.getTransformByPosition(this.position);
     }
   },
   mounted() {
@@ -43,8 +60,13 @@ export default {
     recallAxis() {
       if (this.root) {
         this.root
-            .transition()
-            .call(this.axis);
+          .transition()
+          .call(this.axis);
+      }
+    },
+    getTransformByPosition(position) {
+      if (position === 'bottom') {
+        return `translate(0, ${this.containerSize?.height || 0})`
       }
     }
   }
