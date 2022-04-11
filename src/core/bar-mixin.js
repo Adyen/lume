@@ -40,7 +40,7 @@ export default {
     }),
     computed: {
         yScale() {
-            console.log(this.minValue);
+            console.log(this.accumulatedValues);
             return d3
                 .scaleLinear()
                 .rangeRound([0, this.height])
@@ -56,18 +56,17 @@ export default {
         domain() {
           return this.labels || this.data.map((value, index) => index);
         },
-        accumulatedValues() {
-            return this.data.map(valueSet => valueSet.length > 0 ? valueSet.reduce((acc, curr) => acc + curr, 0) : valueSet);
-        },
         maxValue() {
             // Make sure we can handle both single values and arrays of values
-            return Math.max(...this.accumulatedValues);
+            const accumulatedValues = this.data.map(valueSet => valueSet.length > 0 ? valueSet.reduce((acc, curr) => acc + curr, 0) : valueSet);
+            return Math.max(...accumulatedValues);
         },
         minValue() {
-            return Math.min(0, ...this.accumulatedValues);
+            const accumulatedValues = this.data.map(valueSet => valueSet.length > 0 ? valueSet.filter(value => value < 0).reduce((acc, curr) => acc + curr, 0) : valueSet);
+            return Math.min(0, ...accumulatedValues);
         },
         hasNegativeValues() {
-            return this.accumulatedValues.some(value => value < 0);
+            return this.data.flat().some(value => value < 0);
         },
         barGroupsTransform() {
             return `translate(${this.computedMargin}, ${this.computedMargin})`;
