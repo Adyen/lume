@@ -53,20 +53,23 @@ export default {
                 .domain(this.domain)
                 .padding(this.padding)
         },
+        paddedData() {
+            return this.data.map(dataPoint => !dataPoint && dataPoint !== 0 ? 0 : dataPoint);
+        },
         domain() {
-          return this.labels || this.data.map((value, index) => index);
+          return this.labels || this.paddedData.map((value, index) => index);
         },
         maxValue() {
             // Make sure we can handle both single values and arrays of values
-            const accumulatedValues = this.data.map(valueSet => valueSet.length > 0 ? valueSet.reduce((acc, curr) => acc + curr, 0) : valueSet);
+            const accumulatedValues = this.paddedData.map(valueSet => valueSet.length > 0 ? valueSet.reduce((acc, curr) => acc + curr, 0) : valueSet);
             return Math.max(...accumulatedValues);
         },
         minValue() {
-            const accumulatedValues = this.data.map(valueSet => valueSet.length > 0 ? valueSet.filter(value => value < 0).reduce((acc, curr) => acc + curr, 0) : valueSet);
+            const accumulatedValues = this.paddedData.map(valueSet => valueSet.length > 0 ? valueSet.filter(value => value < 0).reduce((acc, curr) => acc + curr, 0) : valueSet);
             return Math.min(0, ...accumulatedValues);
         },
         hasNegativeValues() {
-            return this.data.flat().some(value => value < 0);
+            return this.paddedData.flat().some(value => value < 0);
         },
         barGroupsTransform() {
             return `translate(${this.computedMargin}, ${this.computedMargin})`;

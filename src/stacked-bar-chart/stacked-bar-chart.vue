@@ -51,7 +51,7 @@ export default {
       return bars.reduce((acc, bar) => {
         const offsetY = acc.map(({ height }) => height).reduce((sum, curr) => sum + curr, 0);
         return [...acc, {
-          transform: `translate(${this.xScale(barsIndex)}, ${this.yScale(0) + offsetY})`,
+          transform: `translate(${this.xScale(this.domain[barsIndex])}, ${this.yScale(0) + offsetY})`,
           width: this.xScale.bandwidth(),
           height: this.yScale(bar.value) - this.yScale(0),
           fill: fillColors[bar.index % fillColors.length]
@@ -62,7 +62,7 @@ export default {
       return bars.reduce((acc, bar) => {
         const offsetY = acc.map(({ height }) => height).reduce((sum, curr) => sum + curr, 0);
         return [...acc, {
-          transform: `translate(${this.xScale(barsIndex)}, ${this.yScale(bar.value) - offsetY})`,
+          transform: `translate(${this.xScale(this.domain[barsIndex])}, ${this.yScale(bar.value) - offsetY})`,
           width: this.xScale.bandwidth(),
           height: this.yScale(0) - this.yScale(bar.value),
           fill: fillColors[bar.index % fillColors.length]
@@ -81,7 +81,7 @@ export default {
       ];
     },
   }
-}
+};
 </script>
 
 <style>
