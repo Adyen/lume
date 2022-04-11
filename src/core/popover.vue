@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="adl-popover">
     <h3>This is a popover</h3>
     <slot></slot>
   </div>
