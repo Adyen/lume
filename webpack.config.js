@@ -21,7 +21,13 @@ module.exports = {
             },
             {
                 test: /\.js$/,
-                loader: 'babel-loader'
+                loader: 'babel-loader',
+                options: {
+                    plugins: [
+                        '@babel/plugin-proposal-nullish-coalescing-operator',
+                        '@babel/plugin-proposal-optional-chaining',
+                    ]
+                }
             },
             {
                 test: /\.s[ac]ss|\.css$/,
