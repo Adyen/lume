@@ -1,50 +1,59 @@
 <template>
-  <svg
-      ref="svg"
-      class="root"
-  >
-    <bar
-        v-if="hasNegativeValues"
-        :height="negativeHeight"
-        :width="width"
-        :transform="negativeTransform"
-        :fill="'#f0f0f0'"
-    />
-    <g :transform="barGroupsTransform">
-      <bars-group
-          v-for="(bars, index) in data"
-          :key="`bar-group-${index}`"
-          :bars="getBarsConfig(bars, index)"
-          :overlay="$getOverlayConfig(bars, index)"
-          :is-hovered="hoveredIndex === index"
-          @mouseover="$handleMouseover(index, $event)"
-          @mouseout="$handleMouseout"
+  <div>
+    <svg
+        ref="svg"
+        class="root"
+    >
+      <bar
+          v-if="hasNegativeValues"
+          :height="negativeHeight"
+          :width="width"
+          :transform="negativeTransform"
+          :fill="'#f0f0f0'"
       />
-    </g>
-    <template v-if="showAxes">
-      <axis
-          :scale="xScale"
-          orientation="bottom"
-          :transform.native="`translate(${margin}, ${height + margin})`"
-      />
-      <axis
-          :scale="yScale"
-          orientation="left"
-          :transform.native="`translate(${margin}, ${margin})`"
-      />
-    </template>
-  </svg>
+      <g :transform="barGroupsTransform">
+        <bars-group
+            v-for="(bars, index) in paddedData"
+            :key="`bar-group-${index}`"
+            :bars="getBarsConfig(bars, index)"
+            :overlay="$getOverlayConfig(bars, index)"
+            :is-hovered="hoveredIndex === index"
+            @mouseover="$handleMouseover(index, $event)"
+            @mouseout="$handleMouseout"
+        />
+      </g>
+      <template v-if="showAxes">
+        <axis
+            :scale="xScale"
+            orientation="bottom"
+            :transform.native="`translate(${margin}, ${height + margin})`"
+        />
+        <axis
+            :scale="yScale"
+            orientation="left"
+            :transform.native="`translate(${margin}, ${margin})`"
+        />
+      </template>
+    </svg>
+    <popover
+        v-if="popoverConfig.opened"
+        v-bind="popoverConfig"
+    >
+      {{ hoveredIndex }}
+    </popover>
+  </div>
 </template>
 
 <script>
 import Bar from '../core/bar.vue';
+import Popover from '../core/popover.vue';
 import BarsGroup from './bars-group.vue';
 import BarMixin from '../core/bar-mixin.js';
 
 const fillColors = ['red', 'green', 'blue', 'brown'];
 
 export default {
-  components: { Bar, BarsGroup },
+  components: { Bar, BarsGroup, Popover },
   mixins: [BarMixin],
   methods: {
     mapBelowZeroBars(bars, barsIndex) {

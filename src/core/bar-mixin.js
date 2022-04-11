@@ -2,6 +2,13 @@ import Axis from "../core/axis.vue";
 
 const defaultPadding = .1;
 const defaultMargin = 30;
+const recursivePad = dataPoint => {
+    if (dataPoint && dataPoint.length > 0) {
+        return dataPoint.map(recursivePad);
+    } else {
+        return !dataPoint && dataPoint !== 0 ? 0 : dataPoint;
+    }
+}
 
 // @vue/component
 export default {
@@ -36,11 +43,15 @@ export default {
         hoveredIndex: -1,
         svg: null,
         width: 0,
-        height: 0
+        height: 0,
+        popoverConfig: {
+            opened: false,
+            position: 'top',
+            targetElement: null
+        },
     }),
     computed: {
         yScale() {
-            console.log(this.accumulatedValues);
             return d3
                 .scaleLinear()
                 .rangeRound([0, this.height])
@@ -54,7 +65,7 @@ export default {
                 .padding(this.padding)
         },
         paddedData() {
-            return this.data.map(dataPoint => !dataPoint && dataPoint !== 0 ? 0 : dataPoint);
+            return recursivePad(this.data);
         },
         domain() {
           return this.labels || this.paddedData.map((value, index) => index);
@@ -109,10 +120,14 @@ export default {
         },
         $handleMouseover(index, event) {
             this.hoveredIndex = index;
+            this.popoverConfig.targetElement = event.target;
+            this.popoverConfig.opened = true;
             this.$emit('mouseover', index);
         },
         $handleMouseout() {
             this.hoveredIndex = -1;
+            this.popoverConfig.opened = false;
+            this.popoverConfig.targetElement = null;
             this.$emit('mouseout');
         }
     }

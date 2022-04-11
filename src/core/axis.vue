@@ -22,7 +22,7 @@ export default {
     },
     containerSize: {
       type: Object,
-      default: {}
+      default: () => ({})
     },
     transform: {
       type: String,

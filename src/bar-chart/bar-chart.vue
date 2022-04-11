@@ -12,7 +12,7 @@
     />
     <g :transform="barGroupsTransform">
       <bar-group
-          v-for="(bar, index) in data"
+          v-for="(bar, index) in paddedData"
           :key="`bar-group-${index}`"
           :bar="getBarConfig(bar, index)"
           :overlay="$getOverlayConfig(bar, index)"
