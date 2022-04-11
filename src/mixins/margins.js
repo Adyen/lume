@@ -3,8 +3,8 @@ export default function MarginsMixin(defaultMargins = {}) {
     return {
         computed: {
             /**
-             * Object with merged default and specified options.
-             * @return {Object} Merged component options.
+             * Object with top, right, bottom and left side margins.
+             * @return {Object} Merged component margins.
              */
             // eslint-disable-next-line vue/no-unused-properties -- mixin property
             margins() {
