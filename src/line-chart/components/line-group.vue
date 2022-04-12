@@ -1,22 +1,31 @@
 <template>
     <g class="line-chart__line-group" :class="isHovered && 'line-chart__line-group--hover'">
-        <chart-line
-            v-for="(value, index) in values"
-            :key="`line-${index}`"
-            :x-scale="xScale"
-            :y-scale="yScale"
-            :values="getLineValues(index)"
-            :index="index"
-            :color="color"
-        />
+        <template v-for="(value, index) in values">
+            <chart-line
+                :key="`line-${index}`"
+                :x-scale="xScale"
+                :y-scale="yScale"
+                :values="getLineValues(index)"
+                :index="index"
+                :color="color"
+            />
+            <line-point 
+                :x-scale="xScale"
+                :y-scale="yScale"
+                :value="getPointValue(index)"
+                :index="index"
+                :color="color"
+            />
+        </template>
     </g>
 </template>
 
 <script>
 import ChartLine from "./chart-line.vue";
+import LinePoint from "./line-point.vue";
 
 export default {
-    components: { ChartLine },
+    components: { ChartLine, LinePoint },
     props: {
         values: {
             type: Array,
@@ -46,6 +55,9 @@ export default {
         getLineValues(index) {
             if (index === 0) return [];
             return [this.values[index - 1], this.values[index]];
+        },
+        getPointValue(index) {
+            return this.values[index];
         }
     }
 };

@@ -1,10 +1,13 @@
 <template>
-    <path
-        class="line-chart__line"
+    <circle
+        class="line-chart__circle"
         :class="{
-            [`line-chart__line--color-${color}`]: true,
+            [`line-chart__circle--color-${color}`]: true,
+            'line-chart__circle--active': isActive,
         }"
-        :d="pathDefinition"
+        :r="radius"
+        :cx="cx"
+        :cy="cy"
     />
 </template>
 
@@ -15,12 +18,16 @@ export default {
             type: String,
             default: '01',
         },
-        index: {
+        radius: {
+            type: Number,
+            default: 4,
+        },
+        value: {
             type: Number,
             required: true,
         },
-        values: {
-            type: Array,
+        index: {
+            type: Number,
             required: true,
         },
         xScale: {
@@ -33,18 +40,15 @@ export default {
         },
     },
     data: () => ({
-        isAnimating: true
+        isActive: false
     }),
     computed: {
-        pathDefinition() {
-            return d3.line()
-                .x((_, i) => this.xScale(this.index + (i - 1)))
-                .y((d) => this.yScale(d))
-                (this.values);
+        cx() {
+            return this.xScale(this.index);
         },
-    },
-    watch: {
-        'values': function () { this.isAnimating = true }
+        cy() {
+            return this.yScale(this.value);
+        }
     },
 };
 </script>
@@ -52,17 +56,18 @@ export default {
 <style lang="scss" scoped>
 @import "../../styles/variables.scss";
 
-.line-chart__line {
-    stroke-width: 2px;
-    stroke-linejoin: round;
-    stroke-linecap: round;
-    fill: none;
+.line-chart__circle {
     transition: all $chart-transition-time ease;
 
     @each $color, $map in $chart-colors {
         &--color-#{$color} {
-            stroke: nth($map, 1);
+            opacity: 0;
+            fill: nth($map, 1);
         }
+    }
+
+    &--active {
+        opacity: 1;
     }
 }
 </style>
