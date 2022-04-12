@@ -1,6 +1,5 @@
 <template>
-  <div class="adl-popover">
-    <h3>This is a popover</h3>
+  <div ref="wrapper" class="adl-popover" :class="arrowClass">
     <slot></slot>
   </div>
 </template>
@@ -48,6 +47,9 @@ export default {
      */
     modifiers: { type: Array, default: null },
   },
+  data: () => ({
+    popper: { state: {} }
+  }),
   mounted() {
     this.initPopper();
   },
@@ -60,7 +62,21 @@ export default {
     },
     allModifiers() {
       return this.modifiers || [];
-    }
+    },
+    arrowClass() {
+      if (!this.popper.state.placement) return '';
+      switch(this.popper.state.placement) {
+        case 'top':
+        default:
+          return 'adl-popover--arrow-bottom';
+        case 'bottom':
+          return 'adl-popover--arrow-top';
+        case 'left':
+          return 'adl-popover--arrow-right';
+        case 'right':
+          return 'adl-popover--arrow-left';
+      }
+    },
   },
   methods: {
     initPopper() {

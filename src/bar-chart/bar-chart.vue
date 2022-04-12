@@ -20,7 +20,6 @@
             :is-hovered="hoveredIndex === index"
             @mouseover="$handleMouseover(index, $event)"
             @mouseout="$handleMouseout"
-            :animate="animate"
         />
       </g>
       <template v-if="showAxes">
