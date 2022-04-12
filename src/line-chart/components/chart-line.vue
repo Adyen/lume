@@ -12,6 +12,7 @@
         <path
             class="line-chart__ghost-line"
             :d="pathDefinition"
+            @click="$emit('line-click', index)"
             @mouseover="$emit('line-mouseover', index)"
             @mouseout="$emit('line-mouseout')"
         />

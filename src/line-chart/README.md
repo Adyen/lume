@@ -6,7 +6,7 @@
      - [x] Points (bullets)
      - [ ] Line label (right side)
   - [x] Line hover
-  - [ ] Line selection
+  - [x] Line selection
   - [ ] Popover (core)
   - [ ] Negative values
   

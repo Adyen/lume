@@ -5,6 +5,7 @@
         :r="active ? radius : 0"
         :cx="cx"
         :cy="cy"
+        @click="$emit('point-click', index)"
         @mouseover="$emit('point-mouseover', index)"
         @mouseout="$emit('point-mouseout')"
     />

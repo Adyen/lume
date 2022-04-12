@@ -8,7 +8,8 @@
                 :values="getLineValues(index)"
                 :index="index"
                 :color="color"
-                :active="isHovered"
+                :active="isHovered || isSelected"
+                @line-click="isSelected = !isSelected"
                 @line-mouseover="isHovered = true"
                 @line-mouseout="isHovered = false"
             />
@@ -18,7 +19,8 @@
                 :value="getPointValue(index)"
                 :index="index"
                 :color="color"
-                :active="isHovered"
+                :active="isHovered || isSelected"
+                @line-click="isSelected = !isSelected"
                 @point-mouseover="isHovered = true"
                 @point-mouseout="isHovered = false"
             />
@@ -55,7 +57,8 @@ export default {
         },
     },
     data: () => ({
-        isHovered: false
+        isHovered: false,
+        isSelected: false,
     }),
     methods: {
         getLineValues(index) {
