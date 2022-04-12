@@ -1,39 +1,48 @@
 <template>
-  <svg
-    ref="svg"
-    class="root"
-  >
-    <bar
-        v-if="hasNegativeValues"
-        :height="negativeHeight"
-        :width="width"
-        :transform="negativeTransform"
-        :fill="'#f0f0f0'"
-    />
-    <g :transform="barGroupsTransform">
-      <bar-group
-          v-for="(bar, index) in paddedData"
-          :key="`bar-group-${index}`"
-          :bar="getBarConfig(bar, index)"
-          :overlay="$getOverlayConfig(bar, index)"
-          :is-hovered="hoveredIndex === index"
-          @mouseover="$handleMouseover(index, $event)"
-          @mouseout="$handleMouseout"
+  <div>
+    <svg
+      ref="svg"
+      class="root"
+    >
+      <bar
+          v-if="hasNegativeValues"
+          :height="negativeHeight"
+          :width="width"
+          :transform="negativeTransform"
+          :fill="'#f0f0f0'"
       />
-    </g>
-    <template v-if="showAxes">
-      <axis
-          :scale="xScale"
-          orientation="bottom"
-          :transform.native="`translate(${margin}, ${height + margin})`"
-      />
-      <axis
-          :scale="yScale"
-          orientation="left"
-          :transform.native="`translate(${margin}, ${margin})`"
-      />
-    </template>
-  </svg>
+      <g :transform="barGroupsTransform">
+        <bar-group
+            v-for="(bar, index) in paddedData"
+            :key="`bar-group-${index}`"
+            :bar="getBarConfig(bar, index)"
+            :overlay="$getOverlayConfig(bar, index)"
+            :is-hovered="hoveredIndex === index"
+            @mouseover="$handleMouseover(index, $event)"
+            @mouseout="$handleMouseout"
+            :animate="animate"
+        />
+      </g>
+      <template v-if="showAxes">
+        <axis
+            :scale="xScale"
+            orientation="bottom"
+            :transform.native="`translate(${margin}, ${height + margin})`"
+        />
+        <axis
+            :scale="yScale"
+            orientation="left"
+            :transform.native="`translate(${margin}, ${margin})`"
+        />
+      </template>
+    </svg>
+    <popover
+        v-if="popoverConfig.opened"
+        v-bind="popoverConfig"
+    >
+      <span class="u-font-weight-semi-bold">{{ labels[hoveredIndex] }}</span>: {{ data[hoveredIndex] || 'No data available' }}
+    </popover>
+  </div>
 </template>
 
 <script>
@@ -55,7 +64,7 @@ export default {
         transform: `translate(${this.xScale(this.domain[index])}, ${yTranslation})`,
         width: this.xScale.bandwidth(),
         height,
-        fill: this.fill || fallbackFillColor
+        fill: this.fill || fallbackFillColor,
       };
     },
   }

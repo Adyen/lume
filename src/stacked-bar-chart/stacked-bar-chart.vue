@@ -39,21 +39,20 @@
         v-if="popoverConfig.opened"
         v-bind="popoverConfig"
     >
-      {{ hoveredIndex }}
+      <span class="u-font-weight-semi-bold">{{ labels[hoveredIndex] }}</span>: {{ data[hoveredIndex] }}
     </popover>
   </div>
 </template>
 
 <script>
 import Bar from '../core/bar.vue';
-import Popover from '../core/popover.vue';
 import BarsGroup from './bars-group.vue';
 import BarMixin from '../core/bar-mixin.js';
 
 const fillColors = ['red', 'green', 'blue', 'brown'];
 
 export default {
-  components: { Bar, BarsGroup, Popover },
+  components: { Bar, BarsGroup },
   mixins: [BarMixin],
   methods: {
     mapBelowZeroBars(bars, barsIndex) {

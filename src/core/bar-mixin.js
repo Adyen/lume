@@ -1,4 +1,5 @@
 import Axis from "../core/axis.vue";
+import Popover from '../core/popover.vue';
 
 const defaultPadding = .1;
 const defaultMargin = 30;
@@ -12,7 +13,7 @@ const recursivePad = dataPoint => {
 
 // @vue/component
 export default {
-    components: { Axis },
+    components: { Axis, Popover },
     props: {
         data: {
             type: Array,
