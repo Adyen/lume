@@ -1,11 +1,21 @@
 <template>
-    <path
-        class="line-chart__line"
-        :class="{
-            [`line-chart__line--color-${color}`]: true,
-        }"
-        :d="pathDefinition"
-    />
+    <g>
+        <path
+            class="line-chart__line"
+            :class="{
+                [`line-chart__line--color-${color}`]: true,
+                ['line-chart__line--active']: active,
+            }"
+            :d="pathDefinition"
+        />
+        <!-- Ghost path to facilitate hover functions -->
+        <path
+            class="line-chart__ghost-line"
+            :d="pathDefinition"
+            @mouseover="$emit('line-mouseover', index)"
+            @mouseout="$emit('line-mouseout')"
+        />
+    </g>
 </template>
 
 <script>
@@ -23,6 +33,10 @@ export default {
             type: Array,
             required: true,
         },
+        active: {
+            type: Boolean,
+            default: false,
+        },
         xScale: {
             type: Function,
             required: true,
@@ -32,9 +46,7 @@ export default {
             required: true,
         },
     },
-    data: () => ({
-        isAnimating: true
-    }),
+    data: () => ({}),
     computed: {
         pathDefinition() {
             return d3.line()
@@ -43,17 +55,18 @@ export default {
                 (this.values);
         },
     },
-    watch: {
-        'values': function () { this.isAnimating = true }
-    },
 };
 </script>
 
 <style lang="scss" scoped>
 @import "../../styles/variables.scss";
 
+$line-stroke-width: 2px;
+$line-stroke-hover-width: 4px;
+$ghost-line-stroke-width: 8px;
+
 .line-chart__line {
-    stroke-width: 2px;
+    stroke-width: $line-stroke-width;
     stroke-linejoin: round;
     stroke-linecap: round;
     fill: none;
@@ -64,5 +77,23 @@ export default {
             stroke: nth($map, 1);
         }
     }
+
+    &--active {
+        stroke-width: $line-stroke-hover-width;
+    }
+}
+
+.line-chart__ghost-line {
+    stroke-width: $ghost-line-stroke-width;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    fill: none;
+    stroke: rgba(
+        0,
+        0,
+        0,
+        0
+    ); /* Needs a stroke value to be able to act, set with 0 opacity to hide it */
+    cursor: pointer;
 }
 </style>

@@ -3,9 +3,9 @@
 ### Feature list
 
   - [ ] Simple line rendering
-     - [ ] Points (bullets)
+     - [x] Points (bullets)
      - [ ] Line label (right side)
-  - [ ] Line hover
+  - [x] Line hover
   - [ ] Line selection
   - [ ] Popover (core)
   - [ ] Negative values

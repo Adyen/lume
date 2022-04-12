@@ -1,13 +1,12 @@
 <template>
     <circle
-        class="line-chart__circle"
-        :class="{
-            [`line-chart__circle--color-${color}`]: true,
-            'line-chart__circle--active': isActive,
-        }"
-        :r="radius"
+        class="line-chart__point"
+        :class="`line-chart__point--color-${color}`"
+        :r="active ? radius : 0"
         :cx="cx"
         :cy="cy"
+        @mouseover="$emit('point-mouseover', index)"
+        @mouseout="$emit('point-mouseout')"
     />
 </template>
 
@@ -30,6 +29,10 @@ export default {
             type: Number,
             required: true,
         },
+        active: {
+            type: Boolean,
+            default: false,
+        },
         xScale: {
             type: Function,
             required: true,
@@ -39,9 +42,7 @@ export default {
             required: true,
         },
     },
-    data: () => ({
-        isActive: false
-    }),
+    data: () => ({}),
     computed: {
         cx() {
             return this.xScale(this.index);
@@ -56,18 +57,13 @@ export default {
 <style lang="scss" scoped>
 @import "../../styles/variables.scss";
 
-.line-chart__circle {
+.line-chart__point {
     transition: all $chart-transition-time ease;
 
     @each $color, $map in $chart-colors {
         &--color-#{$color} {
-            opacity: 0;
             fill: nth($map, 1);
         }
-    }
-
-    &--active {
-        opacity: 1;
     }
 }
 </style>

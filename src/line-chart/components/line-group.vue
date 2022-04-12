@@ -1,6 +1,6 @@
 <template>
     <g class="line-chart__line-group" :class="isHovered && 'line-chart__line-group--hover'">
-        <template v-for="(value, index) in values">
+        <template v-for="(_, index) in values">
             <chart-line
                 :key="`line-${index}`"
                 :x-scale="xScale"
@@ -8,13 +8,19 @@
                 :values="getLineValues(index)"
                 :index="index"
                 :color="color"
+                :active="isHovered"
+                @line-mouseover="isHovered = true"
+                @line-mouseout="isHovered = false"
             />
-            <line-point 
+            <line-point
                 :x-scale="xScale"
                 :y-scale="yScale"
                 :value="getPointValue(index)"
                 :index="index"
                 :color="color"
+                :active="isHovered"
+                @point-mouseover="isHovered = true"
+                @point-mouseout="isHovered = false"
             />
         </template>
     </g>
