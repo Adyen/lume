@@ -8,7 +8,7 @@
     <bar
         v-if="overlay"
         v-bind="overlay"
-        :fill="`rgba(0, 0, 0, ${isHovered ? .3 : 0})`"
+        :fill-class="isHovered ? 'adl-fill-color-overlay' : 'adl-fill-color-transparent'"
         :animate="false"
         @mouseover.native="$emit('mouseover', $event)"
         @mouseout.native="$emit('mouseout')"

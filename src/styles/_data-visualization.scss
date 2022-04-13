@@ -1,0 +1,35 @@
+@import 'chart-colors';
+
+.adl-stroke {
+  @each $color, $map in $chart-colors {
+    &-color-#{$color} {
+      stroke: nth($map, 1);
+    }
+  }
+}
+
+.adl-fill-color {
+  @each $color, $map in $chart-colors {
+    &-#{$color} {
+      fill: nth($map, 1);
+    }
+  }
+
+  &-overlay {
+    fill: $adl-color-grey-transparent;
+  }
+
+  &-negative-values {
+    fill: $adl-color-grey-10;
+  }
+
+  &-none {
+    fill: none;
+  }
+
+  &-transparent {
+    opacity: 0;
+  }
+}
+
+

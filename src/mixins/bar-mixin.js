@@ -27,9 +27,9 @@ export default {
             type: Number,
             default: defaultPadding
         },
-        fill: {
+        fillClass: {
             type: String,
-            default: 'red'
+            default: null
         },
         margin: {
             type: Number,

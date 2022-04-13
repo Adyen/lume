@@ -1,0 +1,31 @@
+@import 'variables';
+
+$chart-colors: (
+        '01': ($adl-color-data-viz-yellow, $adl-color-data-viz-yellow-darker, $adl-color-orange-10),
+        '02': ($adl-color-data-viz-green, $adl-color-data-viz-green-darker, $adl-color-green-10),
+        '03': ($adl-color-data-viz-turquoise, $adl-color-data-viz-turquoise-darker, $adl-color-teal-10),
+        '04': ($adl-color-data-viz-blue, $adl-color-data-viz-blue-darker, $adl-color-blue-10),
+        '05': ($adl-color-data-viz-navy, $adl-color-data-viz-navy-darker, $adl-color-blue-20),
+        '06': ($adl-color-data-viz-grey, $adl-color-data-viz-grey-darker, $adl-color-grey-10),
+        '07': ($adl-color-data-viz-orange, $adl-color-data-viz-orange-darker, $adl-color-orange-10),
+        '08': ($adl-color-teal-40, $adl-color-teal-70, $adl-color-teal-10),
+        '09': ($adl-color-red-40, $adl-color-red-20, $adl-color-red-20)
+);
+
+$chart-background-color: $adl-color-white;
+
+$chart-data-color: $adl-color-data-viz-turquoise;
+$chart-data-selected-color: $adl-color-data-viz-turquoise-darker;
+
+$chart-overlay-color: transparent;
+$chart-overlay-hover-color: rgba($adl-color-grey-70, .1);
+
+$chart-axis-color: $adl-color-grey-20;
+$chart-axis-zero-level-color: $adl-color-grey-30;
+$chart-axis-labels-color: $adl-color-quiet;
+$chart-axis-labels-color-selected: $adl-color-black;
+$chart-axis-labels-font-size: $adl-text-font-size-small;
+$chart-legend-font-size: $adl-text-font-size-small;
+$chart-legend-font-weight-highlight: $adl-text-font-weight-semi-bold;
+
+$chart-transition-time: 0.5s;

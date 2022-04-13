@@ -173,6 +173,28 @@ $adl-border-radius-8: 8px !default;
 $adl-border-radius-12: 12px !default;
 $adl-border-radius: $adl-border-radius-6 !default;
 
+// Text
+
+$adl-text-font-family: fakt, -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, oxygen, ubuntu, cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !default;
+$adl-text-font-family-fakt-path: '../fonts/fakt' !default;
+$adl-text-font-family-serif: georgia, cambria, 'Times New Roman', times, serif !default;
+$adl-text-font-family-mono: menlo, consolas, 'Andale Mono WT', 'Andale Mono', 'Lucida Console', 'Lucida Sans Typewriter', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Liberation Mono', 'Nimbus Mono L', monaco, 'Courier New', courier, monospace !default;
+$adl-text-font-weight-thin: 100 !default;
+$adl-text-font-weight-regular: 400 !default;
+$adl-text-font-weight-medium: 500 !default;
+$adl-text-font-weight-semi-bold: 600 !default;
+$adl-text-line-height: 1.4 !default;
+$adl-text-color: $adl-color-black !default;
+$adl-text-color-medium: $adl-color-grey-50 !default;
+
+// Font-size
+
+$adl-text-font-size-xxlarge: 45px !default;
+$adl-text-font-size-xlarge: 30px !default;
+$adl-text-font-size-large: 21px !default;
+$adl-text-font-size-medium: 15px !default;
+$adl-text-font-size-small: 13px !default;
+
 // Box-shadow
 
 $adl-box-shadow-focus: inset 0 0 0 1px $adl-color-blue-30 !default;

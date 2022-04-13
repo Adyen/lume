@@ -9,7 +9,7 @@
           :height="negativeHeight"
           :width="width"
           :transform="negativeTransform"
-          :fill="'#f0f0f0'"
+          fill-class="adl-fill-color-negative-values"
       />
       <g :transform="barGroupsTransform">
         <bars-group
@@ -47,9 +47,7 @@
 <script>
 import Bar from '../core/bar.vue';
 import BarsGroup from './bars-group.vue';
-import BarMixin from '../core/bar-mixin.js';
-
-const fillColors = ['red', 'green', 'blue', 'brown'];
+import BarMixin from '../mixins/bar-mixin.js';
 
 export default {
   components: { Bar, BarsGroup },
@@ -62,7 +60,7 @@ export default {
           transform: `translate(${this.xScale(this.domain[barsIndex])}, ${this.yScale(0) + offsetY})`,
           width: this.xScale.bandwidth(),
           height: this.yScale(bar.value) - this.yScale(0),
-          fill: fillColors[bar.index % fillColors.length]
+          fillClass: `adl-fill-color-0${bar.index + 1}`
         }];
       }, []);
     },
@@ -73,7 +71,7 @@ export default {
           transform: `translate(${this.xScale(this.domain[barsIndex])}, ${this.yScale(bar.value) - offsetY})`,
           width: this.xScale.bandwidth(),
           height: this.yScale(0) - this.yScale(bar.value),
-          fill: fillColors[bar.index % fillColors.length]
+          fillClass: `adl-fill-color-0${bar.index + 1}`
         }];
       }, []);
     },

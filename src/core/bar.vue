@@ -6,8 +6,7 @@
     <rect
         :height="height"
         :width="width"
-        :fill="fill"
-        :class="{ 'transition': animate }"
+        :class="[fillClass, { 'transition': animate }]"
     />
   </g>
 </template>
@@ -27,7 +26,7 @@ export default {
       type: String,
       required: true
     },
-    fill: {
+    fillClass: {
       type: String,
       required: true
     },
