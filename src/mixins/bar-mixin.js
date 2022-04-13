@@ -3,13 +3,7 @@ import Popover from '../core/popover.vue';
 
 const defaultPadding = .1;
 const defaultMargin = 30;
-const recursivePad = dataPoint => {
-    if (dataPoint && dataPoint.length > 0) {
-        return dataPoint.map(recursivePad);
-    } else {
-        return !dataPoint && dataPoint !== 0 ? 0 : dataPoint;
-    }
-}
+const pad = value => !value && value !== 0 ? 0 : value
 
 // @vue/component
 export default {
@@ -27,10 +21,6 @@ export default {
             type: Number,
             default: defaultPadding
         },
-        fillClass: {
-            type: String,
-            default: null
-        },
         margin: {
             type: Number,
             default: defaultMargin
@@ -38,6 +28,10 @@ export default {
         showAxes: {
             type: Boolean,
             default: true
+        },
+        barsConfig: {
+            type: Object,
+            default: () => ({})
         }
     },
     data: () => ({
@@ -66,22 +60,35 @@ export default {
                 .padding(this.padding)
         },
         paddedData() {
-            return recursivePad(this.data);
+            return this.data.map(record => ({
+                ...record,
+                ...('value' in record ? { value: pad(record.value) } : {}),
+                ...('values' in record ? { values: record.values.map(pad) } : {})
+            }))
+        },
+        paddedDataAsArray() {
+            return this.paddedData.map(record => 'value' in record ? record.value : record.values);
         },
         domain() {
-          return this.labels || this.paddedData.map((value, index) => index);
+          return this.labels || this.data.map((value, index) => index);
         },
         maxValue() {
             // Make sure we can handle both single values and arrays of values
-            const accumulatedValues = this.paddedData.map(valueSet => valueSet.length > 0 ? valueSet.reduce((acc, curr) => acc + curr, 0) : valueSet);
+            const accumulatedValues = this.paddedDataAsArray.map(valueSet =>
+                valueSet.length > 0 ? valueSet.reduce((acc, curr) => acc + curr, 0) : valueSet);
+
             return Math.max(...accumulatedValues);
         },
         minValue() {
-            const accumulatedValues = this.paddedData.map(valueSet => valueSet.length > 0 ? valueSet.filter(value => value < 0).reduce((acc, curr) => acc + curr, 0) : valueSet);
+            const accumulatedValues = this.paddedDataAsArray.map(valueSet =>
+                valueSet.length > 0 ? valueSet.filter(value => value < 0).reduce((acc, curr) => acc + curr, 0) : valueSet);
+
             return Math.min(0, ...accumulatedValues);
         },
         hasNegativeValues() {
-            return this.paddedData.flat().some(value => value < 0);
+            return this.paddedDataAsArray
+                .flat()
+                .some(value => value < 0);
         },
         barGroupsTransform() {
             return `translate(${this.computedMargin}, ${this.computedMargin})`;
