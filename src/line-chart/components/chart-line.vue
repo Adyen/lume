@@ -60,7 +60,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../styles/variables.scss";
+@import "../../styles/variables";
 
 $line-stroke-width: 2px;
 $line-stroke-hover-width: 4px;

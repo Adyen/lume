@@ -1,0 +1,35 @@
+@use 'sass:math';
+
+@import '../../variables';
+
+// Popover box -----------------------------------------------------------------
+$adl-popover-background-color: $adl-color-white !default;
+$adl-popover-border-radius: $adl-border-radius-4 !default;
+$adl-popover-box-shadow: $adl-box-shadow !default;
+$adl-popover-max-width: 250px !default;
+$adl-popover-border-width: $adl-border-width !default;
+$adl-popover-border-style: $adl-popover-border-width $adl-border-style $adl-border-color !default;
+$adl-popover-content-padding: $adl-spacing-16 !default;
+
+// Arrow -----------------------------------------------------------------------
+$adl-popover-arrow-color: $adl-popover-background-color !default;
+$adl-popover-arrow-vertex-size: $adl-spacing-16 !default;
+$adl-popover-arrow-border-width: $adl-popover-border-width !default;
+$adl-popover-arrow-border-color-hidden: transparent !default;
+$adl-popover-arrow-border-style: $adl-popover-arrow-border-width $adl-border-style $adl-border-color !default;
+
+// sqrt(2) == 1.4142135624
+$adl-popover-arrow-base-size: (1.4142135624 * $adl-popover-arrow-vertex-size) !default;
+$adl-popover-arrow-length: math.div($adl-popover-arrow-base-size, 2) !default;
+
+// The arrow square receives a 45deg rotation relative to its center, so there's a small offset due to
+// this rotation (the square corners overflow a bit) and it needs to be calculated to properly position it.
+$adl-popover-arrow-rotation-offset: math.div(($adl-popover-arrow-base-size - $adl-popover-arrow-vertex-size), 2) !default;
+
+// Arrow is centered along the popover side using top/right/bottom/left 50% and correcting with a negative margin.
+// This margin should be half of base size and corrected with the rotation offset.
+$adl-popover-arrow-margin-offset: round($adl-popover-arrow-rotation-offset - math.div($adl-popover-arrow-base-size, 2)) !default;
+
+// Arrow is positioned in the popover side using top/right/bottom/left 0 and pushed outside by subtracting its length.
+// Again this must take in consideration the rotation offset
+$adl-popover-arrow-position-offset: round($adl-popover-arrow-rotation-offset - $adl-popover-arrow-length) !default;
