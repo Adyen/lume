@@ -1,5 +1,5 @@
 <template>
-  <div ref="wrapper" class="adl-popover" :class="arrowClass">
+  <div class="adl-popover" :class="arrowClass">
     <slot></slot>
   </div>
 </template>
