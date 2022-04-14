@@ -1,75 +1,75 @@
 @import 'popover.variables';
 
 // Internal use
-@mixin adl-popover-arrow-base {
-    background-color: $adl-popover-arrow-color;
-    border: $adl-popover-arrow-border-style;
+@mixin adv-popover-arrow-base {
+    background-color: $adv-popover-arrow-color;
+    border: $adv-popover-arrow-border-style;
     content: '';
     display: block;
-    height: $adl-popover-arrow-vertex-size;
+    height: $adv-popover-arrow-vertex-size;
     position: absolute;
     transform: rotate(45deg);
-    width: $adl-popover-arrow-vertex-size;
+    width: $adv-popover-arrow-vertex-size;
 }
 
 // External use
-@mixin adl-popover--arrow-bottom {
+@mixin adv-popover--arrow-bottom {
     &::after {
-        @include adl-popover-arrow-base;
+        @include adv-popover-arrow-base;
 
-        border-left-color: $adl-popover-arrow-border-color-hidden;
-        border-top-color: $adl-popover-arrow-border-color-hidden;
-        bottom: $adl-popover-arrow-position-offset;
+        border-left-color: $adv-popover-arrow-border-color-hidden;
+        border-top-color: $adv-popover-arrow-border-color-hidden;
+        bottom: $adv-popover-arrow-position-offset;
         left: 50%;
-        margin-left: $adl-popover-arrow-margin-offset;
+        margin-left: $adv-popover-arrow-margin-offset;
     }
 }
 
-@mixin adl-popover--arrow-top {
+@mixin adv-popover--arrow-top {
     &::after {
-        @include adl-popover-arrow-base;
+        @include adv-popover-arrow-base;
 
-        border-bottom-color: $adl-popover-arrow-border-color-hidden;
-        border-right-color: $adl-popover-arrow-border-color-hidden;
+        border-bottom-color: $adv-popover-arrow-border-color-hidden;
+        border-right-color: $adv-popover-arrow-border-color-hidden;
         left: 50%;
-        margin-left: $adl-popover-arrow-margin-offset;
-        top: $adl-popover-arrow-position-offset;
+        margin-left: $adv-popover-arrow-margin-offset;
+        top: $adv-popover-arrow-position-offset;
     }
 }
 
-@mixin adl-popover--arrow-right {
+@mixin adv-popover--arrow-right {
     &::after {
-        @include adl-popover-arrow-base;
+        @include adv-popover-arrow-base;
 
-        border-bottom-color: $adl-popover-arrow-border-color-hidden;
-        border-left-color: $adl-popover-arrow-border-color-hidden;
-        margin-top: $adl-popover-arrow-margin-offset;
-        right: $adl-popover-arrow-position-offset;
+        border-bottom-color: $adv-popover-arrow-border-color-hidden;
+        border-left-color: $adv-popover-arrow-border-color-hidden;
+        margin-top: $adv-popover-arrow-margin-offset;
+        right: $adv-popover-arrow-position-offset;
         top: 50%;
     }
 }
 
-@mixin adl-popover--arrow-left {
+@mixin adv-popover--arrow-left {
     &::after {
-        @include adl-popover-arrow-base;
+        @include adv-popover-arrow-base;
 
-        border-right-color: $adl-popover-arrow-border-color-hidden;
-        border-top-color: $adl-popover-arrow-border-color-hidden;
-        left: $adl-popover-arrow-position-offset;
-        margin-top: $adl-popover-arrow-margin-offset;
+        border-right-color: $adv-popover-arrow-border-color-hidden;
+        border-top-color: $adv-popover-arrow-border-color-hidden;
+        left: $adv-popover-arrow-position-offset;
+        margin-top: $adv-popover-arrow-margin-offset;
         top: 50%;
     }
 }
 
-@mixin adl-popover {
-    //@include adl-component-base;
+@mixin adv-popover {
+    //@include adv-component-base;
 
-    background: $adl-popover-background-color;
-    border: $adl-popover-border-style;
-    border-radius: $adl-popover-border-radius;
-    box-shadow: $adl-popover-box-shadow;
-    max-width: $adl-popover-max-width;
-    padding: $adl-popover-content-padding;
+    background: $adv-popover-background-color;
+    border: $adv-popover-border-style;
+    border-radius: $adv-popover-border-radius;
+    box-shadow: $adv-popover-box-shadow;
+    max-width: $adv-popover-max-width;
+    padding: $adv-popover-content-padding;
     position: absolute;
-    z-index: $adl-z-over-everything;
+    z-index: $adv-z-over-everything;
 }

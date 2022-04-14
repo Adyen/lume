@@ -9,7 +9,7 @@
           :height="negativeHeight"
           :width="width"
           :transform="negativeTransform"
-          fill-class="adl-fill-color-negative-values"
+          fill-class="adv-fill-color-negative-values"
       />
       <g :transform="barGroupsTransform">
         <bars-group
@@ -61,7 +61,7 @@ export default {
           transform: `translate(${this.xScale(this.domain[barsIndex])}, ${this.yScale(0) + offsetY})`,
           width: this.xScale.bandwidth(),
           height: this.yScale(bar.value) - this.yScale(0),
-          fillClass: `adl-fill-color-${getColor(sourceBars, bar)}`
+          fillClass: `adv-fill-color-${getColor(sourceBars, bar)}`
         }];
       }, []);
     },
@@ -72,7 +72,7 @@ export default {
           transform: `translate(${this.xScale(this.domain[barsIndex])}, ${this.yScale(bar.value) - offsetY})`,
           width: this.xScale.bandwidth(),
           height: this.yScale(0) - this.yScale(bar.value),
-          fillClass: `adl-fill-color-${getColor(sourceBars, bar)}`
+          fillClass: `adv-fill-color-${getColor(sourceBars, bar)}`
         }];
       }, []);
     },

@@ -9,7 +9,7 @@
           :height="negativeHeight"
           :width="width"
           :transform="negativeTransform"
-          fill-class="adl-fill-color-negative-values"
+          fill-class="adv-fill-color-negative-values"
       />
       <g :transform="barGroupsTransform">
         <bar-group
@@ -62,7 +62,7 @@ export default {
         transform: `translate(${this.xScale(this.domain[index])}, ${yTranslation})`,
         width: this.xScale.bandwidth(),
         height,
-        fillClass: `adl-fill-color-${color || this.barsConfig.color || fallbackFillClass}`,
+        fillClass: `adv-fill-color-${color || this.barsConfig.color || fallbackFillClass}`,
       };
     },
     determinePopoverValue(value) {

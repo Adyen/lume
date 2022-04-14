@@ -1,6 +1,6 @@
 @import 'chart-colors';
 
-.adl-stroke {
+.adv-stroke {
   @each $color, $map in $chart-colors {
     &-color-#{$color} {
       stroke: nth($map, 1);
@@ -8,7 +8,7 @@
   }
 }
 
-.adl-fill-color {
+.adv-fill-color {
   @each $color, $map in $chart-colors {
     &-#{$color} {
       fill: nth($map, 1);
@@ -16,11 +16,11 @@
   }
 
   &-overlay {
-    fill: $adl-color-grey-transparent;
+    fill: $adv-color-grey-transparent;
   }
 
   &-negative-values {
-    fill: $adl-color-grey-10;
+    fill: $adv-color-grey-10;
   }
 
   &-none {

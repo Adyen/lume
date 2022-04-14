@@ -2,22 +2,22 @@
 
 @import 'popover.mixins';
 
-.adl-popover {
-    @include adl-popover;
+.adv-popover {
+    @include adv-popover;
 }
 
-.adl-popover--arrow-top {
-    @include adl-popover--arrow-top;
+.adv-popover--arrow-top {
+    @include adv-popover--arrow-top;
 }
 
-.adl-popover--arrow-right {
-    @include adl-popover--arrow-right;
+.adv-popover--arrow-right {
+    @include adv-popover--arrow-right;
 }
 
-.adl-popover--arrow-bottom {
-    @include adl-popover--arrow-bottom;
+.adv-popover--arrow-bottom {
+    @include adv-popover--arrow-bottom;
 }
 
-.adl-popover--arrow-left {
-    @include adl-popover--arrow-left;
+.adv-popover--arrow-left {
+    @include adv-popover--arrow-left;
 }

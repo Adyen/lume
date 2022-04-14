@@ -1,5 +1,5 @@
 <template>
-  <div class="adl-popover" :class="arrowClass">
+  <div class="adv-popover" :class="arrowClass">
     <slot></slot>
   </div>
 </template>
@@ -68,13 +68,13 @@ export default {
       switch(this.popper.state.placement) {
         case 'top':
         default:
-          return 'adl-popover--arrow-bottom';
+          return 'adv-popover--arrow-bottom';
         case 'bottom':
-          return 'adl-popover--arrow-top';
+          return 'adv-popover--arrow-top';
         case 'left':
-          return 'adl-popover--arrow-right';
+          return 'adv-popover--arrow-right';
         case 'right':
-          return 'adl-popover--arrow-left';
+          return 'adv-popover--arrow-left';
       }
     },
   },
