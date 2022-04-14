@@ -46,7 +46,7 @@
 
 <script>
 import Bar from '../core/bar.vue';
-import BarsGroup from './bars-group.vue';
+import BarsGroup from '../core/bars-group.vue';
 import BarMixin from '../mixins/bar-mixin.js';
 const getColor = (sourceBars, bar) => sourceBars?.colors?.[bar.index] || `0${bar.index + 1}`;
 
