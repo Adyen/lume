@@ -58,7 +58,7 @@ export default {
                 .rangeRound([0, this.width])
                 .paddingInner(this.padding)
                 .paddingOuter(this.padding / 2)
-                .domain(this.domain)
+                .domain(this.domain);
         },
         paddedData() {
             return this.data.map(record => ({
