@@ -1,7 +1,7 @@
 import Axis from "../core/axis.vue";
 import Popover from '../core/popover.vue';
 
-const defaultPadding = .1;
+const defaultPadding = .33;
 const defaultMargin = 30;
 const pad = value => !value && value !== 0 ? 0 : value
 
@@ -56,8 +56,9 @@ export default {
             return d3
                 .scaleBand()
                 .rangeRound([0, this.width])
+                .paddingInner(this.padding)
+                .paddingOuter(this.padding / 2)
                 .domain(this.domain)
-                .padding(this.padding)
         },
         paddedData() {
             return this.data.map(record => ({
