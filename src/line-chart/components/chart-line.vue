@@ -61,6 +61,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../styles/variables";
+@import "../../styles/chart-colors";
 
 $line-stroke-width: 2px;
 $line-stroke-hover-width: 4px;

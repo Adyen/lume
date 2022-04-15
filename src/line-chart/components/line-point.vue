@@ -56,7 +56,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../styles/variables";
+@import "../../styles/chart-colors";
 
 .line-chart__point {
     transition: all $chart-transition-time ease;
