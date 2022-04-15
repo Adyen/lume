@@ -2,7 +2,7 @@
     <svg class="container" :class="{ 'container--transparent-background': transparentBackground }">
         <g
             :transform="`translate(${computedMargin.left}, ${computedMargin.top})`"
-            class="container-group"
+            class="container__group"
         >
             <slot :container-size="containerSize" />
         </g>
@@ -81,7 +81,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/variables.scss";
+@import "../styles/chart-colors";
 
 .container {
     overflow: visible;
@@ -92,11 +92,11 @@ export default {
     &--transparent-background {
         background-color: transparent;
     }
-}
 
-.container-group {
-    transition-property: transform;
-    transition-timing-function: ease-in-out;
-    transition-duration: $chart-transition-time;
+    &__group {
+      transition-property: transform;
+      transition-timing-function: ease-in-out;
+      transition-duration: $chart-transition-time;
+    }
 }
 </style>

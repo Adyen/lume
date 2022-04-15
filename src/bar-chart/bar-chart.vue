@@ -1,9 +1,6 @@
 <template>
   <div>
-    <svg
-      ref="svg"
-      class="root"
-    >
+    <chart-container @resize="$determineWidthAndHeight">
       <bar
           v-if="hasNegativeValues"
           :height="negativeHeight"
@@ -34,7 +31,7 @@
             :transform.native="`translate(${margin}, ${margin})`"
         />
       </template>
-    </svg>
+    </chart-container>
     <popover
         v-if="popoverConfig.opened"
         v-bind="popoverConfig"
@@ -48,11 +45,12 @@
 import BarMixin from '../mixins/bar-mixin.js';
 import BarGroup from './bar-group.vue';
 import Bar from '../core/bar.vue';
+import ChartContainer from "../core/chart-container.vue";
 
 const fallbackFillClass = '01';
 
 export default {
-  components: { Bar, BarGroup },
+  components: {ChartContainer, Bar, BarGroup },
   mixins: [BarMixin],
   methods: {
     getBarConfig({ value, color }, index) {

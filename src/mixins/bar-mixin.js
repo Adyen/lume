@@ -107,18 +107,10 @@ export default {
             return this.xScale.step() * this.xScale.paddingInner() / 2;
         },
     },
-    mounted() {
-        this.svg = this.$refs.svg;
-        this.$determineWidthAndHeight();
-        window.addEventListener('resize', this.$determineWidthAndHeight);
-    },
-    beforeDestroy() {
-        window.removeEventListener('resize', this.$determineWidthAndHeight);
-    },
     methods: {
-        $determineWidthAndHeight() {
-            this.width = this.svg.clientWidth - (this.margin * 2);
-            this.height = this.svg.clientHeight - (this.margin * 2);
+        $determineWidthAndHeight({ width, height }) {
+            this.width = width - (this.margin * 2);
+            this.height = height - (this.margin * 2);
         },
         $getOverlayConfig(bars, index) {
             return {
