@@ -1,4 +1,4 @@
-@import 'chart-colors';
+@import 'variables';
 
 .adv-stroke {
   @each $color, $map in $chart-colors {

@@ -81,7 +81,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/chart-colors";
+@import "../styles/variables";
 
 .container {
     overflow: visible;
