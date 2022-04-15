@@ -10,6 +10,7 @@ We're currently aiming to use:
 
 - [D3.js](https://d3js.org/) for calculations
 - [Vue *(v2)*](https://v2.vuejs.org/) for rendering
+- [Popper.js](https://popper.js.org/) for popover functionality
 
 ## Development
 
