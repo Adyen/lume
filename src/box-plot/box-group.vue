@@ -71,15 +71,15 @@ export default {
 
 .box-plot {
   &__line {
-    stroke: $adl-color-data-viz-grey-darker;
+    stroke: $adv-color-data-viz-grey-darker;
     width: 40px;
   }
   &__box {
-    fill: $adl-color-data-viz-yellow;
-    stroke: $adl-color-data-viz-grey-darker;
+    fill: $adv-color-data-viz-yellow;
+    stroke: $adv-color-data-viz-grey-darker;
   }
   &__median {
-    stroke: $adl-color-data-viz-grey-darker;
+    stroke: $adv-color-data-viz-grey-darker;
     width: 80px;
   }
 }

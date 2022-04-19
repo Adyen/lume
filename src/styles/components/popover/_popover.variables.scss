@@ -20,15 +20,15 @@ $adv-popover-arrow-border-style: $adv-popover-arrow-border-width $adv-border-sty
 
 // sqrt(2) == 1.4142135624
 $adv-popover-arrow-base-size: (1.4142135624 * $adv-popover-arrow-vertex-size) !default;
-$adv-popover-arrow-length: math.div($adv-popover-arrow-base-size, 2) !default;
+$adv-popover-arrow-length: $adv-popover-arrow-base-size / 2 !default;
 
 // The arrow square receives a 45deg rotation relative to its center, so there's a small offset due to
 // this rotation (the square corners overflow a bit) and it needs to be calculated to properly position it.
-$adv-popover-arrow-rotation-offset: math.div(($adv-popover-arrow-base-size - $adv-popover-arrow-vertex-size), 2) !default;
+$adv-popover-arrow-rotation-offset: ($adv-popover-arrow-base-size - $adv-popover-arrow-vertex-size) / 2 !default;
 
 // Arrow is centered along the popover side using top/right/bottom/left 50% and correcting with a negative margin.
 // This margin should be half of base size and corrected with the rotation offset.
-$adv-popover-arrow-margin-offset: round($adv-popover-arrow-rotation-offset - math.div($adv-popover-arrow-base-size, 2)) !default;
+$adv-popover-arrow-margin-offset: round($adv-popover-arrow-rotation-offset - $adv-popover-arrow-base-size / 2) !default;
 
 // Arrow is positioned in the popover side using top/right/bottom/left 0 and pushed outside by subtracting its length.
 // Again this must take in consideration the rotation offset
