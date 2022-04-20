@@ -9,4 +9,5 @@
   - [x] Line selection
   - [ ] Popover (core)
   - [ ] Negative values
+  - [ ] Null values
   

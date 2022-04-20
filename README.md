@@ -56,6 +56,10 @@ Points that should be covered:
 - [ ] Some charts should be able to show gridlines
 - [ ] Some charts should have the ability to select a data point and communicate the data to the caller
 
+### Feature ideas
+
+- Out-of-the-box light/dark theme
+
 ## Contact
 
 This project is currently being developed & maintained by the Insights stream. This includes:
