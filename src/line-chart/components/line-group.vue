@@ -9,6 +9,7 @@
                 :index="index"
                 :color="color"
                 :active="isHovered || isSelected"
+                :dashed="isDashed(index)"
                 @line-click="isSelected = !isSelected"
                 @line-mouseover="isHovered = true"
                 @line-mouseout="isHovered = false"
@@ -32,8 +33,11 @@
 import ChartLine from "./chart-line.vue";
 import LinePoint from "./line-point.vue";
 
+import LineNullValuesMixin from "../mixins/line-null-values";
+
 export default {
     components: { ChartLine, LinePoint },
+    mixins: [LineNullValuesMixin],
     props: {
         values: {
             type: Array,
@@ -60,13 +64,36 @@ export default {
         isHovered: false,
         isSelected: false,
     }),
+    computed: {
+        computedLineValues() {
+            return this.values.map((value, index) => {
+                const nullInterval = this.nullIntervals.find(interval => interval.includes(index));
+                if (nullInterval) {
+                    let start = this.values[nullInterval[0] - 1];
+                    let end = this.values[nullInterval[nullInterval.length - 1] + 1];
+
+                    // If first/last value is `null`, use the first/last non-null value
+                    if (start == null) start = end;
+                    if (end == null) end = start;
+
+                    return this.getMidValue(start, end, nullInterval.length, nullInterval.indexOf(index));
+                }
+                return value;
+            });
+        },
+    },
     methods: {
         getLineValues(index) {
+            // First value
             if (index === 0) return [];
-            return [this.values[index - 1], this.values[index]];
+
+            return [this.computedLineValues[index - 1], this.computedLineValues[index]];
         },
         getPointValue(index) {
-            return this.values[index];
+            return this.computedLineValues[index];
+        },
+        isDashed(index) {
+            return !!this.nullIntervals.find(interval => interval.includes(index) || interval.includes(index - 1));
         }
     }
 };

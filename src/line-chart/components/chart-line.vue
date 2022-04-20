@@ -5,6 +5,7 @@
             :class="{
                 [`line-chart__line--color-${color}`]: true,
                 ['line-chart__line--active']: active,
+                ['line-chart__line--dashed']: dashed,
             }"
             :d="pathDefinition"
         />
@@ -35,6 +36,10 @@ export default {
             required: true,
         },
         active: {
+            type: Boolean,
+            default: false,
+        },
+        dashed: {
             type: Boolean,
             default: false,
         },
@@ -81,6 +86,10 @@ $ghost-line-stroke-width: 8px;
 
     &--active {
         stroke-width: $line-stroke-hover-width;
+    }
+
+    &--dashed {
+        stroke-dasharray: 2%;
     }
 }
 
