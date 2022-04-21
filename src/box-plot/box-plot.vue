@@ -1,22 +1,36 @@
 <template>
-  <chart-container :margins="margins" @resize="containerSize = $event">
-    <axis
-        :scale="yScale"
-        orientation="left"
-        :container-size="containerSize"
-    />
-    <axis
-        :scale="xScale"
-        position="bottom"
-        orientation="bottom"
-        :container-size="containerSize"
-    />
-    <box-group
-      :x-scale="xScale"
-      :y-scale="yScale"
-      :quantiles="quantiles"
-    />
-  </chart-container>
+  <div>
+    <chart-container :margins="margins" @resize="containerSize = $event">
+      <axis
+          :scale="yScale"
+          orientation="left"
+          :container-size="containerSize"
+      />
+      <axis
+          :scale="xScale"
+          position="bottom"
+          orientation="bottom"
+          :container-size="containerSize"
+      />
+      <box-group
+          v-for="(boxGroup, index) in boxGroups"
+          :key="boxGroup.quantile.key"
+          :box-group="boxGroup"
+          :overlay="$getOverlayConfig(index)"
+          :is-hovered="hoveredIndex === index"
+          @mouseover="$handleMouseover(boxGroup.quantile, index, $event)"
+          @mouseout="$handleMouseout"
+      />
+    </chart-container>
+    <popover
+        v-if="popoverConfig.opened"
+        v-bind="popoverConfig"
+    >
+      <div v-for="key in Object.keys(popoverConfig.quantile)">
+        <span class="u-font-weight-semi-bold">{{ popoverConfig.quantile[key].label }}</span>: {{ popoverConfig.quantile[key].value }}
+      </div>
+    </popover>
+  </div>
 </template>
 
 <script>
@@ -25,9 +39,12 @@ import ChartContainer from '../core/chart-container.vue';
 import BoxGroup from './box-group.vue';
 import { quantile, group, ascending } from 'd3-array';
 import { scaleLinear, scaleBand } from 'd3-scale';
+import Popover from '../core/popover.vue';
+
+const boxWidth = 100;
 
 export default {
-  components: { Axis, ChartContainer, BoxGroup },
+  components: { Axis, ChartContainer, BoxGroup, Popover },
   props: {
     margins: {
       type: Object,
@@ -47,7 +64,14 @@ export default {
     }
   },
   data: vm => ({
-    containerSize: { width: 0, height: 0 }
+    containerSize: { width: 0, height: 0 },
+    hoveredIndex: -1,
+    popoverConfig: {
+      opened: false,
+      position: 'top',
+      targetElement: null,
+      quantile: null
+    }
   }),
   computed: {
     xScale() {
@@ -79,10 +103,40 @@ export default {
         const interQuantileRange = q3 - q1;
         const min = q1 - 1.5 * interQuantileRange;
         const max = q3 + 1.5 * interQuantileRange;
-        sumstat.push({key, q1: q1, median: median, q3: q3, interQuantileRange: interQuantileRange, min: min, max: max});
+        sumstat.push({key, q1, median, q3, interQuantileRange: interQuantileRange, min: min, max: max});
       });
       return sumstat;
     },
+    boxGroups() {
+      return this.quantiles.map(quantile => ({
+        quantile: {
+          q1: { label: '25th percentile', value: quantile.q1.toFixed(2) },
+          q2: { label: '75th percentile', value: quantile.q3.toFixed(2) },
+          interQuantileRange: { label: 'Inter quantile range', value: quantile.interQuantileRange.toFixed(2) },
+          median: { label: 'Median', value: quantile.median.toFixed(2)  },
+          min: { label: 'Minimum', value: quantile.min.toFixed(2) },
+          max: { label: 'Maximum', value: quantile.max.toFixed(2) }
+        },
+        verticalLine: {
+          x1: this.xScale(quantile.key),
+          x2: this.xScale(quantile.key),
+          y1: this.yScale(quantile.min),
+          y2: this.yScale(quantile.max)
+        },
+        box: {
+          x: this.xScale(quantile.key) - boxWidth/2,
+          y: this.yScale(quantile.q3),
+          height: this.yScale(quantile.q1) - this.yScale(quantile.q3),
+          width: boxWidth
+        },
+        medianLine: {
+          x1: this.xScale(quantile.key) - boxWidth/2,
+          x2: this.xScale(quantile.key) + boxWidth/2,
+          y1: this.yScale(quantile.median),
+          y2: this.yScale(quantile.median)
+        }
+      }));
+    }
   },
   watch: {
     $props: {
@@ -98,6 +152,27 @@ export default {
       if (!labels.includes(this.valueLabel) || !labels.includes(this.groupByLabel)) {
         console.error('Invalid prop');
       }
+    },
+    $getOverlayConfig(index) {
+      return {
+        transform: `translate(${this.xScale(this.domain[index])  - boxWidth / 2}, 0)`,
+        width: this.xScale.step()  - boxWidth / 4,
+        height: this.containerSize.height
+      };
+    },
+    $handleMouseover(quantile, index, event) {
+      this.hoveredIndex = index;
+      this.popoverConfig.targetElement = event.target;
+      this.popoverConfig.opened = true;
+      this.popoverConfig.quantile = quantile;
+      this.$emit('mouseover', index);
+    },
+    $handleMouseout() {
+      this.hoveredIndex = -1;
+      this.popoverConfig.opened = false;
+      this.popoverConfig.targetElement = null;
+      this.popoverConfig.quantile = null;
+          this.$emit('mouseout');
     }
   }
 }

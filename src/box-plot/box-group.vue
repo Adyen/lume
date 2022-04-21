@@ -1,66 +1,47 @@
 <template>
   <g>
     <line
-        v-for="line in verticalLines"
         class="box-plot__line"
-        v-bind="line"
+        v-bind="boxGroup.verticalLine"
     />
     <rect
-        v-for="box in boxes"
         class="box-plot__box"
-        v-bind="box"
+        v-bind="boxGroup.box"
     />
     <line
-        v-for="line in medianLines"
         class="box-plot__median"
-        v-bind="line"
+        v-bind="boxGroup.medianLine"
+    />
+    <bar
+        v-if="overlay"
+        v-bind="overlay"
+        :fill-class="isHovered ? 'adv-fill-color-overlay' : 'adv-fill-color-transparent'"
+        :animate="false"
+        @mouseover.native="$emit('mouseover', $event)"
+        @mouseout.native="$emit('mouseout')"
     />
   </g>
 </template>
 
 <script>
 
+import Bar from '../core/bar.vue';
 const boxWidth = 100;
 
 export default {
+  components: { Bar },
   props: {
-    xScale: {
-      type: Function,
+    boxGroup: {
+      type: Object,
       required: true
     },
-    yScale: {
-      type: Function,
+    overlay: {
+      type: Object,
+      default: null
+    },
+    isHovered: {
+      type: Boolean,
       required: true
-    },
-    quantiles: {
-      type: Array,
-      required: true
-    }
-  },
-  computed: {
-    verticalLines() {
-      return this.quantiles.map(quantile => ({
-        x1: this.xScale(quantile.key),
-        x2: this.xScale(quantile.key),
-        y1: this.yScale(quantile.min),
-        y2: this.yScale(quantile.max)
-      }));
-    },
-    boxes() {
-      return this.quantiles.map(quantile => ({
-        x: this.xScale(quantile.key) - boxWidth/2,
-        y: this.yScale(quantile.q3),
-        height: this.yScale(quantile.q1) - this.yScale(quantile.q3),
-        width: boxWidth
-      }));
-    },
-    medianLines() {
-      return this.quantiles.map(quantile => ({
-        x1: this.xScale(quantile.key) - boxWidth/2,
-        x2: this.xScale(quantile.key) + boxWidth/2,
-        y1: this.yScale(quantile.median),
-        y2: this.yScale(quantile.median)
-      }))
     }
   }
 }
