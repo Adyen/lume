@@ -56,10 +56,13 @@ export default {
     computed: {
         pathDefinition() {
             return d3.line()
-                .x((_, i) => this.xScale(this.index + (i - 1)))
+                .x((_, i) => this.xScale(this.index + (i - 1)) + this.xAxisOffset)
                 .y((d) => this.yScale(d))
                 (this.values);
         },
+        xAxisOffset() {
+            return this.xScale.bandwidth() / 2;
+        }
     },
 };
 </script>

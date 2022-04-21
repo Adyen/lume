@@ -7,7 +7,8 @@
      - [ ] Line label (right side)
   - [x] Line hover
   - [x] Line selection
-  - [ ] Popover (core)
+  - [x] Bar overlay
+  - [x] Popover (core)
   - [ ] Negative values
   - [x] Null values
   

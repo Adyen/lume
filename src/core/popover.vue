@@ -65,7 +65,7 @@ export default {
     },
     arrowClass() {
       if (!this.popper.state.placement) return '';
-      switch(this.popper.state.placement) {
+      switch (this.popper.state.placement) {
         case 'top':
         default:
           return 'adv-popover--arrow-bottom';
@@ -77,6 +77,9 @@ export default {
           return 'adv-popover--arrow-left';
       }
     },
+  },
+  watch: {
+    targetElement: "updatePopper"
   },
   methods: {
     initPopper() {
@@ -91,6 +94,12 @@ export default {
         this.popper.destroy();
       }
     },
+    updatePopper() {
+      this.destroyPopper();
+      if (this.targetElement && this.$el) {
+        this.initPopper();
+      }
+    }
   }
 }
 </script>

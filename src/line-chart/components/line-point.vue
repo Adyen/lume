@@ -46,10 +46,13 @@ export default {
     data: () => ({}),
     computed: {
         cx() {
-            return this.xScale(this.index);
+            return this.xScale(this.index) + this.xAxisOffset;
         },
         cy() {
             return this.yScale(this.value);
+        },
+        xAxisOffset() {
+            return this.xScale.bandwidth() / 2;
         }
     },
 };

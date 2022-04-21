@@ -15,14 +15,15 @@
                 @line-mouseout="isHovered = false"
             />
             <line-point
+                :key="`point-${index}`"
                 :x-scale="xScale"
                 :y-scale="yScale"
                 :value="getPointValue(index)"
                 :index="index"
                 :color="color"
-                :active="isHovered || isSelected"
-                @line-click="isSelected = !isSelected"
-                @point-mouseover="isHovered = true"
+                :active="isPointActive(index)"
+                @point-click="isSelected = !isSelected"
+                @point-mouseover="onPointMouseover(index)"
                 @point-mouseout="isHovered = false"
             />
         </template>
@@ -50,6 +51,10 @@ export default {
         legend: {
             type: String,
             default: '',
+        },
+        hoveredIndex: {
+            type: Number,
+            default: -1,
         },
         xScale: {
             type: Function,
@@ -92,9 +97,16 @@ export default {
         getPointValue(index) {
             return this.computedLineValues[index];
         },
+        isPointActive(index) {
+            return this.hoveredIndex === index || this.isHovered || this.isSelected;
+        },
         isDashed(index) {
             return !!this.nullIntervals.find(interval => interval.includes(index) || interval.includes(index - 1));
-        }
+        },
+        onPointMouseover(index) {
+            this.isHovered = true;
+            this.$emit('group-mouseover', index - 1);
+        },
     }
 };
 </script>
