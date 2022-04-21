@@ -50,7 +50,8 @@ module.exports = {
     ],
     resolve: {
         alias: {
-            vue: __dirname + '/node_modules/vue/dist/vue.js'
+            vue: __dirname + '/node_modules/vue/dist/vue.js',
+            '@': __dirname + '/src/'
         }
     }
 };
