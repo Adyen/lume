@@ -5,14 +5,19 @@
             @mouseleave.native="hoveredIndex = -1"
             @resize="containerSize = $event"
         >
-            <template v-if="showAxes">
+            <template v-if="allOptions.showAxes">
                 <axis
+                    type="x"
+                    v-bind:options="allOptions.xAxisOptions"
                     :scale="xScale"
-                    orientation="bottom"
-                    position="bottom"
                     :container-size="containerSize"
                 />
-                <axis :scale="yScale" orientation="left" :container-size="containerSize" />
+                <axis
+                    type="y"
+                    v-bind:options="allOptions.yAxisOptions"
+                    :scale="yScale"
+                    :container-size="containerSize"
+                />
             </template>
 
             <g class="line-chart__overlay">
@@ -51,23 +56,27 @@
 </template>
 
 <script>
-import Axis from '../core/axis.vue';
-import Bar from '../core/bar.vue';
-import ChartContainer from '../core/chart-container.vue';
-import Popover from '../core/popover.vue';
+import Axis from '@/core/axis.vue';
+import Bar from '@/core/bar.vue';
+import ChartContainer from '@/core/chart-container.vue';
+import Popover from '@/core/popover.vue';
 
 import LineGroup from './components/line-group.vue';
 import LinePopoverText from './components/line-popover-text.vue';
 
 import LineScalesMixin from './mixins/line-scales';
-import MarginsMixin from '../mixins/margins';
-import OptionsMixin from '../mixins/options';
+import MarginsMixin from '@/mixins/margins';
+import OptionsMixin from '@/mixins/options';
 
 import config from './config';
 
 export default {
     components: { Axis, Bar, ChartContainer, LineGroup, LinePopoverText, Popover, },
-    mixins: [LineScalesMixin, MarginsMixin(config.margins), OptionsMixin()],
+    mixins: [LineScalesMixin, MarginsMixin(config.margins), OptionsMixin({
+        showAxes: true,
+        xAxisOptions: {},
+        yAxisOptions: {},
+    })],
     props: {
         data: {
             type: Array,

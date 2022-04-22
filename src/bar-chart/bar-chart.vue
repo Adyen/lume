@@ -22,12 +22,12 @@
       <template v-if="showAxes">
         <axis
             :scale="xScale"
-            orientation="bottom"
+            position="bottom"
             :transform.native="`translate(${margin}, ${height + margin})`"
         />
         <axis
             :scale="yScale"
-            orientation="left"
+            position="left"
             :transform.native="`translate(${margin}, ${margin})`"
         />
       </template>

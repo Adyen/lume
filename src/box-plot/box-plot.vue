@@ -2,14 +2,13 @@
   <div>
     <chart-container :margins="margins" @resize="containerSize = $event">
       <axis
+          type="y"
           :scale="yScale"
-          orientation="left"
           :container-size="containerSize"
       />
       <axis
+          type="x"
           :scale="xScale"
-          position="bottom"
-          orientation="bottom"
           :container-size="containerSize"
       />
       <box-group

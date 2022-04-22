@@ -3,14 +3,24 @@ export default function OptionsMixin(defaultOptions = {}) {
     return {
         props: {
             /**
-             * Controls the display of chart axes.
-             * @return {Boolean}
+             * Component options property.
+             * Should not be accessed directly, use "allOptions" instead.
+             * @type {Object}
+             */
+            options: {
+                type: Object,
+                default: () => ({}),
+            },
+        },
+        computed: {
+            /**
+             * Object with merged default and specified options.
+             * @return {Object} Merged component options.
              */
             // eslint-disable-next-line vue/no-unused-properties -- mixin property
-            showAxes: {
-                type: Boolean,
-                default: true
-            }
-        }
+            allOptions() {
+                return { ...defaultOptions, ...this.options }
+            },
+        },
     };
 }
