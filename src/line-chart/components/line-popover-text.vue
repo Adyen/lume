@@ -50,7 +50,7 @@ $item-point-size: 10px;
 
 .line-popover-text {
     &__label {
-        font-weight: $adv-text-font-weight-semi-bold;
+        font-weight: $adv-text-font-weight-bold;
         margin-bottom: $adv-spacing-8;
     }
 
@@ -64,6 +64,7 @@ $item-point-size: 10px;
         display: flex;
         align-items: center;
         min-width: $item-min-width;
+        margin-bottom: $adv-spacing-4;
     }
 
     &__point {

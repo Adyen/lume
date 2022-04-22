@@ -103,3 +103,12 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@import "~@/styles/variables";
+
+.adv-popover {
+  font-family: $adv-font-family;
+  font-size: $adv-text-font-size-small;
+}
+</style>

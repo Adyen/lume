@@ -4,7 +4,6 @@
 
 <script>
 import { axisBottom, axisLeft, axisRight, axisTop } from 'd3-axis';
-import { select } from 'd3-selection'
 
 import OptionsMixin from '@/mixins/options';
 
@@ -106,7 +105,7 @@ export default {
     }
   },
   mounted() {
-    this.root = select(this.$refs.root).call(this.axis);
+    this.root = d3.select(this.$refs.root).call(this.axis);
   },
   methods: {
     recallAxis() {
