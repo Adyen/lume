@@ -1,6 +1,9 @@
 <template>
   <div>
-    <chart-container @resize="$determineWidthAndHeight">
+    <chart-container
+        :margins="margins"
+        @resize="$determineWidthAndHeight"
+    >
       <bar
           v-if="hasNegativeValues"
           :height="negativeHeight"
@@ -8,29 +11,27 @@
           :transform="negativeTransform"
           fill-class="adv-fill-color-negative-values"
       />
-      <g :transform="barGroupsTransform">
-        <bars-group
-            v-for="(bars, index) in paddedData"
-            :key="`bar-group-${index}`"
-            :bars="getBarsConfig(bars, index)"
-            :overlay="$getOverlayConfig(bars, index)"
-            :is-hovered="hoveredIndex === index"
-            @mouseover="$handleMouseover(index, $event)"
-            @mouseout="$handleMouseout"
-        />
-      </g>
       <template v-if="showAxes">
         <axis
             :scale="xScale"
-            orientation="bottom"
-            :transform.native="`translate(${margin}, ${height + margin})`"
+            type="x"
+            :container-size="containerSize"
         />
         <axis
             :scale="yScale"
-            orientation="left"
-            :transform.native="`translate(${margin}, ${margin})`"
+            type="y"
+            :container-size="containerSize"
         />
       </template>
+      <bars-group
+          v-for="(bars, index) in paddedData"
+          :key="`bar-group-${index}`"
+          :bars="getBarsConfig(bars, index)"
+          :overlay="$getOverlayConfig(bars, index)"
+          :is-hovered="hoveredIndex === index"
+          @mouseover="$handleMouseover(index, $event)"
+          @mouseout="$handleMouseout"
+      />
     </chart-container>
     <popover
         v-if="popoverConfig.opened"
@@ -86,7 +87,7 @@ export default {
       ];
 
       return result;
-    },
+    }
   }
 };
 </script>

@@ -33,7 +33,6 @@
 <script>
 import ChartLine from "./chart-line.vue";
 import LinePoint from "./line-point.vue";
-
 import LineNullValuesMixin from "../mixins/line-null-values";
 
 export default {

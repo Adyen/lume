@@ -1,9 +1,15 @@
 import Axis from "../core/axis.vue";
 import Popover from '../core/popover.vue';
+import { scaleBand, scaleLinear } from 'd3-scale';
 
 const defaultPadding = .33;
-const defaultMargin = 30;
-const pad = value => !value && value !== 0 ? 0 : value
+const pad = value => !value && value !== 0 ? 0 : value;
+const defaultMargins = {
+    top: 20,
+    right: 0,
+    bottom: 32,
+    left: 32
+};
 
 // @vue/component
 export default {
@@ -21,10 +27,6 @@ export default {
             type: Number,
             default: defaultPadding
         },
-        margin: {
-            type: Number,
-            default: defaultMargin
-        },
         showAxes: {
             type: Boolean,
             default: true
@@ -32,6 +34,10 @@ export default {
         barsConfig: {
             type: Object,
             default: () => ({})
+        },
+        margins: {
+            type: Object,
+            default: () => ({ ...defaultMargins })
         }
     },
     data: () => ({
@@ -47,14 +53,12 @@ export default {
     }),
     computed: {
         yScale() {
-            return d3
-                .scaleLinear()
+            return scaleLinear()
                 .rangeRound([0, this.height])
                 .domain([this.maxValue, this.minValue]);
         },
         xScale() {
-            return d3
-                .scaleBand()
+            return scaleBand()
                 .rangeRound([0, this.width])
                 .paddingInner(this.padding)
                 .paddingOuter(this.padding / 2)
@@ -71,7 +75,7 @@ export default {
             return this.paddedData.map(record => 'value' in record ? record.value : record.values);
         },
         domain() {
-          return this.labels || this.data.map((value, index) => index);
+            return this.labels || this.data.map((value, index) => index);
         },
         maxValue() {
             // Make sure we can handle both single values and arrays of values
@@ -91,14 +95,8 @@ export default {
                 .flat()
                 .some(value => value < 0);
         },
-        barGroupsTransform() {
-            return `translate(${this.computedMargin}, ${this.computedMargin})`;
-        },
         negativeTransform() {
-            return `translate(${this.computedMargin}, ${this.computedMargin + this.yScale(0)})`
-        },
-        computedMargin() {
-            return this.showAxes ? this.margin : 0;
+            return `translate(${0}, ${this.yScale(0)})`
         },
         negativeHeight() {
             return this.height - this.yScale(0);
@@ -106,11 +104,14 @@ export default {
         ghostCorrection() {
             return this.xScale.step() * this.xScale.paddingInner() / 2;
         },
+        containerSize() {
+            return { width: this.width, height: this.height };
+        }
     },
     methods: {
         $determineWidthAndHeight({ width, height }) {
-            this.width = width - (this.margin * 2);
-            this.height = height - (this.margin * 2);
+            this.width = width;
+            this.height = height;
         },
         $getOverlayConfig(bars, index) {
             return {
@@ -132,4 +133,4 @@ export default {
             this.$emit('mouseout');
         }
     }
-}
+};

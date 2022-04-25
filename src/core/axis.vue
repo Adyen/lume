@@ -4,6 +4,7 @@
 
 <script>
 import { axisBottom, axisLeft, axisRight, axisTop } from 'd3-axis';
+import { select } from 'd3-selection';
 
 import OptionsMixin from '@/mixins/options';
 
@@ -68,7 +69,7 @@ export default {
     },
     containerSize: {
       type: Object,
-      default: () => ({})
+      default: () => ({ width: 0, height: 0 })
     },
     transform: {
       type: String,
@@ -76,7 +77,7 @@ export default {
     }
   },
   watch: {
-    'scale': 'recallAxis'
+    'scale': 'applyAxis'
   },
   computed: {
     computedPosition() {
@@ -94,7 +95,7 @@ export default {
     },
     computedTransform() {
       if (this.transform) return this.transform;
-      return this.generateTransform();
+      return `translate(${this.translateX}, ${this.translateY})`;
     },
     tickSize() {
       if (this.allOptions.gridLines ?? this.computedType === 'y') {
@@ -102,19 +103,8 @@ export default {
         return this.computedType === 'y' ? width : height;
       }
       return 0;
-    }
-  },
-  mounted() {
-    this.root = d3.select(this.$refs.root).call(this.axis);
-  },
-  methods: {
-    recallAxis() {
-      this.root?.transition().call(this.axis);
     },
-    generateTransform() {
-      return `translate(${this.generateTranslateX()}, ${this.generateTranslateY()})`;
-    },
-    generateTranslateX() {
+    translateX() {
       const xValue = this.tickSize || this.containerSize.width || 0;
 
       // For axes rendering grid lines
@@ -124,7 +114,7 @@ export default {
 
       return 0;
     },
-    generateTranslateY() {
+    translateY() {
       const yValue = this.tickSize || this.containerSize.height || 0;
 
       // For axes rendering grid lines
@@ -134,6 +124,18 @@ export default {
 
       return 0;
     }
+  },
+  mounted() {
+    this.root = select(this.$refs.root);
+    this.applyAxis();
+  },
+  methods: {
+    applyAxis() {
+      this.root
+          // NOTE: d3.js v6.6.2 can't apply transition, so suspending it for now.
+          // .transition()
+          ?.call(this.axis);
+    },
   }
 }
 </script>

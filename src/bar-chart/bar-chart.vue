@@ -1,6 +1,9 @@
 <template>
   <div>
-    <chart-container @resize="$determineWidthAndHeight">
+    <chart-container
+      :margins="margins"
+      @resize="$determineWidthAndHeight"
+    >
       <bar
           v-if="hasNegativeValues"
           :height="negativeHeight"
@@ -8,29 +11,27 @@
           :transform="negativeTransform"
           fill-class="adv-fill-color-negative-values"
       />
-      <g :transform="barGroupsTransform">
-        <bar-group
-            v-for="(bar, index) in paddedData"
-            :key="`bar-group-${index}`"
-            :bar="getBarConfig(bar, index)"
-            :overlay="$getOverlayConfig(bar, index)"
-            :is-hovered="hoveredIndex === index"
-            @mouseover="$handleMouseover(index, $event)"
-            @mouseout="$handleMouseout"
-        />
-      </g>
       <template v-if="showAxes">
         <axis
-            :scale="xScale"
-            position="bottom"
-            :transform.native="`translate(${margin}, ${height + margin})`"
+          :scale="xScale"
+          type="x"
+          :container-size="containerSize"
         />
         <axis
-            :scale="yScale"
-            position="left"
-            :transform.native="`translate(${margin}, ${margin})`"
+          :scale="yScale"
+          type="y"
+          :container-size="containerSize"
         />
       </template>
+      <bar-group
+          v-for="(bar, index) in paddedData"
+          :key="`bar-group-${index}`"
+          :bar="getBarConfig(bar, index)"
+          :overlay="$getOverlayConfig(bar, index)"
+          :is-hovered="hoveredIndex === index"
+          @mouseover="$handleMouseover(index, $event)"
+          @mouseout="$handleMouseout"
+      />
     </chart-container>
     <popover
         v-if="popoverConfig.opened"
@@ -50,7 +51,7 @@ import ChartContainer from "../core/chart-container.vue";
 const fallbackFillClass = '01';
 
 export default {
-  components: {ChartContainer, Bar, BarGroup },
+  components: { ChartContainer, Bar, BarGroup },
   mixins: [BarMixin],
   methods: {
     getBarConfig({ value, color }, index) {

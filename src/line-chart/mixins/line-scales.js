@@ -1,3 +1,5 @@
+import { scaleBand, scaleLinear } from 'd3-scale';
+
 // @vue/component
 export default {
     props: {
@@ -17,15 +19,13 @@ export default {
             return Math.min(...minValues);
         },
         xScale() {
-            return d3
-                .scaleBand()
+            return scaleBand()
                 .rangeRound([0, this.containerSize.width])
                 .padding(0)
                 .domain(this.labels.map((_, index) => index))
         },
         yScale() {
-            return d3
-                .scaleLinear()
+            return scaleLinear()
                 .rangeRound([0, this.containerSize.height])
                 .domain([this.maxValue, this.minValue])
         },

@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import { line } from 'd3-shape';
+
 export default {
     props: {
         color: {
@@ -55,7 +57,7 @@ export default {
     data: () => ({}),
     computed: {
         pathDefinition() {
-            return d3.line()
+            return line()
                 .x((_, i) => this.xScale(this.index + (i - 1)) + this.xAxisOffset)
                 .y((d) => this.yScale(d))
                 (this.values);
