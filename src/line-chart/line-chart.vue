@@ -29,6 +29,7 @@
                     :height="yScale(minValue)"
                     :transform="getLineTranslation(index)"
                     :fill-class="hoveredIndex === index ? 'adv-fill-color-overlay' : 'adv-fill-color-transparent'"
+                    :animate="false"
                     @mouseover.native="hoveredIndex = index"
                 />
             </g>
