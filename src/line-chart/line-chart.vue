@@ -9,7 +9,7 @@
                 <axis
                     type="x"
                     v-bind:options="allOptions.xAxisOptions"
-                    :scale="xScale"
+                    :scale="labelScale"
                     :container-size="containerSize"
                 />
                 <axis
@@ -27,7 +27,7 @@
                     :key="`overlay-${index}`"
                     :width="xScale.bandwidth()"
                     :height="yScale(minValue)"
-                    :transform="`translate(${index * xScale.bandwidth()}, 0)`"
+                    :transform="getLineTranslation(index)"
                     :fill-class="hoveredIndex === index ? 'adv-fill-color-overlay' : 'adv-fill-color-transparent'"
                     @mouseover.native="hoveredIndex = index"
                 />
@@ -77,18 +77,7 @@ export default {
         xAxisOptions: {},
         yAxisOptions: {},
     })],
-    props: {
-        data: {
-            type: Array,
-            required: true,
-        },
-        labels: {
-            type: Array,
-            required: true,
-        },
-    },
     data: () => ({
-        containerSize: { width: 0, height: 0 },
         hoveredIndex: -1,
     }),
     computed: {
@@ -99,5 +88,10 @@ export default {
             return this.hoveredIndex >= 0;
         }
     },
+    methods: {
+      getLineTranslation(index) {
+        return `translate(${this.xScale(index)}, 0)`;
+      }
+  }
 }
 </script>
