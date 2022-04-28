@@ -1,5 +1,5 @@
 // Import the `mount()` method from Vue Test Utils
-const { mount } = require('@vue/test-utils');
+import { mount } from '@vue/test-utils';
 
 // The component to test
 const MessageComponent = {
