@@ -59,7 +59,7 @@ export default {
       return scaleBand()
         .domain(this.paddedDataAsArray[0].map((value, index) => index))
         .range([0, this.xScale.bandwidth()])
-        .padding([0.05])
+        .padding([0])
     }
   },
   methods: {
