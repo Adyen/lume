@@ -44,24 +44,26 @@
 </template>
 
 <script>
-import barMixinFactory from '../mixins/bar-mixin.js';
+import baseMixinFactory from '../mixins/base-mixin.js';
 import BarGroup from '../bar-chart/bar-group.vue';
 import Bar from '../core/bar.vue';
 import ChartContainer from "../core/chart-container.vue";
 import { orientations } from '../constants.js';
 
 const fallbackFillClass = '01';
-const defaultBarHeight = 20; // 12px
+const defaultBarHeight = 20; // 20px
 const defaultLeftMargin = 80; // 80px
+const defaultRightMargin = 12; // 12px;
 
 export default {
   components: { ChartContainer, Bar, BarGroup },
-  mixins: [barMixinFactory(orientations.horizontal)],
+  mixins: [baseMixinFactory(orientations.horizontal)],
   computed: {
     computedMargins() {
       return {
         ...this.margins,
-        left: defaultLeftMargin
+        left: defaultLeftMargin,
+        right: defaultRightMargin
       }
     }
   },

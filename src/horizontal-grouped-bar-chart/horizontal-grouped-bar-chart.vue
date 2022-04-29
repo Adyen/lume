@@ -46,7 +46,7 @@
 <script>
 import Bar from '../core/bar.vue';
 import BarsGroup from '../core/bars-group.vue';
-import barMixinFactory from '../mixins/bar-mixin.js';
+import baseMixinFactory from '../mixins/base-mixin.js';
 import ChartContainer from '../core/chart-container.vue';
 import { scaleBand } from 'd3-scale';
 import { orientations } from '../constants.js';
@@ -54,15 +54,17 @@ import { orientations } from '../constants.js';
 const getColor = (bars, barIndex) => bars?.colors?.[barIndex] || `0${barIndex + 1}`;
 const defaultBarHeight = 20; // 12px
 const defaultLeftMargin = 80; // 80px
+const defaultRightMargin = 12; // 12px;
 
 export default {
   components: { Bar, BarsGroup, ChartContainer },
-  mixins: [barMixinFactory(orientations.horizontal)],
+  mixins: [baseMixinFactory(orientations.horizontal)],
   computed: {
     computedMargins() {
       return {
         ...this.margins,
-        left: defaultLeftMargin
+        left: defaultLeftMargin,
+        right: defaultRightMargin
       }
     },
     ySubgroup() {

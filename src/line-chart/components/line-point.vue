@@ -45,8 +45,9 @@ export default {
     },
     data: () => ({}),
     computed: {
+        domain() { return this.xScale.domain(); },
         cx() {
-            return this.xScale(this.index) + this.xAxisOffset;
+            return this.xScale(this.domain[this.index]) + this.xAxisOffset;
         },
         cy() {
             return this.yScale(this.value);

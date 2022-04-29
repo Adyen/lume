@@ -1,15 +1,22 @@
 <template>
     <div class="u-width-full u-height-full">
         <chart-container
-            :margins="margins"
+            :margins="computedMargin"
             @mouseleave.native="hoveredIndex = -1"
-            @resize="containerSize = $event"
+            @resize="$determineWidthAndHeight"
         >
+          <bar
+              v-if="hasNegativeValues"
+              :height="negativeHeight"
+              :width="width"
+              :transform="negativeTransform"
+              fill-class="adv-fill-color-negative-values"
+          />
             <template v-if="allOptions.showAxes">
                 <axis
                     type="x"
                     v-bind:options="allOptions.xAxisOptions"
-                    :scale="labelScale"
+                    :scale="xScale"
                     :container-size="containerSize"
                 />
                 <axis
@@ -65,15 +72,14 @@ import Popover from '@/core/popover.vue';
 import LineGroup from './components/line-group.vue';
 import LinePopoverText from './components/line-popover-text.vue';
 
-import LineScalesMixin from './mixins/line-scales';
-import MarginsMixin from '@/mixins/margins';
+import baseMixinFactory from '../mixins/base-mixin';
 import OptionsMixin from '@/mixins/options';
 
 import config from './config';
 
 export default {
     components: { Axis, Bar, ChartContainer, LineGroup, LinePopoverText, Popover, },
-    mixins: [LineScalesMixin, MarginsMixin(config.margins), OptionsMixin({
+    mixins: [baseMixinFactory(), OptionsMixin({
         showAxes: true,
         xAxisOptions: {},
         yAxisOptions: { gridLines: true },
@@ -82,6 +88,12 @@ export default {
         hoveredIndex: -1,
     }),
     computed: {
+        computedMargin() {
+          return {
+            ...this.margins,
+            ...config.margins,
+          }
+        },
         activeOverlayBar() {
             return this.$refs.overlayBars?.[this.hoveredIndex]?.$el;
         },
@@ -91,7 +103,7 @@ export default {
     },
     methods: {
       getLineTranslation(index) {
-        return `translate(${this.xScale(index)}, 0)`;
+        return `translate(${this.xScale(this.domain[index])}, 0)`;
       }
   }
 }

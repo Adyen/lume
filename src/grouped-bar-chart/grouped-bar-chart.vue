@@ -46,7 +46,7 @@
 <script>
 import Bar from '../core/bar.vue';
 import BarsGroup from '../core/bars-group.vue';
-import barMixinFactory from '../mixins/bar-mixin.js';
+import baseMixinFactory from '../mixins/base-mixin.js';
 import ChartContainer from '../core/chart-container.vue';
 import { scaleBand } from 'd3-scale';
 
@@ -54,7 +54,7 @@ const getColor = (bars, barIndex) => bars?.colors?.[barIndex] || `0${barIndex + 
 
 export default {
   components: { Bar, BarsGroup, ChartContainer },
-  mixins: [barMixinFactory()],
+  mixins: [baseMixinFactory()],
   computed: {
     xSubgroup() {
       return scaleBand()

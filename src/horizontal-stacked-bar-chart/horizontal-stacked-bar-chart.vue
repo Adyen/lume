@@ -46,23 +46,30 @@
 <script>
 import Bar from '../core/bar.vue';
 import BarsGroup from '../core/bars-group.vue';
-import barMixinFactory from '../mixins/bar-mixin.js';
+import baseMixinFactory from '../mixins/base-mixin.js';
 import ChartContainer from '../core/chart-container.vue';
 const getColor = (sourceBars, bar) => sourceBars?.colors?.[bar.index] || `0${bar.index + 1}`;
 import { orientations } from '../constants.js';
 
+const defaultBarHeight = 20; // 20px;
 const defaultLeftMargin = 80; // 80px
+const defaultRightMargin = 12; // 12px;
 
 export default {
   components: { Bar, BarsGroup, ChartContainer },
-  mixins: [barMixinFactory(orientations.horizontal)],
+  mixins: [baseMixinFactory(orientations.horizontal, true)],
   computed: {
     computedMargins() {
       return {
         ...this.margins,
-        left: defaultLeftMargin
+        left: defaultLeftMargin,
+        right: defaultRightMargin
       }
     },
+  },
+  mounted() {
+    const height = this.data.length * (defaultBarHeight * 1.5);
+    this.$setHeight(height);
   },
   methods: {
     mapBelowZeroBars(bars, barsIndex, sourceBars) {

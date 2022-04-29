@@ -46,13 +46,15 @@
 <script>
 import Bar from '../core/bar.vue';
 import BarsGroup from '../core/bars-group.vue';
-import barMixinFactory from '../mixins/bar-mixin.js';
+import baseMixinFactory from '../mixins/base-mixin.js';
 import ChartContainer from '../core/chart-container.vue';
+import { orientations } from '../constants.js';
+
 const getColor = (sourceBars, bar) => sourceBars?.colors?.[bar.index] || `0${bar.index + 1}`;
 
 export default {
   components: { Bar, BarsGroup, ChartContainer },
-  mixins: [barMixinFactory()],
+  mixins: [baseMixinFactory(orientations.vertical, true)],
   methods: {
     mapBelowZeroBars(bars, barsIndex, sourceBars) {
       return bars.reduce((acc, bar) => {

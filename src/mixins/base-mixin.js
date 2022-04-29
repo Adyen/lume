@@ -5,11 +5,15 @@ import { defaultMargins, orientations } from '../constants.js'
 const defaultPadding = .33;
 const pad = value => !value && value !== 0 ? 0 : value;
 
-export default function barMixinFactory(orientation = orientations.vertical) {
+export default function barMixinFactory(orientation = orientations.vertical, isStacked = false) {
     // @vue/component
     return {
         components: { Axis, Popover },
         props: {
+            startOnZero: {
+                type: Boolean,
+                default: true, // Guidelines state that baseline should be 0
+            },
             data: {
                 type: Array,
                 required: true
@@ -57,7 +61,8 @@ export default function barMixinFactory(orientation = orientations.vertical) {
                         .paddingOuter(this.padding / 2)
                         .domain(this.domain) :
                     scaleLinear()
-                        .domain([this.maxValue, this.minValue]);
+                        .domain([this.maxValue, this.minValue])
+                        .nice(10);
 
                 return scale
                     .rangeRound([0, this.height])
@@ -65,7 +70,8 @@ export default function barMixinFactory(orientation = orientations.vertical) {
             xScale() {
                 const scale = this.isHorizontal ?
                     scaleLinear()
-                        .domain([this.minValue, this.maxValue]) :
+                        .domain([this.minValue, this.maxValue])
+                        .nice() :
                     scaleBand()
                         .paddingInner(this.padding)
                         .paddingOuter(this.padding / 2)
@@ -94,16 +100,24 @@ export default function barMixinFactory(orientation = orientations.vertical) {
             },
             maxValue() {
                 // Make sure we can handle both single values and arrays of values
-                const accumulatedValues = this.paddedDataAsArray.map(valueSet =>
-                    valueSet.length > 0 ? valueSet.reduce((acc, curr) => acc + curr, 0) : valueSet);
+                const accumulatedValues = this.paddedDataAsArray.map(valueSet => {
+                   if (valueSet.length > 0) {
+                       return isStacked ? valueSet.reduce((acc, curr) => acc + curr, 0) : Math.max(...valueSet)
+                   }
+                   return valueSet;
+                });
 
                 return Math.max(...accumulatedValues);
             },
             minValue() {
-                const accumulatedValues = this.paddedDataAsArray.map(valueSet =>
-                    valueSet.length > 0 ? valueSet.filter(value => value < 0).reduce((acc, curr) => acc + curr, 0) : valueSet);
+                const accumulatedValues = this.paddedDataAsArray.map(valueSet => {
+                    if (valueSet.length > 0) {
+                        return isStacked ? valueSet.filter(value => value < 0).reduce((acc, curr) => acc + curr, 0) : Math.min(...valueSet)
+                    }
+                    return valueSet;
+                });
 
-                return Math.min(0, ...accumulatedValues);
+                return Math.min(...(this.startOnZero ? [0] : []), ...accumulatedValues);
             },
             hasNegativeValues() {
                 return this.paddedDataAsArray

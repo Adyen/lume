@@ -15,12 +15,12 @@
           :data="stackedBarChartData"
           :labels="barChartLabels"
       />
-    </div>
-    <div class="row">
       <grouped-bar-chart
           :data="stackedBarChartData"
           :labels="barChartLabels"
       />
+    </div>
+    <div class="row">
       <horizontal-bar-chart
           :data="barChartData"
           :labels="barChartLabels"
@@ -30,13 +30,10 @@
           :data="stackedBarChartData"
           :labels="barChartLabels"
       />
-    </div>
-    <div class="row">
       <horizontal-grouped-bar-chart
           :data="stackedBarChartData"
           :labels="barChartLabels"
       />
-      <div class="u-width-full"></div>
       <div class="u-width-full"></div>
     </div>
   </div>
@@ -63,8 +60,8 @@ export default {
   },
   data: () => ({
     lineChartData: [
-      { values: [10, 30, 20, 50, 40, 70, 60], color: '01', legend: 'Hamburgers' },
-      { values: [30, 10, 20, 70, 50, 60, 40], color: '02', legend: 'Hot dogs' },
+      { values: [10, 30, -20, 50, 40, 70, 60], color: '01', legend: 'Hamburgers' },
+      { values: [30, 10, 20, 70, 50, null, 40], color: '02', legend: 'Hot dogs' },
     ],
     barChartData: [
       { value: 10 },
@@ -92,7 +89,8 @@ export default {
 
 <style>
 .root {
-  width: 1400px;
+  width: 80vw;
+  padding-left: 24px;
 }
 
 .row {

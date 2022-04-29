@@ -56,9 +56,10 @@ export default {
     },
     data: () => ({}),
     computed: {
+        domain() { return this.xScale.domain(); },
         pathDefinition() {
             return line()
-                .x((_, i) => this.xScale(this.index + (i - 1)) + this.xAxisOffset)
+                .x((_, i) => this.xScale(this.domain[this.index + (i - 1)]) + this.xAxisOffset)
                 .y((d) => this.yScale(d))
                 (this.values);
         },
