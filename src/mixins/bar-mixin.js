@@ -5,7 +5,7 @@ import { defaultMargins, orientations } from '../constants.js'
 const defaultPadding = .33;
 const pad = value => !value && value !== 0 ? 0 : value;
 
-export default function barMixinFactory(orientation = orientations.horizontal) {
+export default function barMixinFactory(orientation = orientations.vertical) {
     // @vue/component
     return {
         components: { Axis, Popover },
@@ -52,24 +52,24 @@ export default function barMixinFactory(orientation = orientations.horizontal) {
             },
             yScale() {
                 const scale = this.isHorizontal ?
-                    scaleLinear()
-                        .domain([this.maxValue, this.minValue]) :
                     scaleBand()
                         .paddingInner(this.padding)
                         .paddingOuter(this.padding / 2)
-                        .domain(this.domain)
+                        .domain(this.domain) :
+                    scaleLinear()
+                        .domain([this.maxValue, this.minValue]);
 
                 return scale
                     .rangeRound([0, this.height])
             },
             xScale() {
                 const scale = this.isHorizontal ?
+                    scaleLinear()
+                        .domain([this.minValue, this.maxValue]) :
                     scaleBand()
                         .paddingInner(this.padding)
                         .paddingOuter(this.padding / 2)
-                        .domain(this.domain) :
-                    scaleLinear()
-                        .domain([this.minValue, this.maxValue])
+                        .domain(this.domain);
 
                 return scale
                     .rangeRound([0, this.width]);
@@ -111,13 +111,13 @@ export default function barMixinFactory(orientation = orientations.horizontal) {
                     .some(value => value < 0);
             },
             negativeTransform() {
-                return this.isHorizontal ? `translate(0, ${this.yScale(0)})` : `translate(0, 0)`
+                return this.isHorizontal ? `translate(0, 0)` : `translate(0, ${this.yScale(0)})`;
             },
             negativeHeight() {
                 return this.height - this.yScale(0);
             },
             ghostCorrection() {
-                const scale = this.isHorizontal ? this.xScale : this.yScale;
+                const scale = this.isHorizontal ? this.yScale : this.xScale;
                 return scale.step() * scale.paddingInner() / 2;
             },
             containerSize() {
@@ -134,13 +134,13 @@ export default function barMixinFactory(orientation = orientations.horizontal) {
             },
             $getOverlayConfig(bars, index) {
                 return this.isHorizontal ? {
-                    transform: `translate(${this.xScale(this.domain[index]) - this.ghostCorrection}, 0)`,
-                    width: this.xScale.step(),
-                    height: this.height
-                } : {
                     transform: `translate(0, ${this.yScale(this.domain[index]) - this.ghostCorrection})`,
                     width: this.width,
                     height: this.yScale.step()
+                } : {
+                    transform: `translate(${this.xScale(this.domain[index]) - this.ghostCorrection}, 0)`,
+                    width: this.xScale.step(),
+                    height: this.height
                 };
             },
             $handleMouseover(index, event) {

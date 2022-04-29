@@ -26,14 +26,18 @@
           :labels="barChartLabels"
           :bars-config="barsConfig"
       />
-<!--      <horizontal-grouped-bar-chart-->
-<!--          :data="stackedBarChartData"-->
-<!--          :labels="barChartLabels"-->
-<!--      />-->
-<!--      <horizontal-stacked-bar-chart-->
-<!--          :data="stackedBarChartData"-->
-<!--          :labels="barChartLabels"-->
-<!--      />-->
+      <horizontal-stacked-bar-chart
+          :data="stackedBarChartData"
+          :labels="barChartLabels"
+      />
+    </div>
+    <div class="row">
+      <horizontal-grouped-bar-chart
+          :data="stackedBarChartData"
+          :labels="barChartLabels"
+      />
+      <div class="u-width-full"></div>
+      <div class="u-width-full"></div>
     </div>
   </div>
 </template>
