@@ -35,26 +35,37 @@ Follow these steps to quickly start developing amazing data-viz components local
 
 The charts we wish to include:
 
-- [ ] Bar chart
-- [ ] Line chart
-- [ ] Stacked bar chart
-- [ ] Alluvial chart
+- [x] Line chart
+- [x] Bar chart
+- [x] Stacked bar chart
+- [x] Grouped bar chart
+- [x] Horizontal bar chart
+- [x] Horizontal stacked bar chart
+- [x] Horizontal grouped bar chart
 - [ ] Sparkline
 - [ ] Mini bar chart
+- [ ] Alluvial chart
 - [ ] Violin plot
-- [ ] Box plot
+- [x] Box plot
 
 Points that should be covered:
 
-- [ ] Charts should be able to handle negative values
-- [ ] Charts should be able to handle null values (missing values)
-- [ ] Charts should be able to scale relative to the screen
+- [x] Charts should be able to handle negative values
+- [x] Charts should be able to handle null values (missing values)
+- [x] Charts should be able to scale relative to the screen
+- [x] Charts should make use of a popup highlighting data of one point
+- [x] Some charts should be able to show x-axis and y-axis
+- [x] Some charts should be able to show gridlines
 - [ ] Charts should be able to handle live data updates
 - [ ] Charts should rely on ADL colors but should also be able to accept custom colors
-- [ ] Charts should make use of a popup highlighting data of one point
-- [ ] Some charts should be able to show x-axis and y-axis
-- [ ] Some charts should be able to show gridlines
 - [ ] Some charts should have the ability to select a data point and communicate the data to the caller
+
+Other developmental issues that should be covered:
+
+- [ ] Unit tests for all components - in Jest
+- [ ] ESLinter for .js and .vue files
+- [ ] Documentation of how the components work
+- [ ] Storybook with examples of all the components
 
 ### Feature ideas
 

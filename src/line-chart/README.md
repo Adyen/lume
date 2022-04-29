@@ -9,6 +9,6 @@
   - [x] Line selection
   - [x] Bar overlay
   - [x] Popover (core)
-  - [ ] Negative values
+  - [x] Negative values
   - [x] Null values
   
