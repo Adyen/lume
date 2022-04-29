@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="u-width-full u-height-full">
     <chart-container
         :margins="margins"
         @resize="$determineWidthAndHeight"
@@ -21,6 +21,7 @@
             :scale="yScale"
             type="y"
             :container-size="containerSize"
+            :options="xAxisOptions"
         />
       </template>
       <bars-group
@@ -45,7 +46,7 @@
 <script>
 import Bar from '../core/bar.vue';
 import BarsGroup from '../core/bars-group.vue';
-import BarMixin from '../mixins/bar-mixin.js';
+import barMixinFactory from '../mixins/bar-mixin.js';
 import ChartContainer from '../core/chart-container.vue';
 import { scaleBand } from 'd3-scale';
 
@@ -53,7 +54,7 @@ const getColor = (bars, barIndex) => bars?.colors?.[barIndex] || `0${barIndex + 
 
 export default {
   components: { Bar, BarsGroup, ChartContainer },
-  mixins: [BarMixin],
+  mixins: [barMixinFactory()],
   computed: {
     xSubgroup() {
       return scaleBand()

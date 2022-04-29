@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="u-width-full u-height-full">
     <chart-container
         :margins="margins"
         @resize="$determineWidthAndHeight"
@@ -21,6 +21,7 @@
             :scale="yScale"
             type="y"
             :container-size="containerSize"
+            :options="xAxisOptions"
         />
       </template>
       <bars-group
@@ -45,13 +46,13 @@
 <script>
 import Bar from '../core/bar.vue';
 import BarsGroup from '../core/bars-group.vue';
-import BarMixin from '../mixins/bar-mixin.js';
+import barMixinFactory from '../mixins/bar-mixin.js';
 import ChartContainer from '../core/chart-container.vue';
 const getColor = (sourceBars, bar) => sourceBars?.colors?.[bar.index] || `0${bar.index + 1}`;
 
 export default {
   components: { Bar, BarsGroup, ChartContainer },
-  mixins: [BarMixin],
+  mixins: [barMixinFactory()],
   methods: {
     mapBelowZeroBars(bars, barsIndex, sourceBars) {
       return bars.reduce((acc, bar) => {

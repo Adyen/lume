@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="u-width-full u-height-full">
     <chart-container
       :margins="margins"
       @resize="$determineWidthAndHeight"
@@ -21,6 +21,7 @@
           :scale="yScale"
           type="y"
           :container-size="containerSize"
+          :options="xAxisOptions"
         />
       </template>
       <bar-group
@@ -43,7 +44,7 @@
 </template>
 
 <script>
-import BarMixin from '../mixins/bar-mixin.js';
+import barMixinFactory from '../mixins/bar-mixin.js';
 import BarGroup from './bar-group.vue';
 import Bar from '../core/bar.vue';
 import ChartContainer from "../core/chart-container.vue";
@@ -52,7 +53,7 @@ const fallbackFillClass = '01';
 
 export default {
   components: { ChartContainer, Bar, BarGroup },
-  mixins: [BarMixin],
+  mixins: [barMixinFactory()],
   methods: {
     getBarConfig({ value, color }, index) {
       const yTranslation = value < 0 ? this.yScale(0) : this.yScale(value);
@@ -70,3 +71,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.u-width-full {
+  width: 100%;
+}
+</style>

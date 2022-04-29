@@ -1,5 +1,5 @@
 <template>
-    <div style="height: 100%">
+    <div class="u-width-full u-height-full">
         <chart-container
             :margins="margins"
             @mouseleave.native="hoveredIndex = -1"
@@ -76,7 +76,7 @@ export default {
     mixins: [LineScalesMixin, MarginsMixin(config.margins), OptionsMixin({
         showAxes: true,
         xAxisOptions: {},
-        yAxisOptions: {},
+        yAxisOptions: { gridLines: true },
     })],
     data: () => ({
         hoveredIndex: -1,

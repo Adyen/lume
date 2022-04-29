@@ -32,7 +32,7 @@ export default {
      * Displays a line for each tick. If not specified but axis type is `y`, will show grid lines.
      * @type {Boolean}
      */
-    gridLines: null,
+    gridLines: false,
     //
     //// Tick settings
     //
@@ -98,7 +98,7 @@ export default {
       return `translate(${this.translateX}, ${this.translateY})`;
     },
     tickSize() {
-      if (this.allOptions.gridLines ?? this.computedType === 'y') {
+      if (this.allOptions.gridLines) {
         const { width, height } = this.containerSize;
         return this.computedType === 'y' ? width : height;
       }
