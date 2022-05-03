@@ -1,13 +1,6 @@
 <template>
-  <g
-      :transform="transform"
-      :class="{ 'transition': animate }"
-  >
-    <rect
-        :height="height"
-        :width="width"
-        :class="[fillClass, { 'transition': animate }]"
-    />
+  <g :transform="transform" class="bar" :class="{ 'bar--transition': animate }">
+    <rect :height="height" :width="width" :class="[fillClass, { 'bar--transition': animate }]" />
   </g>
 </template>
 
@@ -38,8 +31,12 @@ export default {
 }
 </script>
 
-<style>
-.transition {
-  transition: all 1s;
+<style lang="scss" scoped>
+@import "../styles/variables";
+
+.bar {
+  &--transition {
+    transition: all $chart-transition-time ease;
+  }
 }
 </style>

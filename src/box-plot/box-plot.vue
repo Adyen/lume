@@ -38,7 +38,7 @@ import ChartContainer from '../core/chart-container.vue';
 import BoxGroup from './box-group.vue';
 import { quantile, group, ascending } from 'd3-array';
 import { scaleLinear, scaleBand } from 'd3-scale';
-import Popover from '../core/popover.vue';
+import Popover from '../core/popover';
 
 const boxWidth = 100;
 

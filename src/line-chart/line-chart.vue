@@ -5,13 +5,13 @@
             @mouseleave.native="hoveredIndex = -1"
             @resize="$determineWidthAndHeight"
         >
-          <bar
-              v-if="hasNegativeValues"
-              :height="negativeHeight"
-              :width="width"
-              :transform="negativeTransform"
-              fill-class="adv-fill-color-negative-values"
-          />
+            <bar
+                v-if="hasNegativeValues"
+                :height="negativeHeight"
+                :width="width"
+                :transform="negativeTransform"
+                fill-class="adv-fill-color-negative-values"
+            />
             <template v-if="allOptions.showAxes">
                 <axis
                     type="x"
@@ -67,7 +67,7 @@
 import Axis from '@/core/axis.vue';
 import Bar from '@/core/bar.vue';
 import ChartContainer from '@/core/chart-container.vue';
-import Popover from '@/core/popover.vue';
+import Popover from '@/core/popover';
 
 import LineGroup from './components/line-group.vue';
 import LinePopoverText from './components/line-popover-text.vue';
@@ -89,10 +89,10 @@ export default {
     }),
     computed: {
         computedMargin() {
-          return {
-            ...this.margins,
-            ...config.margins,
-          }
+            return {
+                ...this.margins,
+                ...config.margins,
+            }
         },
         activeOverlayBar() {
             return this.$refs.overlayBars?.[this.hoveredIndex]?.$el;
@@ -102,9 +102,9 @@ export default {
         }
     },
     methods: {
-      getLineTranslation(index) {
-        return `translate(${this.xScale(this.domain[index])}, 0)`;
-      }
-  }
+        getLineTranslation(index) {
+            return `translate(${this.xScale(this.domain[index])}, 0)`;
+        }
+    }
 }
 </script>

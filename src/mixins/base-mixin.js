@@ -1,5 +1,5 @@
 import Axis from "../core/axis.vue";
-import Popover from '../core/popover.vue';
+import Popover from '../core/popover';
 import { scaleBand, scaleLinear } from 'd3-scale';
 import { defaultMargins, orientations } from '../constants.js'
 const defaultPadding = .33;
