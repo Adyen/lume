@@ -60,7 +60,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../styles/variables";
+@use "~@/styles/variables" as *;
 
 .line-chart__point {
     transition: all $chart-transition-time ease;

@@ -141,7 +141,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/variables";
+@use "~@/styles/variables" as *;
 
 $axis-text-color: $adv-color-grey-30;
 $axis-line-color: $adv-color-grey-20;

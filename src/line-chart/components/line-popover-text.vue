@@ -43,7 +43,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../styles/variables";
+@use "~@/styles/variables" as *;
 
 $item-min-width: 112px;
 $item-point-size: 10px;

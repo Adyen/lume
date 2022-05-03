@@ -81,7 +81,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/variables";
+@use "~@/styles/variables" as *;
 
 .container {
     overflow: visible;
