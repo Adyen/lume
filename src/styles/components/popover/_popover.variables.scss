@@ -33,3 +33,6 @@ $adv-popover-arrow-margin-offset: round(math.div($adv-popover-arrow-rotation-off
 // Arrow is positioned in the popover side using top/right/bottom/left 0 and pushed outside by subtracting its length.
 // Again this must take in consideration the rotation offset
 $adv-popover-arrow-position-offset: round($adv-popover-arrow-rotation-offset - $adv-popover-arrow-length) !default;
+
+$adv-popover-item-min-width: 112px;
+$adv-popover-symbol-size: 10px;

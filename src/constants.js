@@ -9,3 +9,5 @@ export const defaultMargins = {
     bottom: 32,
     left: 32
 };
+
+export const NO_DATA = "No data";

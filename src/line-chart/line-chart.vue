@@ -57,8 +57,10 @@
             position="top"
             :opened="isPopoverOpened"
             :target-element="activeOverlayBar"
+            :title="labels[hoveredIndex]"
+            :items="getPopoverItems(hoveredIndex)"
         >
-            <line-popover-text :label="labels[hoveredIndex]" :data="data" :index="hoveredIndex" />
+            <slot name="popover" :index="hoveredIndex"></slot>
         </popover>
     </div>
 </template>
@@ -70,15 +72,15 @@ import ChartContainer from '@/core/chart-container.vue';
 import Popover from '@/core/popover';
 
 import LineGroup from './components/line-group.vue';
-import LinePopoverText from './components/line-popover-text.vue';
 
 import baseMixinFactory from '../mixins/base-mixin';
 import OptionsMixin from '@/mixins/options';
 
 import config from './config';
+import { NO_DATA } from '@/constants';
 
 export default {
-    components: { Axis, Bar, ChartContainer, LineGroup, LinePopoverText, Popover, },
+    components: { Axis, Bar, ChartContainer, LineGroup, Popover },
     mixins: [baseMixinFactory(), OptionsMixin({
         showAxes: true,
         xAxisOptions: {},
@@ -104,6 +106,14 @@ export default {
     methods: {
         getLineTranslation(index) {
             return `translate(${this.xScale(this.domain[index])}, 0)`;
+        },
+        getPopoverItems(index) {
+            return this.data.map(({ color, legend, values }) => ({
+                type: 'line',
+                color,
+                legend,
+                value: values[index] ?? NO_DATA
+            }));
         }
     }
 }

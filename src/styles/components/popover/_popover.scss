@@ -1,23 +1,55 @@
 // Popover
 
-@use 'popover.mixins' as *;
+@use '~@/styles/variables'as *;
+@use 'popover.mixins'as *;
 
 .adv-popover {
     @include adv-popover;
-}
 
-.adv-popover--arrow-top {
-    @include adv-popover--arrow-top;
-}
+    &--arrow-top {
+        @include adv-popover--arrow-top;
+    }
 
-.adv-popover--arrow-right {
-    @include adv-popover--arrow-right;
-}
+    &--arrow-right {
+        @include adv-popover--arrow-right;
+    }
 
-.adv-popover--arrow-bottom {
-    @include adv-popover--arrow-bottom;
-}
+    &--arrow-bottom {
+        @include adv-popover--arrow-bottom;
+    }
 
-.adv-popover--arrow-left {
-    @include adv-popover--arrow-left;
+    &--arrow-left {
+        @include adv-popover--arrow-left;
+    }
+
+    &__title {
+        @include adv-popover__title;
+    }
+
+    &__items {
+        @include adv-popover__items;
+    }
+
+    &__item {
+        @include adv-popover__item;
+    }
+
+    &__symbol {
+        @include adv-popover__symbol;
+
+        &--line {
+            @include adv-popover__symbol--line;
+        }
+
+        @each $color,
+        $map in $chart-colors {
+            &--color-#{$color} {
+                background-color: nth($map, 1);
+            }
+        }
+    }
+
+    &__value {
+        @include adv-popover__value;
+    }
 }

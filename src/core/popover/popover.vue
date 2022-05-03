@@ -1,6 +1,22 @@
 <template>
   <div class="adv-popover" :class="arrowClass">
-    <slot></slot>
+    <slot>
+      <!-- Default chart popover content -->
+      <div v-if="title" class="adv-popover__title">{{ title }}</div>
+      <ul class="adv-popover__items">
+        <li v-for="item in items" :key="item.legend" class="adv-popover__item">
+          <span
+            class="adv-popover__symbol"
+            :class="[
+              `adv-popover__symbol--${item.type}`,
+              `adv-popover__symbol--color-${item.color}`
+            ]"
+          ></span>
+          {{ item.legend }}
+          <strong class="adv-popover__value">{{ item.value }}</strong>
+        </li>
+      </ul>
+    </slot>
   </div>
 </template>
 
@@ -25,6 +41,15 @@ export const positions = [
   'left-end',
 ];
 
+/**
+ * A popover data point item.
+ * @typedef {object} PopoverItem
+ * @property {string} type Type of data point. `line` draws a point, `bar` draws a square.
+ * @property {string} color Color of the data group.
+ * @property {string} legend Label for the data group.
+ * @property {(number|string)} value Value of the data point.
+ */
+
 export default {
   props: {
     /**
@@ -46,6 +71,15 @@ export default {
      * Custom set of modifiers. Useful for low-level control over Popper behavior in some really complex use cases.
      */
     modifiers: { type: Array, default: null },
+    /** 
+     * The popover title. Only displayed if the default popover content is used.
+     */
+    title: { type: String, default: null },
+    /**
+     * An array of items. Only displayed if the default popover content is used.
+     * @type {PopoverItem[]}
+     */
+    items: { type: Array, default: null },
   },
   data: () => ({
     popper: { state: {} }
@@ -105,10 +139,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/styles/variables";
-
-.adv-popover {
-  font-family: $adv-font-family;
-  font-size: $adv-text-font-size-small;
-}
+@use "~@/styles/components/popover/popover";
 </style>
