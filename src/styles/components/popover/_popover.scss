@@ -1,6 +1,6 @@
 // Popover
 
-@import 'popover.mixins';
+@use 'popover.mixins' as *;
 
 .adv-popover {
     @include adv-popover;

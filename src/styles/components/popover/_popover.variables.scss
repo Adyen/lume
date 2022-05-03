@@ -1,6 +1,6 @@
 @use 'sass:math';
 
-@import '../../variables';
+@use "~@/styles/variables" as *;
 
 // Popover box -----------------------------------------------------------------
 $adv-popover-background-color: $adv-color-white !default;

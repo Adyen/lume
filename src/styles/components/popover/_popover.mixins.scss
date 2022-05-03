@@ -1,4 +1,5 @@
-@import 'popover.variables';
+@use '~@/styles/variables' as *;
+@use 'popover.variables' as *;
 
 // Internal use
 @mixin adv-popover-arrow-base {
