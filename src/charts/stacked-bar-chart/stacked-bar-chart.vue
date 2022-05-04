@@ -44,11 +44,11 @@
 </template>
 
 <script>
-import Bar from '../core/bar.vue';
-import BarsGroup from '../core/bars-group.vue';
-import baseMixinFactory from '../mixins/base-mixin.js';
-import ChartContainer from '../core/chart-container.vue';
-import { orientations } from '../constants.js';
+import Bar from '@/core/bar.vue';
+import BarsGroup from '@/core/bars-group.vue';
+import ChartContainer from '@/core/chart-container.vue';
+import baseMixinFactory from '@/mixins/base-mixin.js';
+import { orientations } from '@/constants.js';
 
 const getColor = (sourceBars, bar) => sourceBars?.colors?.[bar.index] || `0${bar.index + 1}`;
 
