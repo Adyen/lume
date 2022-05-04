@@ -1,8 +1,18 @@
 <template>
     <g class="line-chart__line-group" :class="isHovered && 'line-chart__line-group--hover'">
-        <template v-for="(_, index) in values">
+        <g v-for="(_, index) in values" :key="`line-${index}`">
+            <line-point
+                :x-scale="xScale"
+                :y-scale="yScale"
+                :value="getPointValue(index)"
+                :index="index"
+                :color="color"
+                :active="isPointActive(index)"
+                @point-click="isSelected = !isSelected"
+                @line-mouseover="isHovered = true"
+                @point-mouseout="isHovered = false"
+            />
             <chart-line
-                :key="`line-${index}`"
                 :x-scale="xScale"
                 :y-scale="yScale"
                 :values="getLineValues(index)"
@@ -14,19 +24,7 @@
                 @line-mouseover="isHovered = true"
                 @line-mouseout="isHovered = false"
             />
-            <line-point
-                :key="`point-${index}`"
-                :x-scale="xScale"
-                :y-scale="yScale"
-                :value="getPointValue(index)"
-                :index="index"
-                :color="color"
-                :active="isPointActive(index)"
-                @point-click="isSelected = !isSelected"
-                @point-mouseover="onPointMouseover(index)"
-                @point-mouseout="isHovered = false"
-            />
-        </template>
+        </g>
     </g>
 </template>
 
@@ -101,10 +99,6 @@ export default {
         },
         isDashed(index) {
             return !!this.nullIntervals.find(interval => interval.includes(index) || interval.includes(index - 1));
-        },
-        onPointMouseover(index) {
-            this.isHovered = true;
-            this.$emit('group-mouseover', index - 1);
         },
     }
 };

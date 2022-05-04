@@ -48,7 +48,6 @@
                 :x-scale="xScale"
                 :y-scale="yScale"
                 :hovered-index="hoveredIndex"
-                @group-mouseover="hoveredIndex = $event"
             />
         </chart-container>
 
@@ -71,10 +70,10 @@ import Bar from '@/core/bar.vue';
 import ChartContainer from '@/core/chart-container.vue';
 import Popover from '@/core/popover';
 
-import LineGroup from './components/line-group.vue';
-
 import baseMixinFactory from '@/mixins/base-mixin';
 import OptionsMixin from '@/mixins/options';
+
+import LineGroup from './components/line-group.vue';
 
 import config from './config';
 import { NO_DATA } from '@/constants';
