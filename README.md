@@ -31,6 +31,23 @@ Follow these steps to quickly start developing amazing data-viz components local
     $ npm start
     ```
 
+#### Storybook
+
+Storybook is available by running the following command:
+
+```shell
+$ npm run storybook
+```
+
+Every chart component should have its own `.stories` file, and it will be automatically loaded onto the Storybook manager.
+
+##### Available addons
+
+ - [`addon-knobs`](https://www.npmjs.com/package/@storybook/addon-knobs/v/5.0.0)
+ - [`addon-storysource`](https://www.npmjs.com/package/@storybook/addon-storysource/v/5.0.0)
+ - [`addon-notes`](https://www.npmjs.com/package/@storybook/addon-notes/v/5.0.0)
+ - [`addon-a11y`](https://www.npmjs.com/package/@storybook/addon-a11y/v/5.0.0)
+
 ### Roadmap
 
 The charts we wish to include:

@@ -5,7 +5,8 @@
   "scripts": {
     "unit": "jest --config=test/config/jest.config.js",
     "start": "webpack --watch --colors --progress | webpack-dev-server --port 8888 --hot --inline",
-    "lint": "eslint ./src --ext .js"
+    "lint": "eslint ./src --ext .js",
+    "storybook": "start-storybook -p 9001 -c .storybook -s public"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.4",
@@ -18,6 +19,11 @@
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.16.5",
     "@babel/plugin-proposal-optional-chaining": "^7.16.5",
     "@babel/preset-env": "^7.1.6",
+    "@storybook/vue": "5.0.0",
+    "@storybook/addon-knobs": "5.0.0",
+    "@storybook/addon-storysource": "5.0.0",
+    "@storybook/addon-a11y": "5.0.0",
+    "@storybook/addon-notes": "5.0.0",
     "@vue/test-utils": "^1.1.3",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^27.3.1",
