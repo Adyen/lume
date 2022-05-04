@@ -1,21 +1,25 @@
 import { storiesOf } from '@storybook/vue';
 import { boolean } from '@storybook/addon-knobs';
+import { SizeKnobsMixin } from '@/utils/storybook-helpers';
 import LineChart from './line-chart.vue';
 import notes from './README.md';
 
 storiesOf('Charts / Line chart', module)
-    .add('basic', () => ({
+    .add('Basic', () => ({
         components: { LineChart },
         props: {
             startOnZero: {
                 type: Boolean,
                 default: boolean('Start on zero', true)
-            }
+            },
+            ...SizeKnobsMixin(),
         },
         template: `
-            <line-chart
-                :data="lineChartData" :labels="barChartLabels" :start-on-zero="startOnZero"
-            />
+            <div :style="{ width: width + 'px', height: height + 'px' }">
+                <line-chart
+                    :data="lineChartData" :labels="barChartLabels" :start-on-zero="startOnZero"
+                />
+            </div>
         `,
         data: () => ({
             lineChartData: [
