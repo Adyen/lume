@@ -171,5 +171,5 @@ export default function barMixinFactory(orientation = orientations.vertical, isS
             }
         }
     };
-};
+}
 

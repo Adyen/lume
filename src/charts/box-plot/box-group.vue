@@ -25,7 +25,7 @@
 
 <script>
 
-import Bar from '../core/bar.vue';
+import Bar from '@/core/bar.vue';
 const boxWidth = 100;
 
 export default {

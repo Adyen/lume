@@ -1,13 +1,13 @@
 <template>
   <div class="u-width-full u-height-full">
     <chart-container
-        :margins="margins"
+        :margins="computedMargins"
         @resize="$determineWidthAndHeight"
     >
       <bar
           v-if="hasNegativeValues"
-          :height="negativeHeight"
-          :width="width"
+          :height="height"
+          :width="xScale(0)"
           :transform="negativeTransform"
           fill-class="adv-fill-color-negative-values"
       />
@@ -16,12 +16,12 @@
             :scale="xScale"
             type="x"
             :container-size="containerSize"
+            :options="xAxisOptions"
         />
         <axis
             :scale="yScale"
             type="y"
             :container-size="containerSize"
-            :options="xAxisOptions"
         />
       </template>
       <bars-group
@@ -44,34 +44,49 @@
 </template>
 
 <script>
-import Bar from '../core/bar.vue';
-import BarsGroup from '../core/bars-group.vue';
-import baseMixinFactory from '../mixins/base-mixin.js';
-import ChartContainer from '../core/chart-container.vue';
 import { scaleBand } from 'd3-scale';
+import Bar from '@/core/bar.vue';
+import BarsGroup from '@/core/bars-group.vue';
+import ChartContainer from '@/core/chart-container.vue';
+import baseMixinFactory from '@/mixins/base-mixin.js';
+import { orientations } from '@/constants.js';
 
 const getColor = (bars, barIndex) => bars?.colors?.[barIndex] || `0${barIndex + 1}`;
+const defaultBarHeight = 20; // 12px
+const defaultLeftMargin = 80; // 80px
+const defaultRightMargin = 12; // 12px;
 
 export default {
   components: { Bar, BarsGroup, ChartContainer },
-  mixins: [baseMixinFactory()],
+  mixins: [baseMixinFactory(orientations.horizontal)],
   computed: {
-    xSubgroup() {
+    computedMargins() {
+      return {
+        ...this.margins,
+        left: defaultLeftMargin,
+        right: defaultRightMargin
+      }
+    },
+    ySubgroup() {
       return scaleBand()
-        .domain(this.paddedDataAsArray[0].map((value, index) => index))
-        .range([0, this.xScale.bandwidth()])
-        .padding([0])
+          .domain(this.paddedDataAsArray[0].map((value, index) => index))
+          .range([0, this.yScale.bandwidth()])
+          .padding([0])
     }
+  },
+  mounted() {
+    const height = this.data.length * (defaultBarHeight * 1.5);
+    this.$setHeight(height);
   },
   methods: {
     getBarsConfig(bars, index) {
       return bars.values.map((value, barIndex) => {
-        const yTranslation = value < 0 ? this.yScale(0) : this.yScale(value);
-        const height = value < 0 ? this.yScale(value) - this.yScale(0) : this.yScale(0) - this.yScale(value);
+        const xTranslation = value >= 0 ? this.xScale(0) : this.xScale(value);
+        const width = value < 0 ?  this.xScale(0) - this.xScale(value) : this.xScale(value) - this.xScale(0);
         return {
-          transform: `translate(${this.xScale(this.domain[index]) + this.xSubgroup(barIndex)}, ${yTranslation})`,
-          width: this.xSubgroup.bandwidth(),
-          height,
+          transform: `translate(${xTranslation}, ${this.yScale(this.domain[index]) + this.ySubgroup(barIndex)})`,
+          width,
+          height: this.ySubgroup.bandwidth(),
           fillClass: `adv-fill-color-${getColor(bars, barIndex)}`
         };
       });

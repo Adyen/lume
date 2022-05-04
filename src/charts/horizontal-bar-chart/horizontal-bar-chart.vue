@@ -24,11 +24,11 @@
             :container-size="containerSize"
         />
       </template>
-      <bars-group
-          v-for="(bars, index) in paddedData"
+      <bar-group
+          v-for="(bar, index) in paddedData"
           :key="`bar-group-${index}`"
-          :bars="getBarsConfig(bars, index)"
-          :overlay="$getOverlayConfig(bars, index)"
+          :bar="getBarConfig(bar, index)"
+          :overlay="$getOverlayConfig(bar, index)"
           :is-hovered="hoveredIndex === index"
           @mouseover="$handleMouseover(index, $event)"
           @mouseout="$handleMouseout"
@@ -38,26 +38,25 @@
         v-if="popoverConfig.opened"
         v-bind="popoverConfig"
     >
-      <span class="u-font-weight-semi-bold">{{ labels[hoveredIndex] }}</span>: {{ data[hoveredIndex].values }}
+      <span class="u-font-weight-semi-bold">{{ labels[hoveredIndex] }}</span>: {{ determinePopoverValue(data[hoveredIndex].value) }}
     </popover>
   </div>
 </template>
 
 <script>
-import Bar from '../core/bar.vue';
-import BarsGroup from '../core/bars-group.vue';
-import baseMixinFactory from '../mixins/base-mixin.js';
-import ChartContainer from '../core/chart-container.vue';
-import { scaleBand } from 'd3-scale';
-import { orientations } from '../constants.js';
+import BarGroup from '@/bar-chart/bar-group.vue';
+import Bar from '@/core/bar.vue';
+import ChartContainer from "@/core/chart-container.vue";
+import baseMixinFactory from '@/mixins/base-mixin.js';
+import { orientations } from '@/constants.js';
 
-const getColor = (bars, barIndex) => bars?.colors?.[barIndex] || `0${barIndex + 1}`;
-const defaultBarHeight = 20; // 12px
+const fallbackFillClass = '01';
+const defaultBarHeight = 20; // 20px
 const defaultLeftMargin = 80; // 80px
 const defaultRightMargin = 12; // 12px;
 
 export default {
-  components: { Bar, BarsGroup, ChartContainer },
+  components: { ChartContainer, Bar, BarGroup },
   mixins: [baseMixinFactory(orientations.horizontal)],
   computed: {
     computedMargins() {
@@ -66,12 +65,6 @@ export default {
         left: defaultLeftMargin,
         right: defaultRightMargin
       }
-    },
-    ySubgroup() {
-      return scaleBand()
-          .domain(this.paddedDataAsArray[0].map((value, index) => index))
-          .range([0, this.yScale.bandwidth()])
-          .padding([0])
     }
   },
   mounted() {
@@ -79,18 +72,19 @@ export default {
     this.$setHeight(height);
   },
   methods: {
-    getBarsConfig(bars, index) {
-      return bars.values.map((value, barIndex) => {
-        const xTranslation = value >= 0 ? this.xScale(0) : this.xScale(value);
-        const width = value < 0 ?  this.xScale(0) - this.xScale(value) : this.xScale(value) - this.xScale(0);
-        return {
-          transform: `translate(${xTranslation}, ${this.yScale(this.domain[index]) + this.ySubgroup(barIndex)})`,
-          width,
-          height: this.ySubgroup.bandwidth(),
-          fillClass: `adv-fill-color-${getColor(bars, barIndex)}`
-        };
-      });
+    getBarConfig({ value, color }, index) {
+      const xTranslation = value >= 0 ? this.xScale(0) : this.xScale(value);
+      const width = value < 0 ?  this.xScale(0) - this.xScale(value) : this.xScale(value) - this.xScale(0);
+      return {
+        transform: `translate(${xTranslation}, ${this.yScale(this.domain[index])})`,
+        width,
+        height: this.yScale.bandwidth(),
+        fillClass: `adv-fill-color-${color || this.barsConfig.color || fallbackFillClass}`,
+      };
     },
+    determinePopoverValue(value) {
+      return value ?? 'No data available';
+    }
   }
 };
 </script>

@@ -9,7 +9,7 @@
             class="adv-popover__symbol"
             :class="[
               `adv-popover__symbol--${item.type}`,
-              `adv-popover__symbol--color-${item.color}`
+              `adv-popover__symbol--color-${item.color || '01'}`
             ]"
           ></span>
           {{ item.legend }}

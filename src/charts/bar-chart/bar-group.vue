@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Bar from '../core/bar.vue';
+import Bar from '@/core/bar.vue';
 
 export default {
   components: { Bar },

@@ -44,10 +44,10 @@
 </template>
 
 <script>
-import baseMixinFactory from '../mixins/base-mixin.js';
+import baseMixinFactory from '@/mixins/base-mixin.js';
 import BarGroup from './bar-group.vue';
-import Bar from '../core/bar.vue';
-import ChartContainer from "../core/chart-container.vue";
+import Bar from '@/core/bar.vue';
+import ChartContainer from "@/core/chart-container.vue";
 
 const fallbackFillClass = '01';
 
@@ -71,9 +71,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.u-width-full {
-  width: 100%;
-}
-</style>

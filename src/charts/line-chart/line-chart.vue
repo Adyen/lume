@@ -73,7 +73,7 @@ import Popover from '@/core/popover';
 
 import LineGroup from './components/line-group.vue';
 
-import baseMixinFactory from '../mixins/base-mixin';
+import baseMixinFactory from '@/mixins/base-mixin';
 import OptionsMixin from '@/mixins/options';
 
 import config from './config';

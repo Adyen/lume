@@ -33,12 +33,12 @@
 </template>
 
 <script>
-import Axis from '../core/axis.vue';
-import ChartContainer from '../core/chart-container.vue';
-import BoxGroup from './box-group.vue';
 import { quantile, group, ascending } from 'd3-array';
 import { scaleLinear, scaleBand } from 'd3-scale';
-import Popover from '../core/popover';
+import Axis from '@/core/axis.vue';
+import ChartContainer from '@/core/chart-container.vue';
+import Popover from '@/core/popover';
+import BoxGroup from './box-group.vue';
 
 const boxWidth = 100;
 
