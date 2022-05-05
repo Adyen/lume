@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/vue';
 import { boolean, select } from '@storybook/addon-knobs';
-import { SizeKnobsMixin } from '@/utils/storybook-helpers';
+import { AxisOptionsMixin, SizeKnobsMixin, convertAxisPropsIntoOptions } from '@/utils/storybook-helpers';
 import LineChart from './line-chart.vue';
 import notes from './README.md';
 
@@ -30,6 +30,8 @@ storiesOf('Charts / Line chart', module)
                 type: Boolean,
                 default: boolean('Start on zero', true)
             },
+            ...AxisOptionsMixin('x'),
+            ...AxisOptionsMixin('y'),
             ...SizeKnobsMixin(),
         },
         computed: {
@@ -38,12 +40,18 @@ storiesOf('Charts / Line chart', module)
             },
             labels() {
                 return DATASETS[this.dataset].labels;
+            },
+            options() {
+                return {
+                    xAxisOptions: convertAxisPropsIntoOptions(this.$props, 'x'),
+                    yAxisOptions: convertAxisPropsIntoOptions(this.$props, 'y'),
+                }
             }
         },
         template: `
             <div :style="{ width: width + 'px', height: height + 'px' }">
                 <line-chart
-                    :data="data" :labels="labels" :start-on-zero="startOnZero"
+                    :data="data" :labels="labels" :options="options" :start-on-zero="startOnZero"
                 />
             </div>
         `,

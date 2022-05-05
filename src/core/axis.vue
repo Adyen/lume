@@ -5,6 +5,7 @@
 <script>
 import { axisBottom, axisLeft, axisRight, axisTop } from 'd3-axis';
 import { select } from 'd3-selection';
+import { format } from 'd3-format';
 
 import OptionsMixin from '@/mixins/options';
 
@@ -36,6 +37,11 @@ export default {
     //
     //// Tick settings
     //
+    /**
+     * Controls if the tick labels should be displayed.
+     * @type {Boolean}
+     */
+    showTicks: true,
     /** 
      * Amount of ticks to display in the axis.
      * @type {Number}
@@ -77,7 +83,8 @@ export default {
     }
   },
   watch: {
-    'scale': 'applyAxis'
+    'scale': 'applyAxis',
+    'allOptions': 'applyAxis',
   },
   computed: {
     computedPosition() {
@@ -91,7 +98,8 @@ export default {
       return axis
         .ticks(this.allOptions.tickCount)
         .tickSize(this.tickSize) // Used to draw grid lines
-        .tickPadding(this.allOptions.tickPadding);
+        .tickPadding(this.allOptions.tickPadding)
+        .tickFormat(this.tickFormat);
     },
     computedTransform() {
       if (this.transform) return this.transform;
@@ -103,6 +111,23 @@ export default {
         return this.computedType === 'y' ? width : height;
       }
       return 0;
+    },
+    tickFormat() {
+      const { showTicks, tickFormat } = this.allOptions;
+
+      // Hides ticks without hiding `gridLines`
+      if (showTicks === false) return '';
+
+      if (typeof tickFormat === 'string') {
+        const formatter = format(tickFormat);
+        return formatter;
+      }
+
+      if (typeof tickFormat === 'function') {
+        return tickFormat;
+      }
+
+      return null;
     },
     translateX() {
       const xValue = this.tickSize || this.containerSize.width || 0;
@@ -132,9 +157,9 @@ export default {
   methods: {
     applyAxis() {
       this.root
-          // NOTE: d3.js v6.6.2 can't apply transition, so suspending it for now.
-          // .transition()
-          ?.call(this.axis);
+        // NOTE: d3.js v6.6.2 can't apply transition, so suspending it for now.
+        // .transition()
+        ?.call(this.axis);
     },
   }
 }
