@@ -1,10 +1,14 @@
 module.exports = {
-  extends: ['eslint:recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:vue/recommended'
+  ],
   plugins: ['vue'],
-  rules: {},
+  rules: {
+    'vue/multi-word-component-names': 'off'
+  },
   parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: 'module'
+    parser: '@babel/eslint-parser',
   },
   env: {
     es6: true

@@ -2,12 +2,12 @@
   <g>
     <bar v-bind="bar" />
     <bar
-        v-if="overlay"
-        v-bind="overlay"
-        :fill-class="isHovered ? 'adv-fill-color-overlay' : 'adv-fill-color-transparent'"
-        :animate="false"
-        @mouseover.native="$emit('mouseover', $event)"
-        @mouseout.native="$emit('mouseout')"
+      v-if="overlay"
+      v-bind="overlay"
+      :fill-class="isHovered ? 'adv-fill-color-overlay' : 'adv-fill-color-transparent'"
+      :animate="false"
+      @mouseover.native="$emit('mouseover', $event)"
+      @mouseout.native="$emit('mouseout')"
     />
   </g>
 </template>

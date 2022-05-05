@@ -1,6 +1,14 @@
 <template>
-  <g :transform="transform" class="bar" :class="{ 'bar--transition': animate }">
-    <rect :height="height" :width="width" :class="[fillClass, { 'bar--transition': animate }]" />
+  <g
+    :transform="transform"
+    class="bar"
+    :class="{ 'bar--transition': animate }"
+  >
+    <rect
+      :height="height"
+      :width="width"
+      :class="[fillClass, { 'bar--transition': animate }]"
+    />
   </g>
 </template>
 

@@ -1,42 +1,42 @@
 <template>
   <div class="u-width-full u-height-full">
     <chart-container
-        :margins="computedMargins"
-        @resize="$determineWidthAndHeight"
+      :margins="computedMargins"
+      @resize="$determineWidthAndHeight"
     >
       <bar
-          v-if="hasNegativeValues"
-          :height="height"
-          :width="xScale(0)"
-          :transform="negativeTransform"
-          fill-class="adv-fill-color-negative-values"
+        v-if="hasNegativeValues"
+        :height="height"
+        :width="xScale(0)"
+        :transform="negativeTransform"
+        fill-class="adv-fill-color-negative-values"
       />
       <template v-if="showAxes">
         <axis
-            :scale="xScale"
-            type="x"
-            :container-size="containerSize"
-            :options="xAxisOptions"
+          :scale="xScale"
+          type="x"
+          :container-size="containerSize"
+          :options="xAxisOptions"
         />
         <axis
-            :scale="yScale"
-            type="y"
-            :container-size="containerSize"
+          :scale="yScale"
+          type="y"
+          :container-size="containerSize"
         />
       </template>
       <bar-group
-          v-for="(bar, index) in paddedData"
-          :key="`bar-group-${index}`"
-          :bar="getBarConfig(bar, index)"
-          :overlay="$getOverlayConfig(bar, index)"
-          :is-hovered="hoveredIndex === index"
-          @mouseover="$handleMouseover(index, $event)"
-          @mouseout="$handleMouseout"
+        v-for="(bar, index) in paddedData"
+        :key="`bar-group-${index}`"
+        :bar="getBarConfig(bar, index)"
+        :overlay="$getOverlayConfig(bar, index)"
+        :is-hovered="hoveredIndex === index"
+        @mouseover="$handleMouseover(index, $event)"
+        @mouseout="$handleMouseout"
       />
     </chart-container>
     <popover
-        v-if="popoverConfig.opened"
-        v-bind="popoverConfig"
+      v-if="popoverConfig.opened"
+      v-bind="popoverConfig"
     >
       <span class="u-font-weight-semi-bold">{{ labels[hoveredIndex] }}</span>: {{ determinePopoverValue(data[hoveredIndex].value) }}
     </popover>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import BarGroup from '@/bar-chart/bar-group.vue';
+import BarGroup from '@/charts/bar-chart/bar-group.vue';
 import Bar from '@/core/bar.vue';
 import ChartContainer from "@/core/chart-container.vue";
 import baseMixinFactory from '@/mixins/base-mixin.js';

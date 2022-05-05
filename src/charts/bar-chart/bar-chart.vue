@@ -1,6 +1,9 @@
 <template>
   <div class="u-width-full u-height-full">
-    <chart-container :margins="margins" @resize="$determineWidthAndHeight">
+    <chart-container
+      :margins="margins"
+      @resize="$determineWidthAndHeight"
+    >
       <bar
         v-if="hasNegativeValues"
         :height="negativeHeight"
@@ -11,13 +14,13 @@
       <template v-if="showAxes">
         <axis
           type="x"
-          v-bind:options="allOptions.xAxisOptions"
+          :options="allOptions.xAxisOptions"
           :scale="xScale"
           :container-size="containerSize"
         />
         <axis
           type="y"
-          v-bind:options="allOptions.yAxisOptions"
+          :options="allOptions.yAxisOptions"
           :scale="yScale"
           :container-size="containerSize"
         />
@@ -32,7 +35,10 @@
         @mouseout="$handleMouseout"
       />
     </chart-container>
-    <popover v-if="popoverConfig.opened" v-bind="popoverConfig">
+    <popover
+      v-if="popoverConfig.opened"
+      v-bind="popoverConfig"
+    >
       <span class="u-font-weight-semi-bold">{{ labels[hoveredIndex] }}</span>
       : {{ determinePopoverValue(data[hoveredIndex].value) }}
     </popover>

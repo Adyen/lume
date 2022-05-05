@@ -1,24 +1,24 @@
 <template>
   <g>
     <line
-        class="box-plot__line"
-        v-bind="boxGroup.verticalLine"
+      class="box-plot__line"
+      v-bind="boxGroup.verticalLine"
     />
     <rect
-        class="box-plot__box"
-        v-bind="boxGroup.box"
+      class="box-plot__box"
+      v-bind="boxGroup.box"
     />
     <line
-        class="box-plot__median"
-        v-bind="boxGroup.medianLine"
+      class="box-plot__median"
+      v-bind="boxGroup.medianLine"
     />
     <bar
-        v-if="overlay"
-        v-bind="overlay"
-        :fill-class="isHovered ? 'adv-fill-color-overlay' : 'adv-fill-color-transparent'"
-        :animate="false"
-        @mouseover.native="$emit('mouseover', $event)"
-        @mouseout.native="$emit('mouseout')"
+      v-if="overlay"
+      v-bind="overlay"
+      :fill-class="isHovered ? 'adv-fill-color-overlay' : 'adv-fill-color-transparent'"
+      :animate="false"
+      @mouseover.native="$emit('mouseover', $event)"
+      @mouseout.native="$emit('mouseout')"
     />
   </g>
 </template>
@@ -26,7 +26,6 @@
 <script>
 
 import Bar from '@/core/bar.vue';
-const boxWidth = 100;
 
 export default {
   components: { Bar },

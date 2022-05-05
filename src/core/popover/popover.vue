@@ -1,17 +1,29 @@
 <template>
-  <div class="adv-popover" :class="arrowClass">
+  <div
+    class="adv-popover"
+    :class="arrowClass"
+  >
     <slot>
       <!-- Default chart popover content -->
-      <div v-if="title" class="adv-popover__title">{{ title }}</div>
+      <div
+        v-if="title"
+        class="adv-popover__title"
+      >
+        {{ title }}
+      </div>
       <ul class="adv-popover__items">
-        <li v-for="item in items" :key="item.legend" class="adv-popover__item">
+        <li
+          v-for="item in items"
+          :key="item.legend"
+          class="adv-popover__item"
+        >
           <span
             class="adv-popover__symbol"
             :class="[
               `adv-popover__symbol--${item.type}`,
               `adv-popover__symbol--color-${item.color || '01'}`
             ]"
-          ></span>
+          />
           {{ item.legend }}
           <strong class="adv-popover__value">{{ item.value }}</strong>
         </li>
@@ -84,12 +96,6 @@ export default {
   data: () => ({
     popper: { state: {} }
   }),
-  mounted() {
-    this.initPopper();
-  },
-  beforeDestroy() {
-    this.destroyPopper();
-  },
   computed: {
     strategy() {
       return this.fixedPositioning ? 'fixed' : 'absolute';
@@ -114,6 +120,12 @@ export default {
   },
   watch: {
     targetElement: "updatePopper"
+  },
+  mounted() {
+    this.initPopper();
+  },
+  beforeDestroy() {
+    this.destroyPopper();
   },
   methods: {
     initPopper() {

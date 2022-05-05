@@ -1,14 +1,14 @@
 <template>
-    <circle
-        class="line-chart__point"
-        :class="`line-chart__point--color-${color}`"
-        :r="active ? radius : 0"
-        :cx="cx"
-        :cy="cy"
-        @click="$emit('point-click', index)"
-        @mouseover="$emit('point-mouseover', index)"
-        @mouseout="$emit('point-mouseout')"
-    />
+  <circle
+    class="line-chart__point"
+    :class="`line-chart__point--color-${color}`"
+    :r="active ? radius : 0"
+    :cx="cx"
+    :cy="cy"
+    @click="$emit('point-click', index)"
+    @mouseover="$emit('point-mouseover', index)"
+    @mouseout="$emit('point-mouseout')"
+  />
 </template>
 
 <script>

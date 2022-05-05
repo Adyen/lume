@@ -1,23 +1,23 @@
 <template>
-    <g>
-        <path
-            class="line-chart__line"
-            :class="{
-                [`line-chart__line--color-${color}`]: true,
-                ['line-chart__line--active']: active,
-                ['line-chart__line--dashed']: dashed,
-            }"
-            :d="pathDefinition"
-        />
-        <!-- Ghost path to facilitate hover functions -->
-        <path
-            class="line-chart__ghost-line"
-            :d="pathDefinition"
-            @click="$emit('line-click', index)"
-            @mouseover="$emit('line-mouseover', index)"
-            @mouseout="$emit('line-mouseout')"
-        />
-    </g>
+  <g>
+    <path
+      class="line-chart__line"
+      :class="{
+        [`line-chart__line--color-${color}`]: true,
+        ['line-chart__line--active']: active,
+        ['line-chart__line--dashed']: dashed,
+      }"
+      :d="pathDefinition"
+    />
+    <!-- Ghost path to facilitate hover functions -->
+    <path
+      class="line-chart__ghost-line"
+      :d="pathDefinition"
+      @click="$emit('line-click', index)"
+      @mouseover="$emit('line-mouseover', index)"
+      @mouseout="$emit('line-mouseout')"
+    />
+  </g>
 </template>
 
 <script>
@@ -60,8 +60,7 @@ export default {
         pathDefinition() {
             return line()
                 .x((_, i) => this.xScale(this.domain[this.index + (i - 1)]) + this.xAxisOffset)
-                .y((d) => this.yScale(d))
-                (this.values);
+                .y((d) => this.yScale(d))(this.values);
         },
         xAxisOffset() {
             return this.xScale.bandwidth() / 2;

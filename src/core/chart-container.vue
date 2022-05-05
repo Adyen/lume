@@ -1,12 +1,15 @@
 <template>
-    <svg class="container" :class="{ 'container--transparent-background': transparentBackground }">
-        <g
-            :transform="`translate(${computedMargin.left}, ${computedMargin.top})`"
-            class="container__group"
-        >
-            <slot :container-size="containerSize" />
-        </g>
-    </svg>
+  <svg
+    class="container"
+    :class="{ 'container--transparent-background': transparentBackground }"
+  >
+    <g
+      :transform="`translate(${computedMargin.left}, ${computedMargin.top})`"
+      class="container__group"
+    >
+      <slot :container-size="containerSize" />
+    </g>
+  </svg>
 </template>
 
 <script>
@@ -51,10 +54,8 @@ export default {
     },
     watch: {
         margins: {
-            handler(newValue, oldValue) {
-                if (!isEqual(newValue, oldValue)) {
-                    this.updateContainerSize(true);
-                }
+            handler() {
+                this.updateContainerSize(true);
             },
             deep: true,
         },
@@ -94,9 +95,9 @@ export default {
     }
 
     &__group {
-      transition-property: transform;
-      transition-timing-function: ease-in-out;
-      transition-duration: $chart-transition-time;
+        transition-property: transform;
+        transition-timing-function: ease-in-out;
+        transition-duration: $chart-transition-time;
     }
 }
 </style>

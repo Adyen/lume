@@ -5,7 +5,8 @@
   "scripts": {
     "unit": "jest --config=test/config/jest.config.js",
     "start": "webpack --watch --colors --progress | webpack-dev-server --port 8888 --hot --inline",
-    "lint": "eslint ./src --ext .js",
+    "lint": "eslint ./src --ext .js,.vue",
+    "lint:fix": "npm run lint -- --fix",
     "storybook": "start-storybook -p 9001 -c .storybook -s public"
   },
   "dependencies": {
@@ -16,6 +17,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",
+    "@babel/eslint-parser": "^7.17.0",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.16.5",
     "@babel/plugin-proposal-optional-chaining": "^7.16.5",
     "@babel/preset-env": "^7.1.6",

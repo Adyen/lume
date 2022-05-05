@@ -1,31 +1,37 @@
 <template>
-    <g class="line-chart__line-group" :class="isHovered && 'line-chart__line-group--hover'">
-        <g v-for="(_, index) in values" :key="`line-${index}`">
-            <line-point
-                :x-scale="xScale"
-                :y-scale="yScale"
-                :value="getPointValue(index)"
-                :index="index"
-                :color="color"
-                :active="isPointActive(index)"
-                @point-click="isSelected = !isSelected"
-                @line-mouseover="isHovered = true"
-                @point-mouseout="isHovered = false"
-            />
-            <chart-line
-                :x-scale="xScale"
-                :y-scale="yScale"
-                :values="getLineValues(index)"
-                :index="index"
-                :color="color"
-                :active="isHovered || isSelected"
-                :dashed="isDashed(index)"
-                @line-click="isSelected = !isSelected"
-                @line-mouseover="isHovered = true"
-                @line-mouseout="isHovered = false"
-            />
-        </g>
+  <g
+    class="line-chart__line-group"
+    :class="isHovered && 'line-chart__line-group--hover'"
+  >
+    <g
+      v-for="(_, index) in values"
+      :key="`line-${index}`"
+    >
+      <line-point
+        :x-scale="xScale"
+        :y-scale="yScale"
+        :value="getPointValue(index)"
+        :index="index"
+        :color="color"
+        :active="isPointActive(index)"
+        @point-click="isSelected = !isSelected"
+        @line-mouseover="isHovered = true"
+        @point-mouseout="isHovered = false"
+      />
+      <chart-line
+        :x-scale="xScale"
+        :y-scale="yScale"
+        :values="getLineValues(index)"
+        :index="index"
+        :color="color"
+        :active="isHovered || isSelected"
+        :dashed="isDashed(index)"
+        @line-click="isSelected = !isSelected"
+        @line-mouseover="isHovered = true"
+        @line-mouseout="isHovered = false"
+      />
     </g>
+  </g>
 </template>
 
 <script>

@@ -1,5 +1,9 @@
 <template>
-  <g ref="root" class="axis" :transform.native="this.computedTransform"></g>
+  <g
+    ref="root"
+    class="axis"
+    :transform="computedTransform"
+  />
 </template>
 
 <script>
@@ -82,10 +86,6 @@ export default {
       default: null
     }
   },
-  watch: {
-    'scale': 'applyAxis',
-    'allOptions': 'applyAxis',
-  },
   computed: {
     computedPosition() {
       return this.type ? TYPES[this.type] : this.position;
@@ -149,6 +149,10 @@ export default {
 
       return 0;
     }
+  },
+  watch: {
+    'scale': 'applyAxis',
+    'allOptions': 'applyAxis',
   },
   mounted() {
     this.root = select(this.$refs.root);

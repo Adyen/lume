@@ -2,51 +2,32 @@
   <div class="root">
     <h1>Chart showroom</h1>
     <div class="row">
-      <line-chart
-          :data="lineChartData"
-          :labels="barChartLabels"
-      />
-      <bar-chart
-          :data="barChartData"
-          :labels="barChartLabels"
-          :bars-config="barsConfig"
-      />
-      <stacked-bar-chart
-          :data="stackedBarChartData"
-          :labels="barChartLabels"
-      />
-      <grouped-bar-chart
-          :data="stackedBarChartData"
-          :labels="barChartLabels"
-      />
+      <line-chart :data="lineChartData" :labels="barChartLabels" />
+      <bar-chart :data="barChartData" :labels="barChartLabels" :bars-config="barsConfig" />
+      <stacked-bar-chart :data="stackedBarChartData" :labels="barChartLabels" />
+      <grouped-bar-chart :data="stackedBarChartData" :labels="barChartLabels" />
     </div>
     <div class="row">
       <horizontal-bar-chart
-          :data="barChartData"
-          :labels="barChartLabels"
-          :bars-config="barsConfig"
+        :data="barChartData"
+        :labels="barChartLabels"
+        :bars-config="barsConfig"
       />
-      <horizontal-stacked-bar-chart
-          :data="stackedBarChartData"
-          :labels="barChartLabels"
-      />
-      <horizontal-grouped-bar-chart
-          :data="stackedBarChartData"
-          :labels="barChartLabels"
-      />
+      <horizontal-stacked-bar-chart :data="stackedBarChartData" :labels="barChartLabels" />
+      <horizontal-grouped-bar-chart :data="stackedBarChartData" :labels="barChartLabels" />
       <div class="u-width-full"></div>
     </div>
   </div>
 </template>
 
 <script>
-import BarChart from '@/bar-chart/bar-chart.vue';
-import StackedBarChart from '@/stacked-bar-chart/stacked-bar-chart.vue';
-import GroupedBarChart from '@/grouped-bar-chart/grouped-bar-chart.vue';
-import LineChart from '@/line-chart/line-chart.vue';
-import HorizontalBarChart from '@/horizontal-bar-chart/horizontal-bar-chart.vue';
-import HorizontalStackedBarChart from '@/horizontal-stacked-bar-chart/horizontal-stacked-bar-chart.vue';
-import HorizontalGroupedBarChart from '@/horizontal-grouped-bar-chart/horizontal-grouped-bar-chart.vue';
+import BarChart from '@/charts/bar-chart/bar-chart.vue';
+import StackedBarChart from '@/charts/stacked-bar-chart/stacked-bar-chart.vue';
+import GroupedBarChart from '@/charts/grouped-bar-chart/grouped-bar-chart.vue';
+import LineChart from '@/charts/line-chart/line-chart.vue';
+import HorizontalBarChart from '@/charts/horizontal-bar-chart/horizontal-bar-chart.vue';
+import HorizontalStackedBarChart from '@/charts/horizontal-stacked-bar-chart/horizontal-stacked-bar-chart.vue';
+import HorizontalGroupedBarChart from '@/charts/horizontal-grouped-bar-chart/horizontal-grouped-bar-chart.vue';
 
 export default {
   components: {
@@ -82,7 +63,7 @@ export default {
       { values: [ -50, 30, 20 ] }
     ],
     barChartLabels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-    barsConfig: { color: '03' }
+    barsConfig: { color: '03', legend: 'Hot dogs' }
   })
 };
 </script>
