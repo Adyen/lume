@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "description": "Data visualization is the graphical representation of information and data. By using visual elements like charts, graphs, and maps, data visualization repository provide an accessible way to see and understand trends, outliers, and patterns in data.",
   "scripts": {
+    "confighooks": "git config core.hooksPath ./git-hooks",
+    "postinstall": "npm run confighooks && echo \" ✔ Git hooks path configured to ./git-hooks\"",
     "unit": "jest --config=test/config/jest.config.js",
     "start": "webpack --watch --colors --progress | webpack-dev-server --port 8888 --hot --inline",
     "lint": "eslint ./src --ext .js,.vue",
