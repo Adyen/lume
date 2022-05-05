@@ -18,7 +18,7 @@ const DATASETS = {
     }
 }
 
-storiesOf('Charts / Line chart', module)
+storiesOf('Charts / Line chart', module) // eslint-disable-line
     .add('Basic', () => ({
         components: { LineChart },
         props: {

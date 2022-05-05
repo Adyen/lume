@@ -1,17 +1,19 @@
 import { storiesOf } from '@storybook/vue';
-import { SizeKnobsMixin } from '@/utils/storybook-helpers';
+import { AxisOptionsMixin, SizeKnobsMixin, convertAxisPropsIntoOptions } from '@/utils/storybook-helpers';
 import BarChart from './bar-chart.vue';
 
-storiesOf('Charts / Bar chart', module)
+storiesOf('Charts / Bar chart', module) // eslint-disable-line
     .add('Basic', () => ({
         components: { BarChart },
         props: {
+            ...AxisOptionsMixin('x'),
+            ...AxisOptionsMixin('y'),
             ...SizeKnobsMixin(),
         },
         template: `
             <div :style="{ width: width + 'px', height: height + 'px' }">
                 <bar-chart
-                    :data="data" :labels="labels"
+                    :data="data" :labels="labels" :options="options"
                 />
             </div>
         `,
@@ -26,5 +28,13 @@ storiesOf('Charts / Bar chart', module)
                 { value: -26 }
             ],
             labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-        })
+        }),
+        computed: {
+            options() {
+                return {
+                    xAxisOptions: convertAxisPropsIntoOptions(this.$props, 'x'),
+                    yAxisOptions: convertAxisPropsIntoOptions(this.$props, 'y'),
+                }
+            }
+        }
     }));
