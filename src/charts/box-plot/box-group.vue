@@ -16,7 +16,7 @@
       v-if="overlay"
       v-bind="overlay"
       :fill-class="isHovered ? 'adv-fill-color-overlay' : 'adv-fill-color-transparent'"
-      :animate="false"
+      :animate="true"
       @mouseover.native="$emit('mouseover', $event)"
       @mouseout.native="$emit('mouseout')"
     />
