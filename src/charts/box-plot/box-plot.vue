@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="u-width-full u-height-full">
     <chart-container
       :margins="margins"
       @resize="containerSize = $event"
