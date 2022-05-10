@@ -23,7 +23,7 @@ export default {
     xScale() {
       return scaleLinear()
         .range([0, this.containerSize.width])
-        .domain([0, this.labels.length - 1])
+        .domain([0, this.values.length - 1])
     },
     /**
      * @returns {Function} The y axis scale (linear scale) for sparkline charts.

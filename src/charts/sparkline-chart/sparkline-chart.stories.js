@@ -7,8 +7,7 @@ const DATASETS = {
   Simple: {
     data: [
       { values: [12, 14, 8, 10, 20, 9, 8, 4, 12, -4, -8, 0, 15, 8, 9, 10], color: '01', legend: 'Hamburgers' },
-    ],
-    labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    ]
   },
   'Null values': {
     data: [
@@ -16,6 +15,17 @@ const DATASETS = {
     ],
     labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
   },
+}
+
+const COLORS = {
+  Default: null,
+  '01': '01',
+  '02': '02',
+  '03': '03',
+  '04': '04',
+  '05': '05',
+  '06': '06',
+  '07': '07',
 }
 
 storiesOf('Charts / Sparkline chart', module) // eslint-disable-line
@@ -26,11 +36,22 @@ storiesOf('Charts / Sparkline chart', module) // eslint-disable-line
         type: String,
         default: select('Dataset', Object.keys(DATASETS), Object.keys(DATASETS)[0]),
       },
+      color: {
+        type: String,
+        default: select('Color', COLORS),
+      },
+      areaColor: {
+        type: String,
+        default: select('Area color', COLORS),
+      },
       ...SizeKnobsMixin(300, 80),
     },
     computed: {
       data() {
-        return DATASETS[this.dataset].data;
+        const dataset = JSON.parse(JSON.stringify(DATASETS[this.dataset].data)); // Deep copy dataset array
+        if (this.color) dataset[0].color = this.color;
+        if (this.areaColor) dataset[0].areaColor = this.areaColor;
+        return dataset;
       },
       labels() {
         return DATASETS[this.dataset].labels;

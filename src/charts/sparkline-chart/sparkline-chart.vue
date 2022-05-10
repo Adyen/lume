@@ -21,6 +21,21 @@
         fill-class="adv-fill-color-negative-values"
       />
 
+      <!-- Ghost bars for popover target -->
+      <g>
+        <bar
+          v-for="(_, index) in values"
+          ref="ghostBars"
+          :key="`ghost-${index}`"
+          :width="xScale(1)"
+          :height="yScale(minValue)"
+          :transform="ghostBarTransform(index)"
+          fill-class="adv-fill-color-transparent"
+          :animate="false"
+          @mouseover.native="hoveredIndex = index"
+        />
+      </g>
+
       <!-- Line -->
       <path
         v-for="(d, i) in values"
@@ -34,6 +49,20 @@
         :d="linePathDefinition(i)"
       />
     </chart-container>
+
+    <popover
+      v-if="isPopoverOpened"
+      position="top"
+      :opened="isPopoverOpened"
+      :target-element="activeOverlayBar"
+      :title="labels ? labels[hoveredIndex] : null"
+      :items="getPopoverItems(hoveredIndex)"
+    >
+      <slot
+        name="popover"
+        :index="hoveredIndex"
+      />
+    </popover>
   </div>
 </template>
 
@@ -41,6 +70,7 @@
 import { line, area } from 'd3-shape';
 
 import ChartContainer from '@/core/chart-container.vue';
+import Popover from '@/core/popover';
 import Bar from '@/core/bar.vue';
 
 import BaseMixinFactory from '@/mixins/base-mixin';
@@ -50,9 +80,10 @@ import LineNullValuesMixin from "@/mixins/line-null-values";
 import SparklineScalesMixin from './mixins/sparkline-scales';
 
 import config from './config';
+import { NO_DATA } from '@/constants';
 
 export default {
-  components: { Bar, ChartContainer },
+  components: { Bar, ChartContainer, Popover },
   mixins: [
     BaseMixinFactory(),
     SparklineScalesMixin,
@@ -102,6 +133,12 @@ export default {
         .x((_, i) => this.xScale(i))
         .y0(this.yScale(0))
         .y1((d) => this.yScale(d)))(this.computedLineValues);
+    },
+    activeOverlayBar() {
+      return this.$refs.ghostBars?.[this.hoveredIndex]?.$el;
+    },
+    isPopoverOpened() {
+      return this.hoveredIndex >= 0;
     }
   },
   methods: {
@@ -115,6 +152,17 @@ export default {
         .x((_, i) => this.xScale((index + i) - 1))
         .y((d) => this.yScale(d))(this.getLineValues(index));
     },
+    ghostBarTransform(index) {
+      return `translate(${this.xScale(index)}, 0)`;
+    },
+    getPopoverItems(index) {
+      return this.data.map(({ color, legend, values }) => ({
+        type: 'line',
+        color,
+        legend,
+        value: values[index] ?? NO_DATA
+      }));
+    }
   }
 }
 </script>
