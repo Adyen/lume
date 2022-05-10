@@ -24,48 +24,47 @@
 import { line } from 'd3-shape';
 
 export default {
-    props: {
-        color: {
-            type: String,
-            default: '01',
-        },
-        index: {
-            type: Number,
-            required: true,
-        },
-        values: {
-            type: Array,
-            required: true,
-        },
-        active: {
-            type: Boolean,
-            default: false,
-        },
-        dashed: {
-            type: Boolean,
-            default: false,
-        },
-        xScale: {
-            type: Function,
-            required: true,
-        },
-        yScale: {
-            type: Function,
-            required: true,
-        },
+  props: {
+    color: {
+      type: String,
+      default: '01',
     },
-    data: () => ({}),
-    computed: {
-        domain() { return this.xScale.domain(); },
-        pathDefinition() {
-            return line()
-                .x((_, i) => this.xScale(this.domain[this.index + (i - 1)]) + this.xAxisOffset)
-                .y((d) => this.yScale(d))(this.values);
-        },
-        xAxisOffset() {
-            return this.xScale.bandwidth() / 2;
-        }
+    index: {
+      type: Number,
+      required: true,
     },
+    values: {
+      type: Array,
+      required: true,
+    },
+    active: {
+      type: Boolean,
+      default: false,
+    },
+    dashed: {
+      type: Boolean,
+      default: false,
+    },
+    xScale: {
+      type: Function,
+      required: true,
+    },
+    yScale: {
+      type: Function,
+      required: true,
+    },
+  },
+  data: () => ({}),
+  computed: {
+    pathDefinition() {
+      return line()
+        .x((_, i) => this.xScale(this.xScale.domain()[this.index + (i - 1)]) + this.xAxisOffset)
+        .y((d) => this.yScale(d))(this.values);
+    },
+    xAxisOffset() {
+      return this.xScale.bandwidth() / 2;
+    }
+  },
 };
 </script>
 
@@ -77,38 +76,38 @@ $line-stroke-hover-width: 4px;
 $ghost-line-stroke-width: 8px;
 
 .line-chart__line {
-    stroke-width: $line-stroke-width;
-    stroke-linejoin: round;
-    stroke-linecap: round;
-    fill: none;
-    transition: all $chart-transition-time ease;
+  stroke-width: $line-stroke-width;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  fill: none;
+  transition: all $chart-transition-time ease;
 
-    @each $color, $map in $chart-colors {
-        &--color-#{$color} {
-            stroke: nth($map, 1);
-        }
+  @each $color, $map in $chart-colors {
+    &--color-#{$color} {
+      stroke: nth($map, 1);
     }
+  }
 
-    &--active {
-        stroke-width: $line-stroke-hover-width;
-    }
+  &--active {
+    stroke-width: $line-stroke-hover-width;
+  }
 
-    &--dashed {
-        stroke-dasharray: 2%;
-    }
+  &--dashed {
+    stroke-dasharray: 2%;
+  }
 }
 
 .line-chart__ghost-line {
-    stroke-width: $ghost-line-stroke-width;
-    stroke-linejoin: round;
-    stroke-linecap: round;
-    fill: none;
-    stroke: rgba(
-        0,
-        0,
-        0,
-        0
-    ); /* Needs a stroke value to be able to act, set with 0 opacity to hide it */
-    cursor: pointer;
+  stroke-width: $ghost-line-stroke-width;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  fill: none;
+  stroke: rgba(
+    0,
+    0,
+    0,
+    0
+  ); /* Needs a stroke value to be able to act, set with 0 opacity to hide it */
+  cursor: pointer;
 }
 </style>

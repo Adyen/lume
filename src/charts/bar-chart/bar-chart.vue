@@ -46,8 +46,10 @@
 </template>
 
 <script>
-import baseMixinFactory from '@/mixins/base-mixin.js';
+import BaseMixinFactory from '@/mixins/base-mixin';
+import NegativeValuesMixin from '@/mixins/negative-values';
 import OptionsMixin from '@/mixins/options';
+import BarMixin from './mixins/bar-mixin';
 import BarGroup from './bar-group.vue';
 import Bar from '@/core/bar.vue';
 import ChartContainer from "@/core/chart-container.vue";
@@ -56,7 +58,7 @@ const fallbackFillClass = '01';
 
 export default {
   components: { ChartContainer, Bar, BarGroup },
-  mixins: [baseMixinFactory(), OptionsMixin({
+  mixins: [BaseMixinFactory(), BarMixin(), NegativeValuesMixin, OptionsMixin({
     xAxisOptions: {},
     yAxisOptions: { gridLines: true },
   })],

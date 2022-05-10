@@ -73,8 +73,10 @@ import Bar from '@/core/bar.vue';
 import ChartContainer from '@/core/chart-container.vue';
 import Popover from '@/core/popover';
 
-import baseMixinFactory from '@/mixins/base-mixin';
+import BaseMixinFactory from '@/mixins/base-mixin';
 import OptionsMixin from '@/mixins/options';
+import LineScalesMixin from './mixins/line-scales';
+import NegativeValuesMixin from '@/mixins/negative-values';
 
 import LineGroup from './components/line-group.vue';
 
@@ -82,41 +84,41 @@ import config from './config';
 import { NO_DATA } from '@/constants';
 
 export default {
-    components: { Axis, Bar, ChartContainer, LineGroup, Popover },
-    mixins: [baseMixinFactory(), OptionsMixin({
-        showAxes: true,
-        xAxisOptions: {},
-        yAxisOptions: { gridLines: true },
-    })],
-    data: () => ({
-        hoveredIndex: -1,
-    }),
-    computed: {
-        computedMargin() {
-            return {
-                ...this.margins,
-                ...config.margins,
-            }
-        },
-        activeOverlayBar() {
-            return this.$refs.overlayBars?.[this.hoveredIndex]?.$el;
-        },
-        isPopoverOpened() {
-            return this.hoveredIndex >= 0;
-        }
+  components: { Axis, Bar, ChartContainer, LineGroup, Popover },
+  mixins: [BaseMixinFactory(), LineScalesMixin(), NegativeValuesMixin, OptionsMixin({
+    showAxes: true,
+    xAxisOptions: {},
+    yAxisOptions: { gridLines: true },
+  })],
+  data: () => ({
+    hoveredIndex: -1,
+  }),
+  computed: {
+    computedMargin() {
+      return {
+        ...this.margins,
+        ...config.margins,
+      }
     },
-    methods: {
-        getLineTranslation(index) {
-            return `translate(${this.xScale(this.domain[index])}, 0)`;
-        },
-        getPopoverItems(index) {
-            return this.data.map(({ color, legend, values }) => ({
-                type: 'line',
-                color,
-                legend,
-                value: values[index] ?? NO_DATA
-            }));
-        }
+    activeOverlayBar() {
+      return this.$refs.overlayBars?.[this.hoveredIndex]?.$el;
+    },
+    isPopoverOpened() {
+      return this.hoveredIndex >= 0;
     }
+  },
+  methods: {
+    getLineTranslation(index) {
+      return `translate(${this.xScale(this.xScale.domain()[index])}, 0)`;
+    },
+    getPopoverItems(index) {
+      return this.data.map(({ color, legend, values }) => ({
+        type: 'line',
+        color,
+        legend,
+        value: values[index] ?? NO_DATA
+      }));
+    }
+  }
 }
 </script>
