@@ -6,11 +6,13 @@
     >
       <axis
         type="y"
+        :options="allOptions.yAxisOptions"
         :scale="yScale"
         :container-size="containerSize"
       />
       <axis
         type="x"
+        :options="allOptions.xAxisOptions"
         :scale="xScale"
         :container-size="containerSize"
       />
@@ -46,11 +48,15 @@ import Axis from '@/core/axis.vue';
 import ChartContainer from '@/core/chart-container.vue';
 import Popover from '@/core/popover';
 import BoxGroup from './box-group.vue';
+import OptionsMixin from '@/mixins/options';
 
-const boxWidth = 100;
 
 export default {
   components: { Axis, ChartContainer, BoxGroup, Popover },
+  mixins: [OptionsMixin({
+    xAxisOptions: {},
+    yAxisOptions: { gridLines: true },
+  })],
   props: {
     margins: {
       type: Object,
@@ -86,6 +92,9 @@ export default {
         .domain(this.domain)
         .paddingInner(1)
         .paddingOuter(.5);
+    },
+    boxWidth() {
+      return this.containerSize.width/(1.3 * this.domain.length);
     },
     yScale() {
       return scaleLinear()
@@ -130,14 +139,14 @@ export default {
           y2: this.yScale(quantile.max)
         },
         box: {
-          x: this.xScale(quantile.key) - boxWidth / 2,
+          x: this.xScale(quantile.key) - this.boxWidth / 2,
           y: this.yScale(quantile.q3),
           height: this.yScale(quantile.q1) - this.yScale(quantile.q3),
-          width: boxWidth
+          width: this.boxWidth
         },
         medianLine: {
-          x1: this.xScale(quantile.key) - boxWidth / 2,
-          x2: this.xScale(quantile.key) + boxWidth / 2,
+          x1: this.xScale(quantile.key) - this.boxWidth / 2,
+          x2: this.xScale(quantile.key) + this.boxWidth / 2,
           y1: this.yScale(quantile.median),
           y2: this.yScale(quantile.median)
         }
@@ -161,8 +170,8 @@ export default {
     },
     $getOverlayConfig(index) {
       return {
-        transform: `translate(${this.xScale(this.domain[index]) - boxWidth / 2}, 0)`,
-        width: this.xScale.step() - boxWidth / 4,
+        transform: `translate(${this.xScale(this.domain[index]) - this.boxWidth / 2}, 0)`,
+        width: this.xScale.step() - this.boxWidth / 4,
         height: this.containerSize.height
       };
     },
