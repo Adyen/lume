@@ -13,15 +13,16 @@
       />
       <template v-if="allOptions.showAxes">
         <axis
-          :scale="xScale"
           type="x"
+          :scale="xScale"
           :container-size="containerSize"
-          :options="xAxisOptions"
+          :options="allOptions.xAxisOptions"
         />
         <axis
-          :scale="yScale"
           type="y"
+          :scale="yScale"
           :container-size="containerSize"
+          :options="allOptions.yAxisOptions"
         />
       </template>
       <bar-group
@@ -46,10 +47,19 @@
 <script>
 import BarGroup from '@/charts/bar-chart/bar-group.vue';
 import Bar from '@/core/bar.vue';
-import ChartContainer from "@/core/chart-container.vue";
-import BaseMixin from '@/mixins/base-mixin.js';
+import ChartContainer from '@/core/chart-container.vue';
+import Popover from '@/core/popover';
+
+import BarMixin from '@/charts/bar-chart/mixins/bar-mixin';
+import BarOverlay from '@/charts/bar-chart/mixins/bar-overlay';
+import BaseMixin from '@/mixins/base-mixin';
+import ConfigMixin from '@/mixins/config';
 import HorizontalMixin from '@/mixins/horizontal';
-import { orientations } from '@/constants.js';
+import NegativeValues from '@/mixins/negative-values';
+import OptionsMixin from '@/mixins/options';
+
+import { orientations } from '@/constants';
+import { config, options } from './defaults';
 
 const fallbackFillClass = '01';
 const defaultBarHeight = 20; // 20px
@@ -57,16 +67,24 @@ const defaultLeftMargin = 80; // 80px
 const defaultRightMargin = 12; // 12px;
 
 export default {
-  components: { ChartContainer, Bar, BarGroup },
-  mixins: [BaseMixin(orientations.horizontal), HorizontalMixin],
+  components: { ChartContainer, Bar, BarGroup, Popover },
+  mixins: [
+    BaseMixin(orientations.horizontal),
+    BarMixin(),
+    BarOverlay,
+    ConfigMixin(config),
+    HorizontalMixin,
+    NegativeValues,
+    OptionsMixin(options),
+  ],
   computed: {
     computedMargins() {
       return {
         ...this.margins,
         left: defaultLeftMargin,
-        right: defaultRightMargin
-      }
-    }
+        right: defaultRightMargin,
+      };
+    },
   },
   mounted() {
     const height = this.data.length * (defaultBarHeight * 1.5);
@@ -75,17 +93,24 @@ export default {
   methods: {
     getBarConfig({ value, color }, index) {
       const xTranslation = value >= 0 ? this.xScale(0) : this.xScale(value);
-      const width = value < 0 ?  this.xScale(0) - this.xScale(value) : this.xScale(value) - this.xScale(0);
+      const width =
+        value < 0
+          ? this.xScale(0) - this.xScale(value)
+          : this.xScale(value) - this.xScale(0);
       return {
-        transform: `translate(${xTranslation}, ${this.yScale(this.domain[index])})`,
+        transform: `translate(${xTranslation}, ${this.yScale(
+          this.domain[index]
+        )})`,
         width,
         height: this.yScale.bandwidth(),
-        fillClass: `adv-fill-color-${color || this.barsConfig.color || fallbackFillClass}`,
+        fillClass: `adv-fill-color-${
+          color || this.barsConfig.color || fallbackFillClass
+        }`,
       };
     },
     determinePopoverValue(value) {
       return value ?? 'No data available';
-    }
-  }
+    },
+  },
 };
 </script>
