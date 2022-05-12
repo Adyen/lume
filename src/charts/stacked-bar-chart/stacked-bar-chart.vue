@@ -11,7 +11,7 @@
         :transform="negativeTransform"
         fill-class="adv-fill-color-negative-values"
       />
-      <template v-if="showAxes">
+      <template v-if="allOptions.showAxes">
         <axis
           :scale="xScale"
           type="x"
@@ -28,7 +28,7 @@
         v-for="(bars, index) in paddedData"
         :key="`bar-group-${index}`"
         :bars="getBarsConfig(bars, index)"
-        :overlay="$getOverlayConfig(bars, index)"
+        :overlay="$getOverlayConfig(index)"
         :is-hovered="hoveredIndex === index"
         @mouseover="$handleMouseover(index, $event)"
         @mouseout="$handleMouseout"
@@ -47,50 +47,69 @@
 import Bar from '@/core/bar.vue';
 import BarsGroup from '@/core/bars-group.vue';
 import ChartContainer from '@/core/chart-container.vue';
-import baseMixinFactory from '@/mixins/base-mixin.js';
+import BaseMixin from '@/mixins/base-mixin.js';
+import BarMixin from '@/charts/bar-chart/mixins/bar-mixin';
 import { orientations } from '@/constants.js';
 
-const getColor = (sourceBars, bar) => sourceBars?.colors?.[bar.index] || `0${bar.index + 1}`;
+const getColor = (sourceBars, bar) =>
+  sourceBars?.colors?.[bar.index] || `0${bar.index + 1}`;
 
 export default {
   components: { Bar, BarsGroup, ChartContainer },
-  mixins: [baseMixinFactory(orientations.vertical, true)],
+  mixins: [BaseMixin(orientations.vertical), BarMixin(true)],
   methods: {
     mapBelowZeroBars(bars, barsIndex, sourceBars) {
       return bars.reduce((acc, bar) => {
-        const offsetY = acc.map(({ height }) => height).reduce((sum, curr) => sum + curr, 0);
-        return [...acc, {
-          transform: `translate(${this.xScale(this.domain[barsIndex])}, ${this.yScale(0) + offsetY})`,
-          width: this.xScale.bandwidth(),
-          height: this.yScale(bar.value) - this.yScale(0),
-          fillClass: `adv-fill-color-${getColor(sourceBars, bar)}`
-        }];
+        const offsetY = acc
+          .map(({ height }) => height)
+          .reduce((sum, curr) => sum + curr, 0);
+        return [
+          ...acc,
+          {
+            transform: `translate(${this.xScale(this.domain[barsIndex])}, ${
+              this.yScale(0) + offsetY
+            })`,
+            width: this.xScale.bandwidth(),
+            height: this.yScale(bar.value) - this.yScale(0),
+            fillClass: `adv-fill-color-${getColor(sourceBars, bar)}`,
+          },
+        ];
       }, []);
     },
     mapNonBelowZeroBars(bars, barsIndex, sourceBars) {
       return bars.reduce((acc, bar) => {
-        const offsetY = acc.map(({ height }) => height).reduce((sum, curr) => sum + curr, 0);
-        return [...acc, {
-          transform: `translate(${this.xScale(this.domain[barsIndex])}, ${this.yScale(bar.value) - offsetY})`,
-          width: this.xScale.bandwidth(),
-          height: this.yScale(0) - this.yScale(bar.value),
-          fillClass: `adv-fill-color-${getColor(sourceBars, bar)}`
-        }];
+        const offsetY = acc
+          .map(({ height }) => height)
+          .reduce((sum, curr) => sum + curr, 0);
+        return [
+          ...acc,
+          {
+            transform: `translate(${this.xScale(this.domain[barsIndex])}, ${
+              this.yScale(bar.value) - offsetY
+            })`,
+            width: this.xScale.bandwidth(),
+            height: this.yScale(0) - this.yScale(bar.value),
+            fillClass: `adv-fill-color-${getColor(sourceBars, bar)}`,
+          },
+        ];
       }, []);
     },
     getBarsConfig(bars, barsIndex) {
       // We need to keep track of the index so the colors will be applied consistently, regardless of values dipping below zero
-      const valuesWithId = bars.values.map((value, index) => ({ value, index }));
-      const belowZeroBars = valuesWithId.filter(bar => bar.value < 0);
-      const nonBelowZeroBars = valuesWithId.filter(bar => bar.value >= 0);
+      const valuesWithId = bars.values.map((value, index) => ({
+        value,
+        index,
+      }));
+      const belowZeroBars = valuesWithId.filter((bar) => bar.value < 0);
+      const nonBelowZeroBars = valuesWithId.filter((bar) => bar.value >= 0);
 
       const result = [
-          ...this.mapBelowZeroBars(belowZeroBars, barsIndex, bars),
-          ...this.mapNonBelowZeroBars(nonBelowZeroBars, barsIndex, bars)
+        ...this.mapBelowZeroBars(belowZeroBars, barsIndex, bars),
+        ...this.mapNonBelowZeroBars(nonBelowZeroBars, barsIndex, bars),
       ];
 
       return result;
-    }
-  }
+    },
+  },
 };
 </script>

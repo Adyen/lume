@@ -11,7 +11,7 @@
         :transform="negativeTransform"
         fill-class="adv-fill-color-negative-values"
       />
-      <template v-if="showAxes">
+      <template v-if="allOptions.showAxes">
         <axis
           :scale="xScale"
           type="x"
@@ -28,7 +28,7 @@
         v-for="(bar, index) in paddedData"
         :key="`bar-group-${index}`"
         :bar="getBarConfig(bar, index)"
-        :overlay="$getOverlayConfig(bar, index)"
+        :overlay="$getOverlayConfig(index)"
         :is-hovered="hoveredIndex === index"
         @mouseover="$handleMouseover(index, $event)"
         @mouseout="$handleMouseout"
@@ -47,7 +47,8 @@
 import BarGroup from '@/charts/bar-chart/bar-group.vue';
 import Bar from '@/core/bar.vue';
 import ChartContainer from "@/core/chart-container.vue";
-import baseMixinFactory from '@/mixins/base-mixin.js';
+import BaseMixin from '@/mixins/base-mixin.js';
+import HorizontalMixin from '@/mixins/horizontal';
 import { orientations } from '@/constants.js';
 
 const fallbackFillClass = '01';
@@ -57,7 +58,7 @@ const defaultRightMargin = 12; // 12px;
 
 export default {
   components: { ChartContainer, Bar, BarGroup },
-  mixins: [baseMixinFactory(orientations.horizontal)],
+  mixins: [BaseMixin(orientations.horizontal), HorizontalMixin],
   computed: {
     computedMargins() {
       return {

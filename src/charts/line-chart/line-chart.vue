@@ -1,7 +1,7 @@
 <template>
   <div class="u-width-full u-height-full">
     <chart-container
-      :margins="computedMargin"
+      :margins="computedConfig.margins"
       @mouseleave.native="hoveredIndex = -1"
       @resize="$determineWidthAndHeight"
     >
@@ -35,7 +35,11 @@
           :width="xScale.bandwidth()"
           :height="yScale(minValue)"
           :transform="getLineTranslation(index)"
-          :fill-class="hoveredIndex === index ? 'adv-fill-color-overlay' : 'adv-fill-color-transparent'"
+          :fill-class="
+            hoveredIndex === index
+              ? 'adv-fill-color-overlay'
+              : 'adv-fill-color-transparent'
+          "
           :animate="false"
           @mouseover.native="hoveredIndex = index"
         />
@@ -52,10 +56,9 @@
     </chart-container>
 
     <popover
-      v-if="isPopoverOpened"
+      v-if="popoverConfig.opened"
+      v-bind="popoverConfig"
       position="top"
-      :opened="isPopoverOpened"
-      :target-element="activeOverlayBar"
       :title="labels[hoveredIndex]"
       :items="getPopoverItems(hoveredIndex)"
     >
@@ -72,40 +75,45 @@ import Axis from '@/core/axis.vue';
 import Bar from '@/core/bar.vue';
 import ChartContainer from '@/core/chart-container.vue';
 import Popover from '@/core/popover';
+import LineGroup from './components/line-group.vue';
 
-import BaseMixinFactory from '@/mixins/base-mixin';
-import OptionsMixin from '@/mixins/options';
+import BaseMixin from '@/mixins/base-mixin';
+import ConfigMixin from '@/mixins/config';
 import LineScalesMixin from './mixins/line-scales';
 import NegativeValuesMixin from '@/mixins/negative-values';
-
-import LineGroup from './components/line-group.vue';
+import OptionsMixin from '@/mixins/options';
+import PopoverMixin from '@/mixins/popover';
 
 import config from './config';
 import { NO_DATA } from '@/constants';
 
 export default {
   components: { Axis, Bar, ChartContainer, LineGroup, Popover },
-  mixins: [BaseMixinFactory(), LineScalesMixin(), NegativeValuesMixin, OptionsMixin({
-    showAxes: true,
-    xAxisOptions: {},
-    yAxisOptions: { gridLines: true },
-  })],
+  mixins: [
+    BaseMixin(),
+    ConfigMixin(config),
+    LineScalesMixin(),
+    NegativeValuesMixin,
+    OptionsMixin({
+      showAxes: true,
+      xAxisOptions: {},
+      yAxisOptions: { gridLines: true },
+    }),
+    PopoverMixin(),
+  ],
   data: () => ({
     hoveredIndex: -1,
   }),
   computed: {
-    computedMargin() {
-      return {
-        ...this.margins,
-        ...config.margins,
-      }
-    },
     activeOverlayBar() {
       return this.$refs.overlayBars?.[this.hoveredIndex]?.$el;
     },
-    isPopoverOpened() {
-      return this.hoveredIndex >= 0;
-    }
+  },
+  watch: {
+    hoveredIndex: function (index) {
+      if (index > -1) this.$showPopover(this.activeOverlayBar);
+      else this.$hidePopover();
+    },
   },
   methods: {
     getLineTranslation(index) {
@@ -116,9 +124,9 @@ export default {
         type: 'line',
         color,
         legend,
-        value: values[index] ?? NO_DATA
+        value: values[index] ?? NO_DATA,
       }));
-    }
-  }
-}
+    },
+  },
+};
 </script>

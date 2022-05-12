@@ -11,7 +11,7 @@
         :transform="negativeTransform"
         fill-class="adv-fill-color-negative-values"
       />
-      <template v-if="showAxes">
+      <template v-if="allOptions.showAxes">
         <axis
           :scale="xScale"
           type="x"
@@ -28,7 +28,7 @@
         v-for="(bars, index) in paddedData"
         :key="`bar-group-${index}`"
         :bars="getBarsConfig(bars, index)"
-        :overlay="$getOverlayConfig(bars, index)"
+        :overlay="$getOverlayConfig(index)"
         :is-hovered="hoveredIndex === index"
         @mouseover="$handleMouseover(index, $event)"
         @mouseout="$handleMouseout"
@@ -48,7 +48,8 @@ import { scaleBand } from 'd3-scale';
 import Bar from '@/core/bar.vue';
 import BarsGroup from '@/core/bars-group.vue';
 import ChartContainer from '@/core/chart-container.vue';
-import baseMixinFactory from '@/mixins/base-mixin.js';
+import BaseMixin from '@/mixins/base-mixin.js';
+import HorizontalMixin from '@/mixins/horizontal';
 import { orientations } from '@/constants.js';
 
 const getColor = (bars, barIndex) => bars?.colors?.[barIndex] || `0${barIndex + 1}`;
@@ -58,7 +59,7 @@ const defaultRightMargin = 12; // 12px;
 
 export default {
   components: { Bar, BarsGroup, ChartContainer },
-  mixins: [baseMixinFactory(orientations.horizontal)],
+  mixins: [BaseMixin(orientations.horizontal), HorizontalMixin],
   computed: {
     computedMargins() {
       return {
@@ -69,9 +70,9 @@ export default {
     },
     ySubgroup() {
       return scaleBand()
-          .domain(this.paddedDataAsArray[0].map((value, index) => index))
-          .range([0, this.yScale.bandwidth()])
-          .padding([0])
+        .domain(this.paddedDataAsArray[0].map((value, index) => index))
+        .range([0, this.yScale.bandwidth()])
+        .padding([0])
     }
   },
   mounted() {

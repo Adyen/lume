@@ -1,14 +1,17 @@
 <template>
   <div class="sparkline-chart u-width-full u-height-full">
     <chart-container
-      :margins="computedMargin"
+      :margins="computedConfig.margins"
       @mouseleave.native="hoveredIndex = -1"
       @resize="$determineWidthAndHeight"
     >
       <!-- Area -->
       <path
         v-if="allOptions.showArea"
-        :class="['sparkline-chart__area', `sparkline-chart__area--color-${areaColor || color}`]"
+        :class="[
+          'sparkline-chart__area',
+          `sparkline-chart__area--color-${areaColor || color}`,
+        ]"
         :d="areaPathDefinition"
       />
 
@@ -43,18 +46,17 @@
         :class="[
           'sparkline-chart__line',
           `sparkline-chart__line--color-${color}`,
-          ...isDashed(i) ? ['sparkline-chart__line--dashed'] : []
+          ...(isDashed(i) ? ['sparkline-chart__line--dashed'] : []),
         ]"
-        :stroke-dasharray="(d => (d == null ? '1.5%' : null))(d)"
+        :stroke-dasharray="((d) => (d == null ? '1.5%' : null))(d)"
         :d="linePathDefinition(i)"
       />
     </chart-container>
 
     <popover
-      v-if="isPopoverOpened"
+      v-if="popoverConfig.opened"
+      v-bind="popoverConfig"
       position="top"
-      :opened="isPopoverOpened"
-      :target-element="activeOverlayBar"
       :title="labels ? labels[hoveredIndex] : null"
       :items="getPopoverItems(hoveredIndex)"
     >
@@ -69,29 +71,31 @@
 <script>
 import { line, area } from 'd3-shape';
 
+import Bar from '@/core/bar.vue';
 import ChartContainer from '@/core/chart-container.vue';
 import Popover from '@/core/popover';
-import Bar from '@/core/bar.vue';
 
-import BaseMixinFactory from '@/mixins/base-mixin';
-import OptionsMixin from '@/mixins/options';
+import BaseMixin from '@/mixins/base-mixin';
+import ConfigMixin from '@/mixins/config';
+import LineNullValuesMixin from '@/mixins/line-null-values';
 import NegativeValuesMixin from '@/mixins/negative-values';
-import LineNullValuesMixin from "@/mixins/line-null-values";
+import OptionsMixin from '@/mixins/options';
+import PopoverMixin from '@/mixins/popover';
 import SparklineScalesMixin from './mixins/sparkline-scales';
 
-import config from './config';
+import { config, options } from './defaults';
 import { NO_DATA } from '@/constants';
 
 export default {
   components: { Bar, ChartContainer, Popover },
   mixins: [
-    BaseMixinFactory(),
-    SparklineScalesMixin,
+    BaseMixin(),
+    ConfigMixin(config),
     LineNullValuesMixin,
     NegativeValuesMixin,
-    OptionsMixin({
-      showArea: true,
-    }),
+    OptionsMixin(options),
+    PopoverMixin(),
+    SparklineScalesMixin,
   ],
   data: () => ({
     hoveredIndex: -1,
@@ -103,18 +107,14 @@ export default {
     areaColor() {
       return this.data[0].areaColor || this.data[0].color;
     },
-    computedMargin() {
-      return {
-        ...this.margins,
-        ...config.margins,
-      }
-    },
     values() {
       return this.data[0].values;
     },
     computedLineValues() {
       return this.values.map((value, index) => {
-        const nullInterval = this.nullIntervals.find(interval => interval.includes(index));
+        const nullInterval = this.nullIntervals.find((interval) =>
+          interval.includes(index)
+        );
         if (nullInterval) {
           let start = this.values[nullInterval[0] - 1];
           let end = this.values[nullInterval[nullInterval.length - 1] + 1];
@@ -123,33 +123,44 @@ export default {
           if (start == null) start = end;
           if (end == null) end = start;
 
-          return this.getMidValue(start, end, nullInterval.length, nullInterval.indexOf(index));
+          return this.getMidValue(
+            start,
+            end,
+            nullInterval.length,
+            nullInterval.indexOf(index)
+          );
         }
         return value;
       });
     },
     areaPathDefinition() {
-      return (area()
+      return area()
         .x((_, i) => this.xScale(i))
         .y0(this.yScale(0))
-        .y1((d) => this.yScale(d)))(this.computedLineValues);
+        .y1((d) => this.yScale(d))(this.computedLineValues);
     },
-    activeOverlayBar() {
+    activeGhostBar() {
       return this.$refs.ghostBars?.[this.hoveredIndex]?.$el;
     },
-    isPopoverOpened() {
-      return this.hoveredIndex >= 0;
-    }
+  },
+  watch: {
+    hoveredIndex: function (index) {
+      if (index > -1) this.$showPopover(this.activeGhostBar);
+      else this.$hidePopover();
+    },
   },
   methods: {
     getLineValues(index) {
       // First value
       if (index === 0) return [];
-      return [this.computedLineValues[index - 1], this.computedLineValues[index]];
+      return [
+        this.computedLineValues[index - 1],
+        this.computedLineValues[index],
+      ];
     },
     linePathDefinition(index) {
       return line()
-        .x((_, i) => this.xScale((index + i) - 1))
+        .x((_, i) => this.xScale(index + i - 1))
         .y((d) => this.yScale(d))(this.getLineValues(index));
     },
     ghostBarTransform(index) {
@@ -160,15 +171,15 @@ export default {
         type: 'line',
         color,
         legend,
-        value: values[index] ?? NO_DATA
+        value: values[index] ?? NO_DATA,
       }));
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-@use "~@/styles/variables" as *;
+@use '~@/styles/variables' as *;
 
 $line-stroke-width: 2px;
 $line-stroke-hover-width: 4px;
