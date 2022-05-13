@@ -5,6 +5,7 @@
       @mouseleave.native="hoveredIndex = -1"
       @resize="$determineWidthAndHeight"
     >
+      <!-- Negative values background -->
       <bar
         v-if="hasNegativeValues"
         :height="negativeHeight"
@@ -12,6 +13,8 @@
         :transform="negativeTransform"
         fill-class="adv-fill-color-negative-values"
       />
+
+      <!-- Axes -->
       <template v-if="allOptions.showAxes">
         <axis
           type="x"
@@ -23,10 +26,12 @@
           type="y"
           :options="allOptions.yAxisOptions"
           :scale="yScale"
+          :label="yAxisLabel"
           :container-size="containerSize"
         />
       </template>
 
+      <!-- Hover bar overlay -->
       <g class="line-chart__overlay">
         <bar
           v-for="(_, index) in data[0].values"
@@ -45,6 +50,7 @@
         />
       </g>
 
+      <!-- Lines -->
       <line-group
         v-for="(group, index) in data"
         :key="`line-group-${index}`"
@@ -55,8 +61,9 @@
       />
     </chart-container>
 
+    <!-- Chart popover -->
     <popover
-      v-if="popoverConfig.opened"
+      v-if="allOptions.withPopover && popoverConfig.opened"
       v-bind="popoverConfig"
       position="top"
       :title="labels[hoveredIndex]"
@@ -71,7 +78,7 @@
 </template>
 
 <script>
-import Axis from '@/core/axis.vue';
+import Axis from '@/core/axis';
 import Bar from '@/core/bar.vue';
 import ChartContainer from '@/core/chart-container.vue';
 import Popover from '@/core/popover';
@@ -84,7 +91,7 @@ import NegativeValuesMixin from '@/mixins/negative-values';
 import OptionsMixin from '@/mixins/options';
 import PopoverMixin from '@/mixins/popover';
 
-import config from './config';
+import { config, options } from './defaults';
 import { NO_DATA } from '@/constants';
 
 export default {
@@ -94,11 +101,7 @@ export default {
     ConfigMixin(config),
     LineScalesMixin(),
     NegativeValuesMixin,
-    OptionsMixin({
-      showAxes: true,
-      xAxisOptions: {},
-      yAxisOptions: { gridLines: true },
-    }),
+    OptionsMixin(options),
     PopoverMixin(),
   ],
   data: () => ({
@@ -107,6 +110,13 @@ export default {
   computed: {
     activeOverlayBar() {
       return this.$refs.overlayBars?.[this.hoveredIndex]?.$el;
+    },
+    yAxisLabel() {
+      if (this.allOptions.yAxisOptions?.withLabel === false) return;
+      return (
+        this.allOptions.yAxisOptions?.label ||
+        this.data.map((d) => d.label).join(', ')
+      );
     },
   },
   watch: {
@@ -120,10 +130,10 @@ export default {
       return `translate(${this.xScale(this.xScale.domain()[index])}, 0)`;
     },
     getPopoverItems(index) {
-      return this.data.map(({ color, legend, values }) => ({
+      return this.data.map(({ color, label, values }) => ({
         type: 'line',
         color,
-        legend,
+        label,
         value: values[index] ?? NO_DATA,
       }));
     },

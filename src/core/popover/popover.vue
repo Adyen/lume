@@ -14,7 +14,7 @@
       <ul class="adv-popover__items">
         <li
           v-for="item in items"
-          :key="item.legend"
+          :key="item.label"
           class="adv-popover__item"
         >
           <span
@@ -24,7 +24,7 @@
               `adv-popover__symbol--color-${item.color || '01'}`
             ]"
           />
-          {{ item.legend }}
+          {{ item.label }}
           <strong class="adv-popover__value">{{ item.value }}</strong>
         </li>
       </ul>
@@ -58,7 +58,7 @@ export const positions = [
  * @typedef {object} PopoverItem
  * @property {string} type Type of data point. `line` draws a point, `bar` draws a square.
  * @property {string} color Color of the data group.
- * @property {string} legend Label for the data group.
+ * @property {string} label Label for the data group.
  * @property {(number|string)} value Value of the data point.
  */
 
@@ -106,15 +106,15 @@ export default {
     arrowClass() {
       if (!this.popper.state.placement) return '';
       switch (this.popper.state.placement) {
-        case 'top':
-        default:
-          return 'adv-popover--arrow-bottom';
-        case 'bottom':
-          return 'adv-popover--arrow-top';
-        case 'left':
-          return 'adv-popover--arrow-right';
-        case 'right':
-          return 'adv-popover--arrow-left';
+      case 'top':
+      default:
+        return 'adv-popover--arrow-bottom';
+      case 'bottom':
+        return 'adv-popover--arrow-top';
+      case 'left':
+        return 'adv-popover--arrow-right';
+      case 'right':
+        return 'adv-popover--arrow-left';
       }
     },
   },

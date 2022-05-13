@@ -1,6 +1,6 @@
-import Axis from '../core/axis.vue';
+import Axis from '@/core/axis';
 import PopoverMixin from './popover';
-import { orientations } from '../constants.js';
+import { orientations } from '@/constants';
 
 export default function BaseMixin(orientation = orientations.vertical) {
   // @vue/component

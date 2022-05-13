@@ -87,6 +87,7 @@ Other developmental issues that should be covered:
 ### Feature ideas
 
 - Out-of-the-box light/dark theme
+- Click label dots to select data groups [Figma](https://www.figma.com/file/LlbuDypxEbEZIo4qzPaX5kDG/%F0%9F%93%88Data-visualization?node-id=3503%3A25312)
 
 ## Contact
 

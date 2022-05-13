@@ -44,12 +44,13 @@
 <script>
 import { quantile, group, ascending } from 'd3-array';
 import { scaleLinear, scaleBand } from 'd3-scale';
-import Axis from '@/core/axis.vue';
+
+import Axis from '@/core/axis';
 import ChartContainer from '@/core/chart-container.vue';
 import Popover from '@/core/popover';
 import BoxGroup from './box-group.vue';
-import OptionsMixin from '@/mixins/options';
 
+import OptionsMixin from '@/mixins/options';
 
 export default {
   components: { Axis, ChartContainer, BoxGroup, Popover },

@@ -1,4 +1,4 @@
-import { boolean, number, select } from '@storybook/addon-knobs';
+import { boolean, number, select, text } from '@storybook/addon-knobs';
 
 const AXIS_GROUP = 'Axis';
 const SIZE_GROUP = 'Size';
@@ -35,6 +35,14 @@ export const AxisOptionsMixin = (type, isHorizontal = false) => {
   const prefix = (str) => type + str;
 
   return {
+    [prefix('withLabel')]: {
+      type: Boolean,
+      default: boolean(type + ' With label', true, groupId),
+    },
+    [prefix('label')]: {
+      type: String,
+      default: text(type + ' Lines', '', groupId),
+    },
     [prefix('gridLines')]: {
       type: Boolean,
       default: boolean(type + ' Grid lines', defaultGridLines, groupId),

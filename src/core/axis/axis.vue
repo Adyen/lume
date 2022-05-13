@@ -2,8 +2,18 @@
   <g
     ref="root"
     class="axis"
+    :data-type="computedType"
     :transform="computedTransform"
-  />
+  >
+    <text
+      v-if="label"
+      ref="label"
+      v-bind="labelPosition"
+      class="axis__label"
+    >
+      {{ label }}
+    </text>
+  </g>
 </template>
 
 <script>
@@ -13,6 +23,8 @@ import { format } from 'd3-format';
 
 import OptionsMixin from '@/mixins/options';
 
+import { options } from './defaults';
+
 const POSITIONS = ['left', 'top', 'right', 'bottom'];
 
 const AXIS_MAP = {
@@ -20,78 +32,61 @@ const AXIS_MAP = {
   right: axisRight,
   top: axisTop,
   bottom: axisBottom,
-}
+};
 
 const TYPES = {
   x: 'bottom',
   y: 'left',
 };
 
-const DEFAULTS = {
-  TICK_PADDING: 8
+const LABEL_HEIGHT = 14; // 14px
+const LABEL_PADDING = 12; // 12px
+
+const LABEL_MARGIN = {
+  y: LABEL_HEIGHT + LABEL_PADDING,
 };
 
 export default {
-  mixins: [OptionsMixin({
-    /**
-     * Displays a line for each tick. If not specified but axis type is `y`, will show grid lines.
-     * @type {Boolean}
-     */
-    gridLines: false,
-    //
-    //// Tick settings
-    //
-    /**
-     * Controls if the tick labels should be displayed.
-     * @type {Boolean}
-     */
-    showTicks: true,
-    /** 
-     * Amount of ticks to display in the axis.
-     * @type {Number}
-     */
-    tickCount: null,
-    /**
-     * Formatting string/function for the tick label. -- currently UNUSED
-     * @type {(String|Function)}
-     */
-    tickFormat: null,
-    /**
-     * Space between the tick label and the axis line.
-     * @type {Number}
-     */
-    tickPadding: DEFAULTS.TICK_PADDING,
-  })],
+  mixins: [OptionsMixin(options)],
   props: {
     scale: {
       type: Function,
-      required: true
+      required: true,
     },
     type: {
       type: String,
       default: null,
-      validator: value => value in TYPES
+      validator: (value) => value in TYPES,
     },
     position: {
       type: String,
       default: null,
-      validator: value => POSITIONS.includes(value)
+      validator: (value) => POSITIONS.includes(value),
+    },
+    label: {
+      type: String,
+      default: null,
     },
     containerSize: {
       type: Object,
-      default: () => ({ width: 0, height: 0 })
+      default: () => ({ width: 0, height: 0 }),
     },
     transform: {
       type: String,
-      default: null
-    }
+      default: null,
+    },
   },
   computed: {
     computedPosition() {
       return this.type ? TYPES[this.type] : this.position;
     },
     computedType() {
-      return this.type || (this.computedPosition === 'left' || this.computedPosition === 'right' ? 'y' : 'x');
+      return (
+        this.type ||
+        (this.computedPosition === 'left' || this.computedPosition === 'right'
+          ? 'y'
+          : 'x')
+      );
     },
     axis() {
       const axis = AXIS_MAP[this.computedPosition](this.scale);
@@ -148,11 +143,17 @@ export default {
       if (this.computedPosition === 'bottom') return yValue;
 
       return 0;
-    }
+    },
+    labelPosition() {
+      return {
+        x: '-100%',
+        y: -LABEL_MARGIN[this.computedType],
+      };
+    },
   },
   watch: {
-    'scale': 'applyAxis',
-    'allOptions': 'applyAxis',
+    scale: 'applyAxis',
+    allOptions: 'applyAxis',
   },
   mounted() {
     this.root = select(this.$refs.root);
@@ -165,16 +166,18 @@ export default {
         // .transition()
         ?.call(this.axis);
     },
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-@use "~@/styles/variables" as *;
+@use '~@/styles/variables' as *;
 
+$axis-label-color: $adv-color-grey-50;
 $axis-text-color: $adv-color-grey-30;
 $axis-line-color: $adv-color-grey-20;
 
+$axis-label-font-size: 14px;
 $axis-text-font-size: 10px;
 
 .axis ::v-deep {
@@ -185,6 +188,12 @@ $axis-text-font-size: 10px;
   text {
     fill: $axis-text-color;
     font-size: $axis-text-font-size;
+  }
+
+  .axis__label {
+    fill: $axis-label-color;
+    font-size: $axis-label-font-size;
+    text-anchor: start;
   }
 
   line {
