@@ -117,7 +117,7 @@ export default {
         );
         if (nullInterval) {
           let start = this.values[nullInterval[0] - 1];
-          let end = this.values[nullInterval[nullInterval.length - 1] + 1];
+          let end = this.values[nullInterval.at(-1) + 1];
 
           // If first/last value is `null`, use the first/last non-null value
           if (start == null) start = end;

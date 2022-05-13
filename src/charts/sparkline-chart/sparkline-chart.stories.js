@@ -48,7 +48,8 @@ storiesOf('Charts / Sparkline chart', module) // eslint-disable-line
     },
     computed: {
       data() {
-        const dataset = JSON.parse(JSON.stringify(DATASETS[this.dataset].data)); // Deep copy dataset array
+        // eslint-disable-next-line no-undef
+        const dataset = structuredClone(DATASETS[this.dataset].data); // Deep copy dataset array
         if (this.color) dataset[0].color = this.color;
         if (this.areaColor) dataset[0].areaColor = this.areaColor;
         return dataset;
