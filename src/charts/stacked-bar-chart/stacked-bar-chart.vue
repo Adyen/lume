@@ -1,7 +1,7 @@
 <template>
   <div class="u-width-full u-height-full">
     <chart-container
-      :margins="margins"
+      :margins="computedConfig.margins"
       @resize="$determineWidthAndHeight"
     >
       <bar
@@ -13,15 +13,17 @@
       />
       <template v-if="allOptions.showAxes">
         <axis
-          :scale="xScale"
           type="x"
+          :scale="xScale"
           :container-size="containerSize"
+          :options="allOptions.xAxisOptions"
         />
         <axis
-          :scale="yScale"
           type="y"
+          :scale="yScale"
           :container-size="containerSize"
-          :options="xAxisOptions"
+          :options="allOptions.yAxisOptions"
+          :label="yAxisLabel"
         />
       </template>
       <bars-group
@@ -47,16 +49,35 @@
 import Bar from '@/core/bar.vue';
 import BarsGroup from '@/core/bars-group.vue';
 import ChartContainer from '@/core/chart-container.vue';
+import Popover from '@/core/popover';
+
 import BaseMixin from '@/mixins/base-mixin.js';
+import ConfigMixin from '@/mixins/config';
+import OptionsMixin from '@/mixins/options';
 import BarMixin from '@/charts/bar-chart/mixins/bar-mixin';
+import NegativeValues from '@/mixins/negative-values';
+
 import { ORIENTATIONS } from '@/constants.js';
+import { config, options } from './defaults';
 
 const getColor = (sourceBars, bar) =>
   sourceBars?.colors?.[bar.index] || `0${bar.index + 1}`;
 
 export default {
-  components: { Bar, BarsGroup, ChartContainer },
-  mixins: [BaseMixin(ORIENTATIONS.HORIZONTAL), BarMixin(true)],
+  components: { Bar, BarsGroup, ChartContainer, Popover },
+  mixins: [
+    BaseMixin(ORIENTATIONS.VERTICAL),
+    BarMixin(true),
+    ConfigMixin(config),
+    NegativeValues,
+    OptionsMixin(options),
+  ],
+  computed: {
+    yAxisLabel() {
+      if (this.allOptions.yAxisOptions?.withLabel === false) return;
+      return this.allOptions.yAxisOptions?.label || this.barsConfig?.legend;
+    },
+  },
   methods: {
     mapBelowZeroBars(bars, barsIndex, sourceBars) {
       return bars.reduce((acc, bar) => {
