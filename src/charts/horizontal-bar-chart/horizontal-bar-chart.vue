@@ -58,7 +58,7 @@ import HorizontalMixin from '@/mixins/horizontal';
 import NegativeValues from '@/mixins/negative-values';
 import OptionsMixin from '@/mixins/options';
 
-import { orientations } from '@/constants';
+import { ORIENTATIONS } from '@/constants';
 import { config, options } from './defaults';
 
 const fallbackFillClass = '01';
@@ -69,7 +69,7 @@ const defaultRightMargin = 12; // 12px;
 export default {
   components: { ChartContainer, Bar, BarGroup, Popover },
   mixins: [
-    BaseMixin(orientations.horizontal),
+    BaseMixin(ORIENTATIONS.HORIZONTAL),
     BarMixin(),
     BarOverlay,
     ConfigMixin(config),

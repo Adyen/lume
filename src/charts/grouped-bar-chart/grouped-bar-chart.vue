@@ -22,6 +22,7 @@
           type="y"
           :scale="yScale"
           :container-size="containerSize"
+          :label="yAxisLabel"
           :options="allOptions.yAxisOptions"
         />
       </template>
@@ -79,6 +80,10 @@ export default {
         .domain(this.paddedDataAsArray[0].map((value, index) => index))
         .range([0, this.xScale.bandwidth()])
         .padding([0]);
+    },
+    yAxisLabel() {
+      if (this.allOptions.yAxisOptions?.withLabel === false) return;
+      return this.allOptions.yAxisOptions?.label || this.barsConfig?.legend;
     },
   },
   methods: {

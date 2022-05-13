@@ -1,10 +1,7 @@
+import { DEFAULT_MARGINS } from '@/constants';
+
 export const config = {
-  margins: {
-    top: 44,
-    right: 0,
-    bottom: 32,
-    left: 32,
-  },
+  margins: DEFAULT_MARGINS.VERTICAL,
 };
 
 export const options = {

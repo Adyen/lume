@@ -42,6 +42,7 @@ storiesOf('Charts / Box plot', module) // eslint-disable-line
             <div :style="{ width: width + 'px', height: height + 'px' }">
                 <box-plot
                     :data="data" :start-on-zero="startOnZero"
+                    :options="options"
                     group-by-label="Species"
                     value-label="Sepal_Length"
                 />

@@ -41,7 +41,7 @@ export const AxisOptionsMixin = (type, isHorizontal = false) => {
     },
     [prefix('label')]: {
       type: String,
-      default: text(type + ' Lines', '', groupId),
+      default: text(type + ' Label', '', groupId),
     },
     [prefix('gridLines')]: {
       type: Boolean,

@@ -1,8 +1,8 @@
 import Axis from '@/core/axis';
 import PopoverMixin from './popover';
-import { orientations } from '@/constants';
+import { ORIENTATIONS } from '@/constants';
 
-export default function BaseMixin(orientation = orientations.vertical) {
+export default function BaseMixin(orientation = ORIENTATIONS.VERTICAL) {
   // @vue/component
   return {
     components: { Axis },
@@ -28,7 +28,7 @@ export default function BaseMixin(orientation = orientations.vertical) {
     }),
     computed: {
       isHorizontal() {
-        return orientation === orientations.horizontal;
+        return orientation === ORIENTATIONS.HORIZONTAL;
       },
       domain() {
         return this.labels || this.data.map((value, index) => index);

@@ -49,14 +49,14 @@ import BarsGroup from '@/core/bars-group.vue';
 import ChartContainer from '@/core/chart-container.vue';
 import BaseMixin from '@/mixins/base-mixin.js';
 import BarMixin from '@/charts/bar-chart/mixins/bar-mixin';
-import { orientations } from '@/constants.js';
+import { ORIENTATIONS } from '@/constants.js';
 
 const getColor = (sourceBars, bar) =>
   sourceBars?.colors?.[bar.index] || `0${bar.index + 1}`;
 
 export default {
   components: { Bar, BarsGroup, ChartContainer },
-  mixins: [BaseMixin(orientations.vertical), BarMixin(true)],
+  mixins: [BaseMixin(ORIENTATIONS.HORIZONTAL), BarMixin(true)],
   methods: {
     mapBelowZeroBars(bars, barsIndex, sourceBars) {
       return bars.reduce((acc, bar) => {

@@ -22,6 +22,7 @@
           type="y"
           :options="allOptions.yAxisOptions"
           :scale="yScale"
+          :label="yAxisLabel"
           :container-size="containerSize"
         />
       </template>
@@ -70,6 +71,12 @@ export default {
     NegativeValuesMixin,
     OptionsMixin(options),
   ],
+  computed: {
+    yAxisLabel() {
+      if (this.allOptions.yAxisOptions?.withLabel === false) return;
+      return this.allOptions.yAxisOptions?.label || this.barsConfig?.legend;
+    },
+  },
   methods: {
     getBarConfig({ value, color }, index) {
       const yTranslation = value < 0 ? this.yScale(0) : this.yScale(value);

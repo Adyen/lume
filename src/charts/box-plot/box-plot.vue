@@ -1,13 +1,14 @@
 <template>
   <div class="u-width-full u-height-full">
     <chart-container
-      :margins="margins"
+      :margins="computedConfig.margins"
       @resize="containerSize = $event"
     >
       <axis
         type="y"
         :options="allOptions.yAxisOptions"
         :scale="yScale"
+        :label="yAxisLabel"
         :container-size="containerSize"
       />
       <axis
@@ -34,7 +35,9 @@
         v-for="key in Object.keys(popoverConfig.quantile)"
         :key="key"
       >
-        <span class="u-font-weight-semi-bold">{{ popoverConfig.quantile[key].label }}</span>
+        <span class="u-font-weight-semi-bold">{{
+          popoverConfig.quantile[key].label
+        }}</span>
         : {{ popoverConfig.quantile[key].value }}
       </div>
     </popover>
@@ -50,31 +53,31 @@ import ChartContainer from '@/core/chart-container.vue';
 import Popover from '@/core/popover';
 import BoxGroup from './box-group.vue';
 
+import ConfigMixin from '@/mixins/config';
 import OptionsMixin from '@/mixins/options';
+
+import { config, options } from './defaults';
 
 export default {
   components: { Axis, ChartContainer, BoxGroup, Popover },
-  mixins: [OptionsMixin({
-    xAxisOptions: {},
-    yAxisOptions: { gridLines: true },
-  })],
+  mixins: [ConfigMixin(config), OptionsMixin(options)],
   props: {
     margins: {
       type: Object,
-      default: () => { }
+      default: () => {},
     },
     data: {
       type: Array,
-      required: true
+      required: true,
     },
     groupByLabel: {
       type: String,
-      required: true
+      required: true,
     },
     valueLabel: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data: () => ({
     containerSize: { width: 0, height: 0 },
@@ -83,8 +86,8 @@ export default {
       opened: false,
       position: 'top',
       targetElement: null,
-      quantile: null
-    }
+      quantile: null,
+    },
   }),
   computed: {
     xScale() {
@@ -92,88 +95,114 @@ export default {
         .range([0, this.containerSize.width])
         .domain(this.domain)
         .paddingInner(1)
-        .paddingOuter(.5);
+        .paddingOuter(0.5);
     },
     boxWidth() {
-      return this.containerSize.width/(1.3 * this.domain.length);
+      return this.containerSize.width / (1.3 * this.domain.length);
     },
     yScale() {
       return scaleLinear()
-        .domain([0.8 * Math.min(...this.values), 1.1 * Math.max(...this.values)])
+        .domain([
+          0.8 * Math.min(...this.values),
+          1.1 * Math.max(...this.values),
+        ])
         .range([this.containerSize.height, 0]);
     },
     values() {
-      return this.data.map(ele => ele[this.valueLabel]);
+      return this.data.map((ele) => ele[this.valueLabel]);
     },
     domain() {
-      return [...new Set(this.data.map(ele => ele[this.groupByLabel]))];
+      return [...new Set(this.data.map((ele) => ele[this.groupByLabel]))];
     },
     quantiles() {
       const sumstat = [];
       // Compute quartiles, median, inter quantile range min and max --> these info are then used to draw the box.
-      group(this.data, d => d[this.groupByLabel]).forEach((values, key) => {
-        const groupedValues = values.map(g => g[this.valueLabel]);
-        const q1 = quantile(groupedValues.sort(ascending), .25)
-        const median = quantile(groupedValues.sort(ascending), .5)
-        const q3 = quantile(groupedValues.sort(ascending), .75)
+      group(this.data, (d) => d[this.groupByLabel]).forEach((values, key) => {
+        const groupedValues = values.map((g) => g[this.valueLabel]);
+        const q1 = quantile(groupedValues.sort(ascending), 0.25);
+        const median = quantile(groupedValues.sort(ascending), 0.5);
+        const q3 = quantile(groupedValues.sort(ascending), 0.75);
         const interQuantileRange = q3 - q1;
         const min = q1 - 1.5 * interQuantileRange;
         const max = q3 + 1.5 * interQuantileRange;
-        sumstat.push({ key, q1, median, q3, interQuantileRange: interQuantileRange, min: min, max: max });
+        sumstat.push({
+          key,
+          q1,
+          median,
+          q3,
+          interQuantileRange: interQuantileRange,
+          min: min,
+          max: max,
+        });
       });
       return sumstat;
     },
     boxGroups() {
-      return this.quantiles.map(quantile => ({
+      return this.quantiles.map((quantile) => ({
         quantile: {
           q1: { label: '25th percentile', value: quantile.q1.toFixed(2) },
           q2: { label: '75th percentile', value: quantile.q3.toFixed(2) },
-          interQuantileRange: { label: 'Inter quantile range', value: quantile.interQuantileRange.toFixed(2) },
+          interQuantileRange: {
+            label: 'Inter quantile range',
+            value: quantile.interQuantileRange.toFixed(2),
+          },
           median: { label: 'Median', value: quantile.median.toFixed(2) },
           min: { label: 'Minimum', value: quantile.min.toFixed(2) },
-          max: { label: 'Maximum', value: quantile.max.toFixed(2) }
+          max: { label: 'Maximum', value: quantile.max.toFixed(2) },
         },
         verticalLine: {
           x1: this.xScale(quantile.key),
           x2: this.xScale(quantile.key),
           y1: this.yScale(quantile.min),
-          y2: this.yScale(quantile.max)
+          y2: this.yScale(quantile.max),
         },
         box: {
           x: this.xScale(quantile.key) - this.boxWidth / 2,
           y: this.yScale(quantile.q3),
           height: this.yScale(quantile.q1) - this.yScale(quantile.q3),
-          width: this.boxWidth
+          width: this.boxWidth,
         },
         medianLine: {
           x1: this.xScale(quantile.key) - this.boxWidth / 2,
           x2: this.xScale(quantile.key) + this.boxWidth / 2,
           y1: this.yScale(quantile.median),
-          y2: this.yScale(quantile.median)
-        }
+          y2: this.yScale(quantile.median),
+        },
       }));
-    }
+    },
+    yAxisLabel() {
+      if (this.allOptions.yAxisOptions?.withLabel === false) return;
+      return this.allOptions.yAxisOptions?.label || this.valueLabel;
+    },
   },
   watch: {
     $props: {
       immediate: true,
       handler() {
         this.validateProps();
-      }
-    }
+      },
+    },
   },
   methods: {
     validateProps() {
-      const labels = this.data.reduce((acc, curr) => [...new Set([...acc, ...Object.keys(curr)])], []);
-      if (!labels.includes(this.valueLabel) || !labels.includes(this.groupByLabel)) {
+      const labels = this.data.reduce(
+        (acc, curr) => [...new Set([...acc, ...Object.keys(curr)])],
+        []
+      );
+      if (
+        !labels.includes(this.valueLabel) ||
+        !labels.includes(this.groupByLabel)
+      ) {
         console.error('Invalid prop');
       }
     },
     $getOverlayConfig(index) {
       return {
-        transform: `translate(${this.xScale(this.domain[index]) - this.boxWidth / 2}, 0)`,
+        transform: `translate(${
+          this.xScale(this.domain[index]) - this.boxWidth / 2
+        }, 0)`,
         width: this.xScale.step() - this.boxWidth / 4,
-        height: this.containerSize.height
+        height: this.containerSize.height,
       };
     },
     $handleMouseover(quantile, index, event) {
@@ -189,9 +218,9 @@ export default {
       this.popoverConfig.targetElement = null;
       this.popoverConfig.quantile = null;
       this.$emit('mouseout');
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
-<style scoped/>
+<style scoped />

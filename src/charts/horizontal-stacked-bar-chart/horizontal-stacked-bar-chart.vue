@@ -50,7 +50,7 @@ import ChartContainer from '@/core/chart-container.vue';
 import BaseMixin from '@/mixins/base-mixin.js';
 import BarMixin from '@/charts/bar-chart/mixins/bar-mixin';
 import HorizontalMixin from '@/mixins/horizontal';
-import { orientations } from '@/constants.js';
+import { ORIENTATIONS } from '@/constants.js';
 
 const defaultBarHeight = 20; // 20px;
 const defaultLeftMargin = 80; // 80px
@@ -62,7 +62,7 @@ const getColor = (sourceBars, bar) =>
 export default {
   components: { Bar, BarsGroup, ChartContainer },
   mixins: [
-    BaseMixin(orientations.horizontal),
+    BaseMixin(ORIENTATIONS.HORIZONTAL),
     BarMixin(true),
     HorizontalMixin,
   ],
