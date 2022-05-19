@@ -61,14 +61,6 @@ export const positions = [
   'left-end',
 ];
 
-/**
- * A popover data point item.
- * @typedef {object} PopoverItem
- * @property {string} type Type of data point. `line` draws a point, `bar` draws a square.
- * @property {string} color Color of the data group.
- * @property {string} label Label for the data group.
- * @property {(number|string)} value Value of the data point.
- */
 export default Vue.extend({
   props: {
     /**
