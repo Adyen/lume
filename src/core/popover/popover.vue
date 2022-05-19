@@ -21,7 +21,7 @@
             class="adv-popover__symbol"
             :class="[
               `adv-popover__symbol--${item.type}`,
-              `adv-popover__symbol--color-${item.color || '01'}`
+              `adv-popover__symbol--color-${item.color || '01'}`,
             ]"
           />
           {{ item.label }}
@@ -32,8 +32,16 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue, { PropType } from 'vue';
 import { createPopper } from '@popperjs/core';
+
+interface PopoverItem {
+  type: string;
+  color: string;
+  label: string;
+  value: number | string;
+}
 
 export const positions = [
   'auto',
@@ -61,8 +69,7 @@ export const positions = [
  * @property {string} label Label for the data group.
  * @property {(number|string)} value Value of the data point.
  */
-
-export default {
+export default Vue.extend({
   props: {
     /**
      * Reference element for positioning
@@ -72,7 +79,11 @@ export default {
      * Position relative to the target element
      * @see {@link https://popper.js.org/docs/v2/constructors/#placement}
      */
-    position: { type: String, default: 'auto', validator: value => positions.includes(value) },
+    position: {
+      type: String,
+      default: 'auto',
+      validator: (value) => positions.includes(value),
+    },
     /**
      * Instructs popover to be visible outside of the containing container.
      * Useful when component would be used in limited containers like Modal, Side panel, etc.
@@ -83,7 +94,7 @@ export default {
      * Custom set of modifiers. Useful for low-level control over Popper behavior in some really complex use cases.
      */
     modifiers: { type: Array, default: null },
-    /** 
+    /**
      * The popover title. Only displayed if the default popover content is used.
      */
     title: { type: String, default: null },
@@ -91,10 +102,13 @@ export default {
      * An array of items. Only displayed if the default popover content is used.
      * @type {PopoverItem[]}
      */
-    items: { type: Array, default: null },
+    items: {
+      type: Array as PropType<Array<PopoverItem>>,
+      default: null,
+    },
   },
   data: () => ({
-    popper: { state: {} }
+    popper: { state: {} },
   }),
   computed: {
     strategy() {
@@ -119,7 +133,7 @@ export default {
     },
   },
   watch: {
-    targetElement: "updatePopper"
+    targetElement: 'updatePopper',
   },
   mounted() {
     this.initPopper();
@@ -145,11 +159,11 @@ export default {
       if (this.targetElement && this.$el) {
         this.initPopper();
       }
-    }
-  }
-}
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>
-@use "~@/styles/components/popover/popover";
+@use '~@/styles/components/popover/popover';
 </style>

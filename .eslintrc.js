@@ -1,18 +1,22 @@
 // eslint-disable-next-line no-undef
 module.exports = {
+  root: true,
   extends: [
     'eslint:recommended',
-    'plugin:vue/recommended'
+    'plugin:@typescript-eslint/recommended',
+    'plugin:vue/recommended',
   ],
-  plugins: ['vue'],
+  plugins: ['vue', '@typescript-eslint'],
   rules: {
-    'indent': ['warn', 2],
+    indent: ['warn', 2],
     'vue/multi-word-component-names': 'off',
   },
+  parser: 'vue-eslint-parser',
   parserOptions: {
-    parser: '@babel/eslint-parser',
+    parser: '@typescript-eslint/parser',
+    extraFileExtensions: ['.vue'],
   },
   env: {
-    es6: true
-  }
-}
+    es6: true,
+  },
+};

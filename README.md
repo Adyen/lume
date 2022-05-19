@@ -59,7 +59,7 @@ The charts we wish to include:
 - [x] Horizontal bar chart
 - [x] Horizontal stacked bar chart
 - [x] Horizontal grouped bar chart
-- [ ] Sparkline
+- [x] Sparkline
 - [ ] Mini bar chart
 - [ ] Alluvial chart
 - [ ] Violin plot
