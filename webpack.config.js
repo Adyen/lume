@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
-import { VueLoaderPlugin } from 'vue-loader';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { VueLoaderPlugin } = require('vue-loader');
 console.log(__dirname + '/dist');
 
 module.exports = {
