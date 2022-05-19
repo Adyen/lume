@@ -58,7 +58,7 @@ import OptionsMixin from '@/mixins/options';
 import BarMixin from '@/charts/bar-chart/mixins/bar-mixin';
 import NegativeValues from '@/mixins/negative-values';
 
-import { ORIENTATIONS } from '@/constants.js';
+import { ORIENTATIONS } from '@/constants';
 import { config, options } from './defaults';
 
 const getColor = (sourceBars, bar) =>

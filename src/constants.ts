@@ -1,6 +1,15 @@
+type Orientation = 'horizontal' | 'vertical';
+
+type Margins = {
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
+};
+
 export const ORIENTATIONS = {
-  HORIZONTAL: 'horizontal',
-  VERTICAL: 'vertical',
+  HORIZONTAL: 'horizontal' as Orientation,
+  VERTICAL: 'vertical' as Orientation,
 };
 
 export const DEFAULT_MARGINS = {
@@ -9,13 +18,13 @@ export const DEFAULT_MARGINS = {
     right: 0,
     bottom: 32,
     left: 32,
-  },
+  } as Margins,
   HORIZONTAL: {
     top: 44,
     right: 0,
     bottom: 32,
     left: 32,
-  },
+  } as Margins,
 };
 
 export const NO_DATA = 'No data';
