@@ -64,7 +64,7 @@ export default {
   props: {
     margins: {
       type: Object,
-      default: () => {},
+      default: () => ({}),
     },
     data: {
       type: Array,

@@ -9,8 +9,16 @@ Data visualization is the graphical representation of information and data. By u
 We're currently aiming to use:
 
 - [D3.js](https://d3js.org/) for calculations
-- [Vue *(v2)*](https://v2.vuejs.org/) for rendering
+- [Vue _(v2)_](https://v2.vuejs.org/) for rendering
 - [Popper.js](https://popper.js.org/) for popover functionality
+
+### Dev stack
+
+- [Webpack](https://webpack.js.org/) for bundling/local dev server
+- [Sass](https://sass-lang.com/) for complex/reusable styling
+- [TypeScript](https://www.typescriptlang.org/) for type checking
+- [TypeScript ESLint](https://typescript-eslint.io/) for linting _(with the help of [eslint-plugin-vue](https://eslint.vuejs.org/))_
+- [Storybook](https://storybook.js.org/) for developing/showcasing components
 
 ## Development
 
@@ -23,13 +31,13 @@ Follow these steps to quickly start developing amazing data-viz components local
     $ git clone git@gitlab.is.adyen.com:data-viz/data-visualization.git
    ```
 2. Install npm packages
-    ```shell
-    $ npm i
-    ```
+   ```shell
+   $ npm i
+   ```
 3. Run the local server
-    ```shell
-    $ npm start
-    ```
+   ```shell
+   $ npm start
+   ```
 
 #### Storybook
 
@@ -43,10 +51,10 @@ Every chart component should have its own `.stories` file, and it will be automa
 
 ##### Available addons
 
- - [`addon-knobs`](https://www.npmjs.com/package/@storybook/addon-knobs/v/5.0.0)
- - [`addon-storysource`](https://www.npmjs.com/package/@storybook/addon-storysource/v/5.0.0)
- - [`addon-notes`](https://www.npmjs.com/package/@storybook/addon-notes/v/5.0.0)
- - [`addon-a11y`](https://www.npmjs.com/package/@storybook/addon-a11y/v/5.0.0)
+- [`addon-knobs`](https://www.npmjs.com/package/@storybook/addon-knobs/v/5.0.0)
+- [`addon-storysource`](https://www.npmjs.com/package/@storybook/addon-storysource/v/5.0.0)
+- [`addon-notes`](https://www.npmjs.com/package/@storybook/addon-notes/v/5.0.0)
+- [`addon-a11y`](https://www.npmjs.com/package/@storybook/addon-a11y/v/5.0.0)
 
 ### Roadmap
 

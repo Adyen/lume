@@ -13,49 +13,49 @@
 
 <script>
 export default {
-    props: {
-        color: {
-            type: String,
-            default: '01',
-        },
-        radius: {
-            type: Number,
-            default: 4,
-        },
-        value: {
-            type: Number,
-            required: true,
-        },
-        index: {
-            type: Number,
-            required: true,
-        },
-        active: {
-            type: Boolean,
-            default: false,
-        },
-        xScale: {
-            type: Function,
-            required: true,
-        },
-        yScale: {
-            type: Function,
-            required: true,
-        },
+  props: {
+    color: {
+      type: String,
+      default: '01',
     },
-    data: () => ({}),
-    computed: {
-        domain() { return this.xScale.domain(); },
-        cx() {
-            return this.xScale(this.domain[this.index]) + this.xAxisOffset;
-        },
-        cy() {
-            return this.yScale(this.value);
-        },
-        xAxisOffset() {
-            return this.xScale.bandwidth() / 2;
-        }
+    radius: {
+      type: Number,
+      default: 4,
     },
+    value: {
+      type: Number,
+      required: true,
+    },
+    index: {
+      type: Number,
+      required: true,
+    },
+    active: {
+      type: Boolean,
+      default: false,
+    },
+    xScale: {
+      type: Function,
+      required: true,
+    },
+    yScale: {
+      type: Function,
+      required: true,
+    },
+  },
+  data: () => ({}),
+  computed: {
+    domain() { return this.xScale.domain(); },
+    cx() {
+      return this.xScale(this.domain[this.index]) + this.xAxisOffset;
+    },
+    cy() {
+      return this.yScale(this.value);
+    },
+    xAxisOffset() {
+      return this.xScale.bandwidth() / 2;
+    }
+  },
 };
 </script>
 

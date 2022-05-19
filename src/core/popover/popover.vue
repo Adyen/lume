@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="root"
     class="adv-popover"
     :class="arrowClass"
   >
@@ -33,8 +34,22 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from 'vue';
-import { createPopper } from '@popperjs/core';
+import {
+  computed,
+  defineComponent,
+  onBeforeUnmount,
+  onMounted,
+  PropType,
+  ref,
+  Ref,
+  watch,
+} from '@vue/composition-api';
+import {
+  createPopper,
+  Instance as PopperInstance,
+  Placement,
+  PositioningStrategy,
+} from '@popperjs/core';
 
 interface PopoverItem {
   type: string;
@@ -61,57 +76,37 @@ export const positions = [
   'left-end',
 ];
 
-export default Vue.extend({
+export default defineComponent({
   props: {
-    /**
-     * Reference element for positioning
-     */
-    targetElement: { type: Element, required: true },
-    /**
-     * Position relative to the target element
-     * @see {@link https://popper.js.org/docs/v2/constructors/#placement}
-     */
+    targetElement: Element,
     position: {
-      type: String,
+      type: String as PropType<Placement>,
       default: 'auto',
-      validator: (value) => positions.includes(value),
+      validator: (value: string) => positions.includes(value),
     },
-    /**
-     * Instructs popover to be visible outside of the containing container.
-     * Useful when component would be used in limited containers like Modal, Side panel, etc.
-     * https://popper.js.org/docs/v2/constructors/#strategy
-     */
     fixedPositioning: { type: Boolean, default: false },
-    /**
-     * Custom set of modifiers. Useful for low-level control over Popper behavior in some really complex use cases.
-     */
     modifiers: { type: Array, default: null },
-    /**
-     * The popover title. Only displayed if the default popover content is used.
-     */
     title: { type: String, default: null },
-    /**
-     * An array of items. Only displayed if the default popover content is used.
-     * @type {PopoverItem[]}
-     */
     items: {
       type: Array as PropType<Array<PopoverItem>>,
       default: null,
     },
   },
-  data: () => ({
-    popper: { state: {} },
-  }),
-  computed: {
-    strategy() {
-      return this.fixedPositioning ? 'fixed' : 'absolute';
-    },
-    allModifiers() {
-      return this.modifiers || [];
-    },
-    arrowClass() {
-      if (!this.popper.state.placement) return '';
-      switch (this.popper.state.placement) {
+  setup(props) {
+    // Refs
+    const root = ref(null);
+
+    // Data
+    const popper: Ref<PopperInstance | null> = ref(null);
+
+    // Computed
+    const strategy = computed<PositioningStrategy>(() =>
+      props.fixedPositioning ? 'fixed' : 'absolute'
+    );
+    const allModifiers = computed(() => props.modifiers || []);
+    const arrowClass = computed(() => {
+      if (!popper.value?.state.placement) return '';
+      switch (popper.value?.state.placement) {
       case 'top':
       default:
         return 'adv-popover--arrow-bottom';
@@ -122,36 +117,38 @@ export default Vue.extend({
       case 'right':
         return 'adv-popover--arrow-left';
       }
-    },
-  },
-  watch: {
-    targetElement: 'updatePopper',
-  },
-  mounted() {
-    this.initPopper();
-  },
-  beforeDestroy() {
-    this.destroyPopper();
-  },
-  methods: {
-    initPopper() {
-      this.popper = createPopper(this.targetElement, this.$el, {
-        placement: this.position,
-        strategy: this.strategy,
-        modifiers: this.allModifiers,
-      });
-    },
-    destroyPopper() {
-      if (this.popper) {
-        this.popper.destroy();
+    });
+
+    // Methods
+    function initPopper() {
+      if (props.targetElement && root) {
+        popper.value = createPopper(props.targetElement, root.value, {
+          placement: props.position,
+          strategy: strategy.value,
+          modifiers: allModifiers.value,
+        });
       }
-    },
-    updatePopper() {
-      this.destroyPopper();
-      if (this.targetElement && this.$el) {
-        this.initPopper();
+    }
+    function destroyPopper() {
+      if (popper) {
+        popper.value.destroy();
       }
-    },
+    }
+    function updatePopper() {
+      destroyPopper();
+      if (props.targetElement && root) {
+        initPopper();
+      }
+    }
+
+    // Watchers
+    watch(() => props.targetElement, updatePopper);
+
+    // Lifecycle
+    onMounted(initPopper);
+    onBeforeUnmount(destroyPopper);
+
+    return { root, popper, strategy, allModifiers, arrowClass };
   },
 });
 </script>
