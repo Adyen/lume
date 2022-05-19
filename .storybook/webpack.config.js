@@ -1,26 +1,33 @@
 const path = require('path');
 
 module.exports = {
-    module: {
-        rules: [
-            {
-                test: /\.s[ac]ss|\.css$/,
-                use: [
-                    'vue-style-loader',
-                    'css-loader',
-                    'sass-loader'
-                ]
+  module: {
+    rules: [
+      {
+        test: /\.ts?$/,
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              appendTsSuffixTo: [/\.vue$/],
             },
-            {
-                test: /\.stories\.js$/,
-                loaders: [require.resolve('@storybook/addon-storysource/loader')],
-                enforce: 'pre',
-            }
+          },
         ],
+      },
+      {
+        test: /\.s[ac]ss|\.css$/,
+        use: ['vue-style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.stories\.js$/,
+        loaders: [require.resolve('@storybook/addon-storysource/loader')],
+        enforce: 'pre',
+      },
+    ],
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, '../src/'),
     },
-    resolve: {
-        alias: {
-            '@': path.resolve(__dirname, '../src/')
-        }
-    }
+  },
 };

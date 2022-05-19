@@ -2,6 +2,7 @@
   NOTE: This file in this directory has to exist, otherwise the build process errs. In bare-bones setup, it can be empty though.
 */
 import Vue from 'vue';
+import VueCompositionAPI from '@vue/composition-api';
 import { addDecorator, addParameters, configure } from '@storybook/vue';
 import { withA11y } from '@storybook/addon-a11y';
 import { withKnobs } from '@storybook/addon-knobs';
@@ -11,6 +12,8 @@ if (process.env.NODE_ENV === 'development') {
   Vue.config.performance = true;
   Vue.config.productionTip = false;
 }
+
+Vue.use(VueCompositionAPI);
 
 addParameters({
   options: {

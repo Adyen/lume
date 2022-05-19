@@ -8,4 +8,4 @@ Vue.use(VueCompositionAPI);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const vueApp = createApp(App);
-vueApp.mount('#app');
+vueApp.mount('#root');
