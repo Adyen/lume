@@ -7,10 +7,10 @@ interface DatasetValueObject {
 
 export type DatasetValue = number | DatasetValueObject | Array<number>;
 
-interface DatasetEntry {
+interface Dataset {
   values: Array<DatasetValue>;
   color?: Color;
   legend?: string;
 }
 
-export type Dataset = Array<DatasetEntry>;
+export type Data = Array<Dataset>;

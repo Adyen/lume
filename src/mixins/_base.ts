@@ -1,10 +1,10 @@
 import { computed, PropType, ref } from '@vue/composition-api';
 import { ORIENTATIONS } from '@/constants';
-import { Dataset } from '@/types/dataset';
+import { Data } from '@/types/dataset';
 
 export const withBase = () => ({
   data: {
-    type: Array as PropType<Dataset>,
+    type: Array as PropType<Data>,
     required: true,
   },
   labels: {
@@ -14,7 +14,7 @@ export const withBase = () => ({
 });
 
 export function useBase(
-  data: Dataset,
+  data: Data,
   labels: Array<string>,
   orientation = ORIENTATIONS.VERTICAL
 ) {
