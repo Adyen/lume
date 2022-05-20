@@ -5,7 +5,7 @@ interface DatasetValueObject {
   color?: Color;
 }
 
-type DatasetValue = number | DatasetValueObject | Array<number>;
+export type DatasetValue = number | DatasetValueObject | Array<number>;
 
 interface DatasetEntry {
   values: Array<DatasetValue>;
