@@ -20,10 +20,12 @@
   </g>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, computed, PropType } from '@vue/composition-api';
 import { line } from 'd3-shape';
+import { Scale } from '@/types/size';
 
-export default {
+export default defineComponent({
   props: {
     color: {
       type: String,
@@ -46,30 +48,34 @@ export default {
       default: false,
     },
     xScale: {
-      type: Function,
+      type: Function as PropType<Scale>,
       required: true,
     },
     yScale: {
-      type: Function,
+      type: Function as PropType<Scale>,
       required: true,
     },
   },
-  data: () => ({}),
-  computed: {
-    pathDefinition() {
+  setup(props) {
+    const xAxisOffset = computed(() => props.xScale.bandwidth() / 2);
+
+    const pathDefinition = computed(() => {
       return line()
-        .x((_, i) => this.xScale(this.xScale.domain()[this.index + (i - 1)]) + this.xAxisOffset)
-        .y((d) => this.yScale(d))(this.values);
-    },
-    xAxisOffset() {
-      return this.xScale.bandwidth() / 2;
-    }
+        .x(
+          (_, i) =>
+            props.xScale(props.xScale.domain()[props.index + (i - 1)]) +
+            xAxisOffset.value
+        )
+        .y((d) => props.yScale(d))(props.values);
+    });
+
+    return { pathDefinition };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>
-@use "~@/styles/variables" as *;
+@use '~@/styles/variables' as *;
 
 $line-stroke-width: 2px;
 $line-stroke-hover-width: 4px;

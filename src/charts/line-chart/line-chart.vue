@@ -3,6 +3,7 @@
     <chart-container
       :margins="computedConfig.margins"
       @resize="updateSize"
+      @mouseleave.native="hoveredIndex = -1"
     >
       <!-- Negative values background -->
       <bar
@@ -47,7 +48,6 @@
               ? 'adv-fill-color-overlay'
               : 'adv-fill-color-transparent'
           "
-          :animate="false"
           @mouseover.native="hoveredIndex = index"
         />
       </g>

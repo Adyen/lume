@@ -11,8 +11,11 @@
   />
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, computed, PropType } from '@vue/composition-api';
+import { Scale } from '@/types/size';
+
+export default defineComponent({
   props: {
     color: {
       type: String,
@@ -35,40 +38,37 @@ export default {
       default: false,
     },
     xScale: {
-      type: Function,
+      type: Function as PropType<Scale>,
       required: true,
     },
     yScale: {
-      type: Function,
+      type: Function as PropType<Scale>,
       required: true,
     },
   },
-  data: () => ({}),
-  computed: {
-    domain() { return this.xScale.domain(); },
-    cx() {
-      return this.xScale(this.domain[this.index]) + this.xAxisOffset;
-    },
-    cy() {
-      return this.yScale(this.value);
-    },
-    xAxisOffset() {
-      return this.xScale.bandwidth() / 2;
-    }
+  setup(props) {
+    const xAxisOffset = computed(() => props.xScale.bandwidth() / 2);
+    const domain = computed(() => props.xScale.domain());
+    const cx = computed(
+      () => props.xScale(domain.value[props.index]) + xAxisOffset.value
+    );
+    const cy = computed(() => props.yScale(props.value));
+
+    return { cx, cy };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>
-@use "~@/styles/variables" as *;
+@use '~@/styles/variables' as *;
 
 .line-chart__point {
-    transition: all $chart-transition-time ease;
+  transition: all $chart-transition-time ease;
 
-    @each $color, $map in $chart-colors {
-        &--color-#{$color} {
-            fill: nth($map, 1);
-        }
+  @each $color, $map in $chart-colors {
+    &--color-#{$color} {
+      fill: nth($map, 1);
     }
+  }
 }
 </style>
