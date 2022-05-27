@@ -47,8 +47,8 @@
 
 <script>
 import BarGroup from '@/charts/bar-chart/bar-group.vue';
-import Bar from '@/core/bar.vue';
-import ChartContainer from '@/core/chart-container.vue';
+import Bar from '@/core/bar';
+import ChartContainer from '@/core/chart-container';
 import Popover from '@/core/popover';
 import BarMixin from '@/charts/bar-chart/mixins/bar-mixin';
 import BarOverlay from '@/charts/bar-chart/mixins/bar-overlay';

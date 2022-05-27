@@ -83,8 +83,8 @@
 import { defineComponent, ref, watch } from '@vue/composition-api';
 
 import Axis from '@/core/axis';
-import Bar from '@/core/bar.vue';
-import ChartContainer from '@/core/chart-container.vue';
+import Bar from '@/core/bar';
+import ChartContainer from '@/core/chart-container';
 import Popover from '@/core/popover';
 
 import LineGroup from './components/line-group.vue';

@@ -50,9 +50,9 @@
 <script>
 import { scaleBand } from 'd3-scale';
 
-import Bar from '@/core/bar.vue';
+import Bar from '@/core/bar';
 import BarsGroup from '@/core/bars-group.vue';
-import ChartContainer from '@/core/chart-container.vue';
+import ChartContainer from '@/core/chart-container';
 import Popover from '@/core/popover';
 import AnimationMixin from '@/mixins/animation';
 import BarMixin from '@/charts/bar-chart/mixins/bar-mixin';

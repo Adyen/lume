@@ -9,8 +9,10 @@
   />
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from '@vue/composition-api';
+
+export default defineComponent({
   props: {
     x: {
       type: Number,
@@ -22,26 +24,30 @@ export default {
     },
     height: {
       type: Number,
-      required: true
+      required: true,
     },
     width: {
       type: Number,
-      required: true
+      required: true,
+    },
+    transform: {
+      type: String,
+      required: true,
     },
     fillClass: {
       type: String,
-      required: true
+      required: true,
     },
     animate: {
       type: Boolean,
-      default: false
-    }
-  }
-}
+      default: true,
+    },
+  },
+});
 </script>
 
 <style lang="scss" scoped>
-@use "~@/styles/variables" as *;
+@use '~@/styles/variables' as *;
 
 .bar {
   &--transition {

@@ -56,8 +56,8 @@ import OptionsMixin from '@/mixins/options';
 import BarMixin from './mixins/bar-mixin';
 import BarGroup from './bar-group.vue';
 import AnimationMixin from '@/mixins/animation';
-import Bar from '@/core/bar.vue';
-import ChartContainer from '@/core/chart-container.vue';
+import Bar from '@/core/bar';
+import ChartContainer from '@/core/chart-container';
 import Popover from '@/core/popover';
 import { config, options } from './defaults';
 

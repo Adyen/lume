@@ -49,7 +49,7 @@ import { quantile, group, ascending } from 'd3-array';
 import { scaleLinear, scaleBand } from 'd3-scale';
 
 import Axis from '@/core/axis';
-import ChartContainer from '@/core/chart-container.vue';
+import ChartContainer from '@/core/chart-container';
 import Popover from '@/core/popover';
 import BoxGroup from './box-group.vue';
 
