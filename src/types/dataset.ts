@@ -1,16 +1,16 @@
 import { Color } from '@/types/colors';
 
-interface DatasetValueObject {
-  value: number;
+export interface DatasetValueObject<T extends number | Array<number> = number> {
+  value: T;
   color?: Color;
 }
 
-export type DatasetValue = number | DatasetValueObject | Array<number>;
+export type DatasetValue = number | DatasetValueObject | Array<number> | null;
 
-interface Dataset {
-  values: Array<DatasetValue>;
+interface Dataset<T> {
+  values: Array<T>;
   color?: Color;
-  legend?: string;
+  label?: string;
 }
 
-export type Data = Array<Dataset>;
+export type Data<T extends DatasetValue = DatasetValue> = Array<Dataset<T>>;

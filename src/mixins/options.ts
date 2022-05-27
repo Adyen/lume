@@ -1,7 +1,7 @@
 import { computed, PropType } from '@vue/composition-api';
 
 interface Options {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export const withOptions = () => ({
@@ -12,8 +12,6 @@ export const withOptions = () => ({
 });
 
 export function useOptions(options: Options, defaultOptions: Options) {
-  console.log('options:', options);
-
   const allOptions = computed<Options>(() => ({
     ...defaultOptions,
     ...options,

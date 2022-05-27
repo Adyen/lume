@@ -13,7 +13,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     margins: {
@@ -22,8 +21,8 @@ export default {
     },
     transparentBackground: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data: () => ({
     width: 0,
@@ -42,8 +41,10 @@ export default {
       };
     },
     containerSize() {
-      const width = this.width - this.computedMargin.left - this.computedMargin.right;
-      const height = this.height - this.computedMargin.top - this.computedMargin.bottom;
+      const width =
+        this.width - this.computedMargin.left - this.computedMargin.right;
+      const height =
+        this.height - this.computedMargin.top - this.computedMargin.bottom;
       return {
         width: width > 0 ? width : 0,
         height: height > 0 ? height : 0,
@@ -82,22 +83,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use "~@/styles/variables" as *;
+@use '~@/styles/variables' as *;
 
 .container {
-    overflow: visible;
-    background-color: $chart-background-color;
-    width: 100%;
-    height: 100%;
+  overflow: visible;
+  background-color: $chart-background-color;
+  width: 100%;
+  height: 100%;
 
-    &--transparent-background {
-        background-color: transparent;
-    }
+  &--transparent-background {
+    background-color: transparent;
+  }
 
-    &__group {
-        transition-property: transform;
-        transition-timing-function: ease-in-out;
-        transition-duration: $chart-transition-time;
-    }
+  &__group {
+    transition-property: transform;
+    transition-timing-function: ease-in-out;
+    transition-duration: $chart-transition-time;
+  }
 }
 </style>

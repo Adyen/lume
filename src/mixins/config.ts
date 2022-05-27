@@ -3,7 +3,7 @@ import { computed, PropType } from '@vue/composition-api';
 const CONFIGS = ['margins'];
 
 interface Configs {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export const withConfig = () => ({
@@ -16,8 +16,6 @@ export const withConfig = () => ({
 });
 
 export function useConfig(config: Configs, defaultConfig: Configs) {
-  console.log('config:', config);
-
   const computedConfig = computed<Configs>(() => ({
     ...defaultConfig,
     ...config,

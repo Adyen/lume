@@ -1,4 +1,4 @@
-import { Ref, ref } from '@vue/composition-api';
+import { reactive, set } from '@vue/composition-api';
 
 export interface PopoverConfig {
   opened: boolean;
@@ -6,19 +6,19 @@ export interface PopoverConfig {
 }
 
 export function usePopover() {
-  const popoverConfig: Ref<PopoverConfig> = ref({
+  const popoverConfig = reactive<PopoverConfig>({
     opened: false,
     targetElement: null,
   });
 
   const showPopover = (targetElement: Element | null) => {
-    popoverConfig.value.opened = true;
-    popoverConfig.value.targetElement = targetElement;
+    set(popoverConfig, 'opened', true);
+    set(popoverConfig, 'targetElement', targetElement);
   };
 
   const hidePopover = () => {
-    popoverConfig.value.opened = false;
-    popoverConfig.value.targetElement = null;
+    set(popoverConfig, 'opened', false);
+    set(popoverConfig, 'targetElement', null);
   };
 
   return { popoverConfig, showPopover, hidePopover };

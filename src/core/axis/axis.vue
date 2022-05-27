@@ -16,14 +16,21 @@
   </g>
 </template>
 
-<script>
+<script lang="ts">
+import {
+  computed,
+  defineComponent,
+  ref,
+  onMounted,
+  watch,
+} from '@vue/composition-api';
 import { axisBottom, axisLeft, axisRight, axisTop } from 'd3-axis';
 import { select } from 'd3-selection';
 import { format } from 'd3-format';
 
-import OptionsMixin from '@/mixins/options';
+import { useOptions, withOptions } from '@/mixins/options';
 
-import { options } from './defaults';
+import { options as defaultOptions } from './defaults';
 
 const POSITIONS = ['left', 'top', 'right', 'bottom'];
 
@@ -46,8 +53,7 @@ const LABEL_MARGIN = {
   y: LABEL_HEIGHT + LABEL_PADDING,
 };
 
-export default {
-  mixins: [OptionsMixin(options)],
+export default defineComponent({
   props: {
     scale: {
       type: Function,
@@ -56,12 +62,12 @@ export default {
     type: {
       type: String,
       default: null,
-      validator: (value) => value in TYPES,
+      validator: (value: string) => value in TYPES,
     },
     position: {
       type: String,
       default: null,
-      validator: (value) => POSITIONS.includes(value),
+      validator: (value: string) => POSITIONS.includes(value),
     },
     label: {
       type: String,
@@ -75,40 +81,35 @@ export default {
       type: String,
       default: null,
     },
+    ...withOptions(),
   },
-  computed: {
-    computedPosition() {
-      return this.type ? TYPES[this.type] : this.position;
-    },
-    computedType() {
-      return (
-        this.type ||
-        (this.computedPosition === 'left' || this.computedPosition === 'right'
+  setup(props) {
+    const { allOptions } = useOptions(props.options, defaultOptions);
+    const root = ref(null);
+    const selection = ref(null);
+
+    const computedPosition = computed(() =>
+      props.type ? TYPES[props.type] : props.position
+    );
+
+    const computedType = computed(
+      () =>
+        props.type ||
+        (computedPosition.value === 'left' || computedPosition.value === 'right'
           ? 'y'
           : 'x')
-      );
-    },
-    axis() {
-      const axis = AXIS_MAP[this.computedPosition](this.scale);
-      return axis
-        .ticks(this.allOptions.tickCount)
-        .tickSize(this.tickSize) // Used to draw grid lines
-        .tickPadding(this.allOptions.tickPadding)
-        .tickFormat(this.tickFormat);
-    },
-    computedTransform() {
-      if (this.transform) return this.transform;
-      return `translate(${this.translateX}, ${this.translateY})`;
-    },
-    tickSize() {
-      if (this.allOptions.gridLines) {
-        const { width, height } = this.containerSize;
-        return this.computedType === 'y' ? width : height;
+    );
+
+    const tickSize = computed(() => {
+      if (allOptions.value.gridLines) {
+        const { width, height } = props.containerSize;
+        return computedType.value === 'y' ? width : height;
       }
       return 0;
-    },
-    tickFormat() {
-      const { showTicks, tickFormat } = this.allOptions;
+    });
+
+    const tickFormat = computed(() => {
+      const { showTicks, tickFormat } = allOptions.value;
 
       // Hides ticks without hiding `gridLines`
       if (showTicks === false) return '';
@@ -123,51 +124,71 @@ export default {
       }
 
       return null;
-    },
-    translateX() {
-      const xValue = this.tickSize || this.containerSize.width || 0;
+    });
+
+    const axis = computed(() => {
+      if (!props.scale) return;
+      const axis = AXIS_MAP[computedPosition.value](props.scale);
+      return axis
+        .ticks(allOptions.value.tickCount)
+        .tickSize(tickSize.value) // Used to draw grid lines
+        .tickPadding(allOptions.value.tickPadding)
+        .tickFormat(tickFormat.value);
+    });
+
+    const translateX = computed(() => {
+      const xValue = tickSize.value || props.containerSize.width || 0;
 
       // For axes rendering grid lines
-      if (this.tickSize) return this.computedPosition === 'left' ? xValue : 0;
+      if (tickSize.value) return computedPosition.value === 'left' ? xValue : 0;
 
-      if (this.computedPosition === 'right') return xValue;
+      if (computedPosition.value === 'right') return xValue;
 
       return 0;
-    },
-    translateY() {
-      const yValue = this.tickSize || this.containerSize.height || 0;
+    });
+
+    const translateY = computed(() => {
+      const yValue = tickSize.value || props.containerSize.height || 0;
 
       // For axes rendering grid lines
-      if (this.tickSize) return this.computedPosition === 'top' ? yValue : 0;
+      if (tickSize.value) return computedPosition.value === 'top' ? yValue : 0;
 
-      if (this.computedPosition === 'bottom') return yValue;
+      if (computedPosition.value === 'bottom') return yValue;
 
       return 0;
-    },
-    labelPosition() {
-      return {
-        x: '-100%',
-        y: -LABEL_MARGIN[this.computedType],
-      };
-    },
+    });
+
+    const computedTransform = computed(() => {
+      if (props.transform) return props.transform;
+      return `translate(${translateX.value}, ${translateY.value})`;
+    });
+
+    const labelPosition = computed(() => ({
+      x: '-100%',
+      y: -LABEL_MARGIN[computedType.value],
+    }));
+
+    function applyAxis() {
+      selection.value?.call(axis.value);
+    }
+
+    onMounted(() => {
+      selection.value = select(root.value);
+      applyAxis();
+    });
+
+    watch([props.scale, allOptions], applyAxis);
+
+    return {
+      root,
+      computedPosition,
+      computedType,
+      axis,
+      computedTransform,
+      labelPosition,
+    };
   },
-  watch: {
-    scale: 'applyAxis',
-    allOptions: 'applyAxis',
-  },
-  mounted() {
-    this.root = select(this.$refs.root);
-    this.applyAxis();
-  },
-  methods: {
-    applyAxis() {
-      this.root
-        // NOTE: d3.js v6.6.2 can't apply transition, so suspending it for now.
-        // .transition()
-        ?.call(this.axis);
-    },
-  },
-};
+});
 </script>
 
 <style lang="scss" scoped>
