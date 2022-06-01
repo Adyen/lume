@@ -177,7 +177,9 @@ export default defineComponent({
       applyAxis();
     });
 
-    watch([props.scale, allOptions], applyAxis);
+    watch([props.scale, props.containerSize, allOptions], applyAxis, {
+      deep: true,
+    });
 
     return {
       root,

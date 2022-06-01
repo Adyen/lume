@@ -15,7 +15,9 @@
     <bar
       v-if="overlay"
       v-bind="overlay"
-      :fill-class="isHovered ? 'adv-fill-color-overlay' : 'adv-fill-color-transparent'"
+      :fill-class="
+        isHovered ? 'adv-fill-color-overlay' : 'adv-fill-color-transparent'
+      "
       :animate="true"
       @mouseover.native="$emit('mouseover', $event)"
       @mouseout.native="$emit('mouseout')"
@@ -23,27 +25,28 @@
   </g>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from '@vue/composition-api';
 
 import Bar from '@/core/bar';
 
-export default {
+export default defineComponent({
   components: { Bar },
   props: {
     boxGroup: {
       type: Object,
-      required: true
+      required: true,
     },
     overlay: {
       type: Object,
-      default: null
+      default: null,
     },
     isHovered: {
       type: Boolean,
-      required: true
-    }
-  }
-}
+      required: true,
+    },
+  },
+});
 </script>
 
 <style scoped lang="scss">
