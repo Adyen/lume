@@ -1,6 +1,17 @@
 import { computed, PropType } from '@vue/composition-api';
 
+interface AxisOptions {
+  gridLines?: boolean;
+  label?: string;
+  showTicks?: boolean;
+  tickCount?: number;
+  tickFormat?: string | (() => string);
+  tickPadding?: number;
+  withLabel?: boolean;
+}
 interface Options {
+  xAxisOptions?: AxisOptions;
+  yAxisOptions?: AxisOptions;
   [key: string]: unknown;
 }
 

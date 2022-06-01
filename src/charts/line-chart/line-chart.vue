@@ -27,6 +27,7 @@
           type="y"
           :options="allOptions.yAxisOptions"
           :scale="yScale"
+          :label="yAxisLabel"
           :container-size="containerSize"
         />
       </template>
@@ -80,7 +81,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from '@vue/composition-api';
+import { computed, defineComponent, ref, watch } from '@vue/composition-api';
 
 import Axis from '@/core/axis';
 import Bar from '@/core/bar';
@@ -115,6 +116,7 @@ export default defineComponent({
   },
   setup(props) {
     // State from mixins
+
     const { computedData, containerSize, updateSize } = useBase(
       props.data,
       props.labels
@@ -141,6 +143,16 @@ export default defineComponent({
     const hoveredIndex = ref<number>(-1);
     const overlayBars = ref(null); // Template refs
 
+    // Computed
+
+    const yAxisLabel = computed(() => {
+      if (allOptions.value.yAxisOptions?.withLabel === false) return;
+      return (
+        allOptions.value.yAxisOptions?.label ||
+        computedData.value.map((d) => d.label).join(', ')
+      );
+    });
+
     // Methods
 
     function getPopoverItems(index: number) {
@@ -158,7 +170,7 @@ export default defineComponent({
 
     // Watchers
 
-    watch([hoveredIndex, overlayBars], function () {
+    watch([hoveredIndex, overlayBars], function() {
       if (hoveredIndex.value > -1)
         showPopover(overlayBars.value?.[hoveredIndex.value].$el);
       else hidePopover();
@@ -179,6 +191,7 @@ export default defineComponent({
       overlayBars,
       popoverConfig,
       updateSize,
+      yAxisLabel,
       xScale,
       yScale,
     };

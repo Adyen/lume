@@ -2,16 +2,18 @@
   <div class="u-width-full u-height-full">
     <chart-container
       :margins="computedConfig.margins"
-      @resize="$determineWidthAndHeight"
+      @resize="updateSize"
     >
       <bar
         v-if="hasNegativeValues"
         :height="negativeHeight"
-        :width="width"
+        :width="containerSize.width"
         :transform="negativeTransform"
+        :animate="false"
         fill-class="adv-fill-color-negative-values"
       />
-      <template v-if="allOptions.showAxes">
+
+      <template v-if="allOptions.showAxes && xScale && yScale">
         <axis
           type="x"
           :options="allOptions.xAxisOptions"
@@ -26,79 +28,175 @@
           :container-size="containerSize"
         />
       </template>
-      <bar-group
-        v-for="(bar, index) in dataWithSuspension[0].values"
-        :key="`bar-group-${index}`"
-        :bar="getBarConfig(bar, index)"
-        :overlay="$getOverlayConfig(index)"
-        :is-hovered="hoveredIndex === index"
-        :animate="animate"
-        @mouseover="$handleMouseover(index, $event)"
-        @mouseout="$handleMouseout"
-      />
+
+      <template v-if="xScale && yScale">
+        <bar-group
+          v-for="(value, index) in singleBarData"
+          :key="`bar-group-${index}`"
+          :bar="getBarConfig(value, index)"
+          :overlay="getOverlayConfig(index)"
+          :is-hovered="hoveredIndex === index"
+          @mouseover="handleMouseover(index, $event)"
+          @mouseout="handleMouseout"
+        />
+      </template>
     </chart-container>
     <popover
-      v-if="popoverConfig.opened"
+      v-if="allOptions.withPopover && popoverConfig.opened"
       v-bind="popoverConfig"
       position="top"
+      :title="labels[hoveredIndex]"
+      :items="getPopoverItems(hoveredIndex)"
     >
-      <span class="u-font-weight-semi-bold">{{ labels[hoveredIndex] }}</span>
-      : {{ determinePopoverValue(data[0].values[hoveredIndex]) }}
+      <slot
+        name="popover"
+        :index="hoveredIndex"
+      />
     </popover>
   </div>
 </template>
 
-<script>
-import BaseMixin from '@/mixins/base-mixin';
-import ConfigMixin from '@/mixins/config';
-import NegativeValuesMixin from '@/mixins/negative-values';
-import OptionsMixin from '@/mixins/options';
-import BarMixin from './mixins/bar-mixin';
-import BarGroup from './bar-group.vue';
-import AnimationMixin from '@/mixins/animation';
+<script lang="ts">
+import { computed, defineComponent, ref } from '@vue/composition-api';
+
+import Axis from '@/core/axis';
 import Bar from '@/core/bar';
+import BarGroup from './bar-group.vue';
 import ChartContainer from '@/core/chart-container';
 import Popover from '@/core/popover';
-import { config, options } from './defaults';
+
+import { useBarMixin, withBarProps } from './mixins/bar-mixin';
+import { useBase, withBase } from '@/mixins/base';
+import { useConfig, withConfig } from '@/mixins/config';
+import { useOptions, withOptions } from '@/mixins/options';
+import { usePopover } from '@/mixins/popover';
+import {
+  checkNegativeValues,
+  useNegativeValues,
+} from '@/mixins/negative-values';
+
+import { NO_DATA } from '@/constants';
+import { Data } from '@/types/dataset';
+
+import { config as defaultConfig, options as defaultOptions } from './defaults';
+import { useBarOverlay } from './mixins/bar-overlay';
 
 const fallbackFillClass = '01';
 
-export default {
-  components: { ChartContainer, Bar, BarGroup, Popover },
-  mixins: [
-    BaseMixin(),
-    ConfigMixin(config),
-    BarMixin(),
-    NegativeValuesMixin,
-    OptionsMixin(options),
-    AnimationMixin()
-  ],
-  computed: {
-    yAxisLabel() {
-      if (this.allOptions.yAxisOptions?.withLabel === false) return;
-      return this.allOptions.yAxisOptions?.label || this.barsConfig?.legend;
-    },
+const singleBarDataValidator = (data: Data) => data.length === 1;
+
+export default defineComponent({
+  components: { Axis, Bar, BarGroup, ChartContainer, Popover },
+  props: {
+    ...withBase(singleBarDataValidator),
+    ...withConfig(),
+    ...withBarProps(),
+    ...withOptions(),
   },
-  methods: {
-    getBarConfig(value, index) {
-      const y = value < 0 ? this.yScale(0) : this.yScale(value);
+  setup(props, ctx) {
+    // State from mixins
+
+    const {
+      computedData,
+      containerSize,
+      updateSize,
+      isHorizontal,
+      domain,
+    } = useBase(props.data, props.labels);
+    const { hasNegativeValues } = checkNegativeValues(computedData.value);
+    const { xScale, yScale, singleBarData } = useBarMixin(
+      computedData.value,
+      containerSize,
+      props.padding,
+      props.labels
+    );
+    const { negativeHeight, negativeTransform } = useNegativeValues(
+      containerSize,
+      yScale
+    );
+    const { getOverlayConfig } = useBarOverlay(
+      isHorizontal,
+      xScale,
+      yScale,
+      containerSize,
+      domain
+    );
+    const { computedConfig } = useConfig(props.config, defaultConfig);
+    const { allOptions } = useOptions(props.options, defaultOptions);
+    const { popoverConfig, showPopover, hidePopover } = usePopover();
+
+    // Internal state
+
+    const hoveredIndex = ref<number>(-1);
+
+    // Computed
+
+    const yAxisLabel = computed(() => {
+      if (allOptions.value.yAxisOptions?.withLabel === false) return;
+      return (
+        allOptions.value.yAxisOptions?.label || computedData.value[0].label
+      );
+    });
+
+    // Methods
+
+    function getBarConfig(value: number, index: number) {
+      if (!yScale.value) return {};
+      const yTranslation = value < 0 ? yScale.value(0) : yScale.value(value);
       const height =
         value < 0
-          ? this.yScale(value) - this.yScale(0)
-          : this.yScale(0) - this.yScale(value);
+          ? yScale.value(value) - yScale.value(0)
+          : yScale.value(0) - yScale.value(value);
       return {
-        x: this.xScale(this.domain[index]),
-        y,
-        width: this.xScale.bandwidth(),
+        transform: `translate(${xScale.value(index)}, ${yTranslation})`,
+        width: xScale.value.bandwidth(),
         height,
-        fillClass: `adv-fill-color-${
-          this.paddedData[0].color || this.barsConfig.color || fallbackFillClass
-        }`,
+        fillClass: `adv-fill-color-${computedData.value[0].color ||
+          fallbackFillClass}`,
       };
-    },
-    determinePopoverValue(value) {
-      return value ?? 'No data available';
-    },
+    }
+
+    function getPopoverItems(index: number) {
+      return computedData.value.map(({ color, label, values }) => ({
+        type: 'bar',
+        color,
+        label,
+        value: values[index]?.value ?? NO_DATA,
+      }));
+    }
+
+    function handleMouseover(index: number, event: MouseEvent) {
+      hoveredIndex.value = index;
+      showPopover(event.target as HTMLElement);
+      ctx.emit('mouseover', index);
+    }
+
+    function handleMouseout() {
+      hoveredIndex.value = -1;
+      hidePopover();
+      ctx.emit('mouseout');
+    }
+
+    return {
+      allOptions,
+      computedConfig,
+      containerSize,
+      getPopoverItems,
+      getBarConfig,
+      getOverlayConfig,
+      handleMouseout,
+      handleMouseover,
+      hasNegativeValues,
+      hoveredIndex,
+      negativeHeight,
+      negativeTransform,
+      popoverConfig,
+      singleBarData,
+      updateSize,
+      yAxisLabel,
+      xScale,
+      yScale,
+    };
   },
-};
+});
 </script>
