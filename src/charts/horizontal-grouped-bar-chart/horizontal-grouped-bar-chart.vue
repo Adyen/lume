@@ -16,7 +16,7 @@
           :scale="xScale"
           type="x"
           :container-size="containerSize"
-          :options="xAxisOptions"
+          :options="allOptions.xAxisOptions"
         />
         <axis
           :scale="yScale"
@@ -50,7 +50,11 @@ import BarsGroup from '@/core/bars-group.vue';
 import ChartContainer from '@/core/chart-container.vue';
 import BaseMixin from '@/mixins/base-mixin.js';
 import HorizontalMixin from '@/mixins/horizontal';
+import OptionsMixin from '@/mixins/options';
+import NegativeValuesMixin from '@/mixins/negative-values';
 import { ORIENTATIONS } from '@/constants.js';
+import { options } from './defaults';
+import BarMixin from "@/charts/bar-chart/mixins/bar-mixin";
 
 const getColor = (bars, barIndex) => bars?.colors?.[barIndex] || `0${barIndex + 1}`;
 const defaultBarHeight = 20; // 12px
@@ -59,7 +63,13 @@ const defaultRightMargin = 12; // 12px;
 
 export default {
   components: { Bar, BarsGroup, ChartContainer },
-  mixins: [BaseMixin(ORIENTATIONS.HORIZONTAL), HorizontalMixin],
+  mixins: [
+    BaseMixin(ORIENTATIONS.HORIZONTAL),
+    BarMixin(),
+    HorizontalMixin,
+    NegativeValuesMixin,
+    OptionsMixin(options)
+  ],
   computed: {
     computedMargins() {
       return {
