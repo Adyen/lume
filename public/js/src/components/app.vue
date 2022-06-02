@@ -80,15 +80,10 @@ export default {
         label: 'Hot dogs',
       },
     ],
-    barChartData: [
-      { value: 10 },
-      { value: 40 },
-      { value: null },
-      { value: 30, color: '02' },
-      { value: 60 },
-      { value: 0 },
-      { value: -26 },
-    ],
+    barChartData: [{
+      values: [10, 40, null, 30, 60, 0, -26],
+      color: '02'
+    }],
     stackedBarChartData: [
       { values: [10, 20, 30] },
       { values: [20, 30, 40], colors: ['04', '05'] },

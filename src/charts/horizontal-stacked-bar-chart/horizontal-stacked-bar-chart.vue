@@ -52,6 +52,7 @@ import BarMixin from '@/charts/bar-chart/mixins/bar-mixin';
 import HorizontalMixin from '@/mixins/horizontal';
 import NegativeValuesMixin from '@/mixins/negative-values';
 import OptionsMixin from '@/mixins/options';
+import Popover from '@/core/popover';
 import { ORIENTATIONS } from '@/constants.js';
 import { options } from './defaults';
 
@@ -63,7 +64,7 @@ const getColor = (sourceBars, bar) =>
   sourceBars?.colors?.[bar.index] || `0${bar.index + 1}`;
 
 export default {
-  components: { Bar, BarsGroup, ChartContainer },
+  components: { Bar, BarsGroup, ChartContainer, Popover },
   mixins: [
     BaseMixin(ORIENTATIONS.HORIZONTAL),
     BarMixin(true),

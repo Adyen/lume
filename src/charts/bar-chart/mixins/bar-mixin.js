@@ -2,7 +2,7 @@ import { scaleBand, scaleLinear } from 'd3-scale';
 import BarOverlay from './bar-overlay';
 
 const defaultPadding = 0.33;
-const pad = (value) => (!value && value !== 0 ? 0 : value);
+const pad = value => (!value && value !== 0 ? 0 : value);
 
 export default function BarMixin(isStacked = false) {
   // @vue/component
@@ -57,7 +57,7 @@ export default function BarMixin(isStacked = false) {
           if (valueSet.length > 0) {
             return isStacked
               ? valueSet
-                .filter((value) => value < 0)
+                .filter(value => value < 0)
                 .reduce((acc, curr) => acc + curr, 0)
               : Math.min(...valueSet);
           }
@@ -67,19 +67,16 @@ export default function BarMixin(isStacked = false) {
         return Math.min(...(this.startOnZero ? [0] : []), ...accumulatedValues);
       },
       paddedData() {
-        return this.data.map((record) => ({
+        return this.data.map(record => ({
           ...record,
-          ...('value' in record ? { value: pad(record.value) } : {}),
-          ...('values' in record ? { values: record.values.map(pad) } : {}),
+          values: record.values.map(pad),
         }));
       },
       paddedDataAsArray() {
-        return this.paddedData.map((record) =>
-          'value' in record ? record.value : record.values
-        );
+        return this.paddedData.map(({ values }) => values)
       },
       hasNegativeValues() {
-        return this.paddedDataAsArray.flat().some((value) => value < 0);
+        return this.paddedDataAsArray.flat().some(value => value < 0);
       },
     },
   };

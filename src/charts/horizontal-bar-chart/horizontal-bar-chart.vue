@@ -26,7 +26,7 @@
         />
       </template>
       <bar-group
-        v-for="(bar, index) in paddedData"
+        v-for="(bar, index) in paddedData[0].values"
         :key="`bar-group-${index}`"
         :bar="getBarConfig(bar, index)"
         :overlay="$getOverlayConfig(index)"
@@ -39,7 +39,7 @@
       v-if="popoverConfig.opened"
       v-bind="popoverConfig"
     >
-      <span class="u-font-weight-semi-bold">{{ labels[hoveredIndex] }}</span>: {{ determinePopoverValue(data[hoveredIndex].value) }}
+      <span class="u-font-weight-semi-bold">{{ labels[hoveredIndex] }}</span>: {{ determinePopoverValue(data[0].values[hoveredIndex]) }}
     </popover>
   </div>
 </template>
@@ -49,7 +49,6 @@ import BarGroup from '@/charts/bar-chart/bar-group.vue';
 import Bar from '@/core/bar.vue';
 import ChartContainer from '@/core/chart-container.vue';
 import Popover from '@/core/popover';
-
 import BarMixin from '@/charts/bar-chart/mixins/bar-mixin';
 import BarOverlay from '@/charts/bar-chart/mixins/bar-overlay';
 import BaseMixin from '@/mixins/base-mixin';
@@ -87,11 +86,11 @@ export default {
     },
   },
   mounted() {
-    const height = this.data.length * (defaultBarHeight * 1.5);
+    const height = this.data[0].values.length * (defaultBarHeight * 1.5);
     this.$setHeight(height);
   },
   methods: {
-    getBarConfig({ value, color }, index) {
+    getBarConfig(value, index) {
       const xTranslation = value >= 0 ? this.xScale(0) : this.xScale(value);
       const width =
         value < 0
@@ -104,7 +103,7 @@ export default {
         width,
         height: this.yScale.bandwidth(),
         fillClass: `adv-fill-color-${
-          color || this.barsConfig.color || fallbackFillClass
+          this.paddedData[0].color || this.barsConfig.color || fallbackFillClass
         }`,
       };
     },

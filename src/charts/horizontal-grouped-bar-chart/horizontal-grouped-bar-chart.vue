@@ -52,6 +52,7 @@ import BaseMixin from '@/mixins/base-mixin.js';
 import HorizontalMixin from '@/mixins/horizontal';
 import OptionsMixin from '@/mixins/options';
 import NegativeValuesMixin from '@/mixins/negative-values';
+import Popover from '@/core/popover';
 import { ORIENTATIONS } from '@/constants.js';
 import { options } from './defaults';
 import BarMixin from "@/charts/bar-chart/mixins/bar-mixin";
@@ -62,7 +63,7 @@ const defaultLeftMargin = 80; // 80px
 const defaultRightMargin = 12; // 12px;
 
 export default {
-  components: { Bar, BarsGroup, ChartContainer },
+  components: { Bar, BarsGroup, ChartContainer, Popover },
   mixins: [
     BaseMixin(ORIENTATIONS.HORIZONTAL),
     BarMixin(),

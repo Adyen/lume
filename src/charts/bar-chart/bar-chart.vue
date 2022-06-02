@@ -27,7 +27,7 @@
         />
       </template>
       <bar-group
-        v-for="(bar, index) in paddedData"
+        v-for="(bar, index) in paddedData[0].values"
         :key="`bar-group-${index}`"
         :bar="getBarConfig(bar, index)"
         :overlay="$getOverlayConfig(index)"
@@ -42,7 +42,7 @@
       position="top"
     >
       <span class="u-font-weight-semi-bold">{{ labels[hoveredIndex] }}</span>
-      : {{ determinePopoverValue(data[hoveredIndex].value) }}
+      : {{ determinePopoverValue(data[0].values[hoveredIndex]) }}
     </popover>
   </div>
 </template>
@@ -78,7 +78,7 @@ export default {
     },
   },
   methods: {
-    getBarConfig({ value, color }, index) {
+    getBarConfig(value, index) {
       const yTranslation = value < 0 ? this.yScale(0) : this.yScale(value);
       const height =
         value < 0
@@ -91,7 +91,7 @@ export default {
         width: this.xScale.bandwidth(),
         height,
         fillClass: `adv-fill-color-${
-          color || this.barsConfig.color || fallbackFillClass
+          this.paddedData[0].color || this.barsConfig.color || fallbackFillClass
         }`,
       };
     },
