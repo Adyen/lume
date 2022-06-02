@@ -12,3 +12,12 @@ export function flatValues(data: Data<DatasetValueObject>): Array<number> {
     )
     .flat();
 }
+
+/**
+ * Checks if provided data has only 1 dataset.
+ * @param {Data} data The data prop
+ * @returns {boolean} True if valid single dataset data
+ */
+export function singleDatasetValidator(data: Data): boolean {
+  return data.length === 1;
+}

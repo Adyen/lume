@@ -130,7 +130,7 @@ export default defineComponent({
       }
     }
     function destroyPopper() {
-      if (popper) {
+      if (popper.value) {
         popper.value.destroy();
       }
     }
