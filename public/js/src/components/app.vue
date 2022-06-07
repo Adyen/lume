@@ -38,9 +38,8 @@
         :data="boxPlotData"
         :margins="boxPlotConfig.margins"
         :group-by-label="boxPlotConfig.groupByLabel"
-        :value-label="boxPlotConfig.valeLabel"
+        :value-label="boxPlotConfig.valueLabel"
       />
-      <div class="u-width-full" />
     </div>
   </div>
 </template>
@@ -106,7 +105,7 @@ export default {
     boxPlotData,
     boxPlotConfig: {
       groupByLabel: 'Species',
-      valeLabel: 'Sepal_Length',
+      valueLabel: 'Sepal_Length',
       margins: {
         top: 20,
         right: 20,
