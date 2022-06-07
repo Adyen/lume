@@ -7,7 +7,7 @@ export interface DatasetValueObject<T extends number | Array<number> = number> {
 
 export type DatasetValue = number | DatasetValueObject | Array<number> | null;
 
-interface Dataset<T> {
+export interface Dataset<T> {
   values: Array<T>;
   color?: Color;
   label?: string;

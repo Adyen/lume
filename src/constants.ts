@@ -1,4 +1,4 @@
-type Orientation = 'horizontal' | 'vertical';
+export type Orientation = 'horizontal' | 'vertical';
 
 type Margins = {
   top: number;

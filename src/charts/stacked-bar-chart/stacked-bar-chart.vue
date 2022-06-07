@@ -2,16 +2,18 @@
   <div class="u-width-full u-height-full">
     <chart-container
       :margins="computedConfig.margins"
-      @resize="$determineWidthAndHeight"
+      @resize="updateSize"
     >
       <bar
         v-if="hasNegativeValues"
         :height="negativeHeight"
-        :width="width"
+        :width="containerSize.width"
         :transform="negativeTransform"
+        :animate="false"
         fill-class="adv-fill-color-negative-values"
       />
-      <template v-if="allOptions.showAxes">
+
+      <template v-if="allOptions.showAxes && xScale && yScale">
         <axis
           type="x"
           :scale="xScale"
@@ -26,111 +28,220 @@
           :label="yAxisLabel"
         />
       </template>
-      <bars-group
-        v-for="(bars, index) in dataWithSuspension"
-        :key="`bar-group-${index}`"
-        :bars="getBarsConfig(bars, index)"
-        :overlay="$getOverlayConfig(index)"
-        :is-hovered="hoveredIndex === index"
-        :animate="animate"
-        @mouseover="$handleMouseover(index, $event)"
-        @mouseout="$handleMouseout"
-      />
+
+      <template v-if="xScale && yScale">
+        <bars-group
+          v-for="(dataset, index) in stackedData"
+          :key="`bar-group-${index}`"
+          :bars="getBarsConfig(dataset, index)"
+          :overlay="getOverlayConfig(index)"
+          :is-hovered="hoveredIndex === index"
+          @mouseover="handleMouseover(index, $event)"
+          @mouseout="handleMouseout"
+        />
+      </template>
     </chart-container>
+
     <popover
-      v-if="popoverConfig.opened"
+      v-if="allOptions.withPopover && popoverConfig.opened"
       v-bind="popoverConfig"
+      position="top"
+      :title="labels[hoveredIndex]"
+      :items="getPopoverItems(hoveredIndex)"
     >
-      <span class="u-font-weight-semi-bold">{{ labels[hoveredIndex] }}</span>: {{ data[hoveredIndex].values }}
+      <slot
+        name="popover"
+        :index="hoveredIndex"
+      />
     </popover>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { computed, defineComponent, ref } from '@vue/composition-api';
+
+import Axis from '@/core/axis';
 import Bar from '@/core/bar';
 import BarsGroup from '@/core/bars-group.vue';
 import ChartContainer from '@/core/chart-container';
 import Popover from '@/core/popover';
-import AnimationMixin from '@/mixins/animation';
-import BaseMixin from '@/mixins/base-mixin.js';
-import ConfigMixin from '@/mixins/config';
-import OptionsMixin from '@/mixins/options';
-import BarMixin from '@/charts/bar-chart/mixins/bar-mixin';
-import NegativeValues from '@/mixins/negative-values';
 
-import { ORIENTATIONS } from '@/constants';
-import { config, options } from './defaults';
+import { useConfig, withConfig } from '@/mixins/config';
+import { useOptions, withOptions } from '@/mixins/options';
+import {
+  checkNegativeValues,
+  useNegativeValues,
+} from '@/mixins/negative-values';
 
-const getColor = (sourceBars, bar) =>
-  sourceBars?.colors?.[bar.index] || `0${bar.index + 1}`;
+import { NO_DATA } from '@/constants';
+import { config as defaultConfig, options as defaultOptions } from './defaults';
+import { useBase, withBase } from '@/mixins/base';
+import { usePopover } from '@/mixins/popover';
+import {
+  useStackedBarMixin,
+  withBarProps,
+} from './mixins/stacked-bar-mixin';
+import { useBarOverlay } from '@/charts/bar-chart/mixins/bar-overlay';
 
-export default {
-  components: { Bar, BarsGroup, ChartContainer, Popover },
-  mixins: [
-    BaseMixin(ORIENTATIONS.VERTICAL),
-    BarMixin(true),
-    ConfigMixin(config),
-    NegativeValues,
-    OptionsMixin(options),
-    AnimationMixin()
-  ],
-  computed: {
-    yAxisLabel() {
-      if (this.allOptions.yAxisOptions?.withLabel === false) return;
-      return this.allOptions.yAxisOptions?.label || this.barsConfig?.legend;
-    },
+export default defineComponent({
+  components: { Axis, Bar, BarsGroup, ChartContainer, Popover },
+  props: {
+    ...withBase(),
+    ...withConfig(),
+    ...withBarProps(),
+    ...withOptions(),
   },
-  methods: {
-    mapBelowZeroBars(bars, barsIndex, sourceBars) {
-      return bars.reduce((acc, bar) => {
+  setup(props, ctx) {
+    const {
+      computedData,
+      containerSize,
+      updateSize,
+      isHorizontal,
+      domain,
+    } = useBase(props.data, props.labels);
+    const { hasNegativeValues } = checkNegativeValues(computedData.value);
+    const { xScale, yScale, multiBarData } = useStackedBarMixin(
+      computedData.value,
+      containerSize,
+      props.padding,
+      props.labels
+    );
+    const { negativeHeight, negativeTransform } = useNegativeValues(
+      containerSize,
+      yScale
+    );
+    const { getOverlayConfig } = useBarOverlay(
+      isHorizontal,
+      xScale,
+      yScale,
+      containerSize,
+      domain
+    );
+    const { computedConfig } = useConfig(props.config, defaultConfig);
+    const { allOptions } = useOptions(props.options, defaultOptions);
+    const { popoverConfig, showPopover, hidePopover } = usePopover();
+
+    // Internal state
+
+    const hoveredIndex = ref<number>(-1);
+
+    // Computed
+
+    const stackedData = computed(() => {
+      const result = [];
+      multiBarData.value.forEach((dataset) => {
+        dataset.values.forEach((value, i) => {
+          if (!result[i]) result[i] = [value];
+          else result[i].push(value);
+        });
+      });
+      return result;
+    });
+
+    const yAxisLabel = computed(() => {
+      if (allOptions.value.yAxisOptions?.withLabel === false) return;
+      return (
+        allOptions.value.yAxisOptions?.label || computedData.value[0].label
+      );
+    });
+
+    // Methods
+
+    function mapBelowZeroBars(bars, barsIndex: number) {
+      return bars.reduce((acc, bar, index) => {
         const offsetY = acc
           .map(({ height }) => height)
           .reduce((sum, curr) => sum + curr, 0);
+        const color = computedData.value[index].color;
         return [
           ...acc,
           {
-            x: this.xScale(this.domain[barsIndex]),
-            y: this.yScale(0) + offsetY,
-            width: this.xScale.bandwidth(),
-            height: this.yScale(bar.value) - this.yScale(0),
-            fillClass: `adv-fill-color-${getColor(sourceBars, bar)}`,
+            transform: `translate(${xScale.value(barsIndex)}, ${yScale.value(
+              0
+            ) + offsetY})`,
+            width: xScale.value.bandwidth(),
+            height: yScale.value(bar) - yScale.value(0),
+            fillClass: `adv-fill-color-${color}`,
           },
         ];
       }, []);
-    },
-    mapNonBelowZeroBars(bars, barsIndex, sourceBars) {
-      return bars.reduce((acc, bar) => {
+    }
+
+    function mapNonBelowZeroBars(bars, barsIndex: number) {
+      return bars.reduce((acc, bar, index) => {
         const offsetY = acc
           .map(({ height }) => height)
           .reduce((sum, curr) => sum + curr, 0);
+        const color = computedData.value[index].color;
         return [
           ...acc,
           {
-            x: this.xScale(this.domain[barsIndex]),
-            y: this.yScale(bar.value) - offsetY,
-            width: this.xScale.bandwidth(),
-            height: this.yScale(0) - this.yScale(bar.value),
-            fillClass: `adv-fill-color-${getColor(sourceBars, bar)}`,
+            transform: `translate(${xScale.value(barsIndex)}, ${yScale.value(
+              bar
+            ) - offsetY})`,
+            width: xScale.value.bandwidth(),
+            height: yScale.value(0) - yScale.value(bar),
+            fillClass: `adv-fill-color-${color}`,
           },
         ];
       }, []);
-    },
-    getBarsConfig(bars, barsIndex) {
+    }
+
+    function getBarsConfig(dataset, datasetIndex: number) {
       // We need to keep track of the index so the colors will be applied consistently, regardless of values dipping below zero
-      const valuesWithId = bars.values.map((value, index) => ({
-        value,
-        index,
-      }));
-      const belowZeroBars = valuesWithId.filter((bar) => bar.value < 0);
-      const nonBelowZeroBars = valuesWithId.filter((bar) => bar.value >= 0);
+      const belowZeroBars = dataset.filter((value) => value < 0);
+      const nonBelowZeroBars = dataset.filter((value) => value >= 0);
 
       const result = [
-        ...this.mapBelowZeroBars(belowZeroBars, barsIndex, bars),
-        ...this.mapNonBelowZeroBars(nonBelowZeroBars, barsIndex, bars),
+        ...mapBelowZeroBars(belowZeroBars, datasetIndex),
+        ...mapNonBelowZeroBars(nonBelowZeroBars, datasetIndex),
       ];
 
       return result;
-    },
+    }
+
+    function getPopoverItems(index: number) {
+      return computedData.value.map(({ color, label, values }) => ({
+        type: 'bar',
+        color,
+        label,
+        value: values[index]?.value ?? NO_DATA,
+      }));
+    }
+
+    function handleMouseover(index: number, event: MouseEvent) {
+      hoveredIndex.value = index;
+      showPopover(event.target as HTMLElement);
+      ctx.emit('mouseover', index);
+    }
+
+    function handleMouseout() {
+      hoveredIndex.value = -1;
+      hidePopover();
+      ctx.emit('mouseout');
+    }
+
+    return {
+      allOptions,
+      computedConfig,
+      containerSize,
+      getOverlayConfig,
+      getPopoverItems,
+      getBarsConfig,
+      stackedData,
+      handleMouseout,
+      handleMouseover,
+      hasNegativeValues,
+      hoveredIndex,
+      multiBarData,
+      negativeHeight,
+      negativeTransform,
+      popoverConfig,
+      updateSize,
+      xScale,
+      yAxisLabel,
+      yScale,
+    };
   },
-};
+});
 </script>
