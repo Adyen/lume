@@ -27,11 +27,12 @@
         />
       </template>
       <bars-group
-        v-for="(bars, index) in paddedData"
+        v-for="(bars, index) in dataWithSuspension"
         :key="`bar-group-${index}`"
         :bars="getBarsConfig(bars, index)"
         :overlay="$getOverlayConfig(index)"
         :is-hovered="hoveredIndex === index"
+        :animate="animate"
         @mouseover="$handleMouseover(index, $event)"
         @mouseout="$handleMouseout"
       />
@@ -72,11 +73,26 @@ export default {
     NegativeValues,
     OptionsMixin(options),
   ],
+  data: () => ({
+    dataWithSuspension: null,
+    animate: false
+  }),
   computed: {
     yAxisLabel() {
       if (this.allOptions.yAxisOptions?.withLabel === false) return;
       return this.allOptions.yAxisOptions?.label || this.barsConfig?.legend;
     },
+  },
+  beforeMount() {
+    this.dataWithSuspension = new Array(this.paddedData.length);
+    this.paddedData.forEach(({ values }, index) =>
+      this.dataWithSuspension[index] = { values: new Array(values.length).fill(0) }
+    );
+  },
+  async mounted() {
+    await this.$nextTick();
+    this.animate = true;
+    this.dataWithSuspension = this.paddedData;
   },
   methods: {
     mapBelowZeroBars(bars, barsIndex, sourceBars) {

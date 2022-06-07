@@ -34,7 +34,7 @@ export default {
     },
     animate: {
       type: Boolean,
-      default: true
+      default: false
     }
   }
 }

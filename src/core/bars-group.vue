@@ -4,6 +4,7 @@
       v-for="(bar, index) in bars"
       :key="`bar-${index}`"
       v-bind="bar"
+      :animate="animate"
     />
     <bar
       v-if="overlay"
@@ -33,6 +34,10 @@ export default {
     isHovered: {
       type: Boolean,
       required: true
+    },
+    animate: {
+      type: Boolean,
+      default: false
     }
   },
 }

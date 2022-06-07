@@ -26,11 +26,12 @@
         />
       </template>
       <bar-group
-        v-for="(bar, index) in paddedData[0].values"
+        v-for="(bar, index) in dataWithSuspension"
         :key="`bar-group-${index}`"
         :bar="getBarConfig(bar, index)"
         :overlay="$getOverlayConfig(index)"
         :is-hovered="hoveredIndex === index"
+        :animate="animate"
         @mouseover="$handleMouseover(index, $event)"
         @mouseout="$handleMouseout"
       />
@@ -75,6 +76,10 @@ export default {
     NegativeValues,
     OptionsMixin(options),
   ],
+  data: () => ({
+    dataWithSuspension: null,
+    animate: false
+  }),
   computed: {
     computedMargins() {
       return {
@@ -84,9 +89,15 @@ export default {
       };
     },
   },
-  mounted() {
+  beforeMount() {
+    this.dataWithSuspension = new Array(this.paddedData[0].values.length).fill(0);
+  },
+  async mounted() {
     const height = this.data[0].values.length * (defaultBarHeight * 1.5);
     this.$setHeight(height);
+    await this.$nextTick();
+    this.animate = true;
+    this.dataWithSuspension = this.paddedData[0].values;
   },
   methods: {
     getBarConfig(value, index) {

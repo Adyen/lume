@@ -10,7 +10,6 @@
         :width="width"
         :transform="negativeTransform"
         fill-class="adv-fill-color-negative-values"
-        :animate="false"
       />
       <template v-if="allOptions.showAxes">
         <axis
