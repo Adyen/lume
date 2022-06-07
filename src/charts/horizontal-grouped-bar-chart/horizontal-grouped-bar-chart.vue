@@ -13,15 +13,16 @@
       />
       <template v-if="allOptions.showAxes">
         <axis
-          :scale="xScale"
           type="x"
+          :scale="xScale"
           :container-size="containerSize"
           :options="allOptions.xAxisOptions"
         />
         <axis
-          :scale="yScale"
           type="y"
+          :scale="yScale"
           :container-size="containerSize"
+          :options="allOptions.yAxisOptions"
         />
       </template>
       <bars-group
@@ -93,10 +94,11 @@ export default {
   methods: {
     getBarsConfig(bars, index) {
       return bars.values.map((value, barIndex) => {
-        const xTranslation = value >= 0 ? this.xScale(0) : this.xScale(value);
+        const x = value >= 0 ? this.xScale(0) : this.xScale(value);
         const width = value < 0 ?  this.xScale(0) - this.xScale(value) : this.xScale(value) - this.xScale(0);
         return {
-          transform: `translate(${xTranslation}, ${this.yScale(this.domain[index]) + this.ySubgroup(barIndex)})`,
+          x,
+          y: this.yScale(this.domain[index]) + this.ySubgroup(barIndex),
           width,
           height: this.ySubgroup.bandwidth(),
           fillClass: `adv-fill-color-${getColor(bars, barIndex)}`

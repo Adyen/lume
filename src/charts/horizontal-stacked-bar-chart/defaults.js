@@ -6,6 +6,6 @@ export const config = {
 
 export const options = {
   showAxes: true,
-  xAxisOptions: {},
-  yAxisOptions: { gridLines: true },
+  xAxisOptions: { gridLines: true },
+  yAxisOptions: {},
 };

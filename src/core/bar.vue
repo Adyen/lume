@@ -1,30 +1,31 @@
 <template>
-  <g
-    :transform="transform"
+  <rect
     class="bar"
-    :class="{ 'bar--transition': animate }"
-  >
-    <rect
-      :height="height"
-      :width="width"
-      :class="[fillClass, { 'bar--transition': animate }]"
-    />
-  </g>
+    :x="x"
+    :y="y"
+    :height="height"
+    :width="width"
+    :class="[fillClass, { 'bar--transition': animate }]"
+  />
 </template>
 
 <script>
 export default {
   props: {
+    x: {
+      type: Number,
+      default: 0
+    },
+    y: {
+      type: Number,
+      default: 0
+    },
     height: {
       type: Number,
       required: true
     },
     width: {
       type: Number,
-      required: true
-    },
-    transform: {
-      type: String,
       required: true
     },
     fillClass: {

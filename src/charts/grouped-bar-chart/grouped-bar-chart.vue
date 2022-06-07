@@ -89,15 +89,14 @@ export default {
   methods: {
     getBarsConfig(bars, index) {
       return bars.values.map((value, barIndex) => {
-        const yTranslation = value < 0 ? this.yScale(0) : this.yScale(value);
+        const y = value < 0 ? this.yScale(0) : this.yScale(value);
         const height =
           value < 0
             ? this.yScale(value) - this.yScale(0)
             : this.yScale(0) - this.yScale(value);
         return {
-          transform: `translate(${
-            this.xScale(this.domain[index]) + this.xSubgroup(barIndex)
-          }, ${yTranslation})`,
+          x: this.xScale(this.domain[index]) + this.xSubgroup(barIndex),
+          y,
           width: this.xSubgroup.bandwidth(),
           height,
           fillClass: `adv-fill-color-${getColor(bars, barIndex)}`,

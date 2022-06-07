@@ -87,9 +87,8 @@ export default {
         return [
           ...acc,
           {
-            transform: `translate(${this.xScale(this.domain[barsIndex])}, ${
-              this.yScale(0) + offsetY
-            })`,
+            x: this.xScale(this.domain[barsIndex]),
+            y: this.yScale(0) + offsetY,
             width: this.xScale.bandwidth(),
             height: this.yScale(bar.value) - this.yScale(0),
             fillClass: `adv-fill-color-${getColor(sourceBars, bar)}`,
@@ -105,9 +104,8 @@ export default {
         return [
           ...acc,
           {
-            transform: `translate(${this.xScale(this.domain[barsIndex])}, ${
-              this.yScale(bar.value) - offsetY
-            })`,
+            x: this.xScale(this.domain[barsIndex]),
+            y: this.yScale(bar.value) - offsetY,
             width: this.xScale.bandwidth(),
             height: this.yScale(0) - this.yScale(bar.value),
             fillClass: `adv-fill-color-${getColor(sourceBars, bar)}`,

@@ -13,15 +13,16 @@
       />
       <template v-if="allOptions.showAxes">
         <axis
-          :scale="xScale"
           type="x"
+          :scale="xScale"
           :container-size="containerSize"
           :options="allOptions.xAxisOptions"
         />
         <axis
-          :scale="yScale"
           type="y"
+          :scale="yScale"
           :container-size="containerSize"
+          :options="allOptions.yAxisOptions"
         />
       </template>
       <bars-group
@@ -88,15 +89,14 @@ export default {
   methods: {
     mapBelowZeroBars(bars, barsIndex, sourceBars) {
       return bars.reduce((acc, bar) => {
-        const offsetX = acc
+        const x = this.xScale(bar.value) + acc
           .map(({ width }) => width)
           .reduce((sum, curr) => sum + curr, 0);
         return [
           ...acc,
           {
-            transform: `translate(${
-              this.xScale(bar.value) - offsetX
-            }, ${this.yScale(this.domain[barsIndex])})`,
+            x,
+            y: this.yScale(this.domain[barsIndex]),
             width: this.xScale(0) - this.xScale(bar.value),
             height: this.yScale.bandwidth(),
             fillClass: `adv-fill-color-${getColor(sourceBars, bar)}`,
@@ -106,15 +106,14 @@ export default {
     },
     mapNonBelowZeroBars(bars, barsIndex, sourceBars) {
       return bars.reduce((acc, bar) => {
-        const offsetX = acc
+        const x = this.xScale(0) + acc
           .map(({ width }) => width)
           .reduce((sum, curr) => sum + curr, 0);
         return [
           ...acc,
           {
-            transform: `translate(${this.xScale(0) + offsetX}, ${this.yScale(
-              this.domain[barsIndex]
-            )})`,
+            x,
+            y: this.yScale(this.domain[barsIndex]),
             width: this.xScale(bar.value) - this.xScale(0),
             height: this.yScale.bandwidth(),
             fillClass: `adv-fill-color-${getColor(sourceBars, bar)}`,

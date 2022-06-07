@@ -10,6 +10,7 @@
         :width="width"
         :transform="negativeTransform"
         fill-class="adv-fill-color-negative-values"
+        :animate="false"
       />
       <template v-if="allOptions.showAxes">
         <axis
@@ -27,11 +28,12 @@
         />
       </template>
       <bar-group
-        v-for="(bar, index) in paddedData[0].values"
+        v-for="(bar, index) in dataWithSuspension"
         :key="`bar-group-${index}`"
         :bar="getBarConfig(bar, index)"
         :overlay="$getOverlayConfig(index)"
         :is-hovered="hoveredIndex === index"
+        :animate="animate"
         @mouseover="$handleMouseover(index, $event)"
         @mouseout="$handleMouseout"
       />
@@ -71,23 +73,34 @@ export default {
     NegativeValuesMixin,
     OptionsMixin(options),
   ],
+  data: () => ({
+    dataWithSuspension: null,
+    animate: false
+  }),
   computed: {
     yAxisLabel() {
       if (this.allOptions.yAxisOptions?.withLabel === false) return;
       return this.allOptions.yAxisOptions?.label || this.barsConfig?.legend;
     },
   },
+  beforeMount() {
+    this.dataWithSuspension = new Array(this.paddedData[0].values.length).fill(0);
+  },
+  async mounted() {
+    await this.$nextTick();
+    this.animate = true;
+    this.dataWithSuspension = this.paddedData[0].values;
+  },
   methods: {
     getBarConfig(value, index) {
-      const yTranslation = value < 0 ? this.yScale(0) : this.yScale(value);
+      const y = value < 0 ? this.yScale(0) : this.yScale(value);
       const height =
         value < 0
           ? this.yScale(value) - this.yScale(0)
           : this.yScale(0) - this.yScale(value);
       return {
-        transform: `translate(${this.xScale(
-          this.domain[index]
-        )}, ${yTranslation})`,
+        x: this.xScale(this.domain[index]),
+        y,
         width: this.xScale.bandwidth(),
         height,
         fillClass: `adv-fill-color-${

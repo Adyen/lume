@@ -56,7 +56,6 @@ import ConfigMixin from '@/mixins/config';
 import HorizontalMixin from '@/mixins/horizontal';
 import NegativeValues from '@/mixins/negative-values';
 import OptionsMixin from '@/mixins/options';
-
 import { ORIENTATIONS } from '@/constants';
 import { config, options } from './defaults';
 
@@ -91,15 +90,14 @@ export default {
   },
   methods: {
     getBarConfig(value, index) {
-      const xTranslation = value >= 0 ? this.xScale(0) : this.xScale(value);
+      const x = value >= 0 ? this.xScale(0) : this.xScale(value);
       const width =
         value < 0
           ? this.xScale(0) - this.xScale(value)
           : this.xScale(value) - this.xScale(0);
       return {
-        transform: `translate(${xTranslation}, ${this.yScale(
-          this.domain[index]
-        )})`,
+        y: this.yScale(this.domain[index]),
+        x,
         width,
         height: this.yScale.bandwidth(),
         fillClass: `adv-fill-color-${
