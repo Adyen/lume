@@ -4,6 +4,7 @@ import {
   reactive,
   ComputedRef,
   set,
+  Ref,
 } from '@vue/composition-api';
 import { ORIENTATIONS } from '@/constants';
 import { Data, DatasetValueObject } from '@/types/dataset';
@@ -24,8 +25,8 @@ export const withBase = (dataValidator?: DataValidator) => ({
 });
 
 export function useBase(
-  data: Data,
-  labels: Array<string>,
+  data: Ref<Data>,
+  labels: Ref<Array<string>>,
   orientation = ORIENTATIONS.VERTICAL
 ) {
   const containerSize = reactive({
@@ -34,7 +35,7 @@ export function useBase(
   });
 
   const computedData: ComputedRef<Data<DatasetValueObject>> = computed(() => {
-    return data.map((dataset) => {
+    return data.value?.map((dataset) => {
       return {
         ...dataset,
         values: dataset.values.map((value) => {
@@ -52,7 +53,9 @@ export function useBase(
     set(containerSize, 'height', size.height);
   }
 
-  const domain = computed(() => labels || data.map((_, i: number) => i));
+  const domain = computed(
+    () => labels.value || data.value?.map((_, i: number) => i)
+  );
 
   const isHorizontal = computed(() => orientation === ORIENTATIONS.HORIZONTAL);
 

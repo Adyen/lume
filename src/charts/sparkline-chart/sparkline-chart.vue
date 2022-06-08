@@ -135,7 +135,7 @@ export default defineComponent({
     const values = computed(() => computedData.value[0].values);
 
     const { nullIntervals, getMidValue, isDashed } = useLineNullValues(
-      values.value
+      values
     );
 
     const computedLineValues = computed(() => {

@@ -35,7 +35,13 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref } from '@vue/composition-api';
+import {
+  computed,
+  defineComponent,
+  PropType,
+  ref,
+  toRefs,
+} from '@vue/composition-api';
 
 import ChartLine from './chart-line.vue';
 import LinePoint from './line-point.vue';
@@ -73,8 +79,9 @@ export default defineComponent({
   },
 
   setup(props) {
+    const { values } = toRefs(props);
     const { nullIntervals, getMidValue, isDashed } = useLineNullValues(
-      props.values
+      values
     );
 
     const isHovered = ref<boolean>(false);
@@ -111,13 +118,13 @@ export default defineComponent({
       if (index === 0) return [];
 
       return [
-        computedLineValues.value[index - 1].value,
-        computedLineValues.value[index].value,
+        computedLineValues.value[index - 1]?.value,
+        computedLineValues.value[index]?.value,
       ];
     }
 
     function getPointValue(index: number) {
-      return computedLineValues.value[index].value;
+      return computedLineValues.value[index]?.value;
     }
 
     function isPointActive(index: number) {

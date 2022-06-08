@@ -1,4 +1,4 @@
-import { computed, ref, watch } from '@vue/composition-api';
+import { computed, ref, Ref, watch } from '@vue/composition-api';
 import { scaleBand, scaleLinear } from 'd3-scale';
 import { Data, DatasetValueObject } from '@/types/dataset';
 import { flatValues } from '@/utils/helpers';
@@ -15,7 +15,7 @@ export function useLineScales(
   startOnZero: boolean,
   hasNegativeValues: boolean,
   containerSize: { width: number; height: number },
-  labels: Array<string>
+  labels: Ref<Array<string>>
 ) {
   const xScale = ref(null);
   const yScale = ref(null);
@@ -41,7 +41,7 @@ export function useLineScales(
   const getXScale = () => {
     xScale.value = scaleBand()
       .range([0, containerSize.width])
-      .domain(labels.map((_, index) => index));
+      .domain(labels.value?.map((_, index) => index));
   };
 
   const getYScale = () => {
