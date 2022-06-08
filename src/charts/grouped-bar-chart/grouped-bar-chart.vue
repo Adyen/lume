@@ -30,7 +30,7 @@
 
     <template v-if="xScale && yScale">
       <bars-group
-        v-for="(dataset, index) in stackedData"
+        v-for="(dataset, index) in groupedData"
         :key="`bar-group-${index}`"
         :bars="getBarsConfig(dataset, index)"
         :overlay="getOverlayConfig(index)"
@@ -102,7 +102,7 @@ export default defineComponent({
       domain,
     } = useBase(data, labels);
     const { hasNegativeValues } = checkNegativeValues(computedData.value);
-    const { xScale, yScale, multiBarData } = useBarMixin(
+    const { xScale, yScale, multiBarData, groupedData } = useBarMixin(
       BAR_TYPES.GROUPED,
       computedData.value,
       labels.value,
@@ -117,8 +117,7 @@ export default defineComponent({
       isHorizontal,
       xScale,
       yScale,
-      containerSize,
-      domain
+      containerSize
     );
     const { popoverConfig, showPopover, hidePopover } = usePopover();
 
@@ -133,17 +132,6 @@ export default defineComponent({
         .domain(multiBarData.value.map((_, index) => index))
         .range([0, xScale.value.bandwidth()])
         .padding([0]);
-    });
-
-    const stackedData = computed(() => {
-      const result = [];
-      multiBarData.value.forEach((dataset) => {
-        dataset.values.forEach((value, i) => {
-          if (!result[i]) result[i] = [value];
-          else result[i].push(value);
-        });
-      });
-      return result;
     });
 
     const yAxisLabel = computed(() => {
@@ -164,7 +152,7 @@ export default defineComponent({
             ? yScale.value(value) - yScale.value(0)
             : yScale.value(0) - yScale.value(value);
         return {
-          transform: `translate(${xScale.value(index) +
+          transform: `translate(${xScale.value(labels.value[index]) +
             xSubgroup.value(barIndex)}, ${yTranslation})`,
           width: xSubgroup.value.bandwidth(),
           height,
@@ -202,7 +190,7 @@ export default defineComponent({
       getBarsConfig,
       getPopoverItems,
       updateSize,
-      stackedData,
+      groupedData,
       handleMouseover,
       yAxisLabel,
       handleMouseout,

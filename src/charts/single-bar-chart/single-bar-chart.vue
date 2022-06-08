@@ -124,8 +124,7 @@ export default defineComponent({
       isHorizontal,
       xScale,
       yScale,
-      containerSize,
-      domain
+      containerSize
     );
     const { popoverConfig, showPopover, hidePopover } = usePopover();
 
@@ -152,7 +151,7 @@ export default defineComponent({
           ? yScale.value(value) - yScale.value(0)
           : yScale.value(0) - yScale.value(value);
       return {
-        transform: `translate(${xScale.value(index)}, ${yTranslation})`,
+        transform: `translate(${xScale.value(labels.value[index])}, ${yTranslation})`,
         width: xScale.value.bandwidth(),
         height,
         fillClass: `adv-fill-color-${computedData.value[0].color ||

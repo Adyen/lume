@@ -142,7 +142,7 @@ export function useBarMixin(
     xScale.value = scaleBand()
       .paddingInner(padding.value)
       .paddingOuter(padding.value / 2)
-      .domain(labels.map((_, index) => index))
+      .domain(labels?.map((v) => v))
       .rangeRound([0, containerSize.width]);
   };
 

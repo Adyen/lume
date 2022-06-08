@@ -117,8 +117,7 @@ export default defineComponent({
       isHorizontal,
       xScale,
       yScale,
-      containerSize,
-      domain
+      containerSize
     );
     const { popoverConfig, showPopover, hidePopover } = usePopover();
 
@@ -147,7 +146,7 @@ export default defineComponent({
         return [
           ...acc,
           {
-            transform: `translate(${xScale.value(barsIndex)}, ${yScale.value(
+            transform: `translate(${xScale.value(labels.value[barsIndex])}, ${yScale.value(
               0
             ) + offsetY})`,
             width: xScale.value.bandwidth(),
@@ -168,7 +167,7 @@ export default defineComponent({
         return [
           ...acc,
           {
-            transform: `translate(${xScale.value(barsIndex)}, ${yScale.value(
+            transform: `translate(${xScale.value(labels.value[barsIndex])}, ${yScale.value(
               bar
             ) - offsetY})`,
             width: xScale.value.bandwidth(),

@@ -54,7 +54,7 @@ export function useBase(
   }
 
   const domain = computed(
-    () => labels.value || data.value?.map((_, i: number) => i)
+    () => labels.value?.map((_, i) => i) || data.value?.map((_, i: number) => i)
   );
 
   const isHorizontal = computed(() => orientation === ORIENTATIONS.HORIZONTAL);

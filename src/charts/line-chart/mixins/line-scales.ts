@@ -41,7 +41,7 @@ export function useLineScales(
   const getXScale = () => {
     xScale.value = scaleBand()
       .range([0, containerSize.width])
-      .domain(labels.value?.map((_, index) => index));
+      .domain(labels.value?.map((v) => v));
   };
 
   const getYScale = () => {
