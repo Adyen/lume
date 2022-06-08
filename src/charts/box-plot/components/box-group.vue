@@ -24,10 +24,8 @@
     />
   </g>
 </template>
-
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
-
 import Bar from '@/core/bar';
 
 export default defineComponent({

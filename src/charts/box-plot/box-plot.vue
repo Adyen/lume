@@ -90,7 +90,7 @@ export default defineComponent({
     },
     groupByLabel: {
       type: String,
-      required: true,
+      required: true
     },
     valueLabel: {
       type: String,
@@ -155,13 +155,7 @@ export default defineComponent({
         const min = q1 - 1.5 * interQuantileRange;
         const max = q3 + 1.5 * interQuantileRange;
         sumstat.push({
-          key,
-          q1,
-          median,
-          q3,
-          interQuantileRange: interQuantileRange,
-          min: min,
-          max: max,
+          key, q1, median, q3, interQuantileRange, min, max
         });
       });
       return sumstat;
