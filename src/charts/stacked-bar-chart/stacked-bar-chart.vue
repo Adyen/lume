@@ -1,64 +1,64 @@
 <template>
-  <div class="u-width-full u-height-full">
-    <chart-container
-      :margins="computedConfig.margins"
-      @resize="updateSize"
-    >
-      <bar
-        v-if="hasNegativeValues"
-        :height="negativeHeight"
-        :width="containerSize.width"
-        :transform="negativeTransform"
-        :animate="false"
-        fill-class="adv-fill-color-negative-values"
+  <chart-container
+    :margins="computedConfig.margins"
+    @resize="updateSize"
+  >
+    <bar
+      v-if="hasNegativeValues"
+      :height="negativeHeight"
+      :width="containerSize.width"
+      :transform="negativeTransform"
+      :animate="false"
+      fill-class="adv-fill-color-negative-values"
+    />
+
+    <template v-if="allOptions.showAxes && xScale && yScale">
+      <axis
+        type="x"
+        :scale="xScale"
+        :container-size="containerSize"
+        :options="allOptions.xAxisOptions"
       />
-
-      <template v-if="allOptions.showAxes && xScale && yScale">
-        <axis
-          type="x"
-          :scale="xScale"
-          :container-size="containerSize"
-          :options="allOptions.xAxisOptions"
-        />
-        <axis
-          type="y"
-          :scale="yScale"
-          :container-size="containerSize"
-          :options="allOptions.yAxisOptions"
-          :label="yAxisLabel"
-        />
-      </template>
-
-      <template v-if="xScale && yScale">
-        <bars-group
-          v-for="(dataset, index) in stackedData"
-          :key="`bar-group-${index}`"
-          :bars="getBarsConfig(dataset, index)"
-          :overlay="getOverlayConfig(index)"
-          :is-hovered="hoveredIndex === index"
-          @mouseover="handleMouseover(index, $event)"
-          @mouseout="handleMouseout"
-        />
-      </template>
-    </chart-container>
-
-    <popover
-      v-if="allOptions.withPopover && popoverConfig.opened"
-      v-bind="popoverConfig"
-      position="top"
-      :title="labels[hoveredIndex]"
-      :items="getPopoverItems(hoveredIndex)"
-    >
-      <slot
-        name="popover"
-        :index="hoveredIndex"
+      <axis
+        type="y"
+        :scale="yScale"
+        :container-size="containerSize"
+        :options="allOptions.yAxisOptions"
+        :label="yAxisLabel"
       />
-    </popover>
-  </div>
+    </template>
+
+    <template v-if="xScale && yScale">
+      <bars-group
+        v-for="(dataset, index) in stackedData"
+        :key="`bar-group-${index}`"
+        :bars="getBarsConfig(dataset, index)"
+        :overlay="getOverlayConfig(index)"
+        :is-hovered="hoveredIndex === index"
+        @mouseover="handleMouseover(index, $event)"
+        @mouseout="handleMouseout"
+      />
+    </template>
+
+    <template #extra>
+      <popover
+        v-if="allOptions.withPopover && popoverConfig.opened"
+        v-bind="popoverConfig"
+        position="top"
+        :title="labels[hoveredIndex]"
+        :items="getPopoverItems(hoveredIndex)"
+      >
+        <slot
+          name="popover"
+          :index="hoveredIndex"
+        />
+      </popover>
+    </template>
+  </chart-container>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from '@vue/composition-api';
+import { computed, defineComponent, ref, toRefs } from '@vue/composition-api';
 
 import Axis from '@/core/axis';
 import Bar from '@/core/bar';
@@ -77,11 +77,8 @@ import { NO_DATA } from '@/constants';
 import { config as defaultConfig, options as defaultOptions } from './defaults';
 import { useBase, withBase } from '@/mixins/base';
 import { usePopover } from '@/mixins/popover';
-import {
-  useStackedBarMixin,
-  withBarProps,
-} from './mixins/stacked-bar-mixin';
-import { useBarOverlay } from '@/charts/bar-chart/mixins/bar-overlay';
+import { useStackedBarMixin, withBarProps } from './mixins/stacked-bar-mixin';
+import { useBarOverlay } from '../single-bar-chart/mixins/bar-overlay';
 
 export default defineComponent({
   components: { Axis, Bar, BarsGroup, ChartContainer, Popover },
@@ -92,13 +89,14 @@ export default defineComponent({
     ...withOptions(),
   },
   setup(props, ctx) {
+    const { data, labels } = toRefs(props);
     const {
       computedData,
       containerSize,
       updateSize,
       isHorizontal,
       domain,
-    } = useBase(props.data, props.labels);
+    } = useBase(data, labels);
     const { hasNegativeValues } = checkNegativeValues(computedData.value);
     const { xScale, yScale, multiBarData } = useStackedBarMixin(
       computedData.value,

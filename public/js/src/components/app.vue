@@ -1,73 +1,56 @@
 <template>
   <div class="root">
     <h1>Chart showroom</h1>
+    <select
+      v-model="selection"
+      style="margin-bottom: 16px;"
+    >
+      <option value="single">
+        single dataset
+      </option>
+      <option value="multi">
+        multiple dataset
+      </option>
+    </select>
     <div class="row">
-      <line-chart
-        :data="lineChartData"
-        :labels="barChartLabels"
-      />
       <bar-chart
-        :data="barChartData"
-        :labels="barChartLabels"
-        :bars-config="barsConfig"
-        :use-animation="false"
-      />
-      <stacked-bar-chart
-        :data="stackedBarChartData"
+        :data="data"
+        type="grouped"
         :labels="barChartLabels"
       />
-      <grouped-bar-chart
-        :data="stackedBarChartData"
+      <line-chart
+        :data="data"
         :labels="barChartLabels"
       />
     </div>
     <div class="row">
-      <horizontal-bar-chart
-        :data="barChartData"
-        :labels="barChartLabels"
-        :bars-config="barsConfig"
-      />
-      <horizontal-stacked-bar-chart
-        :data="stackedBarChartData"
-        :labels="barChartLabels"
-      />
-      <horizontal-grouped-bar-chart
-        :data="stackedBarChartData"
-        :labels="barChartLabels"
-      />
       <box-plot
         :data="boxPlotData"
         :margins="boxPlotConfig.margins"
         :group-by-label="boxPlotConfig.groupByLabel"
         :value-label="boxPlotConfig.valueLabel"
       />
+      <sparkline :data="barChartData" />
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from '@vue/composition-api';
 import BarChart from '@/charts/bar-chart/bar-chart.vue';
-import StackedBarChart from '@/charts/stacked-bar-chart/stacked-bar-chart.vue';
-import GroupedBarChart from '@/charts/grouped-bar-chart/grouped-bar-chart.vue';
 import LineChart from '@/charts/line-chart/line-chart.vue';
-import HorizontalBarChart from '@/charts/horizontal-bar-chart/horizontal-bar-chart.vue';
-import HorizontalStackedBarChart from '@/charts/horizontal-stacked-bar-chart/horizontal-stacked-bar-chart.vue';
-import HorizontalGroupedBarChart from '@/charts/horizontal-grouped-bar-chart/horizontal-grouped-bar-chart.vue';
 import BoxPlot from '@/charts/box-plot/box-plot.vue';
-import boxPlotData from './box-plot-data';
+import Sparkline from '@/charts/sparkline-chart/sparkline-chart.vue';
 
-export default {
+export default defineComponent({
   components: {
-    HorizontalGroupedBarChart,
-    HorizontalBarChart,
-    LineChart,
-    GroupedBarChart,
     BarChart,
-    StackedBarChart,
-    HorizontalStackedBarChart,
+    LineChart,
     BoxPlot,
+    Sparkline,
   },
   data: () => ({
+    selection: 'multi',
     lineChartData: [
       {
         values: [10, 30, -20, 50, 40, 70, 60],
@@ -80,10 +63,13 @@ export default {
         label: 'Hot dogs',
       },
     ],
-    barChartData: [{
-      values: [10, 40, null, 30, 60, 0, -26],
-      color: '02'
-    }],
+    barChartData: [
+      {
+        values: [30, -10, 20, 70, 50, null, 40],
+        color: '02',
+        label: 'Hot dogs',
+      },
+    ],
     stackedBarChartData: [
       { values: [10, 20, 30] },
       { values: [20, 30, 40], colors: ['04', '05'] },
@@ -115,12 +101,18 @@ export default {
       },
     },
   }),
-  async mounted() {
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    this.barChartData[0].values.reverse();
-    this.stackedBarChartData.reverse();
-  }
-};
+  computed: {
+    data() {
+      switch (this.selection) {
+      case 'multi':
+        return this.lineChartData;
+      case 'single':
+      default:
+        return this.barChartData;
+      }
+    },
+  },
+});
 </script>
 
 <style>

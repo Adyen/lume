@@ -1,50 +1,51 @@
 <template>
-  <div class="u-width-full u-height-full">
-    <chart-container
-      :margins="computedConfig.margins"
-      @resize="updateSize"
-    >
-      <template v-if="allOptions.showAxes && xScale && yScale">
-        <axis
-          type="x"
-          :options="allOptions.xAxisOptions"
-          :scale="xScale"
-          :container-size="containerSize"
-        />
-        <axis
-          type="y"
-          :options="allOptions.yAxisOptions"
-          :scale="yScale"
-          :label="yAxisLabel"
-          :container-size="containerSize"
-        />
-      </template>
-      
-      <box-group
-        v-for="(boxGroup, index) in boxGroups"
-        :key="boxGroup.quantile.key"
-        :box-group="boxGroup"
-        :overlay="getOverlayConfig(index)"
-        :is-hovered="hoveredIndex === index"
-        @mouseover="handleMouseover(boxGroup.quantile, index, $event)"
-        @mouseout="handleMouseout"
+  <chart-container
+    :margins="computedConfig.margins"
+    @resize="updateSize"
+  >
+    <template v-if="allOptions.showAxes && xScale && yScale">
+      <axis
+        type="x"
+        :options="allOptions.xAxisOptions"
+        :scale="xScale"
+        :container-size="containerSize"
       />
-    </chart-container>
-    <popover
-      v-if="popoverConfig.opened"
-      v-bind="popoverConfig"
-    >
-      <div
-        v-for="key in Object.keys(popoverQuantile)"
-        :key="key"
+      <axis
+        type="y"
+        :options="allOptions.yAxisOptions"
+        :scale="yScale"
+        :label="yAxisLabel"
+        :container-size="containerSize"
+      />
+    </template>
+
+    <box-group
+      v-for="(boxGroup, index) in boxGroups"
+      :key="boxGroup.quantile.key"
+      :box-group="boxGroup"
+      :overlay="getOverlayConfig(index)"
+      :is-hovered="hoveredIndex === index"
+      @mouseover="handleMouseover(boxGroup.quantile, index, $event)"
+      @mouseout="handleMouseout"
+    />
+
+    <template #extra>
+      <popover
+        v-if="popoverConfig.opened"
+        v-bind="popoverConfig"
       >
-        <span class="u-font-weight-semi-bold">{{
-          popoverQuantile[key].label
-        }}</span>
-        : {{ popoverQuantile[key].value }}
-      </div>
-    </popover>
-  </div>
+        <div
+          v-for="key in Object.keys(popoverQuantile)"
+          :key="key"
+        >
+          <span class="u-font-weight-semi-bold">{{
+            popoverQuantile[key].label
+          }}</span>
+          : {{ popoverQuantile[key].value }}
+        </div>
+      </popover>
+    </template>
+  </chart-container>
 </template>
 
 <script lang="ts">

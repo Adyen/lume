@@ -1,75 +1,81 @@
 <template>
-  <div class="sparkline-chart u-width-full u-height-full">
-    <chart-container
-      :margins="computedConfig.margins"
-      @mouseleave.native="hoveredIndex = -1"
-      @resize="updateSize"
-    >
-      <!-- Area -->
-      <path
-        v-if="allOptions.showArea"
-        :class="[
-          'sparkline-chart__area',
-          `sparkline-chart__area--color-${areaColor || color}`,
-        ]"
-        :d="areaPathDefinition"
-      />
+  <chart-container
+    :margins="computedConfig.margins"
+    @mouseleave.native="hoveredIndex = -1"
+    @resize="updateSize"
+  >
+    <!-- Area -->
+    <path
+      v-if="allOptions.showArea"
+      :class="[
+        'sparkline-chart__area',
+        `sparkline-chart__area--color-${areaColor || color}`,
+      ]"
+      :d="areaPathDefinition"
+    />
 
-      <!-- Negative area -->
+    <!-- Negative area -->
+    <bar
+      v-if="hasNegativeValues"
+      :height="negativeHeight"
+      :width="containerSize.width"
+      :transform="negativeTransform"
+      :animate="false"
+      fill-class="adv-fill-color-negative-values"
+    />
+
+    <!-- Ghost bars for popover target -->
+    <g v-if="xScale && yScale">
       <bar
-        v-if="hasNegativeValues"
-        :height="negativeHeight"
-        :width="containerSize.width"
-        :transform="negativeTransform"
-        :animate="false"
-        fill-class="adv-fill-color-negative-values"
+        v-for="(_, index) in values"
+        ref="ghostBars"
+        :key="`ghost-${index}`"
+        :width="xScale(1)"
+        :height="yScale(minValue)"
+        :transform="ghostBarTransform(index)"
+        fill-class="adv-fill-color-transparent"
+        @mouseover.native="hoveredIndex = index"
       />
+    </g>
 
-      <!-- Ghost bars for popover target -->
-      <g v-if="xScale && yScale">
-        <bar
-          v-for="(_, index) in values"
-          ref="ghostBars"
-          :key="`ghost-${index}`"
-          :width="xScale(1)"
-          :height="yScale(minValue)"
-          :transform="ghostBarTransform(index)"
-          fill-class="adv-fill-color-transparent"
-          @mouseover.native="hoveredIndex = index"
+    <!-- Line -->
+    <path
+      v-for="(d, i) in values"
+      :key="i"
+      :class="[
+        'sparkline-chart__line',
+        `sparkline-chart__line--color-${color}`,
+        ...(isDashed(i) ? ['sparkline-chart__line--dashed'] : []),
+      ]"
+      :stroke-dasharray="((d) => (d == null ? '1.5%' : null))(d)"
+      :d="linePathDefinition(i)"
+    />
+
+    <template #extra>
+      <popover
+        v-if="popoverConfig.opened"
+        v-bind="popoverConfig"
+        position="top"
+        :title="labels ? labels[hoveredIndex] : null"
+        :items="getPopoverItems(hoveredIndex)"
+      >
+        <slot
+          name="popover"
+          :index="hoveredIndex"
         />
-      </g>
-
-      <!-- Line -->
-      <path
-        v-for="(d, i) in values"
-        :key="i"
-        :class="[
-          'sparkline-chart__line',
-          `sparkline-chart__line--color-${color}`,
-          ...(isDashed(i) ? ['sparkline-chart__line--dashed'] : []),
-        ]"
-        :stroke-dasharray="((d) => (d == null ? '1.5%' : null))(d)"
-        :d="linePathDefinition(i)"
-      />
-    </chart-container>
-
-    <popover
-      v-if="popoverConfig.opened"
-      v-bind="popoverConfig"
-      position="top"
-      :title="labels ? labels[hoveredIndex] : null"
-      :items="getPopoverItems(hoveredIndex)"
-    >
-      <slot
-        name="popover"
-        :index="hoveredIndex"
-      />
-    </popover>
-  </div>
+      </popover>
+    </template>
+  </chart-container>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from '@vue/composition-api';
+import {
+  computed,
+  defineComponent,
+  ref,
+  toRefs,
+  watch,
+} from '@vue/composition-api';
 import { line, area } from 'd3-shape';
 
 import Bar from '@/core/bar';
@@ -100,11 +106,8 @@ export default defineComponent({
   },
   setup(props) {
     // State from mixins
-
-    const { computedData, containerSize, updateSize } = useBase(
-      props.data,
-      props.labels
-    );
+    const { data, labels } = toRefs(props);
+    const { computedData, containerSize, updateSize } = useBase(data, labels);
     const { hasNegativeValues } = checkNegativeValues(computedData.value);
     const { xScale, yScale, minValue } = useSparklineScales(
       computedData.value,

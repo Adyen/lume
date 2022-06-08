@@ -31,6 +31,13 @@ export function useBarMixin(
     return dataset.values.map((datasetValue) => datasetValue?.value || 0);
   });
 
+  const multiBarData = computed(() => {
+    return data.map((dataset) => ({
+      ...dataset,
+      values: dataset.values.map((datasetValue) => datasetValue?.value || 0),
+    }));
+  });
+
   const singleMaxValue = computed(() => {
     return Math.max(...singleBarData.value);
   });
@@ -57,5 +64,12 @@ export function useBarMixin(
   watch(containerSize, getXScale);
   watch(containerSize, getYScale);
 
-  return { singleBarData, singleMinValue, singleMaxValue, xScale, yScale };
+  return {
+    singleBarData,
+    singleMinValue,
+    singleMaxValue,
+    multiBarData,
+    xScale,
+    yScale,
+  };
 }

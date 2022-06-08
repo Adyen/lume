@@ -2,19 +2,16 @@
   <chart-container
     :margins="computedConfig.margins"
     @resize="updateSize"
-    @mouseleave.native="hoveredIndex = -1"
   >
-    <!-- Negative values background -->
     <bar
       v-if="hasNegativeValues"
       :height="negativeHeight"
       :width="containerSize.width"
       :transform="negativeTransform"
-      fill-class="adv-fill-color-negative-values"
       :animate="false"
+      fill-class="adv-fill-color-negative-values"
     />
 
-    <!-- Axes -->
     <template v-if="allOptions.showAxes && xScale && yScale">
       <axis
         type="x"
@@ -31,36 +28,15 @@
       />
     </template>
 
-    <!-- Hover bar overlay -->
-    <g
-      v-if="xScale && yScale"
-      class="line-chart__overlay"
-    >
-      <bar
-        v-for="(_, index) in data[0].values"
-        ref="overlayBars"
-        :key="`overlay-${index}`"
-        :width="xScale.bandwidth()"
-        :height="yScale(minValue)"
-        :transform="getLineTranslation(index)"
-        :fill-class="
-          hoveredIndex === index
-            ? 'adv-fill-color-overlay'
-            : 'adv-fill-color-transparent'
-        "
-        @mouseover.native="hoveredIndex = index"
-      />
-    </g>
-
-    <!-- Lines -->
     <template v-if="xScale && yScale">
-      <line-group
-        v-for="(group, index) in computedData"
-        :key="`line-group-${index}`"
-        v-bind="group"
-        :x-scale="xScale"
-        :y-scale="yScale"
-        :hovered-index="hoveredIndex"
+      <bar-group
+        v-for="(value, index) in singleBarData"
+        :key="`bar-group-${index}`"
+        :bar="getBarConfig(value, index)"
+        :overlay="getOverlayConfig(index)"
+        :is-hovered="hoveredIndex === index"
+        @mouseover="handleMouseover(index, $event)"
+        @mouseout="handleMouseout"
       />
     </template>
 
@@ -82,61 +58,69 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  ref,
-  toRefs,
-  watch,
-} from '@vue/composition-api';
+import { computed, defineComponent, ref, toRefs } from '@vue/composition-api';
 
 import Axis from '@/core/axis';
 import Bar from '@/core/bar';
+import BarGroup from './bar-group.vue';
 import ChartContainer from '@/core/chart-container';
 import Popover from '@/core/popover';
 
-import LineGroup from './components/line-group.vue';
-
+import { useBarMixin, withBarProps } from './mixins/bar-mixin';
 import { useBase, withBase } from '@/mixins/base';
 import { useConfig, withConfig } from '@/mixins/config';
 import { useOptions, withOptions } from '@/mixins/options';
 import { usePopover } from '@/mixins/popover';
 import {
-  useNegativeValues,
   checkNegativeValues,
+  useNegativeValues,
 } from '@/mixins/negative-values';
-import { useLineScales } from './mixins/line-scales';
 
 import { NO_DATA } from '@/constants';
+import { Data } from '@/types/dataset';
+
 import { config as defaultConfig, options as defaultOptions } from './defaults';
+import { useBarOverlay } from './mixins/bar-overlay';
+
+const fallbackFillClass = '01';
+
+const singleBarDataValidator = (data: Data) => data.length === 1;
 
 export default defineComponent({
-  components: { Axis, Bar, ChartContainer, Popover, LineGroup },
+  components: { Axis, Bar, BarGroup, ChartContainer, Popover },
   props: {
-    ...withBase(),
+    ...withBase(singleBarDataValidator),
     ...withConfig(),
+    ...withBarProps(),
     ...withOptions(),
-    startOnZero: {
-      type: Boolean,
-      default: true,
-    },
   },
-  setup(props) {
+  setup(props, ctx) {
     // State from mixins
     const { data, labels } = toRefs(props);
-    const { computedData, containerSize, updateSize } = useBase(data, labels);
-    const { hasNegativeValues } = checkNegativeValues(computedData.value);
-    const { xScale, yScale, minValue } = useLineScales(
-      computedData.value,
-      props.startOnZero,
-      hasNegativeValues.value,
+    const {
+      computedData,
       containerSize,
-      labels
+      updateSize,
+      isHorizontal,
+      domain,
+    } = useBase(data, labels);
+    const { hasNegativeValues } = checkNegativeValues(computedData.value);
+    const { xScale, yScale, singleBarData } = useBarMixin(
+      computedData.value,
+      containerSize,
+      props.padding,
+      props.labels
     );
     const { negativeHeight, negativeTransform } = useNegativeValues(
       containerSize,
+      yScale
+    );
+    const { getOverlayConfig } = useBarOverlay(
+      isHorizontal,
+      xScale,
       yScale,
-      false
+      containerSize,
+      domain
     );
     const { computedConfig } = useConfig(props.config, defaultConfig);
     const { allOptions } = useOptions(props.options, defaultOptions);
@@ -145,55 +129,70 @@ export default defineComponent({
     // Internal state
 
     const hoveredIndex = ref<number>(-1);
-    const overlayBars = ref(null); // Template refs
 
     // Computed
 
     const yAxisLabel = computed(() => {
       if (allOptions.value.yAxisOptions?.withLabel === false) return;
       return (
-        allOptions.value.yAxisOptions?.label ||
-        computedData.value.map((d) => d.label).join(', ')
+        allOptions.value.yAxisOptions?.label || computedData.value[0].label
       );
     });
 
     // Methods
 
+    function getBarConfig(value: number, index: number) {
+      if (!yScale.value) return {};
+      const yTranslation = value < 0 ? yScale.value(0) : yScale.value(value);
+      const height =
+        value < 0
+          ? yScale.value(value) - yScale.value(0)
+          : yScale.value(0) - yScale.value(value);
+      return {
+        transform: `translate(${xScale.value(index)}, ${yTranslation})`,
+        width: xScale.value.bandwidth(),
+        height,
+        fillClass: `adv-fill-color-${computedData.value[0].color ||
+          fallbackFillClass}`,
+      };
+    }
+
     function getPopoverItems(index: number) {
       return computedData.value.map(({ color, label, values }) => ({
-        type: 'line',
+        type: 'bar',
         color,
         label,
         value: values[index]?.value ?? NO_DATA,
       }));
     }
 
-    function getLineTranslation(index: number) {
-      return `translate(${xScale.value(xScale.value.domain()[index])}, 0)`;
+    function handleMouseover(index: number, event: MouseEvent) {
+      hoveredIndex.value = index;
+      showPopover(event.target as HTMLElement);
+      ctx.emit('mouseover', index);
     }
 
-    // Watchers
-
-    watch([hoveredIndex, overlayBars], function() {
-      if (hoveredIndex.value > -1)
-        showPopover(overlayBars.value?.[hoveredIndex.value].$el);
-      else hidePopover();
-    });
+    function handleMouseout() {
+      hoveredIndex.value = -1;
+      hidePopover();
+      ctx.emit('mouseout');
+    }
 
     return {
       allOptions,
       computedConfig,
-      computedData,
       containerSize,
-      getLineTranslation,
       getPopoverItems,
+      getBarConfig,
+      getOverlayConfig,
+      handleMouseout,
+      handleMouseover,
       hasNegativeValues,
       hoveredIndex,
-      minValue,
       negativeHeight,
       negativeTransform,
-      overlayBars,
       popoverConfig,
+      singleBarData,
       updateSize,
       yAxisLabel,
       xScale,

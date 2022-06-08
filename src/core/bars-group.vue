@@ -12,7 +12,7 @@
       :fill-class="
         isHovered ? 'adv-fill-color-overlay' : 'adv-fill-color-transparent'
       "
-      :animate="false"
+      animate
       @mouseover.native="$emit('mouseover', $event)"
       @mouseout.native="$emit('mouseout')"
     />

@@ -1,28 +1,27 @@
 <template>
-  <svg
-    ref="root"
-    class="container"
-    :class="{ 'container--transparent-background': transparentBackground }"
+  <div
+    ref="resizeRef"
+    class="u-width-full u-height-full"
   >
-    <g
-      :transform="`translate(${computedMargin.left}, ${computedMargin.top})`"
-      class="container__group"
+    <svg
+      ref="root"
+      class="container"
+      :class="{ 'container--transparent-background': transparentBackground }"
     >
-      <slot :container-size="containerSize" />
-    </g>
-  </svg>
+      <g
+        :transform="`translate(${computedMargin.left}, ${computedMargin.top})`"
+        class="container__group"
+      >
+        <slot :container-size="containerSize" />
+      </g>
+    </svg>
+    <slot name="extra" />
+  </div>
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  onMounted,
-  onUpdated,
-  ref,
-  toRefs,
-  watch,
-} from '@vue/composition-api';
+import { useResizeObserver } from '@/mixins/resize';
+import { computed, defineComponent, ref, toRefs } from '@vue/composition-api';
 
 export default defineComponent({
   props: {
@@ -39,8 +38,7 @@ export default defineComponent({
     const root = ref(null);
     const { margins } = toRefs(props);
 
-    const _width = ref(0);
-    const _height = ref(0);
+    const { resizeRef, resizeState } = useResizeObserver();
 
     const computedMargin = computed(() => ({
       // Default values
@@ -49,39 +47,29 @@ export default defineComponent({
       top: 0,
       bottom: 0,
       // Prop overrides
-      ...props.margins,
+      ...margins.value,
     }));
 
     const containerSize = computed(() => {
-      const width =
-        _width.value - computedMargin.value.left - computedMargin.value.right;
-      const height =
-        _height.value - computedMargin.value.top - computedMargin.value.bottom;
-      return {
-        width: width > 0 ? width : 0,
-        height: height > 0 ? height : 0,
+      const { width, height } = resizeState.dimensions;
+      const _width =
+        width - computedMargin.value.left - computedMargin.value.right;
+      const _height =
+        height - computedMargin.value.top - computedMargin.value.bottom;
+
+      const sizeObject = {
+        width: _width > 0 ? _width : 0,
+        height: _height > 0 ? _height : 0,
         outerWidth: width,
         outerHeight: height,
       };
+
+      ctx.emit('resize', sizeObject);
+
+      return sizeObject;
     });
 
-    function updateContainerSize(forceUpdate: boolean) {
-      const { width, height } = root.value.getBoundingClientRect();
-
-      if (forceUpdate || _width !== width || _height !== height) {
-        _width.value = width;
-        _height.value = height;
-
-        ctx.emit('resize', containerSize.value);
-      }
-    }
-
-    watch(margins, () => updateContainerSize(true));
-
-    onMounted(() => updateContainerSize(true));
-    onUpdated(updateContainerSize);
-
-    return { root, computedMargin, containerSize };
+    return { root, resizeRef, computedMargin, containerSize };
   },
 });
 </script>
