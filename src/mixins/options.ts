@@ -9,7 +9,7 @@ interface AxisOptions {
   tickPadding?: number;
   withLabel?: boolean;
 }
-interface Options {
+export interface Options {
   xAxisOptions?: AxisOptions;
   yAxisOptions?: AxisOptions;
   [key: string]: unknown;

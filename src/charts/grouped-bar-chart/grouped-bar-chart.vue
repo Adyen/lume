@@ -71,14 +71,14 @@ import { config as defaultConfig, options as defaultOptions } from './defaults';
 import { useBase, withBase } from '@/mixins/base';
 import { useConfig, withConfig } from '@/mixins/config';
 import { useOptions, withOptions } from '@/mixins/options';
-import { useGroupedBarMixin, withBarProps } from './mixins/grouped-bar-mixin';
+import { useBarMixin, withBarProps } from '@/charts/bar-chart/mixins/bar-mixin';
 import {
   checkNegativeValues,
   useNegativeValues,
 } from '@/mixins/negative-values';
 import { usePopover } from '@/mixins/popover';
 import { useBarOverlay } from '@/charts/bar-chart/mixins/bar-overlay';
-import { NO_DATA } from '@/constants';
+import { BAR_TYPES, NO_DATA } from '@/constants';
 
 export default defineComponent({
   components: { Axis, Bar, BarsGroup, ChartContainer, Popover },
@@ -90,6 +90,10 @@ export default defineComponent({
   },
   setup(props, ctx) {
     const { data, labels } = toRefs(props);
+
+    const { computedConfig } = useConfig(props.config, defaultConfig);
+    const { allOptions } = useOptions(props.options, defaultOptions);
+
     const {
       computedData,
       containerSize,
@@ -98,11 +102,12 @@ export default defineComponent({
       domain,
     } = useBase(data, labels);
     const { hasNegativeValues } = checkNegativeValues(computedData.value);
-    const { xScale, yScale, multiBarData } = useGroupedBarMixin(
+    const { xScale, yScale, multiBarData } = useBarMixin(
+      BAR_TYPES.GROUPED,
       computedData.value,
+      labels.value,
       containerSize,
-      props.padding,
-      props.labels
+      allOptions.value
     );
     const { negativeHeight, negativeTransform } = useNegativeValues(
       containerSize,
@@ -115,8 +120,6 @@ export default defineComponent({
       containerSize,
       domain
     );
-    const { computedConfig } = useConfig(props.config, defaultConfig);
-    const { allOptions } = useOptions(props.options, defaultOptions);
     const { popoverConfig, showPopover, hidePopover } = usePopover();
 
     // Internal state

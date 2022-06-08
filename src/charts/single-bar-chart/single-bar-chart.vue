@@ -66,7 +66,7 @@ import BarGroup from './bar-group.vue';
 import ChartContainer from '@/core/chart-container';
 import Popover from '@/core/popover';
 
-import { useBarMixin, withBarProps } from './mixins/bar-mixin';
+import { useBarMixin, withBarProps } from '@/charts/bar-chart/mixins/bar-mixin';
 import { useBase, withBase } from '@/mixins/base';
 import { useConfig, withConfig } from '@/mixins/config';
 import { useOptions, withOptions } from '@/mixins/options';
@@ -76,7 +76,7 @@ import {
   useNegativeValues,
 } from '@/mixins/negative-values';
 
-import { NO_DATA } from '@/constants';
+import { BAR_TYPES, NO_DATA } from '@/constants';
 import { Data } from '@/types/dataset';
 
 import { config as defaultConfig, options as defaultOptions } from './defaults';
@@ -97,6 +97,10 @@ export default defineComponent({
   setup(props, ctx) {
     // State from mixins
     const { data, labels } = toRefs(props);
+
+    const { computedConfig } = useConfig(props.config, defaultConfig);
+    const { allOptions } = useOptions(props.options, defaultOptions);
+
     const {
       computedData,
       containerSize,
@@ -106,10 +110,11 @@ export default defineComponent({
     } = useBase(data, labels);
     const { hasNegativeValues } = checkNegativeValues(computedData.value);
     const { xScale, yScale, singleBarData } = useBarMixin(
+      BAR_TYPES.SINGLE,
       computedData.value,
+      labels.value,
       containerSize,
-      props.padding,
-      props.labels
+      allOptions.value
     );
     const { negativeHeight, negativeTransform } = useNegativeValues(
       containerSize,
@@ -122,8 +127,6 @@ export default defineComponent({
       containerSize,
       domain
     );
-    const { computedConfig } = useConfig(props.config, defaultConfig);
-    const { allOptions } = useOptions(props.options, defaultOptions);
     const { popoverConfig, showPopover, hidePopover } = usePopover();
 
     // Internal state

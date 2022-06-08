@@ -30,7 +30,7 @@
 
     <template v-if="xScale && yScale">
       <bars-group
-        v-for="(dataset, index) in stackedData"
+        v-for="(dataset, index) in groupedData"
         :key="`bar-group-${index}`"
         :bars="getBarsConfig(dataset, index)"
         :overlay="getOverlayConfig(index)"
@@ -73,11 +73,11 @@ import {
   useNegativeValues,
 } from '@/mixins/negative-values';
 
-import { NO_DATA } from '@/constants';
+import { BAR_TYPES, NO_DATA } from '@/constants';
 import { config as defaultConfig, options as defaultOptions } from './defaults';
 import { useBase, withBase } from '@/mixins/base';
 import { usePopover } from '@/mixins/popover';
-import { useStackedBarMixin, withBarProps } from './mixins/stacked-bar-mixin';
+import { useBarMixin, withBarProps } from '@/charts/bar-chart/mixins/bar-mixin';
 import { useBarOverlay } from '@/charts/bar-chart/mixins/bar-overlay';
 
 export default defineComponent({
@@ -90,6 +90,10 @@ export default defineComponent({
   },
   setup(props, ctx) {
     const { data, labels } = toRefs(props);
+
+    const { computedConfig } = useConfig(props.config, defaultConfig);
+    const { allOptions } = useOptions(props.options, defaultOptions);
+
     const {
       computedData,
       containerSize,
@@ -98,11 +102,12 @@ export default defineComponent({
       domain,
     } = useBase(data, labels);
     const { hasNegativeValues } = checkNegativeValues(computedData.value);
-    const { xScale, yScale, multiBarData } = useStackedBarMixin(
+    const { xScale, yScale, multiBarData, groupedData } = useBarMixin(
+      BAR_TYPES.STACKED,
       computedData.value,
+      labels.value,
       containerSize,
-      props.padding,
-      props.labels
+      allOptions.value
     );
     const { negativeHeight, negativeTransform } = useNegativeValues(
       containerSize,
@@ -115,8 +120,6 @@ export default defineComponent({
       containerSize,
       domain
     );
-    const { computedConfig } = useConfig(props.config, defaultConfig);
-    const { allOptions } = useOptions(props.options, defaultOptions);
     const { popoverConfig, showPopover, hidePopover } = usePopover();
 
     // Internal state
@@ -124,17 +127,6 @@ export default defineComponent({
     const hoveredIndex = ref<number>(-1);
 
     // Computed
-
-    const stackedData = computed(() => {
-      const result = [];
-      multiBarData.value.forEach((dataset) => {
-        dataset.values.forEach((value, i) => {
-          if (!result[i]) result[i] = [value];
-          else result[i].push(value);
-        });
-      });
-      return result;
-    });
 
     const yAxisLabel = computed(() => {
       if (allOptions.value.yAxisOptions?.withLabel === false) return;
@@ -147,6 +139,7 @@ export default defineComponent({
 
     function mapBelowZeroBars(bars, barsIndex: number) {
       return bars.reduce((acc, bar, index) => {
+        if (bar == null) return acc;
         const offsetY = acc
           .map(({ height }) => height)
           .reduce((sum, curr) => sum + curr, 0);
@@ -167,6 +160,7 @@ export default defineComponent({
 
     function mapNonBelowZeroBars(bars, barsIndex: number) {
       return bars.reduce((acc, bar, index) => {
+        if (bar == null) return acc;
         const offsetY = acc
           .map(({ height }) => height)
           .reduce((sum, curr) => sum + curr, 0);
@@ -187,8 +181,10 @@ export default defineComponent({
 
     function getBarsConfig(dataset, datasetIndex: number) {
       // We need to keep track of the index so the colors will be applied consistently, regardless of values dipping below zero
-      const belowZeroBars = dataset.filter((value) => value < 0);
-      const nonBelowZeroBars = dataset.filter((value) => value >= 0);
+      const belowZeroBars = dataset.map((value) => (value < 0 ? value : null));
+      const nonBelowZeroBars = dataset.map((value) =>
+        value >= 0 ? value : null
+      );
 
       const result = [
         ...mapBelowZeroBars(belowZeroBars, datasetIndex),
@@ -226,7 +222,7 @@ export default defineComponent({
       getOverlayConfig,
       getPopoverItems,
       getBarsConfig,
-      stackedData,
+      groupedData,
       handleMouseout,
       handleMouseover,
       hasNegativeValues,

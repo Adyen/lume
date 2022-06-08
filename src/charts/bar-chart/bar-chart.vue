@@ -53,11 +53,12 @@ export default defineComponent({
           "Bar chart needs a type when there's multiple datasets."
         );
 
-      const orientationString =
-        props.orientation === ORIENTATIONS.HORIZONTAL
-          ? ORIENTATIONS.HORIZONTAL + '-'
-          : '';
-      return `${orientationString}${props.type}-bar-chart`;
+      // const orientationString =
+      //   props.orientation === ORIENTATIONS.HORIZONTAL
+      //     ? ORIENTATIONS.HORIZONTAL + '-'
+      //     : '';
+      // return `${orientationString}${props.type}-bar-chart`;
+      return `${props.type}-bar-chart`;
     });
 
     return { component };

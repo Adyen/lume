@@ -1,5 +1,3 @@
-export type Orientation = 'horizontal' | 'vertical';
-
 type Margins = {
   top: number;
   right: number;
@@ -7,9 +5,19 @@ type Margins = {
   left: number;
 };
 
-export const ORIENTATIONS = {
-  HORIZONTAL: 'horizontal' as Orientation,
-  VERTICAL: 'vertical' as Orientation,
+export type Orientation = 'horizontal' | 'vertical';
+
+export const ORIENTATIONS: Record<string, Orientation> = {
+  HORIZONTAL: 'horizontal',
+  VERTICAL: 'vertical',
+};
+
+export type BarType = 'single' | 'grouped' | 'stacked';
+
+export const BAR_TYPES: Record<string, BarType> = {
+  SINGLE: 'single',
+  GROUPED: 'grouped',
+  STACKED: 'stacked',
 };
 
 export const DEFAULT_MARGINS = {
