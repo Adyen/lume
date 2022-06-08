@@ -22,15 +22,9 @@ storiesOf('Charts / Horizontal bar chart', module) // eslint-disable-line
             </div>
         `,
     data: () => ({
-      data: [
-        { value: 10 },
-        { value: 40 },
-        { value: null },
-        { value: 30, color: '02' },
-        { value: 60 },
-        { value: 0 },
-        { value: -26 },
-      ],
+      data: [{
+        values: [10, 40, null, 30, 60, 0, -26]
+      }],
       labels: [
         'Monday',
         'Tuesday',
