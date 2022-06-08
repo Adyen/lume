@@ -80,7 +80,7 @@ import { NO_DATA } from '@/constants';
 import { Data } from '@/types/dataset';
 
 import { config as defaultConfig, options as defaultOptions } from './defaults';
-import { useBarOverlay } from './mixins/bar-overlay';
+import { useBarOverlay } from '@/charts/bar-chart/mixins/bar-overlay';
 
 const fallbackFillClass = '01';
 

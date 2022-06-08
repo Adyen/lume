@@ -77,7 +77,7 @@ import {
   useNegativeValues,
 } from '@/mixins/negative-values';
 import { usePopover } from '@/mixins/popover';
-import { useBarOverlay } from '../single-bar-chart/mixins/bar-overlay';
+import { useBarOverlay } from '@/charts/bar-chart/mixins/bar-overlay';
 import { NO_DATA } from '@/constants';
 
 export default defineComponent({

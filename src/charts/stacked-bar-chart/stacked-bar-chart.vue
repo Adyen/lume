@@ -78,7 +78,7 @@ import { config as defaultConfig, options as defaultOptions } from './defaults';
 import { useBase, withBase } from '@/mixins/base';
 import { usePopover } from '@/mixins/popover';
 import { useStackedBarMixin, withBarProps } from './mixins/stacked-bar-mixin';
-import { useBarOverlay } from '../single-bar-chart/mixins/bar-overlay';
+import { useBarOverlay } from '@/charts/bar-chart/mixins/bar-overlay';
 
 export default defineComponent({
   components: { Axis, Bar, BarsGroup, ChartContainer, Popover },
