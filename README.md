@@ -19,6 +19,7 @@ We're currently aiming to use:
 - [TypeScript](https://www.typescriptlang.org/) for type checking
 - [TypeScript ESLint](https://typescript-eslint.io/) for linting _(with the help of [eslint-plugin-vue](https://eslint.vuejs.org/))_
 - [Storybook](https://storybook.js.org/) for developing/showcasing components
+- [Jest](https://jestjs.io/) for unit testing
 
 ## Development
 
