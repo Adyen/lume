@@ -72,7 +72,7 @@ export default defineComponent({
   },
   data: () => ({
     selection: 'multi',
-    type: 'grouped',
+    type: 'stacked',
     orientation: 'horizontal',
     lineChartData: [
       {

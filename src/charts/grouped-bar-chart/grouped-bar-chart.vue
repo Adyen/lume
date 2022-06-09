@@ -59,7 +59,6 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, toRefs } from '@vue/composition-api';
-import { scaleBand } from 'd3-scale';
 
 import Axis from '@/core/axis';
 import Bar from '@/core/bar';
@@ -67,19 +66,20 @@ import BarsGroup from '@/core/bars-group.vue';
 import ChartContainer from '@/core/chart-container';
 import Popover from '@/core/popover';
 
-import { config as defaultConfig, options as defaultOptions } from './defaults';
-import { useBase, withBase } from '@/mixins/base';
-import { useConfig, withConfig } from '@/mixins/config';
-import { useOptions, withOptions } from '@/mixins/options';
 import { useBarMixin, withBarProps } from '@/charts/bar-chart/mixins/bar-mixin';
+import { useBase, withBase } from '@/mixins/base';
 import {
   checkNegativeValues,
   useNegativeValues,
 } from '@/mixins/negative-values';
-import { usePopover } from '@/mixins/popover';
+import { useConfig, withConfig } from '@/mixins/config';
+import { useOptions, withOptions } from '@/mixins/options';
 import { useBarOverlay } from '@/charts/bar-chart/mixins/bar-overlay';
-import { BAR_TYPES, NO_DATA } from '@/constants';
 import { useBarProperties } from './mixins/bar-properties';
+import { usePopover } from '@/mixins/popover';
+
+import { BAR_TYPES, NO_DATA, ORIENTATIONS } from '@/constants';
+import { config as defaultConfig, options as defaultOptions } from './defaults';
 
 export default defineComponent({
   components: { Axis, Bar, BarsGroup, ChartContainer, Popover },
@@ -92,16 +92,16 @@ export default defineComponent({
   setup(props, ctx) {
     const { data, labels, orientation } = toRefs(props);
 
+    const { computedConfig } = useConfig(props.config, defaultConfig);
+    const { allOptions } = useOptions(
+      props.options,
+      defaultOptions[orientation.value || ORIENTATIONS.VERTICAL]
+    );
+
     const { computedData, containerSize, updateSize, isHorizontal } = useBase(
       data,
       labels,
       orientation
-    );
-
-    const { computedConfig } = useConfig(props.config, defaultConfig);
-    const { allOptions } = useOptions(
-      props.options,
-      defaultOptions[orientation.value]
     );
 
     const { hasNegativeValues } = checkNegativeValues(computedData.value);
@@ -120,7 +120,7 @@ export default defineComponent({
       getBarTranslateY,
       getBarWidth,
       getBarHeight,
-    } = useBarProperties(multiBarData, orientation, xScale, yScale);
+    } = useBarProperties(multiBarData, isHorizontal, xScale, yScale);
 
     const { negativeHeight, negativeTransform } = useNegativeValues(
       containerSize,

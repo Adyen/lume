@@ -1,18 +1,13 @@
-import { computed, ComputedRef, Ref } from '@vue/composition-api';
+import { computed, ComputedRef } from '@vue/composition-api';
 import { scaleBand } from 'd3-scale';
-import { Orientation, ORIENTATIONS } from '@/constants';
 import { Data } from '@/types/dataset';
 
 export function useBarProperties(
   data: ComputedRef<Data<number>>,
-  orientation: Ref<Orientation>,
+  isHorizontal: ComputedRef<boolean>,
   xScale,
   yScale
 ) {
-  const isHorizontal = computed(
-    () => orientation.value === ORIENTATIONS.HORIZONTAL
-  );
-
   const xSubgroup = computed(() => {
     return scaleBand()
       .domain(data.value.map((_, index) => index))
