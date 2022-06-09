@@ -38,10 +38,12 @@
           v-for="key in Object.keys(popoverQuantile)"
           :key="key"
         >
-          <span class="u-font-weight-semi-bold">{{
-            popoverQuantile[key].label
-          }}</span>
-          : {{ popoverQuantile[key].value }}
+          <template v-if="popoverQuantile[key].label">
+            <span class="u-font-weight-semi-bold">{{
+              popoverQuantile[key].label
+            }}</span>
+            : {{ popoverQuantile[key].value }}
+          </template>
         </div>
       </popover>
     </template>
@@ -50,14 +52,10 @@
 
 <script lang="ts">
 import {
-  computed,
   defineComponent,
-  PropType,
   ref,
-  watch,
 } from '@vue/composition-api';
-import { quantile, group, ascending } from 'd3-array';
-import { scaleLinear, scaleBand } from 'd3-scale';
+
 
 import Axis from '@/core/axis';
 import BoxGroup from './components/box-group.vue';
@@ -68,34 +66,15 @@ import { useBase } from '@/mixins/base';
 import { useConfig, withConfig } from '@/mixins/config';
 import { useOptions, withOptions } from '@/mixins/options';
 import { usePopover } from '@/mixins/popover';
+import { withData, useBoxComputations } from './mixins/box-composable';
 
 import { config as defaultConfig, options as defaultOptions } from './defaults';
-
-type BoxPlotData = Array<{
-  [key: string]: number | string;
-}>;
-
 export default defineComponent({
   components: { Axis, ChartContainer, BoxGroup, Popover },
   props: {
     ...withConfig(),
     ...withOptions(),
-    data: {
-      type: Array as PropType<BoxPlotData>,
-      required: true,
-    },
-    margins: {
-      type: Object,
-      default: () => ({}),
-    },
-    groupByLabel: {
-      type: String,
-      required: true
-    },
-    valueLabel: {
-      type: String,
-      required: true,
-    },
+    ...withData()
   },
   setup(props, ctx) {
     // State from mixins
@@ -103,118 +82,15 @@ export default defineComponent({
     const { popoverConfig, showPopover, hidePopover } = usePopover();
     const { computedConfig } = useConfig(props.config, defaultConfig);
     const { allOptions } = useOptions(props.options, defaultOptions);
-
     // Internal state
 
     const hoveredIndex = ref<number>(-1);
     const popoverQuantile = ref(null);
 
     // Computed
-    // TODO: Move to box-plot scales mixin
-
-    const domain = computed(() => {
-      return Array.from(
-        new Set(props.data.map((ele) => ele[props.groupByLabel]))
-      );
-    });
-
-    const values = computed(() => {
-      return props.data.map((ele) => ele[props.valueLabel] as number);
-    });
-
-    const boxWidth = computed(() => {
-      return containerSize.width / (1.3 * domain.value.length);
-    });
-
-    const xScale = computed(() => {
-      return scaleBand()
-        .range([0, containerSize.width])
-        .domain(domain.value)
-        .paddingInner(1)
-        .paddingOuter(0.5);
-    });
-
-    const yScale = computed(() => {
-      return scaleLinear()
-        .domain([
-          0.8 * Math.min(...values.value),
-          1.1 * Math.max(...values.value),
-        ])
-        .range([containerSize.height, 0]);
-    });
-
-    const quantiles = computed(() => {
-      const sumstat = [];
-      // Compute quartiles, median, inter quantile range min and max --> these info are then used to draw the box.
-      group(props.data, (d) => d[props.groupByLabel]).forEach((values, key) => {
-        const groupedValues = values.map((g) => g[props.valueLabel]);
-        const q1 = quantile(groupedValues.sort(ascending), 0.25);
-        const median = quantile(groupedValues.sort(ascending), 0.5);
-        const q3 = quantile(groupedValues.sort(ascending), 0.75);
-        const interQuantileRange = q3 - q1;
-        const min = q1 - 1.5 * interQuantileRange;
-        const max = q3 + 1.5 * interQuantileRange;
-        sumstat.push({
-          key, q1, median, q3, interQuantileRange, min, max
-        });
-      });
-      return sumstat;
-    });
-
-    const boxGroups = computed(() => {
-      return quantiles.value.map((quantile) => ({
-        quantile: {
-          q1: { label: '25th percentile', value: quantile.q1.toFixed(2) },
-          q2: { label: '75th percentile', value: quantile.q3.toFixed(2) },
-          interQuantileRange: {
-            label: 'Inter quantile range',
-            value: quantile.interQuantileRange.toFixed(2),
-          },
-          median: { label: 'Median', value: quantile.median.toFixed(2) },
-          min: { label: 'Minimum', value: quantile.min.toFixed(2) },
-          max: { label: 'Maximum', value: quantile.max.toFixed(2) },
-          key: quantile.key,
-        },
-        verticalLine: {
-          x1: xScale.value(quantile.key),
-          x2: xScale.value(quantile.key),
-          y1: yScale.value(quantile.min),
-          y2: yScale.value(quantile.max),
-        },
-        box: {
-          x: xScale.value(quantile.key) - boxWidth.value / 2,
-          y: yScale.value(quantile.q3),
-          height: yScale.value(quantile.q1) - yScale.value(quantile.q3),
-          width: boxWidth.value,
-        },
-        medianLine: {
-          x1: xScale.value(quantile.key) - boxWidth.value / 2,
-          x2: xScale.value(quantile.key) + boxWidth.value / 2,
-          y1: yScale.value(quantile.median),
-          y2: yScale.value(quantile.median),
-        },
-      }));
-    });
-
-    const yAxisLabel = computed(() => {
-      if (allOptions.value.yAxisOptions?.withLabel === false) return;
-      return allOptions.value.yAxisOptions?.label || props.valueLabel;
-    });
+    const { domain, boxWidth, xScale, yScale, quantiles, boxGroups, yAxisLabel } = useBoxComputations(props.data, containerSize, allOptions);
 
     // Methods
-
-    function validateProps() {
-      const labels = props.data.reduce(
-        (acc, curr) => Array.from(new Set([...acc, ...Object.keys(curr)])),
-        []
-      );
-      if (
-        !labels.includes(props.valueLabel) ||
-        !labels.includes(props.groupByLabel)
-      ) {
-        console.error('Invalid prop');
-      }
-    }
 
     function getOverlayConfig(index: number) {
       return {
@@ -238,10 +114,6 @@ export default defineComponent({
       hidePopover();
       ctx.emit('mouseout');
     }
-
-    // Watchers
-
-    watch(props, validateProps, { immediate: true });
 
     return {
       allOptions,

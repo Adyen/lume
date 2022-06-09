@@ -12,6 +12,7 @@ export interface Dataset<T> {
   color?: Color;
   label?: string;
   areaColor?: Color;
+  legend?: string;
 }
 
 export type Data<T extends DatasetValue = DatasetValue> = Array<Dataset<T>>;
