@@ -1,7 +1,8 @@
-import {computed, PropType} from '@vue/composition-api';
+import {computed, ComputedRef, PropType} from '@vue/composition-api';
 import { Data } from '@/types/dataset';
 import {scaleBand, scaleLinear} from "d3-scale";
 import { quantile, ascending } from 'd3-array';
+import { Options } from '@/mixins/options';
 
 export const withData = () => ({
     data: {
@@ -13,7 +14,7 @@ export const withData = () => ({
 export function useBoxComputations(
     data: Data<number>,
     containerSize: { width: number, height: number },
-    allOptions: any
+    allOptions: ComputedRef<Options>
 ) {
     const domain = computed(() => {
         return data.map(ele => ele.legend);
@@ -64,16 +65,12 @@ export function useBoxComputations(
     const boxGroups = computed(() => {
         return quantiles.value.map((quantile) => ({
             quantile: {
-                q1: { label: '25th percentile', value: quantile.q1.toFixed(2) },
-                q2: { label: '75th percentile', value: quantile.q3.toFixed(2) },
-                interQuantileRange: {
-                    label: 'Inter quantile range',
-                    value: quantile.interQuantileRange.toFixed(2),
-                },
-                median: { label: 'Median', value: quantile.median.toFixed(2) },
-                min: { label: 'Minimum', value: quantile.min.toFixed(2) },
-                max: { label: 'Maximum', value: quantile.max.toFixed(2) },
-                key: quantile.key,
+                '25th percentile': quantile.q1.toFixed(2),
+                '75th percentile': quantile.q3.toFixed(2),
+                'Inter quantile range':quantile.interQuantileRange.toFixed(2),
+                'Median': quantile.median.toFixed(2),
+                'Minimum': quantile.min.toFixed(2),
+                'Maximum': quantile.max.toFixed(2)
             },
             verticalLine: {
                 x1: xScale.value(quantile.key),
@@ -93,6 +90,7 @@ export function useBoxComputations(
                 y1: yScale.value(quantile.median),
                 y2: yScale.value(quantile.median),
             },
+            key: quantile.key
         }));
     });
 

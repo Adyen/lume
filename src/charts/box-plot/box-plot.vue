@@ -21,7 +21,7 @@
 
     <box-group
       v-for="(boxGroup, index) in boxGroups"
-      :key="boxGroup.quantile.key"
+      :key="boxGroup.key"
       :box-group="boxGroup"
       :overlay="getOverlayConfig(index)"
       :is-hovered="hoveredIndex === index"
@@ -33,18 +33,14 @@
       <popover
         v-if="popoverConfig.opened"
         v-bind="popoverConfig"
+        position="top"
+        :title="boxGroups[hoveredIndex].key"
+        :items="getPopoverItems()"
       >
-        <div
-          v-for="key in Object.keys(popoverQuantile)"
-          :key="key"
-        >
-          <template v-if="popoverQuantile[key].label">
-            <span class="u-font-weight-semi-bold">{{
-              popoverQuantile[key].label
-            }}</span>
-            : {{ popoverQuantile[key].value }}
-          </template>
-        </div>
+        <slot
+          name="popover"
+          :index="hoveredIndex"
+        />
       </popover>
     </template>
   </chart-container>
@@ -101,6 +97,13 @@ export default defineComponent({
       };
     }
 
+    function getPopoverItems() {
+      return Object.keys(popoverQuantile.value).map(label => ({
+        label,
+        value: popoverQuantile.value[label],
+      }))
+    }
+
     function handleMouseover(quantile, index: number, event: MouseEvent) {
       hoveredIndex.value = index;
       popoverQuantile.value = quantile;
@@ -131,6 +134,7 @@ export default defineComponent({
       xScale,
       yAxisLabel,
       yScale,
+      getPopoverItems
     };
   },
 });
