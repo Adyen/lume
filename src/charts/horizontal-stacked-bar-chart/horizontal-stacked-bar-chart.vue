@@ -54,6 +54,7 @@ import BarMixin from '@/charts/bar-chart/mixins/bar-mixin';
 import HorizontalMixin from '@/mixins/horizontal';
 import NegativeValuesMixin from '@/mixins/negative-values';
 import OptionsMixin from '@/mixins/options';
+import AnimationMixin from '@/mixins/animation';
 import Popover from '@/core/popover';
 import { ORIENTATIONS } from '@/constants.js';
 import { options } from './defaults';
@@ -72,12 +73,9 @@ export default {
     BarMixin(true),
     HorizontalMixin,
     NegativeValuesMixin,
-    OptionsMixin(options)
+    OptionsMixin(options),
+    AnimationMixin()
   ],
-  data: () => ({
-    dataWithSuspension: null,
-    animate: false
-  }),
   computed: {
     computedMargins() {
       return {
@@ -87,18 +85,9 @@ export default {
       };
     },
   },
-  beforeMount() {
-    this.dataWithSuspension = new Array(this.paddedData.length);
-    this.paddedData.forEach(({ values }, index) =>
-      this.dataWithSuspension[index] = { values: new Array(values.length).fill(0) }
-    );
-  },
   async mounted() {
     const height = this.data.length * (defaultBarHeight * 1.5);
     this.$setHeight(height);
-    await this.$nextTick();
-    this.animate = true;
-    this.dataWithSuspension = this.paddedData;
   },
   methods: {
     mapBelowZeroBars(bars, barsIndex, sourceBars) {

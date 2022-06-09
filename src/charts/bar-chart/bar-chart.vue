@@ -27,7 +27,7 @@
         />
       </template>
       <bar-group
-        v-for="(bar, index) in dataWithSuspension"
+        v-for="(bar, index) in dataWithSuspension[0].values"
         :key="`bar-group-${index}`"
         :bar="getBarConfig(bar, index)"
         :overlay="$getOverlayConfig(index)"
@@ -55,10 +55,10 @@ import NegativeValuesMixin from '@/mixins/negative-values';
 import OptionsMixin from '@/mixins/options';
 import BarMixin from './mixins/bar-mixin';
 import BarGroup from './bar-group.vue';
+import AnimationMixin from '@/mixins/animation';
 import Bar from '@/core/bar.vue';
 import ChartContainer from '@/core/chart-container.vue';
 import Popover from '@/core/popover';
-
 import { config, options } from './defaults';
 
 const fallbackFillClass = '01';
@@ -71,24 +71,13 @@ export default {
     BarMixin(),
     NegativeValuesMixin,
     OptionsMixin(options),
+    AnimationMixin()
   ],
-  data: () => ({
-    dataWithSuspension: null,
-    animate: false
-  }),
   computed: {
     yAxisLabel() {
       if (this.allOptions.yAxisOptions?.withLabel === false) return;
       return this.allOptions.yAxisOptions?.label || this.barsConfig?.legend;
     },
-  },
-  beforeMount() {
-    this.dataWithSuspension = new Array(this.paddedData[0].values.length).fill(0);
-  },
-  async mounted() {
-    await this.$nextTick();
-    this.animate = true;
-    this.dataWithSuspension = this.paddedData[0].values;
   },
   methods: {
     getBarConfig(value, index) {

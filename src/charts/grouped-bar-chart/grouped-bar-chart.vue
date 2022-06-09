@@ -54,7 +54,7 @@ import Bar from '@/core/bar.vue';
 import BarsGroup from '@/core/bars-group.vue';
 import ChartContainer from '@/core/chart-container.vue';
 import Popover from '@/core/popover';
-
+import AnimationMixin from '@/mixins/animation';
 import BarMixin from '@/charts/bar-chart/mixins/bar-mixin';
 import BaseMixin from '@/mixins/base-mixin.js';
 import ConfigMixin from '@/mixins/config';
@@ -74,11 +74,8 @@ export default {
     ConfigMixin(config),
     NegativeValuesMixin,
     OptionsMixin(options),
+    AnimationMixin()
   ],
-  data: () => ({
-    dataWithSuspension: null,
-    animate: false
-  }),
   computed: {
     xSubgroup() {
       return scaleBand()
@@ -90,17 +87,6 @@ export default {
       if (this.allOptions.yAxisOptions?.withLabel === false) return;
       return this.allOptions.yAxisOptions?.label || this.barsConfig?.legend;
     },
-  },
-  beforeMount() {
-    this.dataWithSuspension = new Array(this.paddedData.length);
-    this.paddedData.forEach(({ values }, index) =>
-      this.dataWithSuspension[index] = { values: new Array(values.length).fill(0) }
-    );
-  },
-  async mounted() {
-    await this.$nextTick();
-    this.animate = true;
-    this.dataWithSuspension = this.paddedData;
   },
   methods: {
     getBarsConfig(bars, index) {

@@ -10,6 +10,7 @@
         :data="barChartData"
         :labels="barChartLabels"
         :bars-config="barsConfig"
+        :use-animation="false"
       />
       <stacked-bar-chart
         :data="stackedBarChartData"
@@ -114,6 +115,11 @@ export default {
       },
     },
   }),
+  async mounted() {
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    this.barChartData[0].values.reverse();
+    this.stackedBarChartData.reverse();
+  }
 };
 </script>
 

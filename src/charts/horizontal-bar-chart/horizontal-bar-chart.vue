@@ -26,7 +26,7 @@
         />
       </template>
       <bar-group
-        v-for="(bar, index) in dataWithSuspension"
+        v-for="(bar, index) in dataWithSuspension[0].values"
         :key="`bar-group-${index}`"
         :bar="getBarConfig(bar, index)"
         :overlay="$getOverlayConfig(index)"
@@ -57,6 +57,7 @@ import ConfigMixin from '@/mixins/config';
 import HorizontalMixin from '@/mixins/horizontal';
 import NegativeValues from '@/mixins/negative-values';
 import OptionsMixin from '@/mixins/options';
+import AnimationMixin from '@/mixins/animation';
 import { ORIENTATIONS } from '@/constants';
 import { config, options } from './defaults';
 
@@ -75,11 +76,8 @@ export default {
     HorizontalMixin,
     NegativeValues,
     OptionsMixin(options),
+    AnimationMixin()
   ],
-  data: () => ({
-    dataWithSuspension: null,
-    animate: false
-  }),
   computed: {
     computedMargins() {
       return {
@@ -89,15 +87,9 @@ export default {
       };
     },
   },
-  beforeMount() {
-    this.dataWithSuspension = new Array(this.paddedData[0].values.length).fill(0);
-  },
   async mounted() {
     const height = this.data[0].values.length * (defaultBarHeight * 1.5);
     this.$setHeight(height);
-    await this.$nextTick();
-    this.animate = true;
-    this.dataWithSuspension = this.paddedData[0].values;
   },
   methods: {
     getBarConfig(value, index) {

@@ -58,6 +58,7 @@ import Popover from '@/core/popover';
 import { ORIENTATIONS } from '@/constants.js';
 import { options } from './defaults';
 import BarMixin from "@/charts/bar-chart/mixins/bar-mixin";
+import AnimationMixin from '@/mixins/animation';
 
 const getColor = (bars, barIndex) => bars?.colors?.[barIndex] || `0${barIndex + 1}`;
 const defaultBarHeight = 20; // 12px
@@ -71,12 +72,9 @@ export default {
     BarMixin(),
     HorizontalMixin,
     NegativeValuesMixin,
-    OptionsMixin(options)
+    OptionsMixin(options),
+    AnimationMixin()
   ],
-  data: () => ({
-    dataWithSuspension: null,
-    animate: false
-  }),
   computed: {
     computedMargins() {
       return {
@@ -92,18 +90,9 @@ export default {
         .padding([0])
     }
   },
-  beforeMount() {
-    this.dataWithSuspension = new Array(this.paddedData.length);
-    this.paddedData.forEach(({ values }, index) =>
-      this.dataWithSuspension[index] = { values: new Array(values.length).fill(0) }
-    );
-  },
   async mounted() {
     const height = this.data.length * (defaultBarHeight * 1.5);
     this.$setHeight(height);
-    await this.$nextTick();
-    this.animate = true;
-    this.dataWithSuspension = this.paddedData;
   },
   methods: {
     getBarsConfig(bars, index) {
