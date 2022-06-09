@@ -36,3 +36,5 @@ export const DEFAULT_MARGINS = {
 };
 
 export const NO_DATA = 'No data';
+
+export const BAR_HEIGHT = 20;

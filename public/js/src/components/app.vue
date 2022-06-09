@@ -23,11 +23,22 @@
         stacked
       </option>
     </select>
+    <select
+      v-model="orientation"
+      style="margin-bottom: 16px;"
+    >
+      <option value="vertical">
+        vertical
+      </option>
+      <option value="horizontal">
+        horizontal
+      </option>
+    </select>
     <div class="row">
       <bar-chart
         :data="data"
         :type="type"
-        orientation="horizontal"
+        :orientation="orientation"
         :labels="barChartLabels"
       />
       <line-chart
@@ -64,6 +75,7 @@ export default defineComponent({
   data: () => ({
     selection: 'multi',
     type: 'grouped',
+    orientation: 'horizontal',
     lineChartData: [
       {
         values: [10, 30, -20, 50, 40, 70, 60],

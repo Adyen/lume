@@ -79,6 +79,7 @@ import {
 import { usePopover } from '@/mixins/popover';
 import { useBarOverlay } from '@/charts/bar-chart/mixins/bar-overlay';
 import { BAR_TYPES, NO_DATA } from '@/constants';
+import { useBarProperties } from './mixins/bar-properties';
 
 export default defineComponent({
   components: { Axis, Bar, BarsGroup, ChartContainer, Popover },
@@ -89,36 +90,50 @@ export default defineComponent({
     ...withOptions(),
   },
   setup(props, ctx) {
-    const { data, labels } = toRefs(props);
+    const { data, labels, orientation } = toRefs(props);
+
+    const { computedData, containerSize, updateSize, isHorizontal } = useBase(
+      data,
+      labels,
+      orientation
+    );
 
     const { computedConfig } = useConfig(props.config, defaultConfig);
-    const { allOptions } = useOptions(props.options, defaultOptions);
+    const { allOptions } = useOptions(
+      props.options,
+      defaultOptions[orientation.value]
+    );
 
-    const {
-      computedData,
-      containerSize,
-      updateSize,
-      isHorizontal,
-      domain,
-    } = useBase(data, labels);
     const { hasNegativeValues } = checkNegativeValues(computedData.value);
+
     const { xScale, yScale, multiBarData, groupedData } = useBarMixin(
       BAR_TYPES.GROUPED,
       computedData.value,
       labels.value,
       containerSize,
+      isHorizontal,
       allOptions.value
     );
+
+    const {
+      getBarTranslateX,
+      getBarTranslateY,
+      getBarWidth,
+      getBarHeight,
+    } = useBarProperties(multiBarData, orientation, xScale, yScale);
+
     const { negativeHeight, negativeTransform } = useNegativeValues(
       containerSize,
       yScale
     );
+
     const { getOverlayConfig } = useBarOverlay(
       isHorizontal,
       xScale,
       yScale,
       containerSize
     );
+
     const { popoverConfig, showPopover, hidePopover } = usePopover();
 
     // Internal state
@@ -126,13 +141,6 @@ export default defineComponent({
     const hoveredIndex = ref<number>(-1);
 
     // Computed
-
-    const xSubgroup = computed(() => {
-      return scaleBand()
-        .domain(multiBarData.value.map((_, index) => index))
-        .range([0, xScale.value.bandwidth()])
-        .padding([0]);
-    });
 
     const yAxisLabel = computed(() => {
       if (allOptions.value.yAxisOptions?.withLabel === false) return;
@@ -143,19 +151,17 @@ export default defineComponent({
 
     // Methods
 
-    function getBarsConfig(dataset: Array<number>, index) {
+    function getBarsConfig(dataset: Array<number>, index: number) {
       return dataset.map((value, barIndex) => {
         const color = computedData.value[barIndex].color;
-        const yTranslation = value < 0 ? yScale.value(0) : yScale.value(value);
-        const height =
-          value < 0
-            ? yScale.value(value) - yScale.value(0)
-            : yScale.value(0) - yScale.value(value);
         return {
-          transform: `translate(${xScale.value(labels.value[index]) +
-            xSubgroup.value(barIndex)}, ${yTranslation})`,
-          width: xSubgroup.value.bandwidth(),
-          height,
+          transform: `translate(${getBarTranslateX(
+            value,
+            index,
+            barIndex
+          )}, ${getBarTranslateY(value, index, barIndex)})`,
+          width: getBarWidth(value),
+          height: getBarHeight(value),
           fillClass: `adv-fill-color-${color}`,
         };
       });

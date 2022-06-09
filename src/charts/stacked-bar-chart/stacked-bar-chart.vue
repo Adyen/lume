@@ -89,24 +89,23 @@ export default defineComponent({
     ...withOptions(),
   },
   setup(props, ctx) {
-    const { data, labels } = toRefs(props);
+    const { data, labels, orientation } = toRefs(props);
 
     const { computedConfig } = useConfig(props.config, defaultConfig);
     const { allOptions } = useOptions(props.options, defaultOptions);
 
-    const {
-      computedData,
-      containerSize,
-      updateSize,
-      isHorizontal,
-      domain,
-    } = useBase(data, labels);
+    const { computedData, containerSize, updateSize, isHorizontal } = useBase(
+      data,
+      labels,
+      orientation
+    );
     const { hasNegativeValues } = checkNegativeValues(computedData.value);
     const { xScale, yScale, multiBarData, groupedData } = useBarMixin(
       BAR_TYPES.STACKED,
       computedData.value,
       labels.value,
       containerSize,
+      isHorizontal,
       allOptions.value
     );
     const { negativeHeight, negativeTransform } = useNegativeValues(
@@ -146,9 +145,9 @@ export default defineComponent({
         return [
           ...acc,
           {
-            transform: `translate(${xScale.value(labels.value[barsIndex])}, ${yScale.value(
-              0
-            ) + offsetY})`,
+            transform: `translate(${xScale.value(
+              labels.value[barsIndex]
+            )}, ${yScale.value(0) + offsetY})`,
             width: xScale.value.bandwidth(),
             height: yScale.value(bar) - yScale.value(0),
             fillClass: `adv-fill-color-${color}`,
@@ -167,9 +166,9 @@ export default defineComponent({
         return [
           ...acc,
           {
-            transform: `translate(${xScale.value(labels.value[barsIndex])}, ${yScale.value(
-              bar
-            ) - offsetY})`,
+            transform: `translate(${xScale.value(
+              labels.value[barsIndex]
+            )}, ${yScale.value(bar) - offsetY})`,
             width: xScale.value.bandwidth(),
             height: yScale.value(0) - yScale.value(bar),
             fillClass: `adv-fill-color-${color}`,

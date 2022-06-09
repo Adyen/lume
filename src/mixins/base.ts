@@ -5,8 +5,10 @@ import {
   ComputedRef,
   set,
   Ref,
+  onMounted,
+  onUpdated,
 } from '@vue/composition-api';
-import { ORIENTATIONS } from '@/constants';
+import { BAR_HEIGHT, Orientation, ORIENTATIONS } from '@/constants';
 import { Data, DatasetValueObject } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 
@@ -27,7 +29,7 @@ export const withBase = (dataValidator?: DataValidator) => ({
 export function useBase(
   data: Ref<Data>,
   labels: Ref<Array<string>>,
-  orientation = ORIENTATIONS.VERTICAL
+  orientation?: Ref<Orientation>
 ) {
   const containerSize = reactive({
     width: 0,
@@ -57,7 +59,21 @@ export function useBase(
     () => labels.value?.map((_, i) => i) || data.value?.map((_, i: number) => i)
   );
 
-  const isHorizontal = computed(() => orientation === ORIENTATIONS.HORIZONTAL);
+  const isHorizontal = computed(
+    () => orientation?.value === ORIENTATIONS.HORIZONTAL
+  );
+
+  function setHeight() {
+    if (isHorizontal.value && computedData.value?.[0]) {
+      updateSize({
+        width: containerSize.width,
+        height: computedData.value[0].values.length * (BAR_HEIGHT * 1.5),
+      });
+    }
+  }
+
+  onMounted(setHeight);
+  onUpdated(setHeight);
 
   return {
     computedData,

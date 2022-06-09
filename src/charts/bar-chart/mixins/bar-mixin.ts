@@ -3,7 +3,7 @@ import {
   ComputedRef,
   PropType,
   ref,
-  watch,
+  watchEffect,
 } from '@vue/composition-api';
 import { scaleBand, scaleLinear } from 'd3-scale';
 
@@ -40,6 +40,7 @@ export function useBarMixin(
   data: Data<DatasetValueObject>,
   labels: Array<string>,
   containerSize: { width: number; height: number },
+  isHorizontal: ComputedRef<boolean>,
   options?: Options
 ) {
   const xScale = ref(null);
@@ -139,22 +140,35 @@ export function useBarMixin(
   );
 
   const getXScale = () => {
-    xScale.value = scaleBand()
-      .paddingInner(padding.value)
-      .paddingOuter(padding.value / 2)
-      .domain(labels?.map((v) => v))
-      .rangeRound([0, containerSize.width]);
+    xScale.value = isHorizontal.value
+      ? scaleLinear()
+          .domain([minValue.value, maxValue.value])
+          .nice()
+          .rangeRound([0, containerSize.width])
+      : scaleBand()
+          .paddingInner(padding.value)
+          .paddingOuter(padding.value / 2)
+          .domain(labels?.map((v) => v))
+          .rangeRound([0, containerSize.width]);
   };
 
   const getYScale = () => {
-    yScale.value = scaleLinear()
-      .domain([maxValue.value, minValue.value])
-      .nice(10)
-      .rangeRound([0, containerSize.height]);
+    yScale.value = isHorizontal.value
+      ? scaleBand()
+          .paddingInner(padding.value)
+          .paddingOuter(padding.value / 2)
+          .domain(labels?.map((v) => v))
+          .rangeRound([0, containerSize.height])
+      : scaleLinear()
+          .domain([maxValue.value, minValue.value])
+          .nice(10)
+          .rangeRound([0, containerSize.height]);
   };
 
-  watch(containerSize, getXScale);
-  watch(containerSize, getYScale);
+  watchEffect(() => {
+    getXScale();
+    getYScale();
+  });
 
   return {
     minValue,

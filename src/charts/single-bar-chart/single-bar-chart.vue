@@ -96,24 +96,23 @@ export default defineComponent({
   },
   setup(props, ctx) {
     // State from mixins
-    const { data, labels } = toRefs(props);
+    const { data, labels, orientation } = toRefs(props);
 
     const { computedConfig } = useConfig(props.config, defaultConfig);
     const { allOptions } = useOptions(props.options, defaultOptions);
 
-    const {
-      computedData,
-      containerSize,
-      updateSize,
-      isHorizontal,
-      domain,
-    } = useBase(data, labels);
+    const { computedData, containerSize, updateSize, isHorizontal } = useBase(
+      data,
+      labels,
+      orientation
+    );
     const { hasNegativeValues } = checkNegativeValues(computedData.value);
     const { xScale, yScale, singleBarData } = useBarMixin(
       BAR_TYPES.SINGLE,
       computedData.value,
       labels.value,
       containerSize,
+      isHorizontal,
       allOptions.value
     );
     const { negativeHeight, negativeTransform } = useNegativeValues(
@@ -151,7 +150,9 @@ export default defineComponent({
           ? yScale.value(value) - yScale.value(0)
           : yScale.value(0) - yScale.value(value);
       return {
-        transform: `translate(${xScale.value(labels.value[index])}, ${yTranslation})`,
+        transform: `translate(${xScale.value(
+          labels.value[index]
+        )}, ${yTranslation})`,
         width: xScale.value.bandwidth(),
         height,
         fillClass: `adv-fill-color-${computedData.value[0].color ||

@@ -23,6 +23,7 @@ import {
   ref,
   onMounted,
   watch,
+  toRefs,
 } from '@vue/composition-api';
 import { axisBottom, axisLeft, axisRight, axisTop } from 'd3-axis';
 import { select } from 'd3-selection';
@@ -84,6 +85,7 @@ export default defineComponent({
     ...withOptions(),
   },
   setup(props) {
+    const { scale, containerSize } = toRefs(props);
     const { allOptions } = useOptions(props.options, defaultOptions);
     const root = ref(null);
     const selection = ref(null);
@@ -102,7 +104,7 @@ export default defineComponent({
 
     const tickSize = computed(() => {
       if (allOptions.value.gridLines) {
-        const { width, height } = props.containerSize;
+        const { width, height } = containerSize.value;
         return computedType.value === 'y' ? width : height;
       }
       return 0;
@@ -127,8 +129,8 @@ export default defineComponent({
     });
 
     const axis = computed(() => {
-      if (!props.scale) return;
-      const axis = AXIS_MAP[computedPosition.value](props.scale);
+      if (!scale.value) return;
+      const axis = AXIS_MAP[computedPosition.value](scale.value);
       return axis
         .ticks(allOptions.value.tickCount)
         .tickSize(tickSize.value) // Used to draw grid lines
@@ -137,7 +139,7 @@ export default defineComponent({
     });
 
     const translateX = computed(() => {
-      const xValue = tickSize.value || props.containerSize.width || 0;
+      const xValue = tickSize.value || containerSize.value.width || 0;
 
       // For axes rendering grid lines
       if (tickSize.value) return computedPosition.value === 'left' ? xValue : 0;
@@ -148,7 +150,7 @@ export default defineComponent({
     });
 
     const translateY = computed(() => {
-      const yValue = tickSize.value || props.containerSize.height || 0;
+      const yValue = tickSize.value || containerSize.value.height || 0;
 
       // For axes rendering grid lines
       if (tickSize.value) return computedPosition.value === 'top' ? yValue : 0;
@@ -157,6 +159,7 @@ export default defineComponent({
 
       return 0;
     });
+
 
     const computedTransform = computed(() => {
       if (props.transform) return props.transform;
@@ -177,7 +180,7 @@ export default defineComponent({
       applyAxis();
     });
 
-    watch([props.scale, props.containerSize, allOptions], applyAxis, {
+    watch([scale, containerSize, allOptions], applyAxis, {
       deep: true,
     });
 

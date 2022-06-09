@@ -13,18 +13,19 @@ export function useBarOverlay(
 
   function getOverlayConfig(index: number) {
     if (!xScale.value || !yScale.value) return {};
-    const domain = xScale.value.domain();
+    const scale = isHorizontal.value ? yScale.value : xScale.value;
+    const domain = scale.domain();
     return isHorizontal.value
       ? {
-          transform: `translate(0, ${yScale.value(index) -
+          transform: `translate(0, ${scale(domain[index]) -
             ghostCorrection.value})`,
           width: containerSize.width,
-          height: yScale.value.step(),
+          height: scale.step(),
         }
       : {
-          transform: `translate(${xScale.value(domain[index]) -
+          transform: `translate(${scale(domain[index]) -
             ghostCorrection.value}, 0)`,
-          width: xScale.value.step(),
+          width: scale.step(),
           height: containerSize.height,
         };
   }
