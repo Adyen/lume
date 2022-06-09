@@ -35,7 +35,7 @@
         v-bind="popoverConfig"
         position="top"
         :title="boxGroups[hoveredIndex].key"
-        :items="getPopoverItems()"
+        :items="getPopoverItems(hoveredIndex)"
       >
         <slot
           name="popover"
@@ -97,10 +97,12 @@ export default defineComponent({
       };
     }
 
-    function getPopoverItems() {
-      return Object.keys(popoverQuantile.value).map(label => ({
+    function getPopoverItems(index) {
+      const boxGroup = boxGroups.value[index];
+      return Object.keys(boxGroup.quantile).map(label => ({
         label,
-        value: popoverQuantile.value[label],
+        value: boxGroup.quantile[label],
+        color: boxGroup.color
       }))
     }
 

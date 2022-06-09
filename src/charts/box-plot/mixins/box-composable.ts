@@ -57,7 +57,7 @@ export function useBoxComputations(
             const min = q1 - 1.5 * interQuantileRange;
             const max = q3 + 1.5 * interQuantileRange;
             return {
-                key: ele.legend, q1, median, q3, interQuantileRange, min, max
+                key: ele.legend, color: ele.color, q1, median, q3, interQuantileRange, min, max
             }
         });
     });
@@ -90,7 +90,8 @@ export function useBoxComputations(
                 y1: yScale.value(quantile.median),
                 y2: yScale.value(quantile.median),
             },
-            key: quantile.key
+            key: quantile.key,
+            color: quantile.color
         }));
     });
 

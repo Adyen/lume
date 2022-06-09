@@ -7,6 +7,7 @@
     <rect
       class="box-plot__box"
       v-bind="boxGroup.box"
+      :class="[`adv-fill-color-${boxGroup.color}`]"
     />
     <line
       class="box-plot__median"
@@ -42,7 +43,7 @@ export default defineComponent({
     isHovered: {
       type: Boolean,
       required: true,
-    },
+    }
   },
 });
 </script>
@@ -56,7 +57,6 @@ export default defineComponent({
     width: 40px;
   }
   &__box {
-    fill: $adv-color-data-viz-yellow;
     stroke: $adv-color-data-viz-grey-darker;
   }
   &__median {
