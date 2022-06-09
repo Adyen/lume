@@ -76,7 +76,7 @@ import {
   useNegativeValues,
 } from '@/mixins/negative-values';
 
-import { BAR_TYPES, NO_DATA } from '@/constants';
+import { BAR_TYPES, NO_DATA, ORIENTATIONS } from '@/constants';
 import { Data } from '@/types/dataset';
 
 import { config as defaultConfig, options as defaultOptions } from './defaults';
@@ -99,7 +99,10 @@ export default defineComponent({
     const { data, labels, orientation } = toRefs(props);
 
     const { computedConfig } = useConfig(props.config, defaultConfig);
-    const { allOptions } = useOptions(props.options, defaultOptions);
+    const { allOptions } = useOptions(
+      props.options,
+      defaultOptions[orientation.value || ORIENTATIONS.VERTICAL]
+    );
 
     const { computedData, containerSize, updateSize, isHorizontal } = useBase(
       data,
@@ -142,21 +145,44 @@ export default defineComponent({
 
     // Methods
 
+    function getBarTransform(value: number, index: number) {
+      let x: number, y: number;
+      if (isHorizontal.value) {
+        x = value >= 0 ? xScale.value(0) : xScale.value(value);
+        y = yScale.value(labels.value[index]);
+      } else {
+        x = xScale.value(labels.value[index]);
+        y = value < 0 ? yScale.value(0) : yScale.value(value);
+      }
+      return `translate(${x}, ${y})`;
+    }
+
+    function getBarWidth(value: number) {
+      if (isHorizontal.value) {
+        return value < 0
+          ? xScale.value(0) - xScale.value(value)
+          : xScale.value(value) - xScale.value(0);
+      }
+      return xScale.value.bandwidth();
+    }
+
+    function getBarHeight(value: number) {
+      if (isHorizontal.value) {
+        return yScale.value.bandwidth();
+      }
+      return value < 0
+        ? yScale.value(value) - yScale.value(0)
+        : yScale.value(0) - yScale.value(value);
+    }
+
     function getBarConfig(value: number, index: number) {
-      if (!yScale.value) return {};
-      const yTranslation = value < 0 ? yScale.value(0) : yScale.value(value);
-      const height =
-        value < 0
-          ? yScale.value(value) - yScale.value(0)
-          : yScale.value(0) - yScale.value(value);
+      if (!xScale.value || !yScale.value) return {};
+      const color = computedData.value[0].color;
       return {
-        transform: `translate(${xScale.value(
-          labels.value[index]
-        )}, ${yTranslation})`,
-        width: xScale.value.bandwidth(),
-        height,
-        fillClass: `adv-fill-color-${computedData.value[0].color ||
-          fallbackFillClass}`,
+        transform: getBarTransform(value, index),
+        width: getBarWidth(value),
+        height: getBarHeight(value),
+        fillClass: `adv-fill-color-${color || fallbackFillClass}`,
       };
     }
 
