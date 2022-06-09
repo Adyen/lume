@@ -29,10 +29,10 @@
     </template>
 
     <template v-if="xScale && yScale">
-      <bar-group
+      <bars-group
         v-for="(value, index) in singleBarData"
         :key="`bar-group-${index}`"
-        :bar="getBarConfig(value, index)"
+        :bars="getBarConfig(value, index)"
         :overlay="getOverlayConfig(index)"
         :is-hovered="hoveredIndex === index"
         @mouseover="handleMouseover(index, $event)"
@@ -62,7 +62,7 @@ import { computed, defineComponent, ref, toRefs } from '@vue/composition-api';
 
 import Axis from '@/core/axis';
 import Bar from '@/core/bar';
-import BarGroup from './bar-group.vue';
+import BarsGroup from '@/core/bars-group.vue';
 import ChartContainer from '@/core/chart-container';
 import Popover from '@/core/popover';
 
@@ -87,7 +87,7 @@ const fallbackFillClass = '01';
 const singleBarDataValidator = (data: Data) => data.length === 1;
 
 export default defineComponent({
-  components: { Axis, Bar, BarGroup, ChartContainer, Popover },
+  components: { Axis, Bar, BarsGroup, ChartContainer, Popover },
   props: {
     ...withBase(singleBarDataValidator),
     ...withConfig(),
@@ -178,12 +178,14 @@ export default defineComponent({
     function getBarConfig(value: number, index: number) {
       if (!xScale.value || !yScale.value) return {};
       const color = computedData.value[0].color;
-      return {
-        transform: getBarTransform(value, index),
-        width: getBarWidth(value),
-        height: getBarHeight(value),
-        fillClass: `adv-fill-color-${color || fallbackFillClass}`,
-      };
+      return [
+        {
+          transform: getBarTransform(value, index),
+          width: getBarWidth(value),
+          height: getBarHeight(value),
+          fillClass: `adv-fill-color-${color || fallbackFillClass}`,
+        },
+      ];
     }
 
     function getPopoverItems(index: number) {
