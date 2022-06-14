@@ -77,6 +77,7 @@ import { useBarOverlay } from '@/charts/bar-chart/mixins/bar-overlay';
 import { useBarProperties } from './mixins/bar-properties';
 import { useBase, withBase } from '@/mixins/base';
 import { usePopover } from '@/mixins/popover';
+import { useAnimation } from '@/mixins/animation';
 
 import { BAR_TYPES, NO_DATA, ORIENTATIONS } from '@/constants';
 import { config as defaultConfig, options as defaultOptions } from './defaults';
@@ -90,9 +91,6 @@ export default defineComponent({
     ...withOptions(),
   },
   setup(props, ctx) {
-    const suspendedData = ref([]);
-    const animate = ref(false);
-
     const { data, labels, orientation } = toRefs(props);
 
     const { computedConfig } = useConfig(props.config, defaultConfig);
@@ -137,6 +135,8 @@ export default defineComponent({
       containerSize
     );
 
+    const { animate, suspendedData } = useAnimation(groupedData);
+
     const { popoverConfig, showPopover, hidePopover } = usePopover();
 
     // Internal state
@@ -150,23 +150,6 @@ export default defineComponent({
       return (
         allOptions.value.yAxisOptions?.label || computedData.value[0].label
       );
-    });
-
-    // Hooks
-
-    onBeforeMount(() => {
-      suspendedData.value = new Array(groupedData.value.length);
-      console.log(groupedData);
-      groupedData.value.forEach((record, index) => suspendedData.value[index] = new Array(record.length).fill(0));
-    });
-
-    onMounted( async () => {
-      await nextTick();
-      // NOTE: The render still seems to jump into action too quickly when we await for nextTick() alone,
-      // so added a zero timeout await to make sure we are in sync. Hopefully redundant when Vue 2.7+ hits.
-      await new Promise(resolve => setTimeout(resolve, 0));
-      animate.value = true;
-      suspendedData.value = groupedData.value;
     });
 
     // Methods
