@@ -30,11 +30,12 @@
 
     <template v-if="xScale && yScale">
       <bars-group
-        v-for="(datagroup, index) in groupedData"
+        v-for="(datagroup, index) in suspendedData"
         :key="`bar-group-${index}`"
         :bars="getBarsConfig(datagroup, index)"
         :overlay="getOverlayConfig(index)"
         :is-hovered="hoveredIndex === index"
+        :animate="animate"
         @mouseover="handleMouseover(index, $event)"
         @mouseout="handleMouseout"
       />
@@ -58,8 +59,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, toRefs } from '@vue/composition-api';
-
+import { computed, defineComponent, ref, toRefs, onBeforeMount, onMounted, nextTick } from '@vue/composition-api';
 import Axis from '@/core/axis';
 import Bar from '@/core/bar';
 import BarsGroup from '@/core/bars-group.vue';
@@ -90,6 +90,9 @@ export default defineComponent({
     ...withOptions(),
   },
   setup(props, ctx) {
+    const suspendedData = ref([]);
+    const animate = ref(false);
+
     const { data, labels, orientation } = toRefs(props);
 
     const { computedConfig } = useConfig(props.config, defaultConfig);
@@ -149,6 +152,23 @@ export default defineComponent({
       );
     });
 
+    // Hooks
+
+    onBeforeMount(() => {
+      suspendedData.value = new Array(groupedData.value.length);
+      console.log(groupedData);
+      groupedData.value.forEach((record, index) => suspendedData.value[index] = new Array(record.length).fill(0));
+    });
+
+    onMounted( async () => {
+      await nextTick();
+      // NOTE: The render still seems to jump into action too quickly when we await for nextTick() alone,
+      // so added a zero timeout await to make sure we are in sync. Hopefully redundant when Vue 2.7+ hits.
+      await new Promise(resolve => setTimeout(resolve, 0));
+      animate.value = true;
+      suspendedData.value = groupedData.value;
+    });
+
     // Methods
 
     function getBarsConfig(dataGroup: Array<number>, index: number) {
@@ -197,6 +217,8 @@ export default defineComponent({
       getOverlayConfig,
       getPopoverItems,
       groupedData,
+      animate,
+      suspendedData,
       handleMouseout,
       handleMouseover,
       hasNegativeValues,

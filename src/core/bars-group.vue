@@ -12,7 +12,7 @@
       :fill-class="
         isHovered ? 'adv-fill-color-overlay' : 'adv-fill-color-transparent'
       "
-      animate
+      :animate="false"
       @mouseover.native="$emit('mouseover', $event)"
       @mouseout.native="$emit('mouseout')"
     />
@@ -40,7 +40,7 @@ export default defineComponent({
     },
     animate: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
 });
