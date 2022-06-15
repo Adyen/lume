@@ -30,11 +30,12 @@
 
     <template v-if="xScale && yScale">
       <bars-group
-        v-for="(value, index) in singleBarData"
+        v-for="(value, index) in suspendedData"
         :key="`bar-group-${index}`"
         :bars="getBarConfig(value, index)"
         :overlay="getOverlayConfig(index)"
         :is-hovered="hoveredIndex === index"
+        :animate="animate"
         @mouseover="handleMouseover(index, $event)"
         @mouseout="handleMouseout"
       />
@@ -71,6 +72,7 @@ import { useBase, withBase } from '@/mixins/base';
 import { useConfig, withConfig } from '@/mixins/config';
 import { useOptions, withOptions } from '@/mixins/options';
 import { usePopover } from '@/mixins/popover';
+import { useAnimation } from '@/mixins/animation';
 import {
   checkNegativeValues,
   useNegativeValues,
@@ -110,7 +112,7 @@ export default defineComponent({
       orientation
     );
     const { hasNegativeValues } = checkNegativeValues(computedData.value);
-    const { xScale, yScale, singleBarData } = useBarMixin(
+    const { xScale, yScale, singleBarData, groupedData } = useBarMixin(
       BAR_TYPES.SINGLE,
       computedData.value,
       labels.value,
@@ -118,6 +120,9 @@ export default defineComponent({
       isHorizontal,
       allOptions.value
     );
+
+    const { animate, suspendedData } = useAnimation(groupedData);
+
     const { negativeHeight, negativeTransform } = useNegativeValues(
       containerSize,
       yScale
@@ -154,7 +159,7 @@ export default defineComponent({
         x = xScale.value(labels.value[index]);
         y = value < 0 ? yScale.value(0) : yScale.value(value);
       }
-      return `translate(${x}, ${y})`;
+      return { x, y };
     }
 
     function getBarWidth(value: number) {
@@ -178,9 +183,11 @@ export default defineComponent({
     function getBarConfig(value: number, index: number) {
       if (!xScale.value || !yScale.value) return {};
       const color = computedData.value[0].color;
+      const { x, y } = getBarTransform(value, index);
       return [
         {
-          transform: getBarTransform(value, index),
+          x,
+          y,
           width: getBarWidth(value),
           height: getBarHeight(value),
           fillClass: `adv-fill-color-${color || fallbackFillClass}`,
@@ -228,6 +235,8 @@ export default defineComponent({
       yAxisLabel,
       xScale,
       yScale,
+      suspendedData,
+      animate
     };
   },
 });

@@ -30,11 +30,12 @@
 
     <template v-if="xScale && yScale">
       <bars-group
-        v-for="(dataset, index) in groupedData"
+        v-for="(dataset, index) in suspendedData"
         :key="`bar-group-${index}`"
         :bars="getBarsConfig(dataset, index)"
         :overlay="getOverlayConfig(index)"
         :is-hovered="hoveredIndex === index"
+        :animate="animate"
         @mouseover="handleMouseover(index, $event)"
         @mouseout="handleMouseout"
       />
@@ -77,6 +78,7 @@ import { useOptions, withOptions } from '@/mixins/options';
 import { useBarOverlay } from '@/charts/bar-chart/mixins/bar-overlay';
 import { useBarProperties } from './mixins/bar-properties';
 import { usePopover } from '@/mixins/popover';
+import { useAnimation } from '@/mixins/animation';
 
 import { BAR_TYPES, NO_DATA, ORIENTATIONS } from '@/constants';
 import { config as defaultConfig, options as defaultOptions } from './defaults';
@@ -114,6 +116,8 @@ export default defineComponent({
       isHorizontal,
       allOptions.value
     );
+
+    const { animate, suspendedData } = useAnimation(groupedData);
 
     const {
       getBarTranslateX,
@@ -154,12 +158,11 @@ export default defineComponent({
     function getBarsConfig(dataset: Array<number>, index: number) {
       return dataset.map((value, barIndex) => {
         const color = computedData.value[barIndex].color;
+        const x = getBarTranslateX(value, index, barIndex);
+        const y = getBarTranslateY(value, index, barIndex);
         return {
-          transform: `translate(${getBarTranslateX(
-            value,
-            index,
-            barIndex
-          )}, ${getBarTranslateY(value, index, barIndex)})`,
+          x,
+          y,
           width: getBarWidth(value),
           height: getBarHeight(value),
           fillClass: `adv-fill-color-${color}`,
@@ -208,6 +211,8 @@ export default defineComponent({
       computedConfig,
       allOptions,
       popoverConfig,
+      suspendedData,
+      animate
     };
   },
 });

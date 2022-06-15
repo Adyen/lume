@@ -28,5 +28,5 @@ export function useAnimation(
     return {
         animate,
         suspendedData
-    }
+    };
 }
