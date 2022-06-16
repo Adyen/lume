@@ -18,7 +18,7 @@
     <bar
       v-if="hasNegativeValues"
       :height="negativeHeight"
-      :width="containerSize.width"
+      :width="negativeWidth"
       :transform="negativeTransform"
       :animate="false"
       fill-class="adv-fill-color-negative-values"
@@ -107,15 +107,18 @@ export default defineComponent({
   setup(props) {
     // State from mixins
     const { data, labels } = toRefs(props);
-    const { computedData, containerSize, updateSize } = useBase(data, labels);
+    const { computedData, containerSize, updateSize, isHorizontal } = useBase(data, labels);
     const { hasNegativeValues } = checkNegativeValues(computedData.value);
     const { xScale, yScale, minValue } = useSparklineScales(
       computedData.value,
       containerSize
     );
-    const { negativeHeight, negativeTransform } = useNegativeValues(
+
+    const { negativeWidth, negativeHeight, negativeTransform } = useNegativeValues(
       containerSize,
-      yScale
+      xScale,
+      yScale,
+      isHorizontal
     );
     const { allOptions } = useOptions(props.options, defaultOptions);
     const { computedConfig } = useConfig(props.config, defaultConfig);
@@ -222,6 +225,7 @@ export default defineComponent({
       linePathDefinition,
       ghostBarTransform,
       areaColor,
+      negativeWidth,
       negativeHeight,
       getPopoverItems,
       containerSize,

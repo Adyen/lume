@@ -12,7 +12,6 @@ export function useAnimation(
 
     onBeforeMount(() => {
         suspendedData.value = new Array(groupedData.value.length);
-        console.log(groupedData);
         groupedData.value.forEach((record, index) => suspendedData.value[index] = new Array(record.length).fill(0));
     });
 

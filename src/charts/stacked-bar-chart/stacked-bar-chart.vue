@@ -6,7 +6,7 @@
     <bar
       v-if="hasNegativeValues"
       :height="negativeHeight"
-      :width="containerSize.width"
+      :width="negativeWidth"
       :transform="negativeTransform"
       :animate="false"
       fill-class="adv-fill-color-negative-values"
@@ -59,7 +59,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, toRefs, onBeforeMount, onMounted, nextTick } from '@vue/composition-api';
+import { computed, defineComponent, ref, toRefs } from '@vue/composition-api';
 import Axis from '@/core/axis';
 import Bar from '@/core/bar';
 import BarsGroup from '@/core/bars-group.vue';
@@ -123,9 +123,11 @@ export default defineComponent({
       yScale
     );
 
-    const { negativeHeight, negativeTransform } = useNegativeValues(
+    const { negativeWidth, negativeHeight, negativeTransform } = useNegativeValues(
       containerSize,
-      yScale
+      xScale,
+      yScale,
+      isHorizontal
     );
 
     const { getOverlayConfig } = useBarOverlay(
@@ -207,6 +209,7 @@ export default defineComponent({
       hasNegativeValues,
       hoveredIndex,
       multiBarData,
+      negativeWidth,
       negativeHeight,
       negativeTransform,
       popoverConfig,

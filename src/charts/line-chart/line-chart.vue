@@ -124,7 +124,7 @@ export default defineComponent({
   setup(props) {
     // State from mixins
     const { data, labels } = toRefs(props);
-    const { computedData, containerSize, updateSize } = useBase(data, labels);
+    const { computedData, containerSize, updateSize, isHorizontal } = useBase(data, labels);
     const { hasNegativeValues } = checkNegativeValues(computedData.value);
     const { xScale, yScale, minValue } = useLineScales(
       computedData.value,
@@ -135,8 +135,9 @@ export default defineComponent({
     );
     const { negativeHeight, negativeTransform } = useNegativeValues(
       containerSize,
+      xScale,
       yScale,
-      false
+      isHorizontal
     );
     const { computedConfig } = useConfig(props.config, defaultConfig);
     const { allOptions } = useOptions(props.options, defaultOptions);

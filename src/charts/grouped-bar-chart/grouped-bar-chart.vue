@@ -6,7 +6,7 @@
     <bar
       v-if="hasNegativeValues"
       :height="negativeHeight"
-      :width="containerSize.width"
+      :width="negativeWidth"
       :transform="negativeTransform"
       :animate="false"
       fill-class="adv-fill-color-negative-values"
@@ -126,9 +126,11 @@ export default defineComponent({
       getBarHeight,
     } = useBarProperties(multiBarData, isHorizontal, xScale, yScale);
 
-    const { negativeHeight, negativeTransform } = useNegativeValues(
+    const { negativeWidth, negativeHeight, negativeTransform } = useNegativeValues(
       containerSize,
-      yScale
+      xScale,
+      yScale,
+      isHorizontal
     );
 
     const { getOverlayConfig } = useBarOverlay(
@@ -205,6 +207,7 @@ export default defineComponent({
       handleMouseout,
       yScale,
       hasNegativeValues,
+      negativeWidth,
       negativeHeight,
       negativeTransform,
       getOverlayConfig,
