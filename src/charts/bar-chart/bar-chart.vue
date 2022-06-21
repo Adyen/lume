@@ -10,6 +10,7 @@ import { computed, defineComponent, PropType } from '@vue/composition-api';
 
 import { Orientation, ORIENTATIONS } from '@/constants';
 import { withBase } from '@/mixins/base';
+import { withOptions } from '@/mixins/options';
 import { singleDatasetValidator } from '@/utils/helpers';
 
 const TYPES = ['grouped', 'stacked'];
@@ -30,6 +31,7 @@ export default defineComponent({
   },
   props: {
     ...withBase(),
+    ...withOptions(),
     type: {
       type: String,
       default: null,
