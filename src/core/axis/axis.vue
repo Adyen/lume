@@ -131,11 +131,19 @@ export default defineComponent({
     const axis = computed(() => {
       if (!scale.value) return;
       const axis = AXIS_MAP[computedPosition.value](scale.value);
-      return axis
+      const length = props.scale.domain().length;
+      axis
         .ticks(allOptions.value.tickCount)
         .tickSize(tickSize.value) // Used to draw grid lines
         .tickPadding(allOptions.value.tickPadding)
         .tickFormat(tickFormat.value);
+
+      if (allOptions?.value?.skip) {
+        axis
+          .tickValues(props.scale.domain().filter((value, index) => index === length - 1 || !(index % allOptions.value.skip)))
+      }
+
+      return axis;
     });
 
     const translateX = computed(() => {
