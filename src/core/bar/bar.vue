@@ -30,14 +30,6 @@ export default defineComponent({
       type: Number,
       required: true,
     },
-    x: {
-      type: Number,
-      default: 0,
-    },
-    y: {
-      type: Number,
-      default: 0
-    },
     fillClass: {
       type: String,
       required: true,
