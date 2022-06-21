@@ -124,7 +124,10 @@ export default defineComponent({
   setup(props) {
     // State from mixins
     const { data, labels } = toRefs(props);
-    const { computedData, containerSize, updateSize, isHorizontal } = useBase(data, labels);
+    const { computedData, containerSize, updateSize, isHorizontal } = useBase(
+      data,
+      labels
+    );
     const { hasNegativeValues } = checkNegativeValues(computedData.value);
     const { xScale, yScale, minValue } = useLineScales(
       computedData.value,
@@ -175,7 +178,7 @@ export default defineComponent({
 
     // Watchers
 
-    watch([hoveredIndex, overlayBars], function() {
+    watch([hoveredIndex, overlayBars], function () {
       if (hoveredIndex.value > -1)
         showPopover(overlayBars.value?.[hoveredIndex.value].$el);
       else hidePopover();
