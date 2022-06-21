@@ -34,19 +34,27 @@
   </g>
 </template>
 
-<script>
-import ChartLine from "./chart-line.vue";
-import LinePoint from "./line-point.vue";
+<script lang="ts">
+import {
+  computed,
+  defineComponent,
+  PropType,
+  ref,
+  toRefs,
+} from '@vue/composition-api';
 
-import LineNullValuesMixin from "@/mixins/line-null-values";
+import ChartLine from './chart-line.vue';
+import LinePoint from './line-point.vue';
 
-export default {
+import { useLineNullValues } from '@/mixins/line-null-values';
+import { DatasetValueObject } from '@/types/dataset';
+
+export default defineComponent({
   components: { ChartLine, LinePoint },
-  mixins: [LineNullValuesMixin],
   props: {
     values: {
-      type: Array,
-      required: true
+      type: Array as PropType<Array<DatasetValueObject<number>>>,
+      required: true,
     },
     color: {
       type: String,
@@ -69,41 +77,70 @@ export default {
       required: true,
     },
   },
-  data: () => ({
-    isHovered: false,
-    isSelected: false,
-  }),
-  computed: {
-    computedLineValues() {
-      return this.values.map((value, index) => {
-        const nullInterval = this.nullIntervals.find(interval => interval.includes(index));
+
+  setup(props) {
+    const { values } = toRefs(props);
+    const { nullIntervals, getMidValue, isDashed } = useLineNullValues(
+      values
+    );
+
+    const isHovered = ref<boolean>(false);
+    const isSelected = ref<boolean>(false);
+
+    const computedLineValues = computed(() => {
+      return props.values.map((value, index) => {
+        const nullInterval = nullIntervals.value.find((interval) =>
+          interval.includes(index)
+        );
         if (nullInterval) {
-          let start = this.values[nullInterval[0] - 1];
-          let end = this.values[nullInterval.at(-1) + 1];
+          let start = props.values[nullInterval[0] - 1].value;
+          let end = props.values[nullInterval.at(-1) + 1].value;
 
           // If first/last value is `null`, use the first/last non-null value
           if (start == null) start = end;
           if (end == null) end = start;
 
-          return this.getMidValue(start, end, nullInterval.length, nullInterval.indexOf(index));
+          return {
+            value: getMidValue(
+              start,
+              end,
+              nullInterval.length,
+              nullInterval.indexOf(index)
+            ),
+          };
         }
         return value;
       });
-    },
-  },
-  methods: {
-    getLineValues(index) {
+    });
+
+    function getLineValues(index: number) {
       // First value
       if (index === 0) return [];
 
-      return [this.computedLineValues[index - 1], this.computedLineValues[index]];
-    },
-    getPointValue(index) {
-      return this.computedLineValues[index];
-    },
-    isPointActive(index) {
-      return this.hoveredIndex === index || this.isHovered || this.isSelected;
-    },
-  }
-};
+      return [
+        computedLineValues.value[index - 1]?.value,
+        computedLineValues.value[index]?.value,
+      ];
+    }
+
+    function getPointValue(index: number) {
+      return computedLineValues.value[index]?.value;
+    }
+
+    function isPointActive(index: number) {
+      return (
+        props.hoveredIndex === index || isHovered.value || isSelected.value
+      );
+    }
+
+    return {
+      isHovered,
+      isSelected,
+      isDashed,
+      getLineValues,
+      getPointValue,
+      isPointActive,
+    };
+  },
+});
 </script>

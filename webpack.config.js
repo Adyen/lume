@@ -1,10 +1,9 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { VueLoaderPlugin } = require('vue-loader');
-console.log(__dirname + '/dist');
 
 module.exports = {
-  entry: './public/js/src/main.js',
+  entry: './public/js/src/main.ts',
   output: {
     path: __dirname + '/public/js/dist',
     filename: 'build.js',
@@ -13,7 +12,7 @@ module.exports = {
   devServer: {
     contentBase: './public',
     hot: true,
-    inline: true,
+    port: 8888,
   },
   module: {
     rules: [
@@ -22,25 +21,13 @@ module.exports = {
         use: 'vue-loader',
       },
       {
-        test: /\.ts?$/,
+        test: /\.ts$/,
         use: [
           {
             loader: 'ts-loader',
-            options: {
-              appendTsSuffixTo: [/\.vue$/],
-            },
+            options: { appendTsSuffixTo: [/\.vue$/] },
           },
         ],
-      },
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        options: {
-          plugins: [
-            '@babel/plugin-proposal-nullish-coalescing-operator',
-            '@babel/plugin-proposal-optional-chaining',
-          ],
-        },
       },
       {
         test: /\.s[ac]ss|\.css$/,
@@ -54,8 +41,8 @@ module.exports = {
   },
   plugins: [new VueLoaderPlugin()],
   resolve: {
+    extensions: ['.vue', '.js', '.ts'],
     alias: {
-      vue: __dirname + '/node_modules/vue/dist/vue.js',
       '@': __dirname + '/src/',
     },
   },
