@@ -1,104 +1,67 @@
 <template>
-  <div class="u-width-full u-height-full">
-    <chart-container
-      :margins="computedConfig.margins"
-      @resize="$determineWidthAndHeight"
-    >
-      <bar
-        v-if="hasNegativeValues"
-        :height="negativeHeight"
-        :width="width"
-        :transform="negativeTransform"
-        fill-class="adv-fill-color-negative-values"
-      />
-      <template v-if="allOptions.showAxes">
-        <axis
-          type="x"
-          :options="allOptions.xAxisOptions"
-          :scale="xScale"
-          :container-size="containerSize"
-        />
-        <axis
-          type="y"
-          :options="allOptions.yAxisOptions"
-          :scale="yScale"
-          :label="yAxisLabel"
-          :container-size="containerSize"
-        />
-      </template>
-      <bar-group
-        v-for="(bar, index) in dataWithSuspension[0].values"
-        :key="`bar-group-${index}`"
-        :bar="getBarConfig(bar, index)"
-        :overlay="$getOverlayConfig(index)"
-        :is-hovered="hoveredIndex === index"
-        :animate="animate"
-        @mouseover="$handleMouseover(index, $event)"
-        @mouseout="$handleMouseout"
-      />
-    </chart-container>
-    <popover
-      v-if="popoverConfig.opened"
-      v-bind="popoverConfig"
-      position="top"
-    >
-      <span class="u-font-weight-semi-bold">{{ labels[hoveredIndex] }}</span>
-      : {{ determinePopoverValue(data[0].values[hoveredIndex]) }}
-    </popover>
-  </div>
+  <component
+    :is="component"
+    v-bind="$props"
+  />
 </template>
 
-<script>
-import BaseMixin from '@/mixins/base-mixin';
-import ConfigMixin from '@/mixins/config';
-import NegativeValuesMixin from '@/mixins/negative-values';
-import OptionsMixin from '@/mixins/options';
-import BarMixin from './mixins/bar-mixin';
-import BarGroup from './bar-group.vue';
-import AnimationMixin from '@/mixins/animation';
-import Bar from '@/core/bar.vue';
-import ChartContainer from '@/core/chart-container.vue';
-import Popover from '@/core/popover';
-import { config, options } from './defaults';
+<script lang="ts">
+import { computed, defineComponent, PropType } from '@vue/composition-api';
 
-const fallbackFillClass = '01';
+import { Orientation, ORIENTATIONS } from '@/constants';
+import { withBase } from '@/mixins/base';
+import { singleDatasetValidator } from '@/utils/helpers';
 
-export default {
-  components: { ChartContainer, Bar, BarGroup, Popover },
-  mixins: [
-    BaseMixin(),
-    ConfigMixin(config),
-    BarMixin(),
-    NegativeValuesMixin,
-    OptionsMixin(options),
-    AnimationMixin()
-  ],
-  computed: {
-    yAxisLabel() {
-      if (this.allOptions.yAxisOptions?.withLabel === false) return;
-      return this.allOptions.yAxisOptions?.label || this.barsConfig?.legend;
+const TYPES = ['grouped', 'stacked'];
+
+function typeValidator(type: string): boolean {
+  return TYPES.includes(type) || type == null;
+}
+
+function orientationValidator(orientation: string): boolean {
+  return Object.values(ORIENTATIONS).includes(orientation as Orientation);
+}
+
+export default defineComponent({
+  components: {
+    SingleBarChart: () => import('@/charts/single-bar-chart'),
+    GroupedBarChart: () => import('@/charts/grouped-bar-chart'),
+    StackedBarChart: () => import('@/charts/stacked-bar-chart'),
+  },
+  props: {
+    ...withBase(),
+    type: {
+      type: String,
+      default: null,
+      validator: typeValidator,
+    },
+    orientation: {
+      type: String as PropType<Orientation>,
+      default: 'vertical',
+      validator: orientationValidator,
     },
   },
-  methods: {
-    getBarConfig(value, index) {
-      const y = value < 0 ? this.yScale(0) : this.yScale(value);
-      const height =
-        value < 0
-          ? this.yScale(value) - this.yScale(0)
-          : this.yScale(0) - this.yScale(value);
-      return {
-        x: this.xScale(this.domain[index]),
-        y,
-        width: this.xScale.bandwidth(),
-        height,
-        fillClass: `adv-fill-color-${
-          this.paddedData[0].color || this.barsConfig.color || fallbackFillClass
-        }`,
-      };
-    },
-    determinePopoverValue(value) {
-      return value ?? 'No data available';
-    },
+  setup(props) {
+    const component = computed(() => {
+      if (!props.data) return;
+
+      // Single bar chart
+      if (singleDatasetValidator(props.data)) return 'single-bar-chart';
+
+      if (!props.type)
+        throw new Error(
+          "Bar chart needs a type when there's multiple datasets."
+        );
+
+      // const orientationString =
+      //   props.orientation === ORIENTATIONS.HORIZONTAL
+      //     ? ORIENTATIONS.HORIZONTAL + '-'
+      //     : '';
+      // return `${orientationString}${props.type}-bar-chart`;
+      return `${props.type}-bar-chart`;
+    });
+
+    return { component };
   },
-};
+});
 </script>

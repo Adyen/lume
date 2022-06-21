@@ -15,24 +15,24 @@
     <template v-if="allOptions.showAxes && xScale && yScale">
       <axis
         type="x"
+        :options="allOptions.xAxisOptions"
         :scale="xScale"
         :container-size="containerSize"
-        :options="allOptions.xAxisOptions"
       />
       <axis
         type="y"
-        :scale="yScale"
-        :container-size="containerSize"
         :options="allOptions.yAxisOptions"
+        :scale="yScale"
         :label="yAxisLabel"
+        :container-size="containerSize"
       />
     </template>
 
     <template v-if="xScale && yScale">
       <bars-group
-        v-for="(datagroup, index) in suspendedData"
+        v-for="(value, index) in suspendedData"
         :key="`bar-group-${index}`"
-        :bars="getBarsConfig(datagroup, index)"
+        :bars="getBarConfig(value, index)"
         :overlay="getOverlayConfig(index)"
         :is-hovered="hoveredIndex === index"
         :animate="animate"
@@ -60,6 +60,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, toRefs } from '@vue/composition-api';
+
 import Axis from '@/core/axis';
 import Bar from '@/core/bar';
 import BarsGroup from '@/core/bars-group.vue';
@@ -67,30 +68,36 @@ import ChartContainer from '@/core/chart-container';
 import Popover from '@/core/popover';
 
 import { useBarMixin, withBarProps } from '@/charts/bar-chart/mixins/bar-mixin';
+import { useBase, withBase } from '@/mixins/base';
 import { useConfig, withConfig } from '@/mixins/config';
 import { useOptions, withOptions } from '@/mixins/options';
+import { usePopover } from '@/mixins/popover';
+import { useAnimation } from '@/mixins/animation';
 import {
   checkNegativeValues,
   useNegativeValues,
 } from '@/mixins/negative-values';
-import { useBarOverlay } from '@/charts/bar-chart/mixins/bar-overlay';
-import { useBarProperties } from './mixins/bar-properties';
-import { useBase, withBase } from '@/mixins/base';
-import { usePopover } from '@/mixins/popover';
-import { useAnimation } from '@/mixins/animation';
 
 import { BAR_TYPES, NO_DATA, ORIENTATIONS } from '@/constants';
+import { Data } from '@/types/dataset';
+
 import { config as defaultConfig, options as defaultOptions } from './defaults';
+import { useBarOverlay } from '@/charts/bar-chart/mixins/bar-overlay';
+
+const fallbackFillClass = '01';
+
+const singleBarDataValidator = (data: Data) => data.length === 1;
 
 export default defineComponent({
   components: { Axis, Bar, BarsGroup, ChartContainer, Popover },
   props: {
-    ...withBase(),
+    ...withBase(singleBarDataValidator),
     ...withConfig(),
     ...withBarProps(),
     ...withOptions(),
   },
   setup(props, ctx) {
+    // State from mixins
     const { data, labels, orientation } = toRefs(props);
 
     const { computedConfig } = useConfig(props.config, defaultConfig);
@@ -104,11 +111,9 @@ export default defineComponent({
       labels,
       orientation
     );
-
     const { hasNegativeValues } = checkNegativeValues(computedData.value);
-
-    const { xScale, yScale, multiBarData, groupedData } = useBarMixin(
-      BAR_TYPES.STACKED,
+    const { xScale, yScale, singleBarData, groupedData } = useBarMixin(
+      BAR_TYPES.SINGLE,
       computedData.value,
       labels.value,
       containerSize,
@@ -116,12 +121,7 @@ export default defineComponent({
       allOptions.value
     );
 
-    const { mapPositiveBars, mapNegativeBars } = useBarProperties(
-      multiBarData,
-      isHorizontal,
-      xScale,
-      yScale
-    );
+    const { animate, suspendedData } = useAnimation(groupedData);
 
     const { negativeWidth, negativeHeight, negativeTransform } = useNegativeValues(
       containerSize,
@@ -129,16 +129,12 @@ export default defineComponent({
       yScale,
       isHorizontal
     );
-
     const { getOverlayConfig } = useBarOverlay(
       isHorizontal,
       xScale,
       yScale,
       containerSize
     );
-
-    const { animate, suspendedData } = useAnimation(groupedData);
-
     const { popoverConfig, showPopover, hidePopover } = usePopover();
 
     // Internal state
@@ -156,21 +152,49 @@ export default defineComponent({
 
     // Methods
 
-    function getBarsConfig(dataGroup: Array<number>, index: number) {
-      // We need to keep track of the index so the colors will be applied consistently, regardless of values dipping below zero
-      const negativeValues = dataGroup.map((value) =>
-        value < 0 ? value : null
-      );
-      const positiveValues = dataGroup.map((value) =>
-        value >= 0 ? value : null
-      );
+    function getBarTransform(value: number, index: number) {
+      let x: number, y: number;
+      if (isHorizontal.value) {
+        x = value >= 0 ? xScale.value(0) : xScale.value(value);
+        y = yScale.value(labels.value[index]);
+      } else {
+        x = xScale.value(labels.value[index]);
+        y = value < 0 ? yScale.value(0) : yScale.value(value);
+      }
+      return { x, y };
+    }
 
-      const result = [
-        ...mapNegativeBars(negativeValues, index),
-        ...mapPositiveBars(positiveValues, index),
+    function getBarWidth(value: number) {
+      if (isHorizontal.value) {
+        return value < 0
+          ? xScale.value(0) - xScale.value(value)
+          : xScale.value(value) - xScale.value(0);
+      }
+      return xScale.value.bandwidth();
+    }
+
+    function getBarHeight(value: number) {
+      if (isHorizontal.value) {
+        return yScale.value.bandwidth();
+      }
+      return value < 0
+        ? yScale.value(value) - yScale.value(0)
+        : yScale.value(0) - yScale.value(value);
+    }
+
+    function getBarConfig(value: number, index: number) {
+      if (!xScale.value || !yScale.value) return {};
+      const color = computedData.value[0].color;
+      const { x, y } = getBarTransform(value, index);
+      return [
+        {
+          x,
+          y,
+          width: getBarWidth(value),
+          height: getBarHeight(value),
+          fillClass: `adv-fill-color-${color || fallbackFillClass}`,
+        },
       ];
-
-      return result;
     }
 
     function getPopoverItems(index: number) {
@@ -198,25 +222,24 @@ export default defineComponent({
       allOptions,
       computedConfig,
       containerSize,
-      getBarsConfig,
-      getOverlayConfig,
       getPopoverItems,
-      groupedData,
-      animate,
-      suspendedData,
+      getBarConfig,
+      getOverlayConfig,
       handleMouseout,
       handleMouseover,
       hasNegativeValues,
       hoveredIndex,
-      multiBarData,
       negativeWidth,
       negativeHeight,
       negativeTransform,
       popoverConfig,
+      singleBarData,
       updateSize,
-      xScale,
       yAxisLabel,
+      xScale,
       yScale,
+      suspendedData,
+      animate
     };
   },
 });
