@@ -139,7 +139,7 @@ export function useBarMixin(
     () => (options?.padding as number) ?? DEFAULT_PADDING
   );
 
-  const getXScale = () => {
+  const setXScaleValue = () => {
     xScale.value = isHorizontal.value
       ? scaleLinear()
           .domain([minValue.value, maxValue.value])
@@ -152,7 +152,7 @@ export function useBarMixin(
           .rangeRound([0, containerSize.width]);
   };
 
-  const getYScale = () => {
+  const setYScaleValue = () => {
     yScale.value = isHorizontal.value
       ? scaleBand()
           .paddingInner(padding.value)
@@ -166,8 +166,8 @@ export function useBarMixin(
   };
 
   watchEffect(() => {
-    getXScale();
-    getYScale();
+    setXScaleValue();
+    setYScaleValue();
   });
 
   return {
