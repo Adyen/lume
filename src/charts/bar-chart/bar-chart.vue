@@ -2,6 +2,7 @@
   <component
     :is="component"
     v-bind="$props"
+    v-on="$listeners"
   />
 </template>
 
