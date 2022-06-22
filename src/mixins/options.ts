@@ -8,7 +8,9 @@ interface AxisOptions {
   tickFormat?: string | (() => string);
   tickPadding?: number;
   withLabel?: boolean;
+  skip?: number;
 }
+
 export interface Options {
   xAxisOptions?: AxisOptions;
   yAxisOptions?: AxisOptions;
@@ -18,9 +20,16 @@ export interface Options {
 export const withOptions = () => ({
   options: {
     type: Object as PropType<Options>,
-    default: () => ({}),
+    default: () => ({})
   },
 });
+
+export const withAxisOptions = () => ({
+  options: {
+    type: Object as PropType<AxisOptions>,
+    default: () => ({})
+  }
+})
 
 export function useOptions(options: Options, defaultOptions: Options) {
   const allOptions = computed<Options>(() => ({
@@ -35,6 +44,15 @@ export function useOptions(options: Options, defaultOptions: Options) {
       ...defaultOptions.xAxisOptions,
       ...options.xAxisOptions
     }
+  }));
+
+  return { allOptions };
+}
+
+export function useAxisOptions(options: AxisOptions, defaultOptions: AxisOptions) {
+  const allOptions = computed<AxisOptions>(() => ({
+    ...defaultOptions,
+    ...options
   }));
 
   return { allOptions };

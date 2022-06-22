@@ -29,7 +29,7 @@ import { axisBottom, axisLeft, axisRight, axisTop } from 'd3-axis';
 import { select } from 'd3-selection';
 import { format } from 'd3-format';
 
-import { useOptions, withOptions } from '@/mixins/options';
+import { useAxisOptions, withAxisOptions } from '@/mixins/options';
 
 import { options as defaultOptions } from './defaults';
 
@@ -82,11 +82,11 @@ export default defineComponent({
       type: String,
       default: null,
     },
-    ...withOptions(),
+    ...withAxisOptions(),
   },
   setup(props) {
     const { scale, containerSize } = toRefs(props);
-    const { allOptions } = useOptions(props.options, defaultOptions);
+    const { allOptions } = useAxisOptions(props.options, defaultOptions);
     const root = ref(null);
     const selection = ref(null);
 
@@ -131,7 +131,7 @@ export default defineComponent({
     const axis = computed(() => {
       if (!scale.value) return;
       const axis = AXIS_MAP[computedPosition.value](scale.value);
-      const length = props.scale.domain().length;
+      const domain = (props.scale as any).domain(); // Complains about scale being of type never if not cast
       axis
         .ticks(allOptions.value.tickCount)
         .tickSize(tickSize.value) // Used to draw grid lines
@@ -140,7 +140,10 @@ export default defineComponent({
 
       if (allOptions?.value?.skip) {
         axis
-          .tickValues(props.scale.domain().filter((value, index) => index === length - 1 || !(index % allOptions.value.skip)))
+          .tickValues(domain.filter((value, index) => (
+            index === domain.length - 1 ||
+              !(index % allOptions.value.skip)
+          )))
       }
 
       return axis;
