@@ -40,6 +40,8 @@
         :type="type"
         :orientation="orientation"
         :labels="barChartLabels"
+        @mouseover="handleMouseOverBarChart"
+        @mouseout="handleMouseOutBarChart"
       />
       <line-chart
         :data="data"
@@ -73,7 +75,8 @@ export default defineComponent({
   data: () => ({
     selection: 'multi',
     type: 'stacked',
-    orientation: 'horizontal',
+    orientation: 'vertical',
+    randomBigData: [],
     lineChartData: [
       {
         values: [10, 30, -20, 50, 40, 70, 60],
@@ -156,6 +159,9 @@ export default defineComponent({
     },
   }),
   computed: {
+    bigDataLabels() {
+      return this.randomBigData[0].values.map((value, index) => `label-${index}`)
+    },
     data() {
       switch (this.selection) {
       case 'multi':
@@ -166,6 +172,20 @@ export default defineComponent({
       }
     },
   },
+  beforeMount() {
+    this.randomBigData = [{
+      values: new Array(100).fill(null).map(() => Math.random() * 100),
+      label: 'Big data'
+    }];
+  },
+  methods: {
+    handleMouseOverBarChart(event) {
+      console.log('Hovered over bar chart:', event);
+    },
+    handleMouseOutBarChart() {
+      console.log('Mouseout on bar')
+    }
+  }
 });
 </script>
 
