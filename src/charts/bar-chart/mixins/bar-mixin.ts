@@ -43,8 +43,8 @@ export function useBarMixin(
   isHorizontal: ComputedRef<boolean>,
   options?: Options
 ) {
-  const xScale = ref(null);
-  const yScale = ref(null);
+  const xScale = ref<any>(null);
+  const yScale = ref<any>(null);
 
   /** Array of padded (null = 0) number values */
   const singleBarData = computed(() => {

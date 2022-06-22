@@ -85,7 +85,7 @@ export default defineComponent({
     ...withAxisOptions(),
   },
   setup(props) {
-    const { scale, containerSize } = toRefs(props);
+    const { scale, containerSize } = toRefs<any>(props); // Needs to be cast as any to avoid it being cast to never by default
     const { allOptions } = useAxisOptions(props.options, defaultOptions);
     const root = ref(null);
     const selection = ref(null);
@@ -131,7 +131,7 @@ export default defineComponent({
     const axis = computed(() => {
       if (!scale.value) return;
       const axis = AXIS_MAP[computedPosition.value](scale.value);
-      const domain = (props.scale as any).domain(); // Complains about scale being of type never if not cast
+      const domain = scale.value.domain();
       axis
         .ticks(allOptions.value.tickCount)
         .tickSize(tickSize.value) // Used to draw grid lines
