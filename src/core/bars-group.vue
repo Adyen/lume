@@ -13,6 +13,7 @@
         isHovered ? 'adv-fill-color-overlay' : 'adv-fill-color-transparent'
       "
       :animate="false"
+      @click.native="$emit('click')"
       @mouseover.native="$emit('mouseover', $event)"
       @mouseout.native="$emit('mouseout')"
     />

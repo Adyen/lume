@@ -38,6 +38,7 @@
         :animate="animate"
         @mouseover="handleMouseover(index, $event)"
         @mouseout="handleMouseout"
+        @click="handleClick(index)"
       />
     </template>
 
@@ -193,6 +194,10 @@ export default defineComponent({
       ctx.emit('mouseout');
     }
 
+    function handleClick(index) {
+      ctx.emit('click', index)
+    }
+
     return {
       containerSize,
       hoveredIndex,
@@ -203,8 +208,9 @@ export default defineComponent({
       updateSize,
       groupedData,
       handleMouseover,
-      yAxisLabel,
       handleMouseout,
+      handleClick,
+      yAxisLabel,
       yScale,
       hasNegativeValues,
       negativeWidth,

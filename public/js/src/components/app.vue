@@ -42,6 +42,7 @@
         :labels="barChartLabels"
         @mouseover="handleMouseOverBarChart"
         @mouseout="handleMouseOutBarChart"
+        @click="handleClicked"
       />
       <line-chart
         :data="data"
@@ -73,7 +74,7 @@ export default defineComponent({
     Sparkline,
   },
   data: () => ({
-    selection: 'multi',
+    selection: 'single',
     type: 'stacked',
     orientation: 'vertical',
     randomBigData: [],
@@ -184,6 +185,9 @@ export default defineComponent({
     },
     handleMouseOutBarChart() {
       console.log('Mouseout on bar')
+    },
+    handleClicked(event) {
+      console.log('Mouse clicked on bar:', event)
     }
   }
 });
