@@ -123,16 +123,16 @@ export default defineComponent({
   },
   setup(props) {
     // State from mixins
-    const { data, labels } = toRefs(props);
+    const { data, labels, options, startOnZero } = toRefs(props);
     const { computedData, containerSize, updateSize, isHorizontal } = useBase(
       data,
       labels
     );
     const { hasNegativeValues } = checkNegativeValues(computedData.value);
     const { xScale, yScale, minValue } = useLineScales(
-      computedData.value,
-      props.startOnZero,
-      hasNegativeValues.value,
+      computedData,
+      startOnZero,
+      hasNegativeValues,
       containerSize,
       labels
     );
@@ -143,7 +143,7 @@ export default defineComponent({
       isHorizontal
     );
     const { computedConfig } = useConfig(props.config, defaultConfig);
-    const { allOptions } = useOptions(props.options, defaultOptions);
+    const { allOptions } = useOptions(options, defaultOptions);
     const { popoverConfig, showPopover, hidePopover } = usePopover();
 
     // Internal state

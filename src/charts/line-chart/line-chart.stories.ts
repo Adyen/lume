@@ -1,16 +1,8 @@
 import { computed } from '@vue/composition-api';
+import { withSizeArgs, withSizeArgTypes } from '@/utils/storybook-helpers';
 
 import LineChart from './line-chart.vue';
-
-const withSizeArgTypes = () => ({
-  width: { control: { type: 'number', step: 10 } },
-  height: { control: { type: 'number', step: 10 } },
-});
-
-const withSizeArgs = () => ({
-  width: 540,
-  height: 320,
-});
+import { options as defaultOptions } from './defaults';
 
 const DATASETS = {
   Simple: {
@@ -36,7 +28,7 @@ const DATASETS = {
       'Sunday',
     ],
   },
-  'Chargebacks & Fraud overview - 28 days': {
+  'Chargebacks_Fraud overview 28 days': {
     data: [
       {
         values: [
@@ -95,15 +87,30 @@ const DATASETS = {
 };
 
 export default {
-  title: 'Line chart',
+  title: 'Charts/Line chart',
   component: LineChart,
   argTypes: {
     ...withSizeArgTypes(),
-    dataset: { control: 'select', options: Object.keys(DATASETS) },
+    dataset: {
+      control: 'select',
+      options: Object.keys(DATASETS),
+      description: 'Sets the data/labels properties.',
+    },
+    options: {
+      control: 'object',
+      description: 'Chart/axes options.',
+    },
+    startOnZero: {
+      control: 'boolean',
+      description:
+        'Defines if the Y axis should start on `0`. If negative values are present, this property is ignored.',
+    },
   },
   args: {
     ...withSizeArgs(),
     dataset: Object.keys(DATASETS)[0],
+    options: defaultOptions,
+    startOnZero: true,
   },
 };
 
@@ -120,7 +127,7 @@ export const Basic = ({ args, argTypes }) => {
     template: `
     <div :style="{ width: width + 'px', height: height + 'px' }">
         <line-chart
-           :data="data" :labels="labels"
+           :data="data" :labels="labels" :options="options"
         >
         </line-chart>
     </div>
