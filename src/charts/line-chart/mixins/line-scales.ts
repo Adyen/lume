@@ -1,4 +1,4 @@
-import { computed, ref, Ref, watch } from '@vue/composition-api';
+import { computed, ref, Ref, watch, watchEffect } from '@vue/composition-api';
 import { scaleBand, scaleLinear } from 'd3-scale';
 import { Data, DatasetValueObject } from '@/types/dataset';
 import { flatValues } from '@/utils/helpers';
@@ -11,9 +11,9 @@ export const withLineScales = (defaultStartOnZero = true) => ({
 });
 
 export function useLineScales(
-  data: Data<DatasetValueObject>,
-  startOnZero: boolean,
-  hasNegativeValues: boolean,
+  data: Ref<Data<DatasetValueObject>>,
+  startOnZero: Ref<boolean>,
+  hasNegativeValues: Ref<boolean>,
   containerSize: { width: number; height: number },
   labels: Ref<Array<string>>
 ) {
@@ -23,19 +23,21 @@ export function useLineScales(
   const computedStartOnZero = computed(() => {
     // Comes from `@/mixins/negative-values`
     // If has negative values, this has to be `false`.
-    if (hasNegativeValues) return false;
-    return startOnZero;
+    if (hasNegativeValues.value) return false;
+    return startOnZero.value;
   });
 
-  const allValues = flatValues(data).filter((v) => v != null);
+  const allValues = computed(() =>
+    flatValues(data.value || []).filter((v) => v != null)
+  );
 
   const maxValue = computed(() => {
-    return Math.max(...allValues);
+    return Math.max(...allValues.value);
   });
 
   const minValue = computed(() => {
     if (computedStartOnZero.value) return 0;
-    return Math.min(...allValues);
+    return Math.min(...allValues.value);
   });
 
   const getXScale = () => {

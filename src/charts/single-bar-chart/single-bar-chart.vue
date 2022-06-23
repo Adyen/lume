@@ -99,11 +99,11 @@ export default defineComponent({
   },
   setup(props, ctx) {
     // State from mixins
-    const { data, labels, orientation } = toRefs(props);
+    const { data, labels, orientation, options } = toRefs(props);
 
     const { computedConfig } = useConfig(props.config, defaultConfig);
     const { allOptions } = useOptions(
-      props.options,
+      options,
       defaultOptions[orientation.value || ORIENTATIONS.VERTICAL]
     );
 

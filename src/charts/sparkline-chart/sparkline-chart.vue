@@ -106,7 +106,7 @@ export default defineComponent({
   },
   setup(props) {
     // State from mixins
-    const { data, labels } = toRefs(props);
+    const { data, labels, options } = toRefs(props);
     const { computedData, containerSize, updateSize, isHorizontal } = useBase(data, labels);
     const { hasNegativeValues } = checkNegativeValues(computedData.value);
     const { xScale, yScale, minValue } = useSparklineScales(
@@ -120,7 +120,7 @@ export default defineComponent({
       yScale,
       isHorizontal
     );
-    const { allOptions } = useOptions(props.options, defaultOptions);
+    const { allOptions } = useOptions(options, defaultOptions);
     const { computedConfig } = useConfig(props.config, defaultConfig);
     const { popoverConfig, showPopover, hidePopover } = usePopover();
 
