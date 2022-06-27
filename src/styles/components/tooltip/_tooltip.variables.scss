@@ -3,36 +3,15 @@
 @use "~@/styles/variables" as *;
 
 // Tooltip box -----------------------------------------------------------------
+$adv-tooltip-color: $adv-color-grey-70 !default;
 $adv-tooltip-background-color: $adv-color-white !default;
-$adv-tooltip-border-radius: $adv-border-radius-4 !default;
+$adv-tooltip-border-radius: $adv-border-radius-8 !default;
 $adv-tooltip-box-shadow: $adv-box-shadow !default;
 $adv-tooltip-max-width: 250px !default;
 $adv-tooltip-border-width: $adv-border-width !default;
-$adv-tooltip-border-style: $adv-tooltip-border-width $adv-border-style $adv-border-color !default;
-$adv-tooltip-content-padding: $adv-spacing-16 !default;
-
-// Arrow -----------------------------------------------------------------------
-$adv-tooltip-arrow-color: $adv-tooltip-background-color !default;
-$adv-tooltip-arrow-vertex-size: $adv-spacing-16 !default;
-$adv-tooltip-arrow-border-width: $adv-tooltip-border-width !default;
-$adv-tooltip-arrow-border-color-hidden: transparent !default;
-$adv-tooltip-arrow-border-style: $adv-tooltip-arrow-border-width $adv-border-style $adv-border-color !default;
-
-// sqrt(2) == 1.4142135624
-$adv-tooltip-arrow-base-size: (1.4142135624 * $adv-tooltip-arrow-vertex-size) !default;
-$adv-tooltip-arrow-length: math.div($adv-tooltip-arrow-base-size, 2) !default;
-
-// The arrow square receives a 45deg rotation relative to its center, so there's a small offset due to
-// this rotation (the square corners overflow a bit) and it needs to be calculated to properly position it.
-$adv-tooltip-arrow-rotation-offset: round(math.div($adv-tooltip-arrow-base-size - $adv-tooltip-arrow-vertex-size, 2)) !default;
-
-// Arrow is centered along the tooltip side using top/right/bottom/left 50% and correcting with a negative margin.
-// This margin should be half of base size and corrected with the rotation offset.
-$adv-tooltip-arrow-margin-offset: round(math.div($adv-tooltip-arrow-rotation-offset - $adv-tooltip-arrow-base-size, 2)) !default;
-
-// Arrow is positioned in the tooltip side using top/right/bottom/left 0 and pushed outside by subtracting its length.
-// Again this must take in consideration the rotation offset
-$adv-tooltip-arrow-position-offset: round($adv-tooltip-arrow-rotation-offset - $adv-tooltip-arrow-length) !default;
+$adv-tooltip-border-style: $adv-tooltip-border-width $adv-border-style
+  $adv-border-color !default;
+$adv-tooltip-content-padding: $adv-spacing-12 !default;
 
 $adv-tooltip-item-min-width: 112px;
 $adv-tooltip-symbol-size: 10px;

@@ -4,52 +4,35 @@
 @use 'tooltip.mixins'as *;
 
 .adv-tooltip {
-    @include adv-tooltip;
+  @include adv-tooltip;
 
-    &--arrow-top {
-        @include adv-tooltip--arrow-top;
+  &__title {
+    @include adv-tooltip__title;
+  }
+
+  &__items {
+    @include adv-tooltip__items;
+  }
+
+  &__item {
+    @include adv-tooltip__item;
+  }
+
+  &__symbol {
+    @include adv-tooltip__symbol;
+
+    &--line {
+      @include adv-tooltip__symbol--line;
     }
 
-    &--arrow-right {
-        @include adv-tooltip--arrow-right;
+    @each $color, $map in $chart-colors {
+      &--color-#{$color} {
+        background-color: nth($map, 1);
+      }
     }
+  }
 
-    &--arrow-bottom {
-        @include adv-tooltip--arrow-bottom;
-    }
-
-    &--arrow-left {
-        @include adv-tooltip--arrow-left;
-    }
-
-    &__title {
-        @include adv-tooltip__title;
-    }
-
-    &__items {
-        @include adv-tooltip__items;
-    }
-
-    &__item {
-        @include adv-tooltip__item;
-    }
-
-    &__symbol {
-        @include adv-tooltip__symbol;
-
-        &--line {
-            @include adv-tooltip__symbol--line;
-        }
-
-        @each $color,
-        $map in $chart-colors {
-            &--color-#{$color} {
-                background-color: nth($map, 1);
-            }
-        }
-    }
-
-    &__value {
-        @include adv-tooltip__value;
-    }
+  &__value {
+    @include adv-tooltip__value;
+  }
 }

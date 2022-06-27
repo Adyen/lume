@@ -2,7 +2,6 @@
   <div
     ref="root"
     class="adv-tooltip"
-    :class="arrowClass"
   >
     <slot>
       <!-- Default chart tooltip content -->
@@ -104,20 +103,6 @@ export default defineComponent({
       props.fixedPositioning ? 'fixed' : 'absolute'
     );
     const allModifiers = computed(() => props.modifiers || []);
-    const arrowClass = computed(() => {
-      if (!popper.value?.state.placement) return '';
-      switch (popper.value?.state.placement) {
-      case 'top':
-      default:
-        return 'adv-tooltip--arrow-bottom';
-      case 'bottom':
-        return 'adv-tooltip--arrow-top';
-      case 'left':
-        return 'adv-tooltip--arrow-right';
-      case 'right':
-        return 'adv-tooltip--arrow-left';
-      }
-    });
 
     // Methods
     function initPopper() {
@@ -148,7 +133,7 @@ export default defineComponent({
     onMounted(initPopper);
     onBeforeUnmount(destroyPopper);
 
-    return { root, popper, strategy, allModifiers, arrowClass };
+    return { root, popper, strategy, allModifiers };
   },
 });
 </script>

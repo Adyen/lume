@@ -1,111 +1,51 @@
 @use '~@/styles/variables'as *;
 @use 'tooltip.variables'as *;
 
-// Internal use
-@mixin adv-tooltip-arrow-base {
-    background-color: $adv-tooltip-arrow-color;
-    border: $adv-tooltip-arrow-border-style;
-    content: '';
-    display: block;
-    height: $adv-tooltip-arrow-vertex-size;
-    position: absolute;
-    transform: rotate(45deg);
-    width: $adv-tooltip-arrow-vertex-size;
-}
-
-// External use
-@mixin adv-tooltip--arrow-bottom {
-    &::after {
-        @include adv-tooltip-arrow-base;
-
-        border-left-color: $adv-tooltip-arrow-border-color-hidden;
-        border-top-color: $adv-tooltip-arrow-border-color-hidden;
-        bottom: $adv-tooltip-arrow-position-offset;
-        left: 50%;
-        margin-left: $adv-tooltip-arrow-margin-offset;
-    }
-}
-
-@mixin adv-tooltip--arrow-top {
-    &::after {
-        @include adv-tooltip-arrow-base;
-
-        border-bottom-color: $adv-tooltip-arrow-border-color-hidden;
-        border-right-color: $adv-tooltip-arrow-border-color-hidden;
-        left: 50%;
-        margin-left: $adv-tooltip-arrow-margin-offset;
-        top: $adv-tooltip-arrow-position-offset;
-    }
-}
-
-@mixin adv-tooltip--arrow-right {
-    &::after {
-        @include adv-tooltip-arrow-base;
-
-        border-bottom-color: $adv-tooltip-arrow-border-color-hidden;
-        border-left-color: $adv-tooltip-arrow-border-color-hidden;
-        margin-top: $adv-tooltip-arrow-margin-offset;
-        right: $adv-tooltip-arrow-position-offset;
-        top: 50%;
-    }
-}
-
-@mixin adv-tooltip--arrow-left {
-    &::after {
-        @include adv-tooltip-arrow-base;
-
-        border-right-color: $adv-tooltip-arrow-border-color-hidden;
-        border-top-color: $adv-tooltip-arrow-border-color-hidden;
-        left: $adv-tooltip-arrow-position-offset;
-        margin-top: $adv-tooltip-arrow-margin-offset;
-        top: 50%;
-    }
-}
-
 @mixin adv-tooltip {
-    //@include adv-component-base;
+  //@include adv-component-base;
 
-    background: $adv-tooltip-background-color;
-    border: $adv-tooltip-border-style;
-    border-radius: $adv-tooltip-border-radius;
-    box-shadow: $adv-tooltip-box-shadow;
-    font-family: $adv-font-family;
-    font-size: $adv-text-font-size-small;
-    max-width: $adv-tooltip-max-width;
-    padding: $adv-tooltip-content-padding;
-    position: absolute;
-    z-index: $adv-z-over-everything;
+  color: $adv-tooltip-color;
+  background: $adv-tooltip-background-color;
+  border: $adv-tooltip-border-style;
+  border-radius: $adv-tooltip-border-radius;
+  box-shadow: $adv-tooltip-box-shadow;
+  font-family: $adv-font-family;
+  font-size: $adv-text-font-size-small;
+  max-width: $adv-tooltip-max-width;
+  padding: $adv-tooltip-content-padding;
+  position: absolute;
+  z-index: $adv-z-over-everything;
 }
 
 @mixin adv-tooltip__title {
-    margin-bottom: $adv-spacing-8;
-    font-weight: $adv-text-font-weight-bold;
+  margin-bottom: $adv-spacing-8;
+  font-weight: $adv-text-font-weight-bold;
 }
 
 @mixin adv-tooltip__items {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 @mixin adv-tooltip__item {
-    display: flex;
-    align-items: center;
-    min-width: $adv-tooltip-item-min-width;
-    margin-bottom: $adv-spacing-4;
+  display: flex;
+  align-items: center;
+  min-width: $adv-tooltip-item-min-width;
+  margin-bottom: $adv-spacing-4;
 }
 
 @mixin adv-tooltip__symbol {
-    margin-right: $adv-spacing-8;
-    width: $adv-tooltip-symbol-size;
-    height: $adv-tooltip-symbol-size;
+  margin-right: $adv-spacing-8;
+  width: $adv-tooltip-symbol-size;
+  height: $adv-tooltip-symbol-size;
 }
 
 @mixin adv-tooltip__symbol--line {
-    border-radius: 50%;
+  border-radius: 50%;
 }
 
 @mixin adv-tooltip__value {
-    margin-left: auto;
-    padding-left: $adv-spacing-16;
+  margin-left: auto;
+  padding-left: $adv-spacing-16;
 }
