@@ -6,7 +6,7 @@ export const config = {
 
 export const options = {
   showAxes: true,
-  withPopover: true,
+  withTooltip: true,
   xAxisOptions: {},
   yAxisOptions: { gridLines: true },
 };

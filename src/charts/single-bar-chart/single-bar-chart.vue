@@ -43,18 +43,18 @@
     </template>
 
     <template #extra>
-      <popover
-        v-if="allOptions.withPopover && popoverConfig.opened"
-        v-bind="popoverConfig"
+      <tooltip
+        v-if="allOptions.withTooltip && tooltipConfig.opened"
+        v-bind="tooltipConfig"
         position="top"
         :title="labels[hoveredIndex]"
-        :items="getPopoverItems(hoveredIndex)"
+        :items="getTooltipItems(hoveredIndex)"
       >
         <slot
-          name="popover"
+          name="tooltip"
           :index="hoveredIndex"
         />
-      </popover>
+      </tooltip>
     </template>
   </chart-container>
 </template>
@@ -66,13 +66,13 @@ import Axis from '@/core/axis';
 import Bar from '@/core/bar';
 import BarsGroup from '@/core/bars-group.vue';
 import ChartContainer from '@/core/chart-container';
-import Popover from '@/core/popover';
+import Tooltip from '@/core/tooltip';
 
 import { useBarMixin, withBarProps } from '@/charts/bar-chart/mixins/bar-mixin';
 import { useBase, withBase } from '@/mixins/base';
 import { useConfig, withConfig } from '@/mixins/config';
 import { useOptions, withOptions } from '@/mixins/options';
-import { usePopover } from '@/mixins/popover';
+import { useTooltip } from '@/mixins/tooltip';
 import { useAnimation } from '@/mixins/animation';
 import {
   checkNegativeValues,
@@ -90,7 +90,7 @@ const fallbackFillClass = '01';
 const singleBarDataValidator = (data: Data) => data.length === 1;
 
 export default defineComponent({
-  components: { Axis, Bar, BarsGroup, ChartContainer, Popover },
+  components: { Axis, Bar, BarsGroup, ChartContainer, Tooltip },
   props: {
     ...withBase(singleBarDataValidator),
     ...withConfig(),
@@ -136,7 +136,7 @@ export default defineComponent({
       yScale,
       containerSize
     );
-    const { popoverConfig, showPopover, hidePopover } = usePopover();
+    const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();
 
     // Internal state
 
@@ -198,7 +198,7 @@ export default defineComponent({
       ];
     }
 
-    function getPopoverItems(index: number) {
+    function getTooltipItems(index: number) {
       return computedData.value.map(({ color, label, values }) => ({
         type: 'bar',
         color,
@@ -209,13 +209,13 @@ export default defineComponent({
 
     function handleMouseover(index: number, event: MouseEvent) {
       hoveredIndex.value = index;
-      showPopover(event.target as HTMLElement);
+      showTooltip(event.target as HTMLElement);
       ctx.emit('mouseover', index);
     }
 
     function handleMouseout() {
       hoveredIndex.value = -1;
-      hidePopover();
+      hideTooltip();
       ctx.emit('mouseout');
     }
 
@@ -227,7 +227,7 @@ export default defineComponent({
       allOptions,
       computedConfig,
       containerSize,
-      getPopoverItems,
+      getTooltipItems,
       getBarConfig,
       getOverlayConfig,
       handleMouseout,
@@ -238,7 +238,7 @@ export default defineComponent({
       negativeWidth,
       negativeHeight,
       negativeTransform,
-      popoverConfig,
+      tooltipConfig,
       singleBarData,
       updateSize,
       yAxisLabel,

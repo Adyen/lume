@@ -65,18 +65,18 @@
     </template>
 
     <template #extra>
-      <popover
-        v-if="allOptions.withPopover && popoverConfig.opened"
-        v-bind="popoverConfig"
+      <tooltip
+        v-if="allOptions.withTooltip && tooltipConfig.opened"
+        v-bind="tooltipConfig"
         position="top"
         :title="labels[hoveredIndex]"
-        :items="getPopoverItems(hoveredIndex)"
+        :items="getTooltipItems(hoveredIndex)"
       >
         <slot
-          name="popover"
+          name="tooltip"
           :index="hoveredIndex"
         />
-      </popover>
+      </tooltip>
     </template>
   </chart-container>
 </template>
@@ -93,14 +93,14 @@ import {
 import Axis from '@/core/axis';
 import Bar from '@/core/bar';
 import ChartContainer from '@/core/chart-container';
-import Popover from '@/core/popover';
+import Tooltip from '@/core/tooltip';
 
 import LineGroup from './components/line-group.vue';
 
 import { useBase, withBase } from '@/mixins/base';
 import { useConfig, withConfig } from '@/mixins/config';
 import { useOptions, withOptions } from '@/mixins/options';
-import { usePopover } from '@/mixins/popover';
+import { useTooltip } from '@/mixins/tooltip';
 import {
   useNegativeValues,
   checkNegativeValues,
@@ -111,7 +111,7 @@ import { NO_DATA } from '@/constants';
 import { config as defaultConfig, options as defaultOptions } from './defaults';
 
 export default defineComponent({
-  components: { Axis, Bar, ChartContainer, Popover, LineGroup },
+  components: { Axis, Bar, ChartContainer, Tooltip, LineGroup },
   props: {
     ...withBase(),
     ...withConfig(),
@@ -144,7 +144,7 @@ export default defineComponent({
     );
     const { computedConfig } = useConfig(props.config, defaultConfig);
     const { allOptions } = useOptions(options, defaultOptions);
-    const { popoverConfig, showPopover, hidePopover } = usePopover();
+    const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();
 
     // Internal state
 
@@ -163,7 +163,7 @@ export default defineComponent({
 
     // Methods
 
-    function getPopoverItems(index: number) {
+    function getTooltipItems(index: number) {
       return computedData.value.map(({ color, label, values }) => ({
         type: 'line',
         color,
@@ -180,8 +180,8 @@ export default defineComponent({
 
     watch([hoveredIndex, overlayBars], function () {
       if (hoveredIndex.value > -1)
-        showPopover(overlayBars.value?.[hoveredIndex.value].$el);
-      else hidePopover();
+        showTooltip(overlayBars.value?.[hoveredIndex.value].$el);
+      else hideTooltip();
     });
 
     return {
@@ -190,14 +190,14 @@ export default defineComponent({
       computedData,
       containerSize,
       getLineTranslation,
-      getPopoverItems,
+      getTooltipItems,
       hasNegativeValues,
       hoveredIndex,
       minValue,
       negativeHeight,
       negativeTransform,
       overlayBars,
-      popoverConfig,
+      tooltipConfig,
       updateSize,
       yAxisLabel,
       xScale,

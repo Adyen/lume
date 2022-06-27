@@ -30,18 +30,18 @@
     />
 
     <template #extra>
-      <popover
-        v-if="popoverConfig.opened"
-        v-bind="popoverConfig"
+      <tooltip
+        v-if="tooltipConfig.opened"
+        v-bind="tooltipConfig"
         position="top"
         :title="boxGroups[hoveredIndex].key"
-        :items="getPopoverItems(hoveredIndex)"
+        :items="getTooltipItems(hoveredIndex)"
       >
         <slot
-          name="popover"
+          name="tooltip"
           :index="hoveredIndex"
         />
-      </popover>
+      </tooltip>
     </template>
   </chart-container>
 </template>
@@ -52,17 +52,17 @@ import { defineComponent, ref, toRefs } from '@vue/composition-api';
 import Axis from '@/core/axis';
 import BoxGroup from './components/box-group.vue';
 import ChartContainer from '@/core/chart-container';
-import Popover from '@/core/popover';
+import Tooltip from '@/core/tooltip';
 
 import { useBase } from '@/mixins/base';
 import { useConfig, withConfig } from '@/mixins/config';
 import { useOptions, withOptions } from '@/mixins/options';
-import { usePopover } from '@/mixins/popover';
+import { useTooltip } from '@/mixins/tooltip';
 import { withData, useBoxComputations } from './mixins/box-composable';
 
 import { config as defaultConfig, options as defaultOptions } from './defaults';
 export default defineComponent({
-  components: { Axis, ChartContainer, BoxGroup, Popover },
+  components: { Axis, ChartContainer, BoxGroup, Tooltip },
   props: {
     ...withConfig(),
     ...withOptions(),
@@ -73,13 +73,13 @@ export default defineComponent({
 
     // State from mixins
     const { containerSize, updateSize } = useBase(null, null);
-    const { popoverConfig, showPopover, hidePopover } = usePopover();
+    const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();
     const { computedConfig } = useConfig(props.config, defaultConfig);
     const { allOptions } = useOptions(options, defaultOptions);
     // Internal state
 
     const hoveredIndex = ref<number>(-1);
-    const popoverQuantile = ref(null);
+    const tooltipQuantile = ref(null);
 
     // Computed
     const {
@@ -104,7 +104,7 @@ export default defineComponent({
       };
     }
 
-    function getPopoverItems(index) {
+    function getTooltipItems(index) {
       const boxGroup = boxGroups.value[index];
       return Object.keys(boxGroup.quantile).map((label) => ({
         label,
@@ -115,15 +115,15 @@ export default defineComponent({
 
     function handleMouseover(quantile, index: number, event: MouseEvent) {
       hoveredIndex.value = index;
-      popoverQuantile.value = quantile;
-      showPopover(event.target as HTMLElement);
+      tooltipQuantile.value = quantile;
+      showTooltip(event.target as HTMLElement);
       ctx.emit('mouseover', index);
     }
 
     function handleMouseout() {
       hoveredIndex.value = -1;
-      popoverQuantile.value = null;
-      hidePopover();
+      tooltipQuantile.value = null;
+      hideTooltip();
       ctx.emit('mouseout');
     }
 
@@ -136,14 +136,14 @@ export default defineComponent({
       handleMouseout,
       handleMouseover,
       hoveredIndex,
-      popoverConfig,
-      popoverQuantile,
+      tooltipConfig,
+      tooltipQuantile,
       quantiles,
       updateSize,
       xScale,
       yAxisLabel,
       yScale,
-      getPopoverItems,
+      getTooltipItems,
     };
   },
 });

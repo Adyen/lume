@@ -7,13 +7,13 @@ export const config = {
 export const options = {
   [ORIENTATIONS.VERTICAL]: {
     showAxes: true,
-    withPopover: true,
+    withTooltip: true,
     xAxisOptions: {},
     yAxisOptions: { gridLines: true },
   },
   [ORIENTATIONS.HORIZONTAL]: {
     showAxes: true,
-    withPopover: true,
+    withTooltip: true,
     xAxisOptions: { gridLines: true },
     yAxisOptions: {},
   },

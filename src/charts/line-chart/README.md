@@ -8,7 +8,7 @@
   - [x] Line hover
   - [x] Line selection
   - [x] Bar overlay
-  - [x] Popover (core)
+  - [x] Tooltip (core)
   - [x] Negative values
   - [x] Null values
   

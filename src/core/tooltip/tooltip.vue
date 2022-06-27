@@ -1,32 +1,32 @@
 <template>
   <div
     ref="root"
-    class="adv-popover"
+    class="adv-tooltip"
     :class="arrowClass"
   >
     <slot>
-      <!-- Default chart popover content -->
+      <!-- Default chart tooltip content -->
       <div
         v-if="title"
-        class="adv-popover__title"
+        class="adv-tooltip__title"
       >
         {{ title }}
       </div>
-      <ul class="adv-popover__items">
+      <ul class="adv-tooltip__items">
         <li
           v-for="item in items"
           :key="item.label"
-          class="adv-popover__item"
+          class="adv-tooltip__item"
         >
           <span
-            class="adv-popover__symbol"
+            class="adv-tooltip__symbol"
             :class="[
-              `adv-popover__symbol--${item.type}`,
-              `adv-popover__symbol--color-${item.color || '01'}`,
+              `adv-tooltip__symbol--${item.type}`,
+              `adv-tooltip__symbol--color-${item.color || '01'}`,
             ]"
           />
           {{ item.label }}
-          <strong class="adv-popover__value">{{ item.value }}</strong>
+          <strong class="adv-tooltip__value">{{ item.value }}</strong>
         </li>
       </ul>
     </slot>
@@ -51,7 +51,7 @@ import {
   PositioningStrategy,
 } from '@popperjs/core';
 
-interface PopoverItem {
+interface TooltipItem {
   type: string;
   color: string;
   label: string;
@@ -88,7 +88,7 @@ export default defineComponent({
     modifiers: { type: Array, default: null },
     title: { type: String, default: null },
     items: {
-      type: Array as PropType<Array<PopoverItem>>,
+      type: Array as PropType<Array<TooltipItem>>,
       default: null,
     },
   },
@@ -109,13 +109,13 @@ export default defineComponent({
       switch (popper.value?.state.placement) {
       case 'top':
       default:
-        return 'adv-popover--arrow-bottom';
+        return 'adv-tooltip--arrow-bottom';
       case 'bottom':
-        return 'adv-popover--arrow-top';
+        return 'adv-tooltip--arrow-top';
       case 'left':
-        return 'adv-popover--arrow-right';
+        return 'adv-tooltip--arrow-right';
       case 'right':
-        return 'adv-popover--arrow-left';
+        return 'adv-tooltip--arrow-left';
       }
     });
 
@@ -154,5 +154,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@use '~@/styles/components/popover/popover';
+@use '~@/styles/components/tooltip/tooltip';
 </style>
