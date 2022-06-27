@@ -1,4 +1,4 @@
-import { computed, PropType } from '@vue/composition-api';
+import { computed, PropType, Ref } from '@vue/composition-api';
 
 interface AxisOptions {
   gridLines?: boolean;
@@ -20,39 +20,42 @@ export interface Options {
 export const withOptions = () => ({
   options: {
     type: Object as PropType<Options>,
-    default: () => ({})
+    default: () => ({}),
   },
 });
 
 export const withAxisOptions = () => ({
   options: {
     type: Object as PropType<AxisOptions>,
-    default: () => ({})
-  }
-})
+    default: () => ({}),
+  },
+});
 
-export function useOptions(options: Options, defaultOptions: Options) {
+export function useOptions(options: Ref<Options>, defaultOptions: Options) {
   const allOptions = computed<Options>(() => ({
     ...defaultOptions,
-    ...options,
+    ...options.value,
     // Make sure we deep destructure the default/custom options
     yAxisOptions: {
       ...defaultOptions.yAxisOptions,
-      ...options.yAxisOptions
+      ...(options.value?.yAxisOptions || {}),
     },
     xAxisOptions: {
       ...defaultOptions.xAxisOptions,
-      ...options.xAxisOptions
-    }
+      ...(options.value?.xAxisOptions || {}),
+    },
   }));
 
   return { allOptions };
 }
 
-export function useAxisOptions(options: AxisOptions, defaultOptions: AxisOptions) {
+export function useAxisOptions(
+  options: Ref<AxisOptions>,
+  defaultOptions: AxisOptions
+) {
   const allOptions = computed<AxisOptions>(() => ({
     ...defaultOptions,
-    ...options
+    ...options.value,
   }));
 
   return { allOptions };

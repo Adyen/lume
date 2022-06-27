@@ -47,11 +47,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  ref,
-} from '@vue/composition-api';
-
+import { defineComponent, ref, toRefs } from '@vue/composition-api';
 
 import Axis from '@/core/axis';
 import BoxGroup from './components/box-group.vue';
@@ -70,28 +66,39 @@ export default defineComponent({
   props: {
     ...withConfig(),
     ...withOptions(),
-    ...withData()
+    ...withData(),
   },
   setup(props, ctx) {
+    const { options } = toRefs(props);
+
     // State from mixins
     const { containerSize, updateSize } = useBase(null, null);
     const { popoverConfig, showPopover, hidePopover } = usePopover();
     const { computedConfig } = useConfig(props.config, defaultConfig);
-    const { allOptions } = useOptions(props.options, defaultOptions);
+    const { allOptions } = useOptions(options, defaultOptions);
     // Internal state
 
     const hoveredIndex = ref<number>(-1);
     const popoverQuantile = ref(null);
 
     // Computed
-    const { domain, boxWidth, xScale, yScale, quantiles, boxGroups, yAxisLabel } = useBoxComputations(props.data, containerSize, allOptions);
+    const {
+      domain,
+      boxWidth,
+      xScale,
+      yScale,
+      quantiles,
+      boxGroups,
+      yAxisLabel,
+    } = useBoxComputations(props.data, containerSize, allOptions);
 
     // Methods
 
     function getOverlayConfig(index: number) {
       return {
-        transform: `translate(${xScale.value(domain.value[index]) -
-          boxWidth.value / 2}, 0)`,
+        transform: `translate(${
+          xScale.value(domain.value[index]) - boxWidth.value / 2
+        }, 0)`,
         width: xScale.value.step() - boxWidth.value / 4,
         height: containerSize.height,
       };
@@ -99,11 +106,11 @@ export default defineComponent({
 
     function getPopoverItems(index) {
       const boxGroup = boxGroups.value[index];
-      return Object.keys(boxGroup.quantile).map(label => ({
+      return Object.keys(boxGroup.quantile).map((label) => ({
         label,
         value: boxGroup.quantile[label],
-        color: boxGroup.color
-      }))
+        color: boxGroup.color,
+      }));
     }
 
     function handleMouseover(quantile, index: number, event: MouseEvent) {
@@ -136,7 +143,7 @@ export default defineComponent({
       xScale,
       yAxisLabel,
       yScale,
-      getPopoverItems
+      getPopoverItems,
     };
   },
 });

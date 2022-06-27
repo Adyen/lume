@@ -85,8 +85,8 @@ export default defineComponent({
     ...withAxisOptions(),
   },
   setup(props) {
-    const { scale, containerSize } = toRefs<any>(props); // Needs to be cast as any to avoid it being cast to never by default
-    const { allOptions } = useAxisOptions(props.options, defaultOptions);
+    const { scale, containerSize , options} = toRefs<any>(props); // Needs to be cast as any to avoid it being cast to never by default
+    const { allOptions } = useAxisOptions(options, defaultOptions);
     const root = ref(null);
     const selection = ref(null);
 
