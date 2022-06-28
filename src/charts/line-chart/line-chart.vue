@@ -107,7 +107,7 @@ import {
 import { useLineScales } from './mixins/line-scales';
 
 import { NO_DATA } from '@/constants';
-import { config as defaultConfig, options as defaultOptions } from './defaults';
+import { options as defaultOptions } from './defaults';
 
 export default defineComponent({
   components: { Axis, Bar, ChartContainer, Tooltip, LineGroup },
