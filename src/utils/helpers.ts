@@ -21,3 +21,35 @@ export function flatValues(data: Data<DatasetValueObject>): Array<number> {
 export function singleDatasetValidator(data: Data): boolean {
   return data.length === 1;
 }
+
+/**
+ * Checks if provided item is an object.
+ * @param {unknown} item
+ * @returns {boolean} True if item is an object.
+ */
+export function isObject(item: unknown): item is Record<string, unknown> {
+  return item && typeof item === 'object' && !Array.isArray(item);
+}
+
+/**
+ * Deep merge n objects.
+ * Clones both target and sources so that they don't get mutated.
+ *
+ * @param {Record<string, unknown>} target Object to merge to.
+ * @param {Array<Record<string, unknown>>} source Object(s) to merge into target.
+ */
+export function mergeDeep(
+  target: Record<string, unknown>,
+  source: Record<string, unknown>
+) {
+  const object = structuredClone(target);
+
+  Object.entries(source).forEach(([key, value]) => {
+    object[key] =
+      isObject(target[key]) && isObject(value)
+        ? mergeDeep(target[key] as Record<string, unknown>, value)
+        : value;
+  });
+
+  return object;
+}

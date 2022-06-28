@@ -61,7 +61,7 @@ SingleBarChart.args = {
   ],
   labels,
   orientation: ORIENTATIONS.VERTICAL,
-  options: singleBarOptions,
+  options: singleBarOptions[ORIENTATIONS.VERTICAL],
 };
 
 export const MultiBarChart = ({ argTypes }) => {
@@ -97,5 +97,5 @@ MultiBarChart.args = {
   ],
   labels,
   orientation: ORIENTATIONS.VERTICAL,
-  options: multiBarOptions,
+  options: multiBarOptions[ORIENTATIONS.VERTICAL],
 };

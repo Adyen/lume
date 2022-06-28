@@ -1,6 +1,7 @@
+import { mergeDeep } from '@/utils/helpers';
 import { computed, PropType, Ref } from '@vue/composition-api';
 
-interface AxisOptions {
+export interface AxisOptions extends Record<string, unknown> {
   gridLines?: boolean;
   label?: string;
   showTicks?: boolean;
@@ -11,52 +12,27 @@ interface AxisOptions {
   skip?: number;
 }
 
-export interface Options {
+export interface Options extends Record<string, unknown> {
   xAxisOptions?: AxisOptions;
   yAxisOptions?: AxisOptions;
-  [key: string]: unknown;
 }
 
-export const withOptions = () => ({
+export const withOptions = <T = Options>() => ({
   options: {
-    type: Object as PropType<Options>,
+    type: Object as PropType<T>,
     default: () => ({}),
   },
 });
 
-export const withAxisOptions = () => ({
-  options: {
-    type: Object as PropType<AxisOptions>,
-    default: () => ({}),
-  },
-});
-
-export function useOptions(options: Ref<Options>, defaultOptions: Options) {
-  const allOptions = computed<Options>(() => ({
-    ...defaultOptions,
-    ...options.value,
-    // Make sure we deep destructure the default/custom options
-    yAxisOptions: {
-      ...defaultOptions.yAxisOptions,
-      ...(options.value?.yAxisOptions || {}),
-    },
-    xAxisOptions: {
-      ...defaultOptions.xAxisOptions,
-      ...(options.value?.xAxisOptions || {}),
-    },
-  }));
-
-  return { allOptions };
-}
-
-export function useAxisOptions(
-  options: Ref<AxisOptions>,
-  defaultOptions: AxisOptions
+export function useOptions<T extends Options = Options>(
+  options: Ref<T>,
+  defaultOptions: T
 ) {
-  const allOptions = computed<AxisOptions>(() => ({
-    ...defaultOptions,
-    ...options.value,
-  }));
+  const allOptions = computed<T>(() =>
+    options.value
+      ? (mergeDeep(defaultOptions, options.value) as T)
+      : defaultOptions
+  );
 
   return { allOptions };
 }

@@ -29,7 +29,7 @@ import { axisBottom, axisLeft, axisRight, axisTop } from 'd3-axis';
 import { select } from 'd3-selection';
 import { format } from 'd3-format';
 
-import { useAxisOptions, withAxisOptions } from '@/mixins/options';
+import { AxisOptions, useOptions, withOptions } from '@/mixins/options';
 
 import { options as defaultOptions } from './defaults';
 
@@ -82,11 +82,11 @@ export default defineComponent({
       type: String,
       default: null,
     },
-    ...withAxisOptions(),
+    ...withOptions<AxisOptions>(),
   },
   setup(props) {
-    const { scale, containerSize , options} = toRefs<any>(props); // Needs to be cast as any to avoid it being cast to never by default
-    const { allOptions } = useAxisOptions(options, defaultOptions);
+    const { scale, containerSize, options } = toRefs<any>(props); // Needs to be cast as any to avoid it being cast to never by default
+    const { allOptions } = useOptions<AxisOptions>(options, defaultOptions);
     const root = ref(null);
     const selection = ref(null);
 
@@ -139,11 +139,12 @@ export default defineComponent({
         .tickFormat(tickFormat.value);
 
       if (allOptions?.value?.skip) {
-        axis
-          .tickValues(domain.filter((value, index) => (
-            index === domain.length - 1 ||
-              !(index % allOptions.value.skip)
-          )))
+        axis.tickValues(
+          domain.filter(
+            (value, index) =>
+              index === domain.length - 1 || !(index % allOptions.value.skip)
+          )
+        );
       }
 
       return axis;
@@ -170,7 +171,6 @@ export default defineComponent({
 
       return 0;
     });
-
 
     const computedTransform = computed(() => {
       if (props.transform) return props.transform;
