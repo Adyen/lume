@@ -59,18 +59,17 @@ import {defineComponent, Ref, ref, watch} from '@vue/composition-api';
 
 import { withData, allAlluvialProps } from './mixins/alluvial-composables';
 import { alluvialDefaults, nodeToLabelGap } from './defaults';
-import {AlluvialInstance, LinkPath, NodeBlock} from "@/types/alluvial";
+import {AlluvialInstance} from "@/types/alluvial";
 import { useBase } from "@/charts/alluvial-chart/mixins/base";
 import { drawPlot } from "@/charts/alluvial-chart/mixins/plot";
 import ChartContainer from '@/core/chart-container';
-import { sankeyLinkHorizontal } from 'd3-sankey';
 
 export default defineComponent({
+  components: { ChartContainer },
   props: {
     ...withData()
   },
-  components: { ChartContainer },
-  setup(props, context) {
+  setup(props) {
     const chartContainer = ref(null);
     const { alluvialProps } = allAlluvialProps(props.data, alluvialDefaults);
     const alluvialData: Ref<AlluvialInstance> = ref({
@@ -112,8 +111,7 @@ export default defineComponent({
       chartContainer,
       alluvialInstance,
       maxDepth,
-      alluvialProps,
-      sankeyLinkHorizontal
+      alluvialProps
     }
   }
 });
