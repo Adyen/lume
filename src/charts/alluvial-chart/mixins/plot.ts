@@ -265,12 +265,11 @@ export function drawPlot(
         if (nodes == null || links == null) {
             return;
         }
-        console.log('NODES: ', nodes, ' LINKS: ', links);
         alluvialInstance.value.nodeBlocks = computeNodeBlocks(nodes);
         alluvialInstance.value.linkPaths = computeLinkPaths(links);
 
-        // drawNodeBlocks(nodes);
-        // drawLinkPaths(links);
+        drawNodeBlocks(nodes);
+        drawLinkPaths(links);
     }
 
     return { leftMostNodeLabelWidth, rightMostNodeLabelWidth, topMostNodeLabelExtraHeight, bottomMostNodeLabelExtraHeight, highlightedElements, highlightLinks, updateNodes, renderChart, maxDepth };

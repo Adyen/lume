@@ -1,55 +1,55 @@
 <template>
   <chart-container @resize="updateSize">
     <g ref="chartContainer">
-      <g
-        v-for="(_, index) in alluvialInstance.nodeBlocks"
-        :id="`node-block-${_.id}`"
-        :key="`node-block_${index}`"
-        class="node"
-      >
-        <rect
-          v-if="_.x0 && _.y0"
-          :transform="`translate(${_.x0},${_.y0})`"
-          :height="_.rect.height"
-          :width="_.rect.width"
-          :class="`${_.rect.cssClass({'color':_.node.color})}`"
-          @mouseover="() => alluvialInstance.highlightedNode = _.node"
-          @mouseout="() => alluvialInstance.highlightedNode = null"
-        />
-        <text
-          v-if="_.textTransform.x && _.textTransform.y"
-          class="node__label"
-          :transform="`translate(${_.textTransform.x},${_.textTransform.y})`"
-          :class="{'node__label--right': _.node.depth === 0, 'node__label--color': nodeBlock.node.depth === maxDepth }"
-        >
-          <tspan
-            class="node__label__title"
-            v-text="_.node.label"
-          />
-          <tspan
-            class="node__label__value"
-            x="0"
-            dy="1.2em"
-            v-text="() => alluvialProps.valueFormatter(_.node.value)"
-          />
-        </text>
-      </g>
-      <g
-        v-for="(_, index) in alluvialInstance.linkPaths"
-        :key="`link-path_${index}`"
-        class="path-group"
-      >
-        <g style="mix-blend-mode: multiply">
-          <path
-            :id="_.id"
-            :d="_.d"
-            :class="[_.link.color, 'path-group__link']"
-            :stroke-width="_.strokeWidth"
-            @mouseover="() => alluvialInstance.highlightedLink = _.link"
-            @mouseout="() => alluvialInstance.highlightedLink = null"
-          />
-        </g>
-      </g>
+      <!--      <g-->
+      <!--        v-for="(_, index) in alluvialInstance.nodeBlocks"-->
+      <!--        :id="`node-block-${_.id}`"-->
+      <!--        :key="`node-block_${index}`"-->
+      <!--        class="node"-->
+      <!--      >-->
+      <!--        <rect-->
+      <!--          v-if="_.x0 && _.y0"-->
+      <!--          :transform="`translate(${_.x0},${_.y0})`"-->
+      <!--          :height="_.rect.height"-->
+      <!--          :width="_.rect.width"-->
+      <!--          :class="`${_.rect.cssClass({'color':_.node.color})}`"-->
+      <!--          @mouseover="() => alluvialInstance.highlightedNode = _.node"-->
+      <!--          @mouseout="() => alluvialInstance.highlightedNode = null"-->
+      <!--        />-->
+      <!--        <text-->
+      <!--          v-if="_.textTransform.x && _.textTransform.y"-->
+      <!--          class="node__label"-->
+      <!--          :transform="`translate(${_.textTransform.x},${_.textTransform.y})`"-->
+      <!--          :class="{'node__label&#45;&#45;right': _.node.depth === 0, 'node__label&#45;&#45;color': nodeBlock.node.depth === maxDepth }"-->
+      <!--        >-->
+      <!--          <tspan-->
+      <!--            class="node__label__title"-->
+      <!--            v-text="_.node.label"-->
+      <!--          />-->
+      <!--          <tspan-->
+      <!--            class="node__label__value"-->
+      <!--            x="0"-->
+      <!--            dy="1.2em"-->
+      <!--            v-text="() => alluvialProps.valueFormatter(_.node.value)"-->
+      <!--          />-->
+      <!--        </text>-->
+      <!--      </g>-->
+      <!--      <g-->
+      <!--        v-for="(_, index) in alluvialInstance.linkPaths"-->
+      <!--        :key="`link-path_${index}`"-->
+      <!--        class="path-group"-->
+      <!--      >-->
+      <!--        <g style="mix-blend-mode: multiply">-->
+      <!--          <path-->
+      <!--            :id="_.id"-->
+      <!--            :d="_.d"-->
+      <!--            :class="[_.link.color, 'path-group__link']"-->
+      <!--            :stroke-width="_.strokeWidth"-->
+      <!--            @mouseover="() => alluvialInstance.highlightedLink = _.link"-->
+      <!--            @mouseout="() => alluvialInstance.highlightedLink = null"-->
+      <!--          />-->
+      <!--        </g>-->
+      <!--      </g>-->
     </g>
   </chart-container>
 </template>
