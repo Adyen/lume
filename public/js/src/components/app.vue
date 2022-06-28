@@ -56,6 +56,9 @@
       />
       <sparkline :data="barChartData" />
     </div>
+    <div class="row">
+      <alluvial-chart :data="alluvial" />
+    </div>
   </div>
 </template>
 
@@ -65,9 +68,11 @@ import BarChart from '@/charts/bar-chart/bar-chart.vue';
 import LineChart from '@/charts/line-chart/line-chart.vue';
 import BoxPlot from '@/charts/box-plot/box-plot.vue';
 import Sparkline from '@/charts/sparkline-chart/sparkline-chart.vue';
+import AlluvialChart from "@/charts/alluvial-chart/alluvial-chart.vue";
 
 export default defineComponent({
   components: {
+    AlluvialChart,
     BarChart,
     LineChart,
     BoxPlot,
@@ -158,6 +163,48 @@ export default defineComponent({
         left: 20,
       },
     },
+    alluvial: {
+      values: [
+        {
+          label: 'A',
+          color: '01',
+          id: 'A',
+          targets: [
+            { node: 'D', value: 15 },
+            { node: 'E', value: 42 },
+          ],
+        },
+        {
+          label: 'B',
+          color: '02',
+          id: 'B',
+          targets: [
+            { node: 'D', value: 45 },
+            { node: 'E', value: 42 },
+          ],
+        },
+        {
+          label: 'C',
+          color: '03',
+          id: 'C',
+          targets: [
+            { node: 'D', value: 20 },
+          ],
+        },
+        {
+          label: 'D',
+          id: 'D',
+          color: '07',
+        },
+        {
+          label: 'E',
+          id: 'E',
+          color: '06',
+        },
+      ],
+      nodePadding: 20,
+      nodeWidth: 15
+    }
   }),
   computed: {
     bigDataLabels() {
