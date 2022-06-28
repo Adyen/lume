@@ -167,10 +167,11 @@ export function drawPlot(
     }
 
     function computeLinkPaths(links) {
+        const pathDirection = sankeyLinkHorizontal();
         return links.map(link => ({
             id: `link_${nodeIdRef.value(link.source)}:${nodeIdRef.value(link.target)}`,
-            d: sankeyLinkHorizontal(),
-            color: `path-group__link--${link.color || link.source?.color || defaultChartColor}`,
+            d: pathDirection(link),
+            color: link.color || link.source?.color || defaultChartColor,
             strokeWidth: Math.max(1, link.width),
             link
         }));
@@ -192,84 +193,12 @@ export function drawPlot(
         }))
     }
 
-    function drawLinkPaths(links) {
-        drawingBoard.value?.selectAll('.path-group')
-            .data(links, sankeyLinkHorizontal())
-            .join(enter => {
-                const groups = enter.append('g')
-                    .attr('class', 'path-group');
-
-                groups.append('g')
-                    .style('mix-blend-mode', 'multiply')
-                    .append('path')
-                    .attr('id', d => `link_${nodeIdRef.value(d.source)}:${nodeIdRef.value(d.target)}`)
-                    .attr('d', sankeyLinkHorizontal())
-                    .attr('class', ({ source: { color: nodeColor = defaultChartColor }, color = nodeColor }) => `path-group__link--${color}`)
-                    .classed('path-group__link', true)
-                    .attr('stroke-width', d => Math.max(1, d.width))
-                    .on('mouseover', (event, link) => {
-                        alluvialInstance.value.highlightedLink = link;
-                    })
-                    .on('mouseout', () => {
-                        alluvialInstance.value.highlightedLink = null;
-                    });
-
-                return groups;
-            })
-            .append('g');
-    }
-    function drawNodeBlocks(nodes) {
-        drawingBoard.value?.selectAll('.node')
-            .data(nodes, ({ x0, x1, y0, y1 }) => `${x0},${x1},${y0},${y1}`)
-            .join(enter => {
-                const g = enter.append('g')
-                    .attr('class', 'node')
-                    .attr('id', d => `node-block-${nodeIdRef.value(d)}`);
-
-                g.append('rect')
-                    .attr('transform', ({ x0, y0 }) => `translate(${x0}, ${y0})`)
-                    .attr('height', d => d.y1 - d.y0)
-                    .attr('width', d => d.x1 - d.x0)
-                    .attr('class', ({ color = defaultChartColor }) => `node__block--${color}`)
-                    .on('mouseover', (event, node) => {
-                        alluvialInstance.value.highlightedNode = node;
-                    })
-                    .on('mouseout', () => {
-                        alluvialInstance.value.highlightedNode = null;
-                    });
-
-                const text = g.append('text')
-                    .attr('class', 'node__label')
-                    .attr('transform', ({ depth, x0, x1, y0, y1 }) => {
-                        const x = (depth > 0 ? x1 + nodeToLabelGap : x0 - nodeToLabelGap);
-                        const y = (y1 + y0) / 2;
-                        return `translate(${x}, ${y})`;
-                    })
-                    .classed('node__label--right', ({ depth }) => depth === 0)
-                    .classed('node__label--color', ({ depth }) => depth === maxDepth);
-
-                text.append('tspan')
-                    .attr('class', 'node__label__title')
-                    .text(d => d.label);
-
-                text.append('tspan')
-                    .attr('class', 'node__label__value')
-                    .attr('x', 0)
-                    .attr('dy', '1.2em')
-                    .text(({ value }) => alluvialProps.value.valueFormatter(value));
-                return g;
-            });
-    }
-
     function renderChart({ nodes, links }) {
         if (nodes == null || links == null) {
             return;
         }
         alluvialInstance.value.nodeBlocks = computeNodeBlocks(nodes);
         alluvialInstance.value.linkPaths = computeLinkPaths(links);
-
-        drawNodeBlocks(nodes);
-        drawLinkPaths(links);
     }
 
     return { leftMostNodeLabelWidth, rightMostNodeLabelWidth, topMostNodeLabelExtraHeight, bottomMostNodeLabelExtraHeight, highlightedElements, highlightLinks, updateNodes, renderChart, maxDepth };

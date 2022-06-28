@@ -85,7 +85,7 @@ export type NodeBlock = {
 
 export type LinkPath = {
     id?: string,
-    d?: Function,
+    d?: string,
     color?: string,
     strokeWidth?: number,
     link?: SankeyLink

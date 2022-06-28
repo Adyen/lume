@@ -43,12 +43,10 @@ export function useBase(
     });
 
     const graph: ComputedRef<SankeyElements> = computed(() => {
-        const graphRes = layout.value({
+        return layout.value({
             nodes: nodes.value.map(node => ({ ...node })),
             links: links.value.map(link => ({ ...link }))
         });
-        console.log('Graph res: ', graphRes);
-        return graphRes;
     });
 
     function nodeId(node: AlluvialNode | SankeyNode): number | string  {
