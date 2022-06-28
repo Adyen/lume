@@ -5,7 +5,7 @@
     :y="y"
     :height="computedHeight"
     :width="width"
-    :class="[fillClass, { 'bar--transition': animate }]"
+    :class="[fillClass, { 'bar--transition': animate, 'bar--faded': isFaded }]"
   />
 </template>
 
@@ -16,11 +16,11 @@ export default defineComponent({
   props: {
     x: {
       type: Number,
-      default: 0
+      default: 0,
     },
     y: {
       type: Number,
-      default: 0
+      default: 0,
     },
     height: {
       type: Number,
@@ -33,6 +33,10 @@ export default defineComponent({
     fillClass: {
       type: String,
       required: true,
+    },
+    isFaded: {
+      type: Boolean,
+      default: false,
     },
     animate: {
       type: Boolean,
@@ -52,6 +56,10 @@ export default defineComponent({
 @use '~@/styles/variables' as *;
 
 .bar {
+  &--faded {
+    opacity: 0.5; // Temporary while we wait for official data-viz colors
+  }
+
   &--transition {
     transition: all $chart-transition-time ease;
   }

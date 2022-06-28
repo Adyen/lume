@@ -93,7 +93,7 @@ export default defineComponent({
   },
   setup(props) {
     // Refs
-    const root = ref(null);
+    const root = ref<HTMLDivElement>(null);
 
     // Data
     const popper: Ref<PopperInstance | null> = ref(null);
@@ -102,11 +102,23 @@ export default defineComponent({
     const strategy = computed<PositioningStrategy>(() =>
       props.fixedPositioning ? 'fixed' : 'absolute'
     );
-    const allModifiers = computed(() => props.modifiers || []);
+    const allModifiers = computed(() => [
+      ...(props.modifiers || []),
+      {
+        name: 'computeStyles',
+        options: {
+          adaptive: false, // so that we can have smooth transitions
+        },
+      },
+      {
+        name: 'offset',
+        options: { offset: [0, 8] },
+      },
+    ]);
 
     // Methods
     function initPopper() {
-      if (props.targetElement && root) {
+      if (props.targetElement && root.value) {
         popper.value = createPopper(props.targetElement, root.value, {
           placement: props.position,
           strategy: strategy.value,
@@ -114,16 +126,24 @@ export default defineComponent({
         });
       }
     }
+
     function destroyPopper() {
       if (popper.value) {
         popper.value.destroy();
       }
     }
+
     function updatePopper() {
-      destroyPopper();
-      if (props.targetElement && root) {
-        initPopper();
-      }
+      if (!popper.value) return;
+
+      root.value.classList.add('adv-tooltip--animated'); // Add transition class
+
+      props.targetElement
+        ? (function () {
+          popper.value.state.elements.reference = props.targetElement;
+          popper.value.update();
+        })()
+        : destroyPopper();
     }
 
     // Watchers

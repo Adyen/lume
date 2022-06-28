@@ -225,6 +225,7 @@ $axis-text-font-size: 10px;
   text {
     fill: $axis-text-color;
     font-size: $axis-text-font-size;
+    cursor: default;
   }
 
   .axis__label {

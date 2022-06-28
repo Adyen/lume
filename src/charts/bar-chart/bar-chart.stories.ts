@@ -94,6 +94,11 @@ MultiBarChart.args = {
       color: '02',
       label: 'Hot dogs',
     },
+    {
+      values: [10, 40, 70, 60, 10, 5, 10],
+      color: '03',
+      label: 'Kebabs',
+    },
   ],
   labels,
   orientation: ORIENTATIONS.VERTICAL,

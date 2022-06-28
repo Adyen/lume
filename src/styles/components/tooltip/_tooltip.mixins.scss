@@ -1,20 +1,25 @@
-@use '~@/styles/variables'as *;
-@use 'tooltip.variables'as *;
+@use '~@/styles/variables' as *;
+@use 'tooltip.variables' as *;
 
 @mixin adv-tooltip {
-  //@include adv-component-base;
+  position: absolute;
+  max-width: $adv-tooltip-max-width;
+  padding: $adv-tooltip-content-padding;
 
+  font-family: $adv-font-family;
+  font-size: $adv-text-font-size-small;
   color: $adv-tooltip-color;
+
   background: $adv-tooltip-background-color;
   border: $adv-tooltip-border-style;
   border-radius: $adv-tooltip-border-radius;
   box-shadow: $adv-tooltip-box-shadow;
-  font-family: $adv-font-family;
-  font-size: $adv-text-font-size-small;
-  max-width: $adv-tooltip-max-width;
-  padding: $adv-tooltip-content-padding;
-  position: absolute;
   z-index: $adv-z-over-everything;
+  pointer-events: none; /* prevent jitter when tooltip gets in the way of the cursor during transitions */
+}
+
+@mixin adv-tooltip--animated {
+  transition: transform $chart-transition-time ease-out;
 }
 
 @mixin adv-tooltip__title {

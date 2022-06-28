@@ -6,6 +6,10 @@
 .adv-tooltip {
   @include adv-tooltip;
 
+  &--animated {
+    @include adv-tooltip--animated;
+  }
+
   &__title {
     @include adv-tooltip__title;
   }

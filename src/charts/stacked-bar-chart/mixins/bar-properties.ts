@@ -20,7 +20,7 @@ export function useBarProperties(
       x = xScale.value(domain.value[index]);
       y = yScale.value(value) - offset;
     }
-    return `translate(${x}, ${y})`;
+    return { x, y };
   }
 
   function getPositiveWidth(value: number) {
@@ -46,7 +46,7 @@ export function useBarProperties(
       x = xScale.value(domain.value[index]);
       y = yScale.value(0) + offset;
     }
-    return `translate(${x}, ${y})`;
+    return { x, y };
   }
 
   function getNegativeWidth(value: number) {
@@ -63,7 +63,11 @@ export function useBarProperties(
     return yScale.value(value) - yScale.value(0);
   }
 
-  function mapNegativeBars(bars: Array<number>, barsIndex: number) {
+  function mapNegativeBars(
+    bars: Array<number>,
+    barsIndex: number,
+    hoveredIndex: number
+  ) {
     return bars.reduce((acc, bar, index) => {
       if (bar == null) return acc;
 
@@ -71,20 +75,26 @@ export function useBarProperties(
         .map(({ width, height }) => (isHorizontal.value ? width : height))
         .reduce((sum, curr) => sum + curr, 0);
       const color = data.value[index].color;
-      const transform = getNegativeTransform(bar, barsIndex, offset);
+      const { x, y } = getNegativeTransform(bar, barsIndex, offset);
 
       acc.push({
-        transform,
+        x,
+        y,
         width: getNegativeWidth(bar),
         height: getNegativeHeight(bar),
         fillClass: `adv-fill-color-${color}`,
+        isFaded: hoveredIndex !== -1 && hoveredIndex !== barsIndex,
       });
 
       return acc;
     }, []);
   }
 
-  function mapPositiveBars(bars: Array<number>, barsIndex: number) {
+  function mapPositiveBars(
+    bars: Array<number>,
+    barsIndex: number,
+    hoveredIndex: number
+  ) {
     return bars.reduce((acc, bar, index) => {
       if (bar == null) return acc;
 
@@ -92,13 +102,15 @@ export function useBarProperties(
         .map(({ width, height }) => (isHorizontal.value ? width : height))
         .reduce((sum, curr) => sum + curr, 0);
       const color = data.value[index].color;
-      const transform = getPositiveTransform(bar, barsIndex, offset);
+      const { x, y } = getPositiveTransform(bar, barsIndex, offset);
 
       acc.push({
-        transform,
+        x,
+        y,
         width: getPositiveWidth(bar),
         height: getPositiveHeight(bar),
         fillClass: `adv-fill-color-${color}`,
+        isFaded: hoveredIndex !== -1 && hoveredIndex !== barsIndex,
       });
 
       return acc;

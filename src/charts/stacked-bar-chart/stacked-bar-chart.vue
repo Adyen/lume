@@ -28,19 +28,22 @@
       />
     </template>
 
-    <template v-if="xScale && yScale">
+    <g
+      v-if="xScale && yScale"
+      @mouseleave="handleMouseleave"
+    >
       <bars-group
         v-for="(datagroup, index) in suspendedData"
+        ref="barsRef"
         :key="`bar-group-${index}`"
         :bars="getBarsConfig(datagroup, index)"
         :overlay="getOverlayConfig(index)"
         :is-hovered="hoveredIndex === index"
         :animate="animate"
-        @mouseover="handleMouseover(index, $event)"
-        @mouseout="handleMouseout"
+        @mouseover="handleMouseover(index)"
         @click="handleClick(index)"
       />
-    </template>
+    </g>
 
     <template #extra>
       <tooltip
@@ -90,6 +93,8 @@ export default defineComponent({
     ...withOptions(),
   },
   setup(props, ctx) {
+    const barsRef = ref(null);
+
     const { data, labels, orientation, options } = toRefs(props);
 
     const { allOptions } = useOptions(
@@ -160,8 +165,8 @@ export default defineComponent({
       );
 
       const result = [
-        ...mapNegativeBars(negativeValues, index),
-        ...mapPositiveBars(positiveValues, index),
+        ...mapNegativeBars(negativeValues, index, hoveredIndex.value),
+        ...mapPositiveBars(positiveValues, index, hoveredIndex.value),
       ];
 
       return result;
@@ -176,13 +181,14 @@ export default defineComponent({
       }));
     }
 
-    function handleMouseover(index: number, event: MouseEvent) {
+    function handleMouseover(index: number) {
+      const element = barsRef.value[index].getTooltipAnchorPoint();
       hoveredIndex.value = index;
-      showTooltip(event.target as HTMLElement);
+      showTooltip(element as HTMLElement);
       ctx.emit('mouseover', index);
     }
 
-    function handleMouseout() {
+    function handleMouseleave() {
       hoveredIndex.value = -1;
       hideTooltip();
       ctx.emit('mouseout');
@@ -194,6 +200,7 @@ export default defineComponent({
 
     return {
       allOptions,
+      barsRef,
       containerSize,
       getBarsConfig,
       getOverlayConfig,
@@ -201,7 +208,7 @@ export default defineComponent({
       groupedData,
       animate,
       suspendedData,
-      handleMouseout,
+      handleMouseleave,
       handleMouseover,
       handleClick,
       hasNegativeValues,

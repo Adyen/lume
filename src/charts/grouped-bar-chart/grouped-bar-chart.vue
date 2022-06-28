@@ -28,19 +28,22 @@
       />
     </template>
 
-    <template v-if="xScale && yScale">
+    <g
+      v-if="xScale && yScale"
+      @mouseleave="handleMouseleave"
+    >
       <bars-group
         v-for="(dataset, index) in suspendedData"
+        ref="barsRef"
         :key="`bar-group-${index}`"
         :bars="getBarsConfig(dataset, index)"
         :overlay="getOverlayConfig(index)"
         :is-hovered="hoveredIndex === index"
         :animate="animate"
-        @mouseover="handleMouseover(index, $event)"
-        @mouseout="handleMouseout"
+        @mouseover="handleMouseover(index)"
         @click="handleClick(index)"
       />
-    </template>
+    </g>
 
     <template #extra>
       <tooltip
@@ -91,6 +94,8 @@ export default defineComponent({
     ...withOptions(),
   },
   setup(props, ctx) {
+    const barsRef = ref(null);
+
     const { data, labels, orientation, options } = toRefs(props);
 
     const { allOptions } = useOptions(
@@ -158,6 +163,7 @@ export default defineComponent({
           width: getBarWidth(value),
           height: getBarHeight(value),
           fillClass: `adv-fill-color-${color}`,
+          isFaded: hoveredIndex.value !== -1 && hoveredIndex.value !== index,
         };
       });
     }
@@ -171,13 +177,14 @@ export default defineComponent({
       }));
     }
 
-    function handleMouseover(index: number, event: MouseEvent) {
+    function handleMouseover(index: number) {
+      const element = barsRef.value[index].getTooltipAnchorPoint();
       hoveredIndex.value = index;
-      showTooltip(event.target as HTMLElement);
+      showTooltip(element as HTMLElement);
       ctx.emit('mouseover', index);
     }
 
-    function handleMouseout() {
+    function handleMouseleave() {
       hoveredIndex.value = -1;
       hideTooltip();
       ctx.emit('mouseout');
@@ -190,13 +197,14 @@ export default defineComponent({
     return {
       allOptions,
       animate,
+      barsRef,
       containerSize,
       getBarsConfig,
       getOverlayConfig,
       getTooltipItems,
       groupedData,
       handleClick,
-      handleMouseout,
+      handleMouseleave,
       handleMouseover,
       hasNegativeValues,
       hoveredIndex,
