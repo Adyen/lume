@@ -1,6 +1,6 @@
 <template>
   <chart-container
-    :margins="computedConfig.margins"
+    :margins="allOptions.margins"
     @resize="updateSize"
   >
     <bar
@@ -70,7 +70,6 @@ import Tooltip from '@/core/tooltip';
 
 import { useBarMixin, withBarProps } from '@/charts/bar-chart/mixins/bar-mixin';
 import { useBase, withBase } from '@/mixins/base';
-import { useConfig, withConfig } from '@/mixins/config';
 import { useOptions, withOptions } from '@/mixins/options';
 import { useTooltip } from '@/mixins/tooltip';
 import { useAnimation } from '@/mixins/animation';
@@ -82,7 +81,7 @@ import {
 import { BAR_TYPES, NO_DATA, ORIENTATIONS } from '@/constants';
 import { Data } from '@/types/dataset';
 
-import { config as defaultConfig, options as defaultOptions } from './defaults';
+import { options as defaultOptions } from './defaults';
 import { useBarOverlay } from '@/charts/bar-chart/mixins/bar-overlay';
 
 const fallbackFillClass = '01';
@@ -93,7 +92,6 @@ export default defineComponent({
   components: { Axis, Bar, BarsGroup, ChartContainer, Tooltip },
   props: {
     ...withBase(singleBarDataValidator),
-    ...withConfig(),
     ...withBarProps(),
     ...withOptions(),
   },
@@ -101,7 +99,6 @@ export default defineComponent({
     // State from mixins
     const { data, labels, orientation, options } = toRefs(props);
 
-    const { computedConfig } = useConfig(props.config, defaultConfig);
     const { allOptions } = useOptions(
       options,
       defaultOptions[orientation.value || ORIENTATIONS.VERTICAL]
@@ -124,12 +121,8 @@ export default defineComponent({
 
     const { animate, suspendedData } = useAnimation(groupedData);
 
-    const { negativeWidth, negativeHeight, negativeTransform } = useNegativeValues(
-      containerSize,
-      xScale,
-      yScale,
-      isHorizontal
-    );
+    const { negativeWidth, negativeHeight, negativeTransform } =
+      useNegativeValues(containerSize, xScale, yScale, isHorizontal);
     const { getOverlayConfig } = useBarOverlay(
       isHorizontal,
       xScale,
@@ -220,12 +213,11 @@ export default defineComponent({
     }
 
     function handleClick(index) {
-      ctx.emit('click', index)
+      ctx.emit('click', index);
     }
 
     return {
       allOptions,
-      computedConfig,
       containerSize,
       getTooltipItems,
       getBarConfig,
@@ -245,7 +237,7 @@ export default defineComponent({
       xScale,
       yScale,
       suspendedData,
-      animate
+      animate,
     };
   },
 });

@@ -1,6 +1,6 @@
 <template>
   <chart-container
-    :margins="computedConfig.margins"
+    :margins="allOptions.margins"
     @resize="updateSize"
   >
     <bar
@@ -74,7 +74,6 @@ import {
   checkNegativeValues,
   useNegativeValues,
 } from '@/mixins/negative-values';
-import { useConfig, withConfig } from '@/mixins/config';
 import { useOptions, withOptions } from '@/mixins/options';
 import { useBarOverlay } from '@/charts/bar-chart/mixins/bar-overlay';
 import { useBarProperties } from './mixins/bar-properties';
@@ -82,20 +81,18 @@ import { useTooltip } from '@/mixins/tooltip';
 import { useAnimation } from '@/mixins/animation';
 
 import { BAR_TYPES, NO_DATA, ORIENTATIONS } from '@/constants';
-import { config as defaultConfig, options as defaultOptions } from './defaults';
+import { options as defaultOptions } from './defaults';
 
 export default defineComponent({
   components: { Axis, Bar, BarsGroup, ChartContainer, Tooltip },
   props: {
     ...withBase(),
-    ...withConfig(),
     ...withBarProps(),
     ...withOptions(),
   },
   setup(props, ctx) {
     const { data, labels, orientation, options } = toRefs(props);
 
-    const { computedConfig } = useConfig(props.config, defaultConfig);
     const { allOptions } = useOptions(
       options,
       defaultOptions[orientation.value || ORIENTATIONS.VERTICAL]
@@ -120,19 +117,11 @@ export default defineComponent({
 
     const { animate, suspendedData } = useAnimation(groupedData);
 
-    const {
-      getBarTranslateX,
-      getBarTranslateY,
-      getBarWidth,
-      getBarHeight,
-    } = useBarProperties(multiBarData, isHorizontal, xScale, yScale);
+    const { getBarTranslateX, getBarTranslateY, getBarWidth, getBarHeight } =
+      useBarProperties(multiBarData, isHorizontal, xScale, yScale);
 
-    const { negativeWidth, negativeHeight, negativeTransform } = useNegativeValues(
-      containerSize,
-      xScale,
-      yScale,
-      isHorizontal
-    );
+    const { negativeWidth, negativeHeight, negativeTransform } =
+      useNegativeValues(containerSize, xScale, yScale, isHorizontal);
 
     const { getOverlayConfig } = useBarOverlay(
       isHorizontal,
@@ -195,33 +184,32 @@ export default defineComponent({
     }
 
     function handleClick(index) {
-      ctx.emit('click', index)
+      ctx.emit('click', index);
     }
 
     return {
+      allOptions,
+      animate,
       containerSize,
+      getBarsConfig,
+      getOverlayConfig,
+      getTooltipItems,
+      groupedData,
+      handleClick,
+      handleMouseout,
+      handleMouseover,
+      hasNegativeValues,
       hoveredIndex,
       multiBarData,
-      xScale,
-      getBarsConfig,
-      getTooltipItems,
-      updateSize,
-      groupedData,
-      handleMouseover,
-      handleMouseout,
-      handleClick,
-      yAxisLabel,
-      yScale,
-      hasNegativeValues,
-      negativeWidth,
       negativeHeight,
       negativeTransform,
-      getOverlayConfig,
-      computedConfig,
-      allOptions,
-      tooltipConfig,
+      negativeWidth,
       suspendedData,
-      animate
+      tooltipConfig,
+      updateSize,
+      xScale,
+      yAxisLabel,
+      yScale,
     };
   },
 });

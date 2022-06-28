@@ -1,6 +1,6 @@
 <template>
   <chart-container
-    :margins="computedConfig.margins"
+    :margins="allOptions.margins"
     @mouseleave.native="hoveredIndex = -1"
     @resize="updateSize"
   >
@@ -83,7 +83,6 @@ import ChartContainer from '@/core/chart-container';
 import Tooltip from '@/core/tooltip';
 
 import { useBase, withBase } from '@/mixins/base';
-import { useConfig, withConfig } from '@/mixins/config';
 import { useLineNullValues } from '@/mixins/line-null-values';
 import {
   checkNegativeValues,
@@ -95,33 +94,30 @@ import { useSparklineScales } from './mixins/sparkline-scales';
 
 import { NO_DATA } from '@/constants';
 import { singleDatasetValidator } from '@/utils/helpers';
-import { config as defaultConfig, options as defaultOptions } from './defaults';
+import { options as defaultOptions } from './defaults';
 
 export default defineComponent({
   components: { Bar, ChartContainer, Tooltip },
   props: {
     ...withBase(singleDatasetValidator),
-    ...withConfig(),
     ...withOptions(),
   },
   setup(props) {
     // State from mixins
     const { data, labels, options } = toRefs(props);
-    const { computedData, containerSize, updateSize, isHorizontal } = useBase(data, labels);
+    const { computedData, containerSize, updateSize, isHorizontal } = useBase(
+      data,
+      labels
+    );
     const { hasNegativeValues } = checkNegativeValues(computedData.value);
     const { xScale, yScale, minValue } = useSparklineScales(
       computedData.value,
       containerSize
     );
 
-    const { negativeWidth, negativeHeight, negativeTransform } = useNegativeValues(
-      containerSize,
-      xScale,
-      yScale,
-      isHorizontal
-    );
+    const { negativeWidth, negativeHeight, negativeTransform } =
+      useNegativeValues(containerSize, xScale, yScale, isHorizontal);
     const { allOptions } = useOptions(options, defaultOptions);
-    const { computedConfig } = useConfig(props.config, defaultConfig);
     const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();
 
     // Internal state
@@ -137,9 +133,7 @@ export default defineComponent({
     );
     const values = computed(() => computedData.value[0].values);
 
-    const { nullIntervals, getMidValue, isDashed } = useLineNullValues(
-      values
-    );
+    const { nullIntervals, getMidValue, isDashed } = useLineNullValues(values);
 
     const computedLineValues = computed(() => {
       return values.value.map((value, index) => {
@@ -206,7 +200,7 @@ export default defineComponent({
 
     // Watchers
 
-    watch([hoveredIndex, ghostBars], function() {
+    watch([hoveredIndex, ghostBars], function () {
       if (hoveredIndex.value > -1)
         showTooltip(ghostBars.value?.[hoveredIndex.value].$el);
       else hideTooltip();
@@ -214,7 +208,6 @@ export default defineComponent({
 
     return {
       allOptions,
-      computedConfig,
       computedData,
       updateSize,
       hasNegativeValues,

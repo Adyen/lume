@@ -1,6 +1,6 @@
 <template>
   <chart-container
-    :margins="computedConfig.margins"
+    :margins="allOptions.margins"
     @resize="updateSize"
     @mouseleave.native="hoveredIndex = -1"
   >
@@ -98,7 +98,6 @@ import Tooltip from '@/core/tooltip';
 import LineGroup from './components/line-group.vue';
 
 import { useBase, withBase } from '@/mixins/base';
-import { useConfig, withConfig } from '@/mixins/config';
 import { useOptions, withOptions } from '@/mixins/options';
 import { useTooltip } from '@/mixins/tooltip';
 import {
@@ -114,7 +113,6 @@ export default defineComponent({
   components: { Axis, Bar, ChartContainer, Tooltip, LineGroup },
   props: {
     ...withBase(),
-    ...withConfig(),
     ...withOptions(),
     startOnZero: {
       type: Boolean,
@@ -142,7 +140,6 @@ export default defineComponent({
       yScale,
       isHorizontal
     );
-    const { computedConfig } = useConfig(props.config, defaultConfig);
     const { allOptions } = useOptions(options, defaultOptions);
     const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();
 
@@ -186,7 +183,6 @@ export default defineComponent({
 
     return {
       allOptions,
-      computedConfig,
       computedData,
       containerSize,
       getLineTranslation,

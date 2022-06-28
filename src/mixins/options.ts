@@ -1,5 +1,10 @@
+import { Margins } from '@/constants';
 import { mergeDeep } from '@/utils/helpers';
 import { computed, PropType, Ref } from '@vue/composition-api';
+
+interface Configs {
+  margins?: Margins;
+}
 
 export interface AxisOptions extends Record<string, unknown> {
   gridLines?: boolean;
@@ -12,7 +17,7 @@ export interface AxisOptions extends Record<string, unknown> {
   skip?: number;
 }
 
-export interface Options extends Record<string, unknown> {
+export interface Options extends Configs, Record<string, unknown> {
   xAxisOptions?: AxisOptions;
   yAxisOptions?: AxisOptions;
 }

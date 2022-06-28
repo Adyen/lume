@@ -1,6 +1,6 @@
 <template>
   <chart-container
-    :margins="computedConfig.margins"
+    :margins="allOptions.margins"
     @resize="updateSize"
   >
     <template v-if="allOptions.showAxes && xScale && yScale">
@@ -55,16 +55,14 @@ import ChartContainer from '@/core/chart-container';
 import Tooltip from '@/core/tooltip';
 
 import { useBase } from '@/mixins/base';
-import { useConfig, withConfig } from '@/mixins/config';
 import { useOptions, withOptions } from '@/mixins/options';
 import { useTooltip } from '@/mixins/tooltip';
 import { withData, useBoxComputations } from './mixins/box-composable';
 
-import { config as defaultConfig, options as defaultOptions } from './defaults';
+import { options as defaultOptions } from './defaults';
 export default defineComponent({
   components: { Axis, ChartContainer, BoxGroup, Tooltip },
   props: {
-    ...withConfig(),
     ...withOptions(),
     ...withData(),
   },
@@ -74,7 +72,6 @@ export default defineComponent({
     // State from mixins
     const { containerSize, updateSize } = useBase(null, null);
     const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();
-    const { computedConfig } = useConfig(props.config, defaultConfig);
     const { allOptions } = useOptions(options, defaultOptions);
     // Internal state
 
@@ -130,7 +127,6 @@ export default defineComponent({
     return {
       allOptions,
       boxGroups,
-      computedConfig,
       containerSize,
       getOverlayConfig,
       handleMouseout,

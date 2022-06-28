@@ -1,4 +1,4 @@
-type Margins = {
+export type Margins = {
   top: number;
   right: number;
   bottom: number;
