@@ -7,21 +7,14 @@
         :key="`node-block_${index}`"
         class="node"
       >
-        <!--        <rect-->
-        <!--            v-if="_.x0 && _.y0"-->
-        <!--            :transform="`translate(${_.x0},${_.y0})`"-->
-        <!--            :height="_.rect.height"-->
-        <!--            :width="_.rect.width"-->
-        <!--            :class="`${_.rect.cssClass({'color':_.node.color})}`"-->
-        <!--            @mouseover="() => alluvialInstance.highlightedNode = _.node"-->
-        <!--            @mouseout="() => alluvialInstance.highlightedNode = null"-->
-        <!--        />-->
         <rect
           v-if="_.x0 && _.y0"
           :transform="`translate(${_.x0},${_.y0})`"
           :height="_.rect.height"
           :width="_.rect.width"
           :class="`${_.rect.cssClass({'color':_.node.color})}`"
+          @mouseover="() => alluvialInstance.highlightedNode = _.node"
+          @mouseout="() => alluvialInstance.highlightedNode = null"
         />
         <text
           v-if="_.textTransform.x && _.textTransform.y"
@@ -47,19 +40,13 @@
         class="path-group"
       >
         <g style="mix-blend-mode: multiply">
-          <!--          <path-->
-          <!--              :d="_.d"-->
-          <!--              :id="_.id"-->
-          <!--              :class="[_.link.color, 'path-group__link']"-->
-          <!--              :stroke-width="_.strokeWidth"-->
-          <!--              @mouseover="() =>  alluvialInstance.highlightedLink = _.link"-->
-          <!--              @mouseout="() => alluvialInstance.highlightedLink = null"-->
-          <!--          />-->
           <path
             :id="_.id"
-            :d="sankeyLinkHorizontal()"
-            :class="['path-group__link']"
+            :d="_.d"
+            :class="[_.link.color, 'path-group__link']"
             :stroke-width="_.strokeWidth"
+            @mouseover="() => alluvialInstance.highlightedLink = _.link"
+            @mouseout="() => alluvialInstance.highlightedLink = null"
           />
         </g>
       </g>
@@ -119,8 +106,6 @@ export default defineComponent({
     watch(bottomMostNodeLabelExtraHeight, height => alluvialInstance.value.bottomExtent = height);
     watch(topMostNodeLabelExtraHeight, height => alluvialInstance.value.topExtent = height);
     watch(alluvialInstance.value.containerSize, containerSize => alluvialInstance.value.rightExtent = containerSize.width - (rightMostNodeLabelWidth.value + nodeToLabelGap));
-
-    console.log('Alluvial instance: ', alluvialInstance);
 
     return {
       updateSize,
