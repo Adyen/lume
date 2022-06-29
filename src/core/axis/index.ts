@@ -1,2 +1,2 @@
 /* istanbul ignore file */
-export { default } from './axis.vue';
+export { default } from './adv-axis.vue';

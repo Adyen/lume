@@ -2,6 +2,7 @@
   <chart-container
     :margins="allOptions.margins"
     @resize="updateSize"
+    @mouseleave="handleMouseleave"
   >
     <bar
       v-if="hasNegativeValues"
@@ -13,25 +14,24 @@
     />
 
     <template v-if="allOptions.showAxes && xScale && yScale">
-      <axis
+      <adv-axis
         type="x"
         :options="allOptions.xAxisOptions"
         :scale="xScale"
         :container-size="containerSize"
+        :hovered-index="hoveredIndex"
+        @tick-mouseover="handleMouseover"
       />
-      <axis
+      <adv-axis
         type="y"
         :options="allOptions.yAxisOptions"
         :scale="yScale"
-        :label="yAxisLabel"
+        :title="yAxisTitle"
         :container-size="containerSize"
       />
     </template>
 
-    <g
-      v-if="xScale && yScale"
-      @mouseleave="handleMouseleave"
-    >
+    <g v-if="xScale && yScale">
       <bars-group
         v-for="(value, index) in suspendedData"
         ref="barsRef"
@@ -65,7 +65,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref, toRefs } from '@vue/composition-api';
 
-import Axis from '@/core/axis';
+import AdvAxis from '@/core/axis';
 import Bar from '@/core/bar';
 import BarsGroup from '@/core/bars-group.vue';
 import ChartContainer from '@/core/chart-container';
@@ -92,7 +92,7 @@ const fallbackFillClass = '01';
 const singleBarDataValidator = (data: Data) => data.length === 1;
 
 export default defineComponent({
-  components: { Axis, Bar, BarsGroup, ChartContainer, Tooltip },
+  components: { AdvAxis, Bar, BarsGroup, ChartContainer, Tooltip },
   props: {
     ...withBase(singleBarDataValidator),
     ...withBarProps(),
@@ -142,7 +142,7 @@ export default defineComponent({
 
     // Computed
 
-    const yAxisLabel = computed(() => {
+    const yAxisTitle = computed(() => {
       if (allOptions.value.yAxisOptions?.withLabel === false) return;
       return (
         allOptions.value.yAxisOptions?.label || computedData.value[0].label
@@ -241,7 +241,7 @@ export default defineComponent({
       tooltipConfig,
       singleBarData,
       updateSize,
-      yAxisLabel,
+      yAxisTitle,
       xScale,
       yScale,
       suspendedData,

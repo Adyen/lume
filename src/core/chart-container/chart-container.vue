@@ -7,6 +7,7 @@
       ref="root"
       class="container"
       :class="{ 'container--transparent-background': transparentBackground }"
+      @mouseleave="$emit('mouseleave', $event)"
     >
       <g
         :transform="`translate(${computedMargin.left}, ${computedMargin.top})`"
