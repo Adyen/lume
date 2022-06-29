@@ -14,7 +14,7 @@
     />
 
     <template v-if="allOptions.showAxes && xScale && yScale">
-      <new-axis
+      <adv-axis
         type="x"
         :options="allOptions.xAxisOptions"
         :scale="xScale"
@@ -22,7 +22,7 @@
         :hovered-index="hoveredIndex"
         @tick-mouseover="handleMouseover"
       />
-      <new-axis
+      <adv-axis
         type="y"
         :options="allOptions.yAxisOptions"
         :scale="yScale"
@@ -65,7 +65,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref, toRefs } from '@vue/composition-api';
 
-import NewAxis from '@/core/axis/new-axis.vue';
+import AdvAxis from '@/core/axis';
 import Bar from '@/core/bar';
 import BarsGroup from '@/core/bars-group.vue';
 import ChartContainer from '@/core/chart-container';
@@ -92,7 +92,7 @@ const fallbackFillClass = '01';
 const singleBarDataValidator = (data: Data) => data.length === 1;
 
 export default defineComponent({
-  components: { NewAxis, Bar, BarsGroup, ChartContainer, Tooltip },
+  components: { AdvAxis, Bar, BarsGroup, ChartContainer, Tooltip },
   props: {
     ...withBase(singleBarDataValidator),
     ...withBarProps(),
