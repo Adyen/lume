@@ -2,7 +2,7 @@
   <chart-container
     :margins="allOptions.margins"
     @resize="updateSize"
-    @mouseleave.native="hoveredIndex = -1"
+    @mouseleave="hoveredIndex = -1"
   >
     <!-- Negative values background -->
     <bar
@@ -16,17 +16,19 @@
 
     <!-- Axes -->
     <template v-if="allOptions.showAxes && xScale && yScale">
-      <axis
+      <adv-axis
         type="x"
         :options="allOptions.xAxisOptions"
         :scale="xScale"
         :container-size="containerSize"
+        :hovered-index="hoveredIndex"
+        @tick-mouseover="hoveredIndex = $event"
       />
-      <axis
+      <adv-axis
         type="y"
         :options="allOptions.yAxisOptions"
         :scale="yScale"
-        :label="yAxisLabel"
+        :title="yAxisTitle"
         :container-size="containerSize"
       />
     </template>
@@ -90,7 +92,7 @@ import {
   watch,
 } from '@vue/composition-api';
 
-import Axis from '@/core/axis';
+import AdvAxis from '@/core/axis';
 import Bar from '@/core/bar';
 import ChartContainer from '@/core/chart-container';
 import Tooltip from '@/core/tooltip';
@@ -110,7 +112,7 @@ import { NO_DATA } from '@/constants';
 import { options as defaultOptions } from './defaults';
 
 export default defineComponent({
-  components: { Axis, Bar, ChartContainer, Tooltip, LineGroup },
+  components: { AdvAxis, Bar, ChartContainer, Tooltip, LineGroup },
   props: {
     ...withBase(),
     ...withOptions(),
@@ -150,7 +152,7 @@ export default defineComponent({
 
     // Computed
 
-    const yAxisLabel = computed(() => {
+    const yAxisTitle = computed(() => {
       if (allOptions.value.yAxisOptions?.withLabel === false) return;
       return (
         allOptions.value.yAxisOptions?.label ||
@@ -195,7 +197,7 @@ export default defineComponent({
       overlayBars,
       tooltipConfig,
       updateSize,
-      yAxisLabel,
+      yAxisTitle,
       xScale,
       yScale,
     };
