@@ -1,6 +1,7 @@
 import { Ref } from '@vue/composition-api';
+import { AxisMixin } from './types';
 
-function useLinearScaleAxis(
+const useLinearScaleAxis: AxisMixin = function (
   scale: Ref<any>,
   containerSize: Ref<{ width: number; height: number }>
 ) {
@@ -32,6 +33,6 @@ function useLinearScaleAxis(
     getTickGroupAttributes,
     getTickLabelAttributes,
   };
-}
+};
 
 export default useLinearScaleAxis;

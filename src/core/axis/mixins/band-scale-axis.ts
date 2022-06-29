@@ -1,6 +1,7 @@
 import { computed, Ref } from '@vue/composition-api';
+import { AxisMixin } from './types';
 
-function useBandScaleAxis(
+const useBandScaleAxis: AxisMixin = function (
   scale: Ref<any>,
   containerSize: Ref<{ width: number; height: number }>
 ) {
@@ -46,6 +47,6 @@ function useBandScaleAxis(
     getTickGroupAttributes,
     getTickLabelAttributes,
   };
-}
+};
 
 export default useBandScaleAxis;

@@ -6,32 +6,34 @@
   >
     <text
       v-if="title"
-      ref="title"
       v-bind="titlePosition"
       class="axis__title"
     >
       {{ title }}
     </text>
+
     <g
       v-for="(tick, index) in ticks"
+      v-bind="mixins.getTickGroupAttributes(tick)"
       :key="tick"
       class="axis__tick"
       :class="{ 'axis__tick--hovered': hoveredIndex === index }"
-      v-bind="mixins.getTickGroupAttributes(tick)"
     >
       <rect
         v-bind="mixins.getTickGhostAttributes()"
         class="axis__ghost"
         @mouseover="onTickMouseover(index)"
       />
+
       <line
         v-if="allOptions.gridLines"
         v-bind="mixins.getGridLinesAttributes()"
         class="axis__grid-line"
       />
+
       <text
-        class="axis__label"
         v-bind="mixins.getTickLabelAttributes()"
+        class="axis__label"
       >
         {{ tick }}
       </text>
@@ -51,13 +53,14 @@ import {
 import { AxisOptions, useOptions, withOptions } from '@/mixins/options';
 
 import { options as defaultOptions } from './defaults';
+import { AxisMixin, AxisMixinFunction } from './mixins/types';
 
 const SCALE_MIXIN_MAP = {
   bandScale: 'band-scale-axis',
   linearScale: 'linear-scale-axis',
 };
 
-const POSITIONS = ['left', 'top', 'right', 'bottom'];
+const POSITIONS = ['bottom', 'left'];
 
 const TYPES = {
   x: 'bottom',
@@ -70,6 +73,16 @@ const LABEL_PADDING = 12; // 12px
 const LABEL_MARGIN = {
   y: LABEL_HEIGHT + LABEL_PADDING,
 };
+
+interface AxisProps {
+  scale: any;
+  type?: 'x' | 'y';
+  position?: 'bottom' | 'left';
+  title?: string;
+  containerSize: { width: number; height: number };
+  hoveredIndex?: number;
+  options: AxisOptions;
+}
 
 export default defineComponent({
   props: {
@@ -101,22 +114,18 @@ export default defineComponent({
     },
     ...withOptions<AxisOptions>(),
   },
-  setup(props, ctx) {
-    const { scale, containerSize, options } = toRefs<any>(props); // Needs to be cast as any to avoid it being cast to never by default
+  setup(props: AxisProps, ctx) {
+    const { scale, containerSize, options } = toRefs<AxisProps>(props); // Needs to be cast as any to avoid it being cast to never by default
     const { allOptions } = useOptions<AxisOptions>(options, defaultOptions);
 
-    const mixins = reactive<Record<string, any>>({});
+    const mixins = reactive<Record<string, AxisMixinFunction>>({});
 
     const computedPosition = computed(() =>
       props.type ? TYPES[props.type] : props.position
     );
 
     const computedType = computed(
-      () =>
-        props.type ||
-        (computedPosition.value === 'left' || computedPosition.value === 'right'
-          ? 'y'
-          : 'x')
+      () => props.type || (computedPosition.value === 'left' ? 'y' : 'x')
     );
 
     const axisTransform = computed(() => {
@@ -143,9 +152,13 @@ export default defineComponent({
 
     async function init() {
       const scaleType = scale.value.step ? 'bandScale' : 'linearScale';
-      const mixin = (await import(`./mixins/${SCALE_MIXIN_MAP[scaleType]}`))
-        .default;
 
+      // Get mixin generator based on the scale type
+      const mixin: AxisMixin = (
+        await import(`./mixins/${SCALE_MIXIN_MAP[scaleType]}`)
+      ).default;
+
+      // Push all mixin functions into the `mixins` reactive object
       Object.entries(mixin(scale, containerSize)).forEach(([fnName, fn]) => {
         set(mixins, fnName, fn);
       });
