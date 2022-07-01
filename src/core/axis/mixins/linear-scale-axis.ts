@@ -1,9 +1,11 @@
 import { Ref } from '@vue/composition-api';
+import { AxisOptions } from '@/mixins/options';
 import { AxisMixin } from './types';
 
 const useLinearScaleAxis: AxisMixin = function (
   scale: Ref<any>,
-  containerSize: Ref<{ width: number; height: number }>
+  containerSize: Ref<{ width: number; height: number }>,
+  options: Ref<AxisOptions>
 ) {
   function getTickGroupAttributes(value: number | string) {
     return { transform: `translate(0, ${scale.value(value)})` };
@@ -21,7 +23,7 @@ const useLinearScaleAxis: AxisMixin = function (
 
   function getTickLabelAttributes() {
     return {
-      x: -8,
+      x: -options.value.tickPadding,
       dy: '0.4em',
       'text-anchor': 'end',
     };

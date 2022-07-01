@@ -1,9 +1,11 @@
 import { computed, Ref } from '@vue/composition-api';
+import { AxisOptions } from '@/mixins/options';
 import { AxisMixin } from './types';
 
 const useBandScaleAxis: AxisMixin = function (
   scale: Ref<any>,
-  containerSize: Ref<{ width: number; height: number }>
+  containerSize: Ref<{ width: number; height: number }>,
+  options: Ref<AxisOptions>
 ) {
   const paddingCorrection = computed(() => {
     return (scale.value.step() * scale.value.paddingInner()) / 2;
@@ -20,7 +22,7 @@ const useBandScaleAxis: AxisMixin = function (
   function getTickGhostAttributes() {
     return {
       width: scale.value.step(),
-      height: 24,
+      height: options.value.tickPadding + 12 + 8, // Padding plus text height plus 8 bottom padding
     };
   }
 
@@ -35,7 +37,7 @@ const useBandScaleAxis: AxisMixin = function (
   function getTickLabelAttributes() {
     return {
       x: scale.value.step() / 2,
-      y: 8,
+      y: options.value.tickPadding,
       dy: '0.8em',
       'text-anchor': 'middle',
     };

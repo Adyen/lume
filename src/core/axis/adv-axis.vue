@@ -35,7 +35,7 @@
         v-bind="mixins.getTickLabelAttributes()"
         class="axis__label"
       >
-        {{ tick }}
+        {{ formatTick(tick) }}
       </text>
     </g>
   </g>
@@ -49,6 +49,8 @@ import {
   set,
   toRefs,
 } from '@vue/composition-api';
+import { format } from 'd3-format';
+import { ticks as d3TickGenerator } from 'd3-array';
 
 import { AxisOptions, useOptions, withOptions } from '@/mixins/options';
 
@@ -144,11 +146,36 @@ export default defineComponent({
     }));
 
     const ticks = computed(() => {
-      if (scale.value.ticks) return scale.value.ticks();
+      // For band scales, return the full labels array (domain)
       if (scale.value.step) return scale.value.domain();
 
-      return [];
+      const { tickCount } = allOptions.value;
+      return d3TickGenerator(...scale.value.domain(), tickCount);
     });
+
+    const tickFormatter = computed(() => {
+      const { tickFormat } = allOptions.value;
+
+      if (typeof tickFormat === 'string') {
+        const formatter = format(tickFormat);
+        return formatter;
+      }
+
+      if (typeof tickFormat === 'function') {
+        return tickFormat;
+      }
+
+      return null;
+    });
+
+    function formatTick(tick: number | string) {
+      const { showTicks } = allOptions.value;
+
+      // Hides ticks without hiding `gridLines`
+      if (showTicks === false) return '';
+
+      return tickFormatter.value?.(tick) || tick;
+    }
 
     function onTickMouseover(index: number) {
       ctx.emit('tick-mouseover', index);
@@ -163,7 +190,7 @@ export default defineComponent({
       ).default;
 
       // Push all mixin functions into the `mixins` reactive object
-      Object.entries(mixin(scale, containerSize)).forEach(([fnName, fn]) => {
+      Object.entries(mixin(scale, containerSize, allOptions)).forEach(([fnName, fn]) => {
         set(mixins, fnName, fn);
       });
     }
@@ -175,10 +202,11 @@ export default defineComponent({
       axisTransform,
       computedPosition,
       computedType,
+      formatTick,
       mixins,
-      titlePosition,
       onTickMouseover,
       ticks,
+      titlePosition,
     };
   },
 });

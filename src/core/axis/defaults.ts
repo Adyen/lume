@@ -1,9 +1,5 @@
 import { AxisOptions } from '@/mixins/options';
 
-const DEFAULTS = {
-  TICK_PADDING: 8,
-};
-
 const options: AxisOptions = {
   /** Displays a line for each tick. If not specified but axis type is `y`, will show grid lines. */
   gridLines: false,
@@ -15,11 +11,11 @@ const options: AxisOptions = {
   /** Controls if the tick labels should be displayed. */
   showTicks: true,
   /** Amount of ticks to display in the axis. */
-  tickCount: null,
+  tickCount: 10,
   /** Formatting string/function for the tick label. */
   tickFormat: null,
   /** Space between the tick label and the axis line. */
-  tickPadding: DEFAULTS.TICK_PADDING,
+  tickPadding: 8,
 };
 
 export const xOptions = {
