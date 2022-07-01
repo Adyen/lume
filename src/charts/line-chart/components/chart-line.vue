@@ -1,14 +1,12 @@
 <template>
-  <g>
-    <path
-      class="line-chart__line"
-      :class="{
-        [`line-chart__line--color-${color}`]: true,
-        ['line-chart__line--dashed']: dashed,
-      }"
-      :d="pathDefinition"
-    />
-  </g>
+  <path
+    class="line-chart__line"
+    :class="{
+      [`line-chart__line--color-${color}`]: true,
+      ['line-chart__line--dashed']: dashed,
+    }"
+    :d="pathDefinition"
+  />
 </template>
 
 <script lang="ts">

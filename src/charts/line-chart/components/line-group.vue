@@ -1,26 +1,30 @@
 <template>
   <g class="line-chart__line-group">
-    <chart-line
-      v-for="(_, index) in values"
-      :key="`line-${index}`"
-      :x-scale="xScale"
-      :y-scale="yScale"
-      :values="getLineValues(index)"
-      :index="index"
-      :color="color"
-      :dashed="isDashed(index)"
-    />
-    <line-point
-      v-for="(_, index) in values"
-      :key="`point-${index}`"
-      ref="points"
-      :x-scale="xScale"
-      :y-scale="yScale"
-      :value="getPointValue(index)"
-      :index="index"
-      :color="color"
-      :active="isPointActive(index)"
-    />
+    <g class="line-chart__lines">
+      <chart-line
+        v-for="(_, index) in values"
+        :key="`line-${index}`"
+        :x-scale="xScale"
+        :y-scale="yScale"
+        :values="getLineValues(index)"
+        :index="index"
+        :color="color"
+        :dashed="isDashed(index)"
+      />
+    </g>
+    <g class="line-chart__points">
+      <line-point
+        v-for="(_, index) in values"
+        :key="`point-${index}`"
+        ref="points"
+        :x-scale="xScale"
+        :y-scale="yScale"
+        :value="getPointValue(index)"
+        :index="index"
+        :color="color"
+        :active="isPointActive(index)"
+      />
+    </g>
   </g>
 </template>
 
