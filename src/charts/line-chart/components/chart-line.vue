@@ -4,18 +4,9 @@
       class="line-chart__line"
       :class="{
         [`line-chart__line--color-${color}`]: true,
-        ['line-chart__line--active']: active,
         ['line-chart__line--dashed']: dashed,
       }"
       :d="pathDefinition"
-    />
-    <!-- Ghost path to facilitate hover functions -->
-    <path
-      class="line-chart__ghost-line"
-      :d="pathDefinition"
-      @click="$emit('line-click', index)"
-      @mouseover="$emit('line-mouseover', index)"
-      @mouseout="$emit('line-mouseout')"
     />
   </g>
 </template>
@@ -38,10 +29,6 @@ export default defineComponent({
     values: {
       type: Array,
       required: true,
-    },
-    active: {
-      type: Boolean,
-      default: false,
     },
     dashed: {
       type: Boolean,
@@ -87,6 +74,7 @@ $ghost-line-stroke-width: 8px;
   stroke-linecap: round;
   fill: none;
   transition: all $chart-transition-time ease;
+  pointer-events: none;
 
   @each $color, $map in $chart-colors {
     &--color-#{$color} {
@@ -94,26 +82,8 @@ $ghost-line-stroke-width: 8px;
     }
   }
 
-  &--active {
-    stroke-width: $line-stroke-hover-width;
-  }
-
   &--dashed {
     stroke-dasharray: 2%;
   }
-}
-
-.line-chart__ghost-line {
-  stroke-width: $ghost-line-stroke-width;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-  fill: none;
-  stroke: rgba(
-    0,
-    0,
-    0,
-    0
-  ); /* Needs a stroke value to be able to act, set with 0 opacity to hide it */
-  cursor: pointer;
 }
 </style>

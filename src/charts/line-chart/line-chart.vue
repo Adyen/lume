@@ -40,17 +40,16 @@
     >
       <bar
         v-for="(_, index) in data[0].values"
-        ref="overlayBars"
         :key="`overlay-${index}`"
         :width="xScale.bandwidth()"
         :height="yScale(minValue)"
         :transform="getLineTranslation(index)"
-        :fill-class="
-          hoveredIndex === index
-            ? 'adv-fill-color-overlay'
-            : 'adv-fill-color-transparent'
-        "
+        fill-class="adv-fill-color-transparent"
         @mouseover.native="hoveredIndex = index"
+      />
+      <path
+        v-bind="overlayLineAttributes"
+        class="line-chart__overlay-line"
       />
     </g>
 
@@ -59,6 +58,7 @@
       <line-group
         v-for="(group, index) in computedData"
         :key="`line-group-${index}`"
+        ref="lineGroups"
         v-bind="group"
         :x-scale="xScale"
         :y-scale="yScale"
@@ -122,7 +122,13 @@ export default defineComponent({
     },
   },
   setup(props) {
+    // Internal state
+
+    const hoveredIndex = ref<number>(-1);
+    const lineGroups = ref<Array<InstanceType<typeof LineGroup>>>(null); // Template ref
+
     // State from mixins
+
     const { data, labels, options, startOnZero } = toRefs(props);
     const { computedData, containerSize, updateSize, isHorizontal } = useBase(
       data,
@@ -145,12 +151,41 @@ export default defineComponent({
     const { allOptions } = useOptions(options, defaultOptions);
     const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();
 
-    // Internal state
-
-    const hoveredIndex = ref<number>(-1);
-    const overlayBars = ref(null); // Template refs
-
     // Computed
+
+    const highestValue = computed(() =>
+      Math.max(
+        ...lineGroups.value.reduce(
+          (acc, curr) => [...acc, curr.getPointValue(hoveredIndex.value)],
+          []
+        )
+      )
+    );
+
+    const overlayLineAttributes = computed(() => {
+      if (hoveredIndex.value === -1) return;
+
+      const x =
+        xScale.value(xScale.value.domain()[hoveredIndex.value || 0]) +
+        xScale.value.bandwidth() / 2;
+
+      return {
+        d: `M ${x},${containerSize.height}
+            V ${yScale.value(highestValue.value)}`, // Move to X index, Vertical line to the highest point
+      };
+    });
+
+    const tooltipAnchorPoint = computed(() => {
+      if (hoveredIndex.value === -1) return;
+
+      // Get all points of the hovered index
+      const pointsAtIndex = lineGroups.value.map((group) =>
+        group.getPointByIndex(hoveredIndex.value)
+      );
+
+      // Return the highest point
+      return pointsAtIndex.find((p) => p.value === highestValue.value);
+    });
 
     const yAxisTitle = computed(() => {
       if (allOptions.value.yAxisOptions?.withLabel === false) return;
@@ -177,10 +212,9 @@ export default defineComponent({
 
     // Watchers
 
-    watch([hoveredIndex, overlayBars], function () {
-      if (hoveredIndex.value > -1)
-        showTooltip(overlayBars.value?.[hoveredIndex.value].$el);
-      else hideTooltip();
+    watch(hoveredIndex, function (newValue: number) {
+      if (newValue === -1) hideTooltip();
+      else showTooltip(tooltipAnchorPoint.value.$el);
     });
 
     return {
@@ -191,16 +225,30 @@ export default defineComponent({
       getTooltipItems,
       hasNegativeValues,
       hoveredIndex,
+      lineGroups,
       minValue,
       negativeHeight,
       negativeTransform,
-      overlayBars,
+      overlayLineAttributes,
       tooltipConfig,
       updateSize,
-      yAxisTitle,
       xScale,
+      yAxisTitle,
       yScale,
     };
   },
 });
 </script>
+
+<style lang="scss" scoped>
+@use '~@/styles/_variables.scss' as *;
+.line-chart {
+  &__overlay-line {
+    stroke: $adv-color-grey-30;
+    stroke-width: 1px;
+    stroke-dasharray: 2 2;
+
+    transition: all $chart-transition-time ease-out;
+  }
+}
+</style>

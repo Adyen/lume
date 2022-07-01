@@ -1,36 +1,26 @@
 <template>
-  <g
-    class="line-chart__line-group"
-    :class="isHovered && 'line-chart__line-group--hover'"
-  >
-    <g
+  <g class="line-chart__line-group">
+    <chart-line
       v-for="(_, index) in values"
       :key="`line-${index}`"
-    >
-      <line-point
-        :x-scale="xScale"
-        :y-scale="yScale"
-        :value="getPointValue(index)"
-        :index="index"
-        :color="color"
-        :active="isPointActive(index)"
-        @point-click="isSelected = !isSelected"
-        @line-mouseover="isHovered = true"
-        @point-mouseout="isHovered = false"
-      />
-      <chart-line
-        :x-scale="xScale"
-        :y-scale="yScale"
-        :values="getLineValues(index)"
-        :index="index"
-        :color="color"
-        :active="isHovered || isSelected"
-        :dashed="isDashed(index)"
-        @line-click="isSelected = !isSelected"
-        @line-mouseover="isHovered = true"
-        @line-mouseout="isHovered = false"
-      />
-    </g>
+      :x-scale="xScale"
+      :y-scale="yScale"
+      :values="getLineValues(index)"
+      :index="index"
+      :color="color"
+      :dashed="isDashed(index)"
+    />
+    <line-point
+      v-for="(_, index) in values"
+      :key="`point-${index}`"
+      ref="points"
+      :x-scale="xScale"
+      :y-scale="yScale"
+      :value="getPointValue(index)"
+      :index="index"
+      :color="color"
+      :active="isPointActive(index)"
+    />
   </g>
 </template>
 
@@ -80,12 +70,9 @@ export default defineComponent({
 
   setup(props) {
     const { values } = toRefs(props);
-    const { nullIntervals, getMidValue, isDashed } = useLineNullValues(
-      values
-    );
+    const { nullIntervals, getMidValue, isDashed } = useLineNullValues(values);
 
-    const isHovered = ref<boolean>(false);
-    const isSelected = ref<boolean>(false);
+    const points = ref<Array<InstanceType<typeof LinePoint>>>(null);
 
     const computedLineValues = computed(() => {
       return props.values.map((value, index) => {
@@ -128,18 +115,20 @@ export default defineComponent({
     }
 
     function isPointActive(index: number) {
-      return (
-        props.hoveredIndex === index || isHovered.value || isSelected.value
-      );
+      return props.hoveredIndex === index;
+    }
+
+    function getPointByIndex(index: number) {
+      return points.value[index];
     }
 
     return {
-      isHovered,
-      isSelected,
+      points,
       isDashed,
       getLineValues,
       getPointValue,
       isPointActive,
+      getPointByIndex,
     };
   },
 });

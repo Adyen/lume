@@ -46,10 +46,6 @@ export default defineComponent({
       type: Object,
       default: null,
     },
-    isHovered: {
-      type: Boolean,
-      required: true,
-    },
     animate: {
       type: Boolean,
       default: true,

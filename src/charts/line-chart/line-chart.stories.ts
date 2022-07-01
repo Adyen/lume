@@ -5,7 +5,25 @@ import LineChart from './line-chart.vue';
 import { options as defaultOptions } from './defaults';
 
 const DATASETS = {
-  Simple: {
+  Single: {
+    data: [
+      {
+        values: [10, 30, -20, 50, 40, 70, 60],
+        color: '01',
+        label: 'Hamburgers',
+      },
+    ],
+    labels: [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday',
+    ],
+  },
+  Multiple: {
     data: [
       {
         values: [10, 30, -20, 50, 40, 70, 60],
@@ -16,6 +34,11 @@ const DATASETS = {
         values: [30, 10, 20, 70, 50, null, 40],
         color: '02',
         label: 'Hot dogs',
+      },
+      {
+        values: [50, null, 60, 40, 20, { value: 30 }, 10],
+        color: '03',
+        label: 'Kebabs',
       },
     ],
     labels: [

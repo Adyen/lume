@@ -63,11 +63,15 @@ export default defineComponent({
 @use '~@/styles/variables' as *;
 
 .line-chart__point {
+  fill: $adv-color-white;
+  stroke-width: 2px;
+
   transition: all $chart-transition-time ease;
+  pointer-events: none;
 
   @each $color, $map in $chart-colors {
     &--color-#{$color} {
-      fill: nth($map, 1);
+      stroke: nth($map, 1);
     }
   }
 }
