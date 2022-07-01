@@ -187,13 +187,11 @@ export default defineComponent({
       return pointsAtIndex.find((p) => p.value === highestValue.value);
     });
 
-    const yAxisTitle = computed(() => {
-      if (allOptions.value.yAxisOptions?.withLabel === false) return;
-      return (
-        allOptions.value.yAxisOptions?.label ||
+    const yAxisTitle = computed(
+      () =>
+        allOptions.value.yAxisOptions?.title ||
         computedData.value.map((d) => d.label).join(', ')
-      );
-    });
+    );
 
     // Methods
 

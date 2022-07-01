@@ -5,11 +5,11 @@
     :transform="axisTransform"
   >
     <text
-      v-if="title"
+      v-if="allOptions.withTitle"
       v-bind="titlePosition"
       class="axis__title"
     >
-      {{ title }}
+      {{ title || allOptions.title }}
     </text>
 
     <g
@@ -52,7 +52,7 @@ import {
 
 import { AxisOptions, useOptions, withOptions } from '@/mixins/options';
 
-import { options as defaultOptions } from './defaults';
+import { xOptions, yOptions } from './defaults';
 import { AxisMixin, AxisMixinFunction } from './mixins/types';
 
 const SCALE_MIXIN_MAP = {
@@ -116,7 +116,6 @@ export default defineComponent({
   },
   setup(props: AxisProps, ctx) {
     const { scale, containerSize, options } = toRefs<AxisProps>(props); // Needs to be cast as any to avoid it being cast to never by default
-    const { allOptions } = useOptions<AxisOptions>(options, defaultOptions);
 
     const mixins = reactive<Record<string, AxisMixinFunction>>({});
 
@@ -126,6 +125,11 @@ export default defineComponent({
 
     const computedType = computed(
       () => props.type || (computedPosition.value === 'left' ? 'y' : 'x')
+    );
+
+    const { allOptions } = useOptions<AxisOptions>(
+      options,
+      computedType.value === 'x' ? xOptions : yOptions
     );
 
     const axisTransform = computed(() => {

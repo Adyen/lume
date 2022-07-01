@@ -8,12 +8,12 @@ interface Configs {
 
 export interface AxisOptions extends Record<string, unknown> {
   gridLines?: boolean;
-  label?: string;
+  withTitle?: boolean;
+  title?: string;
   showTicks?: boolean;
   tickCount?: number;
   tickFormat?: string | (() => string);
   tickPadding?: number;
-  withLabel?: boolean;
   skip?: number;
 }
 

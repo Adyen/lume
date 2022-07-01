@@ -31,7 +31,7 @@ import { format } from 'd3-format';
 
 import { AxisOptions, useOptions, withOptions } from '@/mixins/options';
 
-import { options as defaultOptions } from './defaults';
+import { yOptions as defaultOptions } from './defaults';
 
 const POSITIONS = ['left', 'top', 'right', 'bottom'];
 

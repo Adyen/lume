@@ -142,12 +142,9 @@ export default defineComponent({
 
     // Computed
 
-    const yAxisTitle = computed(() => {
-      if (allOptions.value.yAxisOptions?.withLabel === false) return;
-      return (
-        allOptions.value.yAxisOptions?.label || computedData.value[0].label
-      );
-    });
+    const yAxisTitle = computed(
+      () => allOptions.value.yAxisOptions?.title || computedData.value[0].label
+    );
 
     // Methods
 
