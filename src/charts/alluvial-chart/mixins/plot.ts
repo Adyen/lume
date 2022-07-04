@@ -43,7 +43,7 @@ export function drawPlot(
         const longestFirstLevelNode = graph.value.nodes?.filter(({ depth }) => depth === 0)
             .sort(byMaxNodeLength)?.[0];
         if (longestFirstLevelNode == null) return 0;
-        return getNodeLabelBBoxByNodeId(longestFirstLevelNode)?.width;
+        return getNodeLabelBBoxByNodeId(longestFirstLevelNode)?.width ?? 0;
     });
 
     const maxDepth = computed(() => {
@@ -55,7 +55,7 @@ export function drawPlot(
         const longestLastLevelNode = graph.value.nodes?.filter(({ x1 }) => x1 === maxX1)
             .sort(byMaxNodeLength)?.[0];
         if (longestLastLevelNode == null) return 0;
-        return getNodeLabelBBoxByNodeId(longestLastLevelNode)?.width;
+        return getNodeLabelBBoxByNodeId(longestLastLevelNode)?.width ?? 0;
     });
 
     const topMostNodeLabelExtraHeight = computed(() => {
