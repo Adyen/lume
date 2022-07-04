@@ -42,12 +42,12 @@
     <path
       v-for="(d, i) in values"
       :key="i"
+      class="sparkline-chart__line"
       :class="[
-        'sparkline-chart__line',
-        `sparkline-chart__line--color-${color}`,
-        ...(isDashed(i) ? ['sparkline-chart__line--dashed'] : []),
+        { 'sparkline-chart__line--dashed': isDashed(i) },
+        `sparkline-chart__line--color-${color}`
       ]"
-      :stroke-dasharray="((d) => (d == null ? '1.5%' : null))(d)"
+      :stroke-dasharray="getStrokeDashArray"
       :d="linePathDefinition(i)"
     />
 
@@ -95,6 +95,9 @@ import { useSparklineScales } from './mixins/sparkline-scales';
 import { NO_DATA } from '@/constants';
 import { singleDatasetValidator } from '@/utils/helpers';
 import { options as defaultOptions } from './defaults';
+
+const defaultStrokeDashArrayValue = '1.5%';
+const getStrokeDashArray = d => d === null ? defaultStrokeDashArrayValue : null
 
 export default defineComponent({
   components: { Bar, ChartContainer, Tooltip },
@@ -221,6 +224,7 @@ export default defineComponent({
       negativeWidth,
       negativeHeight,
       getTooltipItems,
+      getStrokeDashArray,
       containerSize,
       minValue,
       isDashed,
