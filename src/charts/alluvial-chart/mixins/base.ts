@@ -1,4 +1,4 @@
-import {computed, ComputedRef, ref, Ref, set, watch} from "@vue/composition-api";
+import { computed, ComputedRef, ref, Ref, set } from "@vue/composition-api";
 import {
     Alluvial,
     AlluvialInstance,
