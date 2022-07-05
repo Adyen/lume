@@ -112,7 +112,7 @@ export default defineComponent({
       data,
       labels
     );
-    const { hasNegativeValues } = checkNegativeValues(computedData.value);
+    const { hasNegativeValues } = checkNegativeValues(computedData);
     const { xScale, yScale, minValue } = useSparklineScales(
       computedData.value,
       containerSize
