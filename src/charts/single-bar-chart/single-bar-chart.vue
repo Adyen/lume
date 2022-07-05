@@ -20,11 +20,7 @@
         :scale="xScale"
         :container-size="containerSize"
         :hovered-index="orientation === 'vertical' ? hoveredIndex : -1"
-        v-on="
-          orientation === 'vertical'
-            ? { 'tick-mouseover': handleMouseover }
-            : {}
-        "
+        v-on="getAxisHandlers"
       />
       <adv-axis
         type="y"
@@ -33,11 +29,7 @@
         :title="yAxisTitle"
         :container-size="containerSize"
         :hovered-index="orientation === 'horizontal' ? hoveredIndex : -1"
-        v-on="
-          orientation === 'horizontal'
-            ? { 'tick-mouseover': handleMouseover }
-            : {}
-        "
+        v-on="getAxisHandlers"
       />
     </template>
 
@@ -158,6 +150,10 @@ export default defineComponent({
 
     // Methods
 
+    function getAxisHandlers() {
+      return orientation.value === 'vertical' ? { 'tick-mouseover': handleMouseover } : {}
+    }
+
     function getBarTransform(value: number, index: number) {
       let x: number, y: number;
       if (isHorizontal.value) {
@@ -237,9 +233,11 @@ export default defineComponent({
       getTooltipItems,
       getBarConfig,
       getOverlayConfig,
+      getAxisHandlers,
       handleMouseleave,
       handleMouseover,
       handleClick,
+      orientation,
       hasNegativeValues,
       hoveredIndex,
       negativeWidth,

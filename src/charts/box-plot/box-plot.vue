@@ -70,15 +70,18 @@ export default defineComponent({
     const { options } = toRefs(props);
 
     // State from mixins
+
     const { containerSize, updateSize } = useBase(null, null);
     const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();
     const { allOptions } = useOptions(options, defaultOptions);
+
     // Internal state
 
     const hoveredIndex = ref<number>(-1);
     const tooltipQuantile = ref(null);
 
     // Computed
+
     const {
       domain,
       boxWidth,
