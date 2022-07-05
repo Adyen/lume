@@ -8,7 +8,9 @@ const useLinearScaleAxis: AxisMixin = function (
   options: Ref<AxisOptions>
 ) {
   function getTickGroupAttributes(value: number | string) {
-    return { transform: `translate(0, ${scale.value(value)})` };
+    return {
+      transform: `translate(0, ${scale.value(value)})`,
+    };
   }
 
   function getTickGhostAttributes() {

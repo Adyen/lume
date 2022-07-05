@@ -1,6 +1,6 @@
 <template>
   <g
-    v-if="scale && mixins.getTickGroupAttributes"
+    v-if="scale && !isLoading"
     class="axis"
     :transform="axisTransform"
   >
@@ -19,24 +19,28 @@
       class="axis__tick"
       :class="{ 'axis__tick--hovered': hoveredIndex === index }"
     >
-      <rect
-        v-bind="mixins.getTickGhostAttributes()"
-        class="axis__ghost"
+      <g
+        class="axis__tick-label"
+        pointer-events="all"
         @mouseover="onTickMouseover(index)"
-      />
+      >
+        <rect
+          v-bind="mixins.getTickGhostAttributes()"
+          class="axis__ghost"
+        />
+        <text
+          v-bind="mixins.getTickLabelAttributes()"
+          class="axis__label"
+        >
+          {{ formatTick(tick) }}
+        </text>
+      </g>
 
       <line
         v-if="allOptions.gridLines"
         v-bind="mixins.getGridLinesAttributes()"
         class="axis__grid-line"
       />
-
-      <text
-        v-bind="mixins.getTickLabelAttributes()"
-        class="axis__label"
-      >
-        {{ formatTick(tick) }}
-      </text>
     </g>
   </g>
 </template>
@@ -45,9 +49,12 @@
 import {
   computed,
   defineComponent,
+  onBeforeMount,
   reactive,
+  ref,
   set,
   toRefs,
+  watch,
 } from '@vue/composition-api';
 import { format } from 'd3-format';
 import { ticks as d3TickGenerator } from 'd3-array';
@@ -120,6 +127,7 @@ export default defineComponent({
     const { scale, containerSize, options } = toRefs<AxisProps>(props); // Needs to be cast as any to avoid it being cast to never by default
 
     const mixins = reactive<Record<string, AxisMixinFunction>>({});
+    const isLoading = ref<boolean>(false);
 
     const computedPosition = computed(() =>
       props.type ? TYPES[props.type] : props.position
@@ -182,20 +190,32 @@ export default defineComponent({
     }
 
     async function init() {
+      isLoading.value = true;
       const scaleType = scale.value.step ? 'bandScale' : 'linearScale';
 
       // Get mixin generator based on the scale type
       const mixin: AxisMixin = (
-        await import(`./mixins/${SCALE_MIXIN_MAP[scaleType]}`)
+        await import(
+          `./mixins/${computedType.value}-${SCALE_MIXIN_MAP[scaleType]}`
+        )
       ).default;
 
       // Push all mixin functions into the `mixins` reactive object
-      Object.entries(mixin(scale, containerSize, allOptions)).forEach(([fnName, fn]) => {
-        set(mixins, fnName, fn);
-      });
+      Object.entries(mixin(scale, containerSize, allOptions)).forEach(
+        ([fnName, fn]) => {
+          set(mixins, fnName, fn);
+        }
+      );
+
+      isLoading.value = false;
     }
 
-    init();
+    onBeforeMount(async () => {
+      await init();
+
+      // Setup watcher to get new mixins if scale changes (i.e. vertical to horizontal)
+      watch(scale, init, { flush: 'sync' });
+    });
 
     return {
       allOptions,
@@ -203,6 +223,7 @@ export default defineComponent({
       computedPosition,
       computedType,
       formatTick,
+      isLoading,
       mixins,
       onTickMouseover,
       ticks,
