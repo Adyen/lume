@@ -116,7 +116,7 @@ export default defineComponent({
       labels,
       orientation
     );
-    const { hasNegativeValues } = checkNegativeValues(computedData.value);
+    const { hasNegativeValues } = checkNegativeValues(computedData);
     const { xScale, yScale, singleBarData, groupedData } = useBarMixin(
       BAR_TYPES.SINGLE,
       computedData.value,

@@ -118,7 +118,7 @@ export default defineComponent({
       orientation
     );
 
-    const { hasNegativeValues } = checkNegativeValues(computedData.value);
+    const { hasNegativeValues } = checkNegativeValues(computedData);
 
     const { xScale, yScale, multiBarData, groupedData } = useBarMixin(
       BAR_TYPES.STACKED,

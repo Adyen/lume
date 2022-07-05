@@ -1,4 +1,4 @@
-import { computed, ref, Ref, watch, watchEffect } from '@vue/composition-api';
+import { computed, nextTick, ref, Ref, watch } from '@vue/composition-api';
 import { scaleBand, scaleLinear } from 'd3-scale';
 import { Data, DatasetValueObject } from '@/types/dataset';
 import { flatValues } from '@/utils/helpers';
@@ -40,20 +40,28 @@ export function useLineScales(
     return Math.min(...allValues.value);
   });
 
-  const getXScale = () => {
+  const getXScale = async () => {
+    await nextTick();
     xScale.value = scaleBand()
       .range([0, containerSize.width])
       .domain(labels.value?.map((v) => v));
   };
 
-  const getYScale = () => {
+  const getYScale = async () => {
+    await nextTick();
     yScale.value = scaleLinear()
       .rangeRound([0, containerSize.height])
       .domain([maxValue.value, minValue.value]);
   };
 
-  watch(containerSize, getXScale);
-  watch(containerSize, getYScale);
+  watch(
+    [containerSize, allValues],
+    () => {
+      getXScale();
+      getYScale();
+    },
+    { immediate: true }
+  );
 
   return { computedStartOnZero, maxValue, minValue, xScale, yScale };
 }

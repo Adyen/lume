@@ -7,7 +7,7 @@ import { Data, DatasetValueObject } from '@/types/dataset';
  */
 export function flatValues(data: Data<DatasetValueObject>): Array<number> {
   return data
-    .map((dataset) =>
+    ?.map((dataset) =>
       dataset.values.map((datasetValue) => datasetValue?.value).flat()
     )
     .flat();

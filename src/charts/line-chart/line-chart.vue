@@ -134,7 +134,7 @@ export default defineComponent({
       data,
       labels
     );
-    const { hasNegativeValues } = checkNegativeValues(computedData.value);
+    const { hasNegativeValues } = checkNegativeValues(computedData);
     const { xScale, yScale, minValue } = useLineScales(
       computedData,
       startOnZero,
