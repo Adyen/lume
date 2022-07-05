@@ -1,4 +1,4 @@
-import {computed, ComputedRef, onMounted, ref, Ref, watch} from '@vue/composition-api';
+import { computed, ComputedRef, onMounted, onBeforeUnmount, ref, Ref } from '@vue/composition-api';
 import {
     Alluvial,
     AlluvialInstance,
@@ -9,7 +9,7 @@ import {
 } from "@/types/alluvial";
 import { select } from 'd3-selection';
 import { sankeyLinkHorizontal } from 'd3-sankey';
-import {defaultChartColor, nodeToLabelGap, transitionDuration} from "@/charts/alluvial-chart/defaults";
+import { defaultChartColor, nodeToLabelGap, transitionDuration } from "@/charts/alluvial-chart/defaults";
 
 export function drawPlot(
     alluvialInstance: Ref<AlluvialInstance>,
@@ -22,10 +22,15 @@ export function drawPlot(
 ) {
     const drawingBoard = ref(null);
     const nodeIdRef = ref(nodeId);
+    let isBeingDestroyed = false;
 
     onMounted(() => {
         drawingBoard.value = select(chartContainer.value);
     });
+
+    onBeforeUnmount(() => {
+        isBeingDestroyed = true;
+    })
 
     function nodeMaxLength({ label, value }): number {
         return Math.max(label.length, alluvialProps.value.valueFormatter(value).length);
@@ -73,8 +78,8 @@ export function drawPlot(
     });
 
     const highlightedElements: ComputedRef<{ links?: any[], nodes?: Map<unknown, unknown> }> = computed(() => {
-        if (alluvialInstance.value.highlightedLink == null && alluvialInstance.value.highlightedNode == null) return {};
-        if (alluvialProps.value.getHighlightedElements != null) {
+        if (alluvialInstance.value.highlightedLink === null && alluvialInstance.value.highlightedNode === null) return {};
+        if (alluvialProps.value.getHighlightedElements !== null) {
             return alluvialProps.value.getHighlightedElements({
                 link: alluvialInstance.value.highlightedLink,
                 node: alluvialInstance.value.highlightedNode,
@@ -133,6 +138,7 @@ export function drawPlot(
         const interpolator = interpolateRound(currentNumber, targetNumber);
 
         const performNextUpdate = () => {
+            if (isBeingDestroyed) return;
             const now = Date.now();
             let iteration = (now - startTime) / transitionDuration;
             if (iteration > 1) {

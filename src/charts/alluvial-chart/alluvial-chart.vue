@@ -53,11 +53,11 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, Ref, ref, watch} from '@vue/composition-api';
+import { defineComponent, Ref, ref, watch } from '@vue/composition-api';
 
 import { withData, allAlluvialProps } from './mixins/alluvial-composables';
 import { alluvialDefaults, nodeToLabelGap } from './defaults';
-import {AlluvialInstance} from "@/types/alluvial";
+import { AlluvialInstance } from "@/types/alluvial";
 import { useBase } from "@/charts/alluvial-chart/mixins/base";
 import { drawPlot } from "@/charts/alluvial-chart/mixins/plot";
 import ChartContainer from '@/core/chart-container';
@@ -82,9 +82,18 @@ export default defineComponent({
       linkPaths: []
     });
 
-
     const { nodes, links, graph, nodeId, updateSize, alluvialInstance } = useBase(alluvialProps, alluvialData);
-    const { leftMostNodeLabelWidth, rightMostNodeLabelWidth, topMostNodeLabelExtraHeight, bottomMostNodeLabelExtraHeight, highlightedElements, highlightLinks, updateNodes, renderChart, maxDepth } = drawPlot(alluvialInstance, alluvialProps, nodes, links, chartContainer, nodeId,  graph);
+    const {
+      leftMostNodeLabelWidth,
+      rightMostNodeLabelWidth,
+      topMostNodeLabelExtraHeight,
+      bottomMostNodeLabelExtraHeight,
+      highlightedElements,
+      highlightLinks,
+      updateNodes,
+      renderChart,
+      maxDepth
+    } = drawPlot(alluvialInstance, alluvialProps, nodes, links, chartContainer, nodeId,  graph);
 
     watch(highlightedElements, function (newElements, previousElements) {
       const isEntering = newElements.nodes != null && newElements.links != null;
