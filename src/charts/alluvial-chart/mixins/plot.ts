@@ -79,7 +79,7 @@ export function drawPlot(
 
     const highlightedElements: ComputedRef<{ links?: any[], nodes?: Map<unknown, unknown> }> = computed(() => {
         if (alluvialInstance.value.highlightedLink === null && alluvialInstance.value.highlightedNode === null) return {};
-        if (alluvialProps.value.getHighlightedElements !== null) {
+        if (alluvialProps.value.getHighlightedElements) {
             return alluvialProps.value.getHighlightedElements({
                 link: alluvialInstance.value.highlightedLink,
                 node: alluvialInstance.value.highlightedNode,
