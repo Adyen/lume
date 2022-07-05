@@ -20,7 +20,7 @@
         :scale="xScale"
         :container-size="containerSize"
         :hovered-index="orientation === 'vertical' ? hoveredIndex : -1"
-        v-on="getAxisHandlers"
+        v-on="getAxisHandlers()"
       />
       <adv-axis
         type="y"
@@ -29,7 +29,7 @@
         :title="yAxisTitle"
         :container-size="containerSize"
         :hovered-index="orientation === 'horizontal' ? hoveredIndex : -1"
-        v-on="getAxisHandlers"
+        v-on="getAxisHandlers()"
       />
     </template>
 
