@@ -237,7 +237,6 @@ export default defineComponent({
       handleMouseleave,
       handleMouseover,
       handleClick,
-      orientation,
       hasNegativeValues,
       hoveredIndex,
       negativeWidth,
