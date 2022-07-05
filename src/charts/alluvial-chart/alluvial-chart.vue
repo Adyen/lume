@@ -1,5 +1,8 @@
 <template>
-  <chart-container @resize="updateSize">
+  <chart-container
+    :margins="allOptions.margins"
+    @resize="updateSize"
+  >
     <g ref="chartContainer">
       <g
         v-for="(_, index) in alluvialInstance.nodeBlocks"
@@ -56,20 +59,24 @@
 import { defineComponent, Ref, ref, watch } from '@vue/composition-api';
 
 import { withData, allAlluvialProps } from './mixins/alluvial-composables';
-import { alluvialDefaults, nodeToLabelGap } from './defaults';
+import { alluvialDefaults, nodeToLabelGap, options  } from './defaults';
 import { AlluvialInstance } from "@/types/alluvial";
 import { useBase } from "@/charts/alluvial-chart/mixins/base";
 import { drawPlot } from "@/charts/alluvial-chart/mixins/plot";
 import ChartContainer from '@/core/chart-container';
+import {useOptions, withOptions} from '@/mixins/options';
 
 export default defineComponent({
   components: { ChartContainer },
   props: {
-    ...withData()
+    ...withData(),
+    ...withOptions()
   },
   setup(props) {
+    console.log('Options: ', props.options);
     const chartContainer = ref(null);
     const { alluvialProps } = allAlluvialProps(props.data, alluvialDefaults);
+    const { allOptions } = useOptions(props.options, options);
     const alluvialData: Ref<AlluvialInstance> = ref({
       containerSize: { width: 0, height: 0 },
       highlightedLink: null,
@@ -114,6 +121,7 @@ export default defineComponent({
     watch(alluvialInstance.value.containerSize, containerSize => alluvialInstance.value.rightExtent = containerSize.width - (rightMostNodeLabelWidth.value + nodeToLabelGap));
 
     return {
+      allOptions,
       updateSize,
       chartContainer,
       alluvialInstance,

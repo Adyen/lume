@@ -63,10 +63,7 @@ export const Basic = ({ argTypes }) => {
             alluvial
         }),
         template: `
-    <div
-        style="padding: 0 16px"
-        :style="{ width: width + 'px', height: height + 'px' }"
-    >
+    <div :style="{ width: width + 'px', height: height + 'px' }">
       <alluvial-chart :data="alluvial" />
     </div>
   `,

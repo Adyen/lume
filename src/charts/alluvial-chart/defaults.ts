@@ -1,4 +1,5 @@
 import { sankeyJustify } from 'd3-sankey';
+import { DEFAULT_MARGINS } from "@/constants";
 
 export const alluvialDefaults = {
     values: [],
@@ -7,6 +8,10 @@ export const alluvialDefaults = {
     nodeAlign: sankeyJustify,
     valueFormatter: value => String(value)
 }
+
+export const options = {
+    margins: DEFAULT_MARGINS.VERTICAL,
+};
 
 export const transitionDuration = 200;
 export const defaultChartColor = '03';
