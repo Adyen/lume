@@ -19,8 +19,12 @@
         :scale="xScale"
         :container-size="containerSize"
         :options="allOptions.xAxisOptions"
-        :hovered-index="hoveredIndex"
-        @tick-mouseover="handleMouseover"
+        :hovered-index="orientation === 'vertical' ? hoveredIndex : -1"
+        v-on="
+          orientation === 'vertical'
+            ? { 'tick-mouseover': handleMouseover }
+            : {}
+        "
       />
       <adv-axis
         type="y"
@@ -28,6 +32,12 @@
         :container-size="containerSize"
         :title="yAxisTitle"
         :options="allOptions.yAxisOptions"
+        :hovered-index="orientation === 'horizontal' ? hoveredIndex : -1"
+        v-on="
+          orientation === 'horizontal'
+            ? { 'tick-mouseover': handleMouseover }
+            : {}
+        "
       />
     </template>
 
