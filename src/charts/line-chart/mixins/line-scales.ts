@@ -40,14 +40,15 @@ export function useLineScales(
     return Math.min(...allValues.value);
   });
 
-  const getXScale = async () => {
+  const setXScale = async () => {
+    console.log('This is happening');
     await nextTick();
     xScale.value = scaleBand()
       .range([0, containerSize.width])
       .domain(labels.value?.map((v) => v));
   };
 
-  const getYScale = async () => {
+  const setYScale = async () => {
     await nextTick();
     yScale.value = scaleLinear()
       .rangeRound([0, containerSize.height])
@@ -57,10 +58,13 @@ export function useLineScales(
   watch(
     [containerSize, allValues],
     () => {
-      getXScale();
-      getYScale();
+      setXScale();
+      setYScale();
     },
-    { immediate: true }
+    {
+      immediate: true,
+      deep: true
+    }
   );
 
   return { computedStartOnZero, maxValue, minValue, xScale, yScale };
