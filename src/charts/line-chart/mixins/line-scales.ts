@@ -41,7 +41,6 @@ export function useLineScales(
   });
 
   const setXScale = async () => {
-    console.log('This is happening');
     await nextTick();
     xScale.value = scaleBand()
       .range([0, containerSize.width])
