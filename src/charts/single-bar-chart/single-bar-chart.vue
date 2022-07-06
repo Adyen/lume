@@ -20,7 +20,7 @@
         :scale="xScale"
         :container-size="containerSize"
         :hovered-index="orientation === 'vertical' ? hoveredIndex : -1"
-        v-on="getAxisHandlers()"
+        v-on="getAxisHandlers"
       />
       <adv-axis
         type="y"
@@ -29,7 +29,7 @@
         :title="yAxisTitle"
         :container-size="containerSize"
         :hovered-index="orientation === 'horizontal' ? hoveredIndex : -1"
-        v-on="getAxisHandlers()"
+        v-on="getAxisHandlers"
       />
     </template>
 
@@ -148,11 +148,9 @@ export default defineComponent({
       () => allOptions.value.yAxisOptions?.title || computedData.value[0].label
     );
 
-    // Methods
+    const getAxisHandlers = computed(() => orientation.value === 'vertical' ? { 'tick-mouseover': handleMouseover } : {})
 
-    function getAxisHandlers() {
-      return orientation.value === 'vertical' ? { 'tick-mouseover': handleMouseover } : {}
-    }
+    // Methods
 
     function getBarTransform(value: number, index: number) {
       let x: number, y: number;
