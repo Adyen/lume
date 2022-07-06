@@ -64,7 +64,7 @@ SingleBarChart.args = {
   options: {
     ...singleBarOptions[ORIENTATIONS.VERTICAL],
     xAxisOptions: {
-      ...singleBarOptions[ORIENTATIONS.VERTICAL],
+      ...singleBarOptions[ORIENTATIONS.VERTICAL].xAxisOptions,
       title: 'Day',
       withTitle: true
     }
