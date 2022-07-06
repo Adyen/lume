@@ -8,6 +8,7 @@
       v-if="allOptions.withTitle"
       v-bind="titlePosition"
       class="axis__title"
+      :class="{ 'axis__title--horizontal': computedType === 'y' }"
     >
       {{ title || allOptions.title }}
     </text>
@@ -148,10 +149,15 @@ export default defineComponent({
       return `translate(0, 0)`;
     });
 
-    const titlePosition = computed(() => ({
-      x: 0,
-      y: -LABEL_MARGIN[computedType.value],
-    }));
+    const titlePosition = computed(() =>
+      computedType.value === 'y' ? {
+        x: 0,
+        y: -LABEL_MARGIN[computedType.value],
+      } : {
+        x: containerSize.value?.width / 2,
+        y: 2 * LABEL_HEIGHT + LABEL_PADDING,
+      }
+    );
 
     const ticks = computed(() => {
       // For band scales, return the full labels array (domain)
@@ -249,6 +255,10 @@ $axis-label-font-size: 10px;
     fill: $axis-title-color;
     font-size: $axis-title-font-size;
     text-anchor: start;
+
+    &--horizontal {
+      text-anchor: middle;
+    }
   }
 
   &__ghost {

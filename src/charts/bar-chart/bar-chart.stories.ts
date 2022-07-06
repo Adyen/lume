@@ -61,7 +61,14 @@ SingleBarChart.args = {
   ],
   labels,
   orientation: ORIENTATIONS.VERTICAL,
-  options: singleBarOptions[ORIENTATIONS.VERTICAL],
+  options: {
+    ...singleBarOptions[ORIENTATIONS.VERTICAL],
+    xAxisOptions: {
+      ...singleBarOptions[ORIENTATIONS.VERTICAL],
+      title: 'Day',
+      withTitle: true
+    }
+  },
 };
 
 export const MultiBarChart = ({ argTypes }) => {
@@ -71,7 +78,11 @@ export const MultiBarChart = ({ argTypes }) => {
     template: `
     <div :style="{ width: width + 'px', height: height + 'px' }">
         <bar-chart
-           :data="data" :labels="labels" :type="type" :orientation="orientation" :options="options"
+           :data="data"
+           :labels="labels"
+           :type="type"
+           :orientation="orientation"
+           :options="options"
         >
         </bar-chart>
     </div>
