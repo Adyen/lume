@@ -14,7 +14,7 @@ export interface AxisOptions extends Record<string, unknown> {
   tickCount?: number;
   tickFormat?: string | (() => string);
   tickPadding?: number;
-  skip?: number;
+  skip?: true | number; // `true` will enable auto-skip, number will be used as amount of ticks to skip
 }
 
 export interface Options extends Configs, Record<string, unknown> {
