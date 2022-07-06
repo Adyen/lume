@@ -20,7 +20,7 @@
         :scale="xScale"
         :container-size="containerSize"
         :hovered-index="orientation === 'vertical' ? hoveredIndex : -1"
-        v-on="getAxisHandlers"
+        v-on="getXAxisHandlers"
       />
       <adv-axis
         type="y"
@@ -29,7 +29,7 @@
         :title="yAxisTitle"
         :container-size="containerSize"
         :hovered-index="orientation === 'horizontal' ? hoveredIndex : -1"
-        v-on="getAxisHandlers"
+        v-on="getYAxisHandlers"
       />
     </template>
 
@@ -148,7 +148,16 @@ export default defineComponent({
       () => allOptions.value.yAxisOptions?.title || computedData.value[0].label
     );
 
-    const getAxisHandlers = computed(() => orientation.value === 'vertical' ? { 'tick-mouseover': handleMouseover } : {})
+    const getXAxisHandlers = computed(() =>
+      orientation.value === 'vertical'
+        ? { 'tick-mouseover': handleMouseover }
+        : {}
+    );
+    const getYAxisHandlers = computed(() =>
+      orientation.value === 'horizontal'
+        ? { 'tick-mouseover': handleMouseover }
+        : {}
+    );
 
     // Methods
 
@@ -231,7 +240,8 @@ export default defineComponent({
       getTooltipItems,
       getBarConfig,
       getOverlayConfig,
-      getAxisHandlers,
+      getXAxisHandlers,
+      getYAxisHandlers,
       handleMouseleave,
       handleMouseover,
       handleClick,
