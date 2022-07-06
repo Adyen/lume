@@ -65,9 +65,9 @@ SingleBarChart.args = {
     ...singleBarOptions[ORIENTATIONS.VERTICAL],
     xAxisOptions: {
       ...singleBarOptions[ORIENTATIONS.VERTICAL].xAxisOptions,
-      title: 'Day',
-      withTitle: true
-    }
+      title: 'Weekday',
+      withTitle: true,
+    },
   },
 };
 
