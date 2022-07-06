@@ -56,15 +56,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, Ref, ref, watch } from '@vue/composition-api';
+import { defineComponent, Ref, ref, watch, toRefs } from '@vue/composition-api';
 
 import { withData, allAlluvialProps } from './mixins/alluvial-composables';
-import { alluvialDefaults, nodeToLabelGap, options  } from './defaults';
+import { alluvialDefaults, nodeToLabelGap, options as defaultOptions } from './defaults';
 import { AlluvialInstance } from "@/types/alluvial";
 import { useBase } from "@/charts/alluvial-chart/mixins/base";
 import { drawPlot } from "@/charts/alluvial-chart/mixins/plot";
 import ChartContainer from '@/core/chart-container';
-import {useOptions, withOptions} from '@/mixins/options';
+import { useOptions, withOptions } from '@/mixins/options';
 
 export default defineComponent({
   components: { ChartContainer },
@@ -73,10 +73,10 @@ export default defineComponent({
     ...withOptions()
   },
   setup(props) {
-    console.log('Options: ', props.options);
     const chartContainer = ref(null);
+    const { options } = toRefs(props)
     const { alluvialProps } = allAlluvialProps(props.data, alluvialDefaults);
-    const { allOptions } = useOptions(props.options, options);
+    const { allOptions } = useOptions(options, defaultOptions);
     const alluvialData: Ref<AlluvialInstance> = ref({
       containerSize: { width: 0, height: 0 },
       highlightedLink: null,

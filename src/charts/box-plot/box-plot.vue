@@ -4,13 +4,13 @@
     @resize="updateSize"
   >
     <template v-if="allOptions.showAxes && xScale && yScale">
-      <axis
+      <adv-axis
         type="x"
         :options="allOptions.xAxisOptions"
         :scale="xScale"
         :container-size="containerSize"
       />
-      <axis
+      <adv-axis
         type="y"
         :options="allOptions.yAxisOptions"
         :scale="yScale"
@@ -49,7 +49,7 @@
 <script lang="ts">
 import { defineComponent, ref, toRefs } from '@vue/composition-api';
 
-import Axis from '@/core/axis/axis.vue';
+import AdvAxis from '@/core/axis/adv-axis.vue';
 import BoxGroup from './components/box-group.vue';
 import ChartContainer from '@/core/chart-container';
 import Tooltip from '@/core/tooltip';
@@ -61,7 +61,7 @@ import { withData, useBoxComputations } from './mixins/box-composable';
 
 import { options as defaultOptions } from './defaults';
 export default defineComponent({
-  components: { Axis, ChartContainer, BoxGroup, Tooltip },
+  components: { AdvAxis, ChartContainer, BoxGroup, Tooltip },
   props: {
     ...withOptions(),
     ...withData(),
