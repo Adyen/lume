@@ -18,7 +18,10 @@
       v-bind="mixins.getTickGroupAttributes(tick)"
       :key="tick"
       class="axis__tick"
-      :class="{ 'axis__tick--hovered': hoveredIndex === index }"
+      :class="{
+        'axis__tick--hovered': hoveredIndex === index,
+        'axis__tick--hidden': allOptions.skip && !showTick(index),
+      }"
     >
       <g
         class="axis__tick-label"
@@ -31,6 +34,7 @@
         />
         <text
           v-bind="mixins.getTickLabelAttributes()"
+          ref="tickRefs"
           class="axis__label"
         >
           {{ formatTick(tick) }}
@@ -64,6 +68,7 @@ import { AxisOptions, useOptions, withOptions } from '@/mixins/options';
 
 import { xOptions, yOptions } from './defaults';
 import { AxisMixin, AxisMixinFunction } from './mixins/types';
+import { useSkip } from '../axis-skip';
 
 const SCALE_MIXIN_MAP = {
   bandScale: 'band-scale-axis',
@@ -128,6 +133,7 @@ export default defineComponent({
     const { scale, containerSize, options } = toRefs<AxisProps>(props); // Needs to be cast as any to avoid it being cast to never by default
 
     const mixins = reactive<Record<string, AxisMixinFunction>>({});
+    const tickRefs = ref<Array<SVGTextElement>>(null);
     const isLoading = ref<boolean>(false);
 
     const computedPosition = computed(() =>
@@ -142,6 +148,8 @@ export default defineComponent({
       options,
       computedType.value === 'x' ? xOptions : yOptions
     );
+
+    const { showTick } = useSkip(scale, tickRefs, allOptions.value.skip);
 
     const axisTransform = computed(() => {
       if (computedType.value === 'x')
@@ -232,6 +240,8 @@ export default defineComponent({
       isLoading,
       mixins,
       onTickMouseover,
+      showTick,
+      tickRefs,
       ticks,
       titlePosition,
     };
@@ -278,13 +288,23 @@ $axis-label-font-size: 10px;
     transition: all $chart-overlay-transition-time ease-in-out;
   }
 
-  &__tick--hovered {
-    .axis__ghost {
-      fill: $chart-background-color;
+  &__tick {
+    transition: opacity $chart-overlay-transition-time ease-in-out;
+
+    &--hidden {
+      opacity: 0;
     }
 
-    .axis__label {
-      fill: $axis-label-hover-color;
+    &--hovered {
+      opacity: 1;
+
+      .axis__ghost {
+        fill: $chart-background-color;
+      }
+
+      .axis__label {
+        fill: $axis-label-hover-color;
+      }
     }
   }
 }

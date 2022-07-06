@@ -18,11 +18,12 @@ const options: AxisOptions = {
   tickPadding: 8,
 };
 
-export const xOptions = {
+export const xOptions: AxisOptions = {
   ...options,
   withTitle: false,
+  skip: true,
 };
 
-export const yOptions = {
+export const yOptions: AxisOptions = {
   ...options,
 };
