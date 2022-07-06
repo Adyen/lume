@@ -26,17 +26,14 @@ export function useBoxComputations(
             .reduce((acc, record) => [...acc, ...record]);
     });
 
-    const boxWidth = computed(() => {
-        return containerSize.width / (1.3 * domain.value.length);
-    });
-
     const xScale = computed(() => {
         return scaleBand()
             .range([0, containerSize.width])
             .domain(domain.value)
-            .paddingInner(1)
-            .paddingOuter(0.5);
+            .padding(0.1)
     });
+
+    const boxPadding = computed(() => xScale.value ? xScale.value.step() - xScale.value.bandwidth() : 0);
 
     const yScale = computed(() => {
         return scaleLinear()
@@ -63,6 +60,7 @@ export function useBoxComputations(
     });
 
     const boxGroups = computed(() => {
+        const boxWidth = xScale.value?.bandwidth() || 0;
         return quantiles.value.map((quantile) => ({
             quantile: {
                 '25th percentile': quantile.q1.toFixed(2),
@@ -73,20 +71,20 @@ export function useBoxComputations(
                 'Maximum': quantile.max.toFixed(2)
             },
             verticalLine: {
-                x1: xScale.value(quantile.key),
-                x2: xScale.value(quantile.key),
+                x1: xScale.value(quantile.key) + boxWidth / 2,
+                x2: xScale.value(quantile.key) + boxWidth / 2,
                 y1: yScale.value(quantile.min),
                 y2: yScale.value(quantile.max),
             },
             box: {
-                x: xScale.value(quantile.key) - boxWidth.value / 2,
+                x: xScale.value(quantile.key),
                 y: yScale.value(quantile.q3),
                 height: yScale.value(quantile.q1) - yScale.value(quantile.q3),
-                width: boxWidth.value,
+                width: boxWidth,
             },
             medianLine: {
-                x1: xScale.value(quantile.key) - boxWidth.value / 2,
-                x2: xScale.value(quantile.key) + boxWidth.value / 2,
+                x1: xScale.value(quantile.key),
+                x2: xScale.value(quantile.key) + boxWidth,
                 y1: yScale.value(quantile.median),
                 y2: yScale.value(quantile.median),
             },
@@ -100,5 +98,5 @@ export function useBoxComputations(
         return allOptions.value.yAxisOptions?.label;
     });
 
-    return { domain, boxWidth, xScale, yScale, quantiles, boxGroups, yAxisLabel }
+    return { domain, boxPadding, xScale, yScale, quantiles, boxGroups, yAxisLabel }
 }

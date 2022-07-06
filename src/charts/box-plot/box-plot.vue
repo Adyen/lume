@@ -84,7 +84,7 @@ export default defineComponent({
 
     const {
       domain,
-      boxWidth,
+      boxPadding,
       xScale,
       yScale,
       quantiles,
@@ -97,9 +97,9 @@ export default defineComponent({
     function getOverlayConfig(index: number) {
       return {
         transform: `translate(${
-          xScale.value(domain.value[index]) - boxWidth.value / 2
+          xScale.value(domain.value[index]) - (boxPadding.value / 2)
         }, 0)`,
-        width: xScale.value.step() - boxWidth.value / 4,
+        width: xScale.value.step(),
         height: containerSize.height,
       };
     }
