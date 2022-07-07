@@ -4,6 +4,8 @@ import {scaleBand, scaleLinear} from "d3-scale";
 import { quantile, ascending } from 'd3-array';
 import { Options } from '@/mixins/options';
 
+const DEFAULT_PADDING = 0.33;
+
 export const withData = () => ({
     data: {
         type: Array as PropType<Data<number>>,
@@ -26,11 +28,16 @@ export function useBoxComputations(
             .reduce((acc, record) => [...acc, ...record]);
     });
 
+    const padding = computed(
+        () => (allOptions.value?.padding as number) ?? DEFAULT_PADDING
+    );
+
     const xScale = computed(() => {
         return scaleBand()
             .range([0, containerSize.width])
             .domain(domain.value)
-            .padding(0.1)
+            .paddingInner(padding.value)
+            .paddingOuter(padding.value / 2)
     });
 
     const boxPadding = computed(() => xScale.value ? xScale.value.step() - xScale.value.bandwidth() : 0);
