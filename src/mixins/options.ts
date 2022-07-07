@@ -31,12 +31,12 @@ export const withOptions = <T = Options>() => ({
 
 export function useOptions<T extends Options = Options>(
   options: Ref<T>,
-  defaultOptions: T
+  defaultOptions?: T
 ) {
   const allOptions = computed<T>(() =>
-    options.value
+    defaultOptions
       ? (mergeDeep(defaultOptions, options.value) as T)
-      : defaultOptions
+      : options.value
   );
 
   return { allOptions };
