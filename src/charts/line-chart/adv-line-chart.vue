@@ -9,12 +9,11 @@
     </template>
   </adv-chart>
 </template>
-
 <script lang="ts">
 import { defineComponent, toRefs } from '@vue/composition-api';
 
-import AdvChart from '@/playground/adv-chart.vue';
-import AdvLineGroup from '../../core/adv-line-group/adv-line-group.vue';
+import AdvChart from '@/core/adv-chart';
+import AdvLineGroup from '@/core/adv-line-group/';
 
 import { useBase, withBase } from '@/mixins/base';
 import { useOptions, withOptions } from '@/mixins/options';
