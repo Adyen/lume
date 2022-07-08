@@ -3,14 +3,14 @@
     class="bar"
     :x="x"
     :y="y"
-    :height="computedHeight"
+    :height="height"
     :width="width"
     :class="[fillClass, { 'bar--transition': animate, 'bar--faded': isFaded }]"
   />
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from '@vue/composition-api';
+import { defineComponent } from '@vue/composition-api';
 
 export default defineComponent({
   props: {
@@ -42,12 +42,6 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
-  },
-  setup(props) {
-    const computedHeight = computed(() => {
-      return props.height === 0 ? 1 : props.height;
-    });
-    return { computedHeight };
   },
 });
 </script>
