@@ -65,10 +65,10 @@ import { format } from 'd3-format';
 import { ticks as d3TickGenerator } from 'd3-array';
 
 import { AxisOptions, useOptions, withOptions } from '@/mixins/options';
+import { useSkip } from './mixins/axis-skip';
 
 import { xOptions, yOptions } from './defaults';
-import { AxisMixin, AxisMixinFunction } from './mixins/types';
-import { useSkip } from '../axis-skip';
+import { AxisMixin, AxisMixinFunction } from './types';
 
 const SCALE_MIXIN_MAP = {
   bandScale: 'band-scale-axis',
@@ -158,13 +158,15 @@ export default defineComponent({
     });
 
     const titlePosition = computed(() =>
-      computedType.value === 'y' ? {
-        x: 0,
-        y: -LABEL_MARGIN[computedType.value],
-      } : {
-        x: containerSize.value?.width / 2,
-        y: 2 * LABEL_HEIGHT + LABEL_PADDING,
-      }
+      computedType.value === 'y'
+        ? {
+          x: 0,
+          y: -LABEL_MARGIN[computedType.value],
+        }
+        : {
+          x: containerSize.value?.width / 2,
+          y: 2 * LABEL_HEIGHT + LABEL_PADDING,
+        }
     );
 
     const ticks = computed(() => {

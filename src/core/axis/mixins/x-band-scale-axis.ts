@@ -1,6 +1,6 @@
 import { computed, Ref } from '@vue/composition-api';
 import { AxisOptions } from '@/mixins/options';
-import { AxisMixin } from './types';
+import { AxisMixin } from '../types';
 
 const useBandScaleAxis: AxisMixin = function (
   scale: Ref<any>,
