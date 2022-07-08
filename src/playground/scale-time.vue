@@ -17,7 +17,7 @@
     >
       <line
         y1="0"
-        :y2="showTick(i, skipNumber) ? 16 : 8"
+        :y2="showTick(i) ? 16 : 8"
         :x1="scale(tick)"
         :x2="scale(tick)"
         stroke="orangered"
@@ -26,13 +26,13 @@
       <text
         ref="ghostLabels"
         :x="scale(tick)"
-        :y="showTick(i, skipNumber) ? 16 : 32"
+        :y="showTick(i) ? 16 : 32"
         dy="0.8em"
         font-size="10"
         text-anchor="middle"
         class="tick"
         :class="[
-          showTick(i, skipNumber) ? 'tick--visible' : 'tick--hidden',
+          showTick(i) ? 'tick--visible' : 'tick--hidden',
           hoveredIndex === i && 'tick--hovered',
         ]"
       >
@@ -89,7 +89,7 @@ export default defineComponent({
         .nice()
     );
 
-    const { showTick } = useSkip(scale, ghostLabels);
+    const { showTick } = useSkip(scale, ghostLabels, props.skipNumber);
 
     function handleMouseover(index: number) {
       hoveredIndex.value = index;
@@ -115,9 +115,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 .tick {
   cursor: default;
-
-  &--visible {
-  }
 
   &--hidden {
     fill: lightslategrey;

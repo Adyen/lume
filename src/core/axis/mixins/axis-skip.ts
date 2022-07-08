@@ -40,7 +40,7 @@ export function useSkip(
 
     const step = scaleWidth.value / tickCount;
     const skip =
-      (typeof skipNumber === 'number' && skipNumber + 1) ||
+      (typeof skipNumber === 'number' && skipNumber > 0 && skipNumber + 1) ||
       Math.ceil(avgLabelWidth.value / step);
 
     return index % skip === 0;
