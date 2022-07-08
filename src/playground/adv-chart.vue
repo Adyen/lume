@@ -127,14 +127,15 @@ export default defineComponent({
 
     function getTooltipAnchorAttributes(index: number) {
       // TODO: clean up this function, probsbly into a composable
+      // Also needs to account for null values (line chart). currently falling back to 0
       const highestValue = computedData.value.reduce((max, point) =>
         max.values[index]?.value > point.values[index]?.value ? max : point
-      ).values[index].value;
+      ).values[index]?.value;
       return {
         cx:
           xScale.value.bandwidth() / 2 +
           xScale.value(xScale.value.domain()[index]),
-        cy: yScale.value(highestValue),
+        cy: yScale.value(highestValue || 0),
       };
     }
 

@@ -1,2 +1,2 @@
 /* istanbul ignore file */
-export { default } from './line-chart.vue';
+export { default } from './adv-line-chart.vue';

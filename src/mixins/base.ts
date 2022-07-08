@@ -28,7 +28,7 @@ export const withBase = (dataValidator?: DataValidator) => ({
 
 export function useBase(
   data: Ref<Data>,
-  labels: Ref<Array<string>>,
+  labels?: Ref<Array<string>>,
   orientation?: Ref<Orientation>
 ) {
   const containerSize = reactive({

@@ -1,7 +1,7 @@
-import { computed, Ref } from '@vue/composition-api';
-import { DatasetValue } from '@/types/dataset';
+import { computed } from '@vue/composition-api';
+import { DatasetValue, DatasetValueObject } from '@/types/dataset';
 
-export function useLineNullValues(values: Ref<Array<DatasetValue>>) {
+export function useLineNullValues(values: DatasetValueObject<number>[]) {
   /**
    * Returns an array of intervals where the data is null.
    * Each interval is an array containing the indexes of null values
@@ -10,13 +10,12 @@ export function useLineNullValues(values: Ref<Array<DatasetValue>>) {
   const nullIntervals = computed(() => {
     let currentInterval: Array<number> = null;
 
-    return values.value?.reduce(
+    return values?.reduce(
       (intervals: Array<Array<number>>, value: DatasetValue | null, index) => {
         if (value == null) {
           if (!currentInterval) {
             currentInterval = [index];
-            if (index === values.value?.length - 1)
-              intervals.push(currentInterval); // If last value is `null`
+            if (index === values?.length - 1) intervals.push(currentInterval); // If last value is `null`
           } else currentInterval.push(index);
         } else if (currentInterval) {
           intervals.push(currentInterval);

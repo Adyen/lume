@@ -1,7 +1,7 @@
 import { computed } from '@vue/composition-api';
 import { withSizeArgs, withSizeArgTypes } from '@/utils/storybook-helpers';
 
-import LineChart from './line-chart.vue';
+import AdvLineChart from './adv-line-chart.vue';
 import { options as defaultOptions } from './defaults';
 
 const DATASETS = {
@@ -111,7 +111,7 @@ const DATASETS = {
 
 export default {
   title: 'Charts/Line chart',
-  component: LineChart,
+  component: AdvLineChart,
   argTypes: {
     ...withSizeArgTypes(),
     dataset: {
@@ -139,7 +139,7 @@ export default {
 
 export const Basic = ({ args, argTypes }) => {
   return {
-    components: { LineChart },
+    components: { AdvLineChart },
     props: Object.keys(argTypes),
     setup(props) {
       const data = computed(() => DATASETS[props.dataset].data);
@@ -149,10 +149,9 @@ export const Basic = ({ args, argTypes }) => {
     },
     template: `
     <div :style="{ width: width + 'px', height: height + 'px' }">
-        <line-chart
+        <adv-line-chart
            :data="data" :labels="labels" :options="options"
-        >
-        </line-chart>
+        />
     </div>
   `,
   };

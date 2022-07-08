@@ -44,7 +44,7 @@
         @mouseout="handleMouseOutBarChart"
         @click="handleClicked"
       />
-      <line-chart
+      <adv-line-chart
         :data="data"
         :labels="barChartLabels"
       />
@@ -65,7 +65,7 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
 import BarChart from '@/charts/bar-chart/bar-chart.vue';
-import LineChart from '@/charts/line-chart/line-chart.vue';
+import AdvLineChart from '@/charts/line-chart';
 import BoxPlot from '@/charts/box-plot/box-plot.vue';
 import Sparkline from '@/charts/sparkline-chart/sparkline-chart.vue';
 import AlluvialChart from "@/charts/alluvial-chart/alluvial-chart.vue";
@@ -74,7 +74,7 @@ export default defineComponent({
   components: {
     AlluvialChart,
     BarChart,
-    LineChart,
+    AdvLineChart,
     BoxPlot,
     Sparkline,
   },
