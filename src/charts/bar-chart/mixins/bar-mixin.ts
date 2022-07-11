@@ -165,6 +165,9 @@ export function useBarMixin(
           .rangeRound([0, containerSize.height]);
   };
 
+  const legend = computed(() => data.
+        map(({ label }) => label));
+
   watchEffect(() => {
     setXScaleValue();
     setYScaleValue();
@@ -178,5 +181,6 @@ export function useBarMixin(
     singleBarData,
     multiBarData,
     groupedData,
+    legend
   };
 }

@@ -5,6 +5,7 @@ type ChartType = 'bar' | 'line';
 export interface DatasetValueObject<T extends number | Array<number> = number> {
   value: T;
   color?: Color;
+  label?: string;
 }
 
 export type DatasetValue = number | DatasetValueObject | null;
