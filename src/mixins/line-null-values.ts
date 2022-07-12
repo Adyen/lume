@@ -1,13 +1,13 @@
-import { computed } from '@vue/composition-api';
-import { DatasetValue, DatasetValueObject } from '@/types/dataset';
+import { computed, ComputedRef } from '@vue/composition-api';
+import { Data, DatasetValue, DatasetValueObject } from '@/types/dataset';
 
-export function useLineNullValues(values: DatasetValueObject<number>[]) {
+export function useLineNullValues(data: ComputedRef<Data<DatasetValueObject>>) {
   /**
    * Returns an array of intervals where the data is null.
    * Each interval is an array containing the indexes of null values
    * E.g. for data of `[500, 400, null, 300, null, null, 200]` returns `[ [2], [4, 5] ]`
    */
-  const nullIntervals = computed(() => {
+  function getNullIntervals(values: DatasetValueObject<number>[]) {
     let currentInterval: Array<number> = null;
 
     return values?.reduce(
@@ -25,7 +25,7 @@ export function useLineNullValues(values: DatasetValueObject<number>[]) {
       },
       []
     );
-  });
+  }
 
   /**
    * Returns a value inbetween the start and end values, based on the index provided.
@@ -56,11 +56,47 @@ export function useLineNullValues(values: DatasetValueObject<number>[]) {
    * @param {Number} index The data point index.
    * @returns {Boolean} True if line at this point should be dashed.
    */
-  function isDashed(index: number): boolean {
-    return !!nullIntervals.value.find(
-      (interval) => interval.includes(index) || interval.includes(index - 1)
-    );
+  function generateIsDashed(nullIntervals: number[][]) {
+    return function isDashed(index: number): boolean {
+      return !!nullIntervals.find(
+        (interval) => interval.includes(index) || interval.includes(index - 1)
+      );
+    };
   }
 
-  return { nullIntervals, getMidValue, isDashed };
+  const computedLineData = computed(() => {
+    return data.value.map((dataset) => {
+      const nullIntervals = getNullIntervals(dataset.values);
+
+      return {
+        ...dataset,
+        isDashed: generateIsDashed(nullIntervals),
+        values: dataset.values.map((value, index) => {
+          const nullInterval = nullIntervals.find((interval) =>
+            interval.includes(index)
+          );
+          if (nullInterval) {
+            let start = dataset.values[nullInterval[0] - 1].value;
+            let end = dataset.values[nullInterval.at(-1) + 1].value;
+
+            // If first/last value is `null`, use the first/last non-null value
+            if (start == null) start = end;
+            if (end == null) end = start;
+
+            return {
+              value: getMidValue(
+                start,
+                end,
+                nullInterval.length,
+                nullInterval.indexOf(index)
+              ),
+            };
+          }
+          return value;
+        }),
+      };
+    });
+  });
+
+  return { computedLineData };
 }

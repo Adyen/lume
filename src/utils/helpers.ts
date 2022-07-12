@@ -1,4 +1,7 @@
+import { ScaleBand } from 'd3-scale';
+
 import { Data, DatasetValueObject } from '@/types/dataset';
+import { Scale } from '@/mixins/scales';
 
 /**
  * Returns an array with all numeric values present in a chart's `data` (array of datasets).
@@ -52,4 +55,13 @@ export function mergeDeep(
   });
 
   return object;
+}
+
+export function isBandScale(scale: Scale): scale is ScaleBand<string | number> {
+  return (scale as ScaleBand<string | number>).bandwidth !== undefined;
+}
+
+export function getScaleStep(scale: Scale) {
+  if (isBandScale(scale)) return scale.bandwidth();
+  return Math.max(...scale.range()) / Math.max(...scale.domain());
 }

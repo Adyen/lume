@@ -4,9 +4,3 @@ export interface ContainerSize {
   outerWidth?: number;
   outerHeight?: number;
 }
-
-export type Scale = {
-  (index: number): number;
-  bandwidth?: () => number;
-  domain?: () => Array<number>;
-};

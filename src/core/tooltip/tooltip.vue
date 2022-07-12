@@ -85,7 +85,7 @@ export default defineComponent({
     },
     fixedPositioning: { type: Boolean, default: false },
     modifiers: { type: Array, default: null },
-    title: { type: String, default: null },
+    title: { type: [String, Number], default: null },
     items: {
       type: Array as PropType<Array<TooltipItem>>,
       default: null,

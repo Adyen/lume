@@ -24,7 +24,10 @@
           :dashed="dataset.isDashed(index)"
         />
       </g>
-      <g class="adv-line-group__points">
+      <g
+        v-if="withPoints"
+        class="adv-line-group__points"
+      >
         <line-point
           v-for="(_, index) in dataset.values"
           :key="`point-${index}`"
@@ -58,7 +61,7 @@ import {
   PropType,
   toRefs,
 } from '@vue/composition-api';
-import { ScaleLinear, ScaleBand } from 'd3-scale';
+import { ScaleLinear } from 'd3-scale';
 
 import Bar from '@/core/bar';
 import ChartLine from '@/charts/line-chart/components/chart-line.vue';
@@ -67,6 +70,9 @@ import LinePoint from '@/charts/line-chart/components/line-point.vue';
 import { useBase } from '@/mixins/base';
 import { withGroup } from '@/mixins/group';
 import { useLineNullValues } from '@/mixins/line-null-values';
+import { getXByIndex, Scale } from '@/mixins/scales';
+
+import { getScaleStep, isBandScale } from '@/utils/helpers';
 
 import { Data, DatasetValueObject } from '@/types/dataset';
 
@@ -78,7 +84,7 @@ export default defineComponent({
       required: true,
     },
     xScale: {
-      type: Function as PropType<ScaleBand<string>>,
+      type: Function as PropType<Scale>,
       required: true,
     },
     yScale: {
@@ -89,6 +95,10 @@ export default defineComponent({
       type: Number,
       default: -1,
     },
+    withPoints: {
+      type: Boolean,
+      default: true,
+    },
     ...withGroup(),
   },
 
@@ -97,49 +107,18 @@ export default defineComponent({
 
     const { computedData } = useBase(data);
 
-    const computedLineData = computed(() => {
-      return computedData.value.map((dataset) => {
-        const { nullIntervals, getMidValue, isDashed } = useLineNullValues(
-          dataset.values
-        );
-
-        return {
-          ...dataset,
-          isDashed,
-          values: dataset.values.map((value, index) => {
-            const nullInterval = nullIntervals.value.find((interval) =>
-              interval.includes(index)
-            );
-            if (nullInterval) {
-              let start = dataset.values[nullInterval[0] - 1].value;
-              let end = dataset.values[nullInterval.at(-1) + 1].value;
-
-              // If first/last value is `null`, use the first/last non-null value
-              if (start == null) start = end;
-              if (end == null) end = start;
-
-              return {
-                value: getMidValue(
-                  start,
-                  end,
-                  nullInterval.length,
-                  nullInterval.indexOf(index)
-                ),
-              };
-            }
-            return value;
-          }),
-        };
-      });
-    });
+    const { computedLineData } = useLineNullValues(computedData);
 
     function getOverlayBarAttributes(index: number) {
+      const step = getScaleStep(xScale.value);
+      const translateX = isBandScale(xScale.value)
+        ? xScale.value(xScale.value.domain()[index])
+        : xScale.value(index) - step / 2;
+
       return {
-        width: xScale.value.bandwidth(),
+        width: step,
         height: yScale.value(Math.min(...yScale.value.domain())),
-        transform: `translate(${xScale.value(
-          xScale.value.domain()[index]
-        )}, 0)`,
+        transform: `translate(${translateX}, 0)`,
       };
     }
 
@@ -152,9 +131,7 @@ export default defineComponent({
         )
       );
 
-      const x =
-        xScale.value(xScale.value.domain()[props.hoveredIndex || 0]) +
-        xScale.value.bandwidth() / 2;
+      const x = getXByIndex(xScale.value, props.hoveredIndex);
 
       return {
         d: `M ${x},${yScale.value.range()[1]}
@@ -205,6 +182,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @use '~@/styles/_variables.scss' as *;
+
 .adv-line-group {
   &__overlay-line {
     stroke: $adv-color-grey-30;

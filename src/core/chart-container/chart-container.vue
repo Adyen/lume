@@ -13,7 +13,7 @@
         :transform="`translate(${computedMargin.left}, ${computedMargin.top})`"
         class="container__group"
       >
-        <slot :container-size="containerSize" />
+        <slot />
       </g>
     </svg>
     <slot name="extra" />
@@ -22,7 +22,13 @@
 
 <script lang="ts">
 import { useResizeObserver } from '@/mixins/resize';
-import { computed, defineComponent, ref, toRefs } from '@vue/composition-api';
+import {
+  computed,
+  defineComponent,
+  ref,
+  toRefs,
+  watchEffect,
+} from '@vue/composition-api';
 
 export default defineComponent({
   props: {
@@ -51,7 +57,7 @@ export default defineComponent({
       ...margins.value,
     }));
 
-    const containerSize = computed(() => {
+    watchEffect(() => {
       const { width, height } = resizeState.dimensions;
       const _width =
         width - computedMargin.value.left - computedMargin.value.right;
@@ -66,11 +72,13 @@ export default defineComponent({
       };
 
       ctx.emit('resize', sizeObject);
-
-      return sizeObject;
     });
 
-    return { root, resizeRef, computedMargin, containerSize };
+    return {
+      root,
+      resizeRef,
+      computedMargin,
+    };
   },
 });
 </script>

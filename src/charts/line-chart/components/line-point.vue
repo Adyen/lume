@@ -10,7 +10,10 @@
 
 <script lang="ts">
 import { defineComponent, computed, PropType } from '@vue/composition-api';
-import { Scale } from '@/types/size';
+
+import { Scale } from '@/mixins/scales';
+
+import { getScaleStep, isBandScale } from '@/utils/helpers';
 
 export default defineComponent({
   props: {
@@ -44,10 +47,13 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const xAxisOffset = computed(() => props.xScale.bandwidth() / 2);
+    const xAxisOffset = computed(() => getScaleStep(props.xScale) / 2);
     const domain = computed(() => props.xScale.domain());
-    const cx = computed(
-      () => props.xScale(domain.value[props.index]) + xAxisOffset.value
+
+    const cx = computed(() =>
+      isBandScale(props.xScale)
+        ? props.xScale(domain.value[props.index]) + xAxisOffset.value
+        : props.xScale(props.index)
     );
     const cy = computed(() => props.yScale(props.value));
 

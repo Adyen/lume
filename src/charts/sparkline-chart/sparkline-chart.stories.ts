@@ -1,7 +1,7 @@
 import { computed } from '@vue/composition-api';
 import { withSizeArgs, withSizeArgTypes } from '@/utils/storybook-helpers';
 
-import SparklineChart from './sparkline-chart.vue';
+import AdvSparkline from './adv-sparkline.vue';
 
 import { options as defaultOptions } from './defaults';
 
@@ -48,7 +48,7 @@ const COLORS = {
 
 export default {
   title: 'Charts/Sparkline chart',
-  component: SparklineChart,
+  component: AdvSparkline,
   argTypes: {
     ...withSizeArgTypes(),
     dataset: {
@@ -62,12 +62,12 @@ export default {
     },
     color: {
       control: 'select',
-      options: COLORS,
+      options: Object.values(COLORS),
       description: 'Line color',
     },
     areaColor: {
       control: 'select',
-      options: COLORS,
+      options: Object.values(COLORS),
       description: 'Line color',
     },
   },
@@ -80,7 +80,7 @@ export default {
 
 export const Basic = ({ args, argTypes }) => {
   return {
-    components: { SparklineChart },
+    components: { AdvSparkline },
     props: Object.keys(argTypes),
     setup(props) {
       const data = computed(() => {
@@ -91,12 +91,13 @@ export const Basic = ({ args, argTypes }) => {
         return dataset;
       });
       const labels = computed(() => DATASETS[props.dataset].labels);
+      console.log(data.value);
 
       return { args, data, labels };
     },
     template: `
     <div :style="{ width: width + 'px', height: height + 'px' }">
-                <sparkline-chart
+                <adv-sparkline
                     :data="data" :labels="labels" :options="options"
                 />
             </div>

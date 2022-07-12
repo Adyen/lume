@@ -12,7 +12,11 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from '@vue/composition-api';
 import { line } from 'd3-shape';
-import { Scale } from '@/types/size';
+import { ScaleBand, ScaleLinear } from 'd3-scale';
+
+import { Scale } from '@/mixins/scales';
+
+import { getScaleStep, isBandScale } from '@/utils/helpers';
 
 export default defineComponent({
   props: {
@@ -25,7 +29,7 @@ export default defineComponent({
       required: true,
     },
     values: {
-      type: Array,
+      type: Array as PropType<Array<number>>,
       required: true,
     },
     dashed: {
@@ -42,15 +46,25 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const xAxisOffset = computed(() => props.xScale.bandwidth() / 2);
+    const xAxisOffset = computed(() => getScaleStep(props.xScale) / 2);
+
+    function findLinearX(_: unknown, index: number) {
+      return (props.xScale as ScaleLinear<number, number>)(
+        props.index + (index - 1)
+      );
+    }
+
+    function findBandX(_: unknown, index: number) {
+      return (
+        (props.xScale as ScaleBand<string | number>)(
+          props.xScale.domain()[props.index + (index - 1)]
+        ) + xAxisOffset.value
+      );
+    }
 
     const pathDefinition = computed(() => {
-      return line()
-        .x(
-          (_, i) =>
-            props.xScale(props.xScale.domain()[props.index + (i - 1)]) +
-            xAxisOffset.value
-        )
+      return line<number>()
+        .x(isBandScale(props.xScale) ? findBandX : findLinearX)
         .y((d) => props.yScale(d))(props.values);
     });
 

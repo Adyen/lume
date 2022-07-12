@@ -1,4 +1,7 @@
-export const options = {
+import { Options } from '@/mixins/options';
+
+export const options: Options = {
+  showAxes: false,
   showArea: true,
   margins: {
     top: 0,
