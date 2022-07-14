@@ -10,16 +10,16 @@ export function useBarProperties(
 ) {
   const xSubgroup = computed(() => {
     return scaleBand()
-      .domain(data.value.map((_, index) => index))
+      .domain(data.value.map((_, index) => index).toString())
       .range([0, xScale.value.bandwidth()])
-      .padding([0]);
+      .padding(0);
   });
 
   const ySubgroup = computed(() => {
     return scaleBand()
-      .domain(data.value.map((_, index) => index))
+      .domain(data.value.map((_, index) => index).toString())
       .range([0, yScale.value.bandwidth()])
-      .padding([0]);
+      .padding(0);
   });
 
   function getBarTranslateX(value: number, index: number, barIndex: number) {
@@ -27,13 +27,13 @@ export function useBarProperties(
       return value >= 0 ? xScale.value(0) : xScale.value(value);
     }
     const domain = xScale.value.domain();
-    return xScale.value(domain[index]) + xSubgroup.value(barIndex);
+    return xScale.value(domain[index]) + xSubgroup.value(barIndex.toString());
   }
 
   function getBarTranslateY(value: number, index: number, barIndex: number) {
     if (isHorizontal.value) {
       const domain = yScale.value.domain();
-      return yScale.value(domain[index]) + ySubgroup.value(barIndex);
+      return yScale.value(domain[index]) + ySubgroup.value(barIndex.toString());
     }
     return value < 0 ? yScale.value(0) : yScale.value(value);
   }
