@@ -10,14 +10,14 @@ export function useBarProperties(
 ) {
   const xSubgroup = computed(() => {
     return scaleBand()
-      .domain(data.value.map((_, index) => index).toString())
+      .domain(data.value.map((_, index) => index.toString()))
       .range([0, xScale.value.bandwidth()])
       .padding(0);
   });
 
   const ySubgroup = computed(() => {
     return scaleBand()
-      .domain(data.value.map((_, index) => index).toString())
+      .domain(data.value.map((_, index) => index.toString()))
       .range([0, yScale.value.bandwidth()])
       .padding(0);
   });
