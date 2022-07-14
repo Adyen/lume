@@ -1,23 +1,24 @@
-import { computed, ComputedRef } from '@vue/composition-api';
-import { scaleBand } from 'd3-scale';
+import { computed, ComputedRef, Ref } from '@vue/composition-api';
+import { ScaleBand, scaleBand } from 'd3-scale';
+
 import { Data } from '@/types/dataset';
 
 export function useBarProperties(
   data: ComputedRef<Data<number>>,
   isHorizontal: ComputedRef<boolean>,
-  xScale,
-  yScale
+  xScale: Ref<ScaleBand<string | number>>,
+  yScale: Ref<ScaleBand<string | number>>
 ) {
   const xSubgroup = computed(() => {
-    return scaleBand()
-      .domain(data.value.map((_, index) => index.toString()))
+    return scaleBand<number>()
+      .domain(data.value.map((_, index) => index))
       .range([0, xScale.value.bandwidth()])
       .padding(0);
   });
 
   const ySubgroup = computed(() => {
-    return scaleBand()
-      .domain(data.value.map((_, index) => index.toString()))
+    return scaleBand<number>()
+      .domain(data.value.map((_, index) => index))
       .range([0, yScale.value.bandwidth()])
       .padding(0);
   });
@@ -27,13 +28,13 @@ export function useBarProperties(
       return value >= 0 ? xScale.value(0) : xScale.value(value);
     }
     const domain = xScale.value.domain();
-    return xScale.value(domain[index]) + xSubgroup.value(barIndex.toString());
+    return xScale.value(domain[index]) + xSubgroup.value(barIndex);
   }
 
   function getBarTranslateY(value: number, index: number, barIndex: number) {
     if (isHorizontal.value) {
       const domain = yScale.value.domain();
-      return yScale.value(domain[index]) + ySubgroup.value(barIndex.toString());
+      return yScale.value(domain[index]) + ySubgroup.value(barIndex);
     }
     return value < 0 ? yScale.value(0) : yScale.value(value);
   }
