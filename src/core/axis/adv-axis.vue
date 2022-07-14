@@ -55,6 +55,7 @@ import {
   computed,
   defineComponent,
   onBeforeMount,
+  PropType,
   reactive,
   ref,
   set,
@@ -65,6 +66,7 @@ import { format } from 'd3-format';
 import { ticks as d3TickGenerator } from 'd3-array';
 
 import { AxisOptions, useOptions, withOptions } from '@/mixins/options';
+import { Scale } from '@/mixins/scales';
 import { useSkip } from './mixins/axis-skip';
 
 import { xOptions, yOptions } from './defaults';
@@ -90,7 +92,7 @@ const LABEL_MARGIN = {
 };
 
 interface AxisProps {
-  scale: any;
+  scale: Scale;
   type?: 'x' | 'y';
   position?: 'bottom' | 'left';
   title?: string;
@@ -102,7 +104,7 @@ interface AxisProps {
 export default defineComponent({
   props: {
     scale: {
-      type: Function,
+      type: Function as PropType<Scale>,
       required: true,
     },
     type: {

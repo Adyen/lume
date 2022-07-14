@@ -1,5 +1,7 @@
 import { computed, ref, Ref, watch } from '@vue/composition-api';
 
+import { Scale } from '@/mixins/scales';
+
 const SAFETY_MARGIN = 0.15; // 15% of the average width
 
 /**
@@ -10,7 +12,7 @@ const SAFETY_MARGIN = 0.15; // 15% of the average width
  * @param skipNumber Optional amount of ticks to skip
  */
 export function useSkip(
-  scale: Ref<any>,
+  scale: Ref<Scale>,
   tickRefs: Ref<Array<SVGTextElement>>,
   skipNumber?: true | number
 ) {
