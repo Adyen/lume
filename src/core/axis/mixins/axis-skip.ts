@@ -36,7 +36,7 @@ export function useSkip(
 
     const tickCount = tickRefs.value.length;
 
-    if (index === 0 || index === tickCount - 1) return true;
+    if (index === 0) return true;
 
     const step = scaleWidth.value / tickCount;
     const skip =
