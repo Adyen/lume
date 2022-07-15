@@ -11,12 +11,13 @@ import { Data, DatasetValueObject } from '@/types/dataset';
 import { ORIENTATIONS, Orientation, BarType, BAR_TYPES } from '@/constants';
 import { Options } from '@/mixins/options';
 import { flatValues } from '@/utils/helpers';
+import { Scale } from '@/mixins/scales';
 
 function typeValidator(type: string): boolean {
   return Object.values(BAR_TYPES).includes(type as BarType) || type == null;
 }
 
-function orientationValidator(orientation: string): boolean {
+export function orientationValidator(orientation: string): boolean {
   return Object.values(ORIENTATIONS).includes(orientation as Orientation);
 }
 
@@ -43,8 +44,8 @@ export function useBarMixin(
   isHorizontal: ComputedRef<boolean>,
   options?: Options
 ) {
-  const xScale = ref<any>(null);
-  const yScale = ref<any>(null);
+  const xScale = ref<Scale>(null);
+  const yScale = ref<Scale>(null);
 
   /** Array of padded (null = 0) number values */
   const singleBarData = computed(() => {
@@ -165,8 +166,7 @@ export function useBarMixin(
           .rangeRound([0, containerSize.height]);
   };
 
-  const legend = computed(() => data.
-        map(({ label }) => label));
+  const legend = computed(() => data.map(({ label }) => label));
 
   watchEffect(() => {
     setXScaleValue();
@@ -181,6 +181,6 @@ export function useBarMixin(
     singleBarData,
     multiBarData,
     groupedData,
-    legend
+    legend,
   };
 }

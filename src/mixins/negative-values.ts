@@ -1,8 +1,9 @@
-import { computed, Ref, ComputedRef } from '@vue/composition-api';
+import { computed, Ref } from '@vue/composition-api';
 import { ScaleBand, ScaleLinear } from 'd3-scale';
 
 import { flatValues } from '@/utils/helpers';
 
+import { Orientation, ORIENTATIONS } from '@/constants';
 import { Data, DatasetValueObject } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 
@@ -20,8 +21,12 @@ export function useNegativeValues(
   // eslint-disable-next-line @typescript-eslint/ban-types
   xScale?: Ref<AnyScale>,
   yScale?: Ref<AnyScale>,
-  isHorizontal?: ComputedRef<boolean>
+  orientation?: Ref<Orientation>
 ) {
+  const isHorizontal = computed(
+    () => orientation.value === ORIENTATIONS.HORIZONTAL
+  );
+
   const negativeHeight = computed(
     () =>
       containerSize.height - (isHorizontal?.value ? 0 : yScale.value?.(0) || 0)

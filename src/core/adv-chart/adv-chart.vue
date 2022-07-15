@@ -40,6 +40,7 @@
       name="groups"
       :data="computedData"
       :labels="labels"
+      :orientation="orientation"
       :x-scale="computedXScale"
       :y-scale="computedYScale"
       :hovered-index="hoveredIndex"
@@ -75,10 +76,10 @@ import {
   computed,
   defineComponent,
   onMounted,
+  PropType,
   ref,
   toRefs,
 } from '@vue/composition-api';
-import { ScaleLinear } from 'd3-scale';
 
 import AdvAxis from '@/core/axis';
 import Bar from '@/core/bar';
@@ -86,21 +87,16 @@ import ChartContainer from '@/core/chart-container';
 import Tooltip from '@/core/tooltip';
 
 import { withBase, useBase } from '@/mixins/base';
-import {
-  getXByIndex,
-  isScale,
-  Scale,
-  useBaseScales,
-  withScales,
-} from '@/mixins/scales';
+import { isScale, Scale, useBaseScales, withScales } from '@/mixins/scales';
 import { withOptions, useOptions } from '@/mixins/options';
 import {
   checkNegativeValues,
   useNegativeValues,
 } from '@/mixins/negative-values';
-import { useTooltip } from '@/mixins/tooltip';
+import { useTooltip, useTooltipAnchors } from '@/mixins/tooltip';
+import { orientationValidator } from '@/charts/bar-chart/mixins/bar-mixin';
 
-import { NO_DATA } from '@/constants';
+import { NO_DATA, Orientation, ORIENTATIONS } from '@/constants';
 
 export default defineComponent({
   components: { AdvAxis, Bar, ChartContainer, Tooltip },
@@ -108,9 +104,14 @@ export default defineComponent({
     ...withBase(),
     ...withScales(),
     ...withOptions(),
+    orientation: {
+      type: String as PropType<Orientation>,
+      default: ORIENTATIONS.VERTICAL,
+      validator: orientationValidator,
+    },
   },
   setup(props, ctx) {
-    const { data, labels, options } = toRefs(props);
+    const { data, labels, options, orientation } = toRefs(props);
 
     const hoveredIndex = ref<number>(-1);
     const tooltipAnchor = ref<SVGCircleElement>(null);
@@ -120,7 +121,8 @@ export default defineComponent({
     const { xScale, yScale } = useBaseScales(
       computedData,
       labels,
-      containerSize
+      containerSize,
+      orientation
     );
 
     const { allOptions } = useOptions(options);
@@ -132,7 +134,7 @@ export default defineComponent({
         : props.xScale?.(computedData.value, containerSize);
     });
 
-    const computedYScale = computed<ScaleLinear<number, number>>(() => {
+    const computedYScale = computed<Scale>(() => {
       if (!props.yScale) return yScale.value;
       return isScale(props.yScale)
         ? props.yScale
@@ -143,24 +145,18 @@ export default defineComponent({
     const { negativeBarAttributes } = useNegativeValues(
       containerSize,
       xScale,
-      yScale
+      yScale,
+      orientation
     );
 
     const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();
 
-    function getTooltipAnchorAttributes(index: number) {
-      // TODO: clean up this function, probsbly into a composable
-      // Also needs to account for null values (line chart). currently falling back to 0
-      const highestValue =
-        computedData.value.reduce((max, point) =>
-          max.values[index]?.value > point.values[index]?.value ? max : point
-        ).values[index]?.value ?? Math.max(...computedYScale.value.domain());
-
-      return {
-        cx: getXByIndex(computedXScale.value, index),
-        cy: computedYScale.value(highestValue),
-      };
-    }
+    const { getTooltipAnchorAttributes } = useTooltipAnchors(
+      computedData,
+      computedXScale,
+      computedYScale,
+      orientation
+    );
 
     function getTooltipItems(index: number) {
       return computedData.value.map(({ color, label, values, type }) => ({
@@ -215,5 +211,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style lang="scss" scoped></style>
