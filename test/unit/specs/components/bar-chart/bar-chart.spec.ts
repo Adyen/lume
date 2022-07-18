@@ -1,20 +1,17 @@
 // Import the `mount()` method from Vue Test Utils
 import { mount } from '@vue/test-utils';
-
-// The component to test
-const MessageComponent = {
-    template: '<p>{{ msg }}</p>',
-    props: ['msg']
-};
+import SingleBarChart from '../../../../../src/core/bar/bar.vue';
 
 test('displays message', () => {
     // mount() returns a wrapped Vue component we can interact with
-    const wrapper = mount(MessageComponent, {
+    const wrapper = mount(SingleBarChart, {
         propsData: {
-            msg: 'Hello world'
+            width: 100,
+            height: 100,
+            fillClass: 'my-class',
         }
     })
 
     // Assert the rendered text of the component
-    expect(wrapper.text()).toContain('Hello world')
+    expect(wrapper.find('[data-j-bar]').exists()).toBeTruthy()
 });

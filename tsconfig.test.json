@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "types": ["node", "jest"],
+    "module": "commonjs",
+    "jsx": "react-jsx",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "isolatedModules": true,
+    "noImplicitThis": true
+  }
+}

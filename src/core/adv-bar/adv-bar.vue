@@ -1,5 +1,6 @@
 <template>
   <rect
+    data-j-bar
     class="bar"
     :x="x"
     :y="y"
