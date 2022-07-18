@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import Bar from '../../../../../src/core/bar/bar.vue';
+import Bar from '@/core/bar/bar.vue';
 
 const width = 100;
 const height = 100;

@@ -8,8 +8,11 @@ module.exports = async () => ({
   // eslint-disable-next-line no-undef
   rootDir: path.resolve(__dirname, '..'),
   roots: [
-    '<rootDir>/unit/',
+    '<rootDir>/unit/'
   ],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/../src/$1'
+  },
   moduleFileExtensions: [
     "js",
     "json",
