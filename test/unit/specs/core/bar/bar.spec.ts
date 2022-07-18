@@ -13,7 +13,7 @@ const defaultProps = {
     fillClass
 }
 
-describe('Bar.vue', () => {
+describe('bar.vue', () => {
     test('mounts component and sets prop values', () => {
         const wrapper = mount(Bar, {
             propsData: defaultProps
