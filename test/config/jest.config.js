@@ -27,9 +27,10 @@ module.exports = async () => ({
     'node_modules/\\.+?(?<!\\.(vue|svg|png|gif|jpe?g))$',
   ],
   testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/config/setupTests.ts'],
   transform: {
     // process `*.js` files with `babel-jest`
-    ".*\\.(js)$": "babel-jest",
+    // ".*\\.(js)$": "babel-jest",
     // process `*.vue` files with `vue-jest`
     ".*\\.(vue)$": "vue-jest",
     '^.+\\.ts$': 'ts-jest',
