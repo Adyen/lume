@@ -5,7 +5,7 @@ import { computed, PropType, Ref } from '@vue/composition-api';
 export const withGroup = () => ({
   onMouseoverFn: {
     type: Function as PropType<(index: number) => void>,
-    default: true,
+    default: () => true,
   },
 });
 
