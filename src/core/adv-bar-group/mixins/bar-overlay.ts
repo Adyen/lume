@@ -15,15 +15,22 @@ export function useBarOverlay(
   );
 
   const ghostCorrection = computed(() => {
-    const scale: ScaleBand<string | number> =
-      isHorizontal?.value === true ? yScale.value : xScale.value;
+    const scale =
+      isHorizontal?.value === true
+        ? (yScale.value as ScaleBand<string | number>)
+        : (xScale.value as ScaleBand<string | number>);
+
     return (scale.step() * scale.paddingInner()) / 2;
   });
 
   function getOverlayConfig(index: number) {
     if (!xScale.value || !yScale.value) return {};
-    const scale = isHorizontal?.value ? yScale.value : xScale.value;
+
+    const scale = isHorizontal?.value
+      ? (yScale.value as ScaleBand<string | number>)
+      : (xScale.value as ScaleBand<string | number>);
     const domain = scale.domain();
+
     return isHorizontal?.value
       ? {
           transform: `translate(0, ${
