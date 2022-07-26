@@ -1,9 +1,9 @@
 <template>
   <g
     v-if="scale && !isLoading"
-    data-j-axis
     class="axis"
     :transform="axisTransform"
+    data-j-axis
   >
     <text
       v-if="allOptions.withTitle"
