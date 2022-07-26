@@ -6,8 +6,6 @@ import { Scale } from '@/mixins/scales';
 import { Orientation, ORIENTATIONS } from '@/constants';
 import { Data, DatasetValueObject } from '@/types/dataset';
 
-// VERY MUCH WORK IN PROGRESS
-// TODO: Support horizontal & cleanup
 export function useGroupedBarMixin(
   data: ComputedRef<Data<DatasetValueObject<number>>>,
   xScale: Ref<Scale>,
