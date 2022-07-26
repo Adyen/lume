@@ -1,6 +1,7 @@
 <template>
   <chart-container
     :margins="allOptions.margins"
+    data-j-adv-chart
     @resize="updateSize"
     @mouseleave="handleMouseleave"
   >
@@ -10,6 +11,7 @@
       v-bind="negativeBarAttributes"
       fill-class="adv-fill-color-negative-values"
       :animate="false"
+      data-j-adv-chart__negative-values
     />
 
     <!-- Axes -->
@@ -21,18 +23,20 @@
       :container-size="containerSize"
       :options="allOptions"
     >
-      <adv-axis
-        type="x"
-        :scale="computedXScale"
-        :container-size="containerSize"
-        :options="options.xAxisOptions"
-      />
-      <adv-axis
-        type="y"
-        :scale="computedYScale"
-        :container-size="containerSize"
-        :options="options.yAxisOptions"
-      />
+      <g data-j-adv-chart__axes>
+        <adv-axis
+          type="x"
+          :scale="computedXScale"
+          :container-size="containerSize"
+          :options="options.xAxisOptions"
+        />
+        <adv-axis
+          type="y"
+          :scale="computedYScale"
+          :container-size="containerSize"
+          :options="options.yAxisOptions"
+        />
+      </g>
     </slot>
 
     <!-- Data groups -->
@@ -48,7 +52,10 @@
     />
 
     <!-- Tooltip anchor -->
-    <g v-if="allOptions.withTooltip !== false">
+    <g
+      v-if="allOptions.withTooltip !== false"
+      data-j-adv-chart__tooltip
+    >
       <circle
         v-for="(_, index) in computedData[0].values"
         v-bind="getTooltipAnchorAttributes(index)"

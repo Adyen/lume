@@ -1,34 +1,12 @@
 import AdvCharLineGroup from '@/core/adv-line-group';
 import { mount } from "@vue/test-utils";
-import { ref, Ref } from "@vue/composition-api";
-import { ContainerSize } from "@/types/size";
-import { getXByIndex, Scale } from "@/mixins/scales";
-import { scaleBand, scaleLinear } from "d3-scale";
-import { Data, DatasetValueObject } from '@/types/dataset';
+import { getXByIndex } from "@/mixins/scales";
+import VueCompositionAPI from '@vue/composition-api';
+import { data, xScale, yScale } from '../../mock-data';
 import Vue from 'vue';
 
-const width: number = 640;
-const height: number = 480;
-const labels: Ref<Array<string>> = ref(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']);
-// const size: ContainerSize  = { width, height: 480 };
-const data: Data<DatasetValueObject<number>> = [
-    { values: [
-            { value: 10 },
-            { value: 40 },
-            { value: 30 },
-            { value: 20 },
-            { value: 70 },
-            { value: 60 },
-            { value: 50 },
-        ] },
-];
-const highestValue = Math.max(...data[0].values.map(({ value }) => value));
-const xScale: Scale = scaleBand<number>()
-    .domain(labels.value.map((_, i) => i))
-    .range([0, width]);
-const yScale: Scale = scaleLinear<number>()
-    .domain([0, highestValue])
-    .range([0, height])
+Vue.use(VueCompositionAPI);
+
 const defaultPropsData = { data, xScale, yScale };
 
 describe('adv-line-group.vue', () => {
