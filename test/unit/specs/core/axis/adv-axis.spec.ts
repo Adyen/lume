@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { mount } from '@vue/test-utils';
 import Axis from '@/core/axis/adv-axis.vue';
 import { Scale } from '@/mixins/scales';
