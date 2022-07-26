@@ -63,8 +63,6 @@ export function useBaseScales(
       xScale.value = generateBandScale(labels.value, width);
       yScale.value = generateLinearScale(data.value, height, orientation.value);
     }
-
-    console.log('orientation:', orientation.value);
   }
 
   watchEffect(generateScales);
