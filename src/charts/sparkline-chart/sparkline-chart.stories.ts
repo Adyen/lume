@@ -91,7 +91,6 @@ export const Basic = ({ args, argTypes }) => {
         return dataset;
       });
       const labels = computed(() => DATASETS[props.dataset].labels);
-      console.log(data.value);
 
       return { args, data, labels };
     },

@@ -71,6 +71,7 @@ import { useSkip } from './mixins/axis-skip';
 
 import { xOptions, yOptions } from './defaults';
 import { AxisMixin, AxisMixinFunction } from './types';
+import { ScaleBand } from 'd3-scale';
 
 const SCALE_MIXIN_MAP = {
   bandScale: 'band-scale-axis',
@@ -173,7 +174,8 @@ export default defineComponent({
 
     const ticks = computed(() => {
       // For band scales, return the full labels array (domain)
-      if (scale.value.step) return scale.value.domain();
+      if ((scale.value as ScaleBand<string | number>).step)
+        return scale.value.domain();
 
       const { tickCount } = allOptions.value;
       return d3TickGenerator(...scale.value.domain(), tickCount);
@@ -209,7 +211,9 @@ export default defineComponent({
 
     async function init() {
       isLoading.value = true;
-      const scaleType = scale.value.step ? 'bandScale' : 'linearScale';
+      const scaleType = (scale.value as ScaleBand<string | number>).step
+        ? 'bandScale'
+        : 'linearScale';
 
       // Get mixin generator based on the scale type
       const mixin: AxisMixin = (

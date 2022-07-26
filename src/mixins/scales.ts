@@ -3,6 +3,7 @@ import { ScaleBand, scaleBand, ScaleLinear, scaleLinear } from 'd3-scale';
 
 import { flatValues, isBandScale } from '@/utils/helpers';
 
+import { DEFAULT_PADDING, Orientation, ORIENTATIONS } from '@/constants';
 import { ContainerSize } from '@/types/size';
 import { Data, DatasetValueObject } from '@/types/dataset';
 
@@ -10,6 +11,7 @@ export type Scale = ScaleBand<string | number> | ScaleLinear<number, number>;
 
 export type ScaleGenerator<T extends Scale = Scale> = (
   data: Data,
+  labels: Array<string>,
   size: ContainerSize
 ) => T;
 
@@ -37,14 +39,30 @@ export const withScales = () => ({
 export function useBaseScales(
   data: Ref<Data<DatasetValueObject>>,
   labels: Ref<Array<string | number>>,
-  size: ContainerSize
+  size: ContainerSize,
+  orientation?: Ref<Orientation>
 ) {
-  const xScale = ref<ScaleBand<string | number>>();
-  const yScale = ref<ScaleLinear<number, number, never>>();
+  const xScale = ref<Scale>();
+  const yScale = ref<Scale>();
 
   function generateScales() {
-    xScale.value = generateXScale(labels.value, size);
-    yScale.value = generateYScale(data.value, size);
+    const { width, height } = size;
+
+    if (orientation.value === ORIENTATIONS.HORIZONTAL) {
+      // horizontal
+      // x = scaleLinear : data : width
+      // y = scaleBand : labels : height
+
+      xScale.value = generateLinearScale(data.value, width, orientation.value);
+      yScale.value = generateBandScale(labels.value, height);
+    } else {
+      // vertical
+      // x = scaleBand : labels : width
+      // y = scaleLinear : data : height
+
+      xScale.value = generateBandScale(labels.value, width);
+      yScale.value = generateLinearScale(data.value, height, orientation.value);
+    }
   }
 
   watchEffect(generateScales);
@@ -52,26 +70,26 @@ export function useBaseScales(
   return { xScale, yScale };
 }
 
-function generateXScale(
-  labels: Array<string | number>,
-  size: ContainerSize
-): ScaleBand<string | number> {
-  const range = [0, size.width];
-  const domain = labels?.map((v) => v);
+function generateBandScale(domain: Array<string | number>, size: number) {
+  const range = [0, size];
 
   return scaleBand<string | number>().range(range).domain(domain);
 }
 
-function generateYScale(
+function generateLinearScale(
   data: Data<DatasetValueObject>,
-  size: ContainerSize
+  size: number,
+  orientation: Orientation
 ): ScaleLinear<number, number, never> {
   const allValues = flatValues(data).filter((v) => v != null);
   const minValue = Math.min(...allValues);
   const maxValue = Math.max(...allValues);
 
-  const range = [0, size.height];
-  const domain = [maxValue, minValue];
+  const range = [0, size];
+  const domain =
+    orientation === ORIENTATIONS.HORIZONTAL
+      ? [minValue, maxValue]
+      : [maxValue, minValue];
 
   return scaleLinear<number, number>().range(range).domain(domain);
 }
@@ -99,4 +117,11 @@ export function getXByIndex(scale: Scale, index: number): number {
   return isBandScale(scale)
     ? scale.bandwidth() / 2 + scale(scale.domain()[index])
     : scale(index);
+}
+
+export function getPaddedScale(scale: ScaleBand<string | number>) {
+  return scale
+    .copy()
+    .paddingInner(DEFAULT_PADDING)
+    .paddingOuter(DEFAULT_PADDING / 2);
 }
