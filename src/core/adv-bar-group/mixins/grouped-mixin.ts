@@ -15,6 +15,10 @@ export function useGroupedBarMixin(
   orientation: Ref<Orientation>,
   hoveredIndex: Ref<number>
 ) {
+  const isHorizontal = computed(
+    () => orientation.value === ORIENTATIONS.HORIZONTAL
+  );
+
   const xSubgroup = computed(() => {
     return scaleBand<number>()
       .domain(data.value.map((_, index) => index))
@@ -30,7 +34,7 @@ export function useGroupedBarMixin(
   });
 
   function getBarTranslateX(value: number, index: number, barIndex: number) {
-    if (orientation.value === ORIENTATIONS.HORIZONTAL) {
+    if (isHorizontal.value) {
       return value >= 0 ? xScale.value(0) : xScale.value(value);
     }
     const domain = xScale.value.domain();
@@ -41,7 +45,7 @@ export function useGroupedBarMixin(
   }
 
   function getBarTranslateY(value: number, index: number, barIndex: number) {
-    if (orientation.value === ORIENTATIONS.HORIZONTAL) {
+    if (isHorizontal.value) {
       const domain = yScale.value.domain();
       return (
         (yScale.value as ScaleBand<number | string>)(domain[index]) +
@@ -52,7 +56,7 @@ export function useGroupedBarMixin(
   }
 
   function getBarWidth(value: number) {
-    if (orientation.value === ORIENTATIONS.HORIZONTAL) {
+    if (isHorizontal.value) {
       return value < 0
         ? xScale.value(0) - xScale.value(value)
         : xScale.value(value) - xScale.value(0);
@@ -61,7 +65,7 @@ export function useGroupedBarMixin(
   }
 
   function getBarHeight(value: number) {
-    if (orientation.value === ORIENTATIONS.HORIZONTAL) {
+    if (isHorizontal.value) {
       return ySubgroup.value.bandwidth();
     }
     return value < 0

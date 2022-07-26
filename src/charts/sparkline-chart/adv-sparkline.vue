@@ -64,7 +64,11 @@ export default defineComponent({
       () => data.value[0].areaColor || data.value[0].color
     );
 
-    function xScaleGenerator(data: Data, size: ContainerSize) {
+    function xScaleGenerator(
+      data: Data,
+      _labels: Array<string>,
+      size: ContainerSize
+    ) {
       return scaleLinear()
         .range([0, size.width])
         .domain([0, data[0].values.length - 1]);

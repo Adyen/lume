@@ -28,7 +28,7 @@ export default defineComponent({
   components: {
     AdvSingleBarChart: () => import('@/charts/single-bar-chart/adv-single-bar-chart.vue'),
     AdvGroupedBarChart: () => import('@/charts/grouped-bar-chart/adv-grouped-bar-chart.vue'),
-    StackedBarChart: () => import('@/charts/stacked-bar-chart'),
+    AdvStackedBarChart: () => import('@/charts/stacked-bar-chart/adv-stacked-bar-chart.vue'),
   },
   props: {
     ...withBase(),

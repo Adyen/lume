@@ -1,12 +1,10 @@
 import { computed, ComputedRef, Ref } from '@vue/composition-api';
 import { ScaleBand } from 'd3-scale';
 
-import { Scale } from '@/mixins/scales';
+import { getPaddedScale, Scale } from '@/mixins/scales';
 
 import { Orientation, ORIENTATIONS } from '@/constants';
 import { Data, DatasetValueObject } from '@/types/dataset';
-
-const DEFAULT_PADDING = 0.33;
 
 export function useBarMixin(data: Ref<Data<DatasetValueObject>>) {
   /** Array of padded (null = 0) number values */
@@ -47,24 +45,23 @@ export function useBarScales(
   yScale: Ref<Scale>,
   orientation?: Ref<Orientation>
 ) {
-  function getPaddedScale(scale: ScaleBand<string | number>) {
-    return scale
-      .copy()
-      .paddingInner(DEFAULT_PADDING)
-      .paddingOuter(DEFAULT_PADDING / 2);
-  }
+  const barXScale = computed(() => {
+    const scale =
+      orientation.value === ORIENTATIONS.HORIZONTAL
+        ? xScale.value
+        : getPaddedScale(xScale.value as ScaleBand<string | number>);
 
-  const barXScale = computed(() =>
-    orientation.value === ORIENTATIONS.HORIZONTAL
-      ? xScale.value
-      : getPaddedScale(xScale.value as ScaleBand<string | number>)
-  );
+    return scale;
+  });
 
-  const barYScale = computed(() =>
-    orientation.value === ORIENTATIONS.HORIZONTAL
-      ? getPaddedScale(yScale.value as ScaleBand<string | number>)
-      : yScale.value
-  );
+  const barYScale = computed(() => {
+    const scale =
+      orientation.value === ORIENTATIONS.HORIZONTAL
+        ? getPaddedScale(yScale.value as ScaleBand<string | number>)
+        : yScale.value;
+
+    return scale;
+  });
 
   return { barXScale, barYScale };
 }

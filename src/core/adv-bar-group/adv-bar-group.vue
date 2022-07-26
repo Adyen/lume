@@ -6,7 +6,7 @@
     >
       <bar
         v-for="(barValue, index) in barGroup"
-        v-bind="getBarAttributes(barValue, index, groupIndex)"
+        v-bind="getBarAttributes(barValue, index, groupIndex, barGroup)"
         :key="`bar-${index}`"
         :animate="animate"
       />
@@ -37,6 +37,7 @@ import { Scale } from '@/mixins/scales';
 import { getBarChartType, useBarMixin, useBarScales } from './mixins/bar-mixin';
 import { useSingleBarMixin } from './mixins/single-mixin';
 import { useGroupedBarMixin } from './mixins/grouped-mixin';
+import { useStackedBarMixin } from './mixins/stacked-mixin';
 import { useBarOverlay } from '@/charts/bar-chart/mixins/bar-overlay';
 import { withBarProps } from '@/charts/bar-chart/mixins/bar-mixin';
 
@@ -54,6 +55,7 @@ export interface BarConfig {
 const MIXIN_MAP = {
   single: useSingleBarMixin,
   grouped: useGroupedBarMixin,
+  stacked: useStackedBarMixin,
 };
 
 export default defineComponent({

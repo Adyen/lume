@@ -1,13 +1,11 @@
 import { computed, Ref } from '@vue/composition-api';
-import { ScaleBand, ScaleLinear } from 'd3-scale';
 
 import { flatValues } from '@/utils/helpers';
 
 import { Orientation, ORIENTATIONS } from '@/constants';
 import { Data, DatasetValueObject } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
-
-type AnyScale = ScaleBand<string | number> | ScaleLinear<number, number, never>;
+import { Scale } from './scales';
 
 export function checkNegativeValues(data: Ref<Data<DatasetValueObject>>) {
   const hasNegativeValues = computed(() =>
@@ -18,9 +16,8 @@ export function checkNegativeValues(data: Ref<Data<DatasetValueObject>>) {
 
 export function useNegativeValues(
   containerSize?: ContainerSize,
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  xScale?: Ref<AnyScale>,
-  yScale?: Ref<AnyScale>,
+  xScale?: Ref<Scale>,
+  yScale?: Ref<Scale>,
   orientation?: Ref<Orientation>
 ) {
   const isHorizontal = computed(

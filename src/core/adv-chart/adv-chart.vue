@@ -131,21 +131,21 @@ export default defineComponent({
       if (!props.xScale) return xScale.value;
       return isScale(props.xScale)
         ? props.xScale
-        : props.xScale?.(computedData.value, containerSize);
+        : props.xScale?.(computedData.value, labels.value, containerSize);
     });
 
     const computedYScale = computed<Scale>(() => {
       if (!props.yScale) return yScale.value;
       return isScale(props.yScale)
         ? props.yScale
-        : props.yScale?.(computedData.value, containerSize);
+        : props.yScale?.(computedData.value, labels.value, containerSize);
     });
 
     const { hasNegativeValues } = checkNegativeValues(computedData);
     const { negativeBarAttributes } = useNegativeValues(
       containerSize,
-      xScale,
-      yScale,
+      computedXScale,
+      computedYScale,
       orientation
     );
 

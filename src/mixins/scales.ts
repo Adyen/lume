@@ -3,7 +3,7 @@ import { ScaleBand, scaleBand, ScaleLinear, scaleLinear } from 'd3-scale';
 
 import { flatValues, isBandScale } from '@/utils/helpers';
 
-import { Orientation, ORIENTATIONS } from '@/constants';
+import { DEFAULT_PADDING, Orientation, ORIENTATIONS } from '@/constants';
 import { ContainerSize } from '@/types/size';
 import { Data, DatasetValueObject } from '@/types/dataset';
 
@@ -11,6 +11,7 @@ export type Scale = ScaleBand<string | number> | ScaleLinear<number, number>;
 
 export type ScaleGenerator<T extends Scale = Scale> = (
   data: Data,
+  labels: Array<string>,
   size: ContainerSize
 ) => T;
 
@@ -118,4 +119,11 @@ export function getXByIndex(scale: Scale, index: number): number {
   return isBandScale(scale)
     ? scale.bandwidth() / 2 + scale(scale.domain()[index])
     : scale(index);
+}
+
+export function getPaddedScale(scale: ScaleBand<string | number>) {
+  return scale
+    .copy()
+    .paddingInner(DEFAULT_PADDING)
+    .paddingOuter(DEFAULT_PADDING / 2);
 }

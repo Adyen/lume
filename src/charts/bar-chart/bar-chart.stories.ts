@@ -96,12 +96,12 @@ MultiBarChart.args = {
   type: 'grouped',
   data: [
     {
-      values: [10, 30, -20, 50, 40, 70, 60],
+      values: [10, 30, -20, 50, -10, 70, 60],
       color: '01',
       label: 'Hamburgers',
     },
     {
-      values: [30, 10, 20, 70, 50, null, 40],
+      values: [30, 10, 20, 70, -20, null, 40],
       color: '02',
       label: 'Hot dogs',
     },
