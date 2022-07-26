@@ -43,7 +43,7 @@
 
     <!-- Overlay bars -->
     <g class="adv-line-group__overlay">
-      <bar
+      <adv-bar
         v-for="(_, index) in computedLineData[0].values"
         v-bind="getOverlayBarAttributes(index)"
         :key="`overlay-${index}`"
@@ -63,7 +63,7 @@ import {
 } from '@vue/composition-api';
 import { ScaleLinear } from 'd3-scale';
 
-import Bar from '@/core/bar';
+import AdvBar from '@/core/adv-bar';
 import ChartLine from '@/charts/line-chart/components/chart-line.vue';
 import LinePoint from '@/charts/line-chart/components/line-point.vue';
 
@@ -77,7 +77,7 @@ import { getScaleStep, isBandScale } from '@/utils/helpers';
 import { Data, DatasetValueObject } from '@/types/dataset';
 
 export default defineComponent({
-  components: { ChartLine, LinePoint, Bar },
+  components: { AdvBar, ChartLine, LinePoint },
   props: {
     data: {
       type: Array as PropType<Data>,

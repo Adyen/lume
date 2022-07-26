@@ -13,7 +13,7 @@
       class="box-plot__median"
       v-bind="boxGroup.medianLine"
     />
-    <bar
+    <adv-bar
       v-if="overlay"
       v-bind="overlay"
       :fill-class="
@@ -27,10 +27,11 @@
 </template>
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
-import Bar from '@/core/bar';
+
+import AdvBar from '@/core/adv-bar';
 
 export default defineComponent({
-  components: { Bar },
+  components: { AdvBar },
   props: {
     boxGroup: {
       type: Object,
@@ -43,7 +44,7 @@ export default defineComponent({
     isHovered: {
       type: Boolean,
       required: true,
-    }
+    },
   },
 });
 </script>
