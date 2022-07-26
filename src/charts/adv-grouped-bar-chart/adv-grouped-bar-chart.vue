@@ -8,8 +8,8 @@
     <template #groups="props">
       <adv-bar-group
         v-bind="props"
-        :type="type"
         :orientation="orientation"
+        :type="type"
       />
     </template>
   </adv-chart>
@@ -23,7 +23,7 @@ import AdvBarGroup from '@/core/adv-bar-group';
 
 import { useBase, withBase } from '@/mixins/base';
 import { useOptions, withOptions } from '@/mixins/options';
-import { withBarProps } from '../bar-chart/mixins/bar-mixin';
+import { withBarProps } from '@/core/adv-bar-group/mixins/bar-mixin';
 
 import { ORIENTATIONS } from '@/constants';
 

@@ -1,9 +1,9 @@
 import { withSizeArgs, withSizeArgTypes } from '@/utils/storybook-helpers';
 
-import BarChart from './index';
+import AdvBarChart from './index';
 
-import { options as singleBarOptions } from '@/charts/single-bar-chart/defaults';
-import { options as multiBarOptions } from '@/charts/grouped-bar-chart/defaults';
+import { options as singleBarOptions } from '@/charts/adv-single-bar-chart/defaults';
+import { options as multiBarOptions } from '@/charts/adv-grouped-bar-chart/defaults';
 
 import { ORIENTATIONS } from '@/constants';
 
@@ -19,7 +19,7 @@ const labels = [
 
 export default {
   title: 'Charts/Bar chart',
-  component: BarChart,
+  component: AdvBarChart,
   argTypes: {
     ...withSizeArgTypes(),
     orientation: {
@@ -39,14 +39,14 @@ export default {
 
 export const SingleBarChart = ({ argTypes }) => {
   return {
-    components: { BarChart },
+    components: { AdvBarChart },
     props: Object.keys(argTypes),
     template: `
     <div :style="{ width: width + 'px', height: height + 'px' }">
-        <bar-chart
+        <adv-bar-chart
            :data="data" :labels="labels" :orientation="orientation" :options="options"
         >
-        </bar-chart>
+        </adv-bar-chart>
     </div>
   `,
   };
@@ -73,18 +73,18 @@ SingleBarChart.args = {
 
 export const MultiBarChart = ({ argTypes }) => {
   return {
-    components: { BarChart },
+    components: { AdvBarChart },
     props: Object.keys(argTypes),
     template: `
     <div :style="{ width: width + 'px', height: height + 'px' }">
-        <bar-chart
+        <adv-bar-chart
            :data="data"
            :labels="labels"
            :type="type"
            :orientation="orientation"
            :options="options"
         >
-        </bar-chart>
+        </adv-bar-chart>
     </div>
   `,
   };

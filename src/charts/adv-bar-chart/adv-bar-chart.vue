@@ -26,9 +26,9 @@ function orientationValidator(orientation: string): boolean {
 
 export default defineComponent({
   components: {
-    AdvSingleBarChart: () => import('@/charts/single-bar-chart/adv-single-bar-chart.vue'),
-    AdvGroupedBarChart: () => import('@/charts/grouped-bar-chart/adv-grouped-bar-chart.vue'),
-    AdvStackedBarChart: () => import('@/charts/stacked-bar-chart/adv-stacked-bar-chart.vue'),
+    AdvSingleBarChart: () => import('@/charts/adv-single-bar-chart'),
+    AdvGroupedBarChart: () => import('@/charts/adv-grouped-bar-chart'),
+    AdvStackedBarChart: () => import('@/charts/adv-stacked-bar-chart'),
   },
   props: {
     ...withBase(),

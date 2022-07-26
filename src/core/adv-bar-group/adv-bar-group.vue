@@ -34,12 +34,17 @@ import Bar from '../bar';
 import { useBase } from '@/mixins/base';
 import { withGroup } from '@/mixins/group';
 import { Scale } from '@/mixins/scales';
-import { getBarChartType, useBarMixin, useBarScales } from './mixins/bar-mixin';
+import {
+  getBarChartType,
+  useBarMixin,
+  useBarScales,
+  withBarProps,
+} from './mixins/bar-mixin';
+import { useBarOverlay } from './mixins/bar-overlay';
+
 import { useSingleBarMixin } from './mixins/single-mixin';
 import { useGroupedBarMixin } from './mixins/grouped-mixin';
 import { useStackedBarMixin } from './mixins/stacked-mixin';
-import { useBarOverlay } from '@/charts/bar-chart/mixins/bar-overlay';
-import { withBarProps } from '@/charts/bar-chart/mixins/bar-mixin';
 
 import { Data } from '@/types/dataset';
 
