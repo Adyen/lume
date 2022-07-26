@@ -27,7 +27,7 @@ function orientationValidator(orientation: string): boolean {
 export default defineComponent({
   components: {
     AdvSingleBarChart: () => import('@/charts/single-bar-chart/adv-single-bar-chart.vue'),
-    GroupedBarChart: () => import('@/charts/grouped-bar-chart'),
+    AdvGroupedBarChart: () => import('@/charts/grouped-bar-chart/adv-grouped-bar-chart.vue'),
     StackedBarChart: () => import('@/charts/stacked-bar-chart'),
   },
   props: {
@@ -56,7 +56,7 @@ export default defineComponent({
           "Bar chart needs a type when there's multiple datasets."
         );
 
-      return `${props.type}-bar-chart`;
+      return `adv-${props.type}-bar-chart`;
     });
 
     return { component };
