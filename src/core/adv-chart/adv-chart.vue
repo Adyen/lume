@@ -81,7 +81,7 @@ import {
   toRefs,
 } from '@vue/composition-api';
 
-import AdvAxis from '@/core/axis';
+import AdvAxis from '@/core/adv-axis';
 import AdvBar from '@/core/adv-bar';
 import ChartContainer from '@/core/chart-container';
 import Tooltip from '@/core/tooltip';
