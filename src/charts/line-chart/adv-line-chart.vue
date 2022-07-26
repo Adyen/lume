@@ -9,6 +9,7 @@
     </template>
   </adv-chart>
 </template>
+
 <script lang="ts">
 import { defineComponent, toRefs } from '@vue/composition-api';
 
