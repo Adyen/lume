@@ -4,14 +4,14 @@
       v-for="(barGroup, groupIndex) in groupedData"
       :key="groupIndex"
     >
-      <bar
+      <adv-bar
         v-for="(barValue, index) in barGroup"
         v-bind="getBarAttributes(barValue, index, groupIndex, barGroup)"
         :key="`bar-${index}`"
         :animate="animate"
       />
 
-      <bar
+      <adv-bar
         v-bind="getOverlayConfig(groupIndex)"
         fill-class="adv-fill-color-transparent"
         :animate="false"
@@ -29,7 +29,7 @@ import {
   toRefs,
 } from '@vue/composition-api';
 
-import Bar from '../bar';
+import AdvBar from '@/core/adv-bar';
 
 import { useBase } from '@/mixins/base';
 import { withGroup } from '@/mixins/group';
@@ -64,7 +64,7 @@ const MIXIN_MAP = {
 };
 
 export default defineComponent({
-  components: { Bar },
+  components: { AdvBar },
   props: {
     data: {
       type: Array as PropType<Data>,

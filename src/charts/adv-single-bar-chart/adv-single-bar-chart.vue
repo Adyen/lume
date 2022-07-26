@@ -22,7 +22,7 @@ import AdvBarGroup from '@/core/adv-bar-group';
 
 import { useBase, withBase } from '@/mixins/base';
 import { useOptions, withOptions } from '@/mixins/options';
-import { withBarProps } from '../bar-chart/mixins/bar-mixin';
+import { withBarProps } from '@/core/adv-bar-group/mixins/bar-mixin';
 
 import { Data } from '@/types/dataset';
 import { ORIENTATIONS } from '@/constants';

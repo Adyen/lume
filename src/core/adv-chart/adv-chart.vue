@@ -5,7 +5,7 @@
     @mouseleave="handleMouseleave"
   >
     <!-- Negative values background -->
-    <bar
+    <adv-bar
       v-if="hasNegativeValues"
       v-bind="negativeBarAttributes"
       fill-class="adv-fill-color-negative-values"
@@ -82,7 +82,7 @@ import {
 } from '@vue/composition-api';
 
 import AdvAxis from '@/core/axis';
-import Bar from '@/core/bar';
+import AdvBar from '@/core/adv-bar';
 import ChartContainer from '@/core/chart-container';
 import Tooltip from '@/core/tooltip';
 
@@ -94,12 +94,12 @@ import {
   useNegativeValues,
 } from '@/mixins/negative-values';
 import { useTooltip, useTooltipAnchors } from '@/mixins/tooltip';
-import { orientationValidator } from '@/charts/bar-chart/mixins/bar-mixin';
+import { orientationValidator } from '@/core/adv-bar-group/mixins/bar-mixin';
 
 import { NO_DATA, Orientation, ORIENTATIONS } from '@/constants';
 
 export default defineComponent({
-  components: { AdvAxis, Bar, ChartContainer, Tooltip },
+  components: { AdvAxis, AdvBar, ChartContainer, Tooltip },
   props: {
     ...withBase(),
     ...withScales(),
