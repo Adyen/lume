@@ -13,7 +13,7 @@
       class="adv-line-group__group"
     >
       <g class="adv-line-group__lines">
-        <chart-line
+        <adv-line
           v-for="(_, index) in dataset.values"
           :key="`line-${index}`"
           :x-scale="xScale"
@@ -28,7 +28,7 @@
         v-if="withPoints"
         class="adv-line-group__points"
       >
-        <line-point
+        <adv-point
           v-for="(_, index) in dataset.values"
           :key="`point-${index}`"
           :x-scale="xScale"
@@ -64,8 +64,8 @@ import {
 import { ScaleLinear } from 'd3-scale';
 
 import AdvBar from '@/core/adv-bar';
-import ChartLine from '@/charts/line-chart/components/chart-line.vue';
-import LinePoint from '@/charts/line-chart/components/line-point.vue';
+import AdvLine from '@/core/adv-line';
+import AdvPoint from '@/core/adv-point';
 
 import { useBase } from '@/mixins/base';
 import { withGroup } from '@/mixins/group';
@@ -77,7 +77,7 @@ import { getScaleStep, isBandScale } from '@/utils/helpers';
 import { Data, DatasetValueObject } from '@/types/dataset';
 
 export default defineComponent({
-  components: { AdvBar, ChartLine, LinePoint },
+  components: { AdvBar, AdvLine, AdvPoint },
   props: {
     data: {
       type: Array as PropType<Data>,
