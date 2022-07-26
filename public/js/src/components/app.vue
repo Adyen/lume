@@ -35,7 +35,7 @@
       </option>
     </select>
     <div class="row">
-      <bar-chart
+      <adv-bar-chart
         :data="data"
         :type="type"
         :orientation="orientation"
@@ -64,7 +64,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
-import BarChart from '@/charts/bar-chart/bar-chart.vue';
+import AdvBarChart from '@/charts/adv-bar-chart';
 import AdvLineChart from '@/charts/line-chart';
 import BoxPlot from '@/charts/box-plot/box-plot.vue';
 import Sparkline from '@/charts/sparkline-chart/sparkline-chart.vue';
@@ -73,7 +73,7 @@ import AlluvialChart from "@/charts/alluvial-chart/alluvial-chart.vue";
 export default defineComponent({
   components: {
     AlluvialChart,
-    BarChart,
+    AdvBarChart,
     AdvLineChart,
     BoxPlot,
     Sparkline,

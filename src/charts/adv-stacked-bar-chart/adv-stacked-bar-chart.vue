@@ -25,8 +25,10 @@ import AdvBarGroup from '@/core/adv-bar-group';
 
 import { useBase, withBase } from '@/mixins/base';
 import { useOptions, withOptions } from '@/mixins/options';
-import { withBarProps } from '../bar-chart/mixins/bar-mixin';
-import { useBarMixin } from '@/core/adv-bar-group/mixins/bar-mixin';
+import {
+  useBarMixin,
+  withBarProps,
+} from '@/core/adv-bar-group/mixins/bar-mixin';
 import { useStackedAxes } from '@/core/adv-bar-group/mixins/stacked-mixin';
 
 import { ORIENTATIONS } from '@/constants';

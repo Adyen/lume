@@ -1,10 +1,31 @@
-import { computed, ComputedRef, Ref } from '@vue/composition-api';
+import { computed, ComputedRef, PropType, Ref } from '@vue/composition-api';
 import { ScaleBand } from 'd3-scale';
 
 import { getPaddedScale, Scale } from '@/mixins/scales';
 
-import { Orientation, ORIENTATIONS } from '@/constants';
+import { BarType, BAR_TYPES, Orientation, ORIENTATIONS } from '@/constants';
 import { Data, DatasetValueObject } from '@/types/dataset';
+
+function typeValidator(type: string): boolean {
+  return Object.values(BAR_TYPES).includes(type as BarType) || type == null;
+}
+
+export function orientationValidator(orientation: string): boolean {
+  return Object.values(ORIENTATIONS).includes(orientation as Orientation);
+}
+
+export const withBarProps = () => ({
+  type: {
+    type: String,
+    default: null,
+    validator: typeValidator,
+  },
+  orientation: {
+    type: String as PropType<Orientation>,
+    default: ORIENTATIONS.VERTICAL,
+    validator: orientationValidator,
+  },
+});
 
 export function useBarMixin(data: Ref<Data<DatasetValueObject>>) {
   /** Array of padded (null = 0) number values */
