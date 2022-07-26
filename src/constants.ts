@@ -38,3 +38,5 @@ export const DEFAULT_MARGINS = {
 export const NO_DATA = 'No data';
 
 export const BAR_HEIGHT = 20;
+
+export const DEFAULT_PADDING = 0.33;
