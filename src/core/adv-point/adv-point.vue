@@ -1,7 +1,7 @@
 <template>
   <circle
-    class="line-chart__point"
-    :class="`line-chart__point--color-${color}`"
+    class="adv-point"
+    :class="`adv-point--color-${color}`"
     :r="active ? radius : 0"
     :cx="cx"
     :cy="cy"
@@ -65,7 +65,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 @use '~@/styles/variables' as *;
 
-.line-chart__point {
+.adv-point {
   fill: $adv-color-white;
   stroke-width: 2px;
 

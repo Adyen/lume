@@ -1,9 +1,9 @@
 <template>
   <path
-    class="line-chart__line"
+    class="adv-line"
     :class="{
-      [`line-chart__line--color-${color}`]: true,
-      ['line-chart__line--dashed']: dashed,
+      [`adv-line--color-${color}`]: true,
+      ['adv-line--dashed']: dashed,
     }"
     :d="pathDefinition"
   />
@@ -11,8 +11,8 @@
 
 <script lang="ts">
 import { defineComponent, computed, PropType } from '@vue/composition-api';
-import { line } from 'd3-shape';
 import { ScaleBand, ScaleLinear } from 'd3-scale';
+import { line } from 'd3-shape';
 
 import { Scale } from '@/mixins/scales';
 
@@ -80,7 +80,7 @@ $line-stroke-width: 2px;
 $line-stroke-hover-width: 4px;
 $ghost-line-stroke-width: 8px;
 
-.line-chart__line {
+.adv-line {
   stroke-width: $line-stroke-width;
   stroke-linejoin: round;
   stroke-linecap: round;
