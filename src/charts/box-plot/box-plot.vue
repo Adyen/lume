@@ -49,7 +49,7 @@
 <script lang="ts">
 import { defineComponent, ref, toRefs } from '@vue/composition-api';
 
-import AdvAxis from '@/core/axis/adv-axis.vue';
+import AdvAxis from '@/core/adv-axis';
 import BoxGroup from './components/box-group.vue';
 import ChartContainer from '@/core/chart-container';
 import Tooltip from '@/core/tooltip';
