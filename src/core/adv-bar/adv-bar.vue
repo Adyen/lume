@@ -1,12 +1,12 @@
 <template>
   <rect
-    data-j-bar
     class="bar"
     :x="x"
     :y="y"
     :height="height"
     :width="width"
     :class="[fillClass, { 'bar--transition': animate, 'bar--faded': isFaded }]"
+    data-j-bar
   />
 </template>
 

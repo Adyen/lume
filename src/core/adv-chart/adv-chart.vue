@@ -23,20 +23,18 @@
       :container-size="containerSize"
       :options="allOptions"
     >
-      <g data-j-adv-chart__axes>
-        <adv-axis
-          type="x"
-          :scale="computedXScale"
-          :container-size="containerSize"
-          :options="options.xAxisOptions"
-        />
-        <adv-axis
-          type="y"
-          :scale="computedYScale"
-          :container-size="containerSize"
-          :options="options.yAxisOptions"
-        />
-      </g>
+      <adv-axis
+        type="x"
+        :scale="computedXScale"
+        :container-size="containerSize"
+        :options="options.xAxisOptions"
+      />
+      <adv-axis
+        type="y"
+        :scale="computedYScale"
+        :container-size="containerSize"
+        :options="options.yAxisOptions"
+      />
     </slot>
 
     <!-- Data groups -->

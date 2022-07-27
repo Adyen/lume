@@ -1,8 +1,8 @@
 <template>
   <div
     ref="resizeRef"
-    data-j-chart-container
     class="u-width-full u-height-full"
+    data-j-chart-container
   >
     <svg
       ref="root"
@@ -12,9 +12,9 @@
       @mouseleave="$emit('mouseleave', $event)"
     >
       <g
-        data-j-chart-container__group
         :transform="`translate(${computedMargin.left}, ${computedMargin.top})`"
         class="container__group"
+        data-j-chart-container__group
       >
         <slot />
       </g>

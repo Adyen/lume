@@ -1,15 +1,15 @@
 <template>
   <div
     ref="root"
-    data-j-tooltip
     class="adv-tooltip"
+    data-j-tooltip
   >
     <slot>
       <!-- Default chart tooltip content -->
       <div
         v-if="title"
-        data-j-tooltip__title
         class="adv-tooltip__title"
+        data-j-tooltip__title
       >
         {{ title }}
       </div>
@@ -17,8 +17,8 @@
         <li
           v-for="item in items"
           :key="item.label"
-          data-j-tooltip__item
           class="adv-tooltip__item"
+          data-j-tooltip__item
         >
           <span
             :class="[
@@ -32,8 +32,8 @@
             {{ item.label }}
           </span>
           <strong
-            data-j-tooltip__item__value
             class="adv-tooltip__value"
+            data-j-tooltip__item__value
           >
             {{ item.value }}
           </strong>
