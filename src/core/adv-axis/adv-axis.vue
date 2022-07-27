@@ -3,6 +3,7 @@
     v-if="scale && !isLoading"
     class="axis"
     :transform="axisTransform"
+    data-j-axis
   >
     <text
       v-if="allOptions.withTitle"

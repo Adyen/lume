@@ -2,16 +2,19 @@
   <div
     ref="resizeRef"
     class="u-width-full u-height-full"
+    data-j-chart-container
   >
     <svg
       ref="root"
       class="container"
+
       :class="{ 'container--transparent-background': transparentBackground }"
       @mouseleave="$emit('mouseleave', $event)"
     >
       <g
         :transform="`translate(${computedMargin.left}, ${computedMargin.top})`"
         class="container__group"
+        data-j-chart-container__group
       >
         <slot />
       </g>

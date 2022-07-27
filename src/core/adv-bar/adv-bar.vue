@@ -6,6 +6,7 @@
     :height="height"
     :width="width"
     :class="[fillClass, { 'bar--transition': animate, 'bar--faded': isFaded }]"
+    data-j-bar
   />
 </template>
 

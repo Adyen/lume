@@ -2,12 +2,14 @@
   <div
     ref="root"
     class="adv-tooltip"
+    data-j-tooltip
   >
     <slot>
       <!-- Default chart tooltip content -->
       <div
         v-if="title"
         class="adv-tooltip__title"
+        data-j-tooltip__title
       >
         {{ title }}
       </div>
@@ -16,16 +18,25 @@
           v-for="item in items"
           :key="item.label"
           class="adv-tooltip__item"
+          data-j-tooltip__item
         >
           <span
-            class="adv-tooltip__symbol"
             :class="[
               `adv-tooltip__symbol--${item.type}`,
               `adv-tooltip__symbol--color-${item.color || '01'}`,
             ]"
+            class="adv-tooltip__symbol"
+            data-j-tooltip__item__symbol
           />
-          {{ item.label }}
-          <strong class="adv-tooltip__value">{{ item.value }}</strong>
+          <span data-j-tooltip__item__label>
+            {{ item.label }}
+          </span>
+          <strong
+            class="adv-tooltip__value"
+            data-j-tooltip__item__value
+          >
+            {{ item.value }}
+          </strong>
         </li>
       </ul>
     </slot>
