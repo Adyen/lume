@@ -1,9 +1,13 @@
 <template>
-  <g class="adv-line-group">
+  <g
+    class="adv-line-group"
+    data-j-adv-line-group
+  >
     <!-- Overlay dashed line -->
     <path
       v-bind="overlayLineAttributes"
       class="adv-line-group__overlay-line"
+      data-j-adv-line-group__overlay-line
     />
 
     <!-- Line groups -->
@@ -27,6 +31,7 @@
       <g
         v-if="withPoints"
         class="adv-line-group__points"
+        data-j-adv-line-group__points
       >
         <adv-point
           v-for="(_, index) in dataset.values"
@@ -48,6 +53,7 @@
         v-bind="getOverlayBarAttributes(index)"
         :key="`overlay-${index}`"
         fill-class="adv-fill-color-transparent"
+        :data-j-adv-line-group__overlay-bar="index"
         @mouseover.native="handleMouseover(index)"
       />
     </g>
