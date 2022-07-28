@@ -45,18 +45,6 @@
         />
       </g>
     </g>
-
-    <!-- Overlay bars -->
-    <g class="adv-line-group__overlay">
-      <adv-bar
-        v-for="(_, index) in computedLineData[0].values"
-        v-bind="getOverlayBarAttributes(index)"
-        :key="`overlay-${index}`"
-        fill-class="adv-fill-color-transparent"
-        :data-j-adv-line-group__overlay-bar="index"
-        @mouseover.native="handleMouseover(index)"
-      />
-    </g>
   </g>
 </template>
 
@@ -69,21 +57,17 @@ import {
 } from '@vue/composition-api';
 import { ScaleLinear } from 'd3-scale';
 
-import AdvBar from '@/core/adv-bar';
 import AdvLine from '@/core/adv-line';
 import AdvPoint from '@/core/adv-point';
 
 import { useBase } from '@/mixins/base';
-import { withGroup } from '@/mixins/group';
 import { useLineNullValues } from '@/mixins/line-null-values';
 import { getXByIndex, Scale } from '@/mixins/scales';
-
-import { getScaleStep, isBandScale } from '@/utils/helpers';
 
 import { Data, DatasetValueObject } from '@/types/dataset';
 
 export default defineComponent({
-  components: { AdvBar, AdvLine, AdvPoint },
+  components: { AdvLine, AdvPoint },
   props: {
     data: {
       type: Array as PropType<Data>,
@@ -105,7 +89,6 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
-    ...withGroup(),
   },
 
   setup(props) {
@@ -114,19 +97,6 @@ export default defineComponent({
     const { computedData } = useBase(data);
 
     const { computedLineData } = useLineNullValues(computedData);
-
-    function getOverlayBarAttributes(index: number) {
-      const step = getScaleStep(xScale.value);
-      const translateX = isBandScale(xScale.value)
-        ? xScale.value(xScale.value.domain()[index])
-        : xScale.value(index) - step / 2;
-
-      return {
-        width: step,
-        height: yScale.value(Math.min(...yScale.value.domain())),
-        transform: `translate(${translateX}, 0)`,
-      };
-    }
 
     const overlayLineAttributes = computed(() => {
       if (props.hoveredIndex === -1) return;
@@ -169,16 +139,10 @@ export default defineComponent({
       return props.hoveredIndex === index;
     }
 
-    function handleMouseover(index: number) {
-      props?.onMouseoverFn(index);
-    }
-
     return {
       computedLineData,
       getLineValues,
-      getOverlayBarAttributes,
       getPointValue,
-      handleMouseover,
       isPointActive,
       overlayLineAttributes,
     };
