@@ -17,9 +17,14 @@ export interface AxisOptions extends Record<string, unknown> {
   skip?: true | number; // `true` will enable auto-skip, number will be used as amount of ticks to skip
 }
 
+export interface TooltipOptions extends Record<string, unknown> {
+  offset?: number;
+}
+
 export interface Options extends Configs, Record<string, unknown> {
   xAxisOptions?: AxisOptions;
   yAxisOptions?: AxisOptions;
+  tooltipOptions?: TooltipOptions;
 }
 
 export const withOptions = <T = Options>() => ({

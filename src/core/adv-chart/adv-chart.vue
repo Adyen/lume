@@ -70,6 +70,7 @@
           position="top"
           :title="labels[hoveredIndex]"
           :items="getTooltipItems(hoveredIndex)"
+          :options="allOptions.tooltipOptions"
         />
       </slot>
     </template>

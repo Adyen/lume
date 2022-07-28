@@ -52,6 +52,7 @@ import {
   PropType,
   ref,
   Ref,
+  toRefs,
   watch,
 } from '@vue/composition-api';
 import {
@@ -60,6 +61,8 @@ import {
   Placement,
   PositioningStrategy,
 } from '@popperjs/core';
+
+import { TooltipOptions, useOptions, withOptions } from '@/mixins/options';
 
 interface TooltipItem {
   type: string;
@@ -101,13 +104,16 @@ export default defineComponent({
       type: Array as PropType<Array<TooltipItem>>,
       default: null,
     },
+    ...withOptions<TooltipOptions>(),
   },
   setup(props) {
     // Refs
     const root = ref<HTMLDivElement>(null);
+    const { options } = toRefs(props);
 
     // Data
     const popper: Ref<PopperInstance | null> = ref(null);
+    const { allOptions } = useOptions<TooltipOptions>(options);
 
     // Computed
     const strategy = computed<PositioningStrategy>(() =>
@@ -123,7 +129,7 @@ export default defineComponent({
       },
       {
         name: 'offset',
-        options: { offset: [0, 8] },
+        options: { offset: [0, allOptions.value.offset || 8] },
       },
     ]);
 
@@ -164,7 +170,7 @@ export default defineComponent({
     onMounted(initPopper);
     onBeforeUnmount(destroyPopper);
 
-    return { root, popper, strategy, allModifiers };
+    return { root, popper, strategy, allModifiers, allOptions };
   },
 });
 </script>
