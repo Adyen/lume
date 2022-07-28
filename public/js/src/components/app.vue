@@ -54,7 +54,7 @@
         :data="boxPlotData"
         :y-axis-options="{ label: 'Boxes' }"
       />
-      <sparkline :data="barChartData" />
+      <adv-sparkline :data="barChartData" />
     </div>
     <div class="row">
       <alluvial-chart :data="alluvial" />
@@ -65,9 +65,9 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
 import AdvBarChart from '@/charts/adv-bar-chart';
-import AdvLineChart from '@/charts/line-chart';
+import AdvLineChart from '@/charts/adv-line-chart';
 import BoxPlot from '@/charts/box-plot/box-plot.vue';
-import Sparkline from '@/charts/sparkline-chart/sparkline-chart.vue';
+import AdvSparkline from '@/charts/adv-sparkline-chart';
 import AlluvialChart from "@/charts/alluvial-chart/alluvial-chart.vue";
 
 export default defineComponent({
@@ -76,7 +76,7 @@ export default defineComponent({
     AdvBarChart,
     AdvLineChart,
     BoxPlot,
-    Sparkline,
+    AdvSparkline,
   },
   data: () => ({
     selection: 'single',
