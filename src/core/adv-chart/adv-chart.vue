@@ -106,7 +106,7 @@ import Tooltip from '@/core/tooltip';
 
 import { withBase, useBase } from '@/mixins/base';
 import { isScale, Scale, useBaseScales, withScales } from '@/mixins/scales';
-import { withOptions, useOptions } from '@/mixins/options';
+import { ChartOptions, withOptions, useOptions } from '@/mixins/options';
 import {
   checkNegativeValues,
   useNegativeValues,
@@ -121,7 +121,7 @@ export default defineComponent({
   props: {
     ...withBase(),
     ...withScales(),
-    ...withOptions(),
+    ...withOptions<ChartOptions>(),
     orientation: {
       type: String as PropType<Orientation>,
       default: ORIENTATIONS.VERTICAL,
@@ -136,14 +136,15 @@ export default defineComponent({
 
     const { computedData, containerSize, updateSize } = useBase(data, labels);
 
+    const { allOptions } = useOptions<ChartOptions>(options);
+
     const { xScale, yScale } = useBaseScales(
       computedData,
       labels,
       containerSize,
-      orientation
+      orientation,
+      allOptions
     );
-
-    const { allOptions } = useOptions(options);
 
     const computedXScale = computed<Scale>(() => {
       if (!props.xScale) return xScale.value;
