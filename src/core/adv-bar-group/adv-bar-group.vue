@@ -10,13 +10,6 @@
         :key="`bar-${index}`"
         :animate="animate"
       />
-
-      <adv-bar
-        v-bind="getOverlayConfig(groupIndex)"
-        fill-class="adv-fill-color-transparent"
-        :animate="false"
-        @mouseover.native="handleMouseover(groupIndex)"
-      />
     </g>
   </g>
 </template>
@@ -32,7 +25,6 @@ import {
 import AdvBar from '@/core/adv-bar';
 
 import { useBase } from '@/mixins/base';
-import { withGroup } from '@/mixins/group';
 import { Scale } from '@/mixins/scales';
 import {
   getBarChartType,
@@ -40,7 +32,6 @@ import {
   useBarScales,
   withBarProps,
 } from './mixins/bar-mixin';
-import { useBarOverlay } from './mixins/bar-overlay';
 
 import { useSingleBarMixin } from './mixins/single-mixin';
 import { useGroupedBarMixin } from './mixins/grouped-mixin';
@@ -87,7 +78,6 @@ export default defineComponent({
       default: true,
     },
     ...withBarProps(),
-    ...withGroup(),
   },
   setup(props) {
     const { data, type, xScale, yScale, orientation, hoveredIndex } =
@@ -98,12 +88,6 @@ export default defineComponent({
     const { groupedData } = useBarMixin(computedData);
 
     const { barXScale, barYScale } = useBarScales(xScale, yScale, orientation);
-
-    const { getOverlayConfig } = useBarOverlay(
-      barXScale,
-      barYScale,
-      orientation
-    );
 
     const getBarAttributes = computed(() => {
       const chartType = getBarChartType(computedData, type);
@@ -118,17 +102,11 @@ export default defineComponent({
       return barAttributeGenerator;
     });
 
-    function handleMouseover(index: number) {
-      props?.onMouseoverFn(index);
-    }
-
     return {
       barXScale,
       barYScale,
       getBarAttributes,
-      getOverlayConfig,
       groupedData,
-      handleMouseover,
     };
   },
 });

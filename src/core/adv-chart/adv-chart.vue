@@ -46,7 +46,16 @@
       :x-scale="computedXScale"
       :y-scale="computedYScale"
       :hovered-index="hoveredIndex"
-      :on-mouseover-fn="mouseOverHandler"
+    />
+
+    <!-- Overlay bars -->
+    <adv-overlay-group
+      v-if="allOptions.withHover !== false"
+      :data="computedData"
+      :orientation="orientation"
+      :x-scale="computedXScale"
+      :y-scale="computedYScale"
+      @mouseover="mouseOverHandler"
     />
 
     <!-- Tooltip anchor -->
@@ -90,6 +99,7 @@ import {
 import AdvAxis from '@/core/adv-axis';
 import AdvBar from '@/core/adv-bar';
 import ChartContainer from '@/core/chart-container';
+import AdvOverlayGroup from '@/core/adv-overlay-group';
 import Tooltip from '@/core/tooltip';
 
 import { withBase, useBase } from '@/mixins/base';
@@ -105,7 +115,7 @@ import { orientationValidator } from '@/core/adv-bar-group/mixins/bar-mixin';
 import { NO_DATA, Orientation, ORIENTATIONS } from '@/constants';
 
 export default defineComponent({
-  components: { AdvAxis, AdvBar, ChartContainer, Tooltip },
+  components: { AdvAxis, AdvBar, ChartContainer, AdvOverlayGroup, Tooltip },
   props: {
     ...withBase(),
     ...withScales(),
