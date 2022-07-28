@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import Bar from '@/core/bar/bar.vue';
+import AdvBar from '@/core/adv-bar/adv-bar.vue';
 
 const width = 100;
 const height = 100;
@@ -15,7 +15,7 @@ const defaultProps = {
 
 describe('bar.vue', () => {
     test('mounts component and sets prop values', () => {
-        const wrapper = mount(Bar, {
+        const wrapper = mount(AdvBar, {
             propsData: defaultProps
         })
 
@@ -34,7 +34,7 @@ describe('bar.vue', () => {
         const x = 48;
         const y = 52;
 
-        const wrapper = mount(Bar, {
+        const wrapper = mount(AdvBar, {
             propsData: { ...defaultProps, x, y }
         });
 
@@ -44,7 +44,7 @@ describe('bar.vue', () => {
     })
 
     test('mounts component and sets custom isFaded and animate prop values', () => {
-        const wrapper = mount(Bar, {
+        const wrapper = mount(AdvBar, {
             propsData: { ...defaultProps, isFaded: true, animate: false }
         });
 
