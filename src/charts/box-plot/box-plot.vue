@@ -30,7 +30,7 @@
     />
 
     <template #extra>
-      <tooltip
+      <adv-tooltip
         v-if="tooltipConfig.opened"
         v-bind="tooltipConfig"
         position="top"
@@ -41,7 +41,7 @@
           name="tooltip"
           :index="hoveredIndex"
         />
-      </tooltip>
+      </adv-tooltip>
     </template>
   </adv-chart-container>
 </template>
@@ -52,7 +52,7 @@ import { defineComponent, ref, toRefs } from '@vue/composition-api';
 import AdvAxis from '@/core/adv-axis';
 import BoxGroup from './components/box-group.vue';
 import AdvChartContainer from '@/core/adv-chart-container';
-import Tooltip from '@/core/tooltip';
+import AdvTooltip from '@/core/adv-tooltip';
 
 import { useBase } from '@/mixins/base';
 import { useOptions, withOptions } from '@/mixins/options';
@@ -61,7 +61,7 @@ import { withData, useBoxComputations } from './mixins/box-composable';
 
 import { options as defaultOptions } from './defaults';
 export default defineComponent({
-  components: { AdvAxis, AdvChartContainer, BoxGroup, Tooltip },
+  components: { AdvAxis, AdvChartContainer, BoxGroup, AdvTooltip },
   props: {
     ...withOptions(),
     ...withData(),

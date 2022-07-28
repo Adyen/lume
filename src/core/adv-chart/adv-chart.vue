@@ -75,7 +75,7 @@
 
     <template #extra>
       <slot name="tooltip">
-        <tooltip
+        <adv-tooltip
           v-if="allOptions.withTooltip !== false && tooltipConfig.opened"
           v-bind="tooltipConfig"
           position="top"
@@ -102,7 +102,7 @@ import AdvAxis from '@/core/adv-axis';
 import AdvBar from '@/core/adv-bar';
 import AdvChartContainer from '@/core/adv-chart-container';
 import AdvOverlayGroup from '@/core/adv-overlay-group';
-import Tooltip from '@/core/tooltip';
+import AdvTooltip from '@/core/adv-tooltip';
 
 import { withBase, useBase } from '@/mixins/base';
 import { isScale, Scale, useBaseScales, withScales } from '@/mixins/scales';
@@ -117,7 +117,7 @@ import { orientationValidator } from '@/core/adv-bar-group/mixins/bar-mixin';
 import { NO_DATA, Orientation, ORIENTATIONS } from '@/constants';
 
 export default defineComponent({
-  components: { AdvAxis, AdvBar, AdvChartContainer, AdvOverlayGroup, Tooltip },
+  components: { AdvAxis, AdvBar, AdvChartContainer, AdvOverlayGroup, AdvTooltip },
   props: {
     ...withBase(),
     ...withScales(),
