@@ -1,5 +1,5 @@
 <template>
-  <chart-container
+  <adv-chart-container
     :margins="allOptions.margins"
     @resize="updateSize"
   >
@@ -43,7 +43,7 @@
         />
       </tooltip>
     </template>
-  </chart-container>
+  </adv-chart-container>
 </template>
 
 <script lang="ts">
@@ -51,7 +51,7 @@ import { defineComponent, ref, toRefs } from '@vue/composition-api';
 
 import AdvAxis from '@/core/adv-axis';
 import BoxGroup from './components/box-group.vue';
-import ChartContainer from '@/core/chart-container';
+import AdvChartContainer from '@/core/adv-chart-container';
 import Tooltip from '@/core/tooltip';
 
 import { useBase } from '@/mixins/base';
@@ -61,7 +61,7 @@ import { withData, useBoxComputations } from './mixins/box-composable';
 
 import { options as defaultOptions } from './defaults';
 export default defineComponent({
-  components: { AdvAxis, ChartContainer, BoxGroup, Tooltip },
+  components: { AdvAxis, AdvChartContainer, BoxGroup, Tooltip },
   props: {
     ...withOptions(),
     ...withData(),

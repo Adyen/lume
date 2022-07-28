@@ -1,5 +1,5 @@
 <template>
-  <chart-container
+  <adv-chart-container
     :margins="allOptions.margins"
     data-j-adv-chart
     @resize="updateSize"
@@ -85,7 +85,7 @@
         />
       </slot>
     </template>
-  </chart-container>
+  </adv-chart-container>
 </template>
 
 <script lang="ts">
@@ -100,7 +100,7 @@ import {
 
 import AdvAxis from '@/core/adv-axis';
 import AdvBar from '@/core/adv-bar';
-import ChartContainer from '@/core/chart-container';
+import AdvChartContainer from '@/core/adv-chart-container';
 import AdvOverlayGroup from '@/core/adv-overlay-group';
 import Tooltip from '@/core/tooltip';
 
@@ -117,7 +117,7 @@ import { orientationValidator } from '@/core/adv-bar-group/mixins/bar-mixin';
 import { NO_DATA, Orientation, ORIENTATIONS } from '@/constants';
 
 export default defineComponent({
-  components: { AdvAxis, AdvBar, ChartContainer, AdvOverlayGroup, Tooltip },
+  components: { AdvAxis, AdvBar, AdvChartContainer, AdvOverlayGroup, Tooltip },
   props: {
     ...withBase(),
     ...withScales(),
