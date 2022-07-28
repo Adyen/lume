@@ -28,12 +28,14 @@
         :scale="computedXScale"
         :container-size="containerSize"
         :options="options.xAxisOptions"
+        @tick-mouseover="handleTickMouseover('x', $event)"
       />
       <adv-axis
         type="y"
         :scale="computedYScale"
         :container-size="containerSize"
         :options="options.yAxisOptions"
+        @tick-mouseover="handleTickMouseover('y', $event)"
       />
     </slot>
 
@@ -183,11 +185,6 @@ export default defineComponent({
       }));
     }
 
-    function handleMouseleave() {
-      hoveredIndex.value = -1;
-      hideTooltip();
-    }
-
     const mouseOverHandler = computed(() => {
       const handler = (index: number) => {
         // Update hoveredIndex
@@ -200,6 +197,21 @@ export default defineComponent({
 
       return handler;
     });
+
+    function handleTickMouseover(type: 'x' | 'y', index: number) {
+      // Only capture hover on the label axis
+      if (
+        (orientation.value === ORIENTATIONS.VERTICAL && type === 'x') ||
+        (orientation.value === ORIENTATIONS.HORIZONTAL && type === 'y')
+      ) {
+        mouseOverHandler.value(index);
+      }
+    }
+
+    function handleMouseleave() {
+      hoveredIndex.value = -1;
+      hideTooltip();
+    }
 
     onMounted(() => {
       if (!ctx.slots.groups?.()) {
@@ -216,6 +228,7 @@ export default defineComponent({
       getTooltipAnchorAttributes,
       getTooltipItems,
       handleMouseleave,
+      handleTickMouseover,
       hasNegativeValues,
       hoveredIndex,
       mouseOverHandler,
