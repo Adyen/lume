@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import Axis from '@/core/axis/adv-axis.vue';
+import AdvAxis from '@/core/adv-axis/adv-axis.vue';
 import { Scale } from '@/mixins/scales';
 import { scaleBand } from 'd3-scale';
 import { labels } from '../../mock-data';
@@ -11,7 +11,7 @@ const scale: Scale = scaleBand<number>()
 
 describe.skip('adv-axis.vue', () => {
     test('mounts component and sets prop values', () => {
-        const wrapper = mount(Axis, {
+        const wrapper = mount(AdvAxis, {
             propsData: {
                 scale
             }

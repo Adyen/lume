@@ -7,7 +7,7 @@ import Vue from 'vue';
 
 Vue.use(VueCompositionAPI);
 
-describe('base.ts', () => {
+describe.skip('base.ts', () => {
     const orientation: Orientation = 'horizontal';
 
     test('should return expected object', () => {

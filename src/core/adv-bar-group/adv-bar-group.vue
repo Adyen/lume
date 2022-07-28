@@ -1,5 +1,8 @@
 <template>
-  <g class="adv-bar-group">
+  <g
+    class="adv-bar-group"
+    data-j-bars-group
+  >
     <g
       v-for="(barGroup, groupIndex) in groupedData"
       :key="groupIndex"

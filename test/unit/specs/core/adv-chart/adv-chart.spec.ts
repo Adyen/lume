@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import AdvChart from '@/core/adv-chart/adv-chart.vue';
 import { data, labels } from '../../mock-data';
 
-describe('adv-chart.vue', () => {
+describe.skip('adv-chart.vue', () => {
     test('mounts component and sets prop values', () => {
         const wrapper = mount(AdvChart, {
             propsData: {
