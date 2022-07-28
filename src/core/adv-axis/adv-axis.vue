@@ -9,7 +9,7 @@
       v-if="allOptions.withTitle"
       v-bind="titlePosition"
       class="axis__title"
-      :class="{ 'axis__title--horizontal': computedType === 'y' }"
+      :class="{ 'axis__title--horizontal': computedType === 'x' }"
     >
       {{ title || allOptions.title }}
     </text>
