@@ -9,9 +9,9 @@ const scale: Scale = scaleBand<number>()
     .domain(labels.map((_, i) => i))
     .range([0, width])
 
-describe.skip('adv-axis.vue', () => {
-    test('mounts component and sets prop values', () => {
-        const wrapper = mount(AdvAxis, {
+describe('adv-axis.vue', () => {
+    test('mounts component and sets prop values', async () => {
+        const wrapper = await mount(AdvAxis, {
             propsData: {
                 scale
             }
