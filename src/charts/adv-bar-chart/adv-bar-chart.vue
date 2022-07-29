@@ -7,21 +7,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from '@vue/composition-api';
+import { computed, defineComponent } from '@vue/composition-api';
 
-import { Orientation, ORIENTATIONS } from '@/constants';
-import { withBase } from '@/mixins/base';
-import { withOptions } from '@/mixins/options';
 import { singleDatasetValidator } from '@/utils/helpers';
+import { withChartProps } from '@/mixins/props';
 
 const TYPES = ['grouped', 'stacked'];
 
 function typeValidator(type: string): boolean {
   return TYPES.includes(type) || type == null;
-}
-
-function orientationValidator(orientation: string): boolean {
-  return Object.values(ORIENTATIONS).includes(orientation as Orientation);
 }
 
 export default defineComponent({
@@ -31,17 +25,11 @@ export default defineComponent({
     AdvStackedBarChart: () => import('@/charts/adv-stacked-bar-chart'),
   },
   props: {
-    ...withBase(),
-    ...withOptions(),
+    ...withChartProps(),
     type: {
       type: String,
       default: null,
       validator: typeValidator,
-    },
-    orientation: {
-      type: String as PropType<Orientation>,
-      default: 'vertical',
-      validator: orientationValidator,
     },
   },
   setup(props) {

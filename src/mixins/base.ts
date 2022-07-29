@@ -12,7 +12,7 @@ import { BAR_HEIGHT, Orientation, ORIENTATIONS } from '@/constants';
 import { Data, DatasetValueObject } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 
-type DataValidator = (value: Data) => boolean;
+export type DataValidator = (value: Data) => boolean;
 
 export const withBase = (dataValidator?: DataValidator) => ({
   data: {
