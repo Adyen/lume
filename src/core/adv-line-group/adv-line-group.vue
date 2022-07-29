@@ -12,7 +12,7 @@
 
     <!-- Line groups -->
     <g
-      v-for="dataset in computedLineData"
+      v-for="dataset in data"
       :key="dataset.label"
       class="adv-line-group__group"
     >
@@ -60,17 +60,16 @@ import { ScaleLinear } from 'd3-scale';
 import AdvLine from '@/core/adv-line';
 import AdvPoint from '@/core/adv-point';
 
-import { useBase } from '@/mixins/base';
-import { useLineNullValues } from '@/mixins/line-null-values';
 import { getXByIndex, Scale } from '@/mixins/scales';
 
+import { getHighestValue } from '@/utils/helpers';
 import { Data, DatasetValueObject } from '@/types/dataset';
 
 export default defineComponent({
   components: { AdvLine, AdvPoint },
   props: {
     data: {
-      type: Array as PropType<Data>,
+      type: Array as PropType<Data<DatasetValueObject>>,
       required: true,
     },
     xScale: {
@@ -94,18 +93,10 @@ export default defineComponent({
   setup(props) {
     const { data, xScale, yScale } = toRefs(props);
 
-    const { computedData } = useBase(data);
-
-    const { computedLineData } = useLineNullValues(computedData);
-
     const overlayLineAttributes = computed(() => {
       if (props.hoveredIndex === -1) return;
 
-      const highestValue = Math.max(
-        ...computedLineData.value.map(
-          (dataset) => dataset.values[props.hoveredIndex].value
-        )
-      );
+      const highestValue = getHighestValue(data.value, props.hoveredIndex);
 
       const x = getXByIndex(xScale.value, props.hoveredIndex);
 
@@ -140,7 +131,6 @@ export default defineComponent({
     }
 
     return {
-      computedLineData,
       getLineValues,
       getPointValue,
       isPointActive,

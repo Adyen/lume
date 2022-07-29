@@ -1,5 +1,6 @@
 import { computed, ComputedRef } from '@vue/composition-api';
 import { Data, DatasetValue, DatasetValueObject } from '@/types/dataset';
+import { NO_DATA } from '@/constants';
 
 export function useLineNullValues(data: ComputedRef<Data<DatasetValueObject>>) {
   /**
@@ -90,6 +91,7 @@ export function useLineNullValues(data: ComputedRef<Data<DatasetValueObject>>) {
                 nullInterval.length,
                 nullInterval.indexOf(index)
               ),
+              label: NO_DATA
             };
           }
           return value;

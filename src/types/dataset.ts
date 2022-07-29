@@ -17,6 +17,7 @@ export interface Dataset<T> {
   areaColor?: Color;
   legend?: string;
   type?: ChartType;
+  isDashed?: (index: number) => boolean; // for line datasets
 }
 
 export type Data<T extends DatasetValue = DatasetValue> = Array<Dataset<T>>;
