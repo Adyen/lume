@@ -1,9 +1,8 @@
 <template>
   <adv-chart
+    v-bind="$props"
     :data="computedData"
-    :labels="labels"
     :options="allOptions"
-    :orientation="orientation"
     :x-scale="stackedXScaleGenerator"
     :y-scale="stackedYScaleGenerator"
   >
@@ -23,8 +22,9 @@ import { defineComponent, toRefs } from '@vue/composition-api';
 import AdvChart from '@/core/adv-chart';
 import AdvBarGroup from '@/core/adv-bar-group';
 
-import { useBase, withBase } from '@/mixins/base';
-import { useOptions, withOptions } from '@/mixins/options';
+import { useBase } from '@/mixins/base';
+import { useOptions } from '@/mixins/options';
+import { withChartProps } from '@/mixins/props';
 import {
   useBarMixin,
   withBarProps,
@@ -38,9 +38,8 @@ import { options as defaultOptions } from './defaults';
 export default defineComponent({
   components: { AdvChart, AdvBarGroup },
   props: {
-    ...withBase(),
+    ...withChartProps(),
     ...withBarProps(),
-    ...withOptions(),
   },
   setup(props) {
     // State from mixins
