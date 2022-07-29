@@ -5,6 +5,15 @@
     @resize="updateSize"
     @mouseleave="handleMouseleave"
   >
+    <template
+      v-if="title"
+      #title
+    >
+      <h1 class="adv-chart-title">
+        {{ title }}
+      </h1>
+    </template>
+
     <!-- Negative values background -->
     <adv-bar
       v-if="hasNegativeValues"
@@ -93,7 +102,6 @@ import {
   computed,
   defineComponent,
   onMounted,
-  PropType,
   ref,
   toRefs,
 } from '@vue/composition-api';
@@ -104,29 +112,28 @@ import AdvChartContainer from '@/core/adv-chart-container';
 import AdvOverlayGroup from '@/core/adv-overlay-group';
 import AdvTooltip from '@/core/adv-tooltip';
 
-import { withBase, useBase } from '@/mixins/base';
-import { isScale, Scale, useBaseScales, withScales } from '@/mixins/scales';
-import { ChartOptions, withOptions, useOptions } from '@/mixins/options';
+import { useBase } from '@/mixins/base';
+import { withChartProps } from '@/mixins/props';
+import { isScale, Scale, useBaseScales } from '@/mixins/scales';
+import { ChartOptions, useOptions } from '@/mixins/options';
 import {
   checkNegativeValues,
   useNegativeValues,
 } from '@/mixins/negative-values';
 import { useTooltip, useTooltipAnchors } from '@/mixins/tooltip';
-import { orientationValidator } from '@/core/adv-bar-group/mixins/bar-mixin';
 
-import { NO_DATA, Orientation, ORIENTATIONS } from '@/constants';
+import { NO_DATA, ORIENTATIONS } from '@/constants';
 
 export default defineComponent({
-  components: { AdvAxis, AdvBar, AdvChartContainer, AdvOverlayGroup, AdvTooltip },
+  components: {
+    AdvAxis,
+    AdvBar,
+    AdvChartContainer,
+    AdvOverlayGroup,
+    AdvTooltip,
+  },
   props: {
-    ...withBase(),
-    ...withScales(),
-    ...withOptions<ChartOptions>(),
-    orientation: {
-      type: String as PropType<Orientation>,
-      default: ORIENTATIONS.VERTICAL,
-      validator: orientationValidator,
-    },
+    ...withChartProps(),
   },
   setup(props, ctx) {
     const { data, labels, options, orientation } = toRefs(props);

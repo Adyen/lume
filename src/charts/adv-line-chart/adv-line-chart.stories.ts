@@ -123,17 +123,16 @@ export default {
       control: 'object',
       description: 'Chart/axes options.',
     },
-    startOnZero: {
-      control: 'boolean',
-      description:
-        'Defines if the Y axis should start on `0`. If negative values are present, this property is ignored.',
+    title: {
+      control: 'text',
+      description: 'Chart title',
     },
   },
   args: {
     ...withSizeArgs(),
     dataset: Object.keys(DATASETS)[0],
     options: defaultOptions,
-    startOnZero: true,
+    title: 'Line chart',
   },
 };
 
@@ -145,12 +144,12 @@ export const Basic = ({ args, argTypes }) => {
       const data = computed(() => DATASETS[props.dataset].data);
       const labels = computed(() => DATASETS[props.dataset].labels);
 
-      return { args, data, labels };
+      return { args, data, labels, props };
     },
     template: `
     <div :style="{ width: width + 'px', height: height + 'px' }">
         <adv-line-chart
-           :data="data" :labels="labels" :options="options"
+          v-bind="props" :data="data" :labels="labels"
         />
     </div>
   `,

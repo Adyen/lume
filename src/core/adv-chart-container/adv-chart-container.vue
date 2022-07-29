@@ -4,10 +4,11 @@
     class="u-width-full u-height-full"
     data-j-chart-container
   >
+    <slot name="title" />
+
     <svg
       ref="root"
       class="container"
-
       :class="{ 'container--transparent-background': transparentBackground }"
       @mouseleave="$emit('mouseleave', $event)"
     >
@@ -19,6 +20,7 @@
         <slot />
       </g>
     </svg>
+
     <slot name="extra" />
   </div>
 </template>

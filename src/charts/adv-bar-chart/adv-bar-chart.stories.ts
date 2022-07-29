@@ -30,6 +30,10 @@ export default {
       control: 'object',
       description: 'Chart/axes options.',
     },
+    title: {
+      control: 'text',
+      description: 'Chart title',
+    },
   },
   args: {
     ...withSizeArgs(),
@@ -41,12 +45,12 @@ export const SingleBarChart = ({ argTypes }) => {
   return {
     components: { AdvBarChart },
     props: Object.keys(argTypes),
+    setup(props) {
+      return { props };
+    },
     template: `
     <div :style="{ width: width + 'px', height: height + 'px' }">
-        <adv-bar-chart
-           :data="data" :labels="labels" :orientation="orientation" :options="options"
-        >
-        </adv-bar-chart>
+        <adv-bar-chart v-bind="props" />
     </div>
   `,
   };
@@ -69,22 +73,19 @@ SingleBarChart.args = {
       withTitle: true,
     },
   },
+  title: 'Single bar chart',
 };
 
 export const MultiBarChart = ({ argTypes }) => {
   return {
     components: { AdvBarChart },
     props: Object.keys(argTypes),
+    setup(props) {
+      return { props };
+    },
     template: `
     <div :style="{ width: width + 'px', height: height + 'px' }">
-        <adv-bar-chart
-           :data="data"
-           :labels="labels"
-           :type="type"
-           :orientation="orientation"
-           :options="options"
-        >
-        </adv-bar-chart>
+        <adv-bar-chart v-bind="props" />
     </div>
   `,
   };
@@ -114,4 +115,5 @@ MultiBarChart.args = {
   labels,
   orientation: ORIENTATIONS.VERTICAL,
   options: multiBarOptions[ORIENTATIONS.VERTICAL],
+  title: 'Multi bar chart',
 };
