@@ -8,7 +8,7 @@ const DATASETS = {
   Single: {
     data: [
       {
-        values: [10, 30, -20, 50, 40, 70, 60],
+        values: [10, 30, 20, 50, 40, 70, 60],
         color: '01',
         label: 'Hamburgers',
       },

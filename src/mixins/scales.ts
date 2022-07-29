@@ -2,6 +2,7 @@ import { PropType, ref, Ref, watchEffect } from '@vue/composition-api';
 import { ScaleBand, scaleBand, ScaleLinear, scaleLinear } from 'd3-scale';
 
 import { flatValues, isBandScale } from '@/utils/helpers';
+import { ChartOptions } from '@/mixins/options';
 
 import { DEFAULT_PADDING, Orientation, ORIENTATIONS } from '@/constants';
 import { ContainerSize } from '@/types/size';
@@ -40,7 +41,8 @@ export function useBaseScales(
   data: Ref<Data<DatasetValueObject>>,
   labels: Ref<Array<string | number>>,
   size: ContainerSize,
-  orientation?: Ref<Orientation>
+  orientation?: Ref<Orientation>,
+  options?: Ref<ChartOptions>
 ) {
   const xScale = ref<Scale>();
   const yScale = ref<Scale>();
@@ -53,7 +55,12 @@ export function useBaseScales(
       // x = scaleLinear : data : width
       // y = scaleBand : labels : height
 
-      xScale.value = generateLinearScale(data.value, width, orientation.value);
+      xScale.value = generateLinearScale(
+        data.value,
+        width,
+        orientation.value,
+        options.value.startOnZero
+      );
       yScale.value = generateBandScale(labels.value, height);
     } else {
       // vertical
@@ -61,7 +68,12 @@ export function useBaseScales(
       // y = scaleLinear : data : height
 
       xScale.value = generateBandScale(labels.value, width);
-      yScale.value = generateLinearScale(data.value, height, orientation.value);
+      yScale.value = generateLinearScale(
+        data.value,
+        height,
+        orientation.value,
+        options.value.startOnZero
+      );
     }
   }
 
@@ -79,10 +91,12 @@ function generateBandScale(domain: Array<string | number>, size: number) {
 function generateLinearScale(
   data: Data<DatasetValueObject>,
   size: number,
-  orientation: Orientation
+  orientation: Orientation,
+  startOnZero?: boolean
 ): ScaleLinear<number, number, never> {
   const allValues = flatValues(data).filter((v) => v != null);
-  const minValue = Math.min(...allValues);
+  const minAvailableValue = Math.min(...allValues);
+  const minValue = startOnZero && minAvailableValue > 0 ? 0 : minAvailableValue;
   const maxValue = Math.max(...allValues);
 
   const range = [0, size];
@@ -91,7 +105,7 @@ function generateLinearScale(
       ? [minValue, maxValue]
       : [maxValue, minValue];
 
-  return scaleLinear<number, number>().range(range).domain(domain);
+  return scaleLinear<number, number>().range(range).domain(domain).nice();
 }
 
 /**

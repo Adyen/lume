@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import Container from '@/core/chart-container/chart-container.vue';
+import Container from '@/core/adv-chart-container';
 
 describe('chart-container.vue', () => {
     test('mounts component', () => {

@@ -1,5 +1,5 @@
 <template>
-  <chart-container
+  <adv-chart-container
     :margins="allOptions.margins"
     data-j-adv-chart
     @resize="updateSize"
@@ -28,12 +28,14 @@
         :scale="computedXScale"
         :container-size="containerSize"
         :options="options.xAxisOptions"
+        @tick-mouseover="handleTickMouseover('x', $event)"
       />
       <adv-axis
         type="y"
         :scale="computedYScale"
         :container-size="containerSize"
         :options="options.yAxisOptions"
+        @tick-mouseover="handleTickMouseover('y', $event)"
       />
     </slot>
 
@@ -73,7 +75,7 @@
 
     <template #extra>
       <slot name="tooltip">
-        <tooltip
+        <adv-tooltip
           v-if="allOptions.withTooltip !== false && tooltipConfig.opened"
           v-bind="tooltipConfig"
           position="top"
@@ -83,7 +85,7 @@
         />
       </slot>
     </template>
-  </chart-container>
+  </adv-chart-container>
 </template>
 
 <script lang="ts">
@@ -98,13 +100,13 @@ import {
 
 import AdvAxis from '@/core/adv-axis';
 import AdvBar from '@/core/adv-bar';
-import ChartContainer from '@/core/chart-container';
+import AdvChartContainer from '@/core/adv-chart-container';
 import AdvOverlayGroup from '@/core/adv-overlay-group';
-import Tooltip from '@/core/tooltip';
+import AdvTooltip from '@/core/adv-tooltip';
 
 import { withBase, useBase } from '@/mixins/base';
 import { isScale, Scale, useBaseScales, withScales } from '@/mixins/scales';
-import { withOptions, useOptions } from '@/mixins/options';
+import { ChartOptions, withOptions, useOptions } from '@/mixins/options';
 import {
   checkNegativeValues,
   useNegativeValues,
@@ -115,11 +117,11 @@ import { orientationValidator } from '@/core/adv-bar-group/mixins/bar-mixin';
 import { NO_DATA, Orientation, ORIENTATIONS } from '@/constants';
 
 export default defineComponent({
-  components: { AdvAxis, AdvBar, ChartContainer, AdvOverlayGroup, Tooltip },
+  components: { AdvAxis, AdvBar, AdvChartContainer, AdvOverlayGroup, AdvTooltip },
   props: {
     ...withBase(),
     ...withScales(),
-    ...withOptions(),
+    ...withOptions<ChartOptions>(),
     orientation: {
       type: String as PropType<Orientation>,
       default: ORIENTATIONS.VERTICAL,
@@ -134,14 +136,15 @@ export default defineComponent({
 
     const { computedData, containerSize, updateSize } = useBase(data, labels);
 
+    const { allOptions } = useOptions<ChartOptions>(options);
+
     const { xScale, yScale } = useBaseScales(
       computedData,
       labels,
       containerSize,
-      orientation
+      orientation,
+      allOptions
     );
-
-    const { allOptions } = useOptions(options);
 
     const computedXScale = computed<Scale>(() => {
       if (!props.xScale) return xScale.value;
@@ -183,11 +186,6 @@ export default defineComponent({
       }));
     }
 
-    function handleMouseleave() {
-      hoveredIndex.value = -1;
-      hideTooltip();
-    }
-
     const mouseOverHandler = computed(() => {
       const handler = (index: number) => {
         // Update hoveredIndex
@@ -200,6 +198,21 @@ export default defineComponent({
 
       return handler;
     });
+
+    function handleTickMouseover(type: 'x' | 'y', index: number) {
+      // Only capture hover on the label axis
+      if (
+        (orientation.value === ORIENTATIONS.VERTICAL && type === 'x') ||
+        (orientation.value === ORIENTATIONS.HORIZONTAL && type === 'y')
+      ) {
+        mouseOverHandler.value(index);
+      }
+    }
+
+    function handleMouseleave() {
+      hoveredIndex.value = -1;
+      hideTooltip();
+    }
 
     onMounted(() => {
       if (!ctx.slots.groups?.()) {
@@ -216,6 +229,7 @@ export default defineComponent({
       getTooltipAnchorAttributes,
       getTooltipItems,
       handleMouseleave,
+      handleTickMouseover,
       hasNegativeValues,
       hoveredIndex,
       mouseOverHandler,

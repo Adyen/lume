@@ -26,13 +26,9 @@ export default defineComponent({
   props: {
     ...withBase(),
     ...withOptions(),
-    startOnZero: {
-      type: Boolean,
-      default: true,
-    },
   },
   setup(props) {
-    const { data, labels, options, startOnZero } = toRefs(props);
+    const { data, labels, options } = toRefs(props);
     const { computedData } = useBase(data, labels);
     const { allOptions } = useOptions(options, defaultOptions);
 

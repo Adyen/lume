@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import Tooltip from '@/core/tooltip/tooltip.vue';
+import Tooltip from '@/core/adv-tooltip';
 
 const title = 'My title';
 const mockElement = document.createElement('div')

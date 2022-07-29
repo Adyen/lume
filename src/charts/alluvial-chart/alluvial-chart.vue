@@ -1,5 +1,5 @@
 <template>
-  <chart-container
+  <adv-chart-container
     :margins="allOptions.margins"
     @resize="updateSize"
   >
@@ -52,7 +52,7 @@
         </g>
       </g>
     </g>
-  </chart-container>
+  </adv-chart-container>
 </template>
 
 <script lang="ts">
@@ -63,11 +63,11 @@ import { alluvialDefaults, nodeToLabelGap, options as defaultOptions } from './d
 import { AlluvialInstance } from "@/types/alluvial";
 import { useBase } from "@/charts/alluvial-chart/mixins/base";
 import { drawPlot } from "@/charts/alluvial-chart/mixins/plot";
-import ChartContainer from '@/core/chart-container';
+import AdvChartContainer from '@/core/adv-chart-container';
 import { useOptions, withOptions } from '@/mixins/options';
 
 export default defineComponent({
-  components: { ChartContainer },
+  components: { AdvChartContainer },
   props: {
     ...withData(),
     ...withOptions()
