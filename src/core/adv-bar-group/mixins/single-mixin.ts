@@ -46,14 +46,15 @@ export function useSingleBarMixin(
   }
 
   function barAttributeGenerator(
-    barValue: number,
+    barValue: DatasetValueObject,
     index: number,
     groupIndex: number
   ) {
-    const color = data.value[index].color;
-    const { x, y } = getBarTransform(barValue, groupIndex);
-    const width = getBarWidth(barValue);
-    const height = getBarHeight(barValue);
+    const { value, color: barColor } = barValue;
+    const color = barColor ?? data.value[index].color;
+    const { x, y } = getBarTransform(value, groupIndex);
+    const width = getBarWidth(value);
+    const height = getBarHeight(value);
 
     return {
       fillClass: `adv-fill-color-${color}`,

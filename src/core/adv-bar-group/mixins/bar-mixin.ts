@@ -1,5 +1,5 @@
 import { computed, ComputedRef, PropType, Ref } from '@vue/composition-api';
-import { ScaleBand } from 'd3-scale';
+import { ScaleBand, ScaleLinear } from 'd3-scale';
 
 import { getPaddedScale, Scale } from '@/mixins/scales';
 
@@ -29,10 +29,13 @@ export const withBarProps = () => ({
 
 export function useBarMixin(data: Ref<Data<DatasetValueObject>>) {
   /** Array of padded (null = 0) number values */
-  const multiBarData: ComputedRef<Data<number>> = computed(() => {
+  const multiBarData: ComputedRef<Data<DatasetValueObject>> = computed(() => {
     return data.value.map((dataset) => ({
       ...dataset,
-      values: dataset.values.map((datasetValue) => datasetValue?.value || 0),
+      values: dataset.values.map((datasetValue) => ({
+        ...datasetValue,
+        value: datasetValue?.value || 0,
+      })),
     }));
   });
 
@@ -66,20 +69,34 @@ export function useBarScales(
   yScale: Ref<Scale>,
   orientation?: Ref<Orientation>
 ) {
+  const isHorizontal = computed(
+    () => orientation.value === ORIENTATIONS.HORIZONTAL
+  );
+
+  function checkValidDomain(scale: ScaleLinear<number, number>) {
+    if (Math.min(...scale.domain()) > 0) {
+      console.error(`Bar linear scale domain cannot start above 0!`);
+    }
+  }
+
   const barXScale = computed(() => {
-    const scale =
-      orientation.value === ORIENTATIONS.HORIZONTAL
-        ? xScale.value
-        : getPaddedScale(xScale.value as ScaleBand<string | number>);
+    const scale = isHorizontal.value
+      ? (() => {
+          checkValidDomain(xScale.value as ScaleLinear<number, number>);
+          return xScale.value;
+        })()
+      : getPaddedScale(xScale.value as ScaleBand<string | number>);
 
     return scale;
   });
 
   const barYScale = computed(() => {
-    const scale =
-      orientation.value === ORIENTATIONS.HORIZONTAL
-        ? getPaddedScale(yScale.value as ScaleBand<string | number>)
-        : yScale.value;
+    const scale = isHorizontal.value
+      ? getPaddedScale(yScale.value as ScaleBand<string | number>)
+      : (() => {
+          checkValidDomain(yScale.value as ScaleLinear<number, number>);
+          return yScale.value;
+        })();
 
     return scale;
   });

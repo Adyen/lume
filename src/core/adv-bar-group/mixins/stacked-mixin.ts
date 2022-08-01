@@ -146,24 +146,21 @@ export function useStackedBarMixin(
   }
 
   function barAttributeGenerator(
-    barValue: number,
+    barValue: DatasetValueObject,
     index: number,
     groupIndex: number
   ) {
+    const { value, color: barColor } = barValue;
     const width =
-      barValue >= 0
-        ? getPositiveBarWidth(barValue)
-        : getNegativeBarWidth(barValue);
+      value >= 0 ? getPositiveBarWidth(value) : getNegativeBarWidth(value);
     const height =
-      barValue >= 0
-        ? getPositiveBarHeight(barValue)
-        : getNegativeBarHeight(barValue);
+      value >= 0 ? getPositiveBarHeight(value) : getNegativeBarHeight(value);
     const offset =
-      barValue >= 0
+      value >= 0
         ? getPositiveOffset(index, groupIndex)
         : getNegativeOffset(index, groupIndex);
-    const { x, y } = getBarTransform(barValue, groupIndex, offset);
-    const color = data.value[index].color;
+    const { x, y } = getBarTransform(value, groupIndex, offset);
+    const color = barColor ?? data.value[index].color;
 
     return {
       fillClass: `adv-fill-color-${color}`,
