@@ -1,6 +1,6 @@
 <template>
   <adv-chart
-    :data="data"
+    :data="computedLineData"
     :labels="computedLabels"
     :options="allOptions"
     :x-scale="xScaleGenerator"
@@ -80,6 +80,7 @@ export default defineComponent({
       areaPathDefinition,
       color,
       computedLabels,
+      computedLineData,
       xScaleGenerator,
     };
   },

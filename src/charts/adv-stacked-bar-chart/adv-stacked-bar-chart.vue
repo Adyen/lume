@@ -1,6 +1,7 @@
 <template>
   <adv-chart
     v-bind="$props"
+    chart-type="stacked-bar-chart"
     :data="computedData"
     :options="allOptions"
     :x-scale="stackedXScaleGenerator"

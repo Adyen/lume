@@ -1,6 +1,7 @@
 <template>
   <adv-chart
     v-bind="$props"
+    :data="computedLineData"
     :options="allOptions"
   >
     <template #groups="props">
@@ -13,10 +14,12 @@
 import { defineComponent, toRefs } from '@vue/composition-api';
 
 import AdvChart from '@/core/adv-chart';
-import AdvLineGroup from '@/core/adv-line-group/';
+import AdvLineGroup from '@/core/adv-line-group';
 
+import { useBase } from '@/mixins/base';
 import { useOptions } from '@/mixins/options';
 import { withChartProps } from '@/mixins/props';
+import { useLineNullValues } from '@/mixins/line-null-values';
 
 import { options as defaultOptions } from './defaults';
 
@@ -26,11 +29,15 @@ export default defineComponent({
     ...withChartProps(),
   },
   setup(props) {
-    const { options } = toRefs(props);
+    const { data, options } = toRefs(props);
+
     const { allOptions } = useOptions(options, defaultOptions);
+    const { computedData } = useBase(data);
+    const { computedLineData } = useLineNullValues(computedData);
 
     return {
       allOptions,
+      computedLineData,
     };
   },
 });

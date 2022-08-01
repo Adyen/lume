@@ -134,9 +134,13 @@ export default defineComponent({
   },
   props: {
     ...withChartProps(),
+    chartType: {
+      type: String,
+      default: null,
+    },
   },
   setup(props, ctx) {
-    const { data, labels, options, orientation } = toRefs(props);
+    const { data, labels, options, orientation, chartType } = toRefs(props);
 
     const hoveredIndex = ref<number>(-1);
     const tooltipAnchor = ref<SVGCircleElement>(null);
@@ -181,7 +185,8 @@ export default defineComponent({
       computedData,
       computedXScale,
       computedYScale,
-      orientation
+      orientation,
+      chartType
     );
 
     function getTooltipItems(index: number) {
@@ -189,7 +194,7 @@ export default defineComponent({
         type: type || 'line',
         color,
         label,
-        value: values[index]?.value ?? NO_DATA,
+        value: values[index]?.label ?? values[index]?.value ?? NO_DATA,
       }));
     }
 

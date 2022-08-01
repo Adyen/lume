@@ -65,3 +65,19 @@ export function getScaleStep(scale: Scale) {
   if (isBandScale(scale)) return scale.bandwidth();
   return Math.max(...scale.range()) / Math.max(...scale.domain());
 }
+
+/**
+ * Returns the highest value of all provided datasets in a given index.
+ *
+ * @param {Data} data The data to use.
+ * @param {number} index THe index to check for.
+ * @returns {number} The highest value.
+ */
+export function getHighestValue(
+  data: Data<DatasetValueObject>,
+  index: number
+): number {
+  return data.reduce((max, point) =>
+    max.values[index]?.value > point.values[index]?.value ? max : point
+  ).values[index]?.value || 0;
+}

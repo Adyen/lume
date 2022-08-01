@@ -1,35 +1,53 @@
-import { Orientation, ORIENTATIONS } from '@/constants';
-import { Data, DatasetValueObject } from '@/types/dataset';
 import { computed, reactive, Ref, set } from '@vue/composition-api';
+
 import { getXByIndex, Scale } from './scales';
+
+import { Orientation, ORIENTATIONS } from '@/constants';
+import { getHighestValue } from '@/utils/helpers';
+import { Data, DatasetValueObject } from '@/types/dataset';
 
 export interface TooltipConfig {
   opened: boolean;
   targetElement: Element | null;
 }
 
+function getStackedHighestValue(
+  data: Data<DatasetValueObject>,
+  index: number
+): number {
+  return data.reduce((sum, curr) => {
+    const val = curr.values[index]?.value;
+    if (val > 0) sum += val;
+    return sum;
+  }, 0);
+}
+
+const ANCHOR_MAP = {
+  'stacked-bar-chart': getStackedHighestValue,
+};
+
 export function useTooltipAnchors(
   data: Ref<Data<DatasetValueObject>>,
   xScale: Ref<Scale>,
   yScale: Ref<Scale>,
-  orientation: Ref<Orientation>
+  orientation: Ref<Orientation>,
+  chartType: Ref<string>
 ) {
-  // TODO: Needs to account for null values (line chart). currently falls back to 0
-  // Also, for bar chart, negative values should default to 0.
+  // TODO: Needs to account for bar chart, negative values should default to 0.
   const getTooltipAnchorAttributes = computed(() => (index: number) => {
-    const highestValue = data.value.reduce((max, point) =>
-      max.values[index]?.value > point.values[index]?.value ? max : point
-    ).values[index]?.value;
+    const highestValue = chartType.value
+      ? ANCHOR_MAP[chartType.value](data.value, index)
+      : getHighestValue(data.value, index);
 
     const cx =
       orientation.value === ORIENTATIONS.HORIZONTAL
-        ? xScale.value(highestValue || 0)
+        ? xScale.value(highestValue)
         : getXByIndex(xScale.value, index);
 
     const cy =
       orientation.value === ORIENTATIONS.HORIZONTAL
         ? getXByIndex(yScale.value, index)
-        : yScale.value(highestValue || 0);
+        : yScale.value(highestValue);
 
     return {
       cx,

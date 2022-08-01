@@ -2,6 +2,7 @@
   <component
     :is="component"
     v-bind="$props"
+    :options="getBarChartOptions(options)"
     v-on="$listeners"
   />
 </template>
@@ -11,6 +12,7 @@ import { computed, defineComponent } from '@vue/composition-api';
 
 import { singleDatasetValidator } from '@/utils/helpers';
 import { withChartProps } from '@/mixins/props';
+import { Options } from '@/mixins/options';
 
 const TYPES = ['grouped', 'stacked'];
 
@@ -33,6 +35,13 @@ export default defineComponent({
     },
   },
   setup(props) {
+    function getBarChartOptions(options: Options) {
+      return {
+        ...options,
+        startOnZero: true, // Bar chart always starts on zero
+      };
+    }
+
     const component = computed(() => {
       if (!props.data) return;
 
@@ -47,7 +56,7 @@ export default defineComponent({
       return `adv-${props.type}-bar-chart`;
     });
 
-    return { component };
+    return { component, getBarChartOptions };
   },
 });
 </script>

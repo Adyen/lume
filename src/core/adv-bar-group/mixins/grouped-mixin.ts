@@ -72,15 +72,16 @@ export function useGroupedBarMixin(
   }
 
   function barAttributeGenerator(
-    barValue: number,
+    barValue: DatasetValueObject,
     index: number,
     groupIndex: number
   ) {
-    const color = data.value[index].color;
-    const x = getBarTranslateX(barValue, groupIndex, index);
-    const y = getBarTranslateY(barValue, groupIndex, index);
-    const width = getBarWidth(barValue);
-    const height = getBarHeight(barValue);
+    const { value, color: barColor } = barValue;
+    const color = barColor ?? data.value[index].color;
+    const x = getBarTranslateX(value, groupIndex, index);
+    const y = getBarTranslateY(value, groupIndex, index);
+    const width = getBarWidth(value);
+    const height = getBarHeight(value);
 
     return {
       fillClass: `adv-fill-color-${color}`,
