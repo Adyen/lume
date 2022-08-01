@@ -7,11 +7,11 @@ import { labels } from '../../mock-data';
 const width = 640;
 const scale: Scale = scaleBand<number>()
     .domain(labels.map((_, i) => i))
-    .range([0, width])
+    .range([0, width]);
 
 describe('adv-axis.vue', () => {
-    test('mounts component and sets prop values', async () => {
-        const wrapper = await mount(AdvAxis, {
+    test('mounts component and sets prop values',() => {
+        const wrapper = mount(AdvAxis, {
             propsData: {
                 scale
             }
@@ -20,4 +20,4 @@ describe('adv-axis.vue', () => {
         const el = wrapper.find('[data-j-axis]');
         expect(el.exists()).toBeTruthy()
     })
-})
+});

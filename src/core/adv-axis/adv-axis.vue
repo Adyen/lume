@@ -74,6 +74,8 @@ import { xOptions, yOptions } from './defaults';
 import { AxisMixin, AxisMixinFunction } from './types';
 import { ScaleBand } from 'd3-scale';
 
+import mixinTypes from './mixins/';
+
 const SCALE_MIXIN_MAP = {
   bandScale: 'band-scale-axis',
   linearScale: 'linear-scale-axis',
@@ -217,14 +219,10 @@ export default defineComponent({
         : 'linearScale';
 
       // Get mixin generator based on the scale type
-      const mixin: AxisMixin = (
-        await import(
-          `./mixins/${computedType.value}-${SCALE_MIXIN_MAP[scaleType]}`
-        )
-      ).default;
+      const mixin: AxisMixin = mixinTypes[`${computedType.value}-${SCALE_MIXIN_MAP[scaleType]}`];
 
       // Push all mixin functions into the `mixins` reactive object
-      Object.entries(mixin(scale, containerSize, allOptions)).forEach(
+      Object.entries(mixin(scale, containerSize, allOptions) || []).forEach(
         ([fnName, fn]) => {
           set(mixins, fnName, fn);
         }

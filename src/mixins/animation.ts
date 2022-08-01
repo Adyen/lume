@@ -1,4 +1,4 @@
-import {ComputedRef, nextTick, onBeforeMount, onMounted, ref} from "@vue/composition-api";
+import { ComputedRef, nextTick, onBeforeMount, onMounted, ref } from "@vue/composition-api";
 
 export function useAnimation(
     groupedData: ComputedRef<Array<number[]>>
