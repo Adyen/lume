@@ -8,7 +8,7 @@ import { Data, DatasetValueObject } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 
 export function useStackedAxes(
-  groupedData: ComputedRef<number[][]>,
+  groupedData: ComputedRef<DatasetValueObject[][]>,
   orientation: Ref<Orientation>
 ) {
   const isHorizontal = computed(
@@ -16,20 +16,27 @@ export function useStackedAxes(
   );
 
   const stackedMinValue = computed(() => {
-    const accumulatedValues = groupedData.value.map((valueSet: number[]) => {
-      return valueSet
-        .filter((value) => value < 0)
-        .reduce((acc, curr) => acc + curr, 0);
-    });
+    const accumulatedValues = groupedData.value.map(
+      (valueSet: DatasetValueObject[]) => {
+        return valueSet
+          .filter((value) => value.value < 0)
+          .reduce((acc, curr) => acc + curr.value, 0);
+      }
+    );
 
     return Math.min(...accumulatedValues);
   });
 
   const stackedMaxValue = computed(() => {
     // Make sure we can handle both single values and arrays of values
-    const accumulatedValues = groupedData.value.map((valueSet: number[]) => {
-      return valueSet.reduce((acc, curr) => (curr >= 0 ? acc + curr : acc), 0);
-    });
+    const accumulatedValues = groupedData.value.map(
+      (valueSet: DatasetValueObject[]) => {
+        return valueSet.reduce(
+          (acc, curr) => (curr.value >= 0 ? acc + curr.value : acc),
+          0
+        );
+      }
+    );
     return Math.max(...accumulatedValues);
   });
 
