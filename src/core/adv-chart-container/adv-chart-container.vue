@@ -1,10 +1,10 @@
 <template>
   <div
     ref="resizeRef"
-    class="u-width-full u-height-full"
+    class="adv-chart-container"
     data-j-chart-container
   >
-    <slot name="title" />
+    <slot name="header" />
 
     <svg
       ref="root"
@@ -20,6 +20,8 @@
         <slot />
       </g>
     </svg>
+
+    <slot name="footer" />
 
     <slot name="extra" />
   </div>
@@ -47,7 +49,7 @@ export default defineComponent({
     },
   },
   setup(props, ctx) {
-    const root = ref(null);
+    const root = ref<SVGElement>(null);
     const { margins } = toRefs(props);
 
     const { resizeRef, resizeState } = useResizeObserver();
@@ -63,7 +65,11 @@ export default defineComponent({
     }));
 
     watchEffect(() => {
-      const { width, height } = resizeState.dimensions;
+      if (!root.value) return;
+
+      const { width } = resizeState.dimensions;
+      const { height } = root.value.getBoundingClientRect();
+
       const _width =
         width - computedMargin.value.left - computedMargin.value.right;
       const _height =
@@ -91,11 +97,18 @@ export default defineComponent({
 <style lang="scss" scoped>
 @use '~@/styles/variables' as *;
 
+.adv-chart-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
 .container {
   overflow: visible;
   background-color: $chart-background-color;
   width: 100%;
-  height: 100%;
+  flex: 1;
 
   &--transparent-background {
     background-color: transparent;

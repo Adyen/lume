@@ -5,13 +5,29 @@
     @resize="updateSize"
     @mouseleave="handleMouseleave"
   >
-    <template
-      v-if="title"
-      #title
-    >
-      <h1 class="adv-chart-title">
+    <template #header>
+      <!-- chart title -->
+      <h1
+        v-if="title"
+        class="adv-chart-title"
+      >
         {{ title }}
       </h1>
+
+      <!-- segmented control / filter -->
+
+      <div class="adv-chart__header">
+        <!-- y axis title -->
+        <h3
+          v-if="showYAxisTitle"
+          class="adv-axis-title"
+        >
+          {{ yAxisTitle }}
+        </h3>
+
+        <!-- chart legend -->
+        <adv-chart-legend :data="computedData" />
+      </div>
     </template>
 
     <!-- Negative values background -->
@@ -82,6 +98,16 @@
       />
     </g>
 
+    <template #footer>
+      <!-- x axis title -->
+      <h3
+        v-if="showXAxisTitle"
+        class="adv-axis-title adv-axis-title--centered"
+      >
+        {{ xAxisTitle }}
+      </h3>
+    </template>
+
     <template #extra>
       <slot name="tooltip">
         <adv-tooltip
@@ -109,6 +135,7 @@ import {
 import AdvAxis from '@/core/adv-axis';
 import AdvBar from '@/core/adv-bar';
 import AdvChartContainer from '@/core/adv-chart-container';
+import AdvChartLegend from '@/core/adv-chart-legend';
 import AdvOverlayGroup from '@/core/adv-overlay-group';
 import AdvTooltip from '@/core/adv-tooltip';
 
@@ -129,6 +156,7 @@ export default defineComponent({
     AdvAxis,
     AdvBar,
     AdvChartContainer,
+    AdvChartLegend,
     AdvOverlayGroup,
     AdvTooltip,
   },
@@ -169,6 +197,22 @@ export default defineComponent({
       return isScale(props.yScale)
         ? props.yScale
         : props.yScale?.(computedData.value, labels.value, containerSize);
+    });
+
+    const showXAxisTitle = computed(() => {
+      return allOptions.value.xAxisOptions?.withTitle !== false;
+    });
+
+    const showYAxisTitle = computed(() => {
+      return allOptions.value.yAxisOptions?.withTitle !== false;
+    });
+
+    const xAxisTitle = computed(() => {
+      return allOptions.value.xAxisOptions?.title;
+    });
+
+    const yAxisTitle = computed(() => {
+      return allOptions.value.yAxisOptions?.title;
     });
 
     const { hasNegativeValues } = checkNegativeValues(computedData);
@@ -246,10 +290,30 @@ export default defineComponent({
       hoveredIndex,
       mouseOverHandler,
       negativeBarAttributes,
+      showXAxisTitle,
+      showYAxisTitle,
       tooltipAnchor,
       tooltipConfig,
       updateSize,
+      xAxisTitle,
+      yAxisTitle,
     };
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.adv-chart {
+  &__header {
+    display: flex;
+    align-items: center;
+
+    > .adv-chart-title {
+    }
+
+    > .adv-chart-legend {
+      margin-left: auto;
+    }
+  }
+}
+</style>
