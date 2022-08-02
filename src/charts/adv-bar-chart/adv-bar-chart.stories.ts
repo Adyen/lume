@@ -69,11 +69,9 @@ SingleBarChart.args = {
     ...singleBarOptions[ORIENTATIONS.VERTICAL],
     xAxisOptions: {
       ...singleBarOptions[ORIENTATIONS.VERTICAL].xAxisOptions,
-      title: 'Weekday',
-      withTitle: true,
     },
   },
-  title: 'Single bar chart',
+  title: 'Hot dog sales per weekday',
 };
 
 export const MultiBarChart = ({ argTypes }) => {
@@ -114,6 +112,12 @@ MultiBarChart.args = {
   ],
   labels,
   orientation: ORIENTATIONS.VERTICAL,
-  options: multiBarOptions[ORIENTATIONS.VERTICAL],
-  title: 'Multi bar chart',
+  options: {
+    ...multiBarOptions[ORIENTATIONS.VERTICAL],
+    yAxisOptions: {
+      ...multiBarOptions[ORIENTATIONS.VERTICAL].yAxisOptions,
+      title: '# of sales',
+    },
+  },
+  title: 'Snack sales per weekday',
 };
