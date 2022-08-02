@@ -26,5 +26,5 @@ export const withSizeArgs = (
   defaultHeight?: number
 ) => ({
   width: defaultWidth || 540,
-  height: defaultHeight || 320,
+  height: defaultHeight || 360,
 });

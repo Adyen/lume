@@ -5,15 +5,6 @@
     :transform="axisTransform"
     data-j-axis
   >
-    <text
-      v-if="allOptions.withTitle"
-      v-bind="titlePosition"
-      class="axis__title"
-      :class="{ 'axis__title--horizontal': computedType === 'x' }"
-    >
-      {{ title || allOptions.title }}
-    </text>
-
     <g
       v-for="(tick, index) in ticks"
       v-bind="mixins.getTickGroupAttributes(tick)"
@@ -88,13 +79,6 @@ const TYPES = {
   y: 'left',
 };
 
-const LABEL_HEIGHT = 14; // 14px
-const LABEL_PADDING = 12; // 12px
-
-const LABEL_MARGIN = {
-  y: LABEL_HEIGHT + LABEL_PADDING,
-};
-
 interface AxisProps {
   scale: Scale;
   type?: 'x' | 'y';
@@ -163,18 +147,6 @@ export default defineComponent({
       return `translate(0, 0)`;
     });
 
-    const titlePosition = computed(() =>
-      computedType.value === 'y'
-        ? {
-          x: 0,
-          y: -LABEL_MARGIN[computedType.value],
-        }
-        : {
-          x: containerSize.value?.width / 2,
-          y: 2 * LABEL_HEIGHT + LABEL_PADDING,
-        }
-    );
-
     const ticks = computed(() => {
       // For band scales, return the full labels array (domain)
       if ((scale.value as ScaleBand<string | number>).step)
@@ -219,7 +191,8 @@ export default defineComponent({
         : 'linearScale';
 
       // Get mixin generator based on the scale type
-      const mixin: AxisMixin = mixinTypes[`${computedType.value}-${SCALE_MIXIN_MAP[scaleType]}`];
+      const mixin: AxisMixin =
+        mixinTypes[`${computedType.value}-${SCALE_MIXIN_MAP[scaleType]}`];
 
       // Push all mixin functions into the `mixins` reactive object
       Object.entries(mixin(scale, containerSize, allOptions) || []).forEach(
@@ -250,7 +223,6 @@ export default defineComponent({
       showTick,
       tickRefs,
       ticks,
-      titlePosition,
     };
   },
 });
@@ -259,25 +231,13 @@ export default defineComponent({
 <style lang="scss" scoped>
 @use '~@/styles/variables' as *;
 
-$axis-title-color: $adv-color-grey-50;
 $axis-label-color: $adv-color-grey-30;
 $axis-label-hover-color: $adv-color-grey-70;
 $axis-line-color: $adv-color-grey-20;
 
-$axis-title-font-size: 14px;
 $axis-label-font-size: 10px;
 
 .axis {
-  &__title {
-    fill: $axis-title-color;
-    font-size: $axis-title-font-size;
-    text-anchor: start;
-
-    &--horizontal {
-      text-anchor: middle;
-    }
-  }
-
   &__ghost {
     fill: transparent;
   }
