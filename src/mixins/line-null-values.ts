@@ -9,7 +9,6 @@ export function useLineNullValues(data: ComputedRef<Data<DatasetValueObject>>) {
    * E.g. for data of `[500, 400, null, 300, null, null, 200]` returns `[ [2], [4, 5] ]`
    */
   function getNullIntervals(values: DatasetValueObject<number>[]) {
-    console.log(values);
     let currentInterval: Array<number> = null;
 
     return values?.reduce(
@@ -62,7 +61,6 @@ export function useLineNullValues(data: ComputedRef<Data<DatasetValueObject>>) {
    * @returns {Boolean} True if line at this point should be dashed.
    */
   function generateIsDashed(nullIntervals: number[][]) {
-    console.log(nullIntervals);
     return function isDashed(index: number): boolean {
       return !!nullIntervals.find(
         (interval) => interval.includes(index) || interval.includes(index - 1)
@@ -96,7 +94,7 @@ export function useLineNullValues(data: ComputedRef<Data<DatasetValueObject>>) {
                 nullInterval.length,
                 nullInterval.indexOf(index)
               ),
-              label: NO_DATA
+              label: NO_DATA,
             };
           }
           return value;

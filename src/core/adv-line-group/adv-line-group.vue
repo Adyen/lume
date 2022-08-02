@@ -12,7 +12,7 @@
 
     <!-- Line groups -->
     <g
-      v-for="dataset in data"
+      v-for="dataset in computedGroupData"
       :key="dataset.label"
       class="adv-line-group__group"
     >
@@ -61,6 +61,8 @@ import AdvLine from '@/core/adv-line';
 import AdvPoint from '@/core/adv-point';
 
 import { getXByIndex, Scale } from '@/mixins/scales';
+import { useBase } from '@/mixins/base';
+import { useLineNullValues } from '@/mixins/line-null-values';
 
 import { getHighestValue } from '@/utils/helpers';
 import { Data, DatasetValueObject } from '@/types/dataset';
@@ -92,6 +94,19 @@ export default defineComponent({
 
   setup(props) {
     const { data, xScale, yScale } = toRefs(props);
+
+    const { computedData } = useBase(data);
+
+    const computedGroupData = computed(() => {
+      // Check if all datasets have `isDashed` function (which means data has been computed for line null values)
+      if (computedData.value.every((dataset) => dataset.isDashed)) {
+        return computedData.value;
+      }
+
+      // Compute line null values and return it
+      const { computedLineData } = useLineNullValues(computedData);
+      return computedLineData.value;
+    });
 
     const overlayLineAttributes = computed(() => {
       if (props.hoveredIndex === -1) return;
@@ -131,6 +146,7 @@ export default defineComponent({
     }
 
     return {
+      computedGroupData,
       getLineValues,
       getPointValue,
       isPointActive,
