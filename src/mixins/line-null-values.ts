@@ -11,24 +11,21 @@ export function useLineNullValues(data: ComputedRef<Data<DatasetValueObject>>) {
   function getNullIntervals(values: DatasetValueObject<number>[]) {
     let currentInterval: Array<number> = null;
 
-    return values?.reduce(
-      (intervals: Array<Array<number>>, value: DatasetValue | null, index) => {
-        if (value == null) {
-          if (!currentInterval) {
-            currentInterval = [index];
-            if (index === values?.length - 1) intervals.push(currentInterval); // If last value is `null`
-          } else {
-            currentInterval.push(index);
-          }
-        } else if (currentInterval) {
-          intervals.push(currentInterval);
-          currentInterval = null;
+    return values?.reduce((intervals: Array<Array<number>>, value, index) => {
+      if (value == null || value.value == null) { // check for `null` or { value: null }
+        if (!currentInterval) {
+          currentInterval = [index];
+          if (index === values?.length - 1) intervals.push(currentInterval); // If last value is `null`
+        } else {
+          currentInterval.push(index);
         }
+      } else if (currentInterval) {
+        intervals.push(currentInterval);
+        currentInterval = null;
+      }
 
-        return intervals;
-      },
-      []
-    );
+      return intervals;
+    }, []);
   }
 
   /**
