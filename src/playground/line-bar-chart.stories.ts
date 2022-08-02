@@ -1,4 +1,5 @@
 import LineBarChart from './line-bar-chart.vue';
+import { DEFAULT_MARGINS } from '@/constants';
 
 export default {
   title: 'Playground/Line+bar chart',
@@ -10,7 +11,7 @@ export default {
   },
   args: {
     options: {
-      margins: { top: 44, right: 0, bottom: 32, left: 32 },
+      margins: DEFAULT_MARGINS.VERTICAL,
       yAxisOptions: { gridLines: true },
     },
     lineData: [

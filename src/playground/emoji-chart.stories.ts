@@ -11,7 +11,7 @@ export default {
   },
   args: {
     options: {
-      margins: { top: 44, right: 0, bottom: 32, left: 32 },
+      margins: { top: 16, right: 0, bottom: 32, left: 32 },
       yAxisOptions: { gridLines: true, title: 'Favorite emojis' },
       tooltipOptions: {
         offset: 24,
