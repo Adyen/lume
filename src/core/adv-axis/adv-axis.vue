@@ -11,7 +11,7 @@
       :key="tick"
       class="axis__tick"
       :class="{
-        'axis__tick--hovered': hoveredIndex === index,
+        'axis__tick--hovered': allOptions.withHover && hoveredIndex === index,
         'axis__tick--hidden': allOptions.skip && !showTick(index),
       }"
     >

@@ -108,6 +108,7 @@ export default defineComponent({
   overflow: visible;
   background-color: $chart-background-color;
   width: 100%;
+  min-height: 0;
   flex: 1;
 
   &--transparent-background {

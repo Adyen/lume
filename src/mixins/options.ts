@@ -23,6 +23,7 @@ export interface ChartOptions extends Options {
   yAxisOptions?: AxisOptions;
   tooltipOptions?: TooltipOptions;
   startOnZero?: boolean;
+  withLegend?: boolean;
 }
 
 export type Options = Record<string, unknown>;

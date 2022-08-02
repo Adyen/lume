@@ -26,7 +26,10 @@
         </h3>
 
         <!-- chart legend -->
-        <adv-chart-legend :data="computedData" />
+        <adv-chart-legend
+          v-if="allOptions.withLegend !== false"
+          :data="computedData"
+        />
       </div>
     </template>
 
@@ -47,19 +50,22 @@
       :y-scale="computedYScale"
       :container-size="containerSize"
       :options="allOptions"
+      :hovered-index="hoveredIndex"
     >
       <adv-axis
         type="x"
         :scale="computedXScale"
         :container-size="containerSize"
-        :options="options.xAxisOptions"
+        :options="computedXAxisOptions"
+        :hovered-index="hoveredIndex"
         @tick-mouseover="handleTickMouseover('x', $event)"
       />
       <adv-axis
         type="y"
         :scale="computedYScale"
         :container-size="containerSize"
-        :options="options.yAxisOptions"
+        :options="computedYAxisOptions"
+        :hovered-index="hoveredIndex"
         @tick-mouseover="handleTickMouseover('y', $event)"
       />
     </slot>
@@ -199,13 +205,15 @@ export default defineComponent({
         : props.yScale?.(computedData.value, labels.value, containerSize);
     });
 
-    const showXAxisTitle = computed(() => {
-      return allOptions.value.xAxisOptions?.withTitle !== false;
-    });
+    const computedXAxisOptions = computed(() => ({
+      ...allOptions.value.xAxisOptions,
+      withHover: orientation.value === ORIENTATIONS.VERTICAL,
+    }));
 
-    const showYAxisTitle = computed(() => {
-      return allOptions.value.yAxisOptions?.withTitle !== false;
-    });
+    const computedYAxisOptions = computed(() => ({
+      ...allOptions.value.yAxisOptions,
+      withHover: orientation.value === ORIENTATIONS.HORIZONTAL,
+    }));
 
     const xAxisTitle = computed(() => {
       return allOptions.value.xAxisOptions?.title;
@@ -213,6 +221,18 @@ export default defineComponent({
 
     const yAxisTitle = computed(() => {
       return allOptions.value.yAxisOptions?.title;
+    });
+
+    const showXAxisTitle = computed(() => {
+      return (
+        allOptions.value.xAxisOptions?.withTitle !== false && xAxisTitle.value
+      );
+    });
+
+    const showYAxisTitle = computed(() => {
+      return (
+        allOptions.value.yAxisOptions?.withTitle !== false && yAxisTitle.value
+      );
     });
 
     const { hasNegativeValues } = checkNegativeValues(computedData);
@@ -279,7 +299,9 @@ export default defineComponent({
     return {
       allOptions,
       computedData,
+      computedXAxisOptions,
       computedXScale,
+      computedYAxisOptions,
       computedYScale,
       containerSize,
       getTooltipAnchorAttributes,
