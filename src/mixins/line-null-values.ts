@@ -1,5 +1,5 @@
 import { computed, ComputedRef } from '@vue/composition-api';
-import { Data, DatasetValue, DatasetValueObject } from '@/types/dataset';
+import { Data, DatasetValueObject } from '@/types/dataset';
 import { NO_DATA } from '@/constants';
 
 export function useLineNullValues(data: ComputedRef<Data<DatasetValueObject>>) {
@@ -12,7 +12,8 @@ export function useLineNullValues(data: ComputedRef<Data<DatasetValueObject>>) {
     let currentInterval: Array<number> = null;
 
     return values?.reduce((intervals: Array<Array<number>>, value, index) => {
-      if (value == null || value.value == null) { // check for `null` or { value: null }
+      // check for `null` or { value: null }
+      if (value == null || value.value == null) {
         if (!currentInterval) {
           currentInterval = [index];
           if (index === values?.length - 1) intervals.push(currentInterval); // If last value is `null`

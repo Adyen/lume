@@ -44,7 +44,7 @@ export function useBarMixin(data: Ref<Data<DatasetValueObject>>) {
    * Example: for datasets `{ values: [ 10, 20 ] }` and `{ values: [ 30, 40 ] }`,
    * `groupedData` will return `[[ 10, 30 ], [ 20, 40 ]]`.
    */
-  const groupedData: ComputedRef<Array<number[]>> = computed(() => {
+  const groupedData: ComputedRef<DatasetValueObject[][]> = computed(() => {
     return multiBarData.value?.reduce((accumulator, dataset) => {
       dataset.values.forEach((value, i) => {
         if (!accumulator[i]) accumulator[i] = [value];
