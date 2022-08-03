@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs } from '@vue/composition-api';
+import { computed, defineComponent, toRefs } from '@vue/composition-api';
 
 import AdvChart from '@/core/adv-chart';
 import AdvBarGroup from '@/core/adv-bar-group';
@@ -46,10 +46,11 @@ export default defineComponent({
     // State from mixins
     const { data, labels, orientation, options } = toRefs(props);
 
-    const { allOptions } = useOptions(
-      options,
-      defaultOptions[orientation.value || ORIENTATIONS.VERTICAL]
+    const baseOptions = computed(
+      () => defaultOptions[orientation.value || ORIENTATIONS.VERTICAL] // needs to be computed so that default options are reactive
     );
+
+    const { allOptions } = useOptions(options, baseOptions);
 
     const { computedData } = useBase(data, labels, orientation);
 

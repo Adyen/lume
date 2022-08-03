@@ -1,6 +1,6 @@
 import { Margins } from '@/constants';
 import { mergeDeep } from '@/utils/helpers';
-import { computed, PropType, Ref } from '@vue/composition-api';
+import { computed, isRef, PropType, Ref } from '@vue/composition-api';
 
 export interface AxisOptions extends Options {
   gridLines?: boolean;
@@ -37,13 +37,14 @@ export const withOptions = <T = Options>() => ({
 
 export function useOptions<T extends Options = Options>(
   options: Ref<T>,
-  defaultOptions?: T
+  defaultOptions?: T | Ref<T>
 ) {
-  const allOptions = computed<T>(() =>
-    defaultOptions
-      ? (mergeDeep(defaultOptions, options.value) as T)
-      : options.value
-  );
+  const allOptions = computed<T>(() => {
+    const defaults = isRef(defaultOptions)
+      ? defaultOptions?.value
+      : defaultOptions;
+    return defaults ? (mergeDeep(defaults, options.value) as T) : options.value;
+  });
 
   return { allOptions };
 }

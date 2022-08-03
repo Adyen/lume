@@ -2,9 +2,6 @@ import { withSizeArgs, withSizeArgTypes } from '@/utils/storybook-helpers';
 
 import AdvBarChart from './index';
 
-import { options as singleBarOptions } from '@/charts/adv-single-bar-chart/defaults';
-import { options as multiBarOptions } from '@/charts/adv-grouped-bar-chart/defaults';
-
 import { ORIENTATIONS } from '@/constants';
 
 const labels = [
@@ -66,10 +63,8 @@ SingleBarChart.args = {
   labels,
   orientation: ORIENTATIONS.VERTICAL,
   options: {
-    ...singleBarOptions[ORIENTATIONS.VERTICAL],
-    xAxisOptions: {
-      ...singleBarOptions[ORIENTATIONS.VERTICAL].xAxisOptions,
-    },
+    xAxisOptions: {},
+    yAxisOptions: {},
   },
   title: 'Hot dog sales per weekday',
 };
@@ -113,11 +108,8 @@ MultiBarChart.args = {
   labels,
   orientation: ORIENTATIONS.VERTICAL,
   options: {
-    ...multiBarOptions[ORIENTATIONS.VERTICAL],
-    yAxisOptions: {
-      ...multiBarOptions[ORIENTATIONS.VERTICAL].yAxisOptions,
-      title: '# of sales',
-    },
+    xAxisOptions: {},
+    yAxisOptions: {},
   },
   title: 'Snack sales per weekday',
 };
