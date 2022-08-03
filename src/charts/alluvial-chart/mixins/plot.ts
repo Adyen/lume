@@ -108,13 +108,17 @@ export function drawPlot(
     });
 
     function highlightLinks(highlightedLinks: SankeyLink[] = graph.value.links, isEntering: boolean = false) {
-        const links = new Set(highlightedLinks);
-        const nodes = new Set(highlightedLinks.reduce((acc, { source, target }) => [...acc, source, target], []));
+        const links = highlightedLinks
+            .map( _ => `#link_${_.source?.id}\\:${_.target?.id}`)
+            .reduce((acc, linkId) => `${acc}, ${linkId}`, null);
+        const nodes = highlightedLinks
+            .reduce((acc, { source, target }) => [...acc, `#node-block-${source?.id}`, `#node-block-${target?.id}`], [])
+            .reduce((acc, nodeId) => `${acc}, ${nodeId}`, null);
         drawingBoard.value?.selectAll('.path-group path')
-            .filter(link => !links.has(link))
+            .filter(`:not(${links})`)
             .classed('path-group__link--out', isEntering);
         drawingBoard.value?.selectAll('.node')
-            .filter(node => !nodes.has(node))
+            .filter(`:not(${nodes})`)
             .classed('node--out', isEntering);
     }
 
@@ -196,7 +200,7 @@ export function drawPlot(
                 y: (node.y1 + node.y0) / 2
             },
             node
-        }))
+        }));
     }
 
     function renderChart({ nodes, links }) {
