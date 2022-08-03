@@ -1,3 +1,4 @@
+import { isRef, Ref } from '@vue/composition-api';
 import { ScaleBand } from 'd3-scale';
 
 import { Data, DatasetValueObject } from '@/types/dataset';
@@ -77,7 +78,25 @@ export function getHighestValue(
   data: Data<DatasetValueObject>,
   index: number
 ): number {
-  return data.reduce((max, point) =>
-    max.values[index]?.value > point.values[index]?.value ? max : point
-  ).values[index]?.value || 0;
+  return (
+    data.reduce((max, point) =>
+      max.values[index]?.value > point.values[index]?.value ? max : point
+    ).values[index]?.value || 0
+  );
+}
+
+/**
+ * Returns an empty array with length equal to that of the dataset.
+ *
+ * @param data A data group.
+ * @returns An empty array.
+ */
+export function getEmptyArrayFromData(data: Data | Ref<Data>) {
+  const dataArray = isRef(data) ? data.value : data;
+  // Use max length in case datasets have different lengths
+  const maxLength = Math.max(
+    ...dataArray.map((dataset) => dataset.values.length)
+  );
+
+  return Array(...Array(maxLength));
 }

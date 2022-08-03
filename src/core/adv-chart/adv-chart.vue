@@ -1,6 +1,7 @@
 <template>
   <adv-chart-container
     :margins="allOptions.margins"
+    :container-size="containerSize"
     data-j-adv-chart
     @resize="updateSize"
     @mouseleave="handleMouseleave"
@@ -179,7 +180,7 @@ export default defineComponent({
     const hoveredIndex = ref<number>(-1);
     const tooltipAnchor = ref<SVGCircleElement>(null);
 
-    const { computedData, containerSize, updateSize } = useBase(data, labels);
+    const { computedData, containerSize, updateSize } = useBase(data, labels, orientation);
 
     const { allOptions } = useOptions<ChartOptions>(options);
 

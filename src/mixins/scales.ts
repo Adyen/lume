@@ -4,7 +4,12 @@ import { ScaleBand, scaleBand, ScaleLinear, scaleLinear } from 'd3-scale';
 import { flatValues, isBandScale } from '@/utils/helpers';
 import { ChartOptions } from '@/mixins/options';
 
-import { DEFAULT_PADDING, Orientation, ORIENTATIONS } from '@/constants';
+import {
+  Orientation,
+  ORIENTATIONS,
+  PADDING_HORIZONTAL,
+  PADDING_VERTICAL,
+} from '@/constants';
 import { ContainerSize } from '@/types/size';
 import { Data, DatasetValueObject } from '@/types/dataset';
 
@@ -133,9 +138,16 @@ export function getXByIndex(scale: Scale, index: number): number {
     : scale(index);
 }
 
-export function getPaddedScale(scale: ScaleBand<string | number>) {
+export function getPaddedScale(
+  scale: ScaleBand<string | number>,
+  orientation?: Orientation
+) {
+  const padding =
+    orientation === ORIENTATIONS.HORIZONTAL
+      ? PADDING_HORIZONTAL
+      : PADDING_VERTICAL;
   return scale
     .copy()
-    .paddingInner(DEFAULT_PADDING)
-    .paddingOuter(DEFAULT_PADDING / 2);
+    .paddingInner(padding)
+    .paddingOuter(padding / 2);
 }

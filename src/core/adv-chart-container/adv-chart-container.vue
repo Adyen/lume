@@ -10,6 +10,8 @@
       ref="root"
       class="container"
       :class="{ 'container--transparent-background': transparentBackground }"
+      :width="containerSize.width"
+      :height="containerSize.height + computedMargin.bottom"
       @mouseleave="$emit('mouseleave', $event)"
     >
       <g
@@ -42,6 +44,10 @@ export default defineComponent({
     margins: {
       type: Object,
       default: () => ({}),
+    },
+    containerSize: {
+      type: Object,
+      required: true,
     },
     transparentBackground: {
       type: Boolean,

@@ -3,8 +3,7 @@ import { Data } from '@/types/dataset';
 import {scaleBand, scaleLinear} from "d3-scale";
 import { quantile, ascending } from 'd3-array';
 import { Options } from '@/mixins/options';
-
-const DEFAULT_PADDING = 0.33;
+import { PADDING_VERTICAL } from '@/constants';
 
 export const withData = () => ({
     data: {
@@ -29,7 +28,7 @@ export function useBoxComputations(
     });
 
     const padding = computed(
-        () => (allOptions.value?.padding as number) ?? DEFAULT_PADDING
+        () => (allOptions.value?.padding as number) ?? PADDING_VERTICAL
     );
 
     const xScale = computed(() => {

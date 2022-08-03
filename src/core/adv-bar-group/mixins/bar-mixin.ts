@@ -85,14 +85,20 @@ export function useBarScales(
           checkValidDomain(xScale.value as ScaleLinear<number, number>);
           return xScale.value;
         })()
-      : getPaddedScale(xScale.value as ScaleBand<string | number>);
+      : getPaddedScale(
+          xScale.value as ScaleBand<string | number>,
+          orientation.value
+        );
 
     return scale;
   });
 
   const barYScale = computed(() => {
     const scale = isHorizontal.value
-      ? getPaddedScale(yScale.value as ScaleBand<string | number>)
+      ? getPaddedScale(
+          yScale.value as ScaleBand<string | number>,
+          orientation.value
+        )
       : (() => {
           checkValidDomain(yScale.value as ScaleLinear<number, number>);
           return yScale.value;

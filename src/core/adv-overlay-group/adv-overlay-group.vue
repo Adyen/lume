@@ -24,7 +24,11 @@ import AdvBar from '@/core/adv-bar';
 
 import { Scale } from '@/mixins/scales';
 
-import { getScaleStep, isBandScale } from '@/utils/helpers';
+import {
+  getEmptyArrayFromData,
+  getScaleStep,
+  isBandScale,
+} from '@/utils/helpers';
 import { Orientation, ORIENTATIONS } from '@/constants';
 import { Data } from '@/types/dataset';
 
@@ -52,13 +56,7 @@ export default defineComponent({
   setup(props, ctx) {
     const { data, orientation, xScale, yScale } = toRefs(props);
 
-    const overlayData = computed(() => {
-      // Use max length in case datasets have different lengths
-      const maxLength = Math.max(
-        ...data.value.map((dataset) => dataset.values.length)
-      );
-      return Array.apply(null, Array(maxLength));
-    });
+    const overlayData = computed(() => getEmptyArrayFromData(data));
 
     function getOverlayBarAttributes(index: number) {
       const referenceScale =

@@ -1,14 +1,13 @@
 import {
   computed,
+  ComputedRef,
   PropType,
   reactive,
-  ComputedRef,
-  set,
   Ref,
-  onMounted,
-  onUpdated,
+  set,
 } from '@vue/composition-api';
 import { BAR_HEIGHT, Orientation, ORIENTATIONS } from '@/constants';
+import { getEmptyArrayFromData } from '@/utils/helpers';
 import { Data, DatasetValueObject } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 
@@ -50,11 +49,6 @@ export function useBase(
     });
   });
 
-  function updateSize(size: ContainerSize) {
-    set(containerSize, 'width', size.width);
-    set(containerSize, 'height', size.height);
-  }
-
   const domain = computed(
     () => labels.value?.map((_, i) => i) || data.value?.map((_, i: number) => i)
   );
@@ -63,23 +57,20 @@ export function useBase(
     () => orientation?.value === ORIENTATIONS.HORIZONTAL
   );
 
-  function setHeight() {
-    if (isHorizontal.value && computedData.value?.[0]) {
-      updateSize({
-        width: containerSize.width,
-        height: computedData.value[0].values.length * (BAR_HEIGHT * 1.5),
-      });
-    }
-  }
+  function updateSize(size: ContainerSize) {
+    const height = isHorizontal.value
+      ? getEmptyArrayFromData(data).length * (BAR_HEIGHT * 2)
+      : size.height;
 
-  onMounted(setHeight);
-  onUpdated(setHeight);
+    set(containerSize, 'width', size.width);
+    set(containerSize, 'height', height);
+  }
 
   return {
     computedData,
     containerSize,
-    updateSize,
     domain,
     isHorizontal,
+    updateSize,
   };
 }

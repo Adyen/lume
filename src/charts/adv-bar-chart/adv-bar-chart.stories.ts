@@ -46,7 +46,7 @@ export const SingleBarChart = ({ argTypes }) => {
       return { props };
     },
     template: `
-    <div :style="{ width: width + 'px', height: height + 'px' }">
+    <div :style="{ width: width + 'px', height: props.orientation !== 'horizontal' ? height + 'px' : undefined }">
         <adv-bar-chart v-bind="props" />
     </div>
   `,
@@ -77,7 +77,7 @@ export const MultiBarChart = ({ argTypes }) => {
       return { props };
     },
     template: `
-    <div :style="{ width: width + 'px', height: height + 'px' }">
+    <div :style="{ width: width + 'px', height: props.orientation !== 'horizontal' ? height + 'px' : undefined }">
         <adv-bar-chart v-bind="props" />
     </div>
   `,
