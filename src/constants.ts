@@ -30,7 +30,7 @@ export const DEFAULT_MARGINS = {
   HORIZONTAL: {
     top: 16,
     right: 0,
-    bottom: 0,
+    bottom: 28,
     left: 24,
   } as Margins,
 };
