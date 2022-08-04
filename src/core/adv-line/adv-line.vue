@@ -74,28 +74,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@use '~@/styles/variables' as *;
-
-$line-stroke-width: 2px;
-$line-stroke-hover-width: 4px;
-$ghost-line-stroke-width: 8px;
-
-.adv-line {
-  stroke-width: $line-stroke-width;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-  fill: none;
-  transition: all $chart-transition-time ease;
-  pointer-events: none;
-
-  @each $color, $map in $chart-colors {
-    &--color-#{$color} {
-      stroke: nth($map, 1);
-    }
-  }
-
-  &--dashed {
-    stroke-dasharray: 2%;
-  }
-}
+@use './styles';
 </style>

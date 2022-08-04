@@ -176,5 +176,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@use '~@/styles/components/tooltip/tooltip';
+@use './styles';
 </style>

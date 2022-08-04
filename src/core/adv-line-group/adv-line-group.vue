@@ -157,15 +157,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@use '~@/styles/_variables.scss' as *;
-
-.adv-line-group {
-  &__overlay-line {
-    stroke: $adv-color-grey-30;
-    stroke-width: 1px;
-    stroke-dasharray: 2 2;
-
-    transition: all $chart-transition-time ease-out;
-  }
-}
+@use './styles';
 </style>

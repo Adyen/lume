@@ -8,15 +8,17 @@
 
     <svg
       ref="root"
-      class="container"
-      :class="{ 'container--transparent-background': transparentBackground }"
+      class="adv-chart-container__svg"
+      :class="{
+        'adv-chart-container__svg--transparent': transparentBackground,
+      }"
       :width="containerSize.width"
       :height="containerSize.height + computedMargin.bottom"
       @mouseleave="$emit('mouseleave', $event)"
     >
       <g
         :transform="`translate(${computedMargin.left}, ${computedMargin.top})`"
-        class="container__group"
+        class="adv-chart-container__group"
         data-j-chart-container__group
       >
         <slot />
@@ -101,30 +103,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@use '~@/styles/variables' as *;
-
-.adv-chart-container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-}
-
-.container {
-  overflow: visible;
-  background-color: $chart-background-color;
-  width: 100%;
-  min-height: 0;
-  flex: 1;
-
-  &--transparent-background {
-    background-color: transparent;
-  }
-
-  &__group {
-    transition-property: transform;
-    transition-timing-function: ease-in-out;
-    transition-duration: $chart-transition-time;
-  }
-}
+@use './styles';
 </style>

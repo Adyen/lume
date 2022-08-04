@@ -48,15 +48,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@use '~@/styles/variables' as *;
-
-.bar {
-  &--faded {
-    opacity: 0.5; // Temporary while we wait for official data-viz colors
-  }
-
-  &--transition {
-    transition: all $chart-transition-time ease;
-  }
-}
+@use './styles';
 </style>

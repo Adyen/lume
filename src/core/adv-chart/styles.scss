@@ -1,0 +1,10 @@
+.adv-chart {
+  &__header {
+    display: flex;
+    align-items: center;
+
+    > .adv-chart-legend {
+      margin-left: auto;
+    }
+  }
+}

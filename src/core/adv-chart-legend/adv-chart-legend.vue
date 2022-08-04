@@ -30,37 +30,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@use '~@/styles/variables' as *;
-
-.adv-chart-legend {
-  display: flex;
-  justify-items: end;
-
-  &__item {
-    display: flex;
-    align-items: center;
-
-    padding: 0.25rem 0.5rem;
-    gap: 0.25rem;
-
-    font-family: $adv-font-family;
-    font-size: $adv-text-font-size-small;
-
-    cursor: default;
-  }
-
-  &__circle {
-    display: inline-block;
-    width: 0.5rem;
-    height: 0.5rem;
-
-    border-radius: 50%;
-
-    @each $color, $map in $chart-colors {
-      &--color-#{$color} {
-        background-color: nth($map, 1);
-      }
-    }
-  }
-}
+@use './styles';
 </style>

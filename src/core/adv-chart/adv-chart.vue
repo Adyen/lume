@@ -338,17 +338,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.adv-chart {
-  &__header {
-    display: flex;
-    align-items: center;
-
-    > .adv-chart-title {
-    }
-
-    > .adv-chart-legend {
-      margin-left: auto;
-    }
-  }
-}
+@use './styles';
 </style>
