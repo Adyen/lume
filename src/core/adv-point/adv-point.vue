@@ -1,7 +1,7 @@
 <template>
   <circle
     class="adv-point"
-    :class="`adv-point--color-${color}`"
+    :class="`adv-stroke-color--${color}`"
     :r="active ? radius : 0"
     :cx="cx"
     :cy="cy"
@@ -63,19 +63,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@use '~@/styles/variables' as *;
-
-.adv-point {
-  fill: $adv-color-white;
-  stroke-width: 2px;
-
-  transition: all $chart-transition-time ease;
-  pointer-events: none;
-
-  @each $color, $map in $chart-colors {
-    &--color-#{$color} {
-      stroke: nth($map, 1);
-    }
-  }
-}
+@use './styles';
 </style>

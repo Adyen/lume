@@ -57,7 +57,7 @@ export function useSingleBarMixin(
     const height = getBarHeight(value);
 
     return {
-      fillClass: `adv-fill-color-${color}`,
+      fillClass: `adv-fill-color--${color}`,
       x,
       y,
       width,

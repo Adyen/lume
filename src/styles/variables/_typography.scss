@@ -1,3 +1,5 @@
+// Inter font face
+
 /* inter-regular  */
 @font-face {
   font-family: 'Inter';
@@ -37,3 +39,18 @@
     /* Chrome 26+, Opera 23+, Firefox 39+ */
       url('~@/assets/fonts/inter-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
+
+$adv-font-family: 'Inter', sans-serif;
+
+// Weight
+
+$adv-text-font-weight-normal: 400 !default;
+$adv-text-font-weight-medium: 500 !default;
+$adv-text-font-weight-semi-bold: 600 !default;
+$adv-text-font-weight-bold: 700 !default;
+
+// Size
+
+$adv-text-font-size-small: 13px !default;
+$adv-text-font-size-medium: 14px !default;
+$adv-text-font-size-big: 24px !default;
