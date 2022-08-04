@@ -23,7 +23,7 @@
           <span
             :class="[
               `adv-tooltip__symbol--${item.type}`,
-              `adv-tooltip__symbol--color-${item.color || '01'}`,
+              `adv-background-color--${item.color || '01'}`,
             ]"
             class="adv-tooltip__symbol"
             data-j-tooltip__item__symbol

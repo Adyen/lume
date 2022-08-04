@@ -2,8 +2,8 @@
   <path
     class="adv-line"
     :class="{
-      [`adv-line--color-${color}`]: true,
       ['adv-line--dashed']: dashed,
+      [`adv-stroke-color--${color}`]: true,
     }"
     :d="pathDefinition"
   />

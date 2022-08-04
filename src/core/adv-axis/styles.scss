@@ -21,11 +21,11 @@ $axis-line-color: $adv-color-grey-20;
     fill: $axis-label-color;
     font-size: $axis-label-font-size;
     cursor: default;
-    transition: all $chart-overlay-transition-time ease-in-out;
+    transition: all $adv-transition-time-short ease-in-out;
   }
 
   &__tick {
-    transition: opacity $chart-overlay-transition-time ease-in-out;
+    transition: opacity $adv-transition-time-short ease-in-out;
 
     &--hidden {
       opacity: 0;

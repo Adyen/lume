@@ -4,12 +4,6 @@
   fill: $adv-color-white;
   stroke-width: 2px;
 
-  transition: all $chart-transition-time ease;
+  transition: all $adv-transition-time-long ease;
   pointer-events: none;
-
-  @each $color, $map in $chart-colors {
-    &--color-#{$color} {
-      stroke: nth($map, 1);
-    }
-  }
 }

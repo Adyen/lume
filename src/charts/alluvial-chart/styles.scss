@@ -5,7 +5,7 @@
 
   &__link {
     stroke-opacity: 0.5;
-    transition: stroke-opacity $chart-transition-time;
+    transition: stroke-opacity $adv-transition-time-long;
 
     &--out {
       stroke-opacity: 0.2;
@@ -21,7 +21,7 @@
 
 ::v-deep .node {
   opacity: 1;
-  transition: opacity $chart-transition-time;
+  transition: opacity $adv-transition-time-long;
 
   &--out {
     opacity: 0.5;

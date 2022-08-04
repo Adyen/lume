@@ -4,7 +4,7 @@
       v-for="(_, index) in overlayData"
       v-bind="getOverlayBarAttributes(index)"
       :key="`overlay-${index}`"
-      fill-class="adv-fill-color-transparent"
+      fill-class="adv-fill-color--transparent"
       :data-j-adv-overlay-group="index"
       :animate="false"
       @mouseover.native="handleMouseover(index)"

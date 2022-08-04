@@ -38,7 +38,7 @@
     <adv-bar
       v-if="hasNegativeValues"
       v-bind="negativeBarAttributes"
-      fill-class="adv-fill-color-negative-values"
+      fill-class="adv-fill-color--negative"
       :animate="false"
       data-j-adv-chart__negative-values
     />

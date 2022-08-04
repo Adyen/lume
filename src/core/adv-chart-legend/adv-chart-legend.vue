@@ -8,7 +8,7 @@
     >
       <span
         class="adv-chart-legend__circle"
-        :class="`adv-chart-legend__circle--color-${dataset.color}`"
+        :class="`adv-background-color--${dataset.color}`"
       />
       {{ dataset.label }}
     </div>

@@ -23,11 +23,5 @@
     height: 0.5rem;
 
     border-radius: 50%;
-
-    @each $color, $map in $chart-colors {
-      &--color-#{$color} {
-        background-color: nth($map, 1);
-      }
-    }
   }
 }

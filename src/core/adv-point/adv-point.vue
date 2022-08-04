@@ -1,7 +1,7 @@
 <template>
   <circle
     class="adv-point"
-    :class="`adv-point--color-${color}`"
+    :class="`adv-stroke-color--${color}`"
     :r="active ? radius : 0"
     :cx="cx"
     :cy="cy"

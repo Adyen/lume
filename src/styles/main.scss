@@ -1,8 +1,7 @@
+@forward 'titles';
 @forward 'utilities';
-@forward 'components';
-@forward 'data-visualization';
+@forward 'variables';
 
-@use 'fonts';
 @use 'variables' as *;
 
 svg,

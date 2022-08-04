@@ -8,10 +8,9 @@ $adv-tooltip-background-color: $adv-color-white !default;
 $adv-tooltip-border-radius: $adv-border-radius-8 !default;
 $adv-tooltip-box-shadow: $adv-box-shadow !default;
 $adv-tooltip-max-width: 250px !default;
-$adv-tooltip-border-width: $adv-border-width !default;
-$adv-tooltip-border-style: $adv-tooltip-border-width $adv-border-style
-  $adv-border-color !default;
+
 $adv-tooltip-content-padding: $adv-spacing-12 !default;
+$adv-tooltip-z-index: 500 !default;
 
 $adv-tooltip-item-min-width: 112px;
 $adv-tooltip-symbol-size: 10px;
@@ -26,14 +25,14 @@ $adv-tooltip-symbol-size: 10px;
   color: $adv-tooltip-color;
 
   background: $adv-tooltip-background-color;
-  border: $adv-tooltip-border-style;
+  border: $adv-border;
   border-radius: $adv-tooltip-border-radius;
   box-shadow: $adv-tooltip-box-shadow;
-  z-index: $adv-z-over-everything;
+  z-index: $adv-tooltip-z-index;
   pointer-events: none; /* prevent jitter when tooltip gets in the way of the cursor during transitions */
 
   &--animated {
-    transition: transform $chart-transition-time ease-out;
+    transition: transform $adv-transition-time-long ease-out;
   }
 
   &__title {
@@ -61,12 +60,6 @@ $adv-tooltip-symbol-size: 10px;
 
     &--line {
       border-radius: 50%;
-    }
-
-    @each $color, $map in $chart-colors {
-      &--color-#{$color} {
-        background-color: nth($map, 1);
-      }
     }
   }
 
