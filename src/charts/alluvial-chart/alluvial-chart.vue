@@ -90,7 +90,7 @@ export default defineComponent({
       linkPaths: []
     });
 
-    const { nodes, links, graph, nodeId, updateSize, alluvialInstance } = useBase(alluvialProps, alluvialData);
+    const { graph, nodeId, updateSize, alluvialInstance } = useBase(alluvialProps, alluvialData);
     const {
       leftMostNodeLabelWidth,
       rightMostNodeLabelWidth,
