@@ -1,0 +1,37 @@
+@use '~@/styles/variables' as *;
+
+$line-stroke-width: 2px;
+$line-stroke-hover-width: 4px;
+$ghost-line-stroke-width: 8px;
+
+.sparkline-chart {
+  &__area {
+    fill: $adv-color-grey-20;
+    transition: all $chart-transition-time ease;
+
+    @each $color, $map in $chart-colors {
+      &--color-#{$color} {
+        fill: nth($map, 3);
+        opacity: 0.5;
+      }
+    }
+  }
+
+  &__line {
+    stroke-width: $line-stroke-width;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    fill: none;
+    transition: all $chart-transition-time ease;
+
+    @each $color, $map in $chart-colors {
+      &--color-#{$color} {
+        stroke: nth($map, 1);
+      }
+    }
+
+    &--dashed {
+      stroke-dasharray: 2%;
+    }
+  }
+}
