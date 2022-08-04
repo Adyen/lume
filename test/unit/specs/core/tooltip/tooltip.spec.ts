@@ -42,7 +42,7 @@ describe('tooltip.vue', () => {
             .includes(`adv-tooltip__symbol--${item.type}`)
         ).toBeTruthy();
         expect(el.find('[data-j-tooltip__item__symbol]').classes()
-            .includes(`adv-tooltip__symbol--color-${item.color}`)
+            .includes(`adv-background-color--${item.color}`)
         ).toBeTruthy();
         expect(el.find('[data-j-tooltip__item__label]').text()).toEqual(item.label);
         expect(el.find('[data-j-tooltip__item__value]').text()).toEqual(item.value);
