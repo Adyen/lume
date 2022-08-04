@@ -1,4 +1,5 @@
 import { Color } from '@/types/colors';
+import {SankeyNode, SankeyLink} from 'd3-sankey';
 
 interface AlluvialNodeTarget {
     node: string;
@@ -6,39 +7,17 @@ interface AlluvialNodeTarget {
     color?: Color;
 }
 
-export interface SankeyLink {
-    color?: Color,
-    index?: number,
-    source?: any,
-    target?: any,
-    value?: number,
-    width?: number,
-    y0?: number,
-    y1?: number,
-    x0?: number,
-    x1?: number
-}
-
-export interface SankeyNode {
-    color?: Color,
-    depth: number,
-    height: number,
-    id: number,
-    index: number,
+export interface SankeyNodeAdditionalProperties {
+    id: number | string,
     label: string,
-    layer: number,
-    sourceLinks: Array<any>,
-    targetLinks: Array<any>,
-    value: number,
-    y0?: number,
-    y1?: number,
-    x0?: number,
-    x1?: number
+    layer?: number,
+    color?: Color
 }
 
-export interface SankeyElements {
-    links?: Array<SankeyLink>,
-    nodes?: Array<SankeyNode>
+export interface SankeyLinkAdditionalProperties {
+    color?: Color,
+    x0?: number | undefined,
+    x1?: number | undefined
 }
 
 interface Dimension {
@@ -64,10 +43,10 @@ export type Alluvial = {
     values: Array<AlluvialNode>;
     nodePadding?: number;
     nodeWidth?: number;
-    nodeSort?: () => Array<number>;
+    nodeSort?: (a: SankeyNode<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>, b: SankeyNode<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>) => number;
     valueFormatter?: (value: number) => string;
     getHighlightedElements?: ({ node, link, links }) => { links: any[], nodes: Map<unknown, unknown> };
-    nodeAlign: () => number
+    nodeAlign: (node: SankeyNode<{}, {}>, n: number) => number
 }
 
 export type NodeBlock = {
@@ -78,7 +57,7 @@ export type NodeBlock = {
         height: number
     },
     textTransform?: { x: number, y: number },
-    node?: SankeyNode
+    node?: SankeyNode<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>
 }
 
 export type LinkPath = {
@@ -86,13 +65,13 @@ export type LinkPath = {
     d?: string,
     color?: string,
     strokeWidth?: number,
-    link?: SankeyLink
+    link?: SankeyLink<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>
 }
 
 export type AlluvialInstance = {
     containerSize: Dimension,
-    highlightedLink: SankeyLink,
-    highlightedNode: SankeyNode,
+    highlightedLink: SankeyLink<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>,
+    highlightedNode: SankeyNode<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>,
     leftExtent: number,
     rightExtent: number,
     topExtent: number,

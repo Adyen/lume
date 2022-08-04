@@ -6,7 +6,7 @@ export const alluvialDefaults = {
     nodePadding: 0,
     nodeWidth: 15,
     nodeAlign: sankeyJustify,
-    valueFormatter: value => String(value)
+    valueFormatter: (value: number) => String(value)
 }
 
 export const options = {

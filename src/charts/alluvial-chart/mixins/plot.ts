@@ -2,24 +2,20 @@ import { computed, ComputedRef, onMounted, onBeforeUnmount, ref, Ref } from '@vu
 import {
     Alluvial,
     AlluvialInstance,
-    AlluvialNode, NodeBlock,
-    SankeyElements,
-    SankeyLink,
-    SankeyNode
+    NodeBlock, SankeyLinkAdditionalProperties, SankeyNodeAdditionalProperties,
 } from "@/types/alluvial";
 import { select } from 'd3-selection';
-import { sankeyLinkHorizontal } from 'd3-sankey';
+import {SankeyGraph, SankeyLink, sankeyLinkHorizontal, SankeyNode} from 'd3-sankey';
 import { defaultChartColor, nodeToLabelGap, transitionDuration } from "@/charts/alluvial-chart/defaults";
 
 export function drawPlot(
     alluvialInstance: Ref<AlluvialInstance>,
     alluvialProps: Ref<Alluvial>,
-    nodes: Ref<AlluvialNode[]> | Ref<Map<number | string, number | string>>,
-    links: Ref<Array<SankeyLink>> | Ref<Array<unknown>>,
     chartContainer: Ref<HTMLElement>,
-    nodeId: (node: (AlluvialNode | SankeyNode)) => string | number,
-    graph: Ref<SankeyElements>,
+    nodeId: (node: (string | number | SankeyNode<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>)) => string | number,
+    graph: Ref<SankeyGraph<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>>,
 ) {
+
     const drawingBoard = ref(null);
     const nodeIdRef = ref(nodeId);
     let isBeingDestroyed = false;
@@ -32,7 +28,7 @@ export function drawPlot(
         isBeingDestroyed = true;
     })
 
-    function nodeMaxLength({ label, value }): number {
+    function nodeMaxLength({label, value}): number {
         return Math.max(label.length, alluvialProps.value.valueFormatter(value).length);
     }
 
@@ -45,34 +41,34 @@ export function drawPlot(
     }
 
     const leftMostNodeLabelWidth: ComputedRef<number> = computed(() => {
-        const longestFirstLevelNode = graph.value.nodes?.filter(({ depth }) => depth === 0)
+        const longestFirstLevelNode = graph.value.nodes?.filter(({depth}) => depth === 0)
             .sort(byMaxNodeLength)?.[0];
         if (longestFirstLevelNode == null) return 0;
         return getNodeLabelBBoxByNodeId(longestFirstLevelNode)?.width ?? 0;
     });
 
     const maxDepth = computed(() => {
-        return Math.max(...graph.value.nodes.map(({ depth }) => depth));
+        return Math.max(...graph.value.nodes.map(({depth}) => depth));
     });
 
     const rightMostNodeLabelWidth = computed(() => {
         const maxX1 = getNodesMaximum('x1');
-        const longestLastLevelNode = graph.value.nodes?.filter(({ x1 }) => x1 === maxX1)
+        const longestLastLevelNode = graph.value.nodes?.filter(({x1}) => x1 === maxX1)
             .sort(byMaxNodeLength)?.[0];
         if (longestLastLevelNode == null) return 0;
         return getNodeLabelBBoxByNodeId(longestLastLevelNode)?.width ?? 0;
     });
 
     const topMostNodeLabelExtraHeight = computed(() => {
-        const minY0 = graph.value?.nodes?.reduce((acc, { y0 }) => Math.min(acc, y0), Infinity);
-        const highestLabelNode = graph.value?.nodes?.find(({ y0 }) => y0 === minY0);
+        const minY0 = graph.value?.nodes?.reduce((acc, {y0}) => Math.min(acc, y0), Infinity);
+        const highestLabelNode = graph.value?.nodes?.find(({y0}) => y0 === minY0);
         if (highestLabelNode == null) return 0;
         return Math.abs(getNodeLabelBBoxByNodeId(highestLabelNode)?.y ?? 0);
     });
 
     const bottomMostNodeLabelExtraHeight = computed(() => {
         const maxY1 = getNodesMaximum('y1');
-        const lowestLabelNode = graph.value?.nodes?.find(({ y1 }) => y1 === maxY1);
+        const lowestLabelNode = graph.value?.nodes?.find(({y1}) => y1 === maxY1);
         if (lowestLabelNode == null) return 0;
         return Math.abs(getNodeLabelBBoxByNodeId(lowestLabelNode)?.y ?? 0);
     });
@@ -92,7 +88,7 @@ export function drawPlot(
                 links,
                 nodes: new Map(
                     links
-                        .reduce((acc, { source, target, value }) => {
+                        .reduce((acc, {source, target, value}) => {
                             if (source === alluvialInstance.value.highlightedNode) {
                                 return [...acc, [nodeIdRef.value(target), value]];
                             }
@@ -107,12 +103,17 @@ export function drawPlot(
         };
     });
 
-    function highlightLinks(highlightedLinks: SankeyLink[] = graph.value.links, isEntering: boolean = false) {
+    function getIdentifier(element: number | string | SankeyNode<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>): number | string {
+        if (typeof element === 'string' || typeof element === 'number') return element;
+        else return element?.id;
+    }
+
+    function highlightLinks(highlightedLinks: SankeyLink<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>[] = graph.value.links, isEntering: boolean = false) {
         const links = highlightedLinks
-            .map( _ => `#link_${_.source?.id}\\:${_.target?.id}`)
+            .map(_ => `#link_${getIdentifier(_.source)}\\:${getIdentifier(_.target)}`)
             .reduce((acc, linkId) => `${acc}, ${linkId}`, null);
         const nodes = highlightedLinks
-            .reduce((acc, { source, target }) => [...acc, `#node-block-${source?.id}`, `#node-block-${target?.id}`], [])
+            .reduce((acc, {source, target}) => [...acc, `#node-block-${getIdentifier(source)}`, `#node-block-${getIdentifier(target)}`], [])
             .reduce((acc, nodeId) => `${acc}, ${nodeId}`, null);
         drawingBoard.value?.selectAll('.path-group path')
             .filter(`:not(${links})`)
@@ -157,10 +158,10 @@ export function drawPlot(
     }
 
     function updateNodes({
-        values,
-        updatingNodes = [],
-        isEntering = false,
-    }) {
+                             values,
+                             updatingNodes = [],
+                             isEntering = false,
+                         }) {
         const nodes = new Set(updatingNodes);
         const getStartNumber = node => {
             if (isEntering) return node.value;
@@ -191,7 +192,7 @@ export function drawPlot(
         return nodes.map(node => ({
             id: `node-block-${nodeIdRef.value(node)}`,
             rect: {
-                cssClass: ({ color = defaultChartColor }) => `node__block--${color}`,
+                cssClass: ({color = defaultChartColor}) => `node__block--${color}`,
                 width: node.x1 - node.x0,
                 height: node.y1 - node.y0
             },
@@ -203,7 +204,7 @@ export function drawPlot(
         }));
     }
 
-    function renderChart({ nodes, links }) {
+    function renderChart({nodes, links}) {
         if (nodes == null || links == null) {
             return;
         }
@@ -211,5 +212,15 @@ export function drawPlot(
         alluvialInstance.value.linkPaths = computeLinkPaths(links);
     }
 
-    return { leftMostNodeLabelWidth, rightMostNodeLabelWidth, topMostNodeLabelExtraHeight, bottomMostNodeLabelExtraHeight, highlightedElements, highlightLinks, updateNodes, renderChart, maxDepth };
+    return {
+        leftMostNodeLabelWidth,
+        rightMostNodeLabelWidth,
+        topMostNodeLabelExtraHeight,
+        bottomMostNodeLabelExtraHeight,
+        highlightedElements,
+        highlightLinks,
+        updateNodes,
+        renderChart,
+        maxDepth
+    };
 }

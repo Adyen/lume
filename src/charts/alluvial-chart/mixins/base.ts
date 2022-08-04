@@ -1,13 +1,9 @@
 import { computed, ComputedRef, ref, Ref, set } from "@vue/composition-api";
 import {
-    Alluvial,
-    AlluvialInstance,
-    AlluvialLink,
-    AlluvialNode,
-    SankeyElements, SankeyNode
+    Alluvial, AlluvialInstance, SankeyLinkAdditionalProperties, SankeyNodeAdditionalProperties
 } from "@/types/alluvial";
-import { sankey } from 'd3-sankey';
-import { ContainerSize } from "@/types/size";
+import {sankey, SankeyGraph, SankeyLink, SankeyNode} from 'd3-sankey';
+import { ContainerSize } from '@/types/size';
 
 export function useBase(
     alluvialProps: Ref<Alluvial>,
@@ -15,11 +11,11 @@ export function useBase(
 ) {
 
     const alluvialInstance = ref(alluvialData);
-    const nodes: ComputedRef<AlluvialNode[]> = computed(() => {
+    const nodes: ComputedRef<SankeyNode<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>[]> = computed(() => {
         return alluvialProps.value.values.map(({ label, color, id }) => ({ label, color, id }))
     });
 
-    const links: ComputedRef<AlluvialLink[]> = computed(() => {
+    const links: ComputedRef<SankeyLink<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>[]> = computed(() => {
         return alluvialProps.value.values
             .map(source => source.targets?.map(({ node: target, value, color }) => ({
                 source: source.id ?? source.label,
@@ -42,14 +38,14 @@ export function useBase(
             .extent([[leftExtent, topExtent], [rightExtent, containerSize.height - bottomExtent]]);
     });
 
-    const graph: ComputedRef<SankeyElements> = computed(() => {
+    const graph: ComputedRef<SankeyGraph<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>> = computed(() => {
         return layout.value({
             nodes: nodes.value.map(node => ({ ...node })),
             links: links.value.map(link => ({ ...link }))
         });
     });
 
-    function nodeId(node: AlluvialNode | SankeyNode): number | string  {
+    function nodeId(node: SankeyNode<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>): number | string  {
         return node.id ?? node.label;
     }
 

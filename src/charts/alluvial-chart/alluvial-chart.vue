@@ -1,6 +1,7 @@
 <template>
   <adv-chart-container
     :margins="allOptions.margins"
+    :container-size="alluvialInstance.containerSize"
     @resize="updateSize"
   >
     <g ref="chartContainer">
@@ -100,7 +101,7 @@ export default defineComponent({
       updateNodes,
       renderChart,
       maxDepth
-    } = drawPlot(alluvialInstance, alluvialProps, nodes, links, chartContainer, nodeId,  graph);
+    } = drawPlot(alluvialInstance, alluvialProps, chartContainer, nodeId,  graph);
 
     watch(highlightedElements, function (newElements, previousElements) {
       const isEntering = newElements.nodes != null && newElements.links != null;
