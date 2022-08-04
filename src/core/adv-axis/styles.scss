@@ -1,0 +1,46 @@
+@use '~@/styles/variables' as *;
+
+$axis-label-font-size: 10px;
+$axis-label-color: $adv-color-grey-30;
+$axis-label-hover-color: $adv-color-grey-70;
+
+$axis-line-color: $adv-color-grey-20;
+
+.axis {
+  &__ghost {
+    fill: transparent;
+  }
+
+  &__grid-line {
+    fill: none;
+    stroke: $axis-line-color;
+    shape-rendering: crispEdges;
+  }
+
+  &__label {
+    fill: $axis-label-color;
+    font-size: $axis-label-font-size;
+    cursor: default;
+    transition: all $adv-transition-time-short ease-in-out;
+  }
+
+  &__tick {
+    transition: opacity $adv-transition-time-short ease-in-out;
+
+    &--hidden {
+      opacity: 0;
+    }
+
+    &--hovered {
+      opacity: 1;
+
+      .axis__ghost {
+        fill: $chart-background-color;
+      }
+
+      .axis__label {
+        fill: $axis-label-hover-color;
+      }
+    }
+  }
+}

@@ -38,7 +38,7 @@
     <adv-bar
       v-if="hasNegativeValues"
       v-bind="negativeBarAttributes"
-      fill-class="adv-fill-color-negative-values"
+      fill-class="adv-fill-color--negative"
       :animate="false"
       data-j-adv-chart__negative-values
     />
@@ -338,17 +338,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.adv-chart {
-  &__header {
-    display: flex;
-    align-items: center;
-
-    > .adv-chart-title {
-    }
-
-    > .adv-chart-legend {
-      margin-left: auto;
-    }
-  }
-}
+@use './styles';
 </style>

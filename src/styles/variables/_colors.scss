@@ -1,0 +1,103 @@
+// Global
+
+$adv-color-white: #fff !default;
+$adv-color-black: #00112c !default;
+
+$adv-color-grey-transparent: rgba(210, 218, 225, 0.7) !default;
+
+$adv-color-grey-10: #f3f6f9 !default;
+$adv-color-grey-20: #dce0e5 !default;
+$adv-color-grey-30: #a5afbd !default;
+$adv-color-grey-50: #69778c !default;
+$adv-color-grey-70: #20304c !default;
+
+$adv-color-blue-10: #e5efff !default;
+$adv-color-blue-20: #cce0ff !default;
+
+$adv-color-red-20: #facccc !default;
+$adv-color-red-40: #e50000 !default;
+
+$adv-color-orange-10: #fff4e5 !default;
+
+$adv-color-green-10: #e6f8ed !default;
+
+$adv-color-teal-10: #eef9f9 !default;
+$adv-color-teal-40: #5bc6c8 !default;
+$adv-color-teal-70: #204546 !default;
+
+$adv-color-quiet: $adv-color-grey-30 !default;
+
+// Data viz
+
+$adv-color-data-viz-yellow: #ffda00 !default;
+$adv-color-data-viz-yellow-darker: #cbb009 !default;
+
+$adv-color-data-viz-green: #99e487 !default;
+$adv-color-data-viz-green-darker: #79b874 !default;
+
+$adv-color-data-viz-turquoise: #04c9ca !default;
+$adv-color-data-viz-turquoise-darker: #03a3a9 !default;
+
+$adv-color-data-viz-blue: #025f89 !default;
+$adv-color-data-viz-blue-darker: #014e76 !default;
+
+$adv-color-data-viz-navy: #00112c !default;
+$adv-color-data-viz-navy-darker: #00112c !default;
+
+$adv-color-data-viz-grey: #90a2bd !default;
+$adv-color-data-viz-grey-darker: #183057 !default;
+
+$adv-color-data-viz-orange: #ff9501 !default;
+$adv-color-data-viz-orange-darker: #b36900 !default;
+
+// Chart
+
+$chart-colors: (
+  '01': (
+    $adv-color-data-viz-yellow,
+    $adv-color-data-viz-yellow-darker,
+    $adv-color-orange-10,
+  ),
+  '02': (
+    $adv-color-data-viz-green,
+    $adv-color-data-viz-green-darker,
+    $adv-color-green-10,
+  ),
+  '03': (
+    $adv-color-data-viz-turquoise,
+    $adv-color-data-viz-turquoise-darker,
+    $adv-color-teal-10,
+  ),
+  '04': (
+    $adv-color-data-viz-blue,
+    $adv-color-data-viz-blue-darker,
+    $adv-color-blue-10,
+  ),
+  '05': (
+    $adv-color-data-viz-navy,
+    $adv-color-data-viz-navy-darker,
+    $adv-color-blue-20,
+  ),
+  '06': (
+    $adv-color-data-viz-grey,
+    $adv-color-data-viz-grey-darker,
+    $adv-color-grey-10,
+  ),
+  '07': (
+    $adv-color-data-viz-orange,
+    $adv-color-data-viz-orange-darker,
+    $adv-color-orange-10,
+  ),
+  '08': (
+    $adv-color-teal-40,
+    $adv-color-teal-70,
+    $adv-color-teal-10,
+  ),
+  '09': (
+    $adv-color-red-40,
+    $adv-color-red-20,
+    $adv-color-red-20,
+  ),
+);
+
+$chart-background-color: $adv-color-white;

@@ -1,0 +1,11 @@
+@use '~@/styles/variables' as *;
+
+.bar {
+  &--faded {
+    opacity: 0.5; // Temporary while we wait for official data-viz colors
+  }
+
+  &--transition {
+    transition: all $adv-transition-time-long ease;
+  }
+}

@@ -1,0 +1,9 @@
+@use '~@/styles/variables' as *;
+
+.adv-point {
+  fill: $adv-color-white;
+  stroke-width: 2px;
+
+  transition: all $adv-transition-time-long ease;
+  pointer-events: none;
+}
