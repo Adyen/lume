@@ -58,6 +58,7 @@ describe('options.ts', () => {
     describe('withOptions', () => {
         test('should return expected object', () => {
             const component = mount({
+                template: '<div></div>',
                 props: {
                     ...withOptions()
                 }
