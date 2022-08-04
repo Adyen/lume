@@ -79,7 +79,7 @@ export function useLineNullValues(data: ComputedRef<Data<DatasetValueObject>>) {
           );
           if (nullInterval) {
             let start = dataset.values[nullInterval[0] - 1].value;
-            let end = dataset.values[nullInterval.at(-1) + 1].value;
+            let end = dataset.values[nullInterval[nullInterval.length - 1] + 1].value;
 
             // If first/last value is `null`, use the first/last non-null value
             if (start == null) start = end;
