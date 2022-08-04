@@ -9,7 +9,7 @@ Line charts plot data at regular intervals connected by lines from left to right
   - [API](#api)
     - [Props](#props)
   - [Examples](#examples)
-      - [Multiple datasets](#multiple-datasets)
+    - [Multiple datasets](#multiple-datasets)
 
 ## Usage
 
@@ -25,7 +25,7 @@ To generate a simple line chart with default settings, simply pass the `data` an
 
 ```html
 <template>
-  <AdvLineChart :data="data" :labels="labels" />
+  <adv-line-chart :data="data" :labels="labels" />
 </template>
 
 <script lang="ts" setup>
@@ -54,14 +54,15 @@ To generate a simple line chart with default settings, simply pass the `data` an
 | `xScale`  | `ScaleGenerator \| ScaleBand<string \| number>` | `undefined` | A d3 scale or a scale generator function to override the default X scale. |
 | `yScale`  | `ScaleGenerator \| ScaleLinear<number, number>` | `undefined` | A d3 scale or a scale generator function to override the default Y scale. |
 | `options` | `Options`                                       | `undefined` | A set of chart options.                                                   |
+| `title`   | `String`                                        | `undefined` | The chart title.                                                          |
 
 ## Examples
 
-#### Multiple datasets
+### Multiple datasets
 
 ```html
 <template>
-  <AdvLineChart :data="data" :labels="labels" />
+  <adv-line-chart :data="data" :labels="labels" />
 </template>
 
 <script lang="ts" setup>
