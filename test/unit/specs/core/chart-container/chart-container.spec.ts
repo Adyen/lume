@@ -1,9 +1,11 @@
 import { mount } from '@vue/test-utils';
 import Container from '@/core/adv-chart-container';
 
+const containerSize = { width: 640, height: 480 };
+
 describe('chart-container.vue', () => {
     test('mounts component', () => {
-        const wrapper = mount(Container)
+        const wrapper = mount(Container, { propsData: { containerSize } })
 
         const el = wrapper.find('[data-j-chart-container]');
         expect(el.exists()).toBeTruthy();
@@ -16,7 +18,7 @@ describe('chart-container.vue', () => {
         };
 
         const wrapper = mount(Container, {
-            propsData: { margins }
+            propsData: { margins, containerSize }
         })
 
         const el = wrapper.find('[data-j-chart-container__group]');
