@@ -116,7 +116,15 @@
     </template>
 
     <template #extra>
-      <slot name="tooltip">
+      <slot
+        name="tooltip"
+        v-bind="tooltipConfig"
+        :data="computedData"
+        :labels="labels"
+        :with-tooltip="allOptions.withTooltip !== false"
+        :hovered-index="hoveredIndex"
+        :options="allOptions.tooltipOptions"
+      >
         <adv-tooltip
           v-if="allOptions.withTooltip !== false && tooltipConfig.opened"
           v-bind="tooltipConfig"
@@ -180,7 +188,11 @@ export default defineComponent({
     const hoveredIndex = ref<number>(-1);
     const tooltipAnchor = ref<SVGCircleElement>(null);
 
-    const { computedData, containerSize, updateSize } = useBase(data, labels, orientation);
+    const { computedData, containerSize, updateSize } = useBase(
+      data,
+      labels,
+      orientation
+    );
 
     const { allOptions } = useOptions<ChartOptions>(options);
 
