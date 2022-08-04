@@ -229,50 +229,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@use '~@/styles/variables' as *;
-
-$axis-label-color: $adv-color-grey-30;
-$axis-label-hover-color: $adv-color-grey-70;
-$axis-line-color: $adv-color-grey-20;
-
-$axis-label-font-size: 10px;
-
-.axis {
-  &__ghost {
-    fill: transparent;
-  }
-
-  &__grid-line {
-    fill: none;
-    stroke: $axis-line-color;
-    shape-rendering: crispEdges;
-  }
-
-  &__label {
-    fill: $axis-label-color;
-    font-size: $axis-label-font-size;
-    cursor: default;
-    transition: all $chart-overlay-transition-time ease-in-out;
-  }
-
-  &__tick {
-    transition: opacity $chart-overlay-transition-time ease-in-out;
-
-    &--hidden {
-      opacity: 0;
-    }
-
-    &--hovered {
-      opacity: 1;
-
-      .axis__ghost {
-        fill: $chart-background-color;
-      }
-
-      .axis__label {
-        fill: $axis-label-hover-color;
-      }
-    }
-  }
-}
+@use './styles';
 </style>

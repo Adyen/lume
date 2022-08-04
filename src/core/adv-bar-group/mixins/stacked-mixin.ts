@@ -170,7 +170,7 @@ export function useStackedBarMixin(
     const color = barColor ?? data.value[index].color;
 
     return {
-      fillClass: `adv-fill-color-${color}`,
+      fillClass: `adv-fill-color--${color}`,
       width,
       height,
       x,

@@ -10,4 +10,5 @@ export const options: Options = {
   showAxes: false,
   showArea: true,
   startOnZero: true,
+  withLegend: false,
 };
