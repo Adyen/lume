@@ -80,7 +80,7 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
-    ...withBarProps(),
+    ...withBarProps(true),
   },
   setup(props) {
     const { data, type, xScale, yScale, orientation, hoveredIndex } =

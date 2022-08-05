@@ -14,17 +14,19 @@ export function orientationValidator(orientation: string): boolean {
   return Object.values(ORIENTATIONS).includes(orientation as Orientation);
 }
 
-export const withBarProps = () => ({
+export const withBarProps = (useOrientation = false) => ({
   type: {
     type: String,
     default: null,
     validator: typeValidator,
   },
-  orientation: {
-    type: String as PropType<Orientation>,
-    default: ORIENTATIONS.VERTICAL,
-    validator: orientationValidator,
-  },
+  ...(useOrientation ? {
+    orientation: {
+      type: String as PropType<Orientation>,
+      default: ORIENTATIONS.VERTICAL,
+      validator: orientationValidator,
+    }
+  } : {}),
 });
 
 export function useBarMixin(data: Ref<Data<DatasetValueObject>>) {

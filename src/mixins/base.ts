@@ -13,15 +13,16 @@ import { ContainerSize } from '@/types/size';
 
 export type DataValidator = (value: Data) => boolean;
 
-export const withBase = (dataValidator?: DataValidator) => ({
+export const withBase = (dataValidator: DataValidator = null, isLabelsRequired = true) => ({
   data: {
     type: Array as PropType<Data>,
     required: true,
-    validator: dataValidator,
+    validator: dataValidator || undefined,
   },
   labels: {
     type: Array as PropType<Array<string>>,
-    default: (): Array<string> | null => null,
+    required: isLabelsRequired,
+    default: isLabelsRequired ? undefined : (): Array<string> | null => null,
   },
 });
 
