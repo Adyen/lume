@@ -1,5 +1,6 @@
 <template>
   <adv-chart
+    chart-type="line"
     :data="computedLineData"
     :labels="computedLabels"
     :options="allOptions"

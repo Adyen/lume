@@ -1,6 +1,7 @@
 <template>
   <adv-chart
     v-bind="$props"
+    chart-type="grouped-bar"
     :data="computedData"
     :options="allOptions"
   >
