@@ -3,6 +3,7 @@
     v-bind="$props"
     :data="computedData"
     :options="allOptions"
+    data-j-single-bar-chart
   >
     <template #groups="props">
       <adv-bar-group
