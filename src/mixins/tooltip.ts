@@ -2,7 +2,7 @@ import { computed, reactive, Ref, set } from '@vue/composition-api';
 
 import { getXByIndex, Scale } from './scales';
 
-import { Orientation, ORIENTATIONS } from '@/constants';
+import { NO_DATA, Orientation, ORIENTATIONS } from '@/constants';
 import { getHighestValue } from '@/utils/helpers';
 import { Data, DatasetValueObject } from '@/types/dataset';
 
@@ -55,7 +55,16 @@ export function useTooltipAnchors(
     };
   });
 
-  return { getTooltipAnchorAttributes };
+  function getTooltipItems(index: number) {
+    return data.value.map(({ color, label, values, type }) => ({
+      type: type || 'line',
+      color,
+      label,
+      value: values[index]?.label ?? values[index]?.value ?? NO_DATA,
+    }));
+  }
+
+  return { getTooltipAnchorAttributes, getTooltipItems };
 }
 
 export function useTooltip() {

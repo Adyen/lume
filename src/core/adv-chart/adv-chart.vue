@@ -164,7 +164,7 @@ import {
 } from '@/mixins/negative-values';
 import { useTooltip, useTooltipAnchors } from '@/mixins/tooltip';
 
-import { NO_DATA, ORIENTATIONS } from '@/constants';
+import { ORIENTATIONS } from '@/constants';
 
 export default defineComponent({
   components: {
@@ -258,22 +258,13 @@ export default defineComponent({
 
     const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();
 
-    const { getTooltipAnchorAttributes } = useTooltipAnchors(
+    const { getTooltipAnchorAttributes, getTooltipItems } = useTooltipAnchors(
       computedData,
       computedXScale,
       computedYScale,
       orientation,
       chartType
     );
-
-    function getTooltipItems(index: number) {
-      return computedData.value.map(({ color, label, values, type }) => ({
-        type: type || 'line',
-        color,
-        label,
-        value: values[index]?.label ?? values[index]?.value ?? NO_DATA,
-      }));
-    }
 
     const mouseOverHandler = computed(() => {
       const handler = (index: number) => {
