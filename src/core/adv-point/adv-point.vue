@@ -5,6 +5,7 @@
     :r="active ? radius : 0"
     :cx="cx"
     :cy="cy"
+    data-j-point
   />
 </template>
 
