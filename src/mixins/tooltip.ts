@@ -31,7 +31,7 @@ export function useTooltipAnchors(
   xScale: Ref<Scale>,
   yScale: Ref<Scale>,
   orientation: Ref<Orientation>,
-  chartType: Ref<string>
+  chartType?: Ref<string>
 ) {
   // TODO: Needs to account for bar chart, negative values should default to 0.
   const getTooltipAnchorAttributes = computed(() => (index: number) => {
@@ -41,7 +41,7 @@ export function useTooltipAnchors(
         : getHighestValue(data.value, index);
 
     // Negative bar anchor point should alwys be at 0 level
-    if (chartType.value.includes('bar') && highestValue < 0) {
+    if (chartType?.value?.includes('bar') && highestValue < 0) {
       highestValue = 0;
     }
 
