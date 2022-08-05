@@ -23,7 +23,7 @@ function getStackedHighestValue(
 }
 
 const ANCHOR_MAP = {
-  'stacked-bar-chart': getStackedHighestValue,
+  'stacked-bar': getStackedHighestValue,
 };
 
 export function useTooltipAnchors(
@@ -35,9 +35,15 @@ export function useTooltipAnchors(
 ) {
   // TODO: Needs to account for bar chart, negative values should default to 0.
   const getTooltipAnchorAttributes = computed(() => (index: number) => {
-    const highestValue = chartType.value
-      ? ANCHOR_MAP[chartType.value](data.value, index)
-      : getHighestValue(data.value, index);
+    let highestValue =
+      chartType.value && ANCHOR_MAP[chartType.value]
+        ? ANCHOR_MAP[chartType.value](data.value, index)
+        : getHighestValue(data.value, index);
+
+    // Negative bar anchor point should alwys be at 0 level
+    if (chartType.value.includes('bar') && highestValue < 0) {
+      highestValue = 0;
+    }
 
     const cx =
       orientation.value === ORIENTATIONS.HORIZONTAL
