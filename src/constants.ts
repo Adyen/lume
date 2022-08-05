@@ -41,3 +41,21 @@ export const BAR_HEIGHT = 20;
 
 export const PADDING_VERTICAL = 0.33; // space between bars is 1/2 of a bar's width
 export const PADDING_HORIZONTAL = 0.5; // space between bars is a bar's width
+
+export const TOOLTIP_POSITIONS = [
+  'auto',
+  'auto-start',
+  'auto-end',
+  'top',
+  'top-start',
+  'top-end',
+  'right',
+  'right-start',
+  'right-end',
+  'bottom',
+  'bottom-start',
+  'bottom-end',
+  'left',
+  'left-start',
+  'left-end',
+] as const; // so that type is not string[]

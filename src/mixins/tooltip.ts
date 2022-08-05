@@ -2,7 +2,7 @@ import { computed, reactive, Ref, set } from '@vue/composition-api';
 
 import { getXByIndex, Scale } from './scales';
 
-import { Orientation, ORIENTATIONS } from '@/constants';
+import { NO_DATA, Orientation, ORIENTATIONS } from '@/constants';
 import { getHighestValue } from '@/utils/helpers';
 import { Data, DatasetValueObject } from '@/types/dataset';
 
@@ -23,7 +23,7 @@ function getStackedHighestValue(
 }
 
 const ANCHOR_MAP = {
-  'stacked-bar-chart': getStackedHighestValue,
+  'stacked-bar': getStackedHighestValue,
 };
 
 export function useTooltipAnchors(
@@ -31,13 +31,19 @@ export function useTooltipAnchors(
   xScale: Ref<Scale>,
   yScale: Ref<Scale>,
   orientation: Ref<Orientation>,
-  chartType: Ref<string>
+  chartType?: Ref<string>
 ) {
   // TODO: Needs to account for bar chart, negative values should default to 0.
   const getTooltipAnchorAttributes = computed(() => (index: number) => {
-    const highestValue = chartType.value
-      ? ANCHOR_MAP[chartType.value](data.value, index)
-      : getHighestValue(data.value, index);
+    let highestValue =
+      chartType.value && ANCHOR_MAP[chartType.value]
+        ? ANCHOR_MAP[chartType.value](data.value, index)
+        : getHighestValue(data.value, index);
+
+    // Negative bar anchor point should alwys be at 0 level
+    if (chartType?.value?.includes('bar') && highestValue < 0) {
+      highestValue = 0;
+    }
 
     const cx =
       orientation.value === ORIENTATIONS.HORIZONTAL
@@ -55,7 +61,16 @@ export function useTooltipAnchors(
     };
   });
 
-  return { getTooltipAnchorAttributes };
+  function getTooltipItems(index: number) {
+    return data.value.map(({ color, label, values, type }) => ({
+      type: type || 'line',
+      color,
+      label,
+      value: values[index]?.label ?? values[index]?.value ?? NO_DATA,
+    }));
+  }
+
+  return { getTooltipAnchorAttributes, getTooltipItems };
 }
 
 export function useTooltip() {

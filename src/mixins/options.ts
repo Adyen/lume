@@ -1,4 +1,4 @@
-import { Margins } from '@/constants';
+import { Margins, TOOLTIP_POSITIONS } from '@/constants';
 import { mergeDeep } from '@/utils/helpers';
 import { computed, isRef, PropType, Ref } from '@vue/composition-api';
 
@@ -15,6 +15,7 @@ export interface AxisOptions extends Options {
 
 export interface TooltipOptions extends Options {
   offset?: number;
+  position?: typeof TOOLTIP_POSITIONS[number];
 }
 
 export interface ChartOptions extends Options {

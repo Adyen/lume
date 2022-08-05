@@ -17,15 +17,7 @@ export default {
     options: defaultOptions,
     data: [
       {
-        values: [
-          20,
-          50,
-          30,
-          35,
-          10,
-          50,
-          30
-        ],
+        values: [20, 50, 30, 35, 10, 50, 30],
         color: '02',
         label: 'Emojis',
         type: 'line',
@@ -43,24 +35,48 @@ export default {
   },
 };
 
-export const Basic = ({ args, argTypes }) => {
-  return {
-    components: { AdvChart, AdvLineGroup, CustomTooltip },
-    props: Object.keys(argTypes),
-    setup() {
-      return { args };
-    },
-    template: `
-    <div :style="{ width: width + 'px', height: height + 'px' }">
-      <adv-chart v-bind="args">
-        <template #groups="props">
-          <adv-line-group v-bind="props" />
-        </template>
-        <template #tooltip="props">
-          <custom-tooltip v-bind="props" />
-        </template>
-      </adv-chart>
-    </div>
-    `,
-  };
+export const CustomTooltipElement = ({ args, argTypes }) => ({
+  components: { AdvChart, AdvLineGroup, CustomTooltip },
+  props: Object.keys(argTypes),
+  setup() {
+    return { args };
+  },
+  template: `
+  <div :style="{ width: width + 'px', height: height + 'px' }">
+    <adv-chart v-bind="args">
+      <template #groups="props">
+        <adv-line-group v-bind="props" />
+      </template>
+      <template #tooltip="props">
+        <custom-tooltip v-bind="props" />
+      </template>
+    </adv-chart>
+  </div>
+  `,
+});
+
+export const CustomTooltipContent = ({ args, argTypes }) => ({
+  components: { AdvChart, AdvLineGroup, CustomTooltip },
+  props: Object.keys(argTypes),
+  setup() {
+    return { args };
+  },
+  template: `
+  <div :style="{ width: width + 'px', height: height + 'px' }">
+    <adv-chart v-bind="args">
+      <template #groups="props">
+        <adv-line-group v-bind="props" />
+      </template>
+      <template #tooltip-content="{ data, labels, hoveredIndex }">
+        On {{ labels[hoveredIndex] }}, the value was <strong>{{ data[0].values[hoveredIndex].value }}</strong>
+      </template>
+    </adv-chart>
+  </div>
+  `,
+});
+CustomTooltipContent.args = {
+  options: {
+    ...defaultOptions,
+    tooltipOptions: { position: 'right-end' },
+  },
 };

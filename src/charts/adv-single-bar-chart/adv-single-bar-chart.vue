@@ -1,6 +1,7 @@
 <template>
   <adv-chart
     v-bind="$props"
+    chart-type="single-bar"
     :data="computedData"
     :options="allOptions"
     data-j-single-bar-chart
@@ -25,17 +26,15 @@ import { useOptions } from '@/mixins/options';
 import { withChartProps } from '@/mixins/props';
 import { withBarProps } from '@/core/adv-bar-group/mixins/bar-mixin';
 
-import { Data } from '@/types/dataset';
+import { singleDatasetValidator } from '@/utils/helpers';
 import { ORIENTATIONS } from '@/constants';
 
 import { options as defaultOptions } from './defaults';
 
-const singleBarDataValidator = (data: Data) => data.length === 1;
-
 export default defineComponent({
   components: { AdvChart, AdvBarGroup },
   props: {
-    ...withChartProps(singleBarDataValidator),
+    ...withChartProps(singleDatasetValidator),
     ...withBarProps(),
   },
   setup(props) {

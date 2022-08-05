@@ -128,11 +128,18 @@
         <adv-tooltip
           v-if="allOptions.withTooltip !== false && tooltipConfig.opened"
           v-bind="tooltipConfig"
-          position="top"
+          :position="tooltipPosition"
           :title="labels[hoveredIndex]"
           :items="getTooltipItems(hoveredIndex)"
           :options="allOptions.tooltipOptions"
-        />
+        >
+          <slot
+            name="tooltip-content"
+            :data="computedData"
+            :labels="labels"
+            :hovered-index="hoveredIndex"
+          />
+        </adv-tooltip>
       </slot>
     </template>
   </adv-chart-container>
@@ -164,7 +171,7 @@ import {
 } from '@/mixins/negative-values';
 import { useTooltip, useTooltipAnchors } from '@/mixins/tooltip';
 
-import { NO_DATA, ORIENTATIONS } from '@/constants';
+import { ORIENTATIONS } from '@/constants';
 
 export default defineComponent({
   components: {
@@ -258,7 +265,7 @@ export default defineComponent({
 
     const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();
 
-    const { getTooltipAnchorAttributes } = useTooltipAnchors(
+    const { getTooltipAnchorAttributes, getTooltipItems } = useTooltipAnchors(
       computedData,
       computedXScale,
       computedYScale,
@@ -266,14 +273,9 @@ export default defineComponent({
       chartType
     );
 
-    function getTooltipItems(index: number) {
-      return computedData.value.map(({ color, label, values, type }) => ({
-        type: type || 'line',
-        color,
-        label,
-        value: values[index]?.label ?? values[index]?.value ?? NO_DATA,
-      }));
-    }
+    const tooltipPosition = computed(
+      () => allOptions.value.tooltipOptions?.position || 'top'
+    );
 
     const mouseOverHandler = computed(() => {
       const handler = (index: number) => {
@@ -329,6 +331,7 @@ export default defineComponent({
       showYAxisTitle,
       tooltipAnchor,
       tooltipConfig,
+      tooltipPosition,
       updateSize,
       xAxisTitle,
       yAxisTitle,

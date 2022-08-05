@@ -80,7 +80,9 @@ export function getHighestValue(
 ): number {
   return (
     data.reduce((max, point) =>
-      max.values[index]?.value > point.values[index]?.value ? max : point
+      (max.values[index]?.value ?? 0) > (point.values[index]?.value ?? 0)
+        ? max
+        : point
     ).values[index]?.value || 0
   );
 }
