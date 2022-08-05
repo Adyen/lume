@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import AdvCharLineGroup from '@/core/adv-line-group';
 import { mount } from '@vue/test-utils';
 import { getXByIndex } from '@/mixins/scales';
