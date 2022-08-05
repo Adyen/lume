@@ -128,11 +128,18 @@
         <adv-tooltip
           v-if="allOptions.withTooltip !== false && tooltipConfig.opened"
           v-bind="tooltipConfig"
-          position="top"
+          :position="tooltipPosition"
           :title="labels[hoveredIndex]"
           :items="getTooltipItems(hoveredIndex)"
           :options="allOptions.tooltipOptions"
-        />
+        >
+          <slot
+            name="tooltip-content"
+            :data="computedData"
+            :labels="labels"
+            :hovered-index="hoveredIndex"
+          />
+        </adv-tooltip>
       </slot>
     </template>
   </adv-chart-container>
@@ -266,6 +273,10 @@ export default defineComponent({
       chartType
     );
 
+    const tooltipPosition = computed(
+      () => allOptions.value.tooltipOptions?.position || 'top'
+    );
+
     const mouseOverHandler = computed(() => {
       const handler = (index: number) => {
         // Update hoveredIndex
@@ -320,6 +331,7 @@ export default defineComponent({
       showYAxisTitle,
       tooltipAnchor,
       tooltipConfig,
+      tooltipPosition,
       updateSize,
       xAxisTitle,
       yAxisTitle,

@@ -64,6 +64,8 @@ import {
 
 import { TooltipOptions, useOptions, withOptions } from '@/mixins/options';
 
+import { TOOLTIP_POSITIONS } from '@/constants';
+
 interface TooltipItem {
   type: string;
   color: string;
@@ -71,31 +73,14 @@ interface TooltipItem {
   value: number | string;
 }
 
-export const positions = [
-  'auto',
-  'auto-start',
-  'auto-end',
-  'top',
-  'top-start',
-  'top-end',
-  'right',
-  'right-start',
-  'right-end',
-  'bottom',
-  'bottom-start',
-  'bottom-end',
-  'left',
-  'left-start',
-  'left-end',
-];
-
 export default defineComponent({
   props: {
     targetElement: Element,
     position: {
       type: String as PropType<Placement>,
       default: 'auto',
-      validator: (value: string) => positions.includes(value),
+      validator: (value: string) =>
+        TOOLTIP_POSITIONS.includes(value as typeof TOOLTIP_POSITIONS[number]),
     },
     fixedPositioning: { type: Boolean, default: false },
     modifiers: { type: Array, default: null },
