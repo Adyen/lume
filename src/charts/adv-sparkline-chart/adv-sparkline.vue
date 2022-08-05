@@ -43,7 +43,7 @@ import { options as defaultOptions } from './defaults';
 export default defineComponent({
   components: { AdvChart, AdvLineGroup },
   props: {
-    ...withBase(),
+    ...withBase(null, false),
     ...withOptions(),
   },
   setup(props) {
