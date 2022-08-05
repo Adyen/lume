@@ -1,8 +1,9 @@
-import { computed } from '@vue/composition-api';
 import { withSizeArgs, withSizeArgTypes } from '@/utils/storybook-helpers';
 
 import AdvLineChart from './adv-line-chart.vue';
 import { options as defaultOptions } from './defaults';
+
+import Docs from './adv-line-chart.doc.mdx';
 
 const DATASETS = {
   Single: {
@@ -26,29 +27,28 @@ const DATASETS = {
   Multiple: {
     data: [
       {
-        values: [10, 30, -20, 50, 40, 70, 60],
+        label: 'Toyota',
         color: '01',
-        label: 'Hamburgers',
+        values: [10, 30, 25, null, 50, 40],
       },
       {
-        values: [30, 10, 20, 70, 50, null, 40],
+        label: 'Honda',
         color: '02',
-        label: 'Hot dogs',
+        values: [15, 40, 20, -10, 40, 30],
       },
       {
-        values: [50, null, 60, 40, 20, { value: 30 }, 10],
+        label: 'Nissan',
         color: '03',
-        label: 'Kebabs',
+        values: [8, 20, 10, 45, 50, 55],
       },
     ],
     labels: [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday',
+      'Jan 2022',
+      'Feb 2022',
+      'Mar 2022',
+      'Apr 2022',
+      'May 2022',
+      'Jun 2022',
     ],
   },
   'Chargebacks_Fraud overview 28 days': {
@@ -114,10 +114,13 @@ export default {
   component: AdvLineChart,
   argTypes: {
     ...withSizeArgTypes(),
-    dataset: {
-      control: 'select',
-      options: Object.keys(DATASETS),
-      description: 'Sets the data/labels properties.',
+    data: {
+      control: 'object',
+      description: 'Chart data.',
+    },
+    labels: {
+      control: 'object',
+      description: 'Chart labels.',
     },
     options: {
       control: 'object',
@@ -125,33 +128,51 @@ export default {
     },
     title: {
       control: 'text',
-      description: 'Chart title',
+      description: 'Chart title.',
     },
   },
   args: {
     ...withSizeArgs(),
-    dataset: Object.keys(DATASETS)[0],
     options: defaultOptions,
     title: 'Line chart',
   },
+  parameters: { docs: { page: Docs } },
 };
 
-export const Basic = ({ args, argTypes }) => {
-  return {
-    components: { AdvLineChart },
-    props: Object.keys(argTypes),
-    setup(props) {
-      const data = computed(() => DATASETS[props.dataset].data);
-      const labels = computed(() => DATASETS[props.dataset].labels);
-
-      return { args, data, labels, props };
-    },
-    template: `
+const Template = ({ argTypes }) => ({
+  components: { AdvLineChart },
+  props: Object.keys(argTypes),
+  setup(props: InstanceType<typeof AdvLineChart>['$props']) {
+    return { props };
+  },
+  template: `
     <div :style="{ width: width + 'px', height: height + 'px' }">
-        <adv-line-chart
-          v-bind="props" :data="data" :labels="labels"
-        />
+        <adv-line-chart v-bind="props" :data="data" :labels="labels" />
     </div>
   `,
-  };
+});
+
+export const Basic = Template.bind({});
+Basic.args = {
+  data: DATASETS.Single.data,
+  labels: DATASETS.Single.labels,
+};
+
+export const MultipleDatasets = Template.bind({});
+MultipleDatasets.args = {
+  data: DATASETS.Multiple.data,
+  labels: DATASETS.Multiple.labels,
+};
+
+export const RealData = Template.bind({});
+RealData.args = {
+  data: DATASETS['Chargebacks_Fraud overview 28 days'].data,
+  labels: DATASETS['Chargebacks_Fraud overview 28 days'].labels,
+  options: {
+    ...defaultOptions,
+    yAxisOptions: {
+      ...defaultOptions.yAxisOptions,
+      tickFormat: '~p',
+    },
+  },
 };

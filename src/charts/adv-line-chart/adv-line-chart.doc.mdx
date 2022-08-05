@@ -1,15 +1,10 @@
+import { Story, Description } from '@storybook/addon-docs';
+
 # Line chart
 
 Line charts plot data at regular intervals connected by lines from left to right to demonstrate changes in value.
 
-- [Line chart](#line-chart)
-  - [Usage](#usage)
-    - [Importing](#importing)
-    - [Basic use](#basic-use)
-  - [API](#api)
-    - [Props](#props)
-  - [Examples](#examples)
-    - [Multiple datasets](#multiple-datasets)
+<Story id="charts-line-chart--basic" />
 
 ## Usage
 
@@ -60,6 +55,11 @@ To generate a simple line chart with default settings, simply pass the `data` an
 
 ### Multiple datasets
 
+<Story
+  id="charts-line-chart--multiple-datasets"
+  args={{ dataset: 'Multiple' }}
+/>
+
 ```html
 <template>
   <adv-line-chart :data="data" :labels="labels" />
@@ -72,20 +72,27 @@ To generate a simple line chart with default settings, simply pass the `data` an
     {
       label: 'Toyota',
       color: '01',
-      values: [10, 30, 25, 50, 40],
+      values: [10, 30, 25, null, 50, 40],
     },
     {
       label: 'Honda',
       color: '02',
-      values: [15, 40, 20, 40, 30],
+      values: [15, 40, 20, -10, 40, 30],
     },
     {
       label: 'Nissan',
       color: '03',
-      values: [8, 20, 10, 45, 50],
+      values: [8, 20, 10, 45, 50, 55],
     },
   ]);
 
-  const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'May']);
+  const labels = ref([
+    'Jan 2022',
+    'Feb 2022',
+    'Mar 2022',
+    'Apr 2022',
+    'May 2022',
+    'Jun 2022',
+  ]);
 </script>
 ```
