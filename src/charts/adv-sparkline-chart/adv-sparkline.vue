@@ -5,6 +5,7 @@
     :labels="computedLabels"
     :options="allOptions"
     :x-scale="xScaleGenerator"
+    data-j-sparkline
   >
     <template #groups="props">
       <path
@@ -14,6 +15,7 @@
           `sparkline-chart__area--color-${areaColor || color}`,
         ]"
         :d="areaPathDefinition(props.xScale, props.yScale)"
+        data-j-sparkline__path
       />
 
       <adv-line-group
@@ -35,11 +37,14 @@ import { useBase, withBase } from '@/mixins/base';
 import { useOptions, withOptions } from '@/mixins/options';
 import { useLineNullValues } from '@/mixins/line-null-values';
 import { useSparklineArea } from './mixins/sparkline-area';
+import { Color } from '@/types/colors';
 
 import { Data } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 
 import { options as defaultOptions } from './defaults';
+
+const defaultColor: Color = '01';
 
 export default defineComponent({
   components: { AdvChart, AdvLineGroup },
@@ -59,7 +64,7 @@ export default defineComponent({
       return data.value[0].values.map((_, i) => i);
     });
 
-    const color = computed(() => data.value[0].color);
+    const color = computed(() => data.value[0].color || defaultColor);
 
     const areaColor = computed(
       () => data.value[0].areaColor || data.value[0].color
