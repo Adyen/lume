@@ -34,76 +34,78 @@
       </div>
     </template>
 
-    <!-- Negative values background -->
-    <adv-bar
-      v-if="hasNegativeValues"
-      v-bind="negativeBarAttributes"
-      fill-class="adv-fill-color--negative"
-      :animate="false"
-      data-j-adv-chart__negative-values
-    />
+    <template v-if="computedXScale && computedYScale">
+      <!-- Negative values background -->
+      <adv-bar
+        v-if="hasNegativeValues"
+        v-bind="negativeBarAttributes"
+        fill-class="adv-fill-color--negative"
+        :animate="false"
+        data-j-adv-chart__negative-values
+      />
 
-    <!-- Axes -->
-    <slot
-      v-if="allOptions.showAxes !== false"
-      name="axes"
-      :x-scale="computedXScale"
-      :y-scale="computedYScale"
-      :container-size="containerSize"
-      :options="allOptions"
-      :hovered-index="hoveredIndex"
-    >
-      <adv-axis
-        type="x"
-        :scale="computedXScale"
+      <!-- Axes -->
+      <slot
+        v-if="allOptions.showAxes !== false"
+        name="axes"
+        :x-scale="computedXScale"
+        :y-scale="computedYScale"
         :container-size="containerSize"
-        :options="computedXAxisOptions"
+        :options="allOptions"
         :hovered-index="hoveredIndex"
-        @tick-mouseover="handleTickMouseover('x', $event)"
-      />
-      <adv-axis
-        type="y"
-        :scale="computedYScale"
-        :container-size="containerSize"
-        :options="computedYAxisOptions"
+      >
+        <adv-axis
+          type="x"
+          :scale="computedXScale"
+          :container-size="containerSize"
+          :options="computedXAxisOptions"
+          :hovered-index="hoveredIndex"
+          @tick-mouseover="handleTickMouseover('x', $event)"
+        />
+        <adv-axis
+          type="y"
+          :scale="computedYScale"
+          :container-size="containerSize"
+          :options="computedYAxisOptions"
+          :hovered-index="hoveredIndex"
+          @tick-mouseover="handleTickMouseover('y', $event)"
+        />
+      </slot>
+
+      <!-- Data groups -->
+      <slot
+        name="groups"
+        :data="computedData"
+        :labels="labels"
+        :orientation="orientation"
+        :x-scale="computedXScale"
+        :y-scale="computedYScale"
         :hovered-index="hoveredIndex"
-        @tick-mouseover="handleTickMouseover('y', $event)"
       />
-    </slot>
 
-    <!-- Data groups -->
-    <slot
-      name="groups"
-      :data="computedData"
-      :labels="labels"
-      :orientation="orientation"
-      :x-scale="computedXScale"
-      :y-scale="computedYScale"
-      :hovered-index="hoveredIndex"
-    />
-
-    <!-- Overlay bars -->
-    <adv-overlay-group
-      v-if="allOptions.withHover !== false"
-      :data="computedData"
-      :orientation="orientation"
-      :x-scale="computedXScale"
-      :y-scale="computedYScale"
-      @mouseover="mouseOverHandler"
-    />
-
-    <!-- Tooltip anchor -->
-    <g
-      v-if="allOptions.withTooltip !== false"
-      data-j-adv-chart__tooltip
-    >
-      <circle
-        v-for="(_, index) in computedData[0].values"
-        v-bind="getTooltipAnchorAttributes(index)"
-        ref="tooltipAnchor"
-        :key="`anchor-${index}`"
+      <!-- Overlay bars -->
+      <adv-overlay-group
+        v-if="allOptions.withHover !== false"
+        :data="computedData"
+        :orientation="orientation"
+        :x-scale="computedXScale"
+        :y-scale="computedYScale"
+        @mouseover="mouseOverHandler"
       />
-    </g>
+
+      <!-- Tooltip anchor -->
+      <g
+        v-if="allOptions.withTooltip !== false"
+        data-j-adv-chart__tooltip
+      >
+        <circle
+          v-for="(_, index) in computedData[0].values"
+          v-bind="getTooltipAnchorAttributes(index)"
+          ref="tooltipAnchor"
+          :key="`anchor-${index}`"
+        />
+      </g>
+    </template>
 
     <template #footer>
       <!-- x axis title -->

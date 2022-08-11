@@ -49,11 +49,12 @@ export function useBaseScales(
   orientation?: Ref<Orientation>,
   options?: Ref<ChartOptions>
 ) {
-  const xScale = ref<Scale>();
-  const yScale = ref<Scale>();
+  const xScale = ref<Scale>(null);
+  const yScale = ref<Scale>(null);
 
   function generateScales() {
     const { width, height } = size;
+    if (!width && !height) return;
 
     if (orientation.value === ORIENTATIONS.HORIZONTAL) {
       // horizontal
