@@ -6,12 +6,12 @@
     :options="allOptions"
     :x-scale="stackedXScaleGenerator"
     :y-scale="stackedYScaleGenerator"
+    data-j-stacked-bar-chart
   >
     <template #groups="props">
       <adv-bar-group
         v-bind="props"
-        :type="type"
-        :orientation="orientation"
+        type="stacked"
       />
     </template>
   </adv-chart>
