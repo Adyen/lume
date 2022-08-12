@@ -4,10 +4,10 @@
     :class="[
       fillClass,
       {
-        'bar--transition-width': shouldTransitionWidth,
-        'bar--transition-height': shouldTransitionHeight,
         'bar--negative': isNegative,
         'bar--faded': isFaded,
+        'bar--transition-width': shouldTransitionWidth,
+        'bar--transition-height': shouldTransitionHeight,
       },
     ]"
     :style="{ transformOrigin: transformOrigin }"
@@ -29,7 +29,7 @@ import {
 
 import { useBarTransition } from './mixins/bar-transition';
 
-type TransitionProperty = 'width' | 'height';
+type BarTransitionProperty = 'width' | 'height';
 
 export default defineComponent({
   props: {
@@ -62,7 +62,7 @@ export default defineComponent({
       default: false,
     },
     transition: {
-      type: [String, Boolean] as PropType<TransitionProperty | false>,
+      type: [String, Boolean] as PropType<BarTransitionProperty | false>,
       default: false,
     },
   },
