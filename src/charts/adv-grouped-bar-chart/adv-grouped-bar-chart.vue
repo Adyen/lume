@@ -4,12 +4,12 @@
     chart-type="grouped-bar"
     :data="computedData"
     :options="allOptions"
+    data-j-grouped-bar-chart
   >
     <template #groups="props">
       <adv-bar-group
         v-bind="props"
-        :orientation="orientation"
-        :type="type"
+        type="grouped"
       />
     </template>
   </adv-chart>
