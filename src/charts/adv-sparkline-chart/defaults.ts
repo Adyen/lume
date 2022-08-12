@@ -1,6 +1,6 @@
-import { Options } from '@/mixins/options';
+import { ChartOptions } from '@/mixins/options';
 
-export const options: Options = {
+export const options: ChartOptions = {
   margins: {
     top: 0,
     right: 0,
@@ -11,4 +11,7 @@ export const options: Options = {
   showArea: true,
   startOnZero: true,
   withLegend: false,
+  tooltipOptions: {
+    showTitle: false,
+  },
 };

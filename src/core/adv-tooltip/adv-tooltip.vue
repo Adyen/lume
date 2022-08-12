@@ -7,7 +7,7 @@
     <slot>
       <!-- Default chart tooltip content -->
       <div
-        v-if="title"
+        v-if="showTitle"
         class="adv-tooltip__title"
         data-j-tooltip__title
       >
@@ -104,6 +104,7 @@ export default defineComponent({
     const strategy = computed<PositioningStrategy>(() =>
       props.fixedPositioning ? 'fixed' : 'absolute'
     );
+
     const allModifiers = computed(() => [
       ...(props.modifiers || []),
       {
@@ -117,6 +118,10 @@ export default defineComponent({
         options: { offset: [0, allOptions.value.offset || 8] },
       },
     ]);
+
+    const showTitle = computed(
+      () => allOptions.value.showTitle !== false && props.title != undefined
+    );
 
     // Methods
     function initPopper() {
@@ -155,7 +160,7 @@ export default defineComponent({
     onMounted(initPopper);
     onBeforeUnmount(destroyPopper);
 
-    return { root, popper, strategy, allModifiers, allOptions };
+    return { allModifiers, allOptions, popper, root, showTitle, strategy };
   },
 });
 </script>
