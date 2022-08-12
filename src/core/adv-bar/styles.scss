@@ -1,6 +1,8 @@
 @use '~@/styles/variables' as *;
 
 .bar {
+  $b: &;
+
   &--faded {
     opacity: 0.5; // Temporary while we wait for official data-viz colors
   }
@@ -8,12 +10,18 @@
   &--transition-width {
     transition: width $adv-transition-time-long ease,
       opacity $adv-transition-time-long ease;
+
+    &#{$b}--negative {
+      transform: rotate(180deg);
+    }
   }
 
   &--transition-height {
-    transform: rotate(180deg);
-
     transition: height $adv-transition-time-long ease,
       opacity $adv-transition-time-long ease;
+
+    &:not(#{$b}--negative) {
+      transform: rotate(180deg);
+    }
   }
 }

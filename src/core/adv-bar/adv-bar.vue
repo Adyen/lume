@@ -6,6 +6,7 @@
       {
         'bar--transition-width': shouldTransitionWidth,
         'bar--transition-height': shouldTransitionHeight,
+        'bar--negative': isNegative,
         'bar--faded': isFaded,
       },
     ]"
@@ -29,8 +30,6 @@ import {
 import { useBarTransition } from './mixins/bar-transition';
 
 type TransitionProperty = 'width' | 'height';
-
-const DEFAULT_ORIGIN = '0 0';
 
 export default defineComponent({
   props: {
@@ -58,6 +57,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    isNegative: {
+      type: Boolean,
+      default: false,
+    },
     transition: {
       type: [String, Boolean] as PropType<TransitionProperty | false>,
       default: false,
@@ -67,7 +70,9 @@ export default defineComponent({
     const { x, y, width, height, transition } = toRefs(props);
 
     const shouldTransitionWidth = computed(() => transition.value === 'width');
-    const shouldTransitionHeight = computed(() => transition.value === 'height');
+    const shouldTransitionHeight = computed(
+      () => transition.value === 'height'
+    );
 
     const transitionProps = useBarTransition(x, y, width, height);
 
@@ -77,9 +82,10 @@ export default defineComponent({
     const computedHeight = shouldTransitionHeight.value
       ? transitionProps.computedHeight
       : height;
-    const transformOrigin = shouldTransitionHeight.value
-      ? transitionProps.transformOrigin
-      : DEFAULT_ORIGIN;
+    const transformOrigin =
+      shouldTransitionWidth.value || shouldTransitionHeight.value
+        ? transitionProps.transformOrigin
+        : null;
 
     return {
       computedWidth,
