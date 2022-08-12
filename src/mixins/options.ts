@@ -16,6 +16,7 @@ export interface AxisOptions extends Options {
 export interface TooltipOptions extends Options {
   offset?: number;
   position?: typeof TOOLTIP_POSITIONS[number];
+  showTitle?: boolean;
 }
 
 export interface ChartOptions extends Options {
