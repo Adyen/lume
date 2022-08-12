@@ -6,6 +6,7 @@
       [`adv-stroke-color--${color}`]: true,
     }"
     :d="pathDefinition"
+    data-j-line
   />
 </template>
 
