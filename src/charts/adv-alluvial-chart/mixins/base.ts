@@ -59,3 +59,11 @@ export function useBase(
         alluvialInstance
     };
 }
+
+export function useDefaults(alluvial, defaultAlluvial: AlluvialDataset) {
+    const data: AlluvialDataset = {
+        ...defaultAlluvial,
+        ...alluvial,
+    };
+    return ref(data);
+}
