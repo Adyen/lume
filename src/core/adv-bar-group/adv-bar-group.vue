@@ -12,6 +12,7 @@
         v-bind="getBarAttributes(barValue, index, groupIndex, barGroup)"
         :key="`bar-${index}`"
         :animate="animate"
+        data-j-adv-bar
       />
     </g>
   </g>

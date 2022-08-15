@@ -2,6 +2,8 @@ import { mount } from '@vue/test-utils';
 import { data, labels, xScale, yScale } from '../../mock-data';
 import SingleBarChart from '@/charts/adv-single-bar-chart/adv-single-bar-chart.vue';
 
+const numberOfBars = data[0].values.length;
+
 describe('adv-single-bar-chart.vue', () => {
     test('mounts component and sets prop values', () => {
         const wrapper = mount(SingleBarChart, {
@@ -28,5 +30,7 @@ describe('adv-single-bar-chart.vue', () => {
         expect(props.title).toEqual(null);
         expect(props).toHaveProperty('type');
         expect(props.type).toEqual(null);
+
+        expect(el.findAll('[data-j-adv-bar]')).toHaveLength(numberOfBars);
     });
-})
+});
