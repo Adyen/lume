@@ -4,6 +4,7 @@
     chart-type="line"
     :data="computedLineData"
     :options="allOptions"
+    data-j-adv-line-chart
   >
     <template #groups="props">
       <adv-line-group v-bind="props" />
