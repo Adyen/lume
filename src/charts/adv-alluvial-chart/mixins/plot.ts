@@ -29,7 +29,7 @@ export function drawPlot(
     })
 
     function nodeMaxLength({label, value}): number {
-        return Math.max(label.length, alluvialProps.value.valueFormatter(value).length);
+        return Math.max(label.length, alluvialProps.value.valueFormatter(value)?.length || 0);
     }
 
     function byMaxNodeLength(nodeA, nodeB): number {
