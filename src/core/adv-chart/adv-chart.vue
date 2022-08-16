@@ -81,9 +81,10 @@
         :x-scale="computedXScale"
         :y-scale="computedYScale"
         :hovered-index="hoveredIndex"
+        :container-size="containerSize"
       />
 
-      <!-- Overlay bars -->
+      <!-- Oqqqverlay bars -->
       <adv-overlay-group
         v-if="allOptions.withHover !== false"
         :data="computedData"
@@ -213,6 +214,7 @@ export default defineComponent({
       allOptions
     );
 
+
     const computedXScale = computed<Scale>(() => {
       if (!props.xScale) return xScale.value;
       return isScale(props.xScale)
@@ -336,7 +338,7 @@ export default defineComponent({
       tooltipPosition,
       updateSize,
       xAxisTitle,
-      yAxisTitle,
+      yAxisTitle
     };
   },
 });
