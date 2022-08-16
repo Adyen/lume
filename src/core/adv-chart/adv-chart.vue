@@ -34,6 +34,18 @@
       </div>
     </template>
 
+    <!-- Data groups -->
+    <slot
+      name="groups"
+      :data="computedData"
+      :labels="labels"
+      :orientation="orientation"
+      :x-scale="computedXScale"
+      :y-scale="computedYScale"
+      :hovered-index="hoveredIndex"
+      :container-size="containerSize"
+    />
+
     <template v-if="computedXScale && computedYScale">
       <!-- Negative values background -->
       <adv-bar
@@ -71,18 +83,6 @@
           @tick-mouseover="handleTickMouseover('y', $event)"
         />
       </slot>
-
-      <!-- Data groups -->
-      <slot
-        name="groups"
-        :data="computedData"
-        :labels="labels"
-        :orientation="orientation"
-        :x-scale="computedXScale"
-        :y-scale="computedYScale"
-        :hovered-index="hoveredIndex"
-        :container-size="containerSize"
-      />
 
       <!-- Overlay bars -->
       <adv-overlay-group
