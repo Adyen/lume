@@ -83,7 +83,9 @@ export function useBaseScales(
     }
   }
 
-  watchEffect(generateScales);
+  if (labels.value && data.value) {
+    watchEffect(generateScales);
+  }
 
   return { xScale, yScale };
 }
