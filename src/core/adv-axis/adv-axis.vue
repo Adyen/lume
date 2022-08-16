@@ -18,6 +18,7 @@
       <g
         class="axis__tick-label"
         pointer-events="all"
+        data-j-axis__tick-label
         @mouseover="onTickMouseover(index)"
       >
         <rect

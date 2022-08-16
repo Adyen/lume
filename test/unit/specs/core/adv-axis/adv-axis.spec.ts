@@ -19,5 +19,23 @@ describe('adv-axis.vue', () => {
 
         const el = wrapper.find('[data-j-axis]');
         expect(el.exists()).toBeTruthy()
+        expect(wrapper.emitted('tick-mouseover')).toBeFalsy();
+    });
+
+    test('should emit event on mouseover on data-j-axis__tick-label', () => {
+        const wrapper = mount(AdvAxis, {
+            propsData: {
+                scale
+            }
+        })
+
+        const el = wrapper.findAll('[data-j-axis__tick-label]');
+        el.at(0).trigger('mouseover');
+        el.at(3).trigger('mouseover');
+
+        const mouseoverEvent = wrapper.emitted('tick-mouseover');
+
+        expect(mouseoverEvent[0]).toEqual([0]); // first trigger
+        expect(mouseoverEvent[1]).toEqual([3]); // second trigger
     })
 });
