@@ -9,6 +9,8 @@ describe('chart-container.vue', () => {
 
         const el = wrapper.find('[data-j-chart-container]');
         expect(el.exists()).toBeTruthy();
+        expect(wrapper.emitted('mouseleave')).toBeFalsy();
+        expect(wrapper.emitted('resize')).toBeFalsy();
     })
 
     test('mounts component and set custom margin values', () => {
@@ -23,5 +25,21 @@ describe('chart-container.vue', () => {
 
         const el = wrapper.find('[data-j-chart-container__group]');
         expect(el.attributes()['transform']).toEqual(`translate(${margins.left}, ${margins.top})`);
+    })
+
+    test('should emit on mouseleave on root', () => {
+        const wrapper = mount(Container, { propsData: { containerSize } })
+
+        const el = wrapper.find('[data-j-chart-container__root]');
+        el.trigger('mouseleave');
+        expect(wrapper.emitted('mouseleave')).toBeTruthy();
+    })
+
+    test('should emit on resize', async () => {
+        const wrapper = mount(Container, { propsData: { containerSize } })
+
+        const el = wrapper.find('[data-j-chart-container]');
+        await el.trigger('resize');
+        expect(wrapper.emitted('resize')).toBeTruthy();
     })
 })

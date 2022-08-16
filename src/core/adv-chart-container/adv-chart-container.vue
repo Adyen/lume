@@ -14,6 +14,7 @@
       }"
       :width="containerSize.width"
       :height="containerSize.height + computedMargin.bottom"
+      data-j-chart-container__root
       @mouseleave="$emit('mouseleave', $event)"
     >
       <g
