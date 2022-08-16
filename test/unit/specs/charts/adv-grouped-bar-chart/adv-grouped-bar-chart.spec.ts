@@ -28,6 +28,7 @@ describe('adv-grouped-bar-chart.vue', () => {
 
         const el = wrapper.find('[data-j-bars-group]');
         expect(el.props()['orientation']).toEqual('horizontal');
+        expect(el.findAll('[data-j-adv-bar]')).toHaveLength(numberOfBars);
     });
 
     test('mounts component with double dataset', () => {
