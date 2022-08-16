@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { data, labels, xScale, yScale } from '../../mock-data';
+import { data, labels, xScale, yScale, generateData } from '../../mock-data';
 import GroupedBarChart from '@/charts/adv-grouped-bar-chart/adv-grouped-bar-chart.vue';
 import { Orientation } from '@/constants';
 
@@ -32,14 +32,14 @@ describe('adv-grouped-bar-chart.vue', () => {
     });
 
     test('mounts component with double dataset', () => {
-        const manipulatedData = JSON.parse(JSON.stringify(data));
-        manipulatedData.push(JSON.parse(JSON.stringify(data[0])));
+        const numberOfSets = 2;
+        const manipulatedData = generateData(numberOfSets, data[0].values.length)
         const wrapper = mount(GroupedBarChart, {
             // Note that we need to flip the scales so as to feed band and linear scales correctly
             propsData: { data: manipulatedData, labels, yScale: xScale, xScale: yScale, orientation }
         });
 
         const el = wrapper.find('[data-j-bars-group]');
-        expect(el.findAll('[data-j-adv-bar]')).toHaveLength(2 * numberOfBars);
+        expect(el.findAll('[data-j-adv-bar]')).toHaveLength(numberOfSets * numberOfBars);
     })
 });

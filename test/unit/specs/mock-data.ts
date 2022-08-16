@@ -2,6 +2,7 @@ import { Data, DatasetValueObject } from "@/types/dataset";
 import { Scale } from "@/mixins/scales";
 import { scaleBand, scaleLinear } from "d3-scale";
 import { ContainerSize } from '@/types/size';
+import {useNegativeValues} from "@/mixins/negative-values";
 
 const width = 640;
 const height = 480;
@@ -29,3 +30,23 @@ export const xScale: Scale = scaleBand<number>()
 export const yScale: Scale = scaleLinear<number>()
     .domain([0, highestValue])
     .range([0, height])
+
+const generateValue = (domain, useNegativeValues, useIntegers) => {
+    const value = (Math.random() * domain * (useNegativeValues ? 2 : 1)) - (useNegativeValues ? domain : 0);
+    return useIntegers ? Math.round(value) : value;
+}
+
+export const generateData = (numberOfSets: number, numberOfRecords: number, domain = 1000, useIntegers = false, useNegativeValues = false): Data<DatasetValueObject<number>> => {
+    const dataSets: Data<DatasetValueObject<number>> = [];
+    for (let i = 0; i < numberOfSets; i++) {
+        const dataSet: DatasetValueObject<number>[] = [];
+        for (let j = 0; j < numberOfRecords; j++) {
+            dataSet.push({
+                value: generateValue(domain, useNegativeValues, useIntegers)
+            })
+        }
+        dataSets.push({ values: dataSet });
+    }
+
+    return dataSets;
+}

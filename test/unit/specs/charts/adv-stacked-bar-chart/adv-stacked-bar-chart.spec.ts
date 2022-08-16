@@ -1,9 +1,10 @@
 import { mount } from '@vue/test-utils';
-import { data, labels, xScale, yScale } from '../../mock-data';
+import {data, generateData, labels, xScale, yScale} from '../../mock-data';
 import StackedBarChart from '@/charts/adv-stacked-bar-chart/adv-stacked-bar-chart.vue';
 import { Orientation } from '@/constants';
 
 const orientation: Orientation = 'horizontal';
+const numberOfBars = data[0].values.length;
 
 describe('adv-stacked-bar-chart.vue', () => {
     test('mounts component and sets prop values', () => {
@@ -16,6 +17,7 @@ describe('adv-stacked-bar-chart.vue', () => {
         expect(el.find('[data-j-bars-group]').exists()).toBeTruthy();
         const barsGroupComponent = el.find('[data-j-bars-group]');
         expect(barsGroupComponent.props()['orientation']).toEqual('vertical');
+        expect(el.findAll('[data-j-adv-bar]')).toHaveLength(numberOfBars);
     });
 
     test('mounts component and sets custom orientation', () => {
@@ -26,4 +28,16 @@ describe('adv-stacked-bar-chart.vue', () => {
         const el = wrapper.find('[data-j-bars-group]')
         expect(el.props()['orientation']).toEqual('horizontal');
     });
+
+    test('mounts component with double dataset', () => {
+        const numberOfSets = 2;
+        const manipulatedData = generateData(numberOfSets, data[0].values.length)
+        const wrapper = mount(StackedBarChart, {
+            // Note that we need to flip the scales so as to feed band and linear scales correctly
+            propsData: { data: manipulatedData, labels, yScale: xScale, xScale: yScale }
+        });
+
+        const el = wrapper.find('[data-j-bars-group]');
+        expect(el.findAll('[data-j-adv-bar]')).toHaveLength(numberOfSets * numberOfBars);
+    })
 })
