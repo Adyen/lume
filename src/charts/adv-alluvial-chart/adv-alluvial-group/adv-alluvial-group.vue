@@ -68,7 +68,7 @@ import { determineCoordinates } from '../mixins/adv-alluvial-coordinates';
 
 export default defineComponent({
   props: {
-    ...withChartProps(singleDatasetValidator)
+    ...withChartProps(singleDatasetValidator, false)
   },
   setup(props, context) {
     const chartContainer = ref(null);

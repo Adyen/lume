@@ -21,7 +21,7 @@ import { singleDatasetValidator } from '@/utils/helpers';
 export default defineComponent({
   components: { AdvChart, AdvAlluvialGroup },
   props: {
-    ...withChartProps(singleDatasetValidator)
+    ...withChartProps(singleDatasetValidator, false)
   },
   setup(props) {
     const { options } = toRefs(props);
