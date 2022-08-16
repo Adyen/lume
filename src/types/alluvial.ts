@@ -30,6 +30,7 @@ interface AlluvialNodeTarget {
 
 export interface AlluvialNode extends DatasetValueObject<string> {
     targets?: Array<AlluvialNodeTarget>
+    id: number | string
 }
 
 export interface AlluvialDataset extends Dataset<AlluvialNode> {
