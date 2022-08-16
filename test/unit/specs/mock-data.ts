@@ -2,7 +2,6 @@ import { Data, DatasetValueObject } from "@/types/dataset";
 import { Scale } from "@/mixins/scales";
 import { scaleBand, scaleLinear } from "d3-scale";
 import { ContainerSize } from '@/types/size';
-import {useNegativeValues} from "@/mixins/negative-values";
 
 const width = 640;
 const height = 480;
@@ -49,4 +48,14 @@ export const generateData = (numberOfSets: number, numberOfRecords: number, doma
     }
 
     return dataSets;
-}
+};
+
+export const generateLinearScale = (data: Data<DatasetValueObject<number>>, range = [0, height]): Scale => {
+    const flatData = data.reduce((acc, { values }) => [ ...acc, ...values.map(({ value }) => value)], []);
+    const min = Math.min(...flatData)
+    const highestValue = Math.max(...flatData);
+    const lowestValue = min > 0 ? 0 : min;
+    return scaleLinear<number>()
+        .domain([lowestValue, highestValue])
+        .range(range);
+};

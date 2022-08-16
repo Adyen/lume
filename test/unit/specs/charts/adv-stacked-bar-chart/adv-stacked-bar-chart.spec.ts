@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import {data, generateData, labels, xScale, yScale} from '../../mock-data';
+import {data, generateData, generateLinearScale, labels, xScale, yScale} from '../../mock-data';
 import StackedBarChart from '@/charts/adv-stacked-bar-chart/adv-stacked-bar-chart.vue';
 import { Orientation } from '@/constants';
 
@@ -32,12 +32,13 @@ describe('adv-stacked-bar-chart.vue', () => {
     test('mounts component with double dataset', () => {
         const numberOfSets = 2;
         const manipulatedData = generateData(numberOfSets, data[0].values.length)
+        const manipulatedDataLinearScale = generateLinearScale(manipulatedData);
         const wrapper = mount(StackedBarChart, {
             // Note that we need to flip the scales so as to feed band and linear scales correctly
-            propsData: { data: manipulatedData, labels, yScale: xScale, xScale: yScale }
+            propsData: { data: manipulatedData, labels, xScale, yScale: manipulatedDataLinearScale }
         });
 
         const el = wrapper.find('[data-j-bars-group]');
         expect(el.findAll('[data-j-adv-bar]')).toHaveLength(numberOfSets * numberOfBars);
-    })
-})
+    });
+});
