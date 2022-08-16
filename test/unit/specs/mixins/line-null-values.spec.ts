@@ -30,9 +30,7 @@ describe('line-null-values.ts', () => {
     test('should return expected object when some values are null', () => {
         const mutatedIndex = 1;
         const dataWithNullValues = JSON.parse(JSON.stringify(data))
-            // .map(values => ({ values: values.map(({ value }) => value) }));
         dataWithNullValues[0].values[mutatedIndex].value = null;
-        // console.log(dataWithNullValues[0].values)
         const mixin = getMixin(dataWithNullValues);
 
         expect(mixin.computedLineData.value[0].isDashed(mutatedIndex)).toEqual(true);

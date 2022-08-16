@@ -21,7 +21,6 @@ describe('adv-chart.vue', () => {
         const el = wrapper.find('[data-j-adv-chart]');
         expect(el.exists()).toBeTruthy()
         expect(el.find('[data-j-adv-chart__tooltip]').exists()).toBeTruthy()
-        // expect(el.find('[data-j-adv-chart__axes]').exists()).toBeTruthy()
     })
 
     test('mounts component with tooltip disabled', () => {
