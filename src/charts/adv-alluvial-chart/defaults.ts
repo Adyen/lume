@@ -13,6 +13,7 @@ export const options = {
     margins: DEFAULT_MARGINS.VERTICAL,
     showAxes: false,
     withTooltip: false,
+    withHover: false
 };
 
 export const transitionDuration = 200;
