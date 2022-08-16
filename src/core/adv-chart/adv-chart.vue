@@ -84,7 +84,7 @@
         :container-size="containerSize"
       />
 
-      <!-- Oqqqverlay bars -->
+      <!-- Overlay bars -->
       <adv-overlay-group
         v-if="allOptions.withHover !== false"
         :data="computedData"
