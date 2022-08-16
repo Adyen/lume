@@ -5,7 +5,7 @@ import {
 } from "@/types/alluvial";
 import {sankey, SankeyGraph, SankeyLink, SankeyNode} from 'd3-sankey';
 
-export function useBase(
+export function prepareAlluvialBuildingBlocks(
     alluvialProps: Ref<AlluvialDataset>,
     alluvialData: Ref<AlluvialInstance>
 ) {
@@ -43,7 +43,6 @@ export function useBase(
             nodes: nodes.value.map(node => ({ ...node })),
             links: links.value.map(link => ({ ...link }))
         });
-        console.log('Graph: ', graph);
         return graph;
     });
 

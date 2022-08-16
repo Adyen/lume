@@ -211,7 +211,6 @@ export function drawPlot(
     }
 
     function renderChart({nodes, links}) {
-        console.log('Nodes: ', nodes, ' Links: ', links);
         if (nodes == null || links == null) {
             return;
         }
