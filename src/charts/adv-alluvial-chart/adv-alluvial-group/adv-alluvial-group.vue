@@ -58,9 +58,10 @@ import {defineComponent, ref, toRefs, watch} from '@vue/composition-api';
 
 import { useBase } from '@/mixins/base';
 import { withChartProps } from '@/mixins/props';
-import { useAlluvialBlocks, useDefaults } from '@/charts/adv-alluvial-chart/mixins/adv-alluvial-building-blocks';
+
 import { drawPlot } from '@/charts/adv-alluvial-chart/mixins/adv-alluvial-interactions';
 import { determineCoordinates } from '../mixins/adv-alluvial-coordinates';
+import { useAlluvialBlocks, useDefaultData } from '@/charts/adv-alluvial-chart/mixins/adv-alluvial-building-blocks';
 
 import { singleDatasetValidator } from '@/utils/helpers';
 
@@ -75,7 +76,7 @@ export default defineComponent({
     const chartContainer = ref(null);
     const { data } = toRefs(props);
     const { computedData } = useBase(data);
-    const dataWithDefaults = useDefaults(computedData.value[0], baseData);
+    const dataWithDefaults = useDefaultData(computedData.value[0], baseData);
 
     const { graph, nodeId, alluvialInstance } = useAlluvialBlocks(dataWithDefaults, {
       ...BASE_INSTANCE,

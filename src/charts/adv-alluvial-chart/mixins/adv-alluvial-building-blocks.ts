@@ -62,7 +62,7 @@ export function useAlluvialBlocks(
     };
 }
 
-export function useDefaults(alluvial, defaultAlluvial: AlluvialDataset) {
+export function useDefaultData(alluvial, defaultAlluvial: AlluvialDataset) {
     const data: AlluvialDataset = {
         ...defaultAlluvial,
         ...alluvial,
