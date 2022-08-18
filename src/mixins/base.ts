@@ -50,10 +50,6 @@ export function useBase(
     });
   });
 
-  const domain = computed(
-    () => labels.value?.map((_, i) => i) || data.value?.map((_, i: number) => i)
-  );
-
   const isHorizontal = computed(
     () => orientation?.value === ORIENTATIONS.HORIZONTAL
   );
@@ -70,7 +66,6 @@ export function useBase(
   return {
     computedData,
     containerSize,
-    domain,
     isHorizontal,
     updateSize,
   };
