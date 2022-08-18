@@ -1,11 +1,13 @@
 import { computed, ComputedRef, ref, Ref } from "@vue/composition-api";
+import { sankey, SankeyGraph, SankeyLink, SankeyNode } from 'd3-sankey';
+
 import {
     AlluvialDataset,
     AlluvialInstance,
     SankeyLinkAdditionalProperties,
     SankeyNodeAdditionalProperties
-} from "@/types/alluvial";
-import {sankey, SankeyGraph, SankeyLink, SankeyNode} from 'd3-sankey';
+} from '@/types/alluvial';
+
 
 export function useAlluvialBlocks(
     alluvialProps: Ref<AlluvialDataset>,

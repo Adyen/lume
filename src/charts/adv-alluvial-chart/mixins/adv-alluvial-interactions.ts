@@ -1,11 +1,16 @@
 import { computed, ComputedRef, onMounted, onBeforeUnmount, ref, Ref } from '@vue/composition-api';
+
+import { select } from 'd3-selection';
+import { SankeyGraph, SankeyLink, sankeyLinkHorizontal, SankeyNode } from 'd3-sankey';
+
 import {
     AlluvialDataset,
     AlluvialInstance,
-    NodeBlock, SankeyLinkAdditionalProperties, SankeyNodeAdditionalProperties,
+    NodeBlock,
+    SankeyLinkAdditionalProperties,
+    SankeyNodeAdditionalProperties,
 } from '@/types/alluvial';
-import { select } from 'd3-selection';
-import {SankeyGraph, SankeyLink, sankeyLinkHorizontal, SankeyNode} from 'd3-sankey';
+
 import { defaultChartColor, nodeToLabelGap, transitionDuration } from '@/charts/adv-alluvial-chart/defaults';
 
 export function drawPlot(

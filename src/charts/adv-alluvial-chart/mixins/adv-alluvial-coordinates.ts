@@ -1,7 +1,13 @@
-import {computed, ComputedRef, onMounted, ref, Ref} from "@vue/composition-api";
-import {AlluvialDataset, SankeyLinkAdditionalProperties, SankeyNodeAdditionalProperties} from "@/types/alluvial";
-import {SankeyGraph, SankeyNode} from "d3-sankey";
+import { computed, ComputedRef, onMounted, ref, Ref } from '@vue/composition-api';
+import { SankeyGraph, SankeyNode } from 'd3-sankey';
 import { select } from 'd3-selection';
+
+import {
+    AlluvialDataset,
+    SankeyLinkAdditionalProperties,
+    SankeyNodeAdditionalProperties
+} from '@/types/alluvial';
+
 
 export function determineCoordinates(
     alluvialProps: Ref<AlluvialDataset>,
