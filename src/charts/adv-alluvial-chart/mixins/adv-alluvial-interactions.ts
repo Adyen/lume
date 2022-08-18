@@ -81,7 +81,7 @@ export function drawPlot(
             .reduce((acc, nodeId) => `${acc}, ${nodeId}`, null);
         drawingBoard.value?.selectAll('.adv-alluvial-group__path-group path')
             .filter(`:not(${links})`)
-            .classed('adv-alluvial-group__path-group__link--out', isEntering);
+            .classed('adv-alluvial-group__path-group__path--out', isEntering);
         drawingBoard.value?.selectAll('.adv-alluvial-group__node')
             .filter(`:not(${nodes})`)
             .classed('adv-alluvial-group__node--out', isEntering);
@@ -100,7 +100,7 @@ export function drawPlot(
 
     function updateNode(id: number | string, currentNumber: number, targetNumber: number) {
         const startTime = Date.now();
-        const node = drawingBoard.value?.selectAll(`.adv-alluvial-group__node[id="node-block-${id}"] tspan.adv-alluvial-group__node__label__value`);
+        const node = drawingBoard.value?.selectAll(`.adv-alluvial-group__node[id="node-block-${id}"] tspan.adv-alluvial-group__node__text__value`);
         const interpolator = interpolateRound(currentNumber, targetNumber);
         const performNextUpdate = () => {
             if (isBeingDestroyed) return;
@@ -152,7 +152,7 @@ export function drawPlot(
         return nodes.map(node => ({
             id: `node-block-${nodeIdRef.value(node)}`,
             rect: {
-                cssClass: ({color = defaultChartColor}) => `adv-alluvial-group__node__block--${color}`,
+                cssClass: ({color = defaultChartColor}) => `adv-alluvial-group__node__rect--${color}`,
                 width: node.x1 - node.x0,
                 height: node.y1 - node.y0
             },

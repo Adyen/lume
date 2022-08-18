@@ -4,18 +4,12 @@
   &__path-group {
     fill: none;
 
-    &__link {
+    &__path {
       stroke-opacity: 0.5;
       transition: stroke-opacity $adv-transition-time-long;
 
       &--out {
         stroke-opacity: 0.2;
-      }
-
-      @each $color, $map in $chart-colors {
-        &--#{$color} {
-          stroke: nth($map, 1);
-        }
       }
     }
   }
@@ -28,20 +22,20 @@
       opacity: 0.5;
     }
 
-    &__block {
+    &__rect {
       @each $color, $map in $chart-colors {
         &--#{$color} {
           $fill: nth($map, 1);
           fill: $fill;
 
-          & + .node__label--color {
+          & + .node__text--color {
             fill: $fill;
           }
         }
       }
     }
 
-    &__label {
+    &__text {
       font-family: $adv-font-family;
 
       &--right {

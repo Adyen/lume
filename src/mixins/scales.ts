@@ -55,6 +55,7 @@ export function useBaseScales(
   function generateScales() {
     const { width, height } = size;
     if (!width && !height) return;
+    if (!labels.value || !data.value) return;
 
     if (orientation.value === ORIENTATIONS.HORIZONTAL) {
       // horizontal
@@ -83,9 +84,7 @@ export function useBaseScales(
     }
   }
 
-  if (labels.value && data.value) {
-    watchEffect(generateScales);
-  }
+  watchEffect(generateScales);
 
   return { xScale, yScale };
 }

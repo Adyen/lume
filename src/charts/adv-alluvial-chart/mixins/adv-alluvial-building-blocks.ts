@@ -1,13 +1,15 @@
 import { computed, ComputedRef, ref, Ref } from "@vue/composition-api";
 import {
     AlluvialDataset,
-    AlluvialInstance, SankeyLinkAdditionalProperties, SankeyNodeAdditionalProperties
+    AlluvialInstance,
+    SankeyLinkAdditionalProperties,
+    SankeyNodeAdditionalProperties
 } from "@/types/alluvial";
 import {sankey, SankeyGraph, SankeyLink, SankeyNode} from 'd3-sankey';
 
-export function prepareAlluvialBuildingBlocks(
+export function useAlluvialBlocks(
     alluvialProps: Ref<AlluvialDataset>,
-    alluvialData: Ref<AlluvialInstance>
+    alluvialData: AlluvialInstance
 ) {
 
     const alluvialInstance = ref(alluvialData);
@@ -39,11 +41,10 @@ export function prepareAlluvialBuildingBlocks(
     });
 
     const graph: ComputedRef<SankeyGraph<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>> = computed(() => {
-        const graph = layout.value({
+        return layout.value({
             nodes: nodes.value.map(node => ({ ...node })),
             links: links.value.map(link => ({ ...link }))
         });
-        return graph;
     });
 
     function nodeId(node: SankeyNode<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>): number | string  {

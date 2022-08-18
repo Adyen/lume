@@ -2,6 +2,8 @@
   <adv-chart
     v-bind="$props"
     :options="allOptions"
+    :labels="[]"
+    :is-labels-required="false"
   >
     <template #groups="props">
       <adv-alluvial-group v-bind="props" />

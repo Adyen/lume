@@ -34,18 +34,6 @@
       </div>
     </template>
 
-    <!-- Data groups -->
-    <slot
-      name="groups"
-      :data="computedData"
-      :labels="labels"
-      :orientation="orientation"
-      :x-scale="computedXScale"
-      :y-scale="computedYScale"
-      :hovered-index="hoveredIndex"
-      :container-size="containerSize"
-    />
-
     <template v-if="computedXScale && computedYScale">
       <!-- Negative values background -->
       <adv-bar
@@ -94,6 +82,18 @@
         @mouseover="mouseOverHandler"
       />
 
+      <!-- Data groups -->
+      <slot
+        name="groups"
+        :data="computedData"
+        :labels="computedLabels"
+        :orientation="orientation"
+        :x-scale="computedXScale"
+        :y-scale="computedYScale"
+        :hovered-index="hoveredIndex"
+        :container-size="containerSize"
+      />
+
       <!-- Tooltip anchor -->
       <g
         v-if="allOptions.withTooltip !== false"
@@ -106,6 +106,16 @@
           :key="`anchor-${index}`"
         />
       </g>
+    </template>
+
+    <template v-if="!computedLabels">
+      <slot
+        name="groups"
+        :data="computedData"
+        :orientation="orientation"
+        :hovered-index="hoveredIndex"
+        :container-size="containerSize"
+      />
     </template>
 
     <template #footer>
@@ -123,7 +133,7 @@
         name="tooltip"
         v-bind="tooltipConfig"
         :data="computedData"
-        :labels="labels"
+        :labels="computedLabels"
         :with-tooltip="allOptions.withTooltip !== false"
         :hovered-index="hoveredIndex"
         :options="allOptions.tooltipOptions"
@@ -132,14 +142,14 @@
           v-if="allOptions.withTooltip !== false && tooltipConfig.opened"
           v-bind="tooltipConfig"
           :position="tooltipPosition"
-          :title="labels[hoveredIndex]"
+          :title="computedLabels[hoveredIndex]"
           :items="getTooltipItems(hoveredIndex)"
           :options="allOptions.tooltipOptions"
         >
           <slot
             name="tooltip-content"
             :data="computedData"
-            :labels="labels"
+            :labels="computedLabels"
             :hovered-index="hoveredIndex"
           />
         </adv-tooltip>
@@ -191,6 +201,10 @@ export default defineComponent({
       type: String,
       default: null,
     },
+    isLabelsRequired: {
+      type: Boolean,
+      default: true
+    }
   },
   setup(props, ctx) {
     const { data, labels, options, orientation, chartType } = toRefs(props);
@@ -198,9 +212,14 @@ export default defineComponent({
     const hoveredIndex = ref<number>(-1);
     const tooltipAnchor = ref<SVGCircleElement>(null);
 
+    const computedLabels = computed(() => {
+      if (props.isLabelsRequired) return props.labels;
+      else return null;
+    });
+
     const { computedData, containerSize, updateSize } = useBase(
       data,
-      labels,
+      computedLabels,
       orientation
     );
 
@@ -208,12 +227,11 @@ export default defineComponent({
 
     const { xScale, yScale } = useBaseScales(
       computedData,
-      labels,
+      computedLabels,
       containerSize,
       orientation,
       allOptions
     );
-
 
     const computedXScale = computed<Scale>(() => {
       if (!props.xScale) return xScale.value;
@@ -338,7 +356,8 @@ export default defineComponent({
       tooltipPosition,
       updateSize,
       xAxisTitle,
-      yAxisTitle
+      yAxisTitle,
+      computedLabels
     };
   },
 });

@@ -4,49 +4,49 @@
     class="adv-alluvial-group"
   >
     <g
-      v-for="(_, index) in alluvialInstance.nodeBlocks"
-      :id="`${_.id}`"
+      v-for="(nodeBlock, index) in alluvialInstance.nodeBlocks"
+      :id="`${nodeBlock.id}`"
       :key="`node-block_${index}`"
       class="adv-alluvial-group__node"
     >
       <rect
-        :transform="`translate(${_.node.x0},${_.node.y0})`"
-        :height="_.rect.height"
-        :width="_.rect.width"
-        :class="`${_.rect.cssClass({'color':_.node.color})}`"
-        @mouseover="() => alluvialInstance.highlightedNode = _.node"
-        @mouseout="() => alluvialInstance.highlightedNode = null"
+        :transform="`translate(${nodeBlock.node.x0},${nodeBlock.node.y0})`"
+        :height="nodeBlock.rect.height"
+        :width="nodeBlock.rect.width"
+        :class="`${nodeBlock.rect.cssClass({'color':nodeBlock.node.color})}`"
+        @mouseover="alluvialInstance.highlightedNode = nodeBlock.node"
+        @mouseout="alluvialInstance.highlightedNode = null"
       />
       <text
-        class="adv-alluvial-group__node__label"
-        :transform="`translate(${_.textTransform.x},${_.textTransform.y})`"
-        :class="{'adv-alluvial-group__node__label--right': _.node.depth === 0, 'adv-alluvial-group__node__label--color': _.node.depth === maxDepth }"
+        class="adv-alluvial-group__node__text"
+        :transform="`translate(${nodeBlock.textTransform.x},${nodeBlock.textTransform.y})`"
+        :class="{'adv-alluvial-group__node__text--right': nodeBlock.node.depth === 0, 'adv-alluvial-group__node__text--color': nodeBlock.node.depth === maxDepth }"
       >
         <tspan
-          class="adv-alluvial-group__node__label__title"
-          v-text="_.node.label"
+          class="adv-alluvial-group__node__text__title"
+          v-text="nodeBlock.node.label"
         />
         <tspan
-          class="adv-alluvial-group__node__label__value"
+          class="adv-alluvial-group__node__text__value"
           x="0"
           dy="1.2em"
-          v-text="dataWithDefaults.valueFormatter(_.node.value)"
+          v-text="dataWithDefaults.valueFormatter(nodeBlock.node.value)"
         />
       </text>
     </g>
     <g
-      v-for="(_, index) in alluvialInstance.linkPaths"
+      v-for="(linkPath, index) in alluvialInstance.linkPaths"
       :key="`link-path_${index}`"
       class="adv-alluvial-group__path-group"
     >
       <g style="mix-blend-mode: multiply">
         <path
-          :id="_.id"
-          :d="_.d"
-          :class="[`adv-alluvial-group__path-group__link--${_.color}`, 'adv-alluvial-group__path-group__link']"
-          :stroke-width="_.strokeWidth"
-          @mouseover="() => alluvialInstance.highlightedLink = _.link"
-          @mouseout="() => alluvialInstance.highlightedLink = null"
+          :id="linkPath.id"
+          :d="linkPath.d"
+          :class="[`adv-stroke-color--${linkPath.color}`, `adv-alluvial-group__path-group__path--${linkPath.color}`, 'adv-alluvial-group__path-group__path']"
+          :stroke-width="linkPath.strokeWidth"
+          @mouseover="alluvialInstance.highlightedLink = linkPath.link"
+          @mouseout="alluvialInstance.highlightedLink = null"
         />
       </g>
     </g>
@@ -54,17 +54,18 @@
 </template>
 
 <script lang='ts'>
-import {defineComponent, Ref, ref, toRefs, watch} from '@vue/composition-api';
-import {defaultProps, nodeToLabelGap} from '@/charts/adv-alluvial-chart/defaults';
-import { AlluvialInstance } from '@/types/alluvial';
-import { prepareAlluvialBuildingBlocks, useDefaults } from '@/charts/adv-alluvial-chart/mixins/adv-alluvial-building-blocks';
+import {defineComponent, ref, toRefs, watch} from '@vue/composition-api';
+
 import { useBase } from '@/mixins/base';
-import { drawPlot } from '@/charts/adv-alluvial-chart/mixins/adv-alluvial-interactions';
 import { withChartProps } from '@/mixins/props';
-import {singleDatasetValidator} from '@/utils/helpers';
-import { ContainerSize } from '@/types/size';
+import { useAlluvialBlocks, useDefaults } from '@/charts/adv-alluvial-chart/mixins/adv-alluvial-building-blocks';
+import { drawPlot } from '@/charts/adv-alluvial-chart/mixins/adv-alluvial-interactions';
 import { determineCoordinates } from '../mixins/adv-alluvial-coordinates';
 
+import { singleDatasetValidator } from '@/utils/helpers';
+
+import {BASE_INSTANCE, baseData, nodeToLabelGap} from '@/charts/adv-alluvial-chart/defaults';
+import { ContainerSize } from '@/types/size';
 
 export default defineComponent({
   props: {
@@ -74,20 +75,12 @@ export default defineComponent({
     const chartContainer = ref(null);
     const { data } = toRefs(props);
     const { computedData } = useBase(data);
-    const dataWithDefaults = useDefaults(computedData.value[0], defaultProps);
+    const dataWithDefaults = useDefaults(computedData.value[0], baseData);
 
-    const alluvialData: Ref<AlluvialInstance> = ref({
-      containerSize: ref(context.attrs.containerSize as ContainerSize),
-      highlightedLink: null,
-      highlightedNode: null,
-      leftExtent: 0,
-      rightExtent: 0,
-      topExtent: 0,
-      bottomExtent: 0,
-      nodeBlocks: [],
-      linkPaths: []
+    const { graph, nodeId, alluvialInstance } = useAlluvialBlocks(dataWithDefaults, {
+      ...BASE_INSTANCE,
+      containerSize: context.attrs.containerSize as ContainerSize
     });
-    const { graph, nodeId, alluvialInstance } = prepareAlluvialBuildingBlocks(dataWithDefaults, alluvialData);
 
     const {
       leftMostNodeLabelWidth,
@@ -132,6 +125,6 @@ export default defineComponent({
 })
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 @use './styles';
 </style>
