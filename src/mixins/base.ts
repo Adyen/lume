@@ -53,12 +53,8 @@ export function useBase(
     });
   });
 
-  const isHorizontal = computed(
-    () => orientation?.value === ORIENTATIONS.HORIZONTAL
-  );
-
   function updateSize(size: ContainerSize) {
-    const height = isHorizontal.value
+    const height = (orientation?.value === ORIENTATIONS.HORIZONTAL)
       ? getEmptyArrayFromData(data).length * (BAR_HEIGHT * 2)
       : size.height;
 
@@ -69,7 +65,6 @@ export function useBase(
   return {
     computedData,
     containerSize,
-    isHorizontal,
     updateSize,
   };
 }
