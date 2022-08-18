@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import { data, labels } from '../../mock-data';
 import AdvSparkline from '@/charts/adv-sparkline-chart/adv-sparkline.vue';
 
-describe('adv-single-bar-chart.vue', () => {
+describe.skip('adv-sparkline.vue', () => {
     test('mounts component and sets prop values', () => {
         const wrapper = mount(AdvSparkline, {
             propsData: { data, labels }
