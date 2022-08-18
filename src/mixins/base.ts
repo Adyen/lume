@@ -7,13 +7,16 @@ import {
   set,
 } from '@vue/composition-api';
 import { BAR_HEIGHT, Orientation, ORIENTATIONS } from '@/constants';
-import { getEmptyArrayFromData } from '@/utils/helpers';
+import { getEmptyArrayFromData, isDatasetValueObject } from '@/utils/helpers';
 import { Data, DatasetValueObject } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 
 export type DataValidator = (value: Data) => boolean;
 
-export const withBase = (dataValidator: DataValidator = null, isLabelsRequired = true) => ({
+export const withBase = (
+  dataValidator: DataValidator = null,
+  isLabelsRequired = true
+) => ({
   data: {
     type: Array as PropType<Data>,
     required: true,
@@ -42,9 +45,9 @@ export function useBase(
         ...dataset,
         values: dataset.values.map((value) => {
           // If value is not a DatasetValueObject, convert it into one
-          return typeof value === 'number' || Array.isArray(value)
-            ? ({ value } as DatasetValueObject)
-            : value;
+          return isDatasetValueObject(value)
+            ? value
+            : ({ value } as DatasetValueObject);
         }),
       };
     });

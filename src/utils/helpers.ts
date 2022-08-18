@@ -58,6 +58,21 @@ export function mergeDeep(
   return object;
 }
 
+/**
+ * Checks if provided item is a DatasetValueObject.
+ * @param {unknown} object
+ * @returns {boolean} True if item is a DatasetValueObject.
+ */
+export function isDatasetValueObject(
+  object: unknown
+): object is DatasetValueObject {
+  return (
+    object != null &&
+    isObject(object) &&
+    'value' in (object as unknown as DatasetValueObject)
+  );
+}
+
 export function isBandScale(scale: Scale): scale is ScaleBand<string | number> {
   return (scale as ScaleBand<string | number>).bandwidth !== undefined;
 }
