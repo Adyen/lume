@@ -32,19 +32,22 @@ export function useSingleBarMixin(
   }
 
   function getBarWidth(value: number) {
-    return isHorizontal.value
-      ? value < 0
+    if (isHorizontal.value) {
+      return value < 0
         ? xScale.value(0) - xScale.value(value)
         : xScale.value(value) - xScale.value(0)
-      : (xScale.value as ScaleBand<number | string>).bandwidth();
+    }
+
+    return (xScale.value as ScaleBand<number | string>).bandwidth();
   }
 
   function getBarHeight(value: number) {
-    return isHorizontal.value
-      ? (yScale.value as ScaleBand<number | string>).bandwidth()
-      : value < 0
-      ? yScale.value(value) - yScale.value(0)
-      : yScale.value(0) - yScale.value(value);
+    if (isHorizontal.value) {
+      return (yScale.value as ScaleBand<number | string>).bandwidth();
+    }
+
+    return value < 0 ?
+      yScale.value(value) - yScale.value(0) : yScale.value(0) - yScale.value(value);
   }
 
   function barAttributeGenerator(
