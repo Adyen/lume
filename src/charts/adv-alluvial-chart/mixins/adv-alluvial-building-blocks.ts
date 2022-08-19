@@ -1,20 +1,20 @@
-import { computed, ComputedRef, ref, Ref } from "@vue/composition-api";
+import { computed, ComputedRef, ref, Ref } from '@vue/composition-api';
 import { sankey, SankeyGraph, SankeyLink, SankeyNode } from 'd3-sankey';
+import { ContainerSize } from '@/types/size';
+import { BASE_INSTANCE } from '@/charts/adv-alluvial-chart/defaults';
 
 import {
     AlluvialDataset,
-    AlluvialInstance,
     SankeyLinkAdditionalProperties,
     SankeyNodeAdditionalProperties
 } from '@/types/alluvial';
 
-
 export function useAlluvialBlocks(
     alluvialProps: Ref<AlluvialDataset>,
-    alluvialData: AlluvialInstance
+    containerSize: ContainerSize
 ) {
 
-    const alluvialInstance = ref(alluvialData);
+    const alluvialInstance = ref({ ...BASE_INSTANCE, containerSize });
     const nodes: ComputedRef<SankeyNode<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>[]> = computed(() => {
         return alluvialProps.value.values.map(({ label, color, value }) => ({ label, color, id: value }))
     });

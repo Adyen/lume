@@ -78,10 +78,7 @@ export default defineComponent({
     const { computedData } = useBase(data);
     const dataWithDefaults = useDefaultData(computedData.value[0], baseData);
 
-    const { graph, nodeId, alluvialInstance } = useAlluvialBlocks(dataWithDefaults, {
-      ...BASE_INSTANCE,
-      containerSize: context.attrs.containerSize as ContainerSize
-    });
+    const { graph, nodeId, alluvialInstance } = useAlluvialBlocks(dataWithDefaults, context.attrs.containerSize as ContainerSize);
 
     const {
       leftMostNodeLabelWidth,
