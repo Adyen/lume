@@ -6,6 +6,8 @@ import { Scale } from '@/mixins/scales';
 import { Orientation, ORIENTATIONS } from '@/constants';
 import { Data, DatasetValueObject } from '@/types/dataset';
 
+const fallbackColor = '01';
+
 export function useSingleBarMixin(
   data: ComputedRef<Data<DatasetValueObject<number>>>,
   xScale: Ref<Scale>,
@@ -51,7 +53,7 @@ export function useSingleBarMixin(
     groupIndex: number
   ) {
     const { value, color: barColor } = barValue;
-    const color = barColor ?? data.value[index].color;
+    const color = barColor ?? data.value[index].color ?? fallbackColor;
     const { x, y } = getBarTransform(value, groupIndex);
     const width = getBarWidth(value);
     const height = getBarHeight(value);
