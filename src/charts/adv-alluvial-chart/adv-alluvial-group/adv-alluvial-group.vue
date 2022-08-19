@@ -54,18 +54,18 @@
 </template>
 
 <script lang='ts'>
-import {defineComponent, ref, toRefs, watch} from '@vue/composition-api';
+import { defineComponent, ref, toRefs, watch } from '@vue/composition-api';
 
 import { useBase } from '@/mixins/base';
 import { withChartProps } from '@/mixins/props';
 
-import { drawPlot } from '@/charts/adv-alluvial-chart/mixins/adv-alluvial-interactions';
-import { determineCoordinates } from '../mixins/adv-alluvial-coordinates';
+import { useAlluvialInteractions } from '@/charts/adv-alluvial-chart/mixins/adv-alluvial-interactions';
+import { useCoordinates } from '../mixins/adv-alluvial-coordinates';
 import { useAlluvialBlocks, useDefaultData } from '@/charts/adv-alluvial-chart/mixins/adv-alluvial-building-blocks';
 
 import { singleDatasetValidator } from '@/utils/helpers';
 
-import {BASE_INSTANCE, baseData, nodeToLabelGap} from '@/charts/adv-alluvial-chart/defaults';
+import { BASE_INSTANCE, baseData, nodeToLabelGap } from '@/charts/adv-alluvial-chart/defaults';
 import { ContainerSize } from '@/types/size';
 
 export default defineComponent({
@@ -88,7 +88,7 @@ export default defineComponent({
       rightMostNodeLabelWidth,
       topMostNodeLabelExtraHeight,
       bottomMostNodeLabelExtraHeight
-    } = determineCoordinates(dataWithDefaults, graph, chartContainer, nodeId);
+    } = useCoordinates(dataWithDefaults, graph, chartContainer, nodeId);
 
     const {
       highlightedElements,
@@ -96,7 +96,7 @@ export default defineComponent({
       updateNodes,
       renderChart,
       maxDepth
-    } = drawPlot(alluvialInstance, dataWithDefaults, chartContainer, nodeId,  graph);
+    } = useAlluvialInteractions(alluvialInstance, dataWithDefaults, chartContainer, nodeId,  graph);
 
     watch(highlightedElements, function (newElements, previousElements) {
       const isEntering = newElements.nodes != null && newElements.links != null;

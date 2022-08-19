@@ -9,7 +9,7 @@ import {
 } from '@/types/alluvial';
 
 
-export function determineCoordinates(
+export function useCoordinates(
     alluvialProps: Ref<AlluvialDataset>,
     graph: Ref<SankeyGraph<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>>,
     chartContainer: Ref<HTMLElement>,

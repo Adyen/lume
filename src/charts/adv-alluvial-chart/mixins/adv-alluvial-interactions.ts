@@ -13,7 +13,7 @@ import {
 
 import { defaultChartColor, nodeToLabelGap, transitionDuration } from '@/charts/adv-alluvial-chart/defaults';
 
-export function drawPlot(
+export function useAlluvialInteractions(
     alluvialInstance: Ref<AlluvialInstance>,
     alluvialProps: Ref<AlluvialDataset>,
     chartContainer: Ref<HTMLElement>,
