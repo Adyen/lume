@@ -1,35 +1,48 @@
-import { mount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 import { data, labels } from '../../mock-data';
 import AdvSparkline from '@/charts/adv-sparkline-chart/adv-sparkline.vue';
+import { options as defaultOptions } from '@/charts/adv-sparkline-chart/defaults';
 
-describe.skip('adv-sparkline.vue', () => {
-    test('mounts component and sets prop values', () => {
-        const wrapper = mount(AdvSparkline, {
-            propsData: { data, labels }
-        });
-
-        const el = wrapper.find('[data-j-sparkline]')
-        const props = wrapper.vm.$props;
-        expect(el.exists()).toBeTruthy();
-        expect(props).toHaveProperty('data');
-        expect(props.data).toEqual(data);
-        expect(props).toHaveProperty('labels');
-        expect(props.labels).toEqual(labels);
-        expect(props).toHaveProperty('options');
-        expect(props.options).toEqual({});
-        expect(el.find('[data-j-sparkline__path]').classes().includes(`sparkline-chart__area--color-01`)).toBe(true);
+describe('adv-sparkline.vue', () => {
+  test('mounts component and sets prop values', () => {
+    const wrapper = shallowMount(AdvSparkline, {
+      propsData: { data, labels, options: defaultOptions },
     });
 
-    test('mounts component and sets custom area color', () => {
-        const areaColor = '02';
-        const mutatedData = JSON.parse(JSON.stringify(data));
-        mutatedData[0].areaColor = areaColor;
+    const el = wrapper.findComponent(AdvSparkline);
+    const props = wrapper.props();
 
-        const wrapper = mount(AdvSparkline, {
-            propsData: { data: mutatedData, labels }
-        });
+    expect(el.exists()).toBe(true);
 
-        const el = wrapper.find('[data-j-sparkline]')
-        expect(el.find('[data-j-sparkline__path]').classes().includes(`sparkline-chart__area--color-${areaColor}`)).toBe(true);
-    })
-})
+    expect(props).toHaveProperty('data');
+    expect(props.data).toEqual(data);
+    expect(props).toHaveProperty('labels');
+    expect(props.labels).toEqual(labels);
+    expect(props).toHaveProperty('options');
+    expect(props.options).toEqual(defaultOptions);
+
+    const areaPath = el.find('[data-j-sparkline__area]');
+    expect(areaPath.exists()).toBe(true);
+    expect(areaPath.classes().includes(`sparkline-chart__area--color-01`)).toBe(
+      true
+    );
+  });
+
+  test('mounts component and sets custom area color', async () => {
+    const areaColor = '02';
+    const mutatedData = JSON.parse(JSON.stringify(data));
+    mutatedData[0].areaColor = areaColor;
+
+    const wrapper = shallowMount(AdvSparkline, {
+      propsData: { data: mutatedData, labels },
+    });
+
+    const el = wrapper.findComponent(AdvSparkline);
+
+    const areaPath = el.find('[data-j-sparkline__area]');
+
+    expect(
+      areaPath.classes().includes(`sparkline-chart__area--color-${areaColor}`)
+    ).toBe(true);
+  });
+});
