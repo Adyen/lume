@@ -18,16 +18,16 @@
         @mouseout="alluvialInstance.highlightedNode = null"
       />
       <text
-        class="adv-alluvial-group__node__text"
+        class="adv-alluvial-group__node-text"
         :transform="`translate(${nodeBlock.textTransform.x},${nodeBlock.textTransform.y})`"
-        :class="{'adv-alluvial-group__node__text--right': nodeBlock.node.depth === 0, 'adv-alluvial-group__node__text--color': nodeBlock.node.depth === maxDepth }"
+        :class="{'adv-alluvial-group__node-text--right': nodeBlock.node.depth === 0, 'adv-alluvial-group__node-text--color': nodeBlock.node.depth === maxDepth }"
       >
         <tspan
-          class="adv-alluvial-group__node__text__title"
+          class="adv-alluvial-group__node-title"
           v-text="nodeBlock.node.label"
         />
         <tspan
-          class="adv-alluvial-group__node__text__value"
+          class="adv-alluvial-group__node-value"
           x="0"
           dy="1.2em"
           v-text="dataWithDefaults.valueFormatter(nodeBlock.node.value)"
@@ -43,7 +43,7 @@
         <path
           :id="linkPath.id"
           :d="linkPath.d"
-          :class="[`adv-stroke-color--${linkPath.color}`, `adv-alluvial-group__path-group__path--${linkPath.color}`, 'adv-alluvial-group__path-group__path']"
+          :class="[`adv-stroke-color--${linkPath.color}`, `adv-alluvial-group__path--${linkPath.color}`, 'adv-alluvial-group__path']"
           :stroke-width="linkPath.strokeWidth"
           @mouseover="alluvialInstance.highlightedLink = linkPath.link"
           @mouseout="alluvialInstance.highlightedLink = null"

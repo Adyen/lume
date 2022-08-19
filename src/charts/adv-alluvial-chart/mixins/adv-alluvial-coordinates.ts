@@ -32,7 +32,7 @@ export function determineCoordinates(
     }
 
     function getNodeLabelBBoxByNodeId(node): SVGRect {
-        return drawingBoard.value?.select(`#node-block-${nodeIdRef.value?.(node)} .adv-alluvial-group__node__label`)?.node()?.getBBox()
+        return drawingBoard.value?.select(`#node-block-${nodeIdRef.value?.(node)} .adv-alluvial-group__node-text`)?.node()?.getBBox()
     }
 
     function nodeMaxLength({label, value}): number {

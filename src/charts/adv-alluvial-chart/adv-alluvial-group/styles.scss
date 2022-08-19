@@ -1,16 +1,16 @@
 @use '~@/styles/_variables.scss' as *;
 
-::v-deep .adv-alluvial-group {
+.adv-alluvial-group {
   &__path-group {
     fill: none;
+  }
 
-    &__path {
-      stroke-opacity: 0.5;
-      transition: stroke-opacity $adv-transition-time-long;
+  &__path {
+    stroke-opacity: 0.5;
+    transition: stroke-opacity $adv-transition-time-long;
 
-      &--out {
-        stroke-opacity: 0.2;
-      }
+    &--out {
+      stroke-opacity: 0.2;
     }
   }
 
@@ -21,35 +21,35 @@
     &--out {
       opacity: 0.5;
     }
+  }
 
-    &__rect {
-      @each $color, $map in $chart-colors {
-        &--#{$color} {
-          $fill: nth($map, 1);
+  &__node-block {
+    @each $color, $map in $chart-colors {
+      &--#{$color} {
+        $fill: nth($map, 1);
+        fill: $fill;
+
+        & + .adv-alluvial-group__node-text--color {
           fill: $fill;
-
-          & + .node__text--color {
-            fill: $fill;
-          }
         }
       }
     }
+  }
 
-    &__text {
-      font-family: $adv-font-family;
+  &__node-text {
+    font-family: $adv-font-family;
 
-      &--right {
-        text-anchor: end;
-      }
-
-      &__title {
-        font-size: $adv-text-font-size-small;
-      }
-
-      &__value {
-        font-size: $adv-text-font-size-small;
-        font-weight: $adv-text-font-weight-semi-bold;
-      }
+    &--right {
+      text-anchor: end;
     }
+  }
+
+  &__node-title {
+    font-size: $adv-text-font-size-small;
+  }
+
+  &__node-value {
+    font-size: $adv-text-font-size-small;
+    font-weight: $adv-text-font-weight-semi-bold;
   }
 }
