@@ -170,7 +170,6 @@ export default defineComponent({
             label: 'A',
             color: '01',
             value: 'A',
-            id: 'A',
             targets: [
               { node: 'D', value: 15 },
               { node: 'E', value: 42 },
@@ -180,7 +179,6 @@ export default defineComponent({
             label: 'B',
             color: '02',
             value: 'B',
-            id: 'B',
             targets: [
               { node: 'D', value: 45 },
               { node: 'E', value: 42 },
@@ -190,20 +188,17 @@ export default defineComponent({
             label: 'C',
             color: '03',
             value: 'C',
-            id: 'C',
             targets: [
               { node: 'D', value: 20 },
             ],
           },
           {
             label: 'D',
-            id: 'D',
             value: 'D',
             color: '07',
           },
           {
             label: 'E',
-            id: 'E',
             value: 'E',
             color: '06',
           },
