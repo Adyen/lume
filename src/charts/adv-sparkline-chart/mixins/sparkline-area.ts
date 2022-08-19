@@ -11,8 +11,8 @@ export function useSparklineArea(data: ComputedRef<Data<DatasetValueObject>>) {
         xScale: ScaleLinear<number, number>,
         yScale: ScaleLinear<number, number>
       ) {
-        const sparklineValues = data.value[0].values;
         if (!xScale || !yScale) return;
+        const sparklineValues = data.value[0].values;
         return area<DatasetValueObject>()
           .x((_, i) => xScale(i))
           .y0(yScale(Math.min(...yScale.domain())))
