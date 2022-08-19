@@ -5,7 +5,6 @@
     :labels="computedLabels"
     :options="allOptions"
     :x-scale="xScaleGenerator"
-    data-j-sparkline
   >
     <template #groups="props">
       <path
@@ -15,7 +14,7 @@
           `sparkline-chart__area--color-${areaColor || color}`,
         ]"
         :d="areaPathDefinition(props.xScale, props.yScale)"
-        data-j-sparkline__path
+        data-j-sparkline__area
       />
 
       <adv-line-group
