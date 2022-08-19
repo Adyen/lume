@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import { data, labels } from '../../mock-data';
+import { data, labels, xScale, yScale } from '../../mock-data';
 import AdvSparkline from '@/charts/adv-sparkline-chart/adv-sparkline.vue';
 import { options as defaultOptions } from '@/charts/adv-sparkline-chart/defaults';
 
@@ -26,6 +26,8 @@ describe('adv-sparkline.vue', () => {
     expect(areaPath.classes().includes(`sparkline-chart__area--color-01`)).toBe(
       true
     );
+
+    expect(wrapper.vm.$data).not.toHaveProperty('areaPathDefinition');
   });
 
   test('mounts component and sets custom area color', async () => {
@@ -44,5 +46,15 @@ describe('adv-sparkline.vue', () => {
     expect(
       areaPath.classes().includes(`sparkline-chart__area--color-${areaColor}`)
     ).toBe(true);
+  });
+
+  test('mounts component and sets custom area color', async () => {
+    const wrapper = await shallowMount(AdvSparkline, {
+      propsData: { data, labels, xScale, yScale },
+    });
+
+    expect(wrapper.vm.$data).toHaveProperty('areaPathDefinition');
+    expect(wrapper.vm.$data.areaPathDefinition(xScale, null)).toBeFalsy();
+    expect(wrapper.vm.$data.areaPathDefinition(xScale, yScale)).toBeTruthy();
   });
 });
