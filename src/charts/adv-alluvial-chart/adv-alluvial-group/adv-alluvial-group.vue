@@ -65,7 +65,7 @@ import { useAlluvialBlocks, useDefaultData } from '@/charts/adv-alluvial-chart/m
 
 import { singleDatasetValidator } from '@/utils/helpers';
 
-import { BASE_INSTANCE, baseData, nodeToLabelGap } from '@/charts/adv-alluvial-chart/defaults';
+import { baseData, nodeToLabelGap } from '@/charts/adv-alluvial-chart/defaults';
 import { ContainerSize } from '@/types/size';
 
 export default defineComponent({
