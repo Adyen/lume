@@ -1,12 +1,12 @@
 import { withSizeArgs, withSizeArgTypes } from '@/utils/storybook-helpers';
-import AlluvialChart from './alluvial-chart.vue';
+import AlluvialChart from './adv-alluvial-chart.vue';
 
-const alluvial = {
+const alluvial = [{
     values: [
         {
             label: 'A',
             color: '01',
-            id: 'A',
+            value: 'A',
             targets: [
                 { node: 'D', value: 15 },
                 { node: 'E', value: 42 },
@@ -15,7 +15,7 @@ const alluvial = {
         {
             label: 'B',
             color: '02',
-            id: 'B',
+            value: 'B',
             targets: [
                 { node: 'D', value: 45 },
                 { node: 'E', value: 42 },
@@ -24,25 +24,25 @@ const alluvial = {
         {
             label: 'C',
             color: '03',
-            id: 'C',
+            value: 'C',
             targets: [
                 { node: 'D', value: 20 },
             ],
         },
         {
             label: 'D',
-            id: 'D',
+            value: 'D',
             color: '07',
         },
         {
             label: 'E',
-            id: 'E',
+            value: 'E',
             color: '06',
         },
     ],
     nodePadding: 20,
     nodeWidth: 15
-};
+}];
 
 export default {
     title: 'Charts/Alluvial chart',
