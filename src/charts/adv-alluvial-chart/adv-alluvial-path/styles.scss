@@ -1,0 +1,21 @@
+@use '~@/styles/_variables.scss' as *;
+
+.adv-alluvial-group {
+  &__path-group {
+    fill: none;
+  }
+
+  &__path {
+    stroke-opacity: 0.5;
+    transition: stroke-opacity $adv-transition-time-long;
+    z-index: 500;
+
+    &--out {
+      stroke-opacity: 0.2;
+    }
+
+    &--ghost {
+      z-index: 200;
+    }
+  }
+}
