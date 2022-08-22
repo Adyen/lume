@@ -14,6 +14,7 @@
         'axis__tick--hovered': allOptions.withHover && hoveredIndex === index,
         'axis__tick--hidden': allOptions.skip && !showTick(index),
       }"
+      data-j-axis__tick
     >
       <g
         class="axis__tick-label"
