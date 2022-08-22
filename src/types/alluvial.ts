@@ -61,7 +61,7 @@ export type NodeBlock = {
     node?: SankeyNode<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>
 }
 
-type LinkPath = {
+export type LinkPath = {
     id?: string,
     d?: string,
     color?: string,
