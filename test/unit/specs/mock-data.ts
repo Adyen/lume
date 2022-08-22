@@ -36,16 +36,29 @@ const generateValue = (domain, useNegativeValues, useIntegers) => {
 }
 
 export const generateData = (numberOfSets: number, numberOfRecords: number, domain = 1000, useIntegers = false, useNegativeValues = false): Data<DatasetValueObject<number>> => {
-    const dataSets: Data<DatasetValueObject<number>> = [];
-    for (let i = 0; i < numberOfSets; i++) {
-        const dataSet: DatasetValueObject<number>[] = [];
-        for (let j = 0; j < numberOfRecords; j++) {
-            dataSet.push({
-                value: generateValue(domain, useNegativeValues, useIntegers)
-            })
+    let dataSets: Data<DatasetValueObject<number>> = null;
+
+    do {
+        dataSets = [];
+        for (let i = 0; i < numberOfSets; i++) {
+            const dataSet: DatasetValueObject<number>[] = [];
+            for (let j = 0; j < numberOfRecords; j++) {
+                dataSet.push({
+                    value: generateValue(domain, useNegativeValues, useIntegers)
+                })
+            }
+            dataSets.push({ values: dataSet });
         }
-        dataSets.push({ values: dataSet });
-    }
+    // Not only allow but ensure that there are negative values
+    } while (dataSets
+        .reduce((acc, { values }) =>
+            [
+                ...acc,
+                ...values.map(({ value }) => value)
+            ], []
+        )
+        .filter(val => val < 0).length > 0
+    )
 
     return dataSets;
 };
