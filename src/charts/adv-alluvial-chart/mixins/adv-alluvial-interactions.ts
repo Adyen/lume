@@ -105,7 +105,7 @@ export function useAlluvialInteractions(
 
     function updateNode(id: number | string, currentNumber: number, targetNumber: number) {
         const startTime = Date.now();
-        const node = drawingBoard.value?.selectAll(`.adv-alluvial-group__node[id="node-block-${id}"] tspan.adv-alluvial-group__node__text__value`);
+        const node = drawingBoard.value?.selectAll(`.adv-alluvial-group__node[id="node-block-${id}"] tspan.adv-alluvial-group__node-value`);
         const interpolator = interpolateRound(currentNumber, targetNumber);
         const performNextUpdate = () => {
             if (isBeingDestroyed) return;
