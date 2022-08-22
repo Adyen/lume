@@ -41,4 +41,43 @@ describe('adv-stacked-bar-chart.vue', () => {
         const el = wrapper.find('[data-j-bars-group]');
         expect(el.findAll('[data-j-adv-bar]')).toHaveLength(numberOfSets * numberOfBars);
     });
+
+    test('mounts component with double dataset and custom orientation', () => {
+        const numberOfSets = 2;
+        const manipulatedData = generateData(numberOfSets, data[0].values.length)
+        const manipulatedDataLinearScale = generateLinearScale(manipulatedData);
+        const wrapper = mount(StackedBarChart, {
+            // Note that we need to flip the scales so as to feed band and linear scales correctly
+            propsData: { data: manipulatedData, labels, yScale: xScale, xScale: manipulatedDataLinearScale, orientation }
+        });
+
+        const el = wrapper.find('[data-j-bars-group]');
+        expect(el.findAll('[data-j-adv-bar]')).toHaveLength(numberOfSets * numberOfBars);
+    });
+
+    test('mounts component with double dataset with negative values', () => {
+        const numberOfSets = 2;
+        const manipulatedData = generateData(numberOfSets, data[0].values.length, 1000, false, true);
+        const manipulatedDataLinearScale = generateLinearScale(manipulatedData);
+        const wrapper = mount(StackedBarChart, {
+            // Note that we need to flip the scales so as to feed band and linear scales correctly
+            propsData: { data: manipulatedData, labels, xScale, yScale: manipulatedDataLinearScale }
+        });
+
+        const el = wrapper.find('[data-j-bars-group]');
+        expect(el.findAll('[data-j-adv-bar]')).toHaveLength(numberOfSets * numberOfBars);
+    });
+
+    test('mounts component with double dataset and custom orientation with negative values', () => {
+        const numberOfSets = 2;
+        const manipulatedData = generateData(numberOfSets, data[0].values.length, 1000, false, true);
+        const manipulatedDataLinearScale = generateLinearScale(manipulatedData);
+        const wrapper = mount(StackedBarChart, {
+            // Note that we need to flip the scales so as to feed band and linear scales correctly
+            propsData: { data: manipulatedData, labels, yScale: xScale, xScale: manipulatedDataLinearScale, orientation }
+        });
+
+        const el = wrapper.find('[data-j-bars-group]');
+        expect(el.findAll('[data-j-adv-bar]')).toHaveLength(numberOfSets * numberOfBars);
+    });
 });
