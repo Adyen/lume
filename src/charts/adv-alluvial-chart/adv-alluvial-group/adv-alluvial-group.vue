@@ -34,22 +34,17 @@
         />
       </text>
     </g>
-    <g
-      v-for="(linkPath, index) in alluvialInstance.linkPaths"
-      :key="`link-path_${index}`"
-      class="adv-alluvial-group__path-group"
-    >
-      <g style="mix-blend-mode: multiply">
-        <path
-          :id="linkPath.id"
-          :d="linkPath.d"
-          :class="[`adv-stroke-color--${linkPath.color}`, `adv-alluvial-group__path--${linkPath.color}`, 'adv-alluvial-group__path']"
-          :stroke-width="linkPath.strokeWidth"
-          @mouseover="alluvialInstance.highlightedLink = linkPath.link"
-          @mouseout="alluvialInstance.highlightedLink = null"
-        />
-      </g>
-    </g>
+    <adv-alluvial-path
+      :link-paths="alluvialInstance.linkPaths"
+      is-ghost-path
+      @mouseover="alluvialInstance.highlightedLink = $event"
+      @mouseout="alluvialInstance.highlightedLink = null"
+    />
+    <adv-alluvial-path
+      :link-paths="alluvialInstance.linkPaths"
+      @mouseover="alluvialInstance.highlightedLink = $event"
+      @mouseout="alluvialInstance.highlightedLink = null"
+    />
   </g>
 </template>
 
@@ -65,10 +60,12 @@ import { useAlluvialBlocks, useDefaultData } from '@/charts/adv-alluvial-chart/m
 
 import { singleDatasetValidator } from '@/utils/helpers';
 
-import { baseData, nodeToLabelGap } from '@/charts/adv-alluvial-chart/defaults';
+import { baseData, nodeToLabelGap, ghostStrokeWidthOffset } from '@/charts/adv-alluvial-chart/defaults';
 import { ContainerSize } from '@/types/size';
+import AdvAlluvialPath from '@/charts/adv-alluvial-chart/adv-alluvial-path/adv-alluvial-path.vue';
 
 export default defineComponent({
+  components: { AdvAlluvialPath },
   props: {
     ...withChartProps(singleDatasetValidator, false)
   },
@@ -117,7 +114,8 @@ export default defineComponent({
       chartContainer,
       alluvialInstance,
       maxDepth,
-      dataWithDefaults
+      dataWithDefaults,
+      ghostStrokeWidthOffset
     }
   }
 })

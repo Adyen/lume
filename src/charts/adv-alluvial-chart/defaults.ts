@@ -30,3 +30,4 @@ export const BASE_INSTANCE = {
 export const transitionDuration = 200;
 export const defaultChartColor = '03';
 export const nodeToLabelGap = 6;
+export const ghostStrokeWidthOffset = 25;
