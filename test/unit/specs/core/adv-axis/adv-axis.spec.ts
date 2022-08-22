@@ -3,7 +3,6 @@ import AdvAxis from '@/core/adv-axis/adv-axis.vue';
 import { Scale } from '@/mixins/scales';
 import { scaleBand } from 'd3-scale';
 import { labels } from '../../mock-data';
-import Vue from 'vue';
 
 const width = 640;
 const scale: Scale = scaleBand<number>()
