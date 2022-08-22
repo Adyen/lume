@@ -1,19 +1,6 @@
 @use '~@/styles/_variables.scss' as *;
 
 .adv-alluvial-group {
-  &__path-group {
-    fill: none;
-  }
-
-  &__path {
-    stroke-opacity: 0.5;
-    transition: stroke-opacity $adv-transition-time-long;
-
-    &--out {
-      stroke-opacity: 0.2;
-    }
-  }
-
   &__node {
     opacity: 1;
     transition: opacity $adv-transition-time-long;
