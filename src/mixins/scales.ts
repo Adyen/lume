@@ -55,6 +55,7 @@ export function useBaseScales(
   function generateScales() {
     const { width, height } = size;
     if (!width && !height) return;
+    if (!labels.value || !data.value) return;
 
     if (orientation.value === ORIENTATIONS.HORIZONTAL) {
       // horizontal

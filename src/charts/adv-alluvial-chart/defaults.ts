@@ -1,7 +1,7 @@
 import { sankeyJustify } from 'd3-sankey';
 import { DEFAULT_MARGINS } from "@/constants";
 
-export const alluvialDefaults = {
+export const baseData = {
     values: [],
     nodePadding: 0,
     nodeWidth: 15,
@@ -11,6 +11,20 @@ export const alluvialDefaults = {
 
 export const options = {
     margins: DEFAULT_MARGINS.VERTICAL,
+    showAxes: false,
+    withTooltip: false,
+    withHover: false
+};
+
+export const BASE_INSTANCE = {
+    highlightedLink: null,
+    highlightedNode: null,
+    leftExtent: 0,
+    rightExtent: 0,
+    topExtent: 0,
+    bottomExtent: 0,
+    nodeBlocks: [],
+    linkPaths: []
 };
 
 export const transitionDuration = 200;

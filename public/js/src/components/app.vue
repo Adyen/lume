@@ -57,7 +57,7 @@
       <adv-sparkline :data="barChartData" />
     </div>
     <div class="row">
-      <alluvial-chart :data="alluvial" />
+      <adv-alluvial-chart :data="alluvial" />
     </div>
   </div>
 </template>
@@ -68,11 +68,11 @@ import AdvBarChart from '@/charts/adv-bar-chart';
 import AdvLineChart from '@/charts/adv-line-chart';
 import BoxPlot from '@/charts/box-plot/box-plot.vue';
 import AdvSparkline from '@/charts/adv-sparkline-chart';
-import AlluvialChart from "@/charts/alluvial-chart/alluvial-chart.vue";
+import AdvAlluvialChart from "@/charts/adv-alluvial-chart/adv-alluvial-chart.vue";
 
 export default defineComponent({
   components: {
-    AlluvialChart,
+    AdvAlluvialChart,
     AdvBarChart,
     AdvLineChart,
     BoxPlot,
@@ -163,48 +163,50 @@ export default defineComponent({
         left: 20,
       },
     },
-    alluvial: {
-      values: [
-        {
-          label: 'A',
-          color: '01',
-          id: 'A',
-          targets: [
-            { node: 'D', value: 15 },
-            { node: 'E', value: 42 },
-          ],
-        },
-        {
-          label: 'B',
-          color: '02',
-          id: 'B',
-          targets: [
-            { node: 'D', value: 45 },
-            { node: 'E', value: 42 },
-          ],
-        },
-        {
-          label: 'C',
-          color: '03',
-          id: 'C',
-          targets: [
-            { node: 'D', value: 20 },
-          ],
-        },
-        {
-          label: 'D',
-          id: 'D',
-          color: '07',
-        },
-        {
-          label: 'E',
-          id: 'E',
-          color: '06',
-        },
-      ],
-      nodePadding: 20,
-      nodeWidth: 15
-    }
+    alluvial: [
+      {
+        values: [
+          {
+            label: 'A',
+            color: '01',
+            value: 'A',
+            targets: [
+              { node: 'D', value: 15 },
+              { node: 'E', value: 42 },
+            ],
+          },
+          {
+            label: 'B',
+            color: '02',
+            value: 'B',
+            targets: [
+              { node: 'D', value: 45 },
+              { node: 'E', value: 42 },
+            ],
+          },
+          {
+            label: 'C',
+            color: '03',
+            value: 'C',
+            targets: [
+              { node: 'D', value: 20 },
+            ],
+          },
+          {
+            label: 'D',
+            value: 'D',
+            color: '07',
+          },
+          {
+            label: 'E',
+            value: 'E',
+            color: '06',
+          },
+        ],
+        nodePadding: 20,
+        nodeWidth: 15
+      }
+    ]
   }),
   computed: {
     bigDataLabels() {

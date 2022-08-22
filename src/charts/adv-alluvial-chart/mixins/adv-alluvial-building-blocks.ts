@@ -1,24 +1,28 @@
-import { computed, ComputedRef, ref, Ref, set } from "@vue/composition-api";
-import {
-    Alluvial, AlluvialInstance, SankeyLinkAdditionalProperties, SankeyNodeAdditionalProperties
-} from "@/types/alluvial";
-import {sankey, SankeyGraph, SankeyLink, SankeyNode} from 'd3-sankey';
+import { computed, ComputedRef, ref, Ref } from '@vue/composition-api';
+import { sankey, SankeyGraph, SankeyLink, SankeyNode } from 'd3-sankey';
 import { ContainerSize } from '@/types/size';
+import { BASE_INSTANCE } from '@/charts/adv-alluvial-chart/defaults';
 
-export function useBase(
-    alluvialProps: Ref<Alluvial>,
-    alluvialData: Ref<AlluvialInstance>
+import {
+    AlluvialDataset,
+    SankeyLinkAdditionalProperties,
+    SankeyNodeAdditionalProperties
+} from '@/types/alluvial';
+
+export function useAlluvialBlocks(
+    alluvialProps: Ref<AlluvialDataset>,
+    containerSize: ContainerSize
 ) {
 
-    const alluvialInstance = ref(alluvialData);
+    const alluvialInstance = ref({ ...BASE_INSTANCE, containerSize });
     const nodes: ComputedRef<SankeyNode<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>[]> = computed(() => {
-        return alluvialProps.value.values.map(({ label, color, id }) => ({ label, color, id }))
+        return alluvialProps.value.values.map(({ label, color, value }) => ({ label, color, id: value }))
     });
 
     const links: ComputedRef<SankeyLink<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>[]> = computed(() => {
         return alluvialProps.value.values
             .map(source => source.targets?.map(({ node: target, value, color }) => ({
-                source: source.id ?? source.label,
+                source: source.value ?? source.label,
                 color,
                 target,
                 value,
@@ -49,17 +53,19 @@ export function useBase(
         return node.id ?? node.label;
     }
 
-    function updateSize(size: ContainerSize) {
-        set(alluvialInstance.value.containerSize, 'width', size.width);
-        set(alluvialInstance.value.containerSize, 'height', size.height);
-    }
-
     return {
         nodes,
         links,
         graph,
         nodeId,
-        updateSize,
         alluvialInstance
     };
+}
+
+export function useDefaultData(alluvial, defaultAlluvial: AlluvialDataset) {
+    const data: AlluvialDataset = {
+        ...defaultAlluvial,
+        ...alluvial,
+    };
+    return ref(data);
 }
