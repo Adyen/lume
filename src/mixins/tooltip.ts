@@ -40,7 +40,7 @@ export function useTooltipAnchors(
         ? ANCHOR_MAP[chartType.value](data.value, index)
         : getHighestValue(data.value, index);
 
-    // Negative bar anchor point should alwys be at 0 level
+    // Negative bar anchor point should always be at 0 level
     if (chartType?.value?.includes('bar') && highestValue < 0) {
       highestValue = 0;
     }
