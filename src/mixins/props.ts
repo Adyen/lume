@@ -10,7 +10,7 @@ function orientationValidator(orientation: string): boolean {
   return Object.values(ORIENTATIONS).includes(orientation as Orientation);
 }
 
-export const withChartProps = (dataValidator?: DataValidator, isLabelsRequired: boolean = true) => ({
+export const withChartProps = (dataValidator?: DataValidator, isLabelsRequired = true) => ({
   ...withBase(dataValidator, isLabelsRequired),
   ...withScales(),
   ...withOptions<ChartOptions>(),
