@@ -11,7 +11,7 @@
         v-for="(barValue, index) in barGroup"
         v-bind="getBarAttributes(barValue, index, groupIndex, barGroup)"
         :key="`bar-${index}`"
-        :animate="animate"
+        :transition="computedTransition"
         data-j-adv-bar
       />
     </g>
@@ -42,6 +42,7 @@ import { useGroupedBarMixin } from './mixins/grouped-mixin';
 import { useStackedBarMixin } from './mixins/stacked-mixin';
 
 import { Data } from '@/types/dataset';
+import { ORIENTATIONS } from '@/constants';
 
 export interface BarConfig {
   x: number;
@@ -77,15 +78,22 @@ export default defineComponent({
       type: Number,
       default: -1,
     },
-    animate: {
+    transition: {
       type: Boolean,
       default: true,
     },
     ...withBarProps(true),
   },
   setup(props) {
-    const { data, type, xScale, yScale, orientation, hoveredIndex } =
-      toRefs(props);
+    const {
+      data,
+      hoveredIndex,
+      orientation,
+      transition,
+      type,
+      xScale,
+      yScale,
+    } = toRefs(props);
 
     const { computedData } = useBase(data);
 
@@ -106,9 +114,15 @@ export default defineComponent({
       return barAttributeGenerator;
     });
 
+    const computedTransition = computed(() => {
+      if (!transition.value) return;
+      return orientation.value === ORIENTATIONS.HORIZONTAL ? 'width' : 'height';
+    });
+
     return {
       barXScale,
       barYScale,
+      computedTransition,
       getBarAttributes,
       groupedData,
     };
