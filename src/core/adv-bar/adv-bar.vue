@@ -1,17 +1,35 @@
 <template>
   <rect
     class="bar"
+    :class="[
+      fillClass,
+      {
+        'bar--negative': isNegative,
+        'bar--faded': isFaded,
+        'bar--transition-width': shouldTransitionWidth,
+        'bar--transition-height': shouldTransitionHeight,
+      },
+    ]"
+    :style="{ transformOrigin: transformOrigin }"
     :x="x"
     :y="y"
-    :height="height"
-    :width="width"
-    :class="[fillClass, { 'bar--transition': animate, 'bar--faded': isFaded }]"
+    :width="computedWidth"
+    :height="computedHeight"
     data-j-bar
   />
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import {
+  computed,
+  defineComponent,
+  PropType,
+  toRefs,
+} from '@vue/composition-api';
+
+import { useBarTransition } from './mixins/bar-transition';
+
+type BarTransitionProperty = 'width' | 'height';
 
 export default defineComponent({
   props: {
@@ -39,10 +57,43 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    animate: {
+    isNegative: {
       type: Boolean,
-      default: true,
+      default: false,
     },
+    transition: {
+      type: [String, Boolean] as PropType<BarTransitionProperty | false>,
+      default: false,
+    },
+  },
+  setup(props) {
+    const { x, y, width, height, transition } = toRefs(props);
+
+    const shouldTransitionWidth = computed(() => transition.value === 'width');
+    const shouldTransitionHeight = computed(
+      () => transition.value === 'height'
+    );
+
+    const transitionProps = useBarTransition(x, y, width, height);
+
+    const computedWidth = shouldTransitionWidth.value
+      ? transitionProps.computedWidth
+      : width;
+    const computedHeight = shouldTransitionHeight.value
+      ? transitionProps.computedHeight
+      : height;
+    const transformOrigin =
+      shouldTransitionWidth.value || shouldTransitionHeight.value
+        ? transitionProps.transformOrigin
+        : null;
+
+    return {
+      computedWidth,
+      computedHeight,
+      shouldTransitionWidth,
+      shouldTransitionHeight,
+      transformOrigin,
+    };
   },
 });
 </script>

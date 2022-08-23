@@ -176,6 +176,7 @@ export function useStackedBarMixin(
       x,
       y,
       isFaded: hoveredIndex.value !== -1 && hoveredIndex.value !== groupIndex,
+      isNegative: value < 0,
     };
   }
 
