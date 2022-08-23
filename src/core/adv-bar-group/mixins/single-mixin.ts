@@ -68,6 +68,7 @@ export function useSingleBarMixin(
       width,
       height,
       isFaded: hoveredIndex.value !== -1 && hoveredIndex.value !== groupIndex,
+      isNegative: value < 0
     };
   }
 

@@ -19,6 +19,14 @@ export default {
   component: AdvBarChart,
   argTypes: {
     ...withSizeArgTypes(),
+    data: {
+      control: 'object',
+      description: 'Chart data.',
+    },
+    labels: {
+      control: 'object',
+      description: 'Chart labels.',
+    },
     orientation: {
       control: 'radio',
       options: [ORIENTATIONS.VERTICAL, ORIENTATIONS.HORIZONTAL],
