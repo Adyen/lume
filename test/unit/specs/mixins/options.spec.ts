@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { withOptions, useOptions, ChartOptions } from '@/mixins/options';
+import { withOptions, useOptions } from '@/mixins/options';
 import { isRef, ref } from '@vue/composition-api';
 
 const getMixin = (options = {}, defaultOptions = {}) => {
