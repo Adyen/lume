@@ -13,7 +13,6 @@ export const options = {
     withTooltip: true,
     xAxisOptions: { gridLines: true },
     yAxisOptions: {},
-    margins: DEFAULT_MARGINS.HORIZONTAL,
-    showTooltipContentInline: true
+    margins: DEFAULT_MARGINS.HORIZONTAL
   },
 };

@@ -12,6 +12,9 @@
         :orientation="orientation"
       />
     </template>
+    <template #tooltip="props">
+      <adv-custom-tooltip v-bind="props" />
+    </template>
   </adv-chart>
 </template>
 
@@ -20,6 +23,7 @@ import { computed, defineComponent, toRefs } from '@vue/composition-api';
 
 import AdvChart from '@/core/adv-chart';
 import AdvBarGroup from '@/core/adv-bar-group';
+import AdvCustomTooltip from '@/core/adv-custom-tooltip';
 
 import { useBase } from '@/mixins/base';
 import { useOptions } from '@/mixins/options';
@@ -32,7 +36,7 @@ import { ORIENTATIONS } from '@/constants';
 import { options as defaultOptions } from './defaults';
 
 export default defineComponent({
-  components: { AdvChart, AdvBarGroup },
+  components: { AdvChart, AdvBarGroup, AdvCustomTooltip },
   props: {
     ...withChartProps(singleDatasetValidator),
     ...withBarProps(),
