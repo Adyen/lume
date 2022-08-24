@@ -102,11 +102,15 @@ function generateLinearScale(
   startOnZero?: boolean
 ): ScaleLinear<number, number, never> {
   const allValues = flatValues(data).filter((v) => v != null);
+  const range = [0, size];
+  // Prevent min and max values evaluating to -Infinity and Infinity when we don't have any values
+  if (allValues.length === 0) {
+    return scaleLinear<number, number>().range(range).domain([0, 0]).nice();
+  }
+
   const minAvailableValue = Math.min(...allValues);
   const minValue = startOnZero && minAvailableValue > 0 ? 0 : minAvailableValue;
   const maxValue = Math.max(...allValues);
-
-  const range = [0, size];
   const domain =
     orientation === ORIENTATIONS.HORIZONTAL
       ? [minValue, maxValue]

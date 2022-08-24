@@ -67,6 +67,12 @@ describe('scales.ts', () => {
 
             expect(mixin.xScale.value.domain()[0]).toEqual(0);
         })
+
+        test('should return a range of [0, 0] for the linear scale when no values are specified', async () => {
+            const { xScale } = await getMixin([], 'horizontal', { startOnZero: false });
+
+            expect(xScale.value.domain()).toEqual([0, 0]);
+        })
     });
 
     describe('withScales', () => {
