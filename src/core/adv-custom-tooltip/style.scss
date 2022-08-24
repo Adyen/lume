@@ -3,10 +3,9 @@
 .adv-custom-tooltip {
   position: fixed;
 
-  margin-top: -0.4em;
+  margin-top: -0.5em;
   margin-left: 0.2em;
-  font-size: $adv-text-font-size-small;
-  font-weight: $adv-text-font-weight-semi-bold;
+  font-family: $adv-font-family;
   pointer-events: none;
   transition: all 0.2s ease-out;
 }
