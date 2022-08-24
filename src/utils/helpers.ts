@@ -14,7 +14,7 @@ export function flatValues(data: Data<DatasetValueObject>): Array<number> {
     ?.map((dataset) =>
       dataset.values.map((datasetValue) => datasetValue?.value).flat()
     )
-    .flat();
+    .flat() || [];
 }
 
 /**
@@ -32,7 +32,7 @@ export function singleDatasetValidator(data: Data): boolean {
  * @returns {boolean} True if item is an object.
  */
 export function isObject(item: unknown): item is Record<string, unknown> {
-  return item && typeof item === 'object' && !Array.isArray(item);
+  return !!item && typeof item === 'object' && !Array.isArray(item);
 }
 
 /**
@@ -74,12 +74,28 @@ export function isDatasetValueObject(
 }
 
 export function isBandScale(scale: Scale): scale is ScaleBand<string | number> {
-  return (scale as ScaleBand<string | number>).bandwidth !== undefined;
+  return (scale as ScaleBand<string | number>)?.bandwidth !== undefined;
 }
 
 export function getScaleStep(scale: Scale) {
   if (isBandScale(scale)) return scale.bandwidth();
   return Math.max(...scale.range()) / Math.max(...scale.domain());
+}
+
+const validateGetHighestValueArguments = (data, index) => {
+  if (!data) {
+    throw new Error('Data is not a valid array');
+  }
+
+  if (data.length === 0) {
+    throw new Error('Cannot get highest value from empty array');
+  }
+
+  data.forEach(({ values }) => {
+    if (values.length - 1 < index) {
+      throw new Error('Index exceeds length of at least one of the datasets');
+    }
+  })
 }
 
 /**
@@ -93,6 +109,8 @@ export function getHighestValue(
   data: Data<DatasetValueObject>,
   index: number
 ): number {
+  validateGetHighestValueArguments(data, index);
+
   return (
     data.reduce((max, point) =>
       (max.values[index]?.value ?? 0) > (point.values[index]?.value ?? 0)
@@ -110,9 +128,13 @@ export function getHighestValue(
  */
 export function getEmptyArrayFromData(data: Data | Ref<Data>) {
   const dataArray = isRef(data) ? data.value : data;
+  if (!dataArray) {
+    throw new Error('No empty array can be created from specified data value')
+  }
+
   // Use max length in case datasets have different lengths
   const maxLength = Math.max(
-    ...dataArray.map((dataset) => dataset.values.length)
+    ...dataArray.map((dataset) => dataset.values.length), 0
   );
 
   return Array(...Array(maxLength));
