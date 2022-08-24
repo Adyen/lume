@@ -12,7 +12,10 @@
         :orientation="orientation"
       />
     </template>
-    <template #tooltip="props">
+    <template
+      v-if="isHorizontalOrientation"
+      #tooltip="props"
+    >
       <adv-custom-tooltip v-bind="props" />
     </template>
   </adv-chart>
@@ -49,11 +52,13 @@ export default defineComponent({
       () => defaultOptions[orientation.value || ORIENTATIONS.VERTICAL] // needs to be computed so that default options are reactive
     );
 
+    const isHorizontalOrientation = computed(() => orientation.value === ORIENTATIONS.HORIZONTAL);
+
     const { allOptions } = useOptions(options, baseOptions);
 
     const { computedData } = useBase(data, labels, orientation);
 
-    return { allOptions, computedData };
+    return { allOptions, computedData, isHorizontalOrientation };
   },
 });
 </script>
