@@ -106,6 +106,22 @@
           :key="`anchor-${index}`"
         />
       </g>
+
+      <!-- Tooltip inline -->
+      <g
+        v-if="allOptions.showTooltipContentInline"
+        data-j-adv-chart__tooltip-content-inline
+      >
+        <template v-for="(data, index) in computedData[0].values">
+          <text
+            v-if="hoveredIndex === index"
+            v-bind="getInlineTooltipCoordinates(index)"
+            :key="`tooltip-content-inline-${index}`"
+            class="adv-chart__tooltip-inline-text"
+            v-text="data.value || noData"
+          />
+        </template>
+      </g>
     </template>
 
     <template v-if="!computedLabels">
@@ -139,7 +155,7 @@
         :options="allOptions.tooltipOptions"
       >
         <adv-tooltip
-          v-if="allOptions.withTooltip !== false && tooltipConfig.opened"
+          v-if="allOptions.withTooltip !== false && tooltipConfig.opened && !allOptions.showTooltipContentInline"
           v-bind="tooltipConfig"
           :position="tooltipPosition"
           :title="computedLabels[hoveredIndex]"
@@ -184,7 +200,7 @@ import {
 } from '@/mixins/negative-values';
 import { useTooltip, useTooltipAnchors } from '@/mixins/tooltip';
 
-import { ORIENTATIONS } from '@/constants';
+import { NO_DATA, ORIENTATIONS } from '@/constants';
 
 export default defineComponent({
   components: {
@@ -287,7 +303,7 @@ export default defineComponent({
 
     const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();
 
-    const { getTooltipAnchorAttributes, getTooltipItems } = useTooltipAnchors(
+    const { getTooltipAnchorAttributes, getTooltipItems, getInlineTooltipCoordinates } = useTooltipAnchors(
       computedData,
       computedXScale,
       computedYScale,
@@ -357,7 +373,9 @@ export default defineComponent({
       updateSize,
       xAxisTitle,
       yAxisTitle,
-      computedLabels
+      computedLabels,
+      getInlineTooltipCoordinates,
+      noData: NO_DATA
     };
   },
 });
