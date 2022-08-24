@@ -123,7 +123,7 @@ function generateLinearScale(
  */
 export function isScale(arg: unknown): arg is Scale {
   return (
-    (arg as Scale).range !== undefined || (arg as Scale).copy !== undefined
+    (arg as Scale)?.range !== undefined || (arg as Scale)?.copy !== undefined
   );
 }
 
