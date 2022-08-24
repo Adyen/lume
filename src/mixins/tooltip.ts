@@ -2,7 +2,7 @@ import { computed, reactive, Ref, set } from '@vue/composition-api';
 
 import { getXByIndex, Scale } from './scales';
 
-import { NO_DATA, Orientation, ORIENTATIONS } from '@/constants';
+import {INLINE_TOOLTIP_SPACING, NO_DATA, Orientation, ORIENTATIONS} from '@/constants';
 import { getHighestValue } from '@/utils/helpers';
 import { Data, DatasetValueObject } from '@/types/dataset';
 
@@ -33,33 +33,43 @@ export function useTooltipAnchors(
   orientation: Ref<Orientation>,
   chartType?: Ref<string>
 ) {
-  // TODO: Needs to account for bar chart, negative values should default to 0.
-  const getTooltipAnchorAttributes = computed(() => (index: number) => {
+
+  const calculateHighestValueCoordinates = (index: number) => {
     let highestValue =
-      chartType.value && ANCHOR_MAP[chartType.value]
-        ? ANCHOR_MAP[chartType.value](data.value, index)
-        : getHighestValue(data.value, index);
+        chartType.value && ANCHOR_MAP[chartType.value]
+            ? ANCHOR_MAP[chartType.value](data.value, index)
+            : getHighestValue(data.value, index);
 
     // Negative bar anchor point should always be at 0 level
     if (chartType?.value?.includes('bar') && highestValue < 0) {
       highestValue = 0;
     }
 
-    const cx =
-      orientation.value === ORIENTATIONS.HORIZONTAL
-        ? xScale.value(highestValue)
-        : getXByIndex(xScale.value, index);
+    const x =
+        orientation.value === ORIENTATIONS.HORIZONTAL
+            ? xScale.value(highestValue)
+            : getXByIndex(xScale.value, index);
 
-    const cy =
-      orientation.value === ORIENTATIONS.HORIZONTAL
-        ? getXByIndex(yScale.value, index)
-        : yScale.value(highestValue);
+    const y =
+        orientation.value === ORIENTATIONS.HORIZONTAL
+            ? getXByIndex(yScale.value, index)
+            : yScale.value(highestValue);
 
-    return {
-      cx,
-      cy,
-    };
+    return { x, y };
+  }
+
+  // TODO: Needs to account for bar chart, negative values should default to 0.
+  const getTooltipAnchorAttributes = computed(() => (index: number) => {
+    const highestValueCoordinates = calculateHighestValueCoordinates(index);
+    return { cx: highestValueCoordinates.x, cy: highestValueCoordinates.y };
   });
+
+  const getInlineTooltipCoordinates = computed(() => (index: number) => {
+    const highestValueCoordinates = calculateHighestValueCoordinates(index);
+    // Added the tooltip spacing so as to get some spacing from highest value co-ordinates
+    return { x: highestValueCoordinates.x + INLINE_TOOLTIP_SPACING, y: highestValueCoordinates.y + INLINE_TOOLTIP_SPACING };
+  });
+
 
   function getTooltipItems(index: number) {
     return data.value.map(({ color, label, values, type }) => ({
@@ -70,7 +80,7 @@ export function useTooltipAnchors(
     }));
   }
 
-  return { getTooltipAnchorAttributes, getTooltipItems };
+  return { getTooltipAnchorAttributes, getTooltipItems, getInlineTooltipCoordinates };
 }
 
 export function useTooltip() {
