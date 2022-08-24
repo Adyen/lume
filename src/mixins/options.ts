@@ -26,6 +26,7 @@ export interface ChartOptions extends Options {
   tooltipOptions?: TooltipOptions;
   startOnZero?: boolean;
   withLegend?: boolean;
+  withTransition?: boolean;
 }
 
 export type Options = Record<string, unknown>;

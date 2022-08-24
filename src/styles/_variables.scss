@@ -21,5 +21,10 @@ $adv-box-shadow: 0 $adv-spacing-8 $adv-spacing-16 rgba($adv-color-black, 0.1) !d
 
 // Transition
 
-$adv-transition-time-long: 0.3s !default;
 $adv-transition-time-short: 0.1s !default;
+$adv-transition-time-long: 0.3s !default;
+$adv-transition-time-full: 1s !default;
+
+:export {
+  transitionTimeFull: $adv-transition-time-full;
+}

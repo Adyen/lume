@@ -2,10 +2,15 @@
   <path
     class="adv-line"
     :class="{
-      ['adv-line--dashed']: dashed,
       [`adv-stroke-color--${color}`]: true,
+      'adv-line--dashed': dashed,
+      'adv-line--transition': transition,
     }"
     :d="pathDefinition"
+    :style="{
+      animationDelay: transition && animationDelay,
+      animationDuration: transition && animationDuration + 's',
+    }"
     data-j-line
   />
 </template>
@@ -17,7 +22,11 @@ import { line } from 'd3-shape';
 
 import { Scale } from '@/mixins/scales';
 
-import { getScaleStep, isBandScale } from '@/utils/helpers';
+import { getDomainLength, getScaleStep, isBandScale } from '@/utils/helpers';
+
+import styleVariables from '@/styles/_variables.scss';
+
+const ADV_TRANSITION_TIME_FULL = parseFloat(styleVariables.transitionTimeFull);
 
 export default defineComponent({
   props: {
@@ -45,8 +54,20 @@ export default defineComponent({
       type: Function as PropType<Scale>,
       required: true,
     },
+    transition: {
+      type: Boolean,
+      default: true,
+    },
   },
   setup(props) {
+    const animationDuration = computed(
+      () => ADV_TRANSITION_TIME_FULL / getDomainLength(props.xScale)
+    );
+
+    const animationDelay = computed(
+      () => props.transition && props.index * animationDuration.value + 's'
+    );
+
     const xAxisOffset = computed(() => getScaleStep(props.xScale) / 2);
 
     function findLinearX(_: unknown, index: number) {
@@ -69,7 +90,7 @@ export default defineComponent({
         .y((d) => props.yScale(d))(props.values);
     });
 
-    return { pathDefinition };
+    return { animationDelay, animationDuration, pathDefinition };
   },
 });
 </script>

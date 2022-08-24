@@ -92,6 +92,7 @@
         :y-scale="computedYScale"
         :hovered-index="hoveredIndex"
         :container-size="containerSize"
+        :transition="allOptions.withTransition !== false"
       />
 
       <!-- Tooltip anchor -->

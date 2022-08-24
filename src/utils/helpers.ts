@@ -117,3 +117,15 @@ export function getEmptyArrayFromData(data: Data | Ref<Data>) {
 
   return Array(...Array(maxLength));
 }
+
+/**
+ * Returns the length of a scale domain.
+ *
+ * @param scale The scale to get the length from.
+ * @returns The domain length.
+ */
+export function getDomainLength(scale: Scale): number {
+  return isBandScale(scale)
+    ? scale.domain().length
+    : Math.max(...scale.domain());
+}

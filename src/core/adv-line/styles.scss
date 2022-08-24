@@ -11,10 +11,24 @@ $ghost-line-stroke-width: 8px;
   stroke-linecap: round;
   fill: none;
 
-  transition: all $adv-transition-time-long ease;
   pointer-events: none;
 
   &--dashed {
     stroke-dasharray: 2%;
+  }
+
+  &--transition {
+    transition: all $adv-transition-time-long ease;
+    clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
+    animation: clipPathTransition $adv-transition-time-long ease-out forwards;
+  }
+}
+
+@keyframes clipPathTransition {
+  99% {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+  100% {
+    clip-path: unset; /* Required for not having chipped lines */
   }
 }

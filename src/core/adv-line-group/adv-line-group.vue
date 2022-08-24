@@ -26,6 +26,7 @@
           :index="index"
           :color="dataset.color"
           :dashed="dataset.isDashed(index)"
+          :transition="transition"
         />
       </g>
       <g
@@ -87,6 +88,10 @@ export default defineComponent({
       default: -1,
     },
     withPoints: {
+      type: Boolean,
+      default: true,
+    },
+    transition: {
       type: Boolean,
       default: true,
     },
