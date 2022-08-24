@@ -44,7 +44,6 @@ describe('resize.ts', () => {
         expect(spy).not.toHaveBeenCalledWith('unobserve');
 
         await window.dispatchEvent(new Event('resize'));
-
     });
 
     test('should call the unobserve method when component is being destroyed', async () => {
