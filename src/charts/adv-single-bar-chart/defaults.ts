@@ -14,5 +14,6 @@ export const options = {
     xAxisOptions: { gridLines: true },
     yAxisOptions: {},
     margins: DEFAULT_MARGINS.HORIZONTAL,
+    showTooltipContentInline: true
   },
 };

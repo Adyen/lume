@@ -42,6 +42,8 @@ export const BAR_HEIGHT = 20;
 export const PADDING_VERTICAL = 0.33; // space between bars is 1/2 of a bar's width
 export const PADDING_HORIZONTAL = 0.5; // space between bars is a bar's width
 
+export const INLINE_TOOLTIP_SPACING = 2; // default spacing between the inline tooltip and the svg
+
 export const TOOLTIP_POSITIONS = [
   'auto',
   'auto-start',
