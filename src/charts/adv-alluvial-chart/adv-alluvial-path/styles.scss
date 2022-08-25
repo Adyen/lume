@@ -6,9 +6,11 @@
   }
 
   &__path {
-    stroke-opacity: 0.5;
+    stroke-opacity: 0.6;
     transition: stroke-opacity $adv-transition-time-long;
     z-index: 500;
+
+    animation: stroke-reset 2s linear forwards;
 
     &--out {
       stroke-opacity: 0.2;
@@ -17,5 +19,11 @@
     &--ghost {
       z-index: 200;
     }
+  }
+}
+
+@keyframes stroke-reset {
+  to {
+    stroke-dashoffset: 0;
   }
 }

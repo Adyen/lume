@@ -42,6 +42,7 @@
     />
     <adv-alluvial-path
       :link-paths="alluvialInstance.linkPaths"
+      :container-width="alluvialInstance.containerSize.width"
       @mouseover="alluvialInstance.highlightedLink = $event"
       @mouseout="alluvialInstance.highlightedLink = null"
     />

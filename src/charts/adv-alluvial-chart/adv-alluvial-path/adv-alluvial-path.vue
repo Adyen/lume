@@ -14,6 +14,8 @@
             ['adv-alluvial-group__path--ghost', 'adv-stroke-color--transparent'] :
             [`adv-stroke-color--${linkPath.color}`, `adv-alluvial-group__path--${linkPath.color}`, 'adv-alluvial-group__path']
         "
+        :stroke-dasharray="containerWidth"
+        :stroke-dashoffset="containerWidth"
         :stroke-width="linkPath.strokeWidth + ghostStrokeWidthOffset"
         @mouseover="$emit('mouseover', linkPath.link)"
         @mouseout="$emit('mouseout')"
@@ -37,6 +39,10 @@ export default defineComponent({
     isGhostPath: {
       type: Boolean,
       default: false
+    },
+    containerWidth: {
+      type: Number,
+      required: true
     }
   },
   setup(props) {
