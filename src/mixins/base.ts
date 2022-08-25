@@ -6,9 +6,10 @@ import {
   Ref,
   set,
 } from '@vue/composition-api';
-import { BAR_HEIGHT, Orientation, ORIENTATIONS } from '@/constants';
+import { BAR_HEIGHT, Orientation, ORIENTATIONS, NUMBER_OF_COLORS } from '@/constants';
 import { getEmptyArrayFromData, isDatasetValueObject } from '@/utils/helpers';
 import { Data, DatasetValueObject } from '@/types/dataset';
+import { Color } from '@/types/colors';
 import { ContainerSize } from '@/types/size';
 
 export type DataValidator = (value: Data) => boolean;
@@ -40,7 +41,7 @@ export function useBase(
   });
 
   const computedData: ComputedRef<Data<DatasetValueObject>> = computed(() => {
-    return data.value?.map((dataset) => {
+    return data.value?.map((dataset, index) => {
       return {
         ...dataset,
         values: dataset.values.map((value) => {
@@ -49,6 +50,7 @@ export function useBase(
             ? value
             : ({ value } as DatasetValueObject);
         }),
+        color: dataset.color || (`0${1 + (index % NUMBER_OF_COLORS)}` as Color)
       };
     });
   });

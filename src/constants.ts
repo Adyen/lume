@@ -35,6 +35,8 @@ export const DEFAULT_MARGINS = {
   } as Margins,
 };
 
+export const NUMBER_OF_COLORS = 6;
+
 export const NO_DATA = 'No data';
 
 export const BAR_HEIGHT = 20;
