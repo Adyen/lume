@@ -14,7 +14,11 @@ module.exports = {
     },
   ],
   framework: '@storybook/vue',
-  stories: ['../**/*.stories.@(ts)'],
+  stories: [
+    '../src/charts/**/*.stories.@(ts)',
+    '../src/core/**/*.stories.@(ts)',
+    '../src/playground/**/*.stories.@(ts)',
+  ],
   staticDirs: ['./static'],
   webpackFinal: async (config) => {
     config.module.rules.push({
