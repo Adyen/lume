@@ -21,7 +21,7 @@ import { withChartProps } from '@/mixins/props';
 import { useOptions } from '@/mixins/options';
 
 import { singleDatasetValidator } from '@/utils/helpers';
-import { options as defaultOptions} from '@/charts/adv-alluvial-chart/defaults';
+import { options as defaultOptions } from '@/charts/adv-alluvial-chart/defaults';
 
 export default defineComponent({
   components: { AdvChart, AdvAlluvialGroup },

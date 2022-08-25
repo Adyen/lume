@@ -39,8 +39,8 @@ export function useTooltipAnchors(
   const getTooltipAnchorAttributes = computed(() => (index: number) => {
     let highestValue =
         chartType.value && ANCHOR_MAP[chartType.value]
-            ? ANCHOR_MAP[chartType.value](data.value, index)
-            : getHighestValue(data.value, index);
+          ? ANCHOR_MAP[chartType.value](data.value, index)
+          : getHighestValue(data.value, index);
 
     // Negative bar anchor point should always be at 0 level
     if (chartType?.value?.includes('bar') && highestValue < 0) {
@@ -49,13 +49,13 @@ export function useTooltipAnchors(
 
     const cx =
         orientation.value === ORIENTATIONS.HORIZONTAL
-            ? xScale.value(highestValue)
-            : getXByIndex(xScale.value, index);
+          ? xScale.value(highestValue)
+          : getXByIndex(xScale.value, index);
 
     const cy =
         orientation.value === ORIENTATIONS.HORIZONTAL
-            ? getXByIndex(yScale.value, index)
-            : yScale.value(highestValue);
+          ? getXByIndex(yScale.value, index)
+          : yScale.value(highestValue);
 
     return {
       cx,

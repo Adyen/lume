@@ -84,13 +84,13 @@ export function useBarScales(
   const barXScale = computed(() => {
     const scale = isHorizontal.value
       ? (() => {
-          checkValidDomain(xScale.value as ScaleLinear<number, number>);
-          return xScale.value;
-        })()
+        checkValidDomain(xScale.value as ScaleLinear<number, number>);
+        return xScale.value;
+      })()
       : getPaddedScale(
           xScale.value as ScaleBand<string | number>,
           orientation.value
-        );
+      );
 
     return scale;
   });
@@ -100,11 +100,11 @@ export function useBarScales(
       ? getPaddedScale(
           yScale.value as ScaleBand<string | number>,
           orientation.value
-        )
+      )
       : (() => {
-          checkValidDomain(yScale.value as ScaleLinear<number, number>);
-          return yScale.value;
-        })();
+        checkValidDomain(yScale.value as ScaleLinear<number, number>);
+        return yScale.value;
+      })();
 
     return scale;
   });

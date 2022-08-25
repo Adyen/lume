@@ -9,6 +9,7 @@ module.exports = {
   plugins: ['vue', '@typescript-eslint'],
   rules: {
     indent: ['warn', 2],
+    'object-curly-spacing': ['warn', 'always'],
     'vue/multi-word-component-names': 'off',
   },
   parser: 'vue-eslint-parser',

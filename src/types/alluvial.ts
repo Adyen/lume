@@ -1,7 +1,7 @@
 import { Color } from '@/types/colors';
-import {SankeyNode, SankeyLink} from 'd3-sankey';
-import {Dataset, DatasetValueObject} from "@/types/dataset";
-import {ContainerSize} from '@/types/size';
+import { SankeyNode, SankeyLink } from 'd3-sankey';
+import { Dataset, DatasetValueObject } from "@/types/dataset";
+import { ContainerSize } from '@/types/size';
 
 export interface SankeyNodeAdditionalProperties {
     id: number | string,
@@ -53,7 +53,7 @@ export interface AlluvialDataset extends Dataset<AlluvialNode> {
 export type NodeBlock = {
     id?: string,
     rect?: {
-        cssClass: ({color: Color}) => string,
+        cssClass: ({ color: Color }) => string,
         width: number,
         height: number
     },

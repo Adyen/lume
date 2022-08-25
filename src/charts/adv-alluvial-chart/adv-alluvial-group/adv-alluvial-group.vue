@@ -104,7 +104,7 @@ export default defineComponent({
         updatingNodes: graph.value?.nodes?.filter(node => nodes.has(nodeId(node))),
       });
     });
-    watch(graph, sankeyElements => renderChart({nodes: sankeyElements.nodes, links: sankeyElements.links}));
+    watch(graph, sankeyElements => renderChart({ nodes: sankeyElements.nodes, links: sankeyElements.links }));
     watch(leftMostNodeLabelWidth, width => alluvialInstance.value.leftExtent = width + nodeToLabelGap);
     watch(rightMostNodeLabelWidth, width => alluvialInstance.value.rightExtent = alluvialInstance.value.containerSize.width - (width + nodeToLabelGap));
     watch(bottomMostNodeLabelExtraHeight, height => alluvialInstance.value.bottomExtent = height);
