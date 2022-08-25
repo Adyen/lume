@@ -3,13 +3,14 @@
     v-if="opened"
     class="adv-custom-tooltip"
     :style="{ top: position.y + 'px', left: position.x + 'px' }"
+    data-j-custom-tooltip
   >
     <slot
       name="content"
       :hovered-index="hoveredIndex"
       :data="computedData"
     >
-      {{ getContent(hoveredIndex) }}
+      <span data-j-custom-tooltip__default-display>{{ getContent(hoveredIndex) }}</span>
     </slot>
   </div>
 </template>
@@ -26,7 +27,6 @@ import {
   toRefs,
   watch,
 } from '@vue/composition-api';
-
 
 export default defineComponent({
   components: {},
@@ -62,7 +62,7 @@ export default defineComponent({
     watch(targetElement, (el) => {
       if (!el) return;
       position.value = el.getBoundingClientRect();
-    });
+    }, { immediate: true });
 
     return { getContent, position, computedData };
   },
