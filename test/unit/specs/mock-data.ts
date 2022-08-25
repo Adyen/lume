@@ -2,6 +2,8 @@ import { Data, DatasetValueObject } from "@/types/dataset";
 import { Scale } from "@/mixins/scales";
 import { scaleBand, scaleLinear } from "d3-scale";
 import { ContainerSize } from '@/types/size';
+import {NUMBER_OF_COLORS} from "@/constants";
+import { Color } from '@/types/colors';
 
 const width = 640;
 const height = 480;
@@ -35,7 +37,7 @@ const generateValue = (domain, useNegativeValues, useIntegers) => {
     return useIntegers ? Math.round(value) : value;
 }
 
-export const generateData = (numberOfSets: number, numberOfRecords: number, domain = 1000, useIntegers = false, useNegativeValues = false): Data<DatasetValueObject<number>> => {
+export const generateData = (numberOfSets: number, numberOfRecords: number, domain = 1000, useIntegers = false, useNegativeValues = false, useColor = false): Data<DatasetValueObject<number>> => {
     let dataSets: Data<DatasetValueObject<number>> = null;
 
     do {
@@ -47,7 +49,10 @@ export const generateData = (numberOfSets: number, numberOfRecords: number, doma
                     value: generateValue(domain, useNegativeValues, useIntegers)
                 })
             }
-            dataSets.push({ values: dataSet });
+            dataSets.push({
+                values: dataSet,
+                ...(useColor ? { color: (`0${1 + (i % NUMBER_OF_COLORS)}` as Color) } : {})
+            });
         }
     // Not only allow but ensure that there are negative values
     } while (dataSets
