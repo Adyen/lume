@@ -42,7 +42,7 @@ export default defineComponent({
     },
     containerWidth: {
       type: Number,
-      required: true
+      default: 0
     }
   },
   setup(props) {
