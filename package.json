@@ -8,7 +8,7 @@
     "unit-exp": "NODE_OPTIONS=\"--experimental-vm-modules\"; jest --config=test/config/jest.config.js",
     "unit": "jest --config=test/config/jest.config.js",
     "start": "webpack --watch --progress | webpack-dev-server --mode development",
-    "lint": "eslint ./src --ext .js,.vue",
+    "lint": "eslint ./src ./test --ext .js,.ts,.vue",
     "lint:fix": "npm run lint -- --fix",
     "storybook": "start-storybook -p 9001 -c .storybook"
   },
