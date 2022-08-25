@@ -1,4 +1,4 @@
-import { shallowMount, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import AdvLegend from '@/core/adv-chart-legend';
 import { generateData } from '../../mock-data';
 
