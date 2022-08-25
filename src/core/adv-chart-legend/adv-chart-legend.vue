@@ -1,5 +1,8 @@
 <template>
-  <div class="adv-chart-legend">
+  <div
+    class="adv-chart-legend"
+    data-j-chart-legend
+  >
     <div
       v-for="(dataset, index) in data"
       :key="`legend-item-${index}`"
@@ -9,6 +12,7 @@
       <span
         class="adv-chart-legend__circle"
         :class="`adv-background-color--${dataset.color}`"
+        data-j-chart-legend__circle
       />
       {{ dataset.label }}
     </div>
@@ -23,8 +27,9 @@ export default defineComponent({
   props: {
     data: {
       type: Array as PropType<Data<DatasetValueObject>>,
+      validator: (datasets: Data) => (!!datasets && datasets.every(dataset => 'color' in dataset)),
       required: true,
-    },
+    }
   },
 });
 </script>
