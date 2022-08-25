@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import { useResizeObserver } from '@/mixins/resize';
 
-const getResizeMixin = children => {
+const getResizeMixin = (children) => {
   let mixin = null;
   const wrapper = shallowMount({
     setup() {
@@ -12,18 +12,18 @@ const getResizeMixin = children => {
   });
 
   return { wrapper, mixin };
-}
+};
 
 describe('resize.ts', () => {
   const spy = jest.fn();
 
   beforeAll(() => {
     class ResizeObserver {
-      observe(args) {
-        spy('observe')
+      observe() {
+        spy('observe');
       }
       unobserve() {
-        spy('unobserve')
+        spy('unobserve');
       }
       disconnect() {
         // Do nothing
@@ -34,8 +34,21 @@ describe('resize.ts', () => {
   });
 
   test('should return expected object state and ref', async () => {
-    const expected = { dimensions: { bottom: 0, height: 0, left: 0, right: 0, top: 0, width: 0, x: 0, y: 0 } };
-    const { wrapper, mixin } = await getResizeMixin('<div ref="resizeRef" data-j-resize-root></div>');
+    const expected = {
+      dimensions: {
+        bottom: 0,
+        height: 0,
+        left: 0,
+        right: 0,
+        top: 0,
+        width: 0,
+        x: 0,
+        y: 0,
+      },
+    };
+    const { wrapper, mixin } = await getResizeMixin(
+      '<div ref="resizeRef" data-j-resize-root></div>'
+    );
 
     const el = wrapper.find('[data-j-resize-root]').element;
     expect(mixin.resizeRef.value).toEqual(el);
@@ -47,7 +60,9 @@ describe('resize.ts', () => {
   });
 
   test('should call the unobserve method when component is being destroyed', async () => {
-    const { wrapper } = await getResizeMixin('<div ref="resizeRef" data-j-resize-root></div>');
+    const { wrapper } = await getResizeMixin(
+      '<div ref="resizeRef" data-j-resize-root></div>'
+    );
 
     wrapper.destroy();
     expect(spy).toHaveBeenCalledWith('unobserve');

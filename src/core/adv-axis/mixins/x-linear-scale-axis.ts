@@ -1,13 +1,15 @@
 import { Ref } from '@vue/composition-api';
+import { ScaleLinear } from 'd3-scale';
+
 import { AxisOptions } from '@/mixins/options';
 import { AxisMixin } from '../types';
 
 const useLinearScaleAxis: AxisMixin = function (
-  scale: Ref<any>,
+  scale: Ref<ScaleLinear<number, number>>,
   containerSize: Ref<{ width: number; height: number }>,
   options: Ref<AxisOptions>
 ) {
-  function getTickGroupAttributes(value: number | string) {
+  function getTickGroupAttributes(value: number) {
     return {
       transform: `translate(${scale.value(value)}, 0)`,
     };
