@@ -1,18 +1,9 @@
 import { withSizeArgs, withSizeArgTypes } from '@/utils/storybook-helpers';
+import DATASETS from '@/docs/storybook-data/base-data';
 
 import AdvBarChart from './index';
 
 import { ORIENTATIONS } from '@/constants';
-
-const labels = [
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-  'Sunday',
-];
 
 export default {
   title: 'Charts/Bar chart',
@@ -43,81 +34,54 @@ export default {
   args: {
     ...withSizeArgs(),
     options: {},
+    title: 'Bar chart',
   },
 };
 
-export const SingleBarChart = ({ argTypes }) => {
-  return {
-    components: { AdvBarChart },
-    props: Object.keys(argTypes),
-    setup(props) {
-      return { props };
-    },
-    template: `
-    <div :style="{ width: width + 'px', height: props.orientation !== 'horizontal' ? height + 'px' : undefined }">
-        <adv-bar-chart v-bind="props" />
-    </div>
+const Template = ({ argTypes }) => ({
+  components: { AdvBarChart },
+  props: Object.keys(argTypes),
+  setup(props) {
+    return { props };
+  },
+  template: `
+  <div :style="{ width: width + 'px', height: props.orientation !== 'horizontal' ? height + 'px' : undefined }">
+      <adv-bar-chart v-bind="props" />
+  </div>
   `,
-  };
-};
-SingleBarChart.args = {
-  data: [
-    {
-      values: [30, -10, 20, 70, 50, null, 40],
-      color: '02',
-      label: 'Hot dogs',
-    },
-  ],
-  labels,
+});
+
+export const Basic = Template.bind({});
+Basic.args = {
+  ...DATASETS.Single,
   orientation: ORIENTATIONS.VERTICAL,
   options: {
     xAxisOptions: {},
     yAxisOptions: {},
   },
-  title: 'Hot dog sales per weekday',
 };
 
-export const MultiBarChart = ({ argTypes }) => {
-  return {
-    components: { AdvBarChart },
-    props: Object.keys(argTypes),
-    setup(props) {
-      return { props };
-    },
-    template: `
-    <div :style="{ width: width + 'px', height: props.orientation !== 'horizontal' ? height + 'px' : undefined }">
-        <adv-bar-chart v-bind="props" />
-    </div>
-  `,
-  };
-};
-MultiBarChart.argTypes = {
+export const MultipleDatasets = Template.bind({});
+MultipleDatasets.argTypes = {
   type: { control: 'radio', options: ['grouped', 'stacked'] },
 };
-MultiBarChart.args = {
+MultipleDatasets.args = {
+  ...DATASETS.Multiple,
   type: 'grouped',
-  data: [
-    {
-      values: [10, 30, -20, 50, -10, 70, 60],
-      color: '01',
-      label: 'Hamburgers',
-    },
-    {
-      values: [30, 10, 20, 70, -20, null, 40],
-      color: '02',
-      label: 'Hot dogs',
-    },
-    {
-      values: [10, 40, 70, 60, 10, 5, 10],
-      color: '03',
-      label: 'Kebabs',
-    },
-  ],
-  labels,
   orientation: ORIENTATIONS.VERTICAL,
   options: {
     xAxisOptions: {},
     yAxisOptions: {},
   },
-  title: 'Snack sales per weekday',
+};
+
+export const RealData = Template.bind({});
+RealData.args = {
+  ...DATASETS['Chargebacks_Fraud overview 28 days'],
+  type: 'stacked',
+  orientation: ORIENTATIONS.VERTICAL,
+  options: {
+    xAxisOptions: {},
+    yAxisOptions: { tickFormat: '~p' },
+  },
 };
