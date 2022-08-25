@@ -3,9 +3,11 @@
 .adv-custom-tooltip {
   position: fixed;
 
-  margin-top: -0.5em;
-  margin-left: 0.2em;
   font-family: $adv-font-family;
+  font-size: $adv-text-font-size-small;
+
+  transform: translate($adv-spacing-8, -50%);
+
+  transition: all $adv-transition-time-long ease-out;
   pointer-events: none;
-  transition: all 0.2s ease-out;
 }
