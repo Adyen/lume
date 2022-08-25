@@ -1,6 +1,3 @@
-const AXIS_GROUP = 'Axis';
-const SIZE_GROUP = 'Size';
-
 const TICK_FORMATS = {
   Null: null,
   Percentage: '~p',
