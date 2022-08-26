@@ -13,7 +13,8 @@ module.exports = async () => ({
     '<rootDir>/test/unit/'
   ],
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1'
+    "^.+\\.(css|less|scss)$": "identity-obj-proxy",
+    '^@/(.*)$': '<rootDir>/src/$1',
   },
   moduleFileExtensions: [
     "js",
@@ -35,7 +36,7 @@ module.exports = async () => ({
     // ".*\\.(js)$": "babel-jest",
     // process `*.vue` files with `vue-jest`
     ".*\\.(vue)$": "vue-jest",
-    '^.+\\.ts$': 'ts-jest',
+    '^.+\\.ts$': 'ts-jest'
   },
   globals: {
     'ts-jest': { tsconfig: '<rootDir>/tsconfig.test.json' },
