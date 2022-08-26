@@ -47,13 +47,13 @@ export function useStackedAxes(
   ) {
     return isHorizontal.value
       ? scaleLinear()
-          .domain([stackedMinValue.value, stackedMaxValue.value])
-          .range([0, size.width])
+        .domain([stackedMinValue.value, stackedMaxValue.value])
+        .range([0, size.width])
       : getPaddedScale(
-          scaleBand()
-            .domain(labels?.map((v) => v))
-            .range([0, size.width])
-        );
+        scaleBand()
+          .domain(labels?.map((v) => v))
+          .range([0, size.width])
+      );
   }
 
   function stackedYScaleGenerator(
@@ -63,13 +63,13 @@ export function useStackedAxes(
   ) {
     return isHorizontal.value
       ? getPaddedScale(
-          scaleBand()
-            .domain(labels?.map((v) => v))
-            .range([0, size.height])
-        )
+        scaleBand()
+          .domain(labels?.map((v) => v))
+          .range([0, size.height])
+      )
       : scaleLinear()
-          .domain([stackedMaxValue.value, stackedMinValue.value])
-          .range([0, size.height]);
+        .domain([stackedMaxValue.value, stackedMinValue.value])
+        .range([0, size.height]);
   }
 
   return { stackedXScaleGenerator, stackedYScaleGenerator };

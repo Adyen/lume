@@ -1,4 +1,4 @@
-import {DEFAULT_MARGINS, ORIENTATIONS, TOOLTIP_POSITIONS} from '@/constants';
+import { DEFAULT_MARGINS, ORIENTATIONS, TOOLTIP_POSITIONS } from '@/constants';
 
 export const options = {
   [ORIENTATIONS.VERTICAL]: {

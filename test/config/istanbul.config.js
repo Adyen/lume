@@ -6,5 +6,5 @@ module.exports = {
     '!<rootDir>/node_modules/',
   ],
   coverageDirectory: '<rootDir>/test/coverage',
-  coverageReporters: ['clover', 'json', 'lcov', ['text', {skipFull: true}]],
+  coverageReporters: ['clover', 'json', 'lcov', ['text', { skipFull: true }]],
 }

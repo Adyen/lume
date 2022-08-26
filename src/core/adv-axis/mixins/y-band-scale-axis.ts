@@ -1,9 +1,11 @@
 import { computed, Ref } from '@vue/composition-api';
+import { ScaleBand } from 'd3-scale';
+
 import { AxisOptions } from '@/mixins/options';
 import { AxisMixin } from '../types';
 
 const useBandScaleAxis: AxisMixin = function (
-  scale: Ref<any>,
+  scale: Ref<ScaleBand<number | string>>,
   containerSize: Ref<{ width: number; height: number }>,
   options: Ref<AxisOptions>
 ) {
