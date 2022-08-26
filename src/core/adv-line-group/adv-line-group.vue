@@ -116,7 +116,10 @@ export default defineComponent({
     const overlayLineAttributes = computed(() => {
       if (props.hoveredIndex === -1) return;
 
-      const highestValue = getHighestValue(data.value, props.hoveredIndex);
+      const highestValue = getHighestValue(
+        computedData.value,
+        props.hoveredIndex
+      );
 
       const x = getXByIndex(xScale.value, props.hoveredIndex);
 
