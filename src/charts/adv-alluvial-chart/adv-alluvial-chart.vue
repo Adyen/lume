@@ -4,6 +4,7 @@
     :options="allOptions"
     :labels="[]"
     :is-labels-required="false"
+    data-j-alluvial-chart
   >
     <template #groups="props">
       <adv-alluvial-group v-bind="props" />

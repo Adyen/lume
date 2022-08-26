@@ -2,12 +2,14 @@
   <g
     ref="chartContainer"
     class="adv-alluvial-group"
+    data-j-alluvial-group
   >
     <g
       v-for="(nodeBlock, index) in alluvialInstance.nodeBlocks"
       :id="`${nodeBlock.id}`"
       :key="`node-block_${index}`"
       class="adv-alluvial-group__node"
+      data-j-alluvial-group__node-block
     >
       <rect
         :transform="`translate(${nodeBlock.node.x0},${nodeBlock.node.y0})`"
@@ -37,12 +39,14 @@
     <adv-alluvial-path
       :link-paths="alluvialInstance.linkPaths"
       is-ghost-path
+      data-j-alluvial-group__ghost-path
       @mouseover="alluvialInstance.highlightedLink = $event"
       @mouseout="alluvialInstance.highlightedLink = null"
     />
     <adv-alluvial-path
       :link-paths="alluvialInstance.linkPaths"
       :container-width="alluvialInstance.containerSize.width"
+      data-j-alluvial-group__path
       @mouseover="alluvialInstance.highlightedLink = $event"
       @mouseout="alluvialInstance.highlightedLink = null"
     />
@@ -75,7 +79,6 @@ export default defineComponent({
     const { data } = toRefs(props);
     const { computedData } = useBase(data);
     const dataWithDefaults = useDefaultData(computedData.value[0], baseData);
-
     const { graph, nodeId, alluvialInstance } = useAlluvialBlocks(dataWithDefaults, context.attrs.containerSize as ContainerSize);
 
     const {

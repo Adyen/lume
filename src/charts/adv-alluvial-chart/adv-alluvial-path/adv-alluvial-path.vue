@@ -5,6 +5,7 @@
       :key="`link-path_${index}`"
       class="adv-alluvial-group__path-group"
       style="mix-blend-mode: multiply"
+      data-j-alluvial-path__group
     >
       <path
         :id="isGhostPath ? `${linkPath.id}__ghost` : linkPath.id"
@@ -17,6 +18,7 @@
         :stroke-dasharray="containerWidth"
         :stroke-dashoffset="containerWidth"
         :stroke-width="linkPath.strokeWidth + ghostStrokeWidthOffset"
+        data-j-alluvial-path__path
         @mouseover="$emit('mouseover', linkPath.link)"
         @mouseout="$emit('mouseout')"
       />
@@ -25,7 +27,6 @@
 </template>
 
 <script lang="ts">
-
 import { LinkPath } from '@/types/alluvial';
 import { defineComponent, PropType } from '@vue/composition-api';
 import { ghostStrokeWidthOffset } from '../defaults';

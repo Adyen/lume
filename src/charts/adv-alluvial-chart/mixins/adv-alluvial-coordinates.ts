@@ -8,7 +8,6 @@ import {
   SankeyNodeAdditionalProperties
 } from '@/types/alluvial';
 
-
 export function useCoordinates(
   alluvialProps: Ref<AlluvialDataset>,
   graph: Ref<SankeyGraph<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>>,
