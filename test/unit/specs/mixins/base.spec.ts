@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { withBase, useBase } from '@/mixins/base';
-import { Orientation } from '@/constants';
+import { NUMBER_OF_COLORS, Orientation } from '@/constants';
 import { data, labels } from '../mock-data';
 import { ref } from '@vue/composition-api';
 
@@ -25,7 +25,10 @@ describe('base.ts', () => {
       expect(mixin).toBeTruthy();
       expect(mixin).toHaveProperty('computedData');
       expect(mixin.computedData.value).toHaveProperty('values');
-      expect(mixin.computedData.value).toEqual(data);
+      expect(mixin.computedData.value).toEqual(data.map((record, index) => ({
+        ...record,
+        color: record.color || `0${1 + (index % NUMBER_OF_COLORS)}`
+      })));
       expect(mixin).toHaveProperty('containerSize');
       expect(mixin).toHaveProperty('updateSize');
     });
