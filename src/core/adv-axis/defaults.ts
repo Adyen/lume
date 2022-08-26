@@ -1,7 +1,7 @@
 import { AxisOptions } from '@/mixins/options';
 
 const options: AxisOptions = {
-  /** Displays a line for each tick. If not specified but axis type is `y`, will show grid lines. */
+  /** Displays a line for each tick. */
   gridLines: false,
   /** Displays the axis title. */
   withTitle: true,
@@ -26,4 +26,5 @@ export const xOptions: AxisOptions = {
 
 export const yOptions: AxisOptions = {
   ...options,
+  gridLines: true,
 };
