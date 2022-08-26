@@ -20,7 +20,7 @@ $ghost-line-stroke-width: 8px;
   &--transition {
     transition: all $adv-transition-time-long ease;
     clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
-    animation: clipPathTransition $adv-transition-time-long ease-out forwards;
+    animation: clipPathTransition ease-out forwards;
   }
 }
 

@@ -8,7 +8,7 @@
     }"
     :d="pathDefinition"
     :style="{
-      animationDelay: transition && animationDelay,
+      animationDelay: transition && animationDelay + 's',
       animationDuration: transition && animationDuration + 's',
     }"
     data-j-line
@@ -61,12 +61,15 @@ export default defineComponent({
   },
   setup(props) {
     const animationDuration = computed(
-      () => ADV_TRANSITION_TIME_FULL / getDomainLength(props.xScale)
+      () => ADV_TRANSITION_TIME_FULL / (getDomainLength(props.xScale) - 1) // Subtracting the first line (read below)
     );
 
-    const animationDelay = computed(
-      () => props.transition && props.index * animationDuration.value + 's'
-    );
+    const animationDelay = computed(() => {
+      // 0 index is the first line point (which isn't really a line), so it shouldn't have delay
+      // 1 index is the actual first line drawn, so it also shouldn't have delay
+      if (props.index < 2) return 0;
+      return props.transition && (props.index - 1) * animationDuration.value;
+    });
 
     const xAxisOffset = computed(() => getScaleStep(props.xScale) / 2);
 
