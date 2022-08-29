@@ -1,21 +1,14 @@
 import { computed } from '@vue/composition-api';
-import { withSizeArgs, withSizeArgTypes } from '@/utils/storybook-helpers';
+import {
+  withSizeArgs,
+  withSizeArgTypes,
+  COLOR_CLASS_MAP,
+} from '@/utils/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/sparkline-data';
 
 import AdvSparkline from './adv-sparkline.vue';
 
 import { options as defaultOptions } from './defaults';
-
-const COLORS = {
-  Default: null,
-  '01': '01',
-  '02': '02',
-  '03': '03',
-  '04': '04',
-  '05': '05',
-  '06': '06',
-  '07': '07',
-};
 
 export default {
   title: 'Charts/Sparkline chart',
@@ -36,12 +29,12 @@ export default {
     },
     color: {
       control: 'select',
-      options: Object.values(COLORS),
+      options: Object.keys(COLOR_CLASS_MAP),
       description: 'Line color',
     },
     areaColor: {
       control: 'select',
-      options: Object.values(COLORS),
+      options: Object.keys(COLOR_CLASS_MAP),
       description: 'Line color',
     },
   },
@@ -59,8 +52,9 @@ const Template = ({ args, argTypes }) => {
       const computedData = computed(() => {
         // eslint-disable-next-line no-undef
         const dataset = structuredClone(props.data); // Deep copy dataset array
-        if (props.color) dataset[0].color = props.color;
-        if (props.areaColor) dataset[0].areaColor = props.areaColor;
+        if (props.color) dataset[0].color = COLOR_CLASS_MAP[props.color];
+        if (props.areaColor)
+          dataset[0].areaColor = COLOR_CLASS_MAP[props.areaColor];
         return dataset;
       });
 
