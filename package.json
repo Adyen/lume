@@ -10,6 +10,7 @@
     "start": "webpack --watch --progress | webpack-dev-server --mode development",
     "lint": "eslint ./src ./test --ext .js,.ts,.vue",
     "lint:fix": "npm run lint -- --fix",
+    "lint:pretty": "prettier --write --ignore-unknown .",
     "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "dependencies": {

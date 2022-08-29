@@ -1,4 +1,5 @@
 #!/bin/sh
+
 RED="\033[1;31m"
 GREEN="\033[1;32m"
 COLOR_RESET="\033[0m"
@@ -6,7 +7,14 @@ COLOR_RESET="\033[0m"
 linter_exit_code=1
 staged_files=$(git diff --cached --diff-filter=d --name-only | grep -E '.js$|.vue$') # grab only .js or .vue files
 
+# Run prettier
+echo "\n Formatting files with prettier: \n"
+./node_modules/.bin/prettier --write --ignore-unknown $staged_files
+
+# Run ESLint
+echo "\n Linting files with ESLint: \n"
 ./node_modules/.bin/eslint $staged_files --fix
+
 linter_exit_code=$?
 
 if [ ! -z "$staged_files" ]
