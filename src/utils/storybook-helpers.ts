@@ -1,6 +1,13 @@
-const TICK_FORMATS = {
-  Null: null,
-  Percentage: '~p',
+export const COLOR_CLASS_MAP = {
+  Yellow: '01',
+  Green: '02',
+  Turquoise: '03',
+  Blue: '04',
+  Navy: '05',
+  Gray: '06',
+  Orange: '07',
+  Teal: '08',
+  Red: '09',
 };
 
 /**
