@@ -10,6 +10,7 @@
     "start": "webpack --watch --progress | webpack-dev-server --mode development",
     "lint": "eslint ./src ./test --ext .js,.ts,.vue",
     "lint:fix": "npm run lint -- --fix",
+    "lint:pretty": "prettier --write --ignore-unknown .",
     "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "dependencies": {
@@ -43,6 +44,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^28.1.2",
     "jest-environment-jsdom": "^28.0.2",
+    "prettier": "^2.7.1",
     "resize-observer-polyfill": "^1.5.1",
     "sass": "^1.43.4",
     "sass-loader": "^8.0.2",
