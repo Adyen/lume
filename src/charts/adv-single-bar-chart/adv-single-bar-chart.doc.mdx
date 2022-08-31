@@ -11,7 +11,7 @@ Single bar chart show a single set of data represented by discrete bars at regul
 ### Importing
 
 ```ts
-import AdvLineChart from '@adv/charts/adv-single-bar-chart';
+import AdvSingleBarChart from '@adv/charts/adv-single-bar-chart';
 ```
 
 ### Basic use
@@ -57,13 +57,13 @@ To generate a simple bar chart with default settings, simply pass the `data` and
 ### Horizontal orientation
 
 <Story
-  id="charts-line-chart--horizontal"
-  args={{ dataset: 'Multiple' }}
+  id="charts-bar-chart--basic"
+  args={{ orientation: 'horizontal' }}
 />
 
 ```html
 <template>
-  <adv-line-chart :data="data" :labels="labels" :orientation="horizontal" />
+  <adv-single-bar-chart :data="data" :labels="labels" :orientation="horizontal" />
 </template>
 
 <script lang="ts" setup>
@@ -74,17 +74,7 @@ To generate a simple bar chart with default settings, simply pass the `data` and
       label: 'Toyota',
       color: '01',
       values: [10, 30, 25, null, 50, 40],
-    },
-    {
-      label: 'Honda',
-      color: '02',
-      values: [15, 40, 20, -10, 40, 30],
-    },
-    {
-      label: 'Nissan',
-      color: '03',
-      values: [8, 20, 10, 45, 50, 55],
-    },
+    }
   ]);
 
   const labels = ref([
