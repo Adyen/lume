@@ -62,7 +62,7 @@ Basic.args = {
 };
 
 export const Horizontal = Template.bind({});
-Basic.args = {
+Horizontal.args = {
   ...DATASETS.Single,
   orientation: ORIENTATIONS.HORIZONTAL,
   options: {
