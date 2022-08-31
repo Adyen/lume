@@ -1,4 +1,4 @@
-import { computed, ComputedRef, Ref } from '@vue/composition-api';
+import { computed, ComputedRef, Ref } from 'vue';
 import { ScaleBand } from 'd3-scale';
 
 import { Scale } from '@/mixins/scales';

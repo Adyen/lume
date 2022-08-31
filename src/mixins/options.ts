@@ -1,6 +1,6 @@
 import { Margins, TOOLTIP_POSITIONS } from '@/constants';
 import { mergeDeep } from '@/utils/helpers';
-import { computed, isRef, PropType, Ref } from '@vue/composition-api';
+import { computed, isRef, PropType, Ref } from 'vue';
 
 export interface AxisOptions extends Options {
   gridLines?: boolean;

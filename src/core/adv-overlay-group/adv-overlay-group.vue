@@ -13,12 +13,7 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  PropType,
-  toRefs,
-} from '@vue/composition-api';
+import { computed, defineComponent, PropType, toRefs } from 'vue';
 
 import AdvBar from '@/core/adv-bar';
 

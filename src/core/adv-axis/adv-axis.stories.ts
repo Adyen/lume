@@ -1,5 +1,5 @@
 import { withSizeArgs, withSizeArgTypes } from '@/utils/storybook-helpers';
-import { computed } from '@vue/composition-api';
+import { computed } from 'vue';
 import { scaleBand, scaleLinear } from 'd3-scale';
 
 import AdvAxis from './adv-axis.vue';

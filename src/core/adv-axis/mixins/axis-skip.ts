@@ -1,4 +1,4 @@
-import { computed, ref, Ref, watch } from '@vue/composition-api';
+import { computed, ref, Ref, watch } from 'vue';
 
 import { Scale } from '@/mixins/scales';
 

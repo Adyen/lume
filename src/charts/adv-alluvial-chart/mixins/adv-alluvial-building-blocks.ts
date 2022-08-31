@@ -1,4 +1,4 @@
-import { computed, ComputedRef, ref, Ref } from '@vue/composition-api';
+import { computed, ComputedRef, ref, Ref } from 'vue';
 import { sankey, SankeyGraph, SankeyLayout, SankeyLink, SankeyNode } from 'd3-sankey';
 import { ContainerSize } from '@/types/size';
 import { BASE_INSTANCE } from '@/charts/adv-alluvial-chart/defaults';

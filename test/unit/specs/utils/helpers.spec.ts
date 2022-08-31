@@ -1,5 +1,5 @@
 import { scaleBand, scaleLinear } from 'd3-scale';
-import { ref } from '@vue/composition-api';
+import { ref } from 'vue';
 
 import {
   flatValues,

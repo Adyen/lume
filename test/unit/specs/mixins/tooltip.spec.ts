@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { useTooltip, useTooltipAnchors } from '@/mixins/tooltip';
-import { ref } from '@vue/composition-api';
+import { ref } from 'vue';
 import { data, xScale, yScale  } from '../mock-data';
 import { Orientation } from "@/constants";
 

@@ -1,4 +1,4 @@
-import { computed, ComputedRef } from '@vue/composition-api';
+import { computed, ComputedRef } from 'vue';
 import { area } from 'd3-shape';
 import { ScaleLinear } from 'd3-scale';
 

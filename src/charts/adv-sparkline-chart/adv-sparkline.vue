@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs } from '@vue/composition-api';
+import { computed, defineComponent, toRefs } from 'vue';
 import { scaleLinear } from 'd3-scale';
 
 import AdvChart from '@/core/adv-chart';

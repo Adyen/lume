@@ -1,4 +1,4 @@
-import { Ref } from '@vue/composition-api';
+import { Ref } from 'vue';
 import { ScaleLinear } from 'd3-scale';
 
 import { AxisOptions } from '@/mixins/options';

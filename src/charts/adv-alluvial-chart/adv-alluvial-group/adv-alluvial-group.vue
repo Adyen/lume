@@ -15,14 +15,18 @@
         :transform="`translate(${nodeBlock.node.x0},${nodeBlock.node.y0})`"
         :height="nodeBlock.rect.height"
         :width="nodeBlock.rect.width"
-        :class="`${nodeBlock.rect.cssClass({'color':nodeBlock.node.color})}`"
+        :class="`${nodeBlock.rect.cssClass({ color: nodeBlock.node.color })}`"
         @mouseover="alluvialInstance.highlightedNode = nodeBlock.node"
         @mouseout="alluvialInstance.highlightedNode = null"
       />
       <text
         class="adv-alluvial-group__node-text"
         :transform="`translate(${nodeBlock.textTransform.x},${nodeBlock.textTransform.y})`"
-        :class="{'adv-alluvial-group__node-text--right': nodeBlock.node.depth === 0, 'adv-alluvial-group__node-text--color': nodeBlock.node.depth === maxDepth }"
+        :class="{
+          'adv-alluvial-group__node-text--right': nodeBlock.node.depth === 0,
+          'adv-alluvial-group__node-text--color':
+            nodeBlock.node.depth === maxDepth,
+        }"
       >
         <tspan
           class="adv-alluvial-group__node-title"
@@ -53,39 +57,49 @@
   </g>
 </template>
 
-<script lang='ts'>
-import { defineComponent, ref, toRefs, watch } from '@vue/composition-api';
+<script lang="ts">
+import { defineComponent, ref, toRefs, watch } from 'vue';
 
 import { useBase } from '@/mixins/base';
 import { withChartProps } from '@/mixins/props';
 
 import { useAlluvialInteractions } from '@/charts/adv-alluvial-chart/mixins/adv-alluvial-interactions';
 import { useCoordinates } from '../mixins/adv-alluvial-coordinates';
-import { useAlluvialBlocks, useDefaultData } from '@/charts/adv-alluvial-chart/mixins/adv-alluvial-building-blocks';
+import {
+  useAlluvialBlocks,
+  useDefaultData,
+} from '@/charts/adv-alluvial-chart/mixins/adv-alluvial-building-blocks';
 
 import { singleDatasetValidator } from '@/utils/helpers';
 
-import { baseData, nodeToLabelGap, ghostStrokeWidthOffset } from '@/charts/adv-alluvial-chart/defaults';
+import {
+  baseData,
+  nodeToLabelGap,
+  ghostStrokeWidthOffset,
+} from '@/charts/adv-alluvial-chart/defaults';
 import { ContainerSize } from '@/types/size';
 import AdvAlluvialPath from '@/charts/adv-alluvial-chart/adv-alluvial-path/adv-alluvial-path.vue';
 
 export default defineComponent({
   components: { AdvAlluvialPath },
   props: {
-    ...withChartProps(singleDatasetValidator, false)
+    ...withChartProps(singleDatasetValidator, false),
   },
   setup(props, context) {
     const chartContainer = ref(null);
     const { data } = toRefs(props);
     const { computedData } = useBase(data);
     const dataWithDefaults = useDefaultData(computedData.value[0], baseData);
-    const { graph, nodeId, alluvialInstance } = useAlluvialBlocks(dataWithDefaults, context.attrs.containerSize as ContainerSize);
+    const { graph, nodeId, alluvialInstance } = useAlluvialBlocks(
+      dataWithDefaults,
+      context.attrs.containerSize as ContainerSize
+    );
 
     const {
       leftMostNodeLabelWidth,
       rightMostNodeLabelWidth,
       topMostNodeLabelExtraHeight,
-      bottomMostNodeLabelExtraHeight
+      bottomMostNodeLabelExtraHeight,
     } = useCoordinates(dataWithDefaults, graph, chartContainer, nodeId);
 
     const {
@@ -93,36 +107,70 @@ export default defineComponent({
       highlightLinks,
       updateNodes,
       renderChart,
-      maxDepth
-    } = useAlluvialInteractions(alluvialInstance, dataWithDefaults, chartContainer, nodeId,  graph);
+      maxDepth,
+    } = useAlluvialInteractions(
+      alluvialInstance,
+      dataWithDefaults,
+      chartContainer,
+      nodeId,
+      graph
+    );
 
     watch(highlightedElements, function (newElements, previousElements) {
       const isEntering = newElements.nodes != null && newElements.links != null;
       const links = new Set(newElements.links ?? []);
-      const { nodes = new Map() } = (isEntering ? newElements : previousElements) || {};
-      highlightLinks(graph.value?.links?.filter(link => links.has(link)), isEntering);
+      const { nodes = new Map() } =
+        (isEntering ? newElements : previousElements) || {};
+      highlightLinks(
+        graph.value?.links?.filter((link) => links.has(link)),
+        isEntering
+      );
       updateNodes({
         isEntering,
         values: nodes,
-        updatingNodes: graph.value?.nodes?.filter(node => nodes.has(nodeId(node))),
+        updatingNodes: graph.value?.nodes?.filter((node) =>
+          nodes.has(nodeId(node))
+        ),
       });
     });
-    watch(graph, sankeyElements => renderChart({ nodes: sankeyElements.nodes, links: sankeyElements.links }));
-    watch(leftMostNodeLabelWidth, width => alluvialInstance.value.leftExtent = width + nodeToLabelGap);
-    watch(rightMostNodeLabelWidth, width => alluvialInstance.value.rightExtent = alluvialInstance.value.containerSize.width - (width + nodeToLabelGap));
-    watch(bottomMostNodeLabelExtraHeight, height => alluvialInstance.value.bottomExtent = height);
-    watch(topMostNodeLabelExtraHeight, height => alluvialInstance.value.topExtent = height);
-    watch(alluvialInstance.value.containerSize, containerSize => alluvialInstance.value.rightExtent = containerSize.width - (rightMostNodeLabelWidth.value + nodeToLabelGap));
+    watch(graph, (sankeyElements) =>
+      renderChart({ nodes: sankeyElements.nodes, links: sankeyElements.links })
+    );
+    watch(
+      leftMostNodeLabelWidth,
+      (width) => (alluvialInstance.value.leftExtent = width + nodeToLabelGap)
+    );
+    watch(
+      rightMostNodeLabelWidth,
+      (width) =>
+        (alluvialInstance.value.rightExtent =
+          alluvialInstance.value.containerSize.width - (width + nodeToLabelGap))
+    );
+    watch(
+      bottomMostNodeLabelExtraHeight,
+      (height) => (alluvialInstance.value.bottomExtent = height)
+    );
+    watch(
+      topMostNodeLabelExtraHeight,
+      (height) => (alluvialInstance.value.topExtent = height)
+    );
+    watch(
+      alluvialInstance.value.containerSize,
+      (containerSize) =>
+        (alluvialInstance.value.rightExtent =
+          containerSize.width -
+          (rightMostNodeLabelWidth.value + nodeToLabelGap))
+    );
 
     return {
       chartContainer,
       alluvialInstance,
       maxDepth,
       dataWithDefaults,
-      ghostStrokeWidthOffset
-    }
-  }
-})
+      ghostStrokeWidthOffset,
+    };
+  },
+});
 </script>
 
 <style lang="scss" scoped>

@@ -1,4 +1,4 @@
-import { computed } from '@vue/composition-api';
+import { computed } from 'vue';
 import { withSizeArgs, withSizeArgTypes } from '@/utils/storybook-helpers';
 
 import BoxPlot from './box-plot.vue';

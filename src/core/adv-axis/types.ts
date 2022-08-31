@@ -1,4 +1,4 @@
-import type { Ref } from '@vue/composition-api';
+import type { Ref } from 'vue';
 
 import { AxisOptions } from '@/mixins/options';
 import { Scale } from '@/mixins/scales';

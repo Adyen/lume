@@ -55,7 +55,7 @@ import {
   set,
   toRefs,
   watch,
-} from '@vue/composition-api';
+} from 'vue';
 import { format } from 'd3-format';
 import { ticks as d3TickGenerator } from 'd3-array';
 

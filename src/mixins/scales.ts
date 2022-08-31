@@ -1,4 +1,4 @@
-import { PropType, ref, Ref, watchEffect } from '@vue/composition-api';
+import { PropType, ref, Ref, watchEffect } from 'vue';
 import { ScaleBand, scaleBand, ScaleLinear, scaleLinear } from 'd3-scale';
 
 import { flatValues, isBandScale } from '@/utils/helpers';

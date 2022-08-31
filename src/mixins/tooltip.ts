@@ -1,4 +1,4 @@
-import { computed, reactive, Ref, set } from '@vue/composition-api';
+import { computed, reactive, Ref, set } from 'vue';
 
 import { getXByIndex, Scale } from './scales';
 

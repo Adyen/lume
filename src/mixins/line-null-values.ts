@@ -1,4 +1,4 @@
-import { computed, ComputedRef } from '@vue/composition-api';
+import { computed, ComputedRef } from 'vue';
 import { Data, DatasetValueObject } from '@/types/dataset';
 import { NO_DATA } from '@/constants';
 
