@@ -26,10 +26,7 @@ import AdvBarGroup from '@/core/adv-bar-group';
 import { useBase } from '@/mixins/base';
 import { useOptions } from '@/mixins/options';
 import { withChartProps } from '@/mixins/props';
-import {
-  useBarMixin,
-  withBarProps,
-} from '@/core/adv-bar-group/mixins/bar-mixin';
+import { useBarMixin } from '@/core/adv-bar-group/mixins/bar-mixin';
 import { useStackedAxes } from '@/core/adv-bar-group/mixins/stacked-mixin';
 
 import { ORIENTATIONS } from '@/constants';
@@ -40,7 +37,6 @@ export default defineComponent({
   components: { AdvChart, AdvBarGroup },
   props: {
     ...withChartProps(),
-    ...withBarProps(),
   },
   setup(props) {
     // State from mixins
