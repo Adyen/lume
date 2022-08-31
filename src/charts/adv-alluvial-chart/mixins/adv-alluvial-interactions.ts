@@ -78,18 +78,12 @@ export function useAlluvialInteractions(
   }
 
   function highlightLinks(highlightedLinks: SankeyLink<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>[] = graph.value.links, isEntering = false) {
-    const links = highlightedLinks
-      .map(_ => `#link_${getIdentifier(_.source)}\\:${getIdentifier(_.target)}`)
-      .reduce((acc, linkId) => `${acc}, ${linkId}`, null);
-    const nodes = highlightedLinks
-      .reduce((acc, { source, target }) => [...acc, `#node-block-${getIdentifier(source)}`, `#node-block-${getIdentifier(target)}`], [])
-      .reduce((acc, nodeId) => `${acc}, ${nodeId}`, null);
-    drawingBoard.value?.selectAll('.adv-alluvial-group__path-group path')
-      .filter(`:not(${links})`)
-      .classed('adv-alluvial-group__path--out', isEntering);
-    drawingBoard.value?.selectAll('.adv-alluvial-group__node')
-      .filter(`:not(${nodes})`)
-      .classed('adv-alluvial-group__node--out', isEntering);
+    const linkIds = highlightedLinks
+      .map(_link => `link_${getIdentifier(_link.source)}:${getIdentifier(_link.target)}`);
+    const nodeIds = highlightedLinks
+      .reduce((acc, { source, target }) =>
+          [...acc, `node-block-${getIdentifier(source)}`, `node-block-${getIdentifier(target)}`], []);
+    return { nodeIds, linkIds }
   }
 
 
