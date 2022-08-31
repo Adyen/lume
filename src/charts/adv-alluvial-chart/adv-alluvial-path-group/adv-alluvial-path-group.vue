@@ -20,6 +20,11 @@
               `adv-stroke-color--${linkPath.color}`,
               `adv-alluvial-group__path--${linkPath.color}`,
               'adv-alluvial-group__path',
+              // length check is necessary in template because we need to highlight only when links to highlight are supplied, not when nothing is passed.
+              highlightedLinkIds !== null &&
+                highlightedLinkIds.indexOf(linkPath.id) === -1
+                ? 'adv-alluvial-group__path--out'
+                : '',
             ]
         "
         :stroke-dasharray="containerWidth"
@@ -51,6 +56,10 @@ export default defineComponent({
     containerWidth: {
       type: Number,
       default: 0,
+    },
+    highlightedLinkIds: {
+      type: Array as PropType<Array<string>>,
+      default: () => [],
     },
   },
   setup(props) {
