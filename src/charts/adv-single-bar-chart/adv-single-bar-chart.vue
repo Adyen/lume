@@ -31,7 +31,6 @@ import AdvCustomTooltip from '@/core/adv-custom-tooltip';
 import { useBase } from '@/mixins/base';
 import { useOptions } from '@/mixins/options';
 import { withChartProps } from '@/mixins/props';
-import { withBarProps } from '@/core/adv-bar-group/mixins/bar-mixin';
 
 import { singleDatasetValidator } from '@/utils/helpers';
 import { ORIENTATIONS } from '@/constants';
@@ -42,7 +41,6 @@ export default defineComponent({
   components: { AdvChart, AdvBarGroup, AdvCustomTooltip },
   props: {
     ...withChartProps(singleDatasetValidator),
-    ...withBarProps(),
   },
   setup(props) {
     // State from mixins
@@ -52,7 +50,9 @@ export default defineComponent({
       () => defaultOptions[orientation.value || ORIENTATIONS.VERTICAL] // needs to be computed so that default options are reactive
     );
 
-    const isHorizontalOrientation = computed(() => orientation.value === ORIENTATIONS.HORIZONTAL);
+    const isHorizontalOrientation = computed(
+      () => orientation.value === ORIENTATIONS.HORIZONTAL
+    );
 
     const { allOptions } = useOptions(options, baseOptions);
 

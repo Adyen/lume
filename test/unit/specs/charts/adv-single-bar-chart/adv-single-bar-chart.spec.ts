@@ -28,8 +28,6 @@ describe('adv-single-bar-chart.vue', () => {
     expect(props.orientation).toEqual('vertical');
     expect(props).toHaveProperty('title');
     expect(props.title).toEqual(null);
-    expect(props).toHaveProperty('type');
-    expect(props.type).toEqual(null);
 
     expect(el.findAll('[data-j-adv-bar]')).toHaveLength(numberOfBars);
   });
