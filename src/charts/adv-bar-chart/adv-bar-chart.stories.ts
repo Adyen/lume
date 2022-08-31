@@ -61,6 +61,16 @@ Basic.args = {
   },
 };
 
+export const Horizontal = Template.bind({});
+Basic.args = {
+  ...DATASETS.Single,
+  orientation: ORIENTATIONS.HORIZONTAL,
+  options: {
+    xAxisOptions: {},
+    yAxisOptions: {},
+  },
+};
+
 export const MultipleDatasets = Template.bind({});
 MultipleDatasets.argTypes = {
   type: { control: 'radio', options: ['grouped', 'stacked'] },
