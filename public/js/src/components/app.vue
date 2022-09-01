@@ -3,7 +3,7 @@
     <h1>Chart showroom</h1>
     <select
       v-model="selection"
-      style="margin-bottom: 16px;"
+      style="margin-bottom: 16px"
     >
       <option value="single">
         single dataset
@@ -14,7 +14,7 @@
     </select>
     <select
       v-model="type"
-      style="margin-bottom: 16px;"
+      style="margin-bottom: 16px"
     >
       <option value="grouped">
         grouped
@@ -25,7 +25,7 @@
     </select>
     <select
       v-model="orientation"
-      style="margin-bottom: 16px;"
+      style="margin-bottom: 16px"
     >
       <option value="vertical">
         vertical
@@ -63,12 +63,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 import AdvBarChart from '@/charts/adv-bar-chart';
 import AdvLineChart from '@/charts/adv-line-chart';
 import BoxPlot from '@/charts/box-plot/box-plot.vue';
 import AdvSparkline from '@/charts/adv-sparkline-chart';
-import AdvAlluvialChart from "@/charts/adv-alluvial-chart/adv-alluvial-chart.vue";
+import AdvAlluvialChart from '@/charts/adv-alluvial-chart/adv-alluvial-chart.vue';
 
 export default defineComponent({
   components: {
@@ -123,35 +123,55 @@ export default defineComponent({
     barsConfig: { color: '03', legend: 'Hot dogs' },
     boxPlotData: [
       {
-        values: [5.1, 4.9, 4.7, 4.6, 5, 5.4, 4.6, 5, 4.4, 4.9, 5.4, 4.8, 4.8, 4.3, 5.8, 5.7],
+        values: [
+          5.1, 4.9, 4.7, 4.6, 5, 5.4, 4.6, 5, 4.4, 4.9, 5.4, 4.8, 4.8, 4.3, 5.8,
+          5.7,
+        ],
         color: '01',
         legend: 'Type 1',
       },
       {
-        values: [5.4, 5.1, 5.7, 5.1, 5.4, 5.1, 4.6, 5.1, 4.8, 5, 5, 5.2, 5.2, 4.7, 4.8, 5.4, 5.2, 5.5, 4.9, 5, 5.5, 4.9, 4.4, 5.1, 5, 4.5, 4.4, 5, 5.1, 4.8, 5.1, 4.6, 5.3, 5],
+        values: [
+          5.4, 5.1, 5.7, 5.1, 5.4, 5.1, 4.6, 5.1, 4.8, 5, 5, 5.2, 5.2, 4.7, 4.8,
+          5.4, 5.2, 5.5, 4.9, 5, 5.5, 4.9, 4.4, 5.1, 5, 4.5, 4.4, 5, 5.1, 4.8,
+          5.1, 4.6, 5.3, 5,
+        ],
         color: '02',
-        legend: 'Type 2'
+        legend: 'Type 2',
       },
       {
-        values: [7, 6.4, 6.9, 5.5, 6.5, 5.7, 6.3, 4.9, 6.6, 5.2, 5, 5.9, 6, 6.1, 5.6, 6.7],
+        values: [
+          7, 6.4, 6.9, 5.5, 6.5, 5.7, 6.3, 4.9, 6.6, 5.2, 5, 5.9, 6, 6.1, 5.6,
+          6.7,
+        ],
         color: '03',
-        legend: 'Type 3'
+        legend: 'Type 3',
       },
       {
-        values: [5.6, 5.8, 6.2, 5.6, 5.9, 6.1, 6.3, 6.1, 6.4, 6.6, 6.8, 6.7, 6, 5.7, 5.5, 5.5, 5.8, 6, 5.4, 6, 6.7, 6.3, 5.6, 5.5, 5.5, 6.1, 5.8, 5, 5.6, 5.7, 5.7, 6.2, 5.1, 5.7],
+        values: [
+          5.6, 5.8, 6.2, 5.6, 5.9, 6.1, 6.3, 6.1, 6.4, 6.6, 6.8, 6.7, 6, 5.7,
+          5.5, 5.5, 5.8, 6, 5.4, 6, 6.7, 6.3, 5.6, 5.5, 5.5, 6.1, 5.8, 5, 5.6,
+          5.7, 5.7, 6.2, 5.1, 5.7,
+        ],
         color: '01',
-        legend: 'Type 4'
+        legend: 'Type 4',
       },
       {
-        values: [6.3, 5.8, 7.1, 6.3, 6.5, 7.6, 4.9, 7.3, 6.7, 7.2, 6.5, 6.4, 6.8, 5.7, 5.8, 6.4, 6.5, 7.7, 7.7, 6, 6.9, 5.6, 7.7],
+        values: [
+          6.3, 5.8, 7.1, 6.3, 6.5, 7.6, 4.9, 7.3, 6.7, 7.2, 6.5, 6.4, 6.8, 5.7,
+          5.8, 6.4, 6.5, 7.7, 7.7, 6, 6.9, 5.6, 7.7,
+        ],
         color: '02',
-        legend: 'Type 5'
+        legend: 'Type 5',
       },
       {
-        values: [6.3, 6.7, 7.2, 6.2, 6.1, 6.4, 7.2, 7.4, 7.9, 6.4, 6.3, 6.1, 7.7, 6.3, 6.4, 6, 6.9, 6.7, 6.9, 5.8, 6.8, 6.7, 6.7, 6.3, 6.5, 6.2, 5.9],
+        values: [
+          6.3, 6.7, 7.2, 6.2, 6.1, 6.4, 7.2, 7.4, 7.9, 6.4, 6.3, 6.1, 7.7, 6.3,
+          6.4, 6, 6.9, 6.7, 6.9, 5.8, 6.8, 6.7, 6.7, 6.3, 6.5, 6.2, 5.9,
+        ],
         color: '06',
-        legend: 'Type 6'
-      }
+        legend: 'Type 6',
+      },
     ],
     boxPlotConfig: {
       groupByLabel: 'Species',
@@ -188,9 +208,7 @@ export default defineComponent({
             label: 'C',
             color: '03',
             value: 'C',
-            targets: [
-              { node: 'D', value: 20 },
-            ],
+            targets: [{ node: 'D', value: 20 }],
           },
           {
             label: 'D',
@@ -204,13 +222,15 @@ export default defineComponent({
           },
         ],
         nodePadding: 20,
-        nodeWidth: 15
-      }
-    ]
+        nodeWidth: 15,
+      },
+    ],
   }),
   computed: {
     bigDataLabels() {
-      return this.randomBigData[0].values.map((value, index) => `label-${index}`)
+      return this.randomBigData[0].values.map(
+        (value, index) => `label-${index}`
+      );
     },
     data() {
       switch (this.selection) {
@@ -223,22 +243,24 @@ export default defineComponent({
     },
   },
   beforeMount() {
-    this.randomBigData = [{
-      values: new Array(100).fill(null).map(() => Math.random() * 100),
-      label: 'Big data'
-    }];
+    this.randomBigData = [
+      {
+        values: new Array(100).fill(null).map(() => Math.random() * 100),
+        label: 'Big data',
+      },
+    ];
   },
   methods: {
     handleMouseOverBarChart(event) {
       console.log('Hovered over bar chart:', event);
     },
     handleMouseOutBarChart() {
-      console.log('Mouseout on bar')
+      console.log('Mouseout on bar');
     },
     handleClicked(event) {
-      console.log('Mouse clicked on bar:', event)
-    }
-  }
+      console.log('Mouse clicked on bar:', event);
+    },
+  },
 });
 </script>
 

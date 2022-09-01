@@ -3,7 +3,7 @@ import {
   reactive,
   onMounted,
   onBeforeUnmount,
-} from '@vue/composition-api';
+} from 'vue';
 
 // Either the result of `getBoundingClientRect` or an empty object (initial state)
 type Dimensions = DOMRect | Record<string, never>;

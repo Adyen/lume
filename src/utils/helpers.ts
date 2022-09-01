@@ -1,4 +1,4 @@
-import { isRef, Ref } from '@vue/composition-api';
+import { isRef, Ref } from 'vue';
 import { ScaleBand } from 'd3-scale';
 
 import { Data, DatasetValueObject } from '@/types/dataset';

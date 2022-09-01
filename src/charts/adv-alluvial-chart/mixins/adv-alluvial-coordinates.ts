@@ -1,4 +1,4 @@
-import { computed, ComputedRef, onMounted, ref, Ref } from '@vue/composition-api';
+import { computed, ComputedRef, onMounted, ref, Ref } from 'vue';
 import { SankeyGraph, SankeyNode } from 'd3-sankey';
 import { select } from 'd3-selection';
 

@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import AdvBar from '@/core/adv-bar/adv-bar.vue';
-import { nextTick } from '@vue/composition-api';
+import { nextTick } from 'vue';
 
 const width = 100;
 const height = 100;

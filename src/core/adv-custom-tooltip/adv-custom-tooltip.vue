@@ -10,7 +10,9 @@
       :hovered-index="hoveredIndex"
       :data="computedData"
     >
-      <span data-j-custom-tooltip__default-display>{{ getContent(hoveredIndex) }}</span>
+      <span data-j-custom-tooltip__default-display>{{
+        getContent(hoveredIndex)
+      }}</span>
     </slot>
   </div>
 </template>
@@ -20,13 +22,7 @@ import { useBase } from '@/mixins/base';
 import { Data } from '@/types/dataset';
 import { NO_DATA } from '@/constants';
 
-import {
-  defineComponent,
-  PropType,
-  ref,
-  toRefs,
-  watch,
-} from '@vue/composition-api';
+import { defineComponent, PropType, ref, toRefs, watch } from 'vue';
 
 export default defineComponent({
   components: {},
@@ -59,10 +55,14 @@ export default defineComponent({
       return computedData.value[0].values[index]?.value || NO_DATA;
     }
 
-    watch(targetElement, (el) => {
-      if (!el) return;
-      position.value = el.getBoundingClientRect();
-    }, { immediate: true });
+    watch(
+      targetElement,
+      (el) => {
+        if (!el) return;
+        position.value = el.getBoundingClientRect();
+      },
+      { immediate: true }
+    );
 
     return { getContent, position, computedData };
   },

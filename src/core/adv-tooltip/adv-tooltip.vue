@@ -54,7 +54,7 @@ import {
   Ref,
   toRefs,
   watch,
-} from '@vue/composition-api';
+} from 'vue';
 import {
   createPopper,
   Instance as PopperInstance,

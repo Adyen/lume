@@ -34,13 +34,7 @@
 
 <script lang="ts">
 import { useResizeObserver } from '@/mixins/resize';
-import {
-  computed,
-  defineComponent,
-  ref,
-  toRefs,
-  watchEffect,
-} from '@vue/composition-api';
+import { computed, defineComponent, ref, toRefs, watchEffect } from 'vue';
 
 export default defineComponent({
   props: {

@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs } from '@vue/composition-api';
+import { defineComponent, toRefs } from 'vue';
 
 import AdvAlluvialGroup from './adv-alluvial-group/adv-alluvial-group.vue';
 import AdvChart from '@/core/adv-chart';
@@ -27,7 +27,7 @@ import { options as defaultOptions } from '@/charts/adv-alluvial-chart/defaults'
 export default defineComponent({
   components: { AdvChart, AdvAlluvialGroup },
   props: {
-    ...withChartProps(singleDatasetValidator, false)
+    ...withChartProps(singleDatasetValidator, false),
   },
   setup(props) {
     const { options } = toRefs(props);
@@ -35,6 +35,6 @@ export default defineComponent({
     const { allOptions } = useOptions(options, defaultOptions);
 
     return { allOptions };
-  }
+  },
 });
 </script>

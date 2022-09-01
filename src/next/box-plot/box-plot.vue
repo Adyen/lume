@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs } from '@vue/composition-api';
+import { defineComponent, ref, toRefs } from 'vue';
 
 import AdvAxis from '@/core/adv-axis';
 import BoxGroup from './components/box-group.vue';
@@ -97,7 +97,7 @@ export default defineComponent({
     function getOverlayConfig(index: number) {
       return {
         transform: `translate(${
-          xScale.value(domain.value[index]) - (boxPadding.value / 2)
+          xScale.value(domain.value[index]) - boxPadding.value / 2
         }, 0)`,
         width: xScale.value.step(),
         height: containerSize.height,

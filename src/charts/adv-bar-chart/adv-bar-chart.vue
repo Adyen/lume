@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from '@vue/composition-api';
+import { computed, defineComponent } from 'vue';
 
 import { singleDatasetValidator } from '@/utils/helpers';
 import { withChartProps } from '@/mixins/props';

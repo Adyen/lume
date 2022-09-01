@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from '@vue/composition-api';
+import { defineComponent, computed, PropType } from 'vue';
 import { ScaleBand, ScaleLinear } from 'd3-scale';
 import { line } from 'd3-shape';
 

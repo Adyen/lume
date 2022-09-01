@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import { withScales, useBaseScales, isScale, getXByIndex, getPaddedScale } from '@/mixins/scales';
 import { Orientation } from '@/constants';
 import { data, labels, containerSize } from '../mock-data';
-import { ref } from '@vue/composition-api';
+import { ref } from 'vue';
 import { ChartOptions } from '@/mixins/options';
 import {
   PADDING_HORIZONTAL,

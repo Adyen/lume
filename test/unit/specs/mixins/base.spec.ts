@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import { withBase, useBase } from '@/mixins/base';
 import { NUMBER_OF_COLORS, Orientation } from '@/constants';
 import { data, labels } from '../mock-data';
-import { ref } from '@vue/composition-api';
+import { ref } from 'vue';
 
 const getMixin = (orientation: Orientation = 'horizontal') => {
   let mixin = null;

@@ -1,4 +1,4 @@
-import { computed } from '@vue/composition-api';
+import { computed } from 'vue';
 import {
   COLOR_CLASS_MAP,
   withSizeArgs,

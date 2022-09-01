@@ -1,4 +1,4 @@
-import { PropType } from '@vue/composition-api';
+import { PropType } from 'vue';
 
 import { DataValidator, withBase } from './base';
 import { withOptions, ChartOptions } from './options';
