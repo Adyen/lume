@@ -1,4 +1,4 @@
-import { computed, onMounted, ref, Ref, watch } from '@vue/composition-api';
+import { computed, onMounted, ref, Ref, watch } from 'vue';
 
 export function useBarTransition(
   x: Ref<number>,

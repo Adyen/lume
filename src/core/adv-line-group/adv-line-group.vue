@@ -50,12 +50,7 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  PropType,
-  toRefs,
-} from '@vue/composition-api';
+import { computed, defineComponent, PropType, toRefs } from 'vue';
 import { ScaleLinear } from 'd3-scale';
 
 import AdvLine from '@/core/adv-line';

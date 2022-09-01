@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs } from '@vue/composition-api';
+import { defineComponent, toRefs } from 'vue';
 
 import AdvChart from '@/core/adv-chart';
 import AdvLineGroup from '@/core/adv-line-group';

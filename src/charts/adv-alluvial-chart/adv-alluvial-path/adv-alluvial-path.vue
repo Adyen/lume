@@ -11,9 +11,16 @@
         :id="isGhostPath ? `${linkPath.id}__ghost` : linkPath.id"
         :d="linkPath.d"
         :class="
-          isGhostPath ?
-            ['adv-alluvial-group__path--ghost', 'adv-stroke-color--transparent'] :
-            [`adv-stroke-color--${linkPath.color}`, `adv-alluvial-group__path--${linkPath.color}`, 'adv-alluvial-group__path']
+          isGhostPath
+            ? [
+              'adv-alluvial-group__path--ghost',
+              'adv-stroke-color--transparent',
+            ]
+            : [
+              `adv-stroke-color--${linkPath.color}`,
+              `adv-alluvial-group__path--${linkPath.color}`,
+              'adv-alluvial-group__path',
+            ]
         "
         :stroke-dasharray="containerWidth"
         :stroke-dashoffset="containerWidth"
@@ -28,30 +35,30 @@
 
 <script lang="ts">
 import { LinkPath } from '@/types/alluvial';
-import { defineComponent, PropType } from '@vue/composition-api';
+import { defineComponent, PropType } from 'vue';
 import { ghostStrokeWidthOffset } from '../defaults';
 
 export default defineComponent({
   props: {
     linkPaths: {
       type: Array as PropType<Array<LinkPath>>,
-      default: () => []
+      default: () => [],
     },
     isGhostPath: {
       type: Boolean,
-      default: false
+      default: false,
     },
     containerWidth: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
   setup(props) {
     return {
-      ghostStrokeWidthOffset: props.isGhostPath ? ghostStrokeWidthOffset : 0
-    }
-  }
-})
+      ghostStrokeWidthOffset: props.isGhostPath ? ghostStrokeWidthOffset : 0,
+    };
+  },
+});
 </script>
 
 <style lang="scss" scoped>

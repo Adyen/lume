@@ -1,5 +1,9 @@
-import { computed, ComputedRef, ref, Ref } from '@vue/composition-api';
-import { sankey, SankeyGraph, SankeyLayout, SankeyLink, SankeyNode } from 'd3-sankey';
+import { computed, ComputedRef, ref, Ref } from 'vue';
+import {
+  sankey,
+  SankeyLink,
+  SankeyNode,
+} from 'd3-sankey';
 import { ContainerSize } from '@/types/size';
 import { BASE_INSTANCE } from '@/charts/adv-alluvial-chart/defaults';
 
@@ -40,10 +44,13 @@ export function useAlluvialBlocks(
       .reduce((aggregatedLinks, links) => [...aggregatedLinks, ...links], []);
   });
 
-  const layout: ComputedRef<SankeyLayout<SankeyGraph<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>, any, any>> = computed(() => {
+  const layout = computed(() => {
     const { leftExtent, rightExtent, topExtent, bottomExtent, containerSize } =
       alluvialInstance.value;
-    return sankey<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>()
+    return sankey<
+      SankeyNodeAdditionalProperties,
+      SankeyLinkAdditionalProperties
+    >()
       .nodeId(nodeId)
       .nodeWidth(alluvialProps.value.nodeWidth)
       .nodeSort(alluvialProps.value.nodeSort)
@@ -55,7 +62,7 @@ export function useAlluvialBlocks(
       ]);
   });
 
-  const graph: ComputedRef<SankeyGraph<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>> = computed(() => {
+  const graph = computed(() => {
     return layout.value({
       nodes: nodes.value.map((node) => ({ ...node })),
       links: links.value.map((link) => ({ ...link })),

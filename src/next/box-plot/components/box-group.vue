@@ -26,7 +26,7 @@
   </g>
 </template>
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 
 import AdvBar from '@/core/adv-bar';
 
@@ -50,7 +50,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-@use "~@/styles/variables" as *;
+@use '~@/styles/variables' as *;
 
 .box-plot {
   &__line {

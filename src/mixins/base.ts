@@ -5,7 +5,7 @@ import {
   reactive,
   Ref,
   set,
-} from '@vue/composition-api';
+} from 'vue';
 import { BAR_HEIGHT, Orientation, ORIENTATIONS, NUMBER_OF_COLORS } from '@/constants';
 import { getEmptyArrayFromData, isDatasetValueObject } from '@/utils/helpers';
 import { Data, DatasetValueObject } from '@/types/dataset';

@@ -1,4 +1,4 @@
-import { computed, ComputedRef, PropType } from '@vue/composition-api';
+import { computed, ComputedRef, PropType } from 'vue';
 import { Data } from '@/types/dataset';
 import { scaleBand, scaleLinear } from "d3-scale";
 import { quantile, ascending } from 'd3-array';

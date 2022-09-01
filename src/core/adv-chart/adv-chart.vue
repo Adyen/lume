@@ -160,13 +160,7 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  onMounted,
-  ref,
-  toRefs,
-} from '@vue/composition-api';
+import { computed, defineComponent, onMounted, ref, toRefs } from 'vue';
 
 import AdvAxis from '@/core/adv-axis';
 import AdvBar from '@/core/adv-bar';
@@ -204,8 +198,8 @@ export default defineComponent({
     },
     isLabelsRequired: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   setup(props, ctx) {
     const { data, labels, options, orientation, chartType } = toRefs(props);
@@ -358,7 +352,7 @@ export default defineComponent({
       updateSize,
       xAxisTitle,
       yAxisTitle,
-      computedLabels
+      computedLabels,
     };
   },
 });
