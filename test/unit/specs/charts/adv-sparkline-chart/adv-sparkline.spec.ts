@@ -5,9 +5,9 @@ import { options as defaultOptions } from '@/charts/adv-sparkline-chart/defaults
 
 describe('adv-sparkline.vue', () => {
   /*
-  * NOTE: These first two tests are skipped, because we need a conainterSize update in order
-  * to trigger the computed computedYScale property. We will return to the once that is up and running.
-  * */
+   * NOTE: These first two tests are skipped, because we need a conainterSize update in order
+   * to trigger the computed computedYScale property. We will return to the once that is up and running.
+   * */
   test.skip('mounts component and sets prop values', () => {
     const wrapper = mount(AdvSparkline, {
       propsData: { data, labels, options: defaultOptions, xScale },
@@ -42,7 +42,7 @@ describe('adv-sparkline.vue', () => {
     const wrapper = mount(AdvSparkline, {
       propsData: { data: mutatedData, labels, xScale },
     });
-    
+
     const el = wrapper.findComponent(AdvSparkline);
 
     expect(wrapper.find('[data-j-stub]').exists()).toBe(true);
@@ -53,13 +53,14 @@ describe('adv-sparkline.vue', () => {
     ).toBe(true);
   });
 
-  test('mounts component and checks areaPathDefinition', async () => {
-    const wrapper = await mount(AdvSparkline, {
+  test('mounts component and checks areaPathDefinition', () => {
+    const wrapper = mount(AdvSparkline, {
       propsData: { data, labels, xScale, yScale },
     });
 
-    expect(wrapper.vm.$data).toHaveProperty('areaPathDefinition');
-    expect(wrapper.vm.$data.areaPathDefinition(xScale, null)).toBeFalsy();
-    expect(wrapper.vm.$data.areaPathDefinition(xScale, yScale)).toBeTruthy();
+    const areaPathDefinition = (wrapper.vm as any).areaPathDefinition;
+    expect(areaPathDefinition).toBeTruthy();
+    expect(areaPathDefinition(xScale, null)).toBeFalsy();
+    expect(areaPathDefinition(xScale, yScale)).toBeTruthy();
   });
 });
