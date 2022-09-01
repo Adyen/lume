@@ -11,6 +11,7 @@ module.exports = {
     indent: ['warn', 2],
     'object-curly-spacing': ['warn', 'always'],
     'vue/multi-word-component-names': 'off',
+    'vue/no-v-text-v-html-on-component': 'off', // ESLint thinks `tspan` tag is a custom componenent, so disabling this until we find a way to fix that.
   },
   parser: 'vue-eslint-parser',
   parserOptions: {

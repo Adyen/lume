@@ -58,14 +58,15 @@ import {
 } from 'vue';
 import { format } from 'd3-format';
 import { ticks as d3TickGenerator } from 'd3-array';
+import { ScaleBand } from 'd3-scale';
 
 import { AxisOptions, useOptions, withOptions } from '@/mixins/options';
 import { Scale } from '@/mixins/scales';
 import { useSkip } from './mixins/axis-skip';
 
+import { ContainerSize } from '@/types/size';
 import { xOptions, yOptions } from './defaults';
 import { AxisMixin, AxisMixinFunction } from './types';
-import { ScaleBand } from 'd3-scale';
 
 import mixinTypes from './mixins/';
 
@@ -80,16 +81,6 @@ const TYPES = {
   x: 'bottom',
   y: 'left',
 };
-
-interface AxisProps {
-  scale: Scale;
-  type?: 'x' | 'y';
-  position?: 'bottom' | 'left';
-  title?: string;
-  containerSize: { width: number; height: number };
-  hoveredIndex?: number;
-  options: AxisOptions;
-}
 
 export default defineComponent({
   props: {
@@ -112,7 +103,7 @@ export default defineComponent({
       default: null,
     },
     containerSize: {
-      type: Object,
+      type: Object as PropType<ContainerSize>,
       default: () => ({ width: 0, height: 0 }),
     },
     hoveredIndex: {
@@ -121,8 +112,8 @@ export default defineComponent({
     },
     ...withOptions<AxisOptions>(),
   },
-  setup(props: AxisProps, ctx) {
-    const { scale, containerSize, options } = toRefs<AxisProps>(props); // Needs to be cast as any to avoid it being cast to never by default
+  setup(props, ctx) {
+    const { scale, containerSize, options } = toRefs(props); // Needs to be cast as any to avoid it being cast to never by default
 
     const mixins = reactive<Record<string, AxisMixinFunction>>({});
     const tickRefs = ref<Array<SVGTextElement>>(null);
@@ -179,7 +170,7 @@ export default defineComponent({
       // Hides ticks without hiding `gridLines`
       if (showTicks === false) return '';
 
-      return tickFormatter.value?.(tick) || tick;
+      return tickFormatter.value ? tickFormatter.value(tick as number) : tick;
     }
 
     function onTickMouseover(index: number) {
