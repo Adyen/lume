@@ -1,4 +1,4 @@
-import { computed, ComputedRef, onMounted, onBeforeUnmount, ref, Ref } from 'vue';
+import { computed, ComputedRef, onMounted, onBeforeUnmount, ref, Ref, set } from 'vue';
 
 import { select } from 'd3-selection';
 import { SankeyGraph, SankeyLink, sankeyLinkHorizontal, SankeyNode } from 'd3-sankey';
@@ -21,13 +21,8 @@ export function useAlluvialInteractions(
   graph: Ref<SankeyGraph<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>>,
 ) {
 
-  const drawingBoard = ref(null);
   const nodeIdRef = ref(nodeId);
   let isBeingDestroyed = false;
-
-  onMounted(() => {
-    drawingBoard.value = select(chartContainer.value);
-  });
 
   onBeforeUnmount(() => {
     isBeingDestroyed = true;
@@ -99,8 +94,9 @@ export function useAlluvialInteractions(
 
   function updateNode(id: number | string, currentNumber: number, targetNumber: number) {
     const startTime = Date.now();
-    const node = drawingBoard.value?.selectAll(`.adv-alluvial-group__node[id="node-block-${id}"] tspan.adv-alluvial-group__node-value`);
+    const nodeBlock = alluvialInstance.value.nodeBlocks.find(nodeBlock => nodeBlock.id === `node-block-${id}`);
     const interpolator = interpolateRound(currentNumber, targetNumber);
+
     const performNextUpdate = () => {
       if (isBeingDestroyed) return;
       const now = Date.now();
@@ -108,7 +104,9 @@ export function useAlluvialInteractions(
       if (iteration > 1) {
         iteration = 1;
       }
-      node.text(alluvialProps.value.valueFormatter(interpolator(iteration)));
+
+      set(nodeBlock.node, 'transitionValue', interpolator(iteration));
+
       if (iteration < 1) {
         requestAnimationFrame(performNextUpdate);
       }

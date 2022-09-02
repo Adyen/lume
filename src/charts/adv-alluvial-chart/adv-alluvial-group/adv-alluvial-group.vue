@@ -41,7 +41,11 @@
           class="adv-alluvial-group__node-value"
           x="0"
           dy="1.2em"
-          v-text="dataWithDefaults.valueFormatter(nodeBlock.node.value)"
+          v-text="
+            dataWithDefaults.valueFormatter(
+              nodeBlock.node.transitionValue || nodeBlock.node.value
+            )
+          "
         />
       </text>
     </g>
