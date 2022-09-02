@@ -60,6 +60,7 @@
           :container-size="containerSize"
           :options="computedXAxisOptions"
           :hovered-index="hoveredIndex"
+          data-j-adv-chart__x-axis
           @tick-mouseover="handleTickMouseover('x', $event)"
         />
         <adv-axis
@@ -68,6 +69,7 @@
           :container-size="containerSize"
           :options="computedYAxisOptions"
           :hovered-index="hoveredIndex"
+          data-j-adv-chart__y-axis
           @tick-mouseover="handleTickMouseover('y', $event)"
         />
       </slot>
@@ -79,6 +81,7 @@
         :orientation="orientation"
         :x-scale="computedXScale"
         :y-scale="computedYScale"
+        data-j-adv-chart__overlay-group
         @mouseover="mouseOverHandler"
       />
 
@@ -96,10 +99,7 @@
       />
 
       <!-- Tooltip anchor -->
-      <g
-        v-if="allOptions.withTooltip !== false"
-        data-j-adv-chart__tooltip
-      >
+      <g v-if="allOptions.withTooltip !== false">
         <circle
           v-for="(_, index) in computedData[0].values"
           v-bind="getTooltipAnchorAttributes(index)"
@@ -146,6 +146,7 @@
           :title="computedLabels[hoveredIndex]"
           :items="getTooltipItems(hoveredIndex)"
           :options="allOptions.tooltipOptions"
+          data-j-adv-chart__tooltip
         >
           <slot
             name="tooltip-content"
@@ -207,10 +208,9 @@ export default defineComponent({
     const hoveredIndex = ref<number>(-1);
     const tooltipAnchor = ref<SVGCircleElement>(null);
 
-    const computedLabels = computed(() => {
-      if (props.isLabelsRequired) return props.labels;
-      else return null;
-    });
+    const computedLabels = computed(() =>
+      props.isLabelsRequired ? props.labels : null
+    );
 
     const { computedData, containerSize, updateSize } = useBase(
       data,
@@ -294,18 +294,14 @@ export default defineComponent({
       () => allOptions.value.tooltipOptions?.position || 'top'
     );
 
-    const mouseOverHandler = computed(() => {
-      const handler = (index: number) => {
-        // Update hoveredIndex
-        allOptions.value.withHover !== false && (hoveredIndex.value = index);
+    function mouseOverHandler(index: number) {
+      // Update hoveredIndex
+      allOptions.value.withHover !== false && (hoveredIndex.value = index);
 
-        // Show/update tooltip
-        allOptions.value.withTooltip !== false &&
-          showTooltip(tooltipAnchor.value[index]);
-      };
-
-      return handler;
-    });
+      // Show/update tooltip
+      allOptions.value.withTooltip !== false &&
+        showTooltip(tooltipAnchor.value[index]);
+    }
 
     function handleTickMouseover(type: 'x' | 'y', index: number) {
       // Only capture hover on the label axis
@@ -313,13 +309,13 @@ export default defineComponent({
         (orientation.value === ORIENTATIONS.VERTICAL && type === 'x') ||
         (orientation.value === ORIENTATIONS.HORIZONTAL && type === 'y')
       ) {
-        mouseOverHandler.value(index);
+        mouseOverHandler(index);
       }
     }
 
     function handleMouseleave() {
-      hoveredIndex.value = -1;
       hideTooltip();
+      hoveredIndex.value = -1;
     }
 
     onMounted(() => {
