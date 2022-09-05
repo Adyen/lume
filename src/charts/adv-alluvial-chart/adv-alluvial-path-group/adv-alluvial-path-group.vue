@@ -20,7 +20,7 @@
               `adv-stroke-color--${linkPath.color}`,
               `adv-alluvial-group__path--${linkPath.color}`,
               'adv-alluvial-group__path',
-              highlightedLinkIds !== null &&
+              highlightedLinkIds.length &&
                 highlightedLinkIds.indexOf(linkPath.id) === -1
                 ? 'adv-alluvial-group__path--out'
                 : '',

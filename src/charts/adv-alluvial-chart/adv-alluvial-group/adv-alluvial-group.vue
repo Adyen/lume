@@ -11,7 +11,7 @@
       class="adv-alluvial-group__node"
       :class="{
         'adv-alluvial-group__node--out':
-          highlightedNodeIds !== null &&
+          highlightedNodeIds.length &&
           highlightedNodeIds.indexOf(nodeBlock.id) === -1,
       }"
       data-j-alluvial-group__node-block
@@ -98,8 +98,8 @@ export default defineComponent({
   },
   setup(props, context) {
     const chartContainer = ref(null);
-    const highlightedLinkIds = ref(null);
-    const highlightedNodeIds = ref(null);
+    const highlightedLinkIds = ref([]);
+    const highlightedNodeIds = ref([]);
     const nodeText = ref(null);
 
     const { data } = toRefs(props);
@@ -145,13 +145,12 @@ export default defineComponent({
       const { nodeIds, linkIds } = highlightLinks(
         graph.value?.links?.filter((link) => links.has(link))
       );
-      const updateHighlightedInfo = (_nodeIds = null, _linkIds = null) => {
+      const updateHighlightedBlocks = (_nodeIds = [], _linkIds = []) => {
         highlightedNodeIds.value = _nodeIds;
         highlightedLinkIds.value = _linkIds;
       };
-      isEntering
-        ? updateHighlightedInfo(nodeIds, linkIds)
-        : updateHighlightedInfo();
+
+      updateHighlightedBlocks(nodeIds, linkIds);
       updateNodes({
         isEntering,
         values: nodes,
