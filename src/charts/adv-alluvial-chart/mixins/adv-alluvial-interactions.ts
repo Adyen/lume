@@ -1,7 +1,6 @@
-import { computed, ComputedRef, onMounted, onBeforeUnmount, ref, Ref, set } from 'vue';
-
-import { select } from 'd3-selection';
+import { computed, ComputedRef, onBeforeUnmount, ref, Ref, set } from 'vue';
 import { SankeyGraph, SankeyLink, sankeyLinkHorizontal, SankeyNode } from 'd3-sankey';
+import { interpolateRound } from '@/utils/helpers';
 
 import {
   AlluvialDataset,
@@ -12,6 +11,7 @@ import {
 } from '@/types/alluvial';
 
 import { defaultChartColor, nodeToLabelGap, transitionDuration } from '@/charts/adv-alluvial-chart/defaults';
+
 
 export function useAlluvialInteractions(
   alluvialInstance: Ref<AlluvialInstance>,
@@ -81,16 +81,6 @@ export function useAlluvialInteractions(
     return { nodeIds, linkIds }
   }
 
-
-  /**
-     * Generates an interpolator from `start` to `end`, this is equivalent to d3-interpolate interpolateRound function.
-     * @param start {number}
-     * @param end {number}
-     * @todo Use interpolateRound if we ever add d3-interpolate to the modules
-     */
-  function interpolateRound(start: number, end: number) {
-    return t => Math.round(start * (1 - t) + end * t);
-  }
 
   function updateNode(id: number | string, currentNumber: number, targetNumber: number) {
     const startTime = Date.now();
