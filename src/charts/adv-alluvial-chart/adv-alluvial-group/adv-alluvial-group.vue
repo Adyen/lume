@@ -25,6 +25,8 @@
         @mouseout="alluvialInstance.highlightedNode = null"
       />
       <text
+        :id="`node-text-${nodeBlock.node.id}`"
+        ref="nodeText"
         class="adv-alluvial-group__node-text"
         :transform="`translate(${nodeBlock.textTransform.x},${nodeBlock.textTransform.y})`"
         :class="{
@@ -98,6 +100,7 @@ export default defineComponent({
     const chartContainer = ref(null);
     const highlightedLinkIds = ref(null);
     const highlightedNodeIds = ref(null);
+    const nodeText = ref(null);
 
     const { data } = toRefs(props);
     const { computedData } = useBase(data);
@@ -112,7 +115,13 @@ export default defineComponent({
       rightMostNodeLabelWidth,
       topMostNodeLabelExtraHeight,
       bottomMostNodeLabelExtraHeight,
-    } = useCoordinates(dataWithDefaults, graph, chartContainer, nodeId);
+    } = useCoordinates(
+      dataWithDefaults,
+      graph,
+      chartContainer,
+      nodeId,
+      nodeText
+    );
 
     const {
       highlightedElements,
@@ -188,6 +197,7 @@ export default defineComponent({
       ghostStrokeWidthOffset,
       highlightedNodeIds,
       highlightedLinkIds,
+      nodeText,
     };
   },
 });
