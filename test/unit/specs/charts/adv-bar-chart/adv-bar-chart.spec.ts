@@ -14,7 +14,7 @@ const barChartFactory = (propsData) => {
   });
 }
 
-describe('bar.vue', () => {
+describe('adv-bar-chart.vue', () => {
   test('mounts component and sets prop values', async () => {
     const wrapper = await barChartFactory({ data: singleSetData, labels, xScale, yScale });
     
@@ -51,15 +51,9 @@ describe('bar.vue', () => {
     expect(el.findAll('[data-j-adv-bar]')).toHaveLength(numberOfSets * numberOfBars);
   });
 
-  test('should throw an error when type is not applied for multiset', async () => {
-    const error = jest.spyOn(console, "error").mockImplementation(() => null);
-
-    try {
-      await barChartFactory({ data: multiSetData, labels, xScale, yScale });
-      expect(error).toHaveBeenCalled();
-    }
-    catch(err) {
-      expect(err).toEqual(new Error("Bar chart needs a type when there's multiple datasets."));
-    }
+  test('should throw an error when type is not applied for multiset', () => {
+    const spy = jest.spyOn(console, "error").mockImplementation(jest.fn);
+    expect(() => barChartFactory({ data: multiSetData, labels, xScale, yScale })).toThrowError("Bar chart needs a type when there's multiple datasets.");
+    expect(spy).toHaveBeenCalled();
   });
 });

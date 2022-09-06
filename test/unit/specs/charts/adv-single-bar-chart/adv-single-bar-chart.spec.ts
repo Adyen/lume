@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import { data, labels, xScale, yScale } from '../../mock-data';
 import SingleBarChart from '@/charts/adv-single-bar-chart/adv-single-bar-chart.vue';
 
-const numberOfPositiveBars  = 5;
+const numberOfPositiveBars = 5;
 const numberOfNegativeBars = 2;
 const totalNumberOfBars = data[0].values.length;
 
@@ -34,7 +34,7 @@ describe('adv-single-bar-chart.vue', () => {
     expect(el.findAll('[data-j-adv-bar]')).toHaveLength(totalNumberOfBars);
   });
 
-  test('should have positive, negative and null bars', () => {
+  test('should display single bar chart with positive, negative and null bars', () => {
     const wrapper = mount(SingleBarChart, {
       propsData: { data, labels, xScale, yScale }
     });
@@ -55,7 +55,7 @@ describe('adv-single-bar-chart.vue', () => {
     expect(el.findAll('[data-j-adv-bar]').at(5).props('isNegative')).toBeFalsy();
   });
 
-  test('When there is no data', () => {
+  test('should not display any bar with empty dataset', () => {
     const data = [{
       values: []
     }];
