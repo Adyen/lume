@@ -1,16 +1,20 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "es5", "es2015"],
-    "target": "es5",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "sourceMap": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "lib": ["dom", "es5", "es2015"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "outDir": "./dist/",
     "paths": {
       "@/*": ["./src/*"]
     },
-    "esModuleInterop": true,
+    "sourceMap": true,
+    "target": "es5",
     "resolveJsonModule": true
-  }
+  },
+  "exclude": ["node_modules", "src/**/*.stories.ts", "src/next"]
 }

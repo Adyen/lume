@@ -2,12 +2,14 @@
   "name": "data-visualization",
   "version": "0.0.1",
   "description": "Data visualization is the graphical representation of information and data. By using visual elements like charts, graphs, and maps, data visualization repository provide an accessible way to see and understand trends, outliers, and patterns in data.",
+  "main": "dist/main.js",
   "scripts": {
     "confighooks": "git config core.hooksPath ./git-hooks",
     "postinstall": "npm run confighooks && echo \" ✔ Git hooks path configured to ./git-hooks\"",
     "unit-exp": "NODE_OPTIONS=\"--experimental-vm-modules\"; jest --config=test/config/jest.config.js",
     "unit": "jest --config=test/config/jest.config.js",
-    "start": "webpack --watch --progress --mode development | webpack-dev-server --mode development",
+    "start": "webpack --config webpack.dev.js --watch --progress | webpack-dev-server --mode development",
+    "build": "webpack --config webpack.prod.js --progress",
     "lint": "eslint ./src ./test --ext .js,.ts,.vue",
     "lint:fix": "npm run lint -- --fix",
     "lint:pretty": "prettier --write --ignore-unknown .",
@@ -17,6 +19,9 @@
     "@popperjs/core": "^2.11.4",
     "d3": "^6.6.2",
     "d3-sankey": "^0.12.3",
+    "vue": "^2.7.8"
+  },
+  "peerDependencies": {
     "vue": "^2.7.8"
   },
   "devDependencies": {
@@ -46,6 +51,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^28.1.2",
     "jest-environment-jsdom": "^28.0.2",
+    "mini-css-extract-plugin": "^2.5.3",
     "prettier": "^2.7.1",
     "resize-observer-polyfill": "^1.5.1",
     "sass": "^1.43.4",
@@ -59,6 +65,7 @@
     "vue-template-compiler": "^2.7.8",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.10.0"
+    "webpack-dev-server": "^4.10.0",
+    "webpack-merge": "^5.8.0"
   }
 }

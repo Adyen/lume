@@ -1,22 +1,10 @@
-/* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path');
+/* eslint-disable no-undef */
 const { VueLoaderPlugin } = require('vue-loader');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: './public/js/src/main.ts',
-  output: {
-    path: __dirname + '/public/js/dist',
-    filename: 'build.js',
-    publicPath: '/js/dist',
-  },
-  devServer: {
-    static: {
-      directory: path.join(__dirname, 'public'),
-    },
-    hot: true,
-    port: 8888,
-  },
+  entry: './src/index.ts',
   module: {
     rules: [
       {
@@ -31,18 +19,30 @@ module.exports = {
             options: { appendTsSuffixTo: [/\.vue$/] },
           },
         ],
+        exclude: [/node_modules/, /public/],
       },
       {
-        test: /\.s[ac]ss|\.css$/,
+        test: /\.vue\.(s?[ac]ss)$/,
         use: ['vue-style-loader', 'css-loader', 'sass-loader'],
+        exclude: /src\/styles/,
+      },
+      {
+        test: /(?<!\.vue)\.(s?[ac]ss)$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        include: /src\/styles/,
       },
       {
         test: /\.(woff2?|ttf|otf|eot|svg)$/,
-        use: ['file-loader'],
+        use: {
+          loader: 'file-loader',
+          options: {
+            outputPath: 'assets/fonts/',
+          },
+        },
       },
     ],
   },
-  plugins: [new VueLoaderPlugin()],
+  plugins: [new VueLoaderPlugin(), new MiniCssExtractPlugin()],
   resolve: {
     extensions: ['.vue', '.js', '.ts'],
     alias: {

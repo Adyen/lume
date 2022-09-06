@@ -1,0 +1,16 @@
+.idea/
+
+.storybook
+git-hooks/
+public/
+src/
+test/
+
+.eslintrc.js
+.prettierignore
+.prettierrc.json
+tsconfig.json
+tsconfig.test.json
+webpack.common.js
+webpack.dev.js
+webpack.prod.js
