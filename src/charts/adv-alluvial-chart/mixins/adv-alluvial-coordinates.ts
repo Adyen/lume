@@ -12,7 +12,7 @@ export function useCoordinates(
   graph: Ref<SankeyGraph<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>>,
   chartContainer: Ref<HTMLElement>,
   nodeId: (node: (string | number | SankeyNode<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>)) => string | number,
-  nodeText: any
+  nodeText: Ref<HTMLElement>
 ) {
 
   const nodeIdRef = ref(nodeId);
