@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+/* eslint-disable @typescript-eslint/no-var-requires */
+const path = require('path');
 const { VueLoaderPlugin } = require('vue-loader');
 
 module.exports = {
@@ -10,7 +11,9 @@ module.exports = {
     publicPath: '/js/dist',
   },
   devServer: {
-    contentBase: './public',
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
     hot: true,
     port: 8888,
   },
