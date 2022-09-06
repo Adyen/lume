@@ -16,7 +16,7 @@ describe('adv-grouped-bar-chart.vue', () => {
     expect(el.exists()).toBeTruthy();
     expect(el.find('[data-j-bars-group]').exists()).toBeTruthy();
     const barsGroupComponent = el.find('[data-j-bars-group]');
-    expect(barsGroupComponent.props()['orientation']).toEqual('vertical');
+    expect(barsGroupComponent.props('orientation')).toEqual('vertical');
     expect(el.findAll('[data-j-adv-bar]')).toHaveLength(numberOfBars);
   });
 
@@ -27,7 +27,7 @@ describe('adv-grouped-bar-chart.vue', () => {
     });
 
     const el = wrapper.find('[data-j-bars-group]');
-    expect(el.props()['orientation']).toEqual('horizontal');
+    expect(el.props('orientation')).toEqual('horizontal');
     expect(el.findAll('[data-j-adv-bar]')).toHaveLength(numberOfBars);
   });
 

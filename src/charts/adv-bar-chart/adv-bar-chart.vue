@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, defineAsyncComponent } from 'vue';
 
 import { singleDatasetValidator } from '@/utils/helpers';
 import { withChartProps } from '@/mixins/props';
@@ -22,9 +22,15 @@ function typeValidator(type: string): boolean {
 
 export default defineComponent({
   components: {
-    AdvSingleBarChart: () => import('@/charts/adv-single-bar-chart'),
-    AdvGroupedBarChart: () => import('@/charts/adv-grouped-bar-chart'),
-    AdvStackedBarChart: () => import('@/charts/adv-stacked-bar-chart'),
+    AdvSingleBarChart: defineAsyncComponent(
+      () => import('@/charts/adv-single-bar-chart')
+    ),
+    AdvGroupedBarChart: defineAsyncComponent(
+      () => import('@/charts/adv-grouped-bar-chart')
+    ),
+    AdvStackedBarChart: defineAsyncComponent(
+      () => import('@/charts/adv-stacked-bar-chart')
+    ),
   },
   props: {
     ...withChartProps(),
