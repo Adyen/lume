@@ -20,6 +20,10 @@
               `adv-stroke-color--${linkPath.color}`,
               `adv-alluvial-group__path--${linkPath.color}`,
               'adv-alluvial-group__path',
+              highlightedLinkIds.length &&
+                highlightedLinkIds.indexOf(linkPath.id) === -1
+                ? 'adv-alluvial-group__path--out'
+                : '',
             ]
         "
         :stroke-dasharray="containerWidth"
@@ -51,6 +55,10 @@ export default defineComponent({
     containerWidth: {
       type: Number,
       default: 0,
+    },
+    highlightedLinkIds: {
+      type: Array as PropType<Array<string>>,
+      default: () => [],
     },
   },
   setup(props) {

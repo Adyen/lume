@@ -9,6 +9,11 @@
       :id="`${nodeBlock.id}`"
       :key="`node-block_${index}`"
       class="adv-alluvial-group__node"
+      :class="{
+        'adv-alluvial-group__node--out':
+          highlightedNodeIds.length &&
+          highlightedNodeIds.indexOf(nodeBlock.id) === -1,
+      }"
       data-j-alluvial-group__node-block
     >
       <rect
@@ -20,6 +25,8 @@
         @mouseout="alluvialInstance.highlightedNode = null"
       />
       <text
+        :id="`node-text-${nodeBlock.node.id}`"
+        ref="nodeText"
         class="adv-alluvial-group__node-text"
         :transform="`translate(${nodeBlock.textTransform.x},${nodeBlock.textTransform.y})`"
         :class="{
@@ -36,20 +43,25 @@
           class="adv-alluvial-group__node-value"
           x="0"
           dy="1.2em"
-          v-text="dataWithDefaults.valueFormatter(nodeBlock.node.value)"
+          v-text="
+            dataWithDefaults.valueFormatter(
+              nodeBlock.node.transitionValue || nodeBlock.node.value
+            )
+          "
         />
       </text>
     </g>
-    <adv-alluvial-path
+    <adv-alluvial-path-group
       :link-paths="alluvialInstance.linkPaths"
       is-ghost-path
       data-j-alluvial-group__ghost-path
       @mouseover="alluvialInstance.highlightedLink = $event"
       @mouseout="alluvialInstance.highlightedLink = null"
     />
-    <adv-alluvial-path
+    <adv-alluvial-path-group
       :link-paths="alluvialInstance.linkPaths"
       :container-width="alluvialInstance.containerSize.width"
+      :highlighted-link-ids="highlightedLinkIds"
       data-j-alluvial-group__path
       @mouseover="alluvialInstance.highlightedLink = $event"
       @mouseout="alluvialInstance.highlightedLink = null"
@@ -59,7 +71,6 @@
 
 <script lang="ts">
 import { defineComponent, ref, toRefs, watch } from 'vue';
-
 import { useBase } from '@/mixins/base';
 import { withChartProps } from '@/mixins/props';
 
@@ -78,15 +89,19 @@ import {
   ghostStrokeWidthOffset,
 } from '@/charts/adv-alluvial-chart/defaults';
 import { ContainerSize } from '@/types/size';
-import AdvAlluvialPath from '@/charts/adv-alluvial-chart/adv-alluvial-path/adv-alluvial-path.vue';
+import AdvAlluvialPathGroup from '@/charts/adv-alluvial-chart/adv-alluvial-path-group/adv-alluvial-path-group.vue';
 
 export default defineComponent({
-  components: { AdvAlluvialPath },
+  components: { AdvAlluvialPathGroup },
   props: {
     ...withChartProps(singleDatasetValidator, false),
   },
   setup(props, context) {
     const chartContainer = ref(null);
+    const highlightedLinkIds = ref([]);
+    const highlightedNodeIds = ref([]);
+    const nodeText = ref(null);
+
     const { data } = toRefs(props);
     const { computedData } = useBase(data);
     const dataWithDefaults = useDefaultData(computedData.value[0], baseData);
@@ -100,7 +115,7 @@ export default defineComponent({
       rightMostNodeLabelWidth,
       topMostNodeLabelExtraHeight,
       bottomMostNodeLabelExtraHeight,
-    } = useCoordinates(dataWithDefaults, graph, chartContainer, nodeId);
+    } = useCoordinates(dataWithDefaults, graph, nodeText);
 
     const {
       highlightedElements,
@@ -121,10 +136,15 @@ export default defineComponent({
       const links = new Set(newElements.links ?? []);
       const { nodes = new Map() } =
         (isEntering ? newElements : previousElements) || {};
-      highlightLinks(
-        graph.value?.links?.filter((link) => links.has(link)),
-        isEntering
+      const { nodeIds, linkIds } = highlightLinks(
+        graph.value?.links?.filter((link) => links.has(link))
       );
+      const updateHighlightedBlocks = (_nodeIds = [], _linkIds = []) => {
+        highlightedNodeIds.value = _nodeIds;
+        highlightedLinkIds.value = _linkIds;
+      };
+
+      updateHighlightedBlocks(nodeIds, linkIds);
       updateNodes({
         isEntering,
         values: nodes,
@@ -168,6 +188,9 @@ export default defineComponent({
       maxDepth,
       dataWithDefaults,
       ghostStrokeWidthOffset,
+      highlightedNodeIds,
+      highlightedLinkIds,
+      nodeText,
     };
   },
 });
