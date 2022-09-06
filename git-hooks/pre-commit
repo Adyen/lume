@@ -19,7 +19,7 @@ echo "\n Linting files with ESLint: \n"
 linter_exit_code=$?
 
 # Run unit tests
-npm run unit -- --silent
+npm run unit-exp -- --silent
 tests_exit_code=$?
 
 if [ ! -z "$staged_files" ]
