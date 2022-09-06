@@ -115,13 +115,7 @@ export default defineComponent({
       rightMostNodeLabelWidth,
       topMostNodeLabelExtraHeight,
       bottomMostNodeLabelExtraHeight,
-    } = useCoordinates(
-      dataWithDefaults,
-      graph,
-      chartContainer,
-      nodeId,
-      nodeText
-    );
+    } = useCoordinates(dataWithDefaults, graph, nodeText);
 
     const {
       highlightedElements,

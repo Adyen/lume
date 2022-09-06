@@ -10,12 +10,8 @@ import {
 export function useCoordinates(
   alluvialProps: Ref<AlluvialDataset>,
   graph: Ref<SankeyGraph<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>>,
-  chartContainer: Ref<HTMLElement>,
-  nodeId: (node: (string | number | SankeyNode<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>)) => string | number,
-  nodeText: Ref<HTMLElement>
+  nodeTextElements: Ref<Array<SVGTextElement>>
 ) {
-
-  const nodeIdRef = ref(nodeId);
 
   function getNodesMaximum(coordinate: string) {
     return graph.value?.nodes?.reduce((acc, currentNode) => Math.max(acc, currentNode[coordinate]), -Infinity);
@@ -26,7 +22,7 @@ export function useCoordinates(
   }
 
   function getNodeLabelBBoxByNodeId(node): SVGRect {
-    return nodeText.value?.find(textValue => textValue.id === `node-text-${node.id}`)?.getBBox()
+    return nodeTextElements.value?.find(textValue => textValue.id === `node-text-${node.id}`)?.getBBox()
   }
 
   function nodeMaxLength({ label, value }): number {
