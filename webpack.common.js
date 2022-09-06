@@ -19,7 +19,7 @@ module.exports = {
             options: { appendTsSuffixTo: [/\.vue$/] },
           },
         ],
-        exclude: [/node_modules/, /public/],
+        exclude: [/node_modules/, /test/],
       },
       {
         test: /\.vue\.(s?[ac]ss)$/,
@@ -37,6 +37,7 @@ module.exports = {
           loader: 'file-loader',
           options: {
             outputPath: 'assets/fonts/',
+            publicPath: 'assets/fonts/',
           },
         },
       },
@@ -45,6 +46,7 @@ module.exports = {
   plugins: [new VueLoaderPlugin(), new MiniCssExtractPlugin()],
   resolve: {
     extensions: ['.vue', '.js', '.ts'],
+    modules: ['./src', './node_modules'],
     alias: {
       '@': __dirname + '/src/',
     },

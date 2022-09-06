@@ -6,17 +6,15 @@ const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
   mode: 'development',
-  output: {
-    path: path.resolve(__dirname, 'public/js'),
-    filename: 'build.js',
-    publicPath: '/public/js/dist',
-  },
   devtool: 'inline-source-map',
-  devServer: {
-    static: {
-      directory: path.join(__dirname, 'public'),
-    },
-    hot: true,
-    port: 8888,
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'main.js',
+    library: 'ADV',
+    libraryTarget: 'umd',
+    libraryExport: 'default',
+  },
+  optimization: {
+    runtimeChunk: 'single',
   },
 });
