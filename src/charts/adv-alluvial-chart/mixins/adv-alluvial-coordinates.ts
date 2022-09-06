@@ -1,6 +1,5 @@
 import { computed, ComputedRef, onMounted, ref, Ref } from 'vue';
 import { SankeyGraph, SankeyNode } from 'd3-sankey';
-import { select } from 'd3-selection';
 
 import {
   AlluvialDataset,
@@ -11,16 +10,8 @@ import {
 export function useCoordinates(
   alluvialProps: Ref<AlluvialDataset>,
   graph: Ref<SankeyGraph<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>>,
-  chartContainer: Ref<HTMLElement>,
-  nodeId: (node: (string | number | SankeyNode<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>)) => string | number
+  nodeTextElements: Ref<Array<SVGTextElement>>
 ) {
-
-  const drawingBoard = ref(null);
-  const nodeIdRef = ref(nodeId);
-
-  onMounted(() => {
-    drawingBoard.value = select(chartContainer.value);
-  })
 
   function getNodesMaximum(coordinate: string) {
     return graph.value?.nodes?.reduce((acc, currentNode) => Math.max(acc, currentNode[coordinate]), -Infinity);
@@ -31,7 +22,7 @@ export function useCoordinates(
   }
 
   function getNodeLabelBBoxByNodeId(node): SVGRect {
-    return drawingBoard.value?.select(`#node-block-${nodeIdRef.value?.(node)} .adv-alluvial-group__node-text`)?.node()?.getBBox()
+    return nodeTextElements.value?.find(textValue => textValue.id === `node-text-${node.id}`)?.getBBox()
   }
 
   function nodeMaxLength({ label, value }): number {

@@ -7,7 +7,8 @@ export interface SankeyNodeAdditionalProperties {
     id: number | string,
     label: string,
     layer?: number,
-    color?: Color
+    color?: Color,
+    transitionValue?: number | undefined;
 }
 
 export interface SankeyLinkAdditionalProperties {

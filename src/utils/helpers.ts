@@ -151,3 +151,12 @@ export function getDomainLength(scale: Scale): number {
     ? scale.domain().length
     : Math.max(...scale.domain());
 }
+
+/**
+ * Generates an interpolator from `start` to `end`, this is equivalent to d3-interpolate interpolateRound function.
+ * @param start {number}
+ * @param end {number}
+ */
+export function interpolateRound(start: number, end: number) {
+  return t => Math.round(start * (1 - t) + end * t);
+}

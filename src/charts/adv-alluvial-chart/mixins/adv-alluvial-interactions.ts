@@ -1,7 +1,6 @@
-import { computed, ComputedRef, onMounted, onBeforeUnmount, ref, Ref } from 'vue';
-
-import { select } from 'd3-selection';
+import { computed, ComputedRef, onBeforeUnmount, ref, Ref, set } from 'vue';
 import { SankeyGraph, SankeyLink, sankeyLinkHorizontal, SankeyNode } from 'd3-sankey';
+import { interpolateRound } from '@/utils/helpers';
 
 import {
   AlluvialDataset,
@@ -13,6 +12,7 @@ import {
 
 import { defaultChartColor, nodeToLabelGap, transitionDuration } from '@/charts/adv-alluvial-chart/defaults';
 
+
 export function useAlluvialInteractions(
   alluvialInstance: Ref<AlluvialInstance>,
   alluvialProps: Ref<AlluvialDataset>,
@@ -21,13 +21,8 @@ export function useAlluvialInteractions(
   graph: Ref<SankeyGraph<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>>,
 ) {
 
-  const drawingBoard = ref(null);
   const nodeIdRef = ref(nodeId);
   let isBeingDestroyed = false;
-
-  onMounted(() => {
-    drawingBoard.value = select(chartContainer.value);
-  });
 
   onBeforeUnmount(() => {
     isBeingDestroyed = true;
@@ -78,35 +73,20 @@ export function useAlluvialInteractions(
   }
 
   function highlightLinks(highlightedLinks: SankeyLink<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>[] = graph.value.links, isEntering = false) {
-    const links = highlightedLinks
-      .map(_ => `#link_${getIdentifier(_.source)}\\:${getIdentifier(_.target)}`)
-      .reduce((acc, linkId) => `${acc}, ${linkId}`, null);
-    const nodes = highlightedLinks
-      .reduce((acc, { source, target }) => [...acc, `#node-block-${getIdentifier(source)}`, `#node-block-${getIdentifier(target)}`], [])
-      .reduce((acc, nodeId) => `${acc}, ${nodeId}`, null);
-    drawingBoard.value?.selectAll('.adv-alluvial-group__path-group path')
-      .filter(`:not(${links})`)
-      .classed('adv-alluvial-group__path--out', isEntering);
-    drawingBoard.value?.selectAll('.adv-alluvial-group__node')
-      .filter(`:not(${nodes})`)
-      .classed('adv-alluvial-group__node--out', isEntering);
+    const linkIds = highlightedLinks
+      .map(_link => `link_${getIdentifier(_link.source)}:${getIdentifier(_link.target)}`);
+    const nodeIds = highlightedLinks
+      .reduce((acc, { source, target }) =>
+          [...acc, `node-block-${getIdentifier(source)}`, `node-block-${getIdentifier(target)}`], []);
+    return { nodeIds, linkIds }
   }
 
-
-  /**
-     * Generates an interpolator from `start` to `end`, this is equivalent to d3-interpolate interpolateRound function.
-     * @param start {number}
-     * @param end {number}
-     * @todo Use interpolateRound if we ever add d3-interpolate to the modules
-     */
-  function interpolateRound(start: number, end: number) {
-    return t => Math.round(start * (1 - t) + end * t);
-  }
 
   function updateNode(id: number | string, currentNumber: number, targetNumber: number) {
     const startTime = Date.now();
-    const node = drawingBoard.value?.selectAll(`.adv-alluvial-group__node[id="node-block-${id}"] tspan.adv-alluvial-group__node-value`);
+    const nodeBlock = alluvialInstance.value.nodeBlocks.find(nodeBlock => nodeBlock.id === `node-block-${id}`);
     const interpolator = interpolateRound(currentNumber, targetNumber);
+
     const performNextUpdate = () => {
       if (isBeingDestroyed) return;
       const now = Date.now();
@@ -114,7 +94,9 @@ export function useAlluvialInteractions(
       if (iteration > 1) {
         iteration = 1;
       }
-      node.text(alluvialProps.value.valueFormatter(interpolator(iteration)));
+
+      set(nodeBlock.node, 'transitionValue', interpolator(iteration));
+
       if (iteration < 1) {
         requestAnimationFrame(performNextUpdate);
       }
