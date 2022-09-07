@@ -1,6 +1,6 @@
-# Data visualization
+# ADV
 
-Data visualization is the graphical representation of information and data. By using visual elements like charts, graphs, and maps, data visualization repository provide an accessible way to see and understand trends, outliers, and patterns in data. We will use Vue to manage the state of the elements and rely on d3.js for all the calculations.
+ADV, or Adyen Data Visualization, is a library for graphical representations of information and data. By using visual elements like charts, graphs, and maps, this repository provide an accessible way to see and understand trends, outliers, and patterns in data. We use Vue to all graphic elements and rely on d3.js for the calculations.
 
 **[Design guidelines (Figma)](https://www.figma.com/file/LlbuDypxEbEZIo4qzPaX5kDG/%F0%9F%93%88Data-visualization?node-id=0%3A1)**
 
@@ -9,7 +9,7 @@ Data visualization is the graphical representation of information and data. By u
 We're currently aiming to use:
 
 - [D3.js](https://d3js.org/) for calculations
-- [Vue _(v2)_](https://v2.vuejs.org/) for rendering
+- [Vue _(v2.7)_](https://v2.vuejs.org/) for rendering
 - [Popper.js](https://popper.js.org/) for tooltip functionality
 
 ### Dev stack
@@ -20,6 +20,49 @@ We're currently aiming to use:
 - [TypeScript ESLint](https://typescript-eslint.io/) for linting _(with the help of [eslint-plugin-vue](https://eslint.vuejs.org/))_
 - [Storybook](https://storybook.js.org/) for developing/showcasing components
 - [Jest](https://jestjs.io/) for unit testing
+
+## Getting started
+
+### Installation
+
+To install ADV, run the following command:
+
+```shell
+$ npm install adv
+```
+
+### Plugin
+
+The default export of ADV is a Vue plugin that you can install in your global Vue setup:
+
+```ts
+import Vue from 'vue';
+import AdvLibrary from 'adv';
+
+import App from './my-app.vue';
+
+Vue.use(AdvLibrary);
+
+const app = new Vue(App).$mount('#root');
+```
+
+### Components
+
+If, instead of using the Vue plugin, you rather import single components as you go, you can do that as well:
+
+```ts
+// SFC <script>
+
+import { defineComponent } from 'vue';
+
+import { AdvBarChart } from 'adv';
+
+export default defineComponent({
+  components: { AdvBarChart },
+  ...
+});
+
+```
 
 ## Development
 
