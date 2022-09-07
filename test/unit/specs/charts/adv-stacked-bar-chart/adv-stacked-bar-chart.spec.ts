@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils';
 import { data, generateData, generateLinearScale, labels, xScale, yScale } from '../../mock-data';
 import StackedBarChart from '@/charts/adv-stacked-bar-chart/adv-stacked-bar-chart.vue';
+import { testDynamicBehaviour } from '../../../reusable.test';
 import { Orientation } from '@/constants';
 
 const orientation: Orientation = 'horizontal';
@@ -81,26 +82,12 @@ describe('adv-stacked-bar-chart.vue', () => {
     expect(el.findAll('[data-j-adv-bar]')).toHaveLength(numberOfSets * numberOfBars);
   });
 
-  test('mounts component and updates dataset', async () => {
-    const firstNumberOfSets = 3;
-    const firstNumberOfRecords = 7;
-    const secondNumberOfSets = 4;
-    const secondNumberOfRecords = 5;
-    const firstDataSet = generateData(firstNumberOfSets, firstNumberOfRecords);
-    const secondDataSet = generateData(secondNumberOfSets, secondNumberOfRecords);
-
-    const wrapper = mount(StackedBarChart, {
-      // Note that we need to flip the scales so as to feed band and linear scales correctly
-      propsData: { data: firstDataSet, labels, yScale, xScale }
-    });
-
-    const el = wrapper.find('[data-j-bars-group]');
-    expect(el.findAll('[data-j-adv-bar]')).toHaveLength(firstNumberOfSets * firstNumberOfRecords);
-    await wrapper.setProps({ data: secondDataSet });
-    expect(el.findAll('[data-j-adv-bar]')).toHaveLength(secondNumberOfSets * secondNumberOfRecords);
-    await wrapper.setProps({ data: [{ values: [] }] });
-    expect(el.findAll('[data-j-adv-bar]')).toHaveLength(0);
-    await wrapper.setProps({ data: secondDataSet });
-    expect(el.findAll('[data-j-adv-bar]')).toHaveLength(secondNumberOfSets * secondNumberOfRecords);
-  });
+  testDynamicBehaviour(
+      StackedBarChart,
+      '[data-j-adv-bar]',
+      3,
+      7,
+      4,
+      5
+  );
 });

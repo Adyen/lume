@@ -9,19 +9,17 @@ module.exports = async () => ({
   preset: 'ts-jest',
   // eslint-disable-next-line no-undef
   rootDir: path.resolve(__dirname, '..', '..'),
-  roots: [
-    '<rootDir>/test/unit/'
-  ],
+  roots: ['<rootDir>/test/unit/specs/'],
   moduleNameMapper: {
-    "^.+\\.(css|less|scss)$": "identity-obj-proxy",
+    '^.+\\.(css|less|scss)$': 'identity-obj-proxy',
     '^@/(.*)$': '<rootDir>/src/$1',
   },
   moduleFileExtensions: [
-    "js",
-    "json",
+    'js',
+    'json',
     // tell Jest to handle `*.vue` files
-    "vue",
-    "ts"
+    'vue',
+    'ts',
   ],
   transformIgnorePatterns: [
     // By default Jest ignore everything inside node_modules
@@ -35,11 +33,11 @@ module.exports = async () => ({
     // process `*.js` files with `babel-jest`
     // ".*\\.(js)$": "babel-jest",
     // process `*.vue` files with `vue-jest`
-    ".*\\.(vue)$": "vue-jest",
-    '^.+\\.ts$': 'ts-jest'
+    '.*\\.(vue)$': 'vue-jest',
+    '^.+\\.ts$': 'ts-jest',
   },
   globals: {
     'ts-jest': { tsconfig: '<rootDir>/tsconfig.test.json' },
   },
-  ...istanbulConfig
+  ...istanbulConfig,
 });
