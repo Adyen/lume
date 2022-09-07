@@ -1,9 +1,7 @@
 <template>
   <adv-chart
     v-bind="$props"
-    :options="allOptions"
-    :labels="[]"
-    :is-labels-required="false"
+    :options="getAlluvialChartOptions(allOptions)"
     data-j-alluvial-chart
   >
     <template #groups="props">
@@ -19,7 +17,7 @@ import AdvAlluvialGroup from './adv-alluvial-group/adv-alluvial-group.vue';
 import AdvChart from '@/core/adv-chart';
 
 import { withChartProps } from '@/mixins/props';
-import { useOptions } from '@/mixins/options';
+import { ChartOptions, useOptions } from '@/mixins/options';
 
 import { singleDatasetValidator } from '@/utils/helpers';
 import { options as defaultOptions } from '@/charts/adv-alluvial-chart/defaults';
@@ -27,14 +25,21 @@ import { options as defaultOptions } from '@/charts/adv-alluvial-chart/defaults'
 export default defineComponent({
   components: { AdvChart, AdvAlluvialGroup },
   props: {
-    ...withChartProps(singleDatasetValidator, false),
+    ...withChartProps(singleDatasetValidator),
   },
   setup(props) {
     const { options } = toRefs(props);
 
     const { allOptions } = useOptions(options, defaultOptions);
 
-    return { allOptions };
+    function getAlluvialChartOptions(options: ChartOptions) {
+      return {
+        ...options,
+        noBaseScales: true, // Alluvial chart never uses base scales
+      };
+    }
+
+    return { allOptions, getAlluvialChartOptions };
   },
 });
 </script>

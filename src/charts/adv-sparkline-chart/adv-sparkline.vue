@@ -2,7 +2,6 @@
   <adv-chart
     chart-type="line"
     :data="computedLineData"
-    :labels="computedLabels"
     :options="allOptions"
     :x-scale="xScaleGenerator"
   >
@@ -48,7 +47,7 @@ const defaultColor: Color = '01';
 export default defineComponent({
   components: { AdvChart, AdvLineGroup },
   props: {
-    ...withBase(null, false),
+    ...withBase(null),
     ...withOptions(),
   },
   setup(props) {
@@ -58,10 +57,6 @@ export default defineComponent({
     const { allOptions } = useOptions(options, defaultOptions);
     const { computedLineData } = useLineNullValues(computedData);
     const { areaPathDefinition } = useSparklineArea(computedLineData);
-
-    const computedLabels = computed(() => {
-      return data.value[0].values.map((_, i) => i);
-    });
 
     const color = computed(() => data.value[0].color || defaultColor);
 
@@ -84,7 +79,6 @@ export default defineComponent({
       areaColor,
       areaPathDefinition,
       color,
-      computedLabels,
       computedLineData,
       xScaleGenerator,
     };

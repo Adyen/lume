@@ -2,12 +2,12 @@ import { mount } from '@vue/test-utils';
 import { withChartProps } from '@/mixins/props';
 import { DataValidator } from '@/mixins/base';
 
-const getMixin = (dataValidator?: DataValidator, isLabelsRequired = true) => {
+const getMixin = (dataValidator?: DataValidator) => {
   let mixin = null;
   mount({
     template: '<div></div>',
     setup() {
-      mixin = withChartProps(dataValidator, isLabelsRequired);
+      mixin = withChartProps(dataValidator);
       return mixin;
     },
   });
@@ -16,8 +16,8 @@ const getMixin = (dataValidator?: DataValidator, isLabelsRequired = true) => {
 };
 
 describe('props.ts', () => {
-  test('should return expected object', async () => {
-    const mixin = await getMixin();
+  test('should return expected object', () => {
+    const mixin = getMixin();
 
     expect(mixin).toHaveProperty('data');
     expect(mixin.data).toHaveProperty('required');
@@ -28,8 +28,6 @@ describe('props.ts', () => {
     expect(mixin.data.validator).toEqual(undefined);
 
     expect(mixin).toHaveProperty('labels');
-    expect(mixin.labels).toHaveProperty('required');
-    expect(mixin.labels.required).toBe(true);
     expect(mixin.labels).toHaveProperty('type');
     expect(mixin.labels.type).toEqual(Array);
     expect(mixin.labels).toHaveProperty('default');
@@ -70,22 +68,14 @@ describe('props.ts', () => {
     expect(mixin.yScale.type).toEqual(Function);
   });
 
-  test('should return expected object with custom dataValidator', async () => {
+  test('should return expected object with custom dataValidator', () => {
     const sampleString = 'sample-string';
     const dataValidator: DataValidator = (value) =>
       !!value && value.values[0] === sampleString;
-    const mixin = await getMixin(dataValidator);
+    const mixin = getMixin(dataValidator);
 
     expect(mixin.data.validator).not.toEqual(undefined);
     expect(mixin.data.validator({ values: [sampleString] })).toEqual(true);
     expect(mixin.data.validator({ values: ['bogus'] })).toEqual(false);
-  });
-
-  test('should return expected object with custom dataValidator', async () => {
-    const mixin = await getMixin(null, false);
-
-    expect(mixin.labels.required).toBe(false);
-    expect(mixin.labels.default).not.toEqual(undefined);
-    expect(mixin.labels.default()).toBe(null);
   });
 });

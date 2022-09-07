@@ -34,7 +34,7 @@
       </div>
     </template>
 
-    <template v-if="computedXScale && computedYScale">
+    <template v-if="isReady">
       <!-- Negative values background -->
       <adv-bar
         v-if="hasNegativeValues"
@@ -74,17 +74,6 @@
         />
       </slot>
 
-      <!-- Overlay bars -->
-      <adv-overlay-group
-        v-if="allOptions.withHover !== false"
-        :data="computedData"
-        :orientation="orientation"
-        :x-scale="computedXScale"
-        :y-scale="computedYScale"
-        data-j-adv-chart__overlay-group
-        @mouseover="mouseOverHandler"
-      />
-
       <!-- Data groups -->
       <slot
         name="groups"
@@ -98,6 +87,17 @@
         :transition="allOptions.withTransition !== false"
       />
 
+      <!-- Overlay bars -->
+      <adv-overlay-group
+        v-if="allOptions.withHover !== false"
+        :data="computedData"
+        :orientation="orientation"
+        :x-scale="computedXScale"
+        :y-scale="computedYScale"
+        data-j-adv-chart__overlay-group
+        @mouseover="mouseOverHandler"
+      />
+
       <!-- Tooltip anchor -->
       <g v-if="allOptions.withTooltip !== false">
         <circle
@@ -107,16 +107,6 @@
           :key="`anchor-${index}`"
         />
       </g>
-    </template>
-
-    <template v-if="!computedLabels">
-      <slot
-        name="groups"
-        :data="computedData"
-        :orientation="orientation"
-        :hovered-index="hoveredIndex"
-        :container-size="containerSize"
-      />
     </template>
 
     <template #footer>
@@ -197,10 +187,6 @@ export default defineComponent({
       type: String,
       default: null,
     },
-    isLabelsRequired: {
-      type: Boolean,
-      default: true,
-    },
   },
   setup(props, ctx) {
     const { data, labels, options, orientation, chartType } = toRefs(props);
@@ -208,13 +194,9 @@ export default defineComponent({
     const hoveredIndex = ref<number>(-1);
     const tooltipAnchor = ref<SVGCircleElement>(null);
 
-    const computedLabels = computed(() =>
-      props.isLabelsRequired ? props.labels : null
-    );
-
-    const { computedData, containerSize, updateSize } = useBase(
+    const { computedData, computedLabels, containerSize, updateSize } = useBase(
       data,
-      computedLabels,
+      labels,
       orientation
     );
 
@@ -270,6 +252,18 @@ export default defineComponent({
       return (
         allOptions.value.yAxisOptions?.withTitle !== false && yAxisTitle.value
       );
+    });
+
+    const isReady = computed(() => {
+      const conditions = [];
+
+      const { noBaseScales } = allOptions.value;
+
+      if (!noBaseScales) {
+        conditions.push(() => !!(computedXScale.value && computedYScale.value));
+      }
+
+      return conditions.every((c) => c() === true);
     });
 
     const { hasNegativeValues } = checkNegativeValues(computedData);
@@ -338,6 +332,7 @@ export default defineComponent({
       handleTickMouseover,
       hasNegativeValues,
       hoveredIndex,
+      isReady,
       mouseOverHandler,
       negativeBarAttributes,
       showXAxisTitle,

@@ -27,6 +27,7 @@ export interface ChartOptions extends Options {
   startOnZero?: boolean;
   withLegend?: boolean;
   withTransition?: boolean;
+  noBaseScales?: boolean;
 }
 
 export type Options = Record<string, unknown>;
