@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-undef */
+const path = require('path');
 const { VueLoaderPlugin } = require('vue-loader');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
+  context: path.resolve(__dirname, '../'),
   entry: './src/index.ts',
   module: {
     rules: [
@@ -46,9 +48,9 @@ module.exports = {
   plugins: [new VueLoaderPlugin(), new MiniCssExtractPlugin()],
   resolve: {
     extensions: ['.vue', '.js', '.ts'],
-    modules: ['./src', './node_modules'],
+    modules: ['./node_modules'],
     alias: {
-      '@': __dirname + '/src/',
+      '@': path.resolve(__dirname, '../src/'),
     },
   },
 };

@@ -2,17 +2,17 @@
 /* eslint-disable no-undef */
 const path = require('path');
 const { merge } = require('webpack-merge');
-const common = require('./webpack.common.js');
+const prod = require('./webpack.prod.js');
 
-module.exports = merge(common, {
-  mode: 'production',
-  devtool: 'source-map',
+module.exports = merge(prod, {
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'main.js',
-    library: 'ADV',
-    libraryTarget: 'umd',
-    libraryExport: 'default',
+    path: path.resolve(__dirname, '../dist'),
+    filename: 'adv.umd.js',
+    library: {
+      name: 'ADV',
+      type: 'umd',
+      umdNamedDefine: true,
+    },
   },
   externals: {
     vue: {
