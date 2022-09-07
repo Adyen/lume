@@ -27,4 +27,26 @@ describe('adv-line-chart.vue', () => {
     const elements = wrapper.findAll('[data-j-line]');
     expect(elements).toHaveLength(numberOfSets * numberOfLines);
   });
+
+  test('mounts component and dynamically changes datasets', async () => {
+    const firstNumberOfSets = 3;
+    const firstNumberOfRecords = 7;
+    const secondNumberOfSets = 4;
+    const secondNumberOfRecords = 5;
+    const firstDataSet = generateData(firstNumberOfSets, firstNumberOfRecords);
+    const secondDataSet = generateData(secondNumberOfSets, secondNumberOfRecords);
+
+    const wrapper = mount(AdvLineChart, {
+      // Note that we need to flip the scales so as to feed band and linear scales correctly
+      propsData: { data: firstDataSet, labels, yScale, xScale }
+    });
+
+    expect(wrapper.findAll('[data-j-line]')).toHaveLength(firstNumberOfSets * firstNumberOfRecords);
+    await wrapper.setProps({ data: secondDataSet });
+    expect(wrapper.findAll('[data-j-line]')).toHaveLength(secondNumberOfSets * secondNumberOfRecords);
+    await wrapper.setProps({ data: [{ values: [] }] });
+    expect(wrapper.findAll('[data-j-line]')).toHaveLength(0);
+    await wrapper.setProps({ data: secondDataSet });
+    expect(wrapper.findAll('[data-j-line]')).toHaveLength(secondNumberOfSets * secondNumberOfRecords);
+  })
 });
