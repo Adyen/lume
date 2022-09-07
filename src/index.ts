@@ -1,28 +1,49 @@
-import { PluginObject } from 'vue';
+import { PluginFunction, PluginObject } from 'vue';
 
-import charts from './charts';
-import core from './core';
+import * as charts from './charts';
+import * as core from './core';
 
 import './styles/main.scss';
 
-const plugin: PluginObject<null> = {
-  install(Vue) {
-    // Register charts
-    for (const prop in charts) {
-      if (Object.prototype.hasOwnProperty.call(charts, prop)) {
-        const component = charts[prop];
-        Vue.component(prop, component);
-      }
-    }
+interface AdvPluginFunction extends PluginFunction<null> {
+  installed?: boolean;
+}
 
-    // Register core
-    for (const prop in core) {
-      if (Object.prototype.hasOwnProperty.call(core, prop)) {
-        const component = core[prop];
-        Vue.component(prop, component);
-      }
+const install: AdvPluginFunction = (Vue) => {
+  if (install.installed) return;
+  install.installed = true;
+
+  // Register charts
+  for (const prop in charts) {
+    if (Object.prototype.hasOwnProperty.call(charts, prop)) {
+      const component = charts[prop];
+      Vue.component(prop, component);
     }
-  },
+  }
+
+  // Register core
+  for (const prop in core) {
+    if (Object.prototype.hasOwnProperty.call(core, prop)) {
+      const component = core[prop];
+      Vue.component(prop, component);
+    }
+  }
 };
+
+const plugin: PluginObject<null> = { install };
+
+// Auto-install when vue is found (eg. in browser via <script> tag)
+let GlobalVue = null;
+if (typeof window !== 'undefined') {
+  GlobalVue = window.Vue;
+} else if (typeof global !== 'undefined') {
+  GlobalVue = global.Vue;
+}
+if (GlobalVue) {
+  GlobalVue.use(plugin);
+}
+
+export * from './charts';
+export * from './core';
 
 export default plugin;

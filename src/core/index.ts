@@ -1,34 +1,19 @@
 // Chart anatomy
-import AdvAxis from './adv-axis';
-import AdvChart from './adv-chart';
-import AdvChartContainer from './adv-chart-container';
-import AdvChartLegend from './adv-chart-legend';
-import AdvTooltip from './adv-tooltip';
+export { default as AdvAxis } from './adv-axis';
+export { default as AdvChart } from './adv-chart';
+export { default as AdvChartContainer } from './adv-chart-container';
+export { default as AdvChartLegend } from './adv-chart-legend';
+export { default as AdvTooltip } from './adv-tooltip';
 
 // Groups
-import AdvBarGroup from './adv-bar-group';
-import AdvLineGroup from './adv-line-group';
-import AdvOverlayGroup from './adv-overlay-group';
+export { default as AdvBarGroup } from './adv-bar-group';
+export { default as AdvLineGroup } from './adv-line-group';
+export { default as AdvOverlayGroup } from './adv-overlay-group';
 
 // Elements
-import AdvBar from './adv-bar';
-import AdvLine from './adv-line';
-import AdvPoint from './adv-point';
+export { default as AdvBar } from './adv-bar';
+export { default as AdvLine } from './adv-line';
+export { default as AdvPoint } from './adv-point';
 
 // Misc
-import AdvCustomTooltip from './adv-custom-tooltip';
-
-export default {
-  AdvAxis,
-  AdvChart,
-  AdvChartContainer,
-  AdvChartLegend,
-  AdvTooltip,
-  AdvBarGroup,
-  AdvLineGroup,
-  AdvOverlayGroup,
-  AdvBar,
-  AdvLine,
-  AdvPoint,
-  AdvCustomTooltip,
-};
+export { default as AdvCustomTooltip } from './adv-custom-tooltip';
