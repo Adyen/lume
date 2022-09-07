@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { data, labels, xScale, yScale } from '../../mock-data';
+import { data, labels, xScale, yScale, generateData } from '../../mock-data';
 import SingleBarChart from '@/charts/adv-single-bar-chart/adv-single-bar-chart.vue';
 
 const numberOfPositiveBars = 5;
@@ -70,4 +70,17 @@ describe('adv-single-bar-chart.vue', () => {
 
     expect(el.findAll('[data-j-adv-bar]')).toHaveLength(0);
   })
+
+  test('should update representation when the dataset is updated', async () => {
+    const dataSet = generateData(1, 5);
+    const wrapper = mount(SingleBarChart, {
+      propsData: { data: dataSet, labels, xScale, yScale }
+    });
+
+    const el = wrapper.find('[data-j-single-bar-chart]')
+    expect(el.findAll('[data-j-adv-bar]')).toHaveLength(dataSet[0].values.length);
+    const newDataSet = generateData(1, 7)
+    await wrapper.setProps({ data: newDataSet })
+    expect(el.findAll('[data-j-adv-bar]')).toHaveLength(newDataSet[0].values.length);
+  });
 });
