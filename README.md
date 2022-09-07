@@ -95,27 +95,30 @@ Every chart component should have its own `.stories` file, and it will be automa
 
 ##### Available addons
 
-- [`addon-knobs`](https://www.npmjs.com/package/@storybook/addon-knobs/v/5.0.0)
-- [`addon-storysource`](https://www.npmjs.com/package/@storybook/addon-storysource/v/5.0.0)
-- [`addon-notes`](https://www.npmjs.com/package/@storybook/addon-notes/v/5.0.0)
-- [`addon-a11y`](https://www.npmjs.com/package/@storybook/addon-a11y/v/5.0.0)
+- [`addon-essentials`](https://www.npmjs.com/package/@storybook/addon-essentials)
+- [`addon-storysource`](https://www.npmjs.com/package/@storybook/addon-storysource)
+- [`addon-a11y`](https://www.npmjs.com/package/@storybook/addon-a11y)
 
 ### Roadmap
 
 The charts we wish to include:
 
-- [x] Line chart
-- [x] Bar chart
-- [x] Stacked bar chart
-- [x] Grouped bar chart
-- [x] Horizontal bar chart
-- [x] Horizontal stacked bar chart
-- [x] Horizontal grouped bar chart
-- [x] Sparkline
-- [ ] Mini bar chart
+#### V1
+
 - [ ] Alluvial chart
+- [x] Bar chart
+  - [x] Single
+  - [x] Stacked
+  - [x] Grouped
+  - [x] Horizontal orientation for all
+- [x] Line chart
+- [x] Sparkline
+
+#### Next
+
 - [ ] Violin plot
 - [x] Box plot
+- [ ] Mini bar chart (Bar sparkline)
 
 Points that should be covered:
 
@@ -123,10 +126,10 @@ Points that should be covered:
 - [x] Charts should be able to handle null values (missing values)
 - [x] Charts should be able to scale relative to the screen
 - [x] Charts should make use of a popup highlighting data of one point
-- [x] Some charts should be able to show x-axis and y-axis
-- [x] Some charts should be able to show gridlines
-- [ ] Charts should be able to handle live data updates
-- [ ] Charts should rely on ADL colors but should also be able to accept custom colors
+- [x] Some charts should be able to show/hide x-axis and y-axis
+- [x] Some charts should be able to show/hide gridlines
+- [x] Charts should be able to handle live data updates
+- [ ] Charts should rely on ADV data-viz colors but should also be able to accept custom colors
 - [ ] Some charts should have the ability to select a data point and communicate the data to the caller
 
 Other developmental issues that should be covered:
@@ -134,17 +137,19 @@ Other developmental issues that should be covered:
 - [ ] Unit tests for all components - in Jest
 - [ ] ESLinter for .js and .vue files
 - [ ] Documentation of how the components work
-- [ ] Storybook with examples of all the components
+- [x] Storybook for all charts
+  - [ ] Storybook for all core components
 
 ### Feature ideas
 
 - Out-of-the-box light/dark theme
 - Click label dots to select data groups [Figma](https://www.figma.com/file/LlbuDypxEbEZIo4qzPaX5kDG/%F0%9F%93%88Data-visualization?node-id=3503%3A25312)
 
-## Contact
+## Contacts
 
 This project is currently being developed & maintained by the Insights stream. This includes:
 
 - Govind Srinidhi | @govind - [Mattermost](https://mattermost.is.adyen.com/adyen/messages/@govind)
 - Joao Santos | @joaosa - [Mattermost](https://mattermost.is.adyen.com/adyen/messages/@joaosa)
 - Lucas van Heerikhuizen | @lucasv - [Mattermost](https://mattermost.is.adyen.com/adyen/messages/@lucasv)
+- Vivian Joseph | @vivianj - [Mattermost](https://mattermost.is.adyen.com/adyen/messages/@vivianj)
