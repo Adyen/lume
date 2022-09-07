@@ -1,8 +1,8 @@
 .idea/
 
 .storybook
+build/
 git-hooks/
-public/
 src/
 test/
 
@@ -11,6 +11,3 @@ test/
 .prettierrc.json
 tsconfig.json
 tsconfig.test.json
-webpack.common.js
-webpack.dev.js
-webpack.prod.js
