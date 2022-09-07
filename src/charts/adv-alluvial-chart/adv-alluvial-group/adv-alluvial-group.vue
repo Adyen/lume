@@ -94,7 +94,7 @@ import AdvAlluvialPathGroup from '@/charts/adv-alluvial-chart/adv-alluvial-path-
 export default defineComponent({
   components: { AdvAlluvialPathGroup },
   props: {
-    ...withChartProps(singleDatasetValidator, false),
+    ...withChartProps(singleDatasetValidator),
   },
   setup(props, context) {
     const chartContainer = ref(null);
