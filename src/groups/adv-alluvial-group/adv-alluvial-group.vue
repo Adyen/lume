@@ -68,7 +68,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, toRefs, watch } from 'vue';
+import { defineComponent, ref, toRefs, watch } from 'vue';
 
 import AdvAlluvialPathGroup from '@/groups/adv-alluvial-path-group';
 
@@ -87,8 +87,6 @@ import { singleDatasetValidator } from '@/utils/helpers';
 import { ContainerSize } from '@/types/size';
 
 import { BASE_DATA, NODE_LABEL_PADDING } from './constants';
-
-let b = 0;
 
 export default defineComponent({
   components: { AdvAlluvialPathGroup },
@@ -182,12 +180,6 @@ export default defineComponent({
           containerSize.width -
           (rightMostNodeLabelWidth.value + NODE_LABEL_PADDING))
     );
-
-    const alpha = computed(() => alluvialInstance.value?.highlightedLink);
-    watch(alpha, () => {
-      b++;
-      console.log('hey', b);
-    });
 
     return {
       alluvialInstance,
