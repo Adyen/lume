@@ -1,6 +1,6 @@
 @use '~@/styles/variables' as *;
 
-.adv-custom-tooltip {
+.adv-horizontal-tooltip {
   position: fixed;
 
   font-family: $adv-font-family;
@@ -8,6 +8,16 @@
 
   transform: translate($adv-spacing-8, -50%);
 
-  transition: all $adv-transition-time-long ease-out;
   pointer-events: none;
+  animation: fadeIn $adv-transition-time-long ease-out forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }

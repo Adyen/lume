@@ -1,31 +1,29 @@
 <template>
   <div
     v-if="opened"
-    class="adv-custom-tooltip"
+    class="adv-horizontal-tooltip"
     :style="{ top: position.y + 'px', left: position.x + 'px' }"
-    data-j-custom-tooltip
+    data-j-horizontal-tooltip
   >
     <slot
       name="content"
       :hovered-index="hoveredIndex"
       :data="computedData"
     >
-      <span data-j-custom-tooltip__default-display>{{
-        getContent(hoveredIndex)
-      }}</span>
+      {{ getContent(hoveredIndex) }}
     </slot>
   </div>
 </template>
 
 <script lang="ts">
-import { useBase } from '@/mixins/base';
-import { Data } from '@/types/dataset';
-import { NO_DATA } from '@/constants';
-
 import { defineComponent, PropType, ref, toRefs, watch } from 'vue';
 
+import { useBase } from '@/mixins/base';
+
+import { NO_DATA } from '@/constants';
+import { Data } from '@/types/dataset';
+
 export default defineComponent({
-  components: {},
   props: {
     data: {
       type: Array as PropType<Data>,
@@ -64,7 +62,7 @@ export default defineComponent({
       { immediate: true }
     );
 
-    return { getContent, position, computedData };
+    return { computedData, getContent, position };
   },
 });
 </script>

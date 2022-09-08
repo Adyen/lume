@@ -16,7 +16,7 @@
       v-if="isHorizontal"
       #tooltip="props"
     >
-      <adv-custom-tooltip v-bind="props" />
+      <adv-horizontal-tooltip v-bind="props" />
     </template>
   </adv-chart>
 </template>
@@ -26,7 +26,7 @@ import { computed, defineComponent, toRefs } from 'vue';
 
 import AdvChart from '@/core/adv-chart';
 import AdvBarGroup from '@/core/adv-bar-group';
-import AdvCustomTooltip from '@/core/adv-custom-tooltip';
+import AdvHorizontalTooltip from '@/core/adv-horizontal-tooltip';
 
 import { useBase } from '@/mixins/base';
 import { useOptions } from '@/mixins/options';
@@ -38,7 +38,7 @@ import { ORIENTATIONS } from '@/constants';
 import { options as defaultOptions } from './defaults';
 
 export default defineComponent({
-  components: { AdvChart, AdvBarGroup, AdvCustomTooltip },
+  components: { AdvChart, AdvBarGroup, AdvHorizontalTooltip },
   props: {
     ...withChartProps(singleDatasetValidator),
   },

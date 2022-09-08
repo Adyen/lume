@@ -1,15 +1,15 @@
 <template>
-  <adv-custom-tooltip v-bind="$props">
+  <adv-horizontal-tooltip v-bind="$props">
     <template #content="{ data: slotData, hoveredIndex: slotHoveredIndex }">
       {{ getContent(slotHoveredIndex, slotData) }}
     </template>
-  </adv-custom-tooltip>
+  </adv-horizontal-tooltip>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 
-import AdvCustomTooltip from '@/core/adv-custom-tooltip';
+import AdvHorizontalTooltip from '@/core/adv-horizontal-tooltip';
 
 import { Data } from '@/types/dataset';
 
@@ -20,7 +20,7 @@ const EMOJI_MAP = {
 
 export default defineComponent({
   components: {
-    AdvCustomTooltip,
+    AdvHorizontalTooltip,
   },
   props: {
     data: {
