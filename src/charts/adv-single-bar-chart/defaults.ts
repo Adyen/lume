@@ -12,7 +12,7 @@ export const options = {
     showAxes: true,
     withTooltip: true,
     xAxisOptions: { gridLines: true },
-    yAxisOptions: {},
-    margins: DEFAULT_MARGINS.HORIZONTAL
+    yAxisOptions: { gridLines: false },
+    margins: DEFAULT_MARGINS.HORIZONTAL,
   },
 };
