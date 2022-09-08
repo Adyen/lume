@@ -49,7 +49,7 @@ import AdvChart from '@/core/adv-chart';
 import { withChartProps } from '@/mixins/props';
 
 import { Data } from '@/types/dataset';
-import AdvBarGroup from '@/core/adv-bar-group';
+import AdvBarGroup from '@/groups/adv-bar-group';
 import AdvAxis from '@/core/adv-axis';
 import { Scale } from '@/mixins/scales';
 

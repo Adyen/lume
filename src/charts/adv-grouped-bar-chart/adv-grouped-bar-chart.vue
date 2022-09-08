@@ -19,7 +19,7 @@
 import { computed, defineComponent, toRefs } from 'vue';
 
 import AdvChart from '@/core/adv-chart';
-import AdvBarGroup from '@/core/adv-bar-group';
+import AdvBarGroup from '@/groups/adv-bar-group';
 
 import { useBase } from '@/mixins/base';
 import { useOptions } from '@/mixins/options';

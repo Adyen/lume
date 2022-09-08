@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 
-import AdvOverlayGroup from '@/core/adv-overlay-group';
+import AdvOverlayGroup from '@/groups/adv-overlay-group';
 
 import { data, xScale, yScale } from '../../mock-data';
 

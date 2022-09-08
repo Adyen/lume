@@ -1,5 +1,5 @@
 import AdvChart from '@/core/adv-chart';
-import AdvLineGroup from '@/core/adv-line-group';
+import AdvLineGroup from '@/groups/adv-line-group';
 
 import CustomTooltip from './custom-tooltip.vue';
 

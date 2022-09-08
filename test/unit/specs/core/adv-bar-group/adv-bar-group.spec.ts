@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import AdvBarGroup from '@/core/adv-bar-group/adv-bar-group.vue';
+import AdvBarGroup from '@/groups/adv-bar-group/adv-bar-group.vue';
 import { data, xScale, yScale } from '../../mock-data';
 import { Orientation } from '@/constants';
 
