@@ -1,27 +1,21 @@
 @use '~@/styles/variables' as *;
 
-@mixin title-base {
+@mixin adv-title-base {
   margin: 0;
-  font-family: $adv-font-family;
 }
 
 .adv-chart-title {
-  @include title-base;
+  @include adv-title-base;
+  @include adv-typography-display();
 
   margin-bottom: 1rem;
-
-  font-size: $adv-text-font-size-big;
-  font-weight: $adv-text-font-weight-medium;
-  line-height: 2rem;
 }
 
 .adv-axis-title {
-  @include title-base;
+  @include adv-title-base;
+  @include adv-typography-body();
 
-  font-size: $adv-text-font-size-medium;
-  font-weight: $adv-text-font-weight-normal;
-  line-height: 1rem;
-  color: $adv-color-grey-50;
+  color: $adv-color-neutral-60;
 
   &--centered {
     text-align: center;

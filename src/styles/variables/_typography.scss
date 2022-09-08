@@ -42,15 +42,60 @@
 
 $adv-font-family: 'Inter', sans-serif;
 
-// Weight
-
-$adv-text-font-weight-normal: 400 !default;
-$adv-text-font-weight-medium: 500 !default;
-$adv-text-font-weight-semi-bold: 600 !default;
-$adv-text-font-weight-bold: 700 !default;
-
 // Size
 
-$adv-text-font-size-small: 13px !default;
-$adv-text-font-size-medium: 14px !default;
-$adv-text-font-size-big: 24px !default;
+$adv-font-size-xs: 10px !default;
+$adv-font-size-sm: 12px !default;
+$adv-font-size-md: 14px !default;
+$adv-font-size-lg: 20px !default;
+
+// Line height
+
+$adv-line-height-xs: 16px !default;
+$adv-line-height-sm: 16px !default;
+$adv-line-height-md: 22px !default;
+$adv-line-height-lg: 28px !default;
+
+// Weight
+
+$adv-font-weight-regular: 400 !default;
+$adv-font-weight-medium: 500 !default;
+
+@mixin adv-typography-base {
+  box-sizing: border-box;
+  font-family: $adv-font-family;
+}
+
+// Mixins
+
+@mixin adv-typography-display {
+  @include adv-typography-base();
+
+  font-size: $adv-font-size-lg;
+  font-weight: $adv-font-weight-medium;
+  line-height: $adv-line-height-lg;
+}
+
+@mixin adv-typography-body {
+  @include adv-typography-base();
+
+  font-size: $adv-font-size-md;
+  font-weight: $adv-font-weight-medium;
+  line-height: $adv-line-height-md;
+}
+
+@mixin adv-typography-caption() {
+  @include adv-typography-base();
+
+  font-size: $adv-font-size-sm;
+  font-weight: $adv-font-weight-regular;
+  line-height: $adv-line-height-sm;
+}
+
+@mixin adv-typography-caption-small {
+  @include adv-typography-base();
+
+  font-size: $adv-font-size-xs;
+  font-weight: $adv-font-weight-medium;
+  line-height: $adv-line-height-xs;
+}
