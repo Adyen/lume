@@ -13,14 +13,14 @@
 <script lang="ts">
 import { defineComponent, toRefs } from 'vue';
 
-import AdvAlluvialGroup from './adv-alluvial-group/adv-alluvial-group.vue';
 import AdvChart from '@/core/adv-chart';
+import AdvAlluvialGroup from '@/groups/adv-alluvial-group';
 
 import { withChartProps } from '@/mixins/props';
 import { ChartOptions, useOptions } from '@/mixins/options';
 
 import { singleDatasetValidator } from '@/utils/helpers';
-import { options as defaultOptions } from '@/charts/adv-alluvial-chart/defaults';
+import { options as defaultOptions } from './defaults';
 
 export default defineComponent({
   components: { AdvChart, AdvAlluvialGroup },

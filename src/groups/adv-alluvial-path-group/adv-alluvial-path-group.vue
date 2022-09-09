@@ -38,9 +38,11 @@
 </template>
 
 <script lang="ts">
+import { computed, defineComponent, PropType } from 'vue';
+
 import { LinkPath } from '@/types/alluvial';
-import { defineComponent, PropType } from 'vue';
-import { ghostStrokeWidthOffset } from '../defaults';
+
+export const GHOST_STROKE_WIDTH_OFFSET = 25;
 
 export default defineComponent({
   props: {
@@ -62,9 +64,11 @@ export default defineComponent({
     },
   },
   setup(props) {
-    return {
-      ghostStrokeWidthOffset: props.isGhostPath ? ghostStrokeWidthOffset : 0,
-    };
+    const ghostStrokeWidthOffset = computed(() =>
+      props.isGhostPath ? GHOST_STROKE_WIDTH_OFFSET : 0
+    );
+
+    return { ghostStrokeWidthOffset };
   },
 });
 </script>

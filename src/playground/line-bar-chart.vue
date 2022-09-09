@@ -23,8 +23,8 @@
 import { computed, defineComponent, PropType, toRefs } from 'vue';
 
 import AdvChart from '@/core/adv-chart';
-import AdvBarGroup from '@/core/adv-bar-group';
-import AdvLineGroup from '@/core/adv-line-group';
+import AdvBarGroup from '@/groups/adv-bar-group';
+import AdvLineGroup from '@/groups/adv-line-group';
 
 import { useOptions, withOptions } from '@/mixins/options';
 

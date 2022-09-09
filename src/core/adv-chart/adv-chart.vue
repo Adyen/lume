@@ -157,7 +157,7 @@ import AdvAxis from '@/core/adv-axis';
 import AdvBar from '@/core/adv-bar';
 import AdvChartContainer from '@/core/adv-chart-container';
 import AdvChartLegend from '@/core/adv-chart-legend';
-import AdvOverlayGroup from '@/core/adv-overlay-group';
+import AdvOverlayGroup from '@/groups/adv-overlay-group';
 import AdvTooltip from '@/core/adv-tooltip';
 
 import { useBase } from '@/mixins/base';

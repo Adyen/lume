@@ -29,7 +29,7 @@ import { computed, defineComponent, toRefs } from 'vue';
 import { scaleLinear } from 'd3-scale';
 
 import AdvChart from '@/core/adv-chart';
-import AdvLineGroup from '@/core/adv-line-group';
+import AdvLineGroup from '@/groups/adv-line-group';
 
 import { useBase, withBase } from '@/mixins/base';
 import { useOptions, withOptions } from '@/mixins/options';

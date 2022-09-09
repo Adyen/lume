@@ -8,16 +8,11 @@
   &__path {
     stroke-opacity: 0.6;
     transition: stroke-opacity $adv-transition-time-long;
-    z-index: 500;
 
     animation: stroke-reset 2s linear forwards;
 
     &--out {
       stroke-opacity: 0.2;
-    }
-
-    &--ghost {
-      z-index: 200;
     }
   }
 }

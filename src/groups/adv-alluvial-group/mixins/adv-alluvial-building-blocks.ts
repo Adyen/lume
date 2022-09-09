@@ -1,17 +1,23 @@
 import { computed, ComputedRef, ref, Ref } from 'vue';
-import {
-  sankey,
-  SankeyLink,
-  SankeyNode,
-} from 'd3-sankey';
-import { ContainerSize } from '@/types/size';
-import { BASE_INSTANCE } from '@/charts/adv-alluvial-chart/defaults';
+import { sankey, SankeyLink, SankeyNode } from 'd3-sankey';
 
+import { ContainerSize } from '@/types/size';
 import {
   AlluvialDataset,
   SankeyLinkAdditionalProperties,
   SankeyNodeAdditionalProperties,
 } from '@/types/alluvial';
+
+const BASE_INSTANCE = {
+  highlightedLink: null,
+  highlightedNode: null,
+  leftExtent: 0,
+  rightExtent: 0,
+  topExtent: 0,
+  bottomExtent: 0,
+  nodeBlocks: [],
+  linkPaths: [],
+};
 
 export function useAlluvialBlocks(
   alluvialProps: Ref<AlluvialDataset>,
