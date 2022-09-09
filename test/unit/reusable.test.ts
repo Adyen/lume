@@ -7,28 +7,31 @@ const defaultSecondNumberOfSets = 4;
 const defaultSecondNumberOfRecords = 5;
 
 export const testDynamicBehaviour = (
-    component,
-    targetIdentifier,
-    firstNumberOfSets = defaultFirstNumberOfSets,
-    firstNumberOfRecords = defaultFirstNumberOfRecords,
-    secondNumberOfSets = defaultSecondNumberOfSets,
-    secondNumberOfRecords = defaultSecondNumberOfRecords
+  component,
+  targetIdentifier,
+  firstNumberOfSets = defaultFirstNumberOfSets,
+  firstNumberOfRecords = defaultFirstNumberOfRecords,
+  secondNumberOfSets = defaultSecondNumberOfSets,
+  secondNumberOfRecords = defaultSecondNumberOfRecords
 ) => {
-    test('mounts component and updates dataset', async () => {
-        const firstDataSet = generateData(firstNumberOfSets, firstNumberOfRecords);
-        const secondDataSet = generateData(secondNumberOfSets, secondNumberOfRecords);
+    
+  const firstDataSet = generateData(firstNumberOfSets, firstNumberOfRecords);
+  const secondDataSet = generateData(secondNumberOfSets, secondNumberOfRecords);
+  const emptyDataSet = generateData(1, 0);
 
-        const wrapper = mount(component, {
-            // Note that we need to flip the scales so as to feed band and linear scales correctly
-            propsData: { data: firstDataSet, labels, yScale, xScale }
-        });
+  const wrapper = mount(component, {
+    // Note that we need to flip the scales so as to feed band and linear scales correctly
+    propsData: { data: [{ values: [] }], labels, yScale, xScale }
+  });
 
-        expect(wrapper.findAll(targetIdentifier)).toHaveLength(firstNumberOfSets * firstNumberOfRecords);
-        await wrapper.setProps({ data: secondDataSet });
-        expect(wrapper.findAll(targetIdentifier)).toHaveLength(secondNumberOfSets * secondNumberOfRecords);
-        await wrapper.setProps({ data: [{ values: [] }] });
-        expect(wrapper.findAll(targetIdentifier)).toHaveLength(0);
-        await wrapper.setProps({ data: secondDataSet });
-        expect(wrapper.findAll(targetIdentifier)).toHaveLength(secondNumberOfSets * secondNumberOfRecords);
-    });
+  const cases = [
+    { dataset: firstDataSet, expectedResult: firstNumberOfSets * firstNumberOfRecords },
+    { dataset: emptyDataSet, expectedResult: 0 },
+    { dataset: secondDataSet, expectedResult: secondNumberOfSets * secondNumberOfRecords },
+  ];
+
+  test.each(cases)('mounts component and updates dataset', async ({ dataset, expectedResult }) => {              
+    await wrapper.setProps({ data: dataset });
+    expect(wrapper.findAll(targetIdentifier)).toHaveLength(expectedResult);
+  });
 }
