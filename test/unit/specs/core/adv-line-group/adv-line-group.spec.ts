@@ -1,4 +1,4 @@
-import AdvCharLineGroup from '@/core/adv-line-group';
+import AdvCharLineGroup from '@/groups/adv-line-group';
 import { mount } from '@vue/test-utils';
 import { getXByIndex } from '@/mixins/scales';
 import { data, xScale, yScale } from '../../mock-data';

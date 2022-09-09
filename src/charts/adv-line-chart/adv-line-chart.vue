@@ -16,7 +16,7 @@
 import { defineComponent, toRefs } from 'vue';
 
 import AdvChart from '@/core/adv-chart';
-import AdvLineGroup from '@/core/adv-line-group';
+import AdvLineGroup from '@/groups/adv-line-group';
 
 import { useBase } from '@/mixins/base';
 import { useOptions } from '@/mixins/options';

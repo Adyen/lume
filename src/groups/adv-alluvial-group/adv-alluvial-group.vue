@@ -53,16 +53,14 @@
     </g>
     <adv-alluvial-path-group
       :link-paths="alluvialInstance.linkPaths"
-      is-ghost-path
-      data-j-alluvial-group__ghost-path
-      @mouseover="alluvialInstance.highlightedLink = $event"
-      @mouseout="alluvialInstance.highlightedLink = null"
-    />
-    <adv-alluvial-path-group
-      :link-paths="alluvialInstance.linkPaths"
       :container-width="alluvialInstance.containerSize.width"
       :highlighted-link-ids="highlightedLinkIds"
       data-j-alluvial-group__path
+    />
+    <adv-alluvial-path-group
+      :link-paths="alluvialInstance.linkPaths"
+      is-ghost-path
+      data-j-alluvial-group__ghost-path
       @mouseover="alluvialInstance.highlightedLink = $event"
       @mouseout="alluvialInstance.highlightedLink = null"
     />
@@ -71,25 +69,24 @@
 
 <script lang="ts">
 import { defineComponent, ref, toRefs, watch } from 'vue';
+
+import AdvAlluvialPathGroup from '@/groups/adv-alluvial-path-group';
+
 import { useBase } from '@/mixins/base';
 import { withChartProps } from '@/mixins/props';
 
-import { useAlluvialInteractions } from '@/charts/adv-alluvial-chart/mixins/adv-alluvial-interactions';
-import { useCoordinates } from '../mixins/adv-alluvial-coordinates';
+import { useAlluvialInteractions } from './mixins/adv-alluvial-interactions';
+import { useCoordinates } from './mixins/adv-alluvial-coordinates';
 import {
   useAlluvialBlocks,
   useDefaultData,
-} from '@/charts/adv-alluvial-chart/mixins/adv-alluvial-building-blocks';
+} from './mixins/adv-alluvial-building-blocks';
 
 import { singleDatasetValidator } from '@/utils/helpers';
 
-import {
-  baseData,
-  nodeToLabelGap,
-  ghostStrokeWidthOffset,
-} from '@/charts/adv-alluvial-chart/defaults';
 import { ContainerSize } from '@/types/size';
-import AdvAlluvialPathGroup from '@/charts/adv-alluvial-chart/adv-alluvial-path-group/adv-alluvial-path-group.vue';
+
+import { BASE_DATA, NODE_LABEL_PADDING } from './constants';
 
 export default defineComponent({
   components: { AdvAlluvialPathGroup },
@@ -104,7 +101,7 @@ export default defineComponent({
 
     const { data } = toRefs(props);
     const { computedData } = useBase(data);
-    const dataWithDefaults = useDefaultData(computedData.value[0], baseData);
+    const dataWithDefaults = useDefaultData(computedData.value[0], BASE_DATA);
     const { graph, nodeId, alluvialInstance } = useAlluvialBlocks(
       dataWithDefaults,
       context.attrs.containerSize as ContainerSize
@@ -158,13 +155,15 @@ export default defineComponent({
     );
     watch(
       leftMostNodeLabelWidth,
-      (width) => (alluvialInstance.value.leftExtent = width + nodeToLabelGap)
+      (width) =>
+        (alluvialInstance.value.leftExtent = width + NODE_LABEL_PADDING)
     );
     watch(
       rightMostNodeLabelWidth,
       (width) =>
         (alluvialInstance.value.rightExtent =
-          alluvialInstance.value.containerSize.width - (width + nodeToLabelGap))
+          alluvialInstance.value.containerSize.width -
+          (width + NODE_LABEL_PADDING))
     );
     watch(
       bottomMostNodeLabelExtraHeight,
@@ -179,17 +178,16 @@ export default defineComponent({
       (containerSize) =>
         (alluvialInstance.value.rightExtent =
           containerSize.width -
-          (rightMostNodeLabelWidth.value + nodeToLabelGap))
+          (rightMostNodeLabelWidth.value + NODE_LABEL_PADDING))
     );
 
     return {
-      chartContainer,
       alluvialInstance,
-      maxDepth,
+      chartContainer,
       dataWithDefaults,
-      ghostStrokeWidthOffset,
-      highlightedNodeIds,
       highlightedLinkIds,
+      highlightedNodeIds,
+      maxDepth,
       nodeText,
     };
   },
