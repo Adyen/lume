@@ -1,48 +1,28 @@
 <template>
-  <g>
-    <g
-      v-for="(linkPath, index) in linkPaths"
-      :key="`link-path_${index}`"
-      class="adv-alluvial-group__path-group"
-      style="mix-blend-mode: multiply"
-      data-j-alluvial-path__group
-    >
-      <path
-        :id="isGhostPath ? `${linkPath.id}__ghost` : linkPath.id"
-        :d="linkPath.d"
-        :class="
-          isGhostPath
-            ? [
-              'adv-alluvial-group__path--ghost',
-              'adv-stroke-color--transparent',
-            ]
-            : [
-              `adv-stroke-color--${linkPath.color}`,
-              `adv-alluvial-group__path--${linkPath.color}`,
-              'adv-alluvial-group__path',
-              highlightedLinkIds.length &&
-                highlightedLinkIds.indexOf(linkPath.id) === -1
-                ? 'adv-alluvial-group__path--out'
-                : '',
-            ]
-        "
-        :stroke-dasharray="containerWidth"
-        :stroke-dashoffset="containerWidth"
-        :stroke-width="linkPath.strokeWidth + ghostStrokeWidthOffset"
-        data-j-alluvial-path__path
-        @mouseover="$emit('mouseover', linkPath.link)"
-        @mouseout="$emit('mouseout')"
-      />
-    </g>
+  <g class="adv-alluvial-path-group">
+    <path
+      v-for="linkPath in linkPaths"
+      :id="isGhost ? `${linkPath.id}__ghost` : linkPath.id"
+      :key="`link_${linkPath.id}`"
+      class="adv-alluvial-path-group__link"
+      :class="getClasses(linkPath)"
+      :d="linkPath.d"
+      :stroke-dasharray="containerWidth"
+      :stroke-dashoffset="containerWidth"
+      :stroke-width="linkPath.strokeWidth + ghostStrokeWidthOffset"
+      data-j-alluvial-path__path
+      @mouseover="$emit('mouseover', linkPath.link)"
+      @mouseout="$emit('mouseout')"
+    />
   </g>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue';
+import { computed, defineComponent, PropType, toRefs } from 'vue';
 
 import { LinkPath } from '@/types/alluvial';
 
-export const GHOST_STROKE_WIDTH_OFFSET = 25;
+export const GHOST_STROKE_WIDTH_OFFSET = 8;
 
 export default defineComponent({
   props: {
@@ -50,7 +30,7 @@ export default defineComponent({
       type: Array as PropType<Array<LinkPath>>,
       default: () => [],
     },
-    isGhostPath: {
+    isGhost: {
       type: Boolean,
       default: false,
     },
@@ -64,11 +44,29 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { highlightedLinkIds, isGhost } = toRefs(props);
+
     const ghostStrokeWidthOffset = computed(() =>
-      props.isGhostPath ? GHOST_STROKE_WIDTH_OFFSET : 0
+      isGhost.value ? GHOST_STROKE_WIDTH_OFFSET : 0
     );
 
-    return { ghostStrokeWidthOffset };
+    function isFaded(id: string) {
+      return (
+        highlightedLinkIds.value.length &&
+        highlightedLinkIds.value.indexOf(id) === -1
+      );
+    }
+
+    function getClasses(linkPath: LinkPath) {
+      return {
+        [`adv-stroke-color--${linkPath.color}`]: !isGhost.value,
+        'adv-stroke-color--transparent': isGhost.value,
+        'adv-alluvial-path-group__link--ghost': isGhost.value,
+        'adv-alluvial-path-group__link--faded': isFaded(linkPath.id),
+      };
+    }
+
+    return { getClasses, ghostStrokeWidthOffset, isFaded };
   },
 });
 </script>

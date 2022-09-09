@@ -59,7 +59,7 @@
     />
     <adv-alluvial-path-group
       :link-paths="alluvialInstance.linkPaths"
-      is-ghost-path
+      is-ghost
       data-j-alluvial-group__ghost-path
       @mouseover="alluvialInstance.highlightedLink = $event"
       @mouseout="alluvialInstance.highlightedLink = null"
