@@ -1,12 +1,24 @@
 import { computed, ComputedRef, ref, Ref } from 'vue';
-import { sankey, SankeyLink, SankeyNode } from 'd3-sankey';
+import { sankey, sankeyJustify, SankeyLink, SankeyNode } from 'd3-sankey';
+
+import { getAlluvialNodeId } from '@/utils/helpers';
 
 import { ContainerSize } from '@/types/size';
 import {
   AlluvialDataset,
+  AlluvialNode,
   SankeyLinkAdditionalProperties,
   SankeyNodeAdditionalProperties,
 } from '@/types/alluvial';
+import { Data } from '@/types/dataset';
+
+export const BASE_DATA: AlluvialDataset = {
+  values: [],
+  nodePadding: 16,
+  nodeWidth: 16,
+  nodeAlign: sankeyJustify,
+  valueFormatter: (value: number) => String(value),
+};
 
 const BASE_INSTANCE = {
   highlightedLink: null,
@@ -57,7 +69,7 @@ export function useAlluvialBlocks(
       SankeyNodeAdditionalProperties,
       SankeyLinkAdditionalProperties
     >()
-      .nodeId(nodeId)
+      .nodeId(getAlluvialNodeId)
       .nodeWidth(alluvialProps.value.nodeWidth)
       .nodeSort(alluvialProps.value.nodeSort)
       .nodePadding(20)
@@ -75,28 +87,21 @@ export function useAlluvialBlocks(
     });
   });
 
-  function nodeId(
-    node: SankeyNode<
-      SankeyNodeAdditionalProperties,
-      SankeyLinkAdditionalProperties
-    >
-  ): number | string {
-    return node.id ?? node.label;
-  }
-
   return {
     nodes,
     links,
     graph,
-    nodeId,
     alluvialInstance,
   };
 }
 
-export function useDefaultData(alluvial, defaultAlluvial: AlluvialDataset) {
-  const data: AlluvialDataset = {
-    ...defaultAlluvial,
-    ...alluvial,
-  };
-  return ref(data);
+export function getAlluvialComputedData(alluvialData: Ref<Data<AlluvialNode>>) {
+  const dataset = alluvialData.value?.[0];
+
+  if (!dataset) return;
+
+  return ref<AlluvialDataset>({
+    ...BASE_DATA,
+    ...dataset,
+  });
 }

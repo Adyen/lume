@@ -1,6 +1,5 @@
 <template>
   <g
-    ref="chartContainer"
     class="adv-alluvial-group"
     data-j-alluvial-group
   >
@@ -10,17 +9,20 @@
       :key="`node-block_${index}`"
       class="adv-alluvial-group__node"
       :class="{
-        'adv-alluvial-group__node--out':
-          highlightedNodeIds.length &&
-          highlightedNodeIds.indexOf(nodeBlock.id) === -1,
+        'adv-alluvial-group__node--faded': isNodeOrLinkFaded(
+          nodeBlock.id,
+          highlightedNodeIds
+        ),
       }"
       data-j-alluvial-group__node-block
     >
       <rect
+        :class="`adv-alluvial-group__node-block--${
+          nodeBlock.node.color || defaultColor
+        }`"
         :transform="`translate(${nodeBlock.node.x0},${nodeBlock.node.y0})`"
         :height="nodeBlock.rect.height"
         :width="nodeBlock.rect.width"
-        :class="`${nodeBlock.rect.cssClass({ color: nodeBlock.node.color })}`"
         @mouseover="alluvialInstance.highlightedNode = nodeBlock.node"
         @mouseout="alluvialInstance.highlightedNode = null"
       />
@@ -28,12 +30,12 @@
         :id="`node-text-${nodeBlock.node.id}`"
         ref="nodeText"
         class="adv-alluvial-group__node-text"
-        :transform="`translate(${nodeBlock.textTransform.x},${nodeBlock.textTransform.y})`"
         :class="{
           'adv-alluvial-group__node-text--right': nodeBlock.node.depth === 0,
           'adv-alluvial-group__node-text--color':
             nodeBlock.node.depth === maxDepth,
         }"
+        :transform="`translate(${nodeBlock.textTransform.x},${nodeBlock.textTransform.y})`"
       >
         <tspan
           class="adv-alluvial-group__node-title"
@@ -44,7 +46,7 @@
           x="0"
           dy="1.2em"
           v-text="
-            dataWithDefaults.valueFormatter(
+            computedData.valueFormatter(
               nodeBlock.node.transitionValue || nodeBlock.node.value
             )
           "
@@ -53,14 +55,16 @@
     </g>
     <adv-alluvial-path-group
       :link-paths="alluvialInstance.linkPaths"
-      :container-width="alluvialInstance.containerSize.width"
-      :highlighted-link-ids="highlightedLinkIds"
-      data-j-alluvial-group__path
+      is-ghost
+      data-j-alluvial-group__ghost-path
+      @mouseover="alluvialInstance.highlightedLink = $event"
+      @mouseout="alluvialInstance.highlightedLink = null"
     />
     <adv-alluvial-path-group
       :link-paths="alluvialInstance.linkPaths"
-      is-ghost-path
-      data-j-alluvial-group__ghost-path
+      :container-width="alluvialInstance.containerSize.width"
+      :highlighted-link-ids="highlightedLinkIds"
+      data-j-alluvial-group__path
       @mouseover="alluvialInstance.highlightedLink = $event"
       @mouseout="alluvialInstance.highlightedLink = null"
     />
@@ -68,25 +72,30 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs, watch } from 'vue';
+import { defineComponent, ref, Ref, toRef, watch } from 'vue';
 
 import AdvAlluvialPathGroup from '@/groups/adv-alluvial-path-group';
 
-import { useBase } from '@/mixins/base';
 import { withChartProps } from '@/mixins/props';
 
 import { useAlluvialInteractions } from './mixins/adv-alluvial-interactions';
 import { useCoordinates } from './mixins/adv-alluvial-coordinates';
 import {
+  getAlluvialComputedData,
   useAlluvialBlocks,
-  useDefaultData,
 } from './mixins/adv-alluvial-building-blocks';
 
-import { singleDatasetValidator } from '@/utils/helpers';
+import {
+  getAlluvialNodeId,
+  isNodeOrLinkFaded,
+  singleDatasetValidator,
+} from '@/utils/helpers';
 
+import { AlluvialNode } from '@/types/alluvial';
+import { Data } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 
-import { BASE_DATA, NODE_LABEL_PADDING } from './constants';
+import { DEFAULT_COLOR, NODE_LABEL_PADDING } from './constants';
 
 export default defineComponent({
   components: { AdvAlluvialPathGroup },
@@ -94,16 +103,16 @@ export default defineComponent({
     ...withChartProps(singleDatasetValidator),
   },
   setup(props, context) {
-    const chartContainer = ref(null);
+    const data = toRef(props, 'data') as Ref<Data<AlluvialNode>>;
+
     const highlightedLinkIds = ref([]);
     const highlightedNodeIds = ref([]);
     const nodeText = ref(null);
 
-    const { data } = toRefs(props);
-    const { computedData } = useBase(data);
-    const dataWithDefaults = useDefaultData(computedData.value[0], BASE_DATA);
-    const { graph, nodeId, alluvialInstance } = useAlluvialBlocks(
-      dataWithDefaults,
+    const computedData = getAlluvialComputedData(data);
+
+    const { graph, alluvialInstance } = useAlluvialBlocks(
+      computedData,
       context.attrs.containerSize as ContainerSize
     );
 
@@ -112,7 +121,7 @@ export default defineComponent({
       rightMostNodeLabelWidth,
       topMostNodeLabelExtraHeight,
       bottomMostNodeLabelExtraHeight,
-    } = useCoordinates(dataWithDefaults, graph, nodeText);
+    } = useCoordinates(computedData, graph, nodeText);
 
     const {
       highlightedElements,
@@ -120,13 +129,7 @@ export default defineComponent({
       updateNodes,
       renderChart,
       maxDepth,
-    } = useAlluvialInteractions(
-      alluvialInstance,
-      dataWithDefaults,
-      chartContainer,
-      nodeId,
-      graph
-    );
+    } = useAlluvialInteractions(alluvialInstance, computedData, graph);
 
     watch(highlightedElements, function (newElements, previousElements) {
       const isEntering = newElements.nodes != null && newElements.links != null;
@@ -146,18 +149,21 @@ export default defineComponent({
         isEntering,
         values: nodes,
         updatingNodes: graph.value?.nodes?.filter((node) =>
-          nodes.has(nodeId(node))
+          nodes.has(getAlluvialNodeId(node))
         ),
       });
     });
+
     watch(graph, (sankeyElements) =>
       renderChart({ nodes: sankeyElements.nodes, links: sankeyElements.links })
     );
+
     watch(
       leftMostNodeLabelWidth,
       (width) =>
         (alluvialInstance.value.leftExtent = width + NODE_LABEL_PADDING)
     );
+
     watch(
       rightMostNodeLabelWidth,
       (width) =>
@@ -165,14 +171,17 @@ export default defineComponent({
           alluvialInstance.value.containerSize.width -
           (width + NODE_LABEL_PADDING))
     );
+
     watch(
       bottomMostNodeLabelExtraHeight,
       (height) => (alluvialInstance.value.bottomExtent = height)
     );
+
     watch(
       topMostNodeLabelExtraHeight,
       (height) => (alluvialInstance.value.topExtent = height)
     );
+
     watch(
       alluvialInstance.value.containerSize,
       (containerSize) =>
@@ -183,10 +192,11 @@ export default defineComponent({
 
     return {
       alluvialInstance,
-      chartContainer,
-      dataWithDefaults,
+      computedData,
+      defaultColor: DEFAULT_COLOR,
       highlightedLinkIds,
       highlightedNodeIds,
+      isNodeOrLinkFaded,
       maxDepth,
       nodeText,
     };
