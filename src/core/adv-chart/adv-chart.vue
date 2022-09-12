@@ -106,6 +106,7 @@
           ref="tooltipAnchor"
           :key="`anchor-${index}`"
           :r="tooltipAnchorRadius"
+          class="adv-fill-color--transparent"
         />
       </g>
     </template>

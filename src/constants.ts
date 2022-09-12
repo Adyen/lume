@@ -46,7 +46,7 @@ export const PADDING_HORIZONTAL = 0.5; // space between bars is a bar's width
 
 // Default radius for the tooltip anchor circle.
 // Adding a negligible radius for tooltip anchor, as firefox doesn't respect tooltip element positioning without the circle having actual radius.
-export const TOOLTIP_ANCHOR_RADIUS = 0.001;
+export const TOOLTIP_ANCHOR_RADIUS = 1;
 
 export const TOOLTIP_POSITIONS = [
   'auto',
