@@ -1,4 +1,3 @@
-import { mount } from '@vue/test-utils';
 import {
   data as singleSetData,
   generateData,
@@ -7,18 +6,13 @@ import {
   yScale,
 } from '../../mock-data';
 import BarChart from '@/charts/adv-bar-chart';
+import { BaseTestSuite } from '../../../reusable.test';
 
 const numberOfSets = 2;
 const numberOfBars = singleSetData[0].values.length;
 const multiSetData = generateData(numberOfSets, singleSetData[0].values.length);
 
-const barChartFactory = (propsData) => {
-  return mount(BarChart, {
-    propsData: {
-      ...propsData,
-    },
-  });
-};
+const barChartFactory = (propsData) => new BaseTestSuite(BarChart, propsData);
 
 describe('adv-bar-chart.vue', () => {
   test('mounts component and sets prop values', () => {
@@ -27,7 +21,7 @@ describe('adv-bar-chart.vue', () => {
       labels,
       xScale,
       yScale,
-    });
+    }).wrapper;
 
     expect(wrapper.find('[data-j-adv-bar-chart]')).toBeTruthy();
   });
@@ -38,7 +32,7 @@ describe('adv-bar-chart.vue', () => {
       labels,
       xScale,
       yScale,
-    });
+    }).wrapper;
 
     const el = wrapper.find('[data-j-single-bar-chart]');
     expect(el.exists()).toBeTruthy();
@@ -54,7 +48,7 @@ describe('adv-bar-chart.vue', () => {
       labels,
       xScale,
       yScale,
-    });
+    }).wrapper;
 
     const el = wrapper.find('[data-j-grouped-bar-chart]');
 
@@ -73,7 +67,7 @@ describe('adv-bar-chart.vue', () => {
       labels,
       xScale,
       yScale,
-    });
+    }).wrapper;
 
     const el = wrapper.find('[data-j-stacked-bar-chart]');
 
@@ -90,4 +84,12 @@ describe('adv-bar-chart.vue', () => {
     ).toThrowError("Bar chart needs a type when there's multiple datasets.");
     expect(spy).toHaveBeenCalled();
   });
+
+  const testSuite = barChartFactory({
+    data: singleSetData,
+    labels,
+    xScale,
+    yScale,
+  });
+  testSuite.run();
 });
