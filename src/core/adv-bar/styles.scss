@@ -9,6 +9,8 @@
 
   &--transition-width {
     transition: width $adv-transition-time-long ease,
+      opacity $adv-transition-time-long ease;
+    -moz-transition: width $adv-transition-time-long ease;
 
     &#{$b}--negative {
       transform: rotate(180deg);
@@ -16,7 +18,9 @@
   }
 
   &--transition-height {
-    transition: height $adv-transition-time-long ease;
+    transition: height $adv-transition-time-long ease,
+      opacity $adv-transition-time-long ease;
+    -moz-transition: height $adv-transition-time-long ease;
 
     &:not(#{$b}--negative) {
       transform: rotate(180deg);
