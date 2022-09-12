@@ -187,6 +187,12 @@ export function getAlluvialNodeId(
   return node.id ?? node.label;
 }
 
+/**
+ * Checks if a given node or link is being hovered.
+ * @param id The node/link ID.
+ * @param highlightedIds An array of IDs currently hovered.
+ * @returns True if node is being hovered.
+ */
 export function isNodeOrLinkFaded(id: string, highlightedIds: Array<string>) {
   return highlightedIds.length && highlightedIds.indexOf(id) === -1;
 }
