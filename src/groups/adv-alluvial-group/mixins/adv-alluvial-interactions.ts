@@ -1,12 +1,16 @@
-import { computed, ComputedRef, onBeforeUnmount, ref, Ref, set } from 'vue';
+import { computed, ComputedRef, onBeforeUnmount, Ref, set } from 'vue';
 import {
   SankeyGraph,
   SankeyLink,
   sankeyLinkHorizontal,
   SankeyNode,
 } from 'd3-sankey';
-import { interpolateRound } from '@/utils/helpers';
-import { NODE_LABEL_PADDING } from '@/groups/adv-alluvial-group/constants';
+
+import { getAlluvialNodeId, interpolateRound } from '@/utils/helpers';
+import {
+  DEFAULT_COLOR,
+  NODE_LABEL_PADDING,
+} from '@/groups/adv-alluvial-group/constants';
 
 import {
   AlluvialDataset,
@@ -17,26 +21,14 @@ import {
 } from '@/types/alluvial';
 
 const TRANSITION_DURATION = 200;
-const DEFAULT_COLOR = '03';
 
 export function useAlluvialInteractions(
   alluvialInstance: Ref<AlluvialInstance>,
   alluvialProps: Ref<AlluvialDataset>,
-  chartContainer: Ref<HTMLElement>,
-  nodeId: (
-    node:
-      | string
-      | number
-      | SankeyNode<
-          SankeyNodeAdditionalProperties,
-          SankeyLinkAdditionalProperties
-        >
-  ) => string | number,
   graph: Ref<
     SankeyGraph<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>
   >
 ) {
-  const nodeIdRef = ref(nodeId);
   let isBeingDestroyed = false;
 
   onBeforeUnmount(() => {
@@ -76,9 +68,9 @@ export function useAlluvialInteractions(
         nodes: new Map(
           links.reduce((acc, { source, target, value }) => {
             if (source === alluvialInstance.value.highlightedNode) {
-              return [...acc, [nodeIdRef.value(target), value]];
+              return [...acc, [getAlluvialNodeId(target), value]];
             }
-            return [...acc, [nodeIdRef.value(source), value]];
+            return [...acc, [getAlluvialNodeId(source), value]];
           }, [])
         ),
       };
@@ -87,7 +79,7 @@ export function useAlluvialInteractions(
       links: [alluvialInstance.value.highlightedLink],
       nodes: new Map([
         [
-          nodeIdRef.value(alluvialInstance.value.highlightedLink.target),
+          getAlluvialNodeId(alluvialInstance.value.highlightedLink.target),
           alluvialInstance.value.highlightedLink.value,
         ],
       ]),
@@ -112,8 +104,7 @@ export function useAlluvialInteractions(
     highlightedLinks: SankeyLink<
       SankeyNodeAdditionalProperties,
       SankeyLinkAdditionalProperties
-    >[] = graph.value.links,
-    isEntering = false
+    >[] = graph.value.links
   ) {
     const linkIds = highlightedLinks.map(
       (_link) =>
@@ -162,17 +153,17 @@ export function useAlluvialInteractions(
     const nodes = new Set(updatingNodes);
     const getStartNumber = (node) => {
       if (isEntering) return node.value;
-      return values.get(nodeIdRef.value(node));
+      return values.get(getAlluvialNodeId(node));
     };
     const getEndNumber = (node) => {
-      if (isEntering) return values.get(nodeIdRef.value(node));
+      if (isEntering) return values.get(getAlluvialNodeId(node));
       return node.value;
     };
     graph.value.nodes
       .filter((node) => nodes.has(node))
       .forEach((node) => {
         updateNode(
-          nodeIdRef.value(node),
+          getAlluvialNodeId(node),
           getStartNumber(node),
           getEndNumber(node)
         );
@@ -182,7 +173,7 @@ export function useAlluvialInteractions(
   function computeLinkPaths(links) {
     const pathDirection = sankeyLinkHorizontal();
     return links.map((link) => ({
-      id: `link_${nodeIdRef.value(link.source)}:${nodeIdRef.value(
+      id: `link_${getAlluvialNodeId(link.source)}:${getAlluvialNodeId(
         link.target
       )}`,
       d: pathDirection(link),
@@ -194,10 +185,8 @@ export function useAlluvialInteractions(
 
   function computeNodeBlocks(nodes): Array<NodeBlock> {
     return nodes.map((node) => ({
-      id: `node-block-${nodeIdRef.value(node)}`,
+      id: `node-block-${getAlluvialNodeId(node)}`,
       rect: {
-        cssClass: ({ color = DEFAULT_COLOR }) =>
-          `adv-alluvial-group__node-block--${color}`,
         width: node.x1 - node.x0,
         height: node.y1 - node.y0,
       },

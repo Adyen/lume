@@ -20,6 +20,8 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs } from 'vue';
 
+import { isNodeOrLinkFaded } from '@/utils/helpers';
+
 import { LinkPath } from '@/types/alluvial';
 
 export const GHOST_STROKE_WIDTH_OFFSET = 8;
@@ -50,23 +52,19 @@ export default defineComponent({
       isGhost.value ? GHOST_STROKE_WIDTH_OFFSET : 0
     );
 
-    function isFaded(id: string) {
-      return (
-        highlightedLinkIds.value.length &&
-        highlightedLinkIds.value.indexOf(id) === -1
-      );
-    }
-
     function getClasses(linkPath: LinkPath) {
       return {
         [`adv-stroke-color--${linkPath.color}`]: !isGhost.value,
         'adv-stroke-color--transparent': isGhost.value,
         'adv-alluvial-path-group__link--ghost': isGhost.value,
-        'adv-alluvial-path-group__link--faded': isFaded(linkPath.id),
+        'adv-alluvial-path-group__link--faded': isNodeOrLinkFaded(
+          linkPath.id,
+          highlightedLinkIds.value
+        ),
       };
     }
 
-    return { getClasses, ghostStrokeWidthOffset, isFaded };
+    return { getClasses, ghostStrokeWidthOffset };
   },
 });
 </script>

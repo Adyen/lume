@@ -2,13 +2,18 @@ import { Color } from '@/types/colors';
 
 type ChartType = 'bar' | 'line';
 
-export interface DatasetValueObject<T extends number| string | Array<number> = number> {
+type DatasetValueType = number | string | Array<number>;
+
+export interface DatasetValueObject<T extends DatasetValueType = number> {
   value: T;
   color?: Color;
   label?: string;
 }
 
-export type DatasetValue = number | DatasetValueObject | null;
+export type DatasetValue<T extends DatasetValueType = number> =
+  | number
+  | DatasetValueObject<T>
+  | null;
 
 export interface Dataset<T> {
   values: Array<T>;

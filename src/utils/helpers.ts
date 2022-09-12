@@ -1,6 +1,11 @@
 import { isRef, Ref } from 'vue';
 import { ScaleBand } from 'd3-scale';
+import { SankeyNode } from 'd3-sankey';
 
+import {
+  SankeyNodeAdditionalProperties,
+  SankeyLinkAdditionalProperties,
+} from '@/types/alluvial';
 import { Data, DatasetValueObject } from '@/types/dataset';
 import { Scale } from '@/mixins/scales';
 
@@ -10,11 +15,13 @@ import { Scale } from '@/mixins/scales';
  * @returns {Array<number>} An array of all numeric values.
  */
 export function flatValues(data: Data<DatasetValueObject>): Array<number> {
-  return data
-    ?.map((dataset) =>
-      dataset.values.map((datasetValue) => datasetValue?.value).flat()
-    )
-    .flat() || [];
+  return (
+    data
+      ?.map((dataset) =>
+        dataset.values.map((datasetValue) => datasetValue?.value).flat()
+      )
+      .flat() || []
+  );
 }
 
 /**
@@ -82,7 +89,10 @@ export function getScaleStep(scale: Scale) {
   return Math.max(...scale.range()) / Math.max(...scale.domain());
 }
 
-const validateGetHighestValueArguments = (data, index) => {
+const validateGetHighestValueArguments = (
+  data: Data<DatasetValueObject>,
+  index: number
+) => {
   if (!data) {
     throw new Error('Data is not a valid array');
   }
@@ -95,8 +105,8 @@ const validateGetHighestValueArguments = (data, index) => {
     if (values.length - 1 < index) {
       throw new Error('Index exceeds length of at least one of the datasets');
     }
-  })
-}
+  });
+};
 
 /**
  * Returns the highest value of all provided datasets in a given index.
@@ -129,12 +139,13 @@ export function getHighestValue(
 export function getEmptyArrayFromData(data: Data | Ref<Data>) {
   const dataArray = isRef(data) ? data.value : data;
   if (!dataArray) {
-    throw new Error('No empty array can be created from specified data value')
+    throw new Error('No empty array can be created from specified data value');
   }
 
   // Use max length in case datasets have different lengths
   const maxLength = Math.max(
-    ...dataArray.map((dataset) => dataset.values.length), 0
+    ...dataArray.map((dataset) => dataset.values.length),
+    0
   );
 
   return Array(...Array(maxLength));
@@ -158,5 +169,24 @@ export function getDomainLength(scale: Scale): number {
  * @param end {number}
  */
 export function interpolateRound(start: number, end: number) {
-  return t => Math.round(start * (1 - t) + end * t);
+  return (t: number) => Math.round(start * (1 - t) + end * t);
+}
+
+/**
+ * Gets the ID of an alluvial node.
+ * @param node An alluvial node.
+ * @returns The node ID.
+ */
+export function getAlluvialNodeId(
+  node:
+    | string
+    | number
+    | SankeyNode<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>
+): number | string {
+  if (typeof node === 'string' || typeof node === 'number') return node;
+  return node.id ?? node.label;
+}
+
+export function isNodeOrLinkFaded(id: string, highlightedIds: Array<string>) {
+  return highlightedIds.length && highlightedIds.indexOf(id) === -1;
 }
