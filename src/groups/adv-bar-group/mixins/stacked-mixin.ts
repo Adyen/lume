@@ -80,7 +80,8 @@ export function useStackedBarMixin(
   xScale: Ref<Scale>,
   yScale: Ref<Scale>,
   orientation: Ref<Orientation>,
-  hoveredIndex: Ref<number>
+  hoveredIndex: Ref<number>,
+  classList: Array<string>
 ) {
   const isHorizontal = computed(
     () => orientation.value === ORIENTATIONS.HORIZONTAL
@@ -170,7 +171,7 @@ export function useStackedBarMixin(
     const color = barColor ?? data.value[index].color;
 
     return {
-      fillClass: `adv-fill-color--${color}`,
+      classList: [`adv-fill-color--${color}`, ...classList],
       width,
       height,
       x,

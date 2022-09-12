@@ -44,7 +44,7 @@ const Template = ({ argTypes }) => ({
   },
   template: `
     <svg width="300" height="300">
-      <adv-bar v-bind="props" :fill-class="computedFillClass" />
+      <adv-bar v-bind="props" :class-list="computedFillClass" />
     </svg>
   `,
 });

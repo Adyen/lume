@@ -1,19 +1,20 @@
-import { mount } from '@vue/test-utils';
-import AdvBar from '@/core/adv-bar/adv-bar.vue';
 import { nextTick } from 'vue';
+import { mount } from '@vue/test-utils';
+
+import AdvBar from '@/core/adv-bar/adv-bar.vue';
 
 const width = 100;
 const height = 100;
-const fillClass = 'my-class';
-const transitionWidthClass = 'bar--transition-width';
-const transitionHeightClass = 'bar--transition-height';
-const negativeClass = 'bar--negative';
-const fadeClass = 'bar--faded';
+const classList = 'my-class';
+const transitionWidthClass = 'adv-bar--transition-width';
+const transitionHeightClass = 'adv-bar--transition-height';
+const negativeClass = 'adv-bar--negative';
+const fadeClass = 'adv-bar--faded';
 
 const defaultProps = {
   width,
   height,
-  fillClass,
+  classList,
 };
 
 describe('bar.vue', () => {
@@ -28,7 +29,7 @@ describe('bar.vue', () => {
     expect(el.attributes()['height']).toEqual(width.toString());
     expect(el.attributes()['x']).toEqual('0');
     expect(el.attributes()['y']).toEqual('0');
-    expect(el.classes().includes(fillClass)).toBeTruthy();
+    expect(el.classes().includes(classList)).toBeTruthy();
     expect(el.classes().includes(transitionHeightClass)).toBeFalsy();
     expect(el.classes().includes(fadeClass)).toBeFalsy();
   });
@@ -48,7 +49,7 @@ describe('bar.vue', () => {
 
   test('mounts component and sets custom isFaded and animate prop values', () => {
     const wrapper = mount(AdvBar, {
-      propsData: { ...defaultProps, isFaded: true, animate: false },
+      propsData: { ...defaultProps, isFaded: true, transition: false },
     });
 
     const el = wrapper.find('[data-j-bar]');

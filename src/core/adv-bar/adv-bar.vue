@@ -1,13 +1,13 @@
 <template>
   <rect
-    class="bar"
+    class="adv-bar"
     :class="[
-      fillClass,
+      ...computedClasses,
       {
-        'bar--negative': isNegative,
-        'bar--faded': isFaded,
-        'bar--transition-width': shouldTransitionWidth,
-        'bar--transition-height': shouldTransitionHeight,
+        'adv-bar--negative': isNegative,
+        'adv-bar--faded': isFaded,
+        'adv-bar--transition-width': shouldTransitionWidth,
+        'adv-bar--transition-height': shouldTransitionHeight,
       },
     ]"
     :style="{ transformOrigin: transformOrigin }"
@@ -36,17 +36,17 @@ export default defineComponent({
       type: Number,
       default: 0,
     },
-    height: {
-      type: Number,
-      required: true,
-    },
     width: {
       type: Number,
       required: true,
     },
-    fillClass: {
-      type: String,
+    height: {
+      type: Number,
       required: true,
+    },
+    classList: {
+      type: [String, Array] as PropType<string | Array<string>>,
+      default: '',
     },
     isFaded: {
       type: Boolean,
@@ -62,7 +62,12 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { x, y, width, height, transition } = toRefs(props);
+    const { x, y, width, height, transition, classList } = toRefs(props);
+
+    const computedClasses = computed(() => {
+      if (typeof classList.value === 'string') return [classList.value];
+      return classList.value;
+    });
 
     const shouldTransitionWidth = computed(() => transition.value === 'width');
     const shouldTransitionHeight = computed(
@@ -83,6 +88,7 @@ export default defineComponent({
         : null;
 
     return {
+      computedClasses,
       computedWidth,
       computedHeight,
       shouldTransitionWidth,
