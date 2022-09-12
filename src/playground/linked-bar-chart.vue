@@ -44,14 +44,14 @@
 <script lang="ts">
 import { computed, defineComponent, toRefs } from 'vue';
 
+import AdvAxis from '@/core/adv-axis';
 import AdvChart from '@/core/adv-chart';
+import AdvBarGroup from '@/groups/adv-bar-group';
 
+import { Scale } from '@/mixins/scales';
 import { withChartProps } from '@/mixins/props';
 
 import { Data } from '@/types/dataset';
-import AdvBarGroup from '@/groups/adv-bar-group';
-import AdvAxis from '@/core/adv-axis';
-import { Scale } from '@/mixins/scales';
 
 const linkedDataValidator = (data: Data) => data.length === 2;
 
