@@ -105,6 +105,7 @@
           v-bind="getTooltipAnchorAttributes(index)"
           ref="tooltipAnchor"
           :key="`anchor-${index}`"
+          :r="tooltipAnchorRadius"
         />
       </g>
     </template>
@@ -170,7 +171,7 @@ import {
 } from '@/mixins/negative-values';
 import { useTooltip, useTooltipAnchors } from '@/mixins/tooltip';
 
-import { ORIENTATIONS } from '@/constants';
+import { ORIENTATIONS, TOOLTIP_ANCHOR_RADIUS } from '@/constants';
 
 export default defineComponent({
   components: {
@@ -344,6 +345,7 @@ export default defineComponent({
       xAxisTitle,
       yAxisTitle,
       computedLabels,
+      tooltipAnchorRadius: TOOLTIP_ANCHOR_RADIUS,
     };
   },
 });
