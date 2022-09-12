@@ -5,16 +5,15 @@ module.exports = {
     builder: 'webpack5',
   },
   addons: [
-    '@storybook/addon-essentials',
-    '@storybook/addon-a11y',
+    {
+      name: '@storybook/addon-essentials',
+      options: { docs: false },
+    },
     {
       name: '@storybook/addon-storysource',
-      options: {
-        rule: {
-          test: /\.stories\.ts$/,
-        },
-      },
+      options: { rule: { test: /\.stories\.ts$/ } },
     },
+    '@storybook/addon-a11y',
   ],
   framework: '@storybook/vue',
   stories: [
