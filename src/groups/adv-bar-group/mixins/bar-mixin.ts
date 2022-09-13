@@ -3,7 +3,7 @@ import { ScaleBand, ScaleLinear } from 'd3-scale';
 
 import { getPaddedScale, Scale } from '@/mixins/scales';
 
-import { BarType, BAR_TYPES, Orientation, ORIENTATIONS } from '@/constants';
+import { BAR_TYPES, BarType, Orientation, ORIENTATIONS } from '@/constants';
 import { Data, DatasetValueObject } from '@/types/dataset';
 
 function typeValidator(type: string): boolean {

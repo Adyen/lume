@@ -1,4 +1,4 @@
-import { data, labels, xScale, yScale, generateData, generateLinearScale } from '../../mock-data';
+import { data, generateData, generateLinearScale, labels, xScale, yScale } from '../../mock-data';
 import GroupedBarChart from '@/charts/adv-grouped-bar-chart/adv-grouped-bar-chart.vue';
 import { Orientation } from '@/constants';
 import { BaseTestSuite } from "../../../reusable.test";

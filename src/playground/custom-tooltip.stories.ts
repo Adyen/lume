@@ -3,7 +3,7 @@ import AdvLineGroup from '@/groups/adv-line-group';
 
 import CustomTooltip from './custom-tooltip.vue';
 
-import { withSizeArgTypes, withSizeArgs } from '@/utils/storybook-helpers';
+import { withSizeArgs, withSizeArgTypes } from '@/utils/storybook-helpers';
 import { options as defaultOptions } from '@/charts/adv-line-chart/defaults';
 
 export default {

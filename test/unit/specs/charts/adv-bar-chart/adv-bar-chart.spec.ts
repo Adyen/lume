@@ -1,7 +1,7 @@
 import {
-  data as singleSetData,
   generateData,
   labels,
+  data as singleSetData,
   xScale,
   yScale,
 } from '../../mock-data';

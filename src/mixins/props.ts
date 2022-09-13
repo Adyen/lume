@@ -1,7 +1,7 @@
 import { PropType } from 'vue';
 
 import { DataValidator, withBase } from './base';
-import { withOptions, ChartOptions } from './options';
+import { ChartOptions, withOptions } from './options';
 import { withScales } from './scales';
 
 import { Orientation, ORIENTATIONS } from '@/constants';

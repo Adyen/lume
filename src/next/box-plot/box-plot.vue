@@ -57,7 +57,7 @@ import AdvTooltip from '@/core/adv-tooltip';
 import { useBase } from '@/mixins/base';
 import { useOptions, withOptions } from '@/mixins/options';
 import { useTooltip } from '@/mixins/tooltip';
-import { withData, useBoxComputations } from './mixins/box-composable';
+import { useBoxComputations, withData } from './mixins/box-composable';
 
 import { options as defaultOptions } from './defaults';
 export default defineComponent({

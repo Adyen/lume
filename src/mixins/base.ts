@@ -1,9 +1,9 @@
 import { computed, ComputedRef, PropType, reactive, Ref, set } from 'vue';
 import {
   BAR_HEIGHT,
+  NUMBER_OF_COLORS,
   Orientation,
   ORIENTATIONS,
-  NUMBER_OF_COLORS,
 } from '@/constants';
 import { getEmptyArrayFromData, isDatasetValueObject } from '@/utils/helpers';
 import { Data, DatasetValueObject } from '@/types/dataset';

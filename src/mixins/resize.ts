@@ -1,8 +1,8 @@
 import {
-  ref,
-  reactive,
-  onMounted,
   onBeforeUnmount,
+  onMounted,
+  reactive,
+  ref,
 } from 'vue';
 
 // Either the result of `getBoundingClientRect` or an empty object (initial state)
