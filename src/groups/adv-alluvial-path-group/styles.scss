@@ -1,23 +1,30 @@
 @use '~@/styles/_variables.scss' as *;
 
-.adv-alluvial-group {
-  &__path-group {
-    fill: none;
-  }
+$alluvial-link-opacity: 0.6;
+$alluvial-link-opacity-faded: 0.2;
 
-  &__path {
-    stroke-opacity: 0.6;
+.adv-alluvial-path-group {
+  fill: none;
+  mix-blend-mode: multiply;
+
+  &__link {
+    stroke-opacity: $alluvial-link-opacity;
     transition: stroke-opacity $adv-transition-time-long;
 
-    animation: stroke-reset 2s linear forwards;
+    animation: strokeReset $adv-transition-time-full linear forwards;
 
-    &--out {
-      stroke-opacity: 0.2;
+    &--faded {
+      stroke-opacity: $alluvial-link-opacity-faded;
+    }
+
+    &--ghost {
+      animation: unset;
+      transition: unset;
     }
   }
 }
 
-@keyframes stroke-reset {
+@keyframes strokeReset {
   to {
     stroke-dashoffset: 0;
   }

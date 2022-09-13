@@ -10,6 +10,7 @@ const DATASETS = {
             targets: [
               { node: 'D', value: 15 },
               { node: 'E', value: 42 },
+              { node: 'G', value: 1 },
             ],
           },
           {
@@ -37,9 +38,10 @@ const DATASETS = {
             value: 'E',
             color: '06',
           },
+          { label: 'G', value: 'G', color: '08' },
         ],
         nodePadding: 20,
-        nodeWidth: 15,
+        nodeWidth: 16,
       },
     ],
   },
@@ -112,9 +114,7 @@ const DATASETS = {
           {
             label: '3DS2 Frictionless',
             value: 8,
-            targets: [
-              { node: 7, value: 385543, color: '03' },
-            ],
+            targets: [{ node: 7, value: 385543, color: '03' }],
             color: '03',
           },
           {

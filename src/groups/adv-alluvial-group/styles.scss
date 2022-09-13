@@ -5,7 +5,7 @@
     opacity: 1;
     transition: opacity $adv-transition-time-long;
 
-    &--out {
+    &--faded {
       opacity: 0.5;
     }
   }
