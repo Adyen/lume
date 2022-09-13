@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from 'vue';
+import { computed, defineComponent, PropType } from 'vue';
 
 import { Scale } from '@/mixins/scales';
 

@@ -1,7 +1,6 @@
-import { SankeyNode, SankeyLink } from 'd3-sankey';
-
 import { Color } from '@/types/colors';
-import { Data, Dataset, DatasetValueObject } from '@/types/dataset';
+import { SankeyLink, SankeyNode } from 'd3-sankey';
+import { Dataset, DatasetValueObject } from "@/types/dataset";
 import { ContainerSize } from '@/types/size';
 
 export interface SankeyNodeAdditionalProperties {

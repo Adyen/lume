@@ -20,13 +20,13 @@ exports[`adv-alluvial-chart.vue mounts component and sets prop values 1`] = `
   <svg
     class="adv-chart-container__svg"
     data-j-chart-container__root=""
-    height="28"
+    height="0"
     width="0"
   >
     <g
       class="adv-chart-container__group"
       data-j-chart-container__group=""
-      transform="translate(24, 16)"
+      transform="translate(0, 0)"
     >
        
       <!---->
@@ -42,11 +42,13 @@ exports[`adv-alluvial-chart.vue mounts component and sets prop values 1`] = `
       >
          
         <g
-          data-j-alluvial-group__path=""
+          class="adv-alluvial-path-group"
+          data-j-alluvial-group__ghost-path=""
         />
          
         <g
-          data-j-alluvial-group__ghost-path=""
+          class="adv-alluvial-path-group"
+          data-j-alluvial-group__path=""
         />
       </g>
        

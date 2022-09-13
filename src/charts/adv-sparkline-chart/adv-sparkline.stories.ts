@@ -1,8 +1,8 @@
 import { computed } from 'vue';
 import {
+  COLOR_CLASS_MAP,
   withSizeArgs,
   withSizeArgTypes,
-  COLOR_CLASS_MAP,
 } from '@/utils/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/sparkline-data';
 
