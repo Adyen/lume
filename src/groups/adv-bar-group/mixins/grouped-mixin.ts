@@ -11,7 +11,8 @@ export function useGroupedBarMixin(
   xScale: Ref<Scale>,
   yScale: Ref<Scale>,
   orientation: Ref<Orientation>,
-  hoveredIndex: Ref<number>
+  hoveredIndex: Ref<number>,
+  classList: Array<string>
 ) {
   const isHorizontal = computed(
     () => orientation.value === ORIENTATIONS.HORIZONTAL
@@ -84,13 +85,13 @@ export function useGroupedBarMixin(
     const height = getBarHeight(value);
 
     return {
-      fillClass: `adv-fill-color--${color}`,
+      classList: [`adv-fill-color--${color}`, ...classList],
       x,
       y,
       width,
       height,
       isFaded: hoveredIndex.value !== -1 && hoveredIndex.value !== groupIndex,
-      isNegative: value < 0
+      isNegative: value < 0,
     };
   }
 

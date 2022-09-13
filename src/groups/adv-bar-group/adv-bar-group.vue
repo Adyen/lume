@@ -39,15 +39,6 @@ import { useStackedBarMixin } from './mixins/stacked-mixin';
 import { Data } from '@/types/dataset';
 import { ORIENTATIONS } from '@/constants';
 
-export interface BarConfig {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  fillClass: string;
-  isFaded?: boolean;
-}
-
 const MIXIN_MAP = {
   single: useSingleBarMixin,
   grouped: useGroupedBarMixin,
@@ -77,6 +68,10 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    classList: {
+      type: [String, Array] as PropType<string | Array<string>>,
+      default: () => [],
+    },
     ...withBarProps(true),
   },
   setup(props) {
@@ -88,6 +83,7 @@ export default defineComponent({
       type,
       xScale,
       yScale,
+      classList,
     } = toRefs(props);
 
     const { computedData } = useBase(data);
@@ -95,6 +91,11 @@ export default defineComponent({
     const { groupedData } = useBarMixin(computedData);
 
     const { barXScale, barYScale } = useBarScales(xScale, yScale, orientation);
+
+    const computedClasses = computed(() => {
+      if (typeof classList.value === 'string') return [classList.value];
+      return classList.value;
+    });
 
     const getBarAttributes = computed(() => {
       const chartType = getBarChartType(computedData, type);
@@ -104,7 +105,8 @@ export default defineComponent({
         barXScale,
         barYScale,
         orientation,
-        hoveredIndex
+        hoveredIndex,
+        computedClasses.value
       );
       return barAttributeGenerator;
     });

@@ -16,7 +16,7 @@
     <adv-bar
       v-if="overlay"
       v-bind="overlay"
-      :fill-class="
+      :class-list="
         isHovered ? 'adv-fill-color--overlay' : 'adv-fill-color--transparent'
       "
       :transition="true"

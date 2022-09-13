@@ -13,7 +13,8 @@ export function useSingleBarMixin(
   xScale: Ref<Scale>,
   yScale: Ref<Scale>,
   orientation: Ref<Orientation>,
-  hoveredIndex: Ref<number>
+  hoveredIndex: Ref<number>,
+  classList: Array<string>
 ) {
   const isHorizontal = computed(
     () => orientation.value === ORIENTATIONS.HORIZONTAL
@@ -62,7 +63,7 @@ export function useSingleBarMixin(
     const height = getBarHeight(value);
 
     return {
-      fillClass: `adv-fill-color--${color}`,
+      classList: [`adv-fill-color--${color}`, ...classList],
       x,
       y,
       width,
