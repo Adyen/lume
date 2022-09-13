@@ -1,13 +1,15 @@
-import { mount } from '@vue/test-utils';
 import AdvAlluvialChart from '@/charts/adv-alluvial-chart/adv-alluvial-chart.vue';
 import DATASETS from '@/docs/storybook-data/alluvial-data';
+import { BaseTestSuite } from '../../../reusable.test';
+
+const alluvialChartTestSuiteFactory = () => new BaseTestSuite(AdvAlluvialChart, { data: DATASETS.Basic.data });
 
 describe('adv-alluvial-chart.vue', () => {
   test('mounts component and sets prop values', async () => {
-    const wrapper = mount(AdvAlluvialChart, {
-      propsData: { data: DATASETS.Basic.data }
-    });
+    
+    const testSuite = alluvialChartTestSuiteFactory();
 
+    const wrapper = testSuite.run().wrapper;
     const el = wrapper.find('[data-j-alluvial-chart]');
     expect(el.exists()).toBeTruthy();
     expect(el.find('[data-j-alluvial-group]').exists()).toBeTruthy();
