@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, defineAsyncComponent } from 'vue';
+import { computed, defineAsyncComponent, defineComponent } from 'vue';
 
 import { singleDatasetValidator } from '@/utils/helpers';
 import { withChartProps } from '@/mixins/props';

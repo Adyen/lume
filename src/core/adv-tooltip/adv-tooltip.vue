@@ -57,8 +57,8 @@ import {
 } from 'vue';
 import {
   createPopper,
-  Instance as PopperInstance,
   Placement,
+  Instance as PopperInstance,
   PositioningStrategy,
 } from '@popperjs/core';
 

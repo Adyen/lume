@@ -3,14 +3,14 @@ import { ref } from 'vue';
 
 import {
   flatValues,
-  singleDatasetValidator,
+  getEmptyArrayFromData,
+  getHighestValue,
+  getScaleStep,
+  isBandScale,
+  isDatasetValueObject,
   isObject,
   mergeDeep,
-  isDatasetValueObject,
-  isBandScale,
-  getScaleStep,
-  getHighestValue,
-  getEmptyArrayFromData
+  singleDatasetValidator
 } from '@/utils/helpers';
 
 describe('helpers.ts', () => {
