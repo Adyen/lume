@@ -1,17 +1,16 @@
-import { mount } from '@vue/test-utils';
-import { data, labels, xScale, yScale, generateData } from '../../mock-data';
+import { data, labels, xScale, yScale } from '../../mock-data';
 import SingleBarChart from '@/charts/adv-single-bar-chart/adv-single-bar-chart.vue';
-import { testDynamicBehaviour } from "../../../reusable.test";
+import { BaseTestSuite } from "../../../reusable.test";
 
 const numberOfPositiveBars = 5;
 const numberOfNegativeBars = 2;
 const totalNumberOfBars = data[0].values.length;
 
+const singleBarChartTestSuiteFactory = (propsData) => new BaseTestSuite(SingleBarChart, propsData);
+
 describe('adv-single-bar-chart.vue', () => {
   test('mounts component and sets prop values', () => {
-    const wrapper = mount(SingleBarChart, {
-      propsData: { data, labels, xScale, yScale }
-    });
+    const wrapper = singleBarChartTestSuiteFactory({ data, labels, xScale, yScale }).wrapper;
 
     const el = wrapper.find('[data-j-single-bar-chart]');
     const props = wrapper.vm.$props;
@@ -36,9 +35,7 @@ describe('adv-single-bar-chart.vue', () => {
   });
 
   test('should display single bar chart with positive, negative and null bars', () => {
-    const wrapper = mount(SingleBarChart, {
-      propsData: { data, labels, xScale, yScale }
-    });
+    const wrapper = singleBarChartTestSuiteFactory({ data, labels, xScale, yScale }).wrapper;
 
     const el = wrapper.find('[data-j-single-bar-chart]');
 
@@ -63,21 +60,13 @@ describe('adv-single-bar-chart.vue', () => {
 
     const labels = [];
 
-    const wrapper = mount(SingleBarChart, {
-      propsData: { data, labels, xScale, yScale }
-    });
+    const wrapper = singleBarChartTestSuiteFactory({ data, labels, xScale, yScale }).wrapper;
 
     const el = wrapper.find('[data-j-single-bar-chart]');
 
     expect(el.findAll('[data-j-adv-bar]')).toHaveLength(0);
   })
 
-  testDynamicBehaviour(
-      SingleBarChart,
-      '[data-j-adv-bar]',
-      1,
-      7,
-      1,
-      5
-  );
+  const testSuite = singleBarChartTestSuiteFactory({ data: [{ values: [] }], labels, xScale, yScale });
+  testSuite.run({ selector: '[data-j-adv-bar]', multisetData: [1, 7, 1, 5] });
 });
