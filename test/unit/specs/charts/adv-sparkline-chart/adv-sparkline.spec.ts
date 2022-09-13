@@ -1,7 +1,9 @@
-import { mount } from '@vue/test-utils';
 import { data, labels, xScale, yScale } from '../../mock-data';
 import AdvSparkline from '@/charts/adv-sparkline-chart/adv-sparkline.vue';
 import { options as defaultOptions } from '@/charts/adv-sparkline-chart/defaults';
+import { BaseTestSuite } from "../../../reusable.test";
+
+const sparklineChartTestSuiteFactory = (propsData) => new BaseTestSuite(AdvSparkline, propsData);
 
 describe('adv-sparkline.vue', () => {
   /*
@@ -9,9 +11,7 @@ describe('adv-sparkline.vue', () => {
    * to trigger the computed computedYScale property. We will return to the once that is up and running.
    * */
   test.skip('mounts component and sets prop values', () => {
-    const wrapper = mount(AdvSparkline, {
-      propsData: { data, labels, options: defaultOptions, xScale },
-    });
+    const wrapper = sparklineChartTestSuiteFactory({ data, labels, options: defaultOptions, xScale }).run().wrapper;
 
     const el = wrapper.findComponent(AdvSparkline);
     const props = wrapper.props();
@@ -39,9 +39,7 @@ describe('adv-sparkline.vue', () => {
     const mutatedData = JSON.parse(JSON.stringify(data));
     mutatedData[0].areaColor = areaColor;
 
-    const wrapper = mount(AdvSparkline, {
-      propsData: { data: mutatedData, labels, xScale },
-    });
+    const wrapper = sparklineChartTestSuiteFactory({ data: mutatedData, labels, xScale }).wrapper;
 
     const el = wrapper.findComponent(AdvSparkline);
 
@@ -54,9 +52,7 @@ describe('adv-sparkline.vue', () => {
   });
 
   test('mounts component and checks areaPathDefinition', () => {
-    const wrapper = mount(AdvSparkline, {
-      propsData: { data, labels, xScale, yScale },
-    });
+    const wrapper = sparklineChartTestSuiteFactory({ data, labels, xScale, yScale }).wrapper;
 
     const areaPathDefinition = (wrapper.vm as any).areaPathDefinition;
     expect(areaPathDefinition).toBeTruthy();

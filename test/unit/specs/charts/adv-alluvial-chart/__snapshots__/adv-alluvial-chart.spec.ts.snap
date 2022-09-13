@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`adv-alluvial-chart.vue mounts component and sets prop values 1`] = `
+<div
+  class="adv-chart-container"
+  data-j-adv-chart=""
+  data-j-alluvial-chart=""
+  data-j-chart-container=""
+>
+  <!---->
+   
+  <div
+    class="adv-chart__header"
+  >
+    <!---->
+     
+    <!---->
+  </div>
+   
+  <svg
+    class="adv-chart-container__svg"
+    data-j-chart-container__root=""
+    height="28"
+    width="0"
+  >
+    <g
+      class="adv-chart-container__group"
+      data-j-chart-container__group=""
+      transform="translate(24, 16)"
+    >
+       
+      <!---->
+       
+      <!---->
+       
+      <g
+        class="adv-alluvial-group"
+        containerSize="[object Object]"
+        data-j-alluvial-group=""
+        hoveredIndex="-1"
+        transition="true"
+      >
+         
+        <g
+          data-j-alluvial-group__path=""
+        />
+         
+        <g
+          data-j-alluvial-group__ghost-path=""
+        />
+      </g>
+       
+      <!---->
+       
+      <!---->
+    </g>
+  </svg>
+    
+</div>
+`;
