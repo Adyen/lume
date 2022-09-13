@@ -39,5 +39,10 @@ module.exports = async () => ({
   globals: {
     'ts-jest': { tsconfig: '<rootDir>/tsconfig.test.json' },
   },
+  coverageThreshold: {
+    global: {
+      statements: 80,
+    },
+  },
   ...istanbulConfig,
 });
