@@ -21,7 +21,7 @@ describe('adv-bar-chart.vue', () => {
       labels,
       xScale,
       yScale,
-    }).wrapper;
+    }).run().wrapper;
 
     expect(wrapper.find('[data-j-adv-bar-chart]')).toBeTruthy();
   });
@@ -84,12 +84,4 @@ describe('adv-bar-chart.vue', () => {
     ).toThrowError("Bar chart needs a type when there's multiple datasets.");
     expect(spy).toHaveBeenCalled();
   });
-
-  const testSuite = barChartTestSuiteFactory({
-    data: singleSetData,
-    labels,
-    xScale,
-    yScale,
-  });
-  testSuite.run();
 });

@@ -17,6 +17,7 @@
     "start": "npm run storybook",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "unit-exp": "NODE_OPTIONS=\"--experimental-vm-modules\"; jest --config=test/config/jest.config.js",
+    "unit-exp:update:snapshot": "npm run unit-exp -- -u",
     "unit": "jest --config=test/config/jest.config.js"
   },
   "dependencies": {
