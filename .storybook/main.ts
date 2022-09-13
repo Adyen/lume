@@ -14,6 +14,7 @@ module.exports = {
       options: { rule: { test: /\.stories\.ts$/ } },
     },
     '@storybook/addon-a11y',
+    'storybook-addon-designs',
   ],
   framework: '@storybook/vue',
   stories: [
