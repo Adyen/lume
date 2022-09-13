@@ -68,5 +68,5 @@ describe('adv-single-bar-chart.vue', () => {
   })
 
   const testSuite = singleBarChartTestSuiteFactory({ data: [{ values: [] }], labels, xScale, yScale });
-  testSuite.run('[data-j-adv-bar]', 1, 7, 1, 5);
+  testSuite.run({ selector: '[data-j-adv-bar]', multisetData: [1, 7, 1, 5] });
 });

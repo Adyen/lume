@@ -74,5 +74,5 @@ describe('adv-grouped-bar-chart.vue', () => {
   });
   
   const testSuite = groupedBarChartTestSuiteFactory({ data: [{ values: [] }], labels, xScale, yScale });
-  testSuite.run('[data-j-adv-bar]', 3, 7, 4, 5);
+  testSuite.run({ selector: '[data-j-adv-bar]', multisetData: [3, 7, 4, 5] });
 });

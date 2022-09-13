@@ -11,15 +11,15 @@ const defaultSecondNumberOfRecords = 5;
 type ComponentInstance = VueConstructor;
 type PropsData = Record<string, unknown>;
 type WrapperInstance = Wrapper<InstanceType<typeof AdvChart>>;
+type OptionsType = {
+  selector?: string,
+  multisetData?: number[]
+}
 export class BaseTestSuite {
   private _wrapper: WrapperInstance = null;
 
-  constructor(component: ComponentInstance, propsData: PropsData) {
-    this.wrapper = mount(component, {
-      propsData: {
-        ...(propsData && propsData)
-      }
-    });
+  constructor(private readonly component: ComponentInstance, private readonly propsData: PropsData) {
+    this._wrapper = mount(this.component, this.propsData ? { propsData: this.propsData } : {});
   }
 
   public get wrapper(): WrapperInstance {
@@ -30,7 +30,7 @@ export class BaseTestSuite {
     this._wrapper = wrapper;
   }
 
-  public run(selector?: string, ...multisetData: number[]): this {
+  public run({ selector, multisetData }: OptionsType = {}): this {    
     this.snapShotTest();
     if(selector) this.multiDataSetTest(selector, ...multisetData);
     return this;

@@ -26,5 +26,5 @@ describe('adv-line-chart.vue', () => {
   });
 
   const testSuite = lineChartTestSuiteFactory({ data: [{ values: [] }], labels, xScale, yScale });
-  testSuite.run('[data-j-line]', 3, 7, 4, 5);
+  testSuite.run({ selector: '[data-j-line]', multisetData: [3, 7, 4, 5] });
 });
