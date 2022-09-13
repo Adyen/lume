@@ -6,11 +6,11 @@ const numberOfPositiveBars = 5;
 const numberOfNegativeBars = 2;
 const totalNumberOfBars = data[0].values.length;
 
-const singleBarChartFactory = (propsData) => new BaseTestSuite(SingleBarChart, propsData);
+const singleBarChartTestSuiteFactory = (propsData) => new BaseTestSuite(SingleBarChart, propsData);
 
 describe('adv-single-bar-chart.vue', () => {
   test('mounts component and sets prop values', () => {
-    const wrapper = singleBarChartFactory({ data, labels, xScale, yScale }).wrapper;
+    const wrapper = singleBarChartTestSuiteFactory({ data, labels, xScale, yScale }).wrapper;
 
     const el = wrapper.find('[data-j-single-bar-chart]');
     const props = wrapper.vm.$props;
@@ -35,7 +35,7 @@ describe('adv-single-bar-chart.vue', () => {
   });
 
   test('should display single bar chart with positive, negative and null bars', () => {
-    const wrapper = singleBarChartFactory({ data, labels, xScale, yScale }).wrapper;
+    const wrapper = singleBarChartTestSuiteFactory({ data, labels, xScale, yScale }).wrapper;
 
     const el = wrapper.find('[data-j-single-bar-chart]');
 
@@ -60,14 +60,13 @@ describe('adv-single-bar-chart.vue', () => {
 
     const labels = [];
 
-    const wrapper = singleBarChartFactory({ data, labels, xScale, yScale }).wrapper;
+    const wrapper = singleBarChartTestSuiteFactory({ data, labels, xScale, yScale }).wrapper;
 
     const el = wrapper.find('[data-j-single-bar-chart]');
 
     expect(el.findAll('[data-j-adv-bar]')).toHaveLength(0);
   })
 
-  const testSuite = singleBarChartFactory({ data: [{ values: [] }], labels, xScale, yScale });
-  testSuite.run();
-  testSuite.multiDataSetTest('[data-j-adv-bar]', 1, 7, 1, 5);
+  const testSuite = singleBarChartTestSuiteFactory({ data: [{ values: [] }], labels, xScale, yScale });
+  testSuite.run('[data-j-adv-bar]', 1, 7, 1, 5);
 });

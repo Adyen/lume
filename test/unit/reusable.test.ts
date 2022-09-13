@@ -12,33 +12,31 @@ type ComponentInstance = VueConstructor;
 type PropsData = Record<string, unknown>;
 type WrapperInstance = Wrapper<InstanceType<typeof AdvChart>>;
 export class BaseTestSuite {
-  public component: ComponentInstance = null; 
-  public propsData: PropsData = null;
-  public wrapper: WrapperInstance = null;
+  private _wrapper: WrapperInstance = null;
 
   constructor(component: ComponentInstance, propsData: PropsData) {
-    this.component = component;
-    this.propsData = propsData;
-    this.mount();
-  }
-
-  public mount() {
-    this.wrapper = mount(this.component, {
+    this.wrapper = mount(component, {
       propsData: {
-        ...(this.propsData && this.propsData)
+        ...(propsData && propsData)
       }
     });
   }
 
-  public run() {
+  public get wrapper(): WrapperInstance {
+    return this._wrapper;
+  }
+
+  public set wrapper(wrapper) {
+    this._wrapper = wrapper;
+  }
+
+  public run(selector?: string, ...multisetData: number[]): this {
     this.snapShotTest();
+    if(selector) this.multiDataSetTest(selector, ...multisetData);
+    return this;
   }
 
-  public snapShotTest() {
-    expect(this.wrapper.element).toMatchSnapshot();
-  }
-
-  public multiDataSetTest(
+  private multiDataSetTest(
     targetIdentifier,
     firstNumberOfSets = defaultFirstNumberOfSets,
     firstNumberOfRecords = defaultFirstNumberOfRecords,
@@ -59,5 +57,9 @@ export class BaseTestSuite {
       await this.wrapper.setProps({ data: dataset });
       expect(this.wrapper.findAll(targetIdentifier)).toHaveLength(expectedResult);
     });
+  }
+
+  private snapShotTest() {
+    expect(this.wrapper.element).toMatchSnapshot();
   }
 }

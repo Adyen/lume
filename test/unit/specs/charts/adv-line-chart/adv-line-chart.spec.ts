@@ -3,11 +3,11 @@ import AdvLineChart from '@/charts/adv-line-chart/adv-line-chart.vue';
 import { BaseTestSuite } from "../../../reusable.test";
 
 const numberOfLines = data[0].values.length;
-const lineChartFactory = (propsData) => new BaseTestSuite(AdvLineChart, propsData);
+const lineChartTestSuiteFactory = (propsData) => new BaseTestSuite(AdvLineChart, propsData);
 
 describe('adv-line-chart.vue', () => {
   test('mounts component and sets prop values', () => {
-    const wrapper = lineChartFactory({ data, labels, xScale, yScale }).wrapper;
+    const wrapper = lineChartTestSuiteFactory({ data, labels, xScale, yScale }).wrapper;
 
     const el = wrapper.find('[data-j-adv-line-chart]')
     expect(el.exists()).toBeTruthy();
@@ -19,13 +19,12 @@ describe('adv-line-chart.vue', () => {
     const numberOfSets = 2;
     const manipulatedData = generateData(numberOfSets, data[0].values.length);
     const linearScale = generateLinearScale(manipulatedData)
-    const wrapper = lineChartFactory({ data: manipulatedData, labels, xScale, yScale: linearScale }).wrapper;
+    const wrapper = lineChartTestSuiteFactory({ data: manipulatedData, labels, xScale, yScale: linearScale }).wrapper;
 
     const elements = wrapper.findAll('[data-j-line]');
     expect(elements).toHaveLength(numberOfSets * numberOfLines);
   });
 
-  const testSuite = lineChartFactory({ data: [{ values: [] }], labels, xScale, yScale });
-  testSuite.run();
-  testSuite.multiDataSetTest('[data-j-line]', 3, 7, 4, 5);
+  const testSuite = lineChartTestSuiteFactory({ data: [{ values: [] }], labels, xScale, yScale });
+  testSuite.run('[data-j-line]', 3, 7, 4, 5);
 });

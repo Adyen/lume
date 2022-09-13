@@ -6,11 +6,11 @@ import { BaseTestSuite } from "../../../reusable.test";
 const orientation: Orientation = 'horizontal';
 const numberOfBars = data[0].values.length;
 
-const groupedBarChartFactory = (propsData) => new BaseTestSuite(GroupedBarChart, propsData);
+const groupedBarChartTestSuiteFactory = (propsData) => new BaseTestSuite(GroupedBarChart, propsData);
 
 describe('adv-grouped-bar-chart.vue', () => {
   test('mounts component and sets prop values', () => {
-    const wrapper = groupedBarChartFactory({ data, labels, xScale, yScale }).wrapper;
+    const wrapper = groupedBarChartTestSuiteFactory({ data, labels, xScale, yScale }).wrapper;
 
     const el = wrapper.find('[data-j-grouped-bar-chart]')
     expect(el.exists()).toBeTruthy();
@@ -22,7 +22,7 @@ describe('adv-grouped-bar-chart.vue', () => {
 
   test('mounts component and sets custom orientation', () => {
     // Note that we need to flip the scales so as to feed band and linear scales correctly
-    const wrapper = groupedBarChartFactory({ data, labels, yScale: xScale, xScale: yScale, orientation }).wrapper;
+    const wrapper = groupedBarChartTestSuiteFactory({ data, labels, yScale: xScale, xScale: yScale, orientation }).wrapper;
 
     const el = wrapper.find('[data-j-bars-group]');
     expect(el.props('orientation')).toEqual('horizontal');
@@ -34,7 +34,7 @@ describe('adv-grouped-bar-chart.vue', () => {
     const manipulatedData = generateData(numberOfSets, data[0].values.length)
     const linearScale = generateLinearScale(manipulatedData)
     // Note that we need to flip the scales so as to feed band and linear scales correctly
-    const wrapper = groupedBarChartFactory({ data: manipulatedData, labels, xScale, yScale: linearScale }).wrapper;
+    const wrapper = groupedBarChartTestSuiteFactory({ data: manipulatedData, labels, xScale, yScale: linearScale }).wrapper;
 
     const el = wrapper.find('[data-j-bars-group]');
     expect(el.findAll('[data-j-adv-bar]')).toHaveLength(numberOfSets * numberOfBars);
@@ -45,7 +45,7 @@ describe('adv-grouped-bar-chart.vue', () => {
     const manipulatedData = generateData(numberOfSets, data[0].values.length)
     const linearScale = generateLinearScale(manipulatedData)
     // Note that we need to flip the scales so as to feed band and linear scales correctly
-    const wrapper = groupedBarChartFactory({ data: manipulatedData, labels, yScale: xScale, xScale: linearScale, orientation }).wrapper;
+    const wrapper = groupedBarChartTestSuiteFactory({ data: manipulatedData, labels, yScale: xScale, xScale: linearScale, orientation }).wrapper;
 
     const el = wrapper.find('[data-j-bars-group]');
     expect(el.findAll('[data-j-adv-bar]')).toHaveLength(numberOfSets * numberOfBars);
@@ -56,7 +56,7 @@ describe('adv-grouped-bar-chart.vue', () => {
     const manipulatedData = generateData(numberOfSets, data[0].values.length, 1000, false, true)
     const linearScale = generateLinearScale(manipulatedData)
     // Note that we need to flip the scales so as to feed band and linear scales correctly
-    const wrapper = groupedBarChartFactory({ data: manipulatedData, labels, xScale, yScale: linearScale }).wrapper;
+    const wrapper = groupedBarChartTestSuiteFactory({ data: manipulatedData, labels, xScale, yScale: linearScale }).wrapper;
 
     const el = wrapper.find('[data-j-bars-group]');
     expect(el.findAll('[data-j-adv-bar]')).toHaveLength(numberOfSets * numberOfBars);
@@ -67,13 +67,12 @@ describe('adv-grouped-bar-chart.vue', () => {
     const manipulatedData = generateData(numberOfSets, data[0].values.length, 1000, false, true)
     const linearScale = generateLinearScale(manipulatedData)
     // Note that we need to flip the scales so as to feed band and linear scales correctly
-    const wrapper = groupedBarChartFactory({ data: manipulatedData, labels, yScale: xScale, xScale: linearScale, orientation }).wrapper;
+    const wrapper = groupedBarChartTestSuiteFactory({ data: manipulatedData, labels, yScale: xScale, xScale: linearScale, orientation }).wrapper;
 
     const el = wrapper.find('[data-j-bars-group]');
     expect(el.findAll('[data-j-adv-bar]')).toHaveLength(numberOfSets * numberOfBars);
   });
   
-  const testSuite = groupedBarChartFactory({ data: [{ values: [] }], labels, xScale, yScale });
-  testSuite.run();
-  testSuite.multiDataSetTest('[data-j-adv-bar]', 3, 7, 4, 5);
+  const testSuite = groupedBarChartTestSuiteFactory({ data: [{ values: [] }], labels, xScale, yScale });
+  testSuite.run('[data-j-adv-bar]', 3, 7, 4, 5);
 });
