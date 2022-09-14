@@ -11,8 +11,8 @@
       },
     ]"
     :style="{ transformOrigin: transformOrigin }"
-    :x="x"
-    :y="y"
+    :x="computedX"
+    :y="computedY"
     :width="computedWidth"
     :height="computedHeight"
     data-j-bar
@@ -22,6 +22,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs } from 'vue';
 
+import { useBarSizing } from './mixins/bar-sizing';
 import { useBarTransition } from './mixins/bar-transition';
 
 type BarTransitionProperty = 'width' | 'height';
@@ -76,12 +77,25 @@ export default defineComponent({
 
     const transitionProps = useBarTransition(x, y, width, height);
 
-    const computedWidth = shouldTransitionWidth.value
-      ? transitionProps.computedWidth
-      : width;
-    const computedHeight = shouldTransitionHeight.value
-      ? transitionProps.computedHeight
-      : height;
+    const { computedX, computedY, shouldHaveMinWidth, shouldHaveMinHeight } =
+      useBarSizing(x, y, width, height);
+
+    const computedWidth = computed(() => {
+      if (shouldHaveMinWidth.value) return 1;
+
+      return (
+        shouldTransitionWidth.value ? transitionProps.computedWidth : width
+      ).value;
+    });
+
+    const computedHeight = computed(() => {
+      if (shouldHaveMinHeight.value) return 1;
+
+      return (
+        shouldTransitionHeight.value ? transitionProps.computedHeight : height
+      ).value;
+    });
+
     const transformOrigin =
       shouldTransitionWidth.value || shouldTransitionHeight.value
         ? transitionProps.transformOrigin
@@ -91,6 +105,8 @@ export default defineComponent({
       computedClasses,
       computedWidth,
       computedHeight,
+      computedX,
+      computedY,
       shouldTransitionWidth,
       shouldTransitionHeight,
       transformOrigin,

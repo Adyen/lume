@@ -2,7 +2,7 @@ const DATASETS = {
   Single: {
     data: [
       {
-        values: [30, -10, 20, 70, 50, null, 40],
+        values: [30, -10, 0.1, 70, 50, null, 40],
         color: '02',
         label: 'Hot dogs',
       },
