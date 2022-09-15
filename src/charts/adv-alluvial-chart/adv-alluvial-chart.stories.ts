@@ -51,6 +51,6 @@ Basic.args = {
 
 export const RealData = Template.bind({});
 RealData.args = {
-  ...withSizeArgs(720, 460),
+  ...withSizeArgs(920, 460),
   ...DATASETS.RealData,
 };
