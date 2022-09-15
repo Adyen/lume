@@ -10,9 +10,16 @@ import AdvSparkline from './adv-sparkline.vue';
 
 import { options as defaultOptions } from './defaults';
 
+import ReadMe from './README.md';
+
 export default {
   title: 'Charts/Sparkline chart',
   component: AdvSparkline,
+  parameters: {
+    docs: {
+      page: ReadMe,
+    },
+  },
   argTypes: {
     ...withSizeArgTypes(),
     data: {
