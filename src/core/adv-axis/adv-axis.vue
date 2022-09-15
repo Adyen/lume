@@ -90,17 +90,13 @@ export default defineComponent({
     },
     type: {
       type: String,
-      default: null,
+      default: undefined,
       validator: (value: string) => value in TYPES,
     },
     position: {
       type: String,
-      default: null,
+      default: undefined,
       validator: (value: string) => POSITIONS.includes(value),
-    },
-    title: {
-      type: String,
-      default: null,
     },
     containerSize: {
       type: Object as PropType<ContainerSize>,
@@ -135,17 +131,20 @@ export default defineComponent({
     const { showTick } = useSkip(scale, tickRefs, allOptions.value.skip);
 
     const axisTransform = computed(() => {
-      if (computedType.value === 'x')
+      if (computedType.value === 'x') {
         return `translate(0, ${containerSize.value?.height})`;
+      }
       return `translate(0, 0)`;
     });
 
     const ticks = computed(() => {
       // For band scales, return the full labels array (domain)
-      if ((scale.value as ScaleBand<string | number>).step)
+      if ((scale.value as ScaleBand<string | number>).step) {
         return scale.value.domain();
+      }
 
       const { tickCount } = allOptions.value;
+
       return d3TickGenerator(...scale.value.domain(), tickCount);
     });
 
