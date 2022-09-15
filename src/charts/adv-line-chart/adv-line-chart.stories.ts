@@ -4,9 +4,16 @@ import DATASETS from '@/docs/storybook-data/base-data';
 import AdvLineChart from './adv-line-chart.vue';
 import { options as defaultOptions } from './defaults';
 
+import ReadMe from './README.md';
+
 export default {
   title: 'Charts/Line chart',
   component: AdvLineChart,
+  parameters: {
+    docs: {
+      page: ReadMe,
+    },
+  },
   argTypes: {
     ...withSizeArgTypes(),
     data: {

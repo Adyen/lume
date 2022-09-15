@@ -15,6 +15,13 @@ module.exports = {
     },
     '@storybook/addon-a11y',
     'storybook-addon-designs',
+    {
+      name: '@storybook/addon-docs',
+      options: {
+          configureJSX: true,
+          transcludeMarkdown: true
+      }
+    }
   ],
   framework: '@storybook/vue',
   stories: [
