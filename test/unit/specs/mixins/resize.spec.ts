@@ -19,13 +19,28 @@ describe('resize.ts', () => {
 
   beforeAll(() => {
     class ResizeObserver {
-      observe() {
+      private el = null;
+      readonly decoratedCallback = null;
+
+      constructor(
+          private callback
+      ) {
+        this.decoratedCallback = () => this.callback([{ contentRect: { width: 123, height: 234 } } ])
+      }
+
+      public observe(el) {
+        this.el?.removeEventListener('resize', this.decoratedCallback);
+        this.el = el;
+        this.el.addEventListener('resize', this.decoratedCallback);
         spy('observe');
       }
-      unobserve() {
+
+      public unobserve() {
+        this.el.removeEventListener('resize', this.decoratedCallback);
         spy('unobserve');
       }
-      disconnect() {
+
+      public disconnect() {
         // Do nothing
       }
     }
@@ -67,4 +82,11 @@ describe('resize.ts', () => {
     wrapper.destroy();
     expect(spy).toHaveBeenCalledWith('unobserve');
   });
+
+  test('should call the resize observer callback when element is being resized', async () => {
+    const { mixin } = await getResizeMixin('<div ref="resizeRef" data-j-resize-root></div>');
+    expect(mixin.resizeState.dimensions).not.toEqual({ width: 123, height: 234 });
+    mixin.resizeRef.value.dispatchEvent(new Event('resize'));
+    expect(mixin.resizeState.dimensions).toEqual({ width: 123, height: 234 });
+  })
 });
