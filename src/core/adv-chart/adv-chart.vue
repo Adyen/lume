@@ -7,21 +7,24 @@
     @mouseleave="handleMouseleave"
   >
     <template #header>
-      <!-- chart title -->
-      <h1
-        v-if="title"
-        class="adv-chart-title"
-      >
-        {{ title }}
-      </h1>
-
-      <!-- segmented control / filter -->
-
       <div class="adv-chart__header">
+        <!-- chart title -->
+        <h1
+          v-if="title"
+          class="adv-chart__title adv-chart-title"
+        >
+          {{ title }}
+        </h1>
+
+        <!-- segmented control / filter -->
+        <div class="adv-chart__controls">
+          <slot name="controls" />
+        </div>
+
         <!-- y axis title -->
         <h3
           v-if="showYAxisTitle"
-          class="adv-axis-title"
+          class="adv-chart__axis-title adv-axis-title"
         >
           {{ yAxisTitle }}
         </h3>
@@ -29,6 +32,7 @@
         <!-- chart legend -->
         <adv-chart-legend
           v-if="allOptions.withLegend !== false"
+          class="adv-chart__legend"
           :data="computedData"
         />
       </div>

@@ -7,15 +7,19 @@ exports[` 1`] = `
   data-j-chart-container=""
   data-j-grouped-bar-chart=""
 >
-  <!---->
-   
   <div
     class="adv-chart__header"
   >
     <!---->
      
     <div
-      class="adv-chart-legend"
+      class="adv-chart__controls"
+    />
+     
+    <!---->
+     
+    <div
+      class="adv-chart-legend adv-chart__legend"
       data-j-chart-legend=""
     >
       <div

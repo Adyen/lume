@@ -7,11 +7,15 @@ exports[`adv-alluvial-chart.vue mounts component and sets prop values 1`] = `
   data-j-alluvial-chart=""
   data-j-chart-container=""
 >
-  <!---->
-   
   <div
     class="adv-chart__header"
   >
+    <!---->
+     
+    <div
+      class="adv-chart__controls"
+    />
+     
     <!---->
      
     <!---->
