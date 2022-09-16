@@ -45,7 +45,7 @@ describe('adv-sparkline.vue', () => {
     expect(wrapper.vm.$data).not.toHaveProperty('areaPathDefinition');
   });
 
-  test.skip('mounts component and sets custom area color', async () => {
+  test('mounts component and sets custom area color', async () => {
     const areaColor = '02';
     const mutatedData = JSON.parse(JSON.stringify(data));
     mutatedData[0].areaColor = areaColor;
@@ -53,8 +53,11 @@ describe('adv-sparkline.vue', () => {
     const wrapper = sparklineChartTestSuiteFactory({ data: mutatedData, labels, xScale }).wrapper;
 
     const el = wrapper.findComponent(AdvSparkline);
+    // We need to trigger a resize for the computed properties to fall into shape
+    el.trigger('resize');
 
-    expect(wrapper.find('[data-j-stub]').exists()).toBe(true);
+    await Vue.nextTick();
+
     const areaPath = el.find('[data-j-sparkline__area]');
 
     expect(
