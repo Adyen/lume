@@ -105,7 +105,7 @@
       <!-- Tooltip anchor -->
       <g v-if="allOptions.withTooltip !== false">
         <circle
-          v-for="(_, index) in computedData[0].values"
+          v-for="(_, index) in getEmptyArrayFromData(computedData)"
           v-bind="getTooltipAnchorAttributes(index)"
           ref="tooltipAnchor"
           :key="`anchor-${index}`"
@@ -176,6 +176,7 @@ import {
 } from '@/mixins/negative-values';
 import { useTooltip, useTooltipAnchors } from '@/mixins/tooltip';
 
+import { getEmptyArrayFromData } from '@/utils/helpers';
 import { ORIENTATIONS, TOOLTIP_ANCHOR_RADIUS } from '@/constants';
 
 export default defineComponent({
@@ -327,11 +328,13 @@ export default defineComponent({
     return {
       allOptions,
       computedData,
+      computedLabels,
       computedXAxisOptions,
       computedXScale,
       computedYAxisOptions,
       computedYScale,
       containerSize,
+      getEmptyArrayFromData: getEmptyArrayFromData,
       getTooltipAnchorAttributes,
       getTooltipItems,
       handleMouseleave,
@@ -344,13 +347,12 @@ export default defineComponent({
       showXAxisTitle,
       showYAxisTitle,
       tooltipAnchor,
+      tooltipAnchorRadius: TOOLTIP_ANCHOR_RADIUS,
       tooltipConfig,
       tooltipPosition,
       updateSize,
       xAxisTitle,
       yAxisTitle,
-      computedLabels,
-      tooltipAnchorRadius: TOOLTIP_ANCHOR_RADIUS,
     };
   },
 });
