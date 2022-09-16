@@ -15,6 +15,7 @@ type OptionsType = {
   selector?: string,
   multisetData?: number[]
 }
+
 export class BaseTestSuite {
   private _wrapper: WrapperInstance = null;
 
@@ -62,4 +63,48 @@ export class BaseTestSuite {
   private snapShotTest() {
     expect(this.wrapper.element).toMatchSnapshot();
   }
+}
+
+class ResizeObserver {
+  private el = null;
+  private static _spy = null;
+  readonly decoratedCallback = null;
+
+  constructor(
+      private callback
+  ) {
+    this.decoratedCallback = () => this.callback([{ contentRect: { width: 123, height: 234 } } ])
+  }
+
+  public static get spy() { return this._spy; }
+  public static set spy(spy) { this._spy = spy; }
+
+  public observe(el) {
+    this.el?.removeEventListener('resize', this.decoratedCallback);
+    this.el = el;
+    this.el.addEventListener('resize', this.decoratedCallback);
+    ResizeObserver._spy('observe');
+  }
+
+  public unobserve() {
+    this.el.removeEventListener('resize', this.decoratedCallback);
+    ResizeObserver._spy('unobserve');
+  }
+
+  public disconnect() {
+    // Do nothing
+  }
+}
+
+export const initiateCustomResizeObserverBeforeAll = () => {
+  // Note that we have to keep the behaviour of the class clean and compliant with the real ResizeObserver.
+  // For that reason, if we still want to register a spy for the events, we'll have to sneak it in by having it
+  // be a static property on the class itself rather than on its instance.
+  ResizeObserver.spy = jest.fn();
+
+  beforeAll(() => {
+    window.ResizeObserver = ResizeObserver;
+  });
+
+  return ResizeObserver.spy;
 }

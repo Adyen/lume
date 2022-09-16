@@ -1,5 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
 import { useResizeObserver } from '@/mixins/resize';
+import { initiateCustomResizeObserverBeforeAll } from '../../reusable.test';
 
 const getResizeMixin = (children) => {
   let mixin = null;
@@ -15,38 +16,7 @@ const getResizeMixin = (children) => {
 };
 
 describe('resize.ts', () => {
-  const spy = jest.fn();
-
-  beforeAll(() => {
-    class ResizeObserver {
-      private el = null;
-      readonly decoratedCallback = null;
-
-      constructor(
-          private callback
-      ) {
-        this.decoratedCallback = () => this.callback([{ contentRect: { width: 123, height: 234 } } ])
-      }
-
-      public observe(el) {
-        this.el?.removeEventListener('resize', this.decoratedCallback);
-        this.el = el;
-        this.el.addEventListener('resize', this.decoratedCallback);
-        spy('observe');
-      }
-
-      public unobserve() {
-        this.el.removeEventListener('resize', this.decoratedCallback);
-        spy('unobserve');
-      }
-
-      public disconnect() {
-        // Do nothing
-      }
-    }
-
-    window.ResizeObserver = ResizeObserver;
-  });
+  const spy = initiateCustomResizeObserverBeforeAll();
 
   test('should return expected object state and ref', async () => {
     const expected = {
@@ -61,6 +31,7 @@ describe('resize.ts', () => {
         y: 0,
       },
     };
+
     const { wrapper, mixin } = await getResizeMixin(
       '<div ref="resizeRef" data-j-resize-root></div>'
     );
