@@ -2,19 +2,30 @@ import { data, labels, xScale, yScale } from '../../mock-data';
 import AdvSparkline from '@/charts/adv-sparkline-chart/adv-sparkline.vue';
 import { options as defaultOptions } from '@/charts/adv-sparkline-chart/defaults';
 import { BaseTestSuite } from "../../../reusable.test";
+import { initiateCustomResizeObserverBeforeAll } from '../../../reusable.test';
+import Vue from 'vue';
 
 const sparklineChartTestSuiteFactory = (propsData) => new BaseTestSuite(AdvSparkline, propsData);
 
 describe('adv-sparkline.vue', () => {
+  const spy = initiateCustomResizeObserverBeforeAll();
+
   /*
    * NOTE: These first two tests are skipped, because we need a conainterSize update in order
    * to trigger the computed computedYScale property. We will return to the once that is up and running.
    * */
-  test.skip('mounts component and sets prop values', () => {
-    const wrapper = sparklineChartTestSuiteFactory({ data, labels, options: defaultOptions, xScale }).run().wrapper;
+  test('mounts component and sets prop values', async () => {
+    const wrapper = sparklineChartTestSuiteFactory({ data, labels, options: defaultOptions, xScale })
+        .run()
+        .wrapper;
 
     const el = wrapper.findComponent(AdvSparkline);
     const props = wrapper.props();
+
+    // We need to trigger a resize for the computed properties to fall into shape
+    el.trigger('resize');
+
+    await Vue.nextTick();
 
     expect(el.exists()).toBe(true);
 
