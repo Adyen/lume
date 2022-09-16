@@ -1,7 +1,6 @@
-import { mount, shallowMount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import AdvChart from '@/core/adv-chart/adv-chart.vue';
 import { data, labels, xScale, yScale } from '../../mock-data';
-import Vue from 'vue';
 
 const defaultProps = {
   data,

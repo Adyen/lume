@@ -15,8 +15,8 @@ const multiSetData = generateData(numberOfSets, singleSetData[0].values.length);
 const barChartTestSuiteFactory = (propsData) => new BaseTestSuite(BarChart, propsData);
 
 describe('adv-bar-chart.vue', () => {
-  test('mounts component and sets prop values', () => {
-    const wrapper = barChartTestSuiteFactory({
+  test('mounts component and sets prop values', async () => {
+    const wrapper = await barChartTestSuiteFactory({
       data: singleSetData,
       labels,
       xScale,
@@ -26,8 +26,8 @@ describe('adv-bar-chart.vue', () => {
     expect(wrapper.find('[data-j-adv-bar-chart]')).toBeTruthy();
   });
 
-  test('should display single bar chart', () => {
-    const wrapper = barChartTestSuiteFactory({
+  test('should display single bar chart', async () => {
+    const wrapper = await barChartTestSuiteFactory({
       data: singleSetData,
       labels,
       xScale,
@@ -39,10 +39,10 @@ describe('adv-bar-chart.vue', () => {
     expect(el.findAll('[data-j-adv-bar]')).toHaveLength(numberOfBars);
   });
 
-  test.skip('should display grouped bar chart', () => {
+  test.skip('should display grouped bar chart', async () => {
     const type = 'grouped';
 
-    const wrapper = barChartTestSuiteFactory({
+    const wrapper = await barChartTestSuiteFactory({
       data: multiSetData,
       type,
       labels,
@@ -58,10 +58,10 @@ describe('adv-bar-chart.vue', () => {
     );
   });
 
-  test.skip('should display stacked bar chart', () => {
+  test.skip('should display stacked bar chart', async () => {
     const type = 'stacked';
 
-    const wrapper = barChartTestSuiteFactory({
+    const wrapper = await barChartTestSuiteFactory({
       data: multiSetData,
       type,
       labels,

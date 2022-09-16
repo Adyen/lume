@@ -17,7 +17,7 @@ const defaultProps = {
   classList,
 };
 
-describe('bar.vue', () => {
+describe('adv-bar.vue', () => {
   test('mounts component and sets prop values', () => {
     const wrapper = mount(AdvBar, {
       propsData: defaultProps,
