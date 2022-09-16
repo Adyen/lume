@@ -11,10 +11,13 @@ It is used internally to build all Adv charts but it can also be used to create 
     - [Basic use](#basic-use)
   - [API](#api)
     - [Props](#props)
+    - [Chart options](#chart-options)
     - [Slot props](#slot-props)
+      - [`controls`](#controls)
       - [`axes`](#axes)
       - [`groups`](#groups)
       - [`tooltip`](#tooltip)
+      - [`tooltip-content`](#tooltip-content)
   - [Examples](#examples)
     - [Custom data group](#custom-data-group)
     - [Custom tooltip element](#custom-tooltip-element)
@@ -33,9 +36,11 @@ Adv chart serves as a base to chart building because it provides `<slot>`s for t
 
 The available slots are:
 
-- `axes` - for the chart axes
-- `groups` - for the data groups
-- `tooltip` - for the tooltip element
+- `controls` - for chart controls on the top-right of the header
+- `axes` - for chart axes
+- `groups` - for data groups
+- `tooltip` - for the tooltip element (replaces default tooltip)
+- `tooltip-content` - for the tooltip content
 
 These slots allow for full customization of how the data is being shown.
 
@@ -47,14 +52,20 @@ The simplest use for `adv-chart` is by providing `data` and `labels` props and a
 
 ```html
 <template>
-  <adv-chart :data="data" :labels="labels">
+  <adv-chart
+    :data="data"
+    :labels="labels"
+  >
     <template #groups="props">
       <adv-line-group v-bind="props" />
     </template>
   </adv-chart>
 </template>
 
-<script lang="ts" setup>
+<script
+  lang="ts"
+  setup
+>
   import { ref } from 'vue';
 
   const data = ref([
@@ -76,14 +87,34 @@ The simplest use for `adv-chart` is by providing `data` and `labels` props and a
 | Name          | Type                                            | Default      | Description                                                               |
 | ------------- | ----------------------------------------------- | ------------ | ------------------------------------------------------------------------- |
 | `data`        | `Data`                                          | Required     | The data to plot.                                                         |
-| `labels`      | `Array<string \| number>`                       | Required     | The group of labels to plot the data to.                                  |
+| `labels`      | `Array<string \| number>`                       | `undefined`  | The group of labels to plot the data to.                                  |
 | `xScale`      | `ScaleGenerator \| ScaleBand<string \| number>` | `undefined`  | A d3 scale or a scale generator function to override the default X scale. |
 | `yScale`      | `ScaleGenerator \| ScaleLinear<number, number>` | `undefined`  | A d3 scale or a scale generator function to override the default Y scale. |
 | `options`     | `Options`                                       | `undefined`  | A set of chart options.                                                   |
 | `orientation` | `'vertical' \| 'horizontal'`                    | `'vertical'` | The chart's orientation.                                                  |
 | `title`       | `String`                                        | `undefined`  | The chart title.                                                          |
 
+### Chart options
+
+Interface: `ChartOptions`
+
+| Name           | Type             | Description                                                                |
+| -------------- | ---------------- | -------------------------------------------------------------------------- |
+| margins        | `Margins`        | Space around the chart.                                                    |
+| xAxisOptions   | `AxisOptions`    | Set of options for the X axis.                                             |
+| yAxisOptions   | `AxisOptions`    | Set of options for the Y axis.                                             |
+| tooltipOptions | `TooltipOptions` | Set of options for the tooltip component.                                  |
+| startOnZero    | `boolean`        | Controls if the Y scale should start on `0`. Always `true` for Bar charts. |
+| withTooltip    | `boolean`        | Displays the chart tooltip.                                                |
+| withLegend     | `boolean`        | Displays the chart legend in the header.                                   |
+| withTransition | `boolean`        | Toggles the chart transition animations.                                   |
+| noBaseScales   | `boolean`        | Controls if `AdvChart` should generate general-purpose scales or not.      |
+
 ### Slot props
+
+#### `controls`
+
+No props.
 
 #### `axes`
 
@@ -108,8 +139,23 @@ The simplest use for `adv-chart` is by providing `data` and `labels` props and a
 
 #### `tooltip`
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name            | Type                      | Description                                    |
+| --------------- | ------------------------- | ---------------------------------------------- |
+| `opened`        | `boolean`                 | If the tooltip is displayed.                   |
+| `targetElement` | `Element`                 | The element that the tooltip will latch on to. |
+| `data`          | `Data`                    | The chart data.                                |
+| `labels`        | `Array<string \| number>` | The chart labels.                              |
+| `withTooltip`   | `boolean`                 | Displays the chart tooltip.                    |
+| `hoveredIndex`  | `number`                  | Index of the data point being hovered.         |
+| `options`       | `TooltipOptions`          | Set of options for the tooltip component.      |
+
+#### `tooltip-content`
+
+| Name           | Type                      | Description                            |
+| -------------- | ------------------------- | -------------------------------------- |
+| `data`         | `Data`                    | The chart data.                        |
+| `labels`       | `Array<string \| number>` | The chart labels.                      |
+| `hoveredIndex` | `number`                  | Index of the data point being hovered. |
 
 ## Examples
 
