@@ -68,12 +68,13 @@ export class BaseTestSuite {
 class ResizeObserver {
   private el = null;
   private static _spy = null;
+  private static _newContentRect = { width: 123, height: 234 };
   readonly decoratedCallback = null;
 
   constructor(
       private callback
   ) {
-    this.decoratedCallback = () => this.callback([{ contentRect: { width: 123, height: 234 } } ])
+    this.decoratedCallback = () => this.callback([{ contentRect: ResizeObserver._newContentRect } ])
   }
 
   public static get spy() { return this._spy; }
