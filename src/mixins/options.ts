@@ -1,6 +1,7 @@
+import { computed, isRef, PropType, Ref } from 'vue';
+
 import { Margins, TOOLTIP_POSITIONS } from '@/constants';
 import { mergeDeep } from '@/utils/helpers';
-import { computed, isRef, PropType, Ref } from 'vue';
 
 export interface AxisOptions extends Options {
   gridLines?: boolean;
@@ -25,6 +26,7 @@ export interface ChartOptions extends Options {
   yAxisOptions?: AxisOptions;
   tooltipOptions?: TooltipOptions;
   startOnZero?: boolean;
+  withTooltip?: boolean;
   withLegend?: boolean;
   withTransition?: boolean;
   noBaseScales?: boolean;
