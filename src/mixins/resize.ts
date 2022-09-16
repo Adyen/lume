@@ -1,9 +1,4 @@
-import {
-  onBeforeUnmount,
-  onMounted,
-  reactive,
-  ref,
-} from 'vue';
+import { onBeforeUnmount, onMounted, reactive, ref } from 'vue';
 
 // Either the result of `getBoundingClientRect` or an empty object (initial state)
 type Dimensions = DOMRect | Record<string, never>;
@@ -11,7 +6,7 @@ type Dimensions = DOMRect | Record<string, never>;
 export function useResizeObserver() {
   // create a new ref,
   // which needs to be attached to an element in a template
-  const resizeRef = ref();
+  const resizeRef = ref<Element>();
   const resizeState = reactive<{ dimensions: Dimensions }>({
     dimensions: {},
   });
@@ -24,8 +19,6 @@ export function useResizeObserver() {
   });
 
   onMounted(() => {
-    // set initial dimensions right before observing: Element.getBoundingClientRect()
-    resizeState.dimensions = resizeRef.value.getBoundingClientRect();
     observer.observe(resizeRef.value);
   });
 

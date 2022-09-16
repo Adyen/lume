@@ -42,11 +42,11 @@ describe('resize.ts', () => {
     expect(spy).toHaveBeenCalledWith('observe');
     expect(spy).not.toHaveBeenCalledWith('unobserve');
 
-    await window.dispatchEvent(new Event('resize'));
+    window.dispatchEvent(new Event('resize'));
   });
 
-  test('should call the unobserve method when component is being destroyed', async () => {
-    const { wrapper } = await getResizeMixin(
+  test('should call the unobserve method when component is being destroyed', () => {
+    const { wrapper } = getResizeMixin(
       '<div ref="resizeRef" data-j-resize-root></div>'
     );
 
@@ -54,10 +54,15 @@ describe('resize.ts', () => {
     expect(spy).toHaveBeenCalledWith('unobserve');
   });
 
-  test('should call the resize observer callback when element is being resized', async () => {
-    const { mixin } = await getResizeMixin('<div ref="resizeRef" data-j-resize-root></div>');
-    expect(mixin.resizeState.dimensions).not.toEqual({ width: 123, height: 234 });
+  test('should call the resize observer callback when element is being resized', () => {
+    const { mixin } = getResizeMixin(
+      '<div ref="resizeRef" data-j-resize-root></div>'
+    );
+    expect(mixin.resizeState.dimensions).not.toEqual({
+      width: 123,
+      height: 234,
+    });
     mixin.resizeRef.value.dispatchEvent(new Event('resize'));
     expect(mixin.resizeState.dimensions).toEqual({ width: 123, height: 234 });
-  })
+  });
 });

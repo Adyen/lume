@@ -40,8 +40,6 @@ exports[` 1`] = `
   <svg
     class="adv-chart-container__svg"
     data-j-chart-container__root=""
-    height="28"
-    width="0"
   >
     <g
       class="adv-chart-container__group"

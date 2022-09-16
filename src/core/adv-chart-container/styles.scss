@@ -1,8 +1,15 @@
 @use '~@/styles/variables' as *;
 
+$container-min-width: 320px;
+$container-min-height: 224px;
+
 .adv-chart-container {
   display: flex;
   flex-direction: column;
+
+  min-width: $container-min-width;
+  min-height: $container-min-height;
+
   width: 100%;
   height: 100%;
 

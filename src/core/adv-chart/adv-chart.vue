@@ -1,7 +1,6 @@
 <template>
   <adv-chart-container
     :margins="allOptions.margins"
-    :container-size="containerSize"
     data-j-adv-chart
     @resize="updateSize"
     @mouseleave="handleMouseleave"
