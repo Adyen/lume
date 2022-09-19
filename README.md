@@ -105,7 +105,7 @@ The charts we wish to include:
 
 #### V1
 
-- [ ] Alluvial chart
+- [x] Alluvial chart
 - [x] Bar chart
   - [x] Single
   - [x] Stacked
