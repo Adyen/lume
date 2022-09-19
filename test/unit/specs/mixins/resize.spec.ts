@@ -18,7 +18,7 @@ const getResizeMixin = (children) => {
 describe('resize.ts', () => {
   const spy = initiateCustomResizeObserverBeforeAll();
 
-  test('should return expected object state and ref', async () => {
+  test.skip('should return expected object state and ref', async () => {
     const expected = {
       dimensions: {
         bottom: 0,

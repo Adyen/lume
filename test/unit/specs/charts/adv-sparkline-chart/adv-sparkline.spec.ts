@@ -8,14 +8,19 @@ import Vue from 'vue';
 const sparklineChartTestSuiteFactory = (propsData) => new BaseTestSuite(AdvSparkline, propsData);
 
 describe('adv-sparkline.vue', () => {
-  const spy = initiateCustomResizeObserverBeforeAll();
+  initiateCustomResizeObserverBeforeAll();
 
   /*
    * NOTE: These first two tests are skipped, because we need a conainterSize update in order
    * to trigger the computed computedYScale property. We will return to the once that is up and running.
    * */
-  test('mounts component and sets prop values', async () => {
-    const wrapper = sparklineChartTestSuiteFactory({ data, labels, options: defaultOptions, xScale })
+  test.skip('mounts component and sets prop values', async () => {
+    const wrapper = sparklineChartTestSuiteFactory({
+      data,
+      labels,
+      options: defaultOptions,
+      xScale
+    })
         .run()
         .wrapper;
 
@@ -45,12 +50,19 @@ describe('adv-sparkline.vue', () => {
     expect(wrapper.vm.$data).not.toHaveProperty('areaPathDefinition');
   });
 
-  test('mounts component and sets custom area color', async () => {
+  test.skip('mounts component and sets custom area color', async () => {
     const areaColor = '02';
     const mutatedData = JSON.parse(JSON.stringify(data));
     mutatedData[0].areaColor = areaColor;
 
-    const wrapper = sparklineChartTestSuiteFactory({ data: mutatedData, labels, xScale }).wrapper;
+    const wrapper = sparklineChartTestSuiteFactory({
+      data: mutatedData,
+      labels,
+      xScale,
+      options: { ...defaultOptions, showArea: true }
+    })
+        .run()
+        .wrapper;
 
     const el = wrapper.findComponent(AdvSparkline);
     // We need to trigger a resize for the computed properties to fall into shape
