@@ -31,8 +31,6 @@ exports[`adv-sparkline.vue mounts component and sets prop values 1`] = `
   <svg
     class="adv-chart-container__svg"
     data-j-chart-container__root=""
-    height="0"
-    width="0"
   >
     <g
       class="adv-chart-container__group"

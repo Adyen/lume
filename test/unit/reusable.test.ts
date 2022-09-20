@@ -104,10 +104,29 @@ class ResizeObserver {
   }
 }
 
+export const setBoundingRectClientMock = () => {
+  const response = {
+    width: 1,
+    height: 1,
+    bottom: 1,
+    left: 1,
+    right: 1,
+    top: 1,
+    x: 1,
+    y: 1,
+  };
+
+  Element.prototype.getBoundingClientRect = () => ({
+    ...response,
+    toJSON: () => response
+  });
+}
+
 export const initiateCustomResizeObserverBeforeAll = (newContentRect: ContentRect = defaultContentRect) => {
   // Note that we have to keep the behaviour of the class clean and compliant with the real ResizeObserver.
   // For that reason, if we still want to register a spy for the events, we'll have to sneak it in by having it
   // be a static property on the class itself rather than on its instance.
+
   ResizeObserver.spy = jest.fn();
   ResizeObserver.newContentRect = newContentRect;
 
