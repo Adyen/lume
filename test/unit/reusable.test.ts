@@ -3,11 +3,6 @@ import { AdvChart } from "@/core";
 import { generateData } from "./specs/mock-data";
 import { VueConstructor } from "vue";
 
-const defaultFirstNumberOfSets = 3;
-const defaultFirstNumberOfRecords = 7;
-const defaultSecondNumberOfSets = 4;
-const defaultSecondNumberOfRecords = 5;
-
 type ComponentInstance = VueConstructor;
 type PropsData = Record<string, unknown>;
 type WrapperInstance = Wrapper<InstanceType<typeof AdvChart>>;
@@ -15,6 +10,16 @@ type OptionsType = {
   selector?: string,
   multisetData?: number[]
 }
+type ContentRect = {
+  width: number,
+  height: number
+}
+
+const defaultFirstNumberOfSets = 3;
+const defaultFirstNumberOfRecords = 7;
+const defaultSecondNumberOfSets = 4;
+const defaultSecondNumberOfRecords = 5;
+const defaultContentRect: ContentRect = { width: 123, height: 234 };
 
 export class BaseTestSuite {
   private _wrapper: WrapperInstance = null;
@@ -68,7 +73,7 @@ export class BaseTestSuite {
 class ResizeObserver {
   private el = null;
   private static _spy = null;
-  private static _newContentRect = { width: 123, height: 234 };
+  private static _newContentRect = null;
   readonly decoratedCallback = null;
 
   constructor(
@@ -79,6 +84,8 @@ class ResizeObserver {
 
   public static get spy() { return this._spy; }
   public static set spy(spy) { this._spy = spy; }
+  public static get newContentRect() { return this._newContentRect; }
+  public static set newContentRect(newContentRect) { this._newContentRect = newContentRect; }
 
   public observe(el) {
     this.el?.removeEventListener('resize', this.decoratedCallback);
@@ -97,11 +104,12 @@ class ResizeObserver {
   }
 }
 
-export const initiateCustomResizeObserverBeforeAll = () => {
+export const initiateCustomResizeObserverBeforeAll = (newContentRect: ContentRect = defaultContentRect) => {
   // Note that we have to keep the behaviour of the class clean and compliant with the real ResizeObserver.
   // For that reason, if we still want to register a spy for the events, we'll have to sneak it in by having it
   // be a static property on the class itself rather than on its instance.
   ResizeObserver.spy = jest.fn();
+  ResizeObserver.newContentRect = newContentRect;
 
   beforeAll(() => {
     window.ResizeObserver = ResizeObserver;
