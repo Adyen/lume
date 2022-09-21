@@ -5,14 +5,14 @@
   justify-items: end;
 
   &__item {
+    @include adv-typography-body();
+
+    color: $adv-color-neutral-60;
     display: flex;
     align-items: center;
 
     padding: 0.25rem 0.5rem;
     gap: 0.25rem;
-
-    font-family: $adv-font-family;
-    font-size: $adv-text-font-size-small;
 
     cursor: default;
   }

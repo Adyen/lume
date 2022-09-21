@@ -1,8 +1,7 @@
 @use '~@/styles/variables' as *;
 
-$axis-label-font-size: 10px;
-$axis-label-color: $adv-color-grey-30;
-$axis-label-hover-color: $adv-color-grey-70;
+$axis-label-color: $adv-color-neutral-50;
+$axis-label-hover-color: $adv-color-neutral-60;
 
 $axis-line-color: $adv-color-grey-20;
 
@@ -18,8 +17,9 @@ $axis-line-color: $adv-color-grey-20;
   }
 
   &__label {
+    @include adv-typography-caption-small();
+
     fill: $axis-label-color;
-    font-size: $axis-label-font-size;
     cursor: default;
     transition: all $adv-transition-time-short ease-in-out;
   }

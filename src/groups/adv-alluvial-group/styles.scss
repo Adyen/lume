@@ -24,7 +24,6 @@
   }
 
   &__node-text {
-    font-family: $adv-font-family;
 
     &--right {
       text-anchor: end;
@@ -32,11 +31,11 @@
   }
 
   &__node-title {
-    font-size: $adv-text-font-size-small;
+    @include adv-typography-caption();
   }
 
   &__node-value {
-    font-size: $adv-text-font-size-small;
-    font-weight: $adv-text-font-weight-semi-bold;
+    @include adv-typography-caption();
+    font-weight: $adv-font-weight-medium;
   }
 }

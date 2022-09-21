@@ -1,10 +1,9 @@
 @use '~@/styles/variables' as *;
 
 .adv-horizontal-tooltip {
-  position: fixed;
+  @include adv-typography-caption();
 
-  font-family: $adv-font-family;
-  font-size: $adv-text-font-size-small;
+  position: fixed;
 
   transform: translate($adv-spacing-8, -50%);
 

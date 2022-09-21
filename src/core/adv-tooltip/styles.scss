@@ -1,9 +1,10 @@
 @use 'sass:math';
 
-@use "~@/styles/variables" as *;
+@use '~@/styles/variables' as *;
 
 // Tooltip box -----------------------------------------------------------------
-$adv-tooltip-color: $adv-color-grey-70 !default;
+$adv-tooltip-title-color: $adv-color-neutral-100 !default;
+$adv-tooltip-item-color: $adv-color-neutral-90 !default;
 $adv-tooltip-background-color: $adv-color-white !default;
 $adv-tooltip-border-radius: $adv-border-radius-8 !default;
 $adv-tooltip-box-shadow: $adv-box-shadow !default;
@@ -20,10 +21,6 @@ $adv-tooltip-symbol-size: 10px;
   max-width: $adv-tooltip-max-width;
   padding: $adv-tooltip-content-padding;
 
-  font-family: $adv-font-family;
-  font-size: $adv-text-font-size-small;
-  color: $adv-tooltip-color;
-
   background: $adv-tooltip-background-color;
   border: $adv-border;
   border-radius: $adv-tooltip-border-radius;
@@ -36,11 +33,17 @@ $adv-tooltip-symbol-size: 10px;
   }
 
   &__title {
+    @include adv-typography-caption();
+
+    color: $adv-tooltip-title-color;
+    font-weight: $adv-font-weight-medium;
     margin-bottom: $adv-spacing-8;
-    font-weight: $adv-text-font-weight-bold;
   }
 
   &__items {
+    @include adv-typography-caption();
+
+    color: $adv-tooltip-item-color;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -64,6 +67,7 @@ $adv-tooltip-symbol-size: 10px;
   }
 
   &__value {
+    font-weight: $adv-font-weight-medium;
     margin-left: auto;
     padding-left: $adv-spacing-16;
   }
