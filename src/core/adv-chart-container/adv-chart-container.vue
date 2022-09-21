@@ -2,6 +2,9 @@
   <div
     ref="resizeRef"
     class="adv-chart-container"
+    :class="{
+      'adv-chart-container--minimum': !noMinSize,
+    }"
     data-j-chart-container
   >
     <slot name="header" />
@@ -12,6 +15,7 @@
       :class="{
         'adv-chart-container__svg--transparent': transparentBackground,
       }"
+      :height="svgHeight"
       data-j-chart-container__root
       @mouseleave="$emit('mouseleave', $event)"
     >
@@ -31,9 +35,19 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, toRefs, watchEffect } from 'vue';
+import {
+  computed,
+  ComputedRef,
+  defineComponent,
+  PropType,
+  ref,
+  toRefs,
+  watchEffect,
+} from 'vue';
 
 import { useResizeObserver } from '@/mixins/resize';
+import { Margins } from '@/constants';
+import { ContainerSize } from '@/types/size';
 
 const BASE_MARGINS = {
   left: 0,
@@ -45,24 +59,40 @@ const BASE_MARGINS = {
 export default defineComponent({
   props: {
     margins: {
-      type: Object,
+      type: Object as PropType<Margins>,
       default: () => ({}),
+    },
+    containerSize: {
+      type: Object as PropType<ContainerSize>,
+      default: () => ({ width: 0, height: 0 }),
     },
     transparentBackground: {
       type: Boolean,
       default: false,
     },
+    noMinSize: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, ctx) {
-    const { margins } = toRefs(props);
+    const { margins, containerSize } = toRefs(props);
 
     const root = ref<SVGElement>(null);
     const { resizeRef, resizeState } = useResizeObserver();
 
-    const computedMargins = computed(() => ({
+    const computedMargins: ComputedRef<Margins> = computed(() => ({
       ...BASE_MARGINS, // Default values
       ...margins.value, // Prop overrides
     }));
+
+    // Required for horizontal charts
+    const svgHeight = computed(
+      () =>
+        containerSize.value.height +
+        computedMargins.value.top +
+        computedMargins.value.bottom
+    );
 
     watchEffect(() => {
       if (!root.value) return;
@@ -77,17 +107,17 @@ export default defineComponent({
       const contentHeight =
         height - computedMargins.value.top - computedMargins.value.bottom;
 
-      const containerSize = {
+      const _containerSize = {
         width: contentWidth > 0 ? contentWidth : 0,
         height: contentHeight > 0 ? contentHeight : 0,
         outerWidth: width,
         outerHeight: height,
       };
 
-      ctx.emit('resize', containerSize);
+      ctx.emit('resize', _containerSize);
     });
 
-    return { computedMargins, resizeRef, root };
+    return { computedMargins, resizeRef, root, svgHeight };
   },
 });
 </script>

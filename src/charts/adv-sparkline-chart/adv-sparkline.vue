@@ -2,7 +2,7 @@
   <adv-chart
     chart-type="line"
     :data="computedLineData"
-    :options="allOptions"
+    :options="getSparklineOptions(allOptions)"
     :x-scale="xScaleGenerator"
   >
     <template #groups="props">
@@ -32,7 +32,7 @@ import AdvChart from '@/core/adv-chart';
 import AdvLineGroup from '@/groups/adv-line-group';
 
 import { useBase, withBase } from '@/mixins/base';
-import { useOptions, withOptions } from '@/mixins/options';
+import { Options, useOptions, withOptions } from '@/mixins/options';
 import { useLineNullValues } from '@/mixins/line-null-values';
 import { useSparklineArea } from './mixins/sparkline-area';
 import { Color } from '@/types/colors';
@@ -64,6 +64,13 @@ export default defineComponent({
       () => data.value[0].areaColor || data.value[0].color
     );
 
+    function getSparklineOptions(options: Options) {
+      return {
+        ...options,
+        noMinSize: true,
+      };
+    }
+
     function xScaleGenerator(
       data: Data,
       _labels: Array<string>,
@@ -80,6 +87,7 @@ export default defineComponent({
       areaPathDefinition,
       color,
       computedLineData,
+      getSparklineOptions,
       xScaleGenerator,
     };
   },

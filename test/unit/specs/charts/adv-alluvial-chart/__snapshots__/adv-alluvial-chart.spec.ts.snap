@@ -2,7 +2,7 @@
 
 exports[`adv-alluvial-chart.vue mounts component and sets prop values 1`] = `
 <div
-  class="adv-chart-container"
+  class="adv-chart-container adv-chart-container--minimum"
   data-j-adv-chart=""
   data-j-alluvial-chart=""
   data-j-chart-container=""
@@ -24,6 +24,7 @@ exports[`adv-alluvial-chart.vue mounts component and sets prop values 1`] = `
   <svg
     class="adv-chart-container__svg"
     data-j-chart-container__root=""
+    height="0"
   >
     <g
       class="adv-chart-container__group"

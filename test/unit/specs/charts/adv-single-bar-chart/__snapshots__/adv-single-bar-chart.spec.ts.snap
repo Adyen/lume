@@ -2,7 +2,7 @@
 
 exports[` 1`] = `
 <div
-  class="adv-chart-container"
+  class="adv-chart-container adv-chart-container--minimum"
   data-j-adv-chart=""
   data-j-chart-container=""
   data-j-single-bar-chart=""
@@ -40,6 +40,7 @@ exports[` 1`] = `
   <svg
     class="adv-chart-container__svg"
     data-j-chart-container__root=""
+    height="44"
   >
     <g
       class="adv-chart-container__group"

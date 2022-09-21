@@ -30,6 +30,7 @@ export interface ChartOptions extends Options {
   withLegend?: boolean;
   withTransition?: boolean;
   noBaseScales?: boolean;
+  noMinSize?: boolean;
 }
 
 export type Options = Record<string, unknown>;
