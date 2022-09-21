@@ -1,18 +1,18 @@
 import { data, labels, xScale, yScale } from '../../mock-data';
 import AdvSparkline from '@/charts/adv-sparkline-chart/adv-sparkline.vue';
 import { options as defaultOptions } from '@/charts/adv-sparkline-chart/defaults';
-import { BaseTestSuite, initiateCustomResizeObserverBeforeAll, setBoundingRectClientMock } from '../../../reusable.test';
+import { BaseTestSuite, useCustomBoundingRectClient, useCustomResizeObserver } from '../../../reusable.test';
 import Vue from 'vue';
 
 const sparklineChartTestSuiteFactory = (propsData) => new BaseTestSuite(AdvSparkline, propsData);
 
 describe('adv-sparkline.vue', () => {
-  initiateCustomResizeObserverBeforeAll();
+  useCustomResizeObserver();
+  useCustomBoundingRectClient();
 
   test('mounts component and sets prop values', async () => {
     // Note that we rely on the values coming back from the getBoundingRectClient() method, but we need to mock it
     // so that we get a non-zero value, passing consecutive steps. In jsdom the values coming back will always be zero
-    setBoundingRectClientMock();
 
     const wrapper = sparklineChartTestSuiteFactory({
       data,
@@ -50,7 +50,7 @@ describe('adv-sparkline.vue', () => {
     expect(wrapper.vm.$data).not.toHaveProperty('areaPathDefinition');
   });
 
-  test.skip('mounts component and sets custom area color', async () => {
+  test('mounts component and sets custom area color', async () => {
     const areaColor = '02';
     const mutatedData = JSON.parse(JSON.stringify(data));
     mutatedData[0].areaColor = areaColor;
@@ -61,8 +61,8 @@ describe('adv-sparkline.vue', () => {
       xScale,
       options: { ...defaultOptions, showArea: true }
     })
-        .run()
-        .wrapper;
+      .run()
+      .wrapper;
 
     const el = wrapper.findComponent(AdvSparkline);
     // We need to trigger a resize for the computed properties to fall into shape
@@ -77,7 +77,7 @@ describe('adv-sparkline.vue', () => {
     ).toBe(true);
   });
 
-  test.skip('mounts component and checks areaPathDefinition', () => {
+  test('mounts component and checks areaPathDefinition', () => {
     const wrapper = sparklineChartTestSuiteFactory({ data, labels, xScale, yScale }).wrapper;
 
     const areaPathDefinition = (wrapper.vm as any).areaPathDefinition;

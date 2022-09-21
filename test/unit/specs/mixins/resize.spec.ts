@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
 import { useResizeObserver } from '@/mixins/resize';
-import { initiateCustomResizeObserverBeforeAll } from '../../reusable.test';
+import { useCustomResizeObserver } from '../../reusable.test';
 import Vue from 'vue';
 
 const newDimensions = {
@@ -24,7 +24,7 @@ const getResizeMixin = (children) => {
 };
 
 describe('resize.ts', () => {
-  const spy = initiateCustomResizeObserverBeforeAll(newDimensions.dimensions);
+  const spy = useCustomResizeObserver(newDimensions.dimensions);
 
   test('should return expected object state and ref', async () => {
     const { wrapper, mixin } = await getResizeMixin(
