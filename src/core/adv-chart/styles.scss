@@ -18,6 +18,10 @@
 
   &__axis-title {
     grid-area: axis-title;
+
+    &--centered {
+      text-align: center;
+    }
   }
 
   &__legend {

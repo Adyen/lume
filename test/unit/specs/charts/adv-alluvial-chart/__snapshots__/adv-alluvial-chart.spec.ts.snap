@@ -60,6 +60,10 @@ exports[`adv-alluvial-chart.vue mounts component and sets prop values 1`] = `
       <!---->
     </g>
   </svg>
-    
+   
+  <!---->
+   
+  <!---->
+   
 </div>
 `;

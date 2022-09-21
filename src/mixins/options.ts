@@ -20,6 +20,8 @@ export interface TooltipOptions extends Options {
   showTitle?: boolean;
 }
 
+type LegendPosition = 'top' | 'bottom';
+
 export interface ChartOptions extends Options {
   margins?: Margins;
   xAxisOptions?: AxisOptions;
@@ -28,6 +30,7 @@ export interface ChartOptions extends Options {
   startOnZero?: boolean;
   withTooltip?: boolean;
   withLegend?: boolean;
+  legendPosition?: LegendPosition;
   withTransition?: boolean;
   noBaseScales?: boolean;
   noMinSize?: boolean;

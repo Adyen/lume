@@ -32,7 +32,10 @@
 
         <!-- chart legend -->
         <adv-chart-legend
-          v-if="allOptions.withLegend !== false"
+          v-if="
+            allOptions.withLegend !== false &&
+              allOptions.legendPosition !== 'bottom'
+          "
           class="adv-chart__legend"
           :data="computedData"
         />
@@ -120,10 +123,20 @@
       <!-- x axis title -->
       <h3
         v-if="showXAxisTitle"
-        class="adv-axis-title adv-axis-title--centered"
+        class="adv-chart__axis-title adv-chart__axis-title--centered adv-axis-title"
       >
         {{ xAxisTitle }}
       </h3>
+
+      <!-- bottom chart legend -->
+      <adv-chart-legend
+        v-if="
+          allOptions.withLegend !== false &&
+            allOptions.legendPosition === 'bottom'
+        "
+        class="adv-chart__legend adv-chart__legend--bottom"
+        :data="computedData"
+      />
     </template>
 
     <template #extra>

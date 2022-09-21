@@ -82,6 +82,10 @@ exports[`adv-sparkline.vue mounts component and sets prop values 1`] = `
       transform="translate(0, 0)"
     />
   </svg>
-    
+   
+  <!---->
+   
+  <!---->
+   
 </div>
 `;
