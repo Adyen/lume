@@ -1,7 +1,12 @@
 import { mount } from '@vue/test-utils';
 import AdvChartContainer from '@/core/adv-chart-container';
+import { useCustomBoundingRectClient, useCustomResizeObserver } from '../../../reusable.test';
+import Vue from 'vue';
 
 describe('chart-container.vue', () => {
+  useCustomResizeObserver();
+  useCustomBoundingRectClient();
+
   test('mounts component', () => {
     const wrapper = mount(AdvChartContainer);
 
@@ -35,13 +40,11 @@ describe('chart-container.vue', () => {
     expect(wrapper.emitted('mouseleave')).toBeTruthy();
   });
 
-  // Not sure how to or if we should test this. Test is very dependant on implementation.
-  // Also couldn't find many resources on how to test a watchEffect function...
-  test.skip('should emit "resize" on new dimensions', async () => {
+  test('should emit "resize" on new dimensions', async () => {
     const wrapper = mount(AdvChartContainer);
 
-    // TODO
-
+    wrapper.find('[data-j-chart-container]').trigger('resize');
+    await Vue.nextTick();
     expect(wrapper.emitted('resize')).toBeTruthy();
   });
 });
