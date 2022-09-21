@@ -1,3 +1,11 @@
+export enum COLORS {
+  SKYBLUE = 'skyblue',
+  ROYALBLUE = 'royalblue',
+  VIOLET = 'violet',
+  DARKTEAL = 'darkteal',
+  GOLD = 'gold',
+}
+
 export type Margins = {
   top: number;
   right: number;

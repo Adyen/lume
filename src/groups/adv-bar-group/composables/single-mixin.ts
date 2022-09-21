@@ -5,8 +5,7 @@ import { Scale } from '@/composables/scales';
 
 import { Orientation, ORIENTATIONS } from '@/constants';
 import { Data, DatasetValueObject } from '@/types/dataset';
-
-const fallbackColor = '01';
+import { DEFAULT_COLOR } from '../constants';
 
 export function useSingleBarMixin(
   data: ComputedRef<Data<DatasetValueObject<number>>>,
@@ -36,7 +35,7 @@ export function useSingleBarMixin(
     if (isHorizontal.value) {
       return value < 0
         ? xScale.value(0) - xScale.value(value)
-        : xScale.value(value) - xScale.value(0)
+        : xScale.value(value) - xScale.value(0);
     }
 
     return (xScale.value as ScaleBand<number | string>).bandwidth();
@@ -47,8 +46,9 @@ export function useSingleBarMixin(
       return (yScale.value as ScaleBand<number | string>).bandwidth();
     }
 
-    return value < 0 ?
-      yScale.value(value) - yScale.value(0) : yScale.value(0) - yScale.value(value);
+    return value < 0
+      ? yScale.value(value) - yScale.value(0)
+      : yScale.value(0) - yScale.value(value);
   }
 
   function barAttributeGenerator(
@@ -57,7 +57,7 @@ export function useSingleBarMixin(
     groupIndex: number
   ) {
     const { value, color: barColor } = barValue;
-    const color = barColor ?? data.value[index].color ?? fallbackColor;
+    const color = barColor ?? data.value[index].color ?? DEFAULT_COLOR;
     const { x, y } = getBarTransform(value, groupIndex);
     const width = getBarWidth(value);
     const height = getBarHeight(value);
@@ -69,7 +69,7 @@ export function useSingleBarMixin(
       width,
       height,
       isFaded: hoveredIndex.value !== -1 && hoveredIndex.value !== groupIndex,
-      isNegative: value < 0
+      isNegative: value < 0,
     };
   }
 

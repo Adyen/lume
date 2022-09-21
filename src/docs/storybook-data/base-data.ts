@@ -3,7 +3,7 @@ const DATASETS = {
     data: [
       {
         values: [30, -10, 0.1, 70, 50, null, 40],
-        color: '02',
+        // color: '02',
         label: 'Hot dogs',
       },
     ],
@@ -21,17 +21,17 @@ const DATASETS = {
     data: [
       {
         label: 'Toyota',
-        color: '01',
+        // color: '01',
         values: [10, 30, 25, null, 50, 40],
       },
       {
         label: 'Honda',
-        color: '02',
+        // color: '02',
         values: [15, 40, 20, -10, 40, 30],
       },
       {
         label: 'Nissan',
-        color: '03',
+        // color: '03',
         values: [8, 20, 10, 45, 50, 55],
       },
     ],

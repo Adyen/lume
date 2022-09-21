@@ -35,14 +35,14 @@ import { useBase, withBase } from '@/composables/base';
 import { Options, useOptions, withOptions } from '@/composables/options';
 import { useLineNullValues } from '@/composables/line-null-values';
 import { useSparklineArea } from './composables/sparkline-area';
-import { Color } from '@/types/colors';
 
+import { COLORS } from '@/constants';
 import { Data } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 
 import { options as defaultOptions } from './defaults';
 
-const defaultColor: Color = '01';
+const DEFAULT_COLOR = COLORS.SKYBLUE;
 
 export default defineComponent({
   components: { AdvChart, AdvLineGroup },
@@ -58,7 +58,7 @@ export default defineComponent({
     const { computedLineData } = useLineNullValues(internalData);
     const { areaPathDefinition } = useSparklineArea(computedLineData);
 
-    const color = computed(() => data.value[0].color || defaultColor);
+    const color = computed(() => data.value[0].color || DEFAULT_COLOR);
 
     const areaColor = computed(
       () => data.value[0].areaColor || data.value[0].color

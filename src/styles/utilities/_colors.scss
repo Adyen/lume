@@ -1,7 +1,15 @@
+@use 'sass:color';
 @use '../variables' as *;
 
 .adv-background-color {
-  @each $color, $map in $chart-colors {
+  @each $name, $map in $adv-colors {
+    &--#{$name} {
+      background-color: nth($map, 1);
+    }
+  }
+
+  // To remove
+  @each $color, $map in $adv-legacy-colors {
     &--#{$color} {
       background-color: nth($map, 1);
     }
@@ -9,7 +17,14 @@
 }
 
 .adv-stroke-color {
-  @each $color, $map in $chart-colors {
+  @each $name, $map in $adv-colors {
+    &--#{$name} {
+      stroke: nth($map, 1);
+    }
+  }
+
+  // To remove
+  @each $color, $map in $adv-legacy-colors {
     &--#{$color} {
       stroke: nth($map, 1);
     }
@@ -22,9 +37,26 @@
 }
 
 .adv-fill-color {
-  @each $color, $map in $chart-colors {
+  $b: &;
+
+  @each $name, $map in $adv-colors {
+    &--#{$name} {
+      fill: nth($map, 1);
+
+      &#{$b}--faded {
+        fill: nth($map, 2);
+      }
+    }
+  }
+
+  // To remove
+  @each $color, $map in $adv-legacy-colors {
     &--#{$color} {
       fill: nth($map, 1);
+
+      &#{$b}--faded {
+        fill: color.change(nth($map, 1), $alpha: 0.5);
+      }
     }
   }
 

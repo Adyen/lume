@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use '~@/styles/variables' as *;
 
 $line-stroke-width: 2px;
@@ -9,10 +10,16 @@ $ghost-line-stroke-width: 8px;
     fill: $adv-color-grey-20;
     transition: all $adv-transition-time-long ease;
 
-    @each $color, $map in $chart-colors {
-      &--color-#{$color} {
-        fill: nth($map, 3);
-        opacity: 0.5;
+    @each $name, $map in $adv-colors {
+      &--color-#{$name} {
+        fill: nth($map, 2);
+      }
+    }
+
+    // To remove
+    @each $name, $map in $adv-legacy-colors {
+      &--color-#{$name} {
+        fill: color.change(nth($map, 1), $alpha: 0.5);
       }
     }
   }

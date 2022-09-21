@@ -4,8 +4,8 @@
     :class="[
       ...computedClasses,
       {
+        'adv-fill-color--faded': isFaded,
         'adv-bar--negative': isNegative,
-        'adv-bar--faded': isFaded,
         'adv-bar--transition-width': shouldTransitionWidth,
         'adv-bar--transition-height': shouldTransitionHeight,
       },

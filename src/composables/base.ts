@@ -1,10 +1,12 @@
 import Vue, { computed, ComputedRef, PropType, reactive, Ref } from 'vue';
+
 import {
   BAR_HEIGHT,
-  NUMBER_OF_COLORS,
+  COLORS,
   Orientation,
   ORIENTATIONS,
 } from '@/constants';
+
 import { getEmptyArrayFromData, isDatasetValueObject } from '@/utils/helpers';
 import {
   Data,
@@ -51,7 +53,7 @@ export function useBase(
   const internalData: ComputedRef<InternalData> = computed(() => {
     return data.value?.map((dataset, index) => {
       const values = computeValues(dataset.values);
-      const color = dataset.color || (`0${1 + (index % NUMBER_OF_COLORS)}` as Color);
+      const color = dataset.color || Object.values(COLORS)[index];
       const label = dataset.label;
 
       return { values, color, label, __isInternal: true };

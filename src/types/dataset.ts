@@ -1,4 +1,4 @@
-import { Color } from '@/types/colors';
+import { COLORS } from '@/constants';
 
 type ChartType = 'bar' | 'line';
 
@@ -6,7 +6,7 @@ type DatasetValueType = number | string | Array<number>;
 
 export interface DatasetValueObject<T extends DatasetValueType = number> {
   value: T;
-  color?: Color;
+  color?: COLORS;
   label?: string;
 }
 
@@ -17,9 +17,9 @@ export type DatasetValue<T extends DatasetValueType = number> =
 
 export interface Dataset<T> {
   values: Array<T>;
-  color?: Color;
+  color?: COLORS;
   label?: string;
-  areaColor?: Color;
+  areaColor?: COLORS;
   legend?: string;
   type?: ChartType;
   isDashed?: (index: number) => boolean; // for line datasets
