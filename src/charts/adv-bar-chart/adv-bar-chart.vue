@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineAsyncComponent, defineComponent } from 'vue';
+import { computed, defineAsyncComponent, defineComponent, PropType } from 'vue';
 
 import { singleDatasetValidator } from '@/utils/helpers';
 import { withChartProps } from '@/composables/props';
@@ -36,8 +36,10 @@ export default defineComponent({
   props: {
     ...withChartProps(),
     type: {
-      type: String as () => ChartType,
+      type: String as PropType<ChartType>,
       default: null,
+      validator: (type: string) =>
+        ['grouped', 'stacked'].includes(type) || type == null,
     },
   },
   setup(props) {
