@@ -1,15 +1,17 @@
 <template>
-  <adv-horizontal-tooltip v-bind="$props">
-    <template #content="{ data: slotData, hoveredIndex: slotHoveredIndex }">
-      {{ getContent(slotHoveredIndex, slotData) }}
-    </template>
-  </adv-horizontal-tooltip>
+  <div
+    v-show="opened"
+    class="custom-tooltip"
+    :style="{ top: position.y + 'px', left: position.x + 'px' }"
+  >
+    {{ getContent(hoveredIndex) }}
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType, ref, toRefs, watch } from 'vue';
 
-import AdvHorizontalTooltip from '@/core/adv-horizontal-tooltip';
+import { useBase } from '@/composables/base';
 
 import { Data } from '@/types/dataset';
 
@@ -19,9 +21,7 @@ const EMOJI_MAP = {
 };
 
 export default defineComponent({
-  components: {
-    AdvHorizontalTooltip,
-  },
+  components: {},
   props: {
     data: {
       type: Array as PropType<Data>,
@@ -40,15 +40,37 @@ export default defineComponent({
       default: -1,
     },
   },
-  setup() {
-    function getContent(index: number, data) {
-      const prev = index > 0 ? data[0].values[index - 1]?.value : -1;
-      const current = data[0].values[index]?.value;
+  setup(props) {
+    const { data, targetElement } = toRefs(props);
+
+    const { computedData } = useBase(data);
+
+    const position = ref({ x: 0, y: 0 });
+
+    function getContent(index: number) {
+      const prev =
+        index > 0 ? computedData.value[0].values[index - 1]?.value : -1;
+      const current = computedData.value[0].values[index]?.value;
+
       const emoji = EMOJI_MAP[prev > current ? 'negative' : 'positive'];
       return `${emoji} goin' ${prev > current ? 'down' : 'up'}`;
     }
 
-    return { getContent };
+    watch(targetElement, (el) => {
+      if (!el) return;
+      position.value = el.getBoundingClientRect();
+    });
+
+    return { getContent, position };
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.custom-tooltip {
+  position: fixed;
+
+  pointer-events: none;
+  transition: all 0.2s ease-out;
+}
+</style>
