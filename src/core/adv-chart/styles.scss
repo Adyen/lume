@@ -27,5 +27,10 @@
   &__legend {
     grid-area: legend;
     margin-left: auto;
+
+    &--bottom {
+      margin-left: unset;
+      margin-right: auto;
+    }
   }
 }
