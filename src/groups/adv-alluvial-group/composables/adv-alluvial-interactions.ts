@@ -1,4 +1,4 @@
-import { computed, ComputedRef, onBeforeUnmount, Ref, set } from 'vue';
+import Vue, { computed, ComputedRef, onBeforeUnmount, Ref } from 'vue';
 import {
   SankeyGraph,
   SankeyLink,
@@ -140,7 +140,7 @@ export function useAlluvialInteractions(
         iteration = 1;
       }
 
-      set(nodeBlock.node, 'transitionValue', interpolator(iteration));
+      Vue.set(nodeBlock.node, 'transitionValue', interpolator(iteration));
 
       if (iteration < 1) {
         requestAnimationFrame(performNextUpdate);

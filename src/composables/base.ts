@@ -1,4 +1,4 @@
-import { computed, ComputedRef, PropType, reactive, Ref, set } from 'vue';
+import Vue, { computed, ComputedRef, PropType, reactive, Ref } from 'vue';
 import {
   BAR_HEIGHT,
   NUMBER_OF_COLORS,
@@ -60,8 +60,8 @@ export function useBase(
         ? getEmptyArrayFromData(data).length * (BAR_HEIGHT * 2)
         : size.height;
 
-    set(containerSize, 'width', size.width);
-    set(containerSize, 'height', height);
+    Vue.set(containerSize, 'width', size.width);
+    Vue.set(containerSize, 'height', height);
   }
 
   return {

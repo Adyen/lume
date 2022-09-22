@@ -1,4 +1,4 @@
-import { computed, reactive, Ref, set } from 'vue';
+import Vue, { computed, reactive, Ref } from 'vue';
 
 import { getXByIndex, Scale } from './scales';
 
@@ -82,13 +82,13 @@ export function useTooltip() {
   });
 
   const showTooltip = (targetElement: Element | null) => {
-    set(tooltipConfig, 'opened', true);
-    set(tooltipConfig, 'targetElement', targetElement);
+    Vue.set(tooltipConfig, 'opened', true);
+    Vue.set(tooltipConfig, 'targetElement', targetElement);
   };
 
   const hideTooltip = () => {
-    set(tooltipConfig, 'opened', false);
-    set(tooltipConfig, 'targetElement', null);
+    Vue.set(tooltipConfig, 'opened', false);
+    Vue.set(tooltipConfig, 'targetElement', null);
   };
 
   return { tooltipConfig, showTooltip, hideTooltip };
