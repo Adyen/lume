@@ -45,14 +45,13 @@
 </template>
 
 <script lang="ts">
-import {
+import Vue, {
   computed,
   defineComponent,
   onBeforeMount,
   PropType,
   reactive,
   ref,
-  set,
   toRefs,
   watch,
 } from 'vue';
@@ -189,7 +188,7 @@ export default defineComponent({
       // Push all mixin functions into the `mixins` reactive object
       Object.entries(mixin(scale, containerSize, allOptions) || []).forEach(
         ([fnName, fn]) => {
-          set(mixins, fnName, fn);
+          Vue.set(mixins, fnName, fn);
         }
       );
 
