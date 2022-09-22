@@ -20,6 +20,11 @@ enum TYPES {
   grouped = 'grouped',
   stacked = 'stacked',
 }
+const componentMap = {
+  single: 'adv-single-bar-chart',
+  grouped: 'adv-grouped-bar-chart',
+  stacked: 'adv-stacked-bar-chart',
+};
 
 export default defineComponent({
   components: {
@@ -56,14 +61,15 @@ export default defineComponent({
       if (!props.data) return;
 
       // Single bar chart
-      if (singleDatasetValidator(props.data)) return 'adv-single-bar-chart';
+      if (singleDatasetValidator(props.data)) return componentMap.single;
 
-      if (!props.type)
+      if (!props.type) {
         throw new Error(
           "Bar chart needs a type when there's multiple datasets."
         );
+      }
 
-      return `adv-${props.type}-bar-chart`;
+      return componentMap[props.type];
     });
 
     return { component, getBarChartOptions };
