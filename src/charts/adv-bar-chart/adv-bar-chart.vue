@@ -15,7 +15,7 @@ import { withChartProps } from '@/mixins/props';
 import { Options } from '@/mixins/options';
 
 enum TYPES {
-  grouped = '      ',
+  grouped = 'grouped',
   stacked = 'stacked',
 }
 
