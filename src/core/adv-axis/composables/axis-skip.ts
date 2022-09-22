@@ -1,6 +1,6 @@
 import { computed, ref, Ref, watch } from 'vue';
 
-import { Scale } from '@/mixins/scales';
+import { Scale } from '@/composables/scales';
 
 const SAFETY_MARGIN = 0.15; // 15% of the average width
 

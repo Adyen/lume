@@ -12,7 +12,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
 
-import { Scale } from '@/mixins/scales';
+import { Scale } from '@/composables/scales';
 
 import { getScaleStep, isBandScale } from '@/utils/helpers';
 

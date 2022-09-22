@@ -18,7 +18,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, toRefs, watch } from 'vue';
 
-import { useBase } from '@/mixins/base';
+import { useBase } from '@/composables/base';
 
 import { NO_DATA } from '@/constants';
 import { Data } from '@/types/dataset';

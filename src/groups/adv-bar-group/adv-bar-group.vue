@@ -23,18 +23,18 @@ import { computed, defineComponent, PropType, toRefs } from 'vue';
 
 import AdvBar from '@/core/adv-bar';
 
-import { useBase } from '@/mixins/base';
-import { Scale } from '@/mixins/scales';
+import { useBase } from '@/composables/base';
+import { Scale } from '@/composables/scales';
 import {
   getBarChartType,
   useBarMixin,
   useBarScales,
   withBarProps,
-} from './mixins/bar-mixin';
+} from './composables/bar-mixin';
 
-import { useSingleBarMixin } from './mixins/single-mixin';
-import { useGroupedBarMixin } from './mixins/grouped-mixin';
-import { useStackedBarMixin } from './mixins/stacked-mixin';
+import { useSingleBarMixin } from './composables/single-mixin';
+import { useGroupedBarMixin } from './composables/grouped-mixin';
+import { useStackedBarMixin } from './composables/stacked-mixin';
 
 import { Data } from '@/types/dataset';
 import { ORIENTATIONS } from '@/constants';

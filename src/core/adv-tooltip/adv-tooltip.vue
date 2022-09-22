@@ -62,7 +62,7 @@ import {
   PositioningStrategy,
 } from '@popperjs/core';
 
-import { TooltipOptions, useOptions, withOptions } from '@/mixins/options';
+import { TooltipOptions, useOptions, withOptions } from '@/composables/options';
 
 import { TOOLTIP_POSITIONS } from '@/constants';
 

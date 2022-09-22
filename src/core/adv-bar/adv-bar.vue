@@ -22,8 +22,8 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs } from 'vue';
 
-import { useBarSizing } from './mixins/bar-sizing';
-import { useBarTransition } from './mixins/bar-transition';
+import { useBarSizing } from './composables/bar-sizing';
+import { useBarTransition } from './composables/bar-transition';
 
 type BarTransitionProperty = 'width' | 'height';
 

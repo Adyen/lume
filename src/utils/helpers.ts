@@ -7,7 +7,7 @@ import {
   SankeyLinkAdditionalProperties,
 } from '@/types/alluvial';
 import { Data, DatasetValueObject } from '@/types/dataset';
-import { Scale } from '@/mixins/scales';
+import { Scale } from '@/composables/scales';
 
 /**
  * Returns an array with all numeric values present in a chart's `data` (array of datasets).

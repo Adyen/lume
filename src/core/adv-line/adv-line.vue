@@ -20,7 +20,7 @@ import { computed, defineComponent, PropType } from 'vue';
 import { ScaleBand, ScaleLinear } from 'd3-scale';
 import { line } from 'd3-shape';
 
-import { Scale } from '@/mixins/scales';
+import { Scale } from '@/composables/scales';
 
 import { getDomainLength, getScaleStep, isBandScale } from '@/utils/helpers';
 

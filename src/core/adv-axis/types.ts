@@ -1,7 +1,7 @@
 import type { Ref } from 'vue';
 
-import { AxisOptions } from '@/mixins/options';
-import { Scale } from '@/mixins/scales';
+import { AxisOptions } from '@/composables/options';
+import { Scale } from '@/composables/scales';
 import { ContainerSize } from '@/types/size';
 
 export type AxisMixinFunction = (

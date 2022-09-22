@@ -45,7 +45,7 @@ import {
   watchEffect,
 } from 'vue';
 
-import { useResizeObserver } from '@/mixins/resize';
+import { useResizeObserver } from '@/composables/resize';
 import { Margins } from '@/constants';
 import { ContainerSize } from '@/types/size';
 

@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { useLineNullValues } from '@/mixins/line-null-values';
+import { useLineNullValues } from '@/composables/line-null-values';
 import { computed } from 'vue';
 import { data } from '../mock-data';
 

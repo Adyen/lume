@@ -1,7 +1,7 @@
 import { Ref } from 'vue';
 import { ScaleLinear } from 'd3-scale';
 
-import { AxisOptions } from '@/mixins/options';
+import { AxisOptions } from '@/composables/options';
 import { AxisMixin } from '../types';
 
 const useLinearScaleAxis: AxisMixin = function (

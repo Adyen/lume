@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils';
-import { getPaddedScale, getXByIndex, isScale, useBaseScales, withScales } from '@/mixins/scales';
+import { getPaddedScale, getXByIndex, isScale, useBaseScales, withScales } from '@/composables/scales';
 import { Orientation } from '@/constants';
 import { containerSize, data, labels } from '../mock-data';
 import { ref } from 'vue';
-import { ChartOptions } from '@/mixins/options';
+import { ChartOptions } from '@/composables/options';
 import {
   PADDING_HORIZONTAL,
   PADDING_VERTICAL,

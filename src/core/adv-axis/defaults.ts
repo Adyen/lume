@@ -1,4 +1,4 @@
-import { AxisOptions } from '@/mixins/options';
+import { AxisOptions } from '@/composables/options';
 
 const options: AxisOptions = {
   /** Displays a line for each tick. */

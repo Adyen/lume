@@ -48,8 +48,8 @@ import AdvAxis from '@/core/adv-axis';
 import AdvChart from '@/core/adv-chart';
 import AdvBarGroup from '@/groups/adv-bar-group';
 
-import { Scale } from '@/mixins/scales';
-import { withChartProps } from '@/mixins/props';
+import { Scale } from '@/composables/scales';
+import { withChartProps } from '@/composables/props';
 
 import { Data } from '@/types/dataset';
 

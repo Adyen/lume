@@ -180,15 +180,15 @@ import AdvChartLegend from '@/core/adv-chart-legend';
 import AdvOverlayGroup from '@/groups/adv-overlay-group';
 import AdvTooltip from '@/core/adv-tooltip';
 
-import { useBase } from '@/mixins/base';
-import { withChartProps } from '@/mixins/props';
-import { isScale, Scale, useBaseScales } from '@/mixins/scales';
-import { ChartOptions, useOptions } from '@/mixins/options';
+import { useBase } from '@/composables/base';
+import { withChartProps } from '@/composables/props';
+import { isScale, Scale, useBaseScales } from '@/composables/scales';
+import { ChartOptions, useOptions } from '@/composables/options';
 import {
   checkNegativeValues,
   useNegativeValues,
-} from '@/mixins/negative-values';
-import { useTooltip, useTooltipAnchors } from '@/mixins/tooltip';
+} from '@/composables/negative-values';
+import { useTooltip, useTooltipAnchors } from '@/composables/tooltip';
 
 import { getEmptyArrayFromData } from '@/utils/helpers';
 import { ORIENTATIONS, TOOLTIP_ANCHOR_RADIUS } from '@/constants';

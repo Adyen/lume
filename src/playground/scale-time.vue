@@ -51,7 +51,7 @@
 import { computed, defineComponent, ref, toRefs } from 'vue';
 import { scaleTime } from 'd3-scale';
 
-import { useSkip } from '@/core/adv-axis/mixins/axis-skip';
+import { useSkip } from '@/core/adv-axis/composables/axis-skip';
 
 export default defineComponent({
   props: {

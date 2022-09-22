@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import AdvAxis from '@/core/adv-axis/adv-axis.vue';
-import { Scale } from '@/mixins/scales';
+import { Scale } from '@/composables/scales';
 import { scaleBand } from 'd3-scale';
 import { labels } from '../../mock-data';
 

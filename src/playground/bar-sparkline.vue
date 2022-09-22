@@ -7,7 +7,7 @@ import { defineComponent } from 'vue';
 
 import AdvBarChart from '@/charts/adv-bar-chart';
 
-import { withChartProps } from '@/mixins/props';
+import { withChartProps } from '@/composables/props';
 
 export default defineComponent({
   components: { AdvBarChart },

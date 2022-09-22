@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils';
-import { checkNegativeValues, useNegativeValues } from '@/mixins/negative-values';
+import { checkNegativeValues, useNegativeValues } from '@/composables/negative-values';
 import { Orientation } from '@/constants';
 import { containerSize, data, xScale, yScale } from '../mock-data';
 import { ref } from 'vue';
-import { Scale } from "@/mixins/scales";
+import { Scale } from "@/composables/scales";
 import { scaleLinear } from "d3-scale";
 import Vue from 'vue';
 

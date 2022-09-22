@@ -1,5 +1,5 @@
 import { Data, DatasetValueObject } from "@/types/dataset";
-import { Scale } from "@/mixins/scales";
+import { Scale } from "@/composables/scales";
 import { scaleBand, scaleLinear } from "d3-scale";
 import { ContainerSize } from '@/types/size';
 import { NUMBER_OF_COLORS } from "@/constants";

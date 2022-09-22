@@ -26,7 +26,7 @@ import AdvChart from '@/core/adv-chart';
 import AdvBarGroup from '@/groups/adv-bar-group';
 import AdvLineGroup from '@/groups/adv-line-group';
 
-import { useOptions, withOptions } from '@/mixins/options';
+import { useOptions, withOptions } from '@/composables/options';
 
 import { Data } from '@/types/dataset';
 

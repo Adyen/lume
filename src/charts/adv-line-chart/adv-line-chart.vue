@@ -18,10 +18,10 @@ import { defineComponent, toRefs } from 'vue';
 import AdvChart from '@/core/adv-chart';
 import AdvLineGroup from '@/groups/adv-line-group';
 
-import { useBase } from '@/mixins/base';
-import { useOptions } from '@/mixins/options';
-import { withChartProps } from '@/mixins/props';
-import { useLineNullValues } from '@/mixins/line-null-values';
+import { useBase } from '@/composables/base';
+import { useOptions } from '@/composables/options';
+import { withChartProps } from '@/composables/props';
+import { useLineNullValues } from '@/composables/line-null-values';
 
 import { options as defaultOptions } from './defaults';
 

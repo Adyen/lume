@@ -23,11 +23,11 @@ import { computed, defineComponent, toRefs } from 'vue';
 import AdvChart from '@/core/adv-chart';
 import AdvBarGroup from '@/groups/adv-bar-group';
 
-import { useBase } from '@/mixins/base';
-import { useOptions } from '@/mixins/options';
-import { withChartProps } from '@/mixins/props';
-import { useBarMixin } from '@/groups/adv-bar-group/mixins/bar-mixin';
-import { useStackedAxes } from '@/groups/adv-bar-group/mixins/stacked-mixin';
+import { useBase } from '@/composables/base';
+import { useOptions } from '@/composables/options';
+import { withChartProps } from '@/composables/props';
+import { useBarMixin } from '@/groups/adv-bar-group/composables/bar-mixin';
+import { useStackedAxes } from '@/groups/adv-bar-group/composables/stacked-mixin';
 
 import { ORIENTATIONS } from '@/constants';
 

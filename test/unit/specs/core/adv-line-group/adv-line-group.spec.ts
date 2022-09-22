@@ -1,6 +1,6 @@
 import AdvCharLineGroup from '@/groups/adv-line-group';
 import { mount } from '@vue/test-utils';
-import { getXByIndex } from '@/mixins/scales';
+import { getXByIndex } from '@/composables/scales';
 import { data, xScale, yScale } from '../../mock-data';
 
 const defaultPropsData = { data, xScale, yScale };

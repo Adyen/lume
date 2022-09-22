@@ -11,8 +11,8 @@
 import { computed, defineAsyncComponent, defineComponent } from 'vue';
 
 import { singleDatasetValidator } from '@/utils/helpers';
-import { withChartProps } from '@/mixins/props';
-import { Options } from '@/mixins/options';
+import { withChartProps } from '@/composables/props';
+import { Options } from '@/composables/options';
 
 const TYPES = ['grouped', 'stacked'];
 

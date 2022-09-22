@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
-import { withChartProps } from '@/mixins/props';
-import { DataValidator } from '@/mixins/base';
+import { withChartProps } from '@/composables/props';
+import { DataValidator } from '@/composables/base';
 
 const getMixin = (dataValidator?: DataValidator) => {
   let mixin = null;

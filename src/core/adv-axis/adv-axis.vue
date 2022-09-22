@@ -60,15 +60,15 @@ import { format } from 'd3-format';
 import { ticks as d3TickGenerator } from 'd3-array';
 import { ScaleBand } from 'd3-scale';
 
-import { AxisOptions, useOptions, withOptions } from '@/mixins/options';
-import { Scale } from '@/mixins/scales';
-import { useSkip } from './mixins/axis-skip';
+import { AxisOptions, useOptions, withOptions } from '@/composables/options';
+import { Scale } from '@/composables/scales';
+import { useSkip } from './composables/axis-skip';
 
 import { ContainerSize } from '@/types/size';
 import { xOptions, yOptions } from './defaults';
 import { AxisMixin, AxisMixinFunction } from './types';
 
-import mixinTypes from './mixins/';
+import mixinTypes from './composables/';
 
 const SCALE_MIXIN_MAP = {
   bandScale: 'band-scale-axis',

@@ -1,7 +1,7 @@
 import { computed, ComputedRef, Ref } from 'vue';
 import { scaleBand, ScaleBand, scaleLinear } from 'd3-scale';
 
-import { getPaddedScale, Scale } from '@/mixins/scales';
+import { getPaddedScale, Scale } from '@/composables/scales';
 
 import { Orientation, ORIENTATIONS } from '@/constants';
 import { Data, DatasetValueObject } from '@/types/dataset';

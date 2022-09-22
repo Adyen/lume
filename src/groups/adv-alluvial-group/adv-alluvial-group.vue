@@ -76,14 +76,14 @@ import { defineComponent, ref, Ref, toRef, watch } from 'vue';
 
 import AdvAlluvialPathGroup from '@/groups/adv-alluvial-path-group';
 
-import { withChartProps } from '@/mixins/props';
+import { withChartProps } from '@/composables/props';
 
-import { useAlluvialInteractions } from './mixins/adv-alluvial-interactions';
-import { useCoordinates } from './mixins/adv-alluvial-coordinates';
+import { useAlluvialInteractions } from './composables/adv-alluvial-interactions';
+import { useCoordinates } from './composables/adv-alluvial-coordinates';
 import {
   getAlluvialComputedData,
   useAlluvialBlocks,
-} from './mixins/adv-alluvial-building-blocks';
+} from './composables/adv-alluvial-building-blocks';
 
 import {
   getAlluvialNodeId,

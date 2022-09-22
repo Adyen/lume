@@ -21,9 +21,9 @@ import { computed, defineComponent, toRefs } from 'vue';
 import AdvChart from '@/core/adv-chart';
 import AdvBarGroup from '@/groups/adv-bar-group';
 
-import { useBase } from '@/mixins/base';
-import { useOptions } from '@/mixins/options';
-import { withChartProps } from '@/mixins/props';
+import { useBase } from '@/composables/base';
+import { useOptions } from '@/composables/options';
+import { withChartProps } from '@/composables/props';
 
 import { ORIENTATIONS } from '@/constants';
 

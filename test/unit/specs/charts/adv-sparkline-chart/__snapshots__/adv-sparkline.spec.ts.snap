@@ -39,7 +39,11 @@ exports[`adv-sparkline.vue mounts component and sets custom area color 1`] = `
       transform="translate(0, 0)"
     />
   </svg>
-    
+   
+  <!---->
+   
+  <!---->
+   
 </div>
 `;
 

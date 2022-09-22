@@ -28,9 +28,9 @@ import AdvChart from '@/core/adv-chart';
 import AdvBarGroup from '@/groups/adv-bar-group';
 import AdvHorizontalTooltip from '@/core/adv-horizontal-tooltip';
 
-import { useBase } from '@/mixins/base';
-import { useOptions } from '@/mixins/options';
-import { withChartProps } from '@/mixins/props';
+import { useBase } from '@/composables/base';
+import { useOptions } from '@/composables/options';
+import { withChartProps } from '@/composables/props';
 
 import { singleDatasetValidator } from '@/utils/helpers';
 import { ORIENTATIONS } from '@/constants';

@@ -1,7 +1,7 @@
 import { computed, Ref } from 'vue';
 import { ScaleBand } from 'd3-scale';
 
-import { AxisOptions } from '@/mixins/options';
+import { AxisOptions } from '@/composables/options';
 import { AxisMixin } from '../types';
 
 const useBandScaleAxis: AxisMixin = function (
@@ -15,33 +15,34 @@ const useBandScaleAxis: AxisMixin = function (
 
   function getTickGroupAttributes(value: number | string) {
     return {
-      transform: `translate(${
+      transform: `translate(0, ${
         scale.value(value) - paddingCorrection.value
-      }, 0)`,
+      })`,
     };
   }
 
   function getTickGhostAttributes() {
     return {
-      width: scale.value.step(),
-      height: options.value.tickPadding + 12 + 8, // Padding plus text height plus 8 bottom padding
+      x: -43,
+      width: 42, // hardcoded for now
+      height: scale.value.step(),
     };
   }
 
   function getGridLinesAttributes() {
     return {
-      x1: scale.value.step() / 2,
-      x2: scale.value.step() / 2,
-      y1: -containerSize.value.height, // Negative height means it goes from bottom to top
+      y1: scale.value.step() / 2,
+      y2: scale.value.step() / 2,
+      x1: containerSize.value.width,
     };
   }
 
   function getTickLabelAttributes() {
     return {
-      x: scale.value.step() / 2,
-      y: options.value.tickPadding,
-      dy: '0.8em',
-      'text-anchor': 'middle',
+      x: -options.value.tickPadding,
+      y: scale.value.step() / 2,
+      'text-anchor': 'end',
+      'alignment-baseline': 'middle',
     };
   }
 

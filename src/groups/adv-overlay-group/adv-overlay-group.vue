@@ -17,7 +17,7 @@ import { computed, defineComponent, PropType, toRefs } from 'vue';
 
 import AdvBar from '@/core/adv-bar';
 
-import { Scale } from '@/mixins/scales';
+import { Scale } from '@/composables/scales';
 
 import {
   getEmptyArrayFromData,

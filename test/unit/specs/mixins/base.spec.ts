@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { useBase, withBase } from '@/mixins/base';
+import { useBase, withBase } from '@/composables/base';
 import { NUMBER_OF_COLORS, Orientation } from '@/constants';
 import { data, labels } from '../mock-data';
 import { ref } from 'vue';

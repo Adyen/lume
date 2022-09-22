@@ -16,8 +16,8 @@ import { defineComponent, toRefs } from 'vue';
 import AdvChart from '@/core/adv-chart';
 import AdvAlluvialGroup from '@/groups/adv-alluvial-group';
 
-import { withChartProps } from '@/mixins/props';
-import { ChartOptions, useOptions } from '@/mixins/options';
+import { withChartProps } from '@/composables/props';
+import { ChartOptions, useOptions } from '@/composables/options';
 
 import { singleDatasetValidator } from '@/utils/helpers';
 import { options as defaultOptions } from './defaults';

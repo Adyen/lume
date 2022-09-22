@@ -54,10 +54,10 @@ import BoxGroup from './components/box-group.vue';
 import AdvChartContainer from '@/core/adv-chart-container';
 import AdvTooltip from '@/core/adv-tooltip';
 
-import { useBase } from '@/mixins/base';
-import { useOptions, withOptions } from '@/mixins/options';
-import { useTooltip } from '@/mixins/tooltip';
-import { useBoxComputations, withData } from './mixins/box-composable';
+import { useBase } from '@/composables/base';
+import { useOptions, withOptions } from '@/composables/options';
+import { useTooltip } from '@/composables/tooltip';
+import { useBoxComputations, withData } from './composables/box-composable';
 
 import { options as defaultOptions } from './defaults';
 export default defineComponent({

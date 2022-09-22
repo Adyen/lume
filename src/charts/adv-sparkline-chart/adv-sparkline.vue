@@ -31,10 +31,10 @@ import { scaleLinear } from 'd3-scale';
 import AdvChart from '@/core/adv-chart';
 import AdvLineGroup from '@/groups/adv-line-group';
 
-import { useBase, withBase } from '@/mixins/base';
-import { Options, useOptions, withOptions } from '@/mixins/options';
-import { useLineNullValues } from '@/mixins/line-null-values';
-import { useSparklineArea } from './mixins/sparkline-area';
+import { useBase, withBase } from '@/composables/base';
+import { Options, useOptions, withOptions } from '@/composables/options';
+import { useLineNullValues } from '@/composables/line-null-values';
+import { useSparklineArea } from './composables/sparkline-area';
 import { Color } from '@/types/colors';
 
 import { Data } from '@/types/dataset';

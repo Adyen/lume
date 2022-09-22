@@ -2,7 +2,7 @@ import { computed, ComputedRef, PropType } from 'vue';
 import { Data } from '@/types/dataset';
 import { scaleBand, scaleLinear } from "d3-scale";
 import { ascending, quantile } from 'd3-array';
-import { Options } from '@/mixins/options';
+import { Options } from '@/composables/options';
 import { PADDING_VERTICAL } from '@/constants';
 
 export const withData = () => ({

@@ -16,7 +16,7 @@
 import { defineComponent, PropType, toRefs } from 'vue';
 import { ScaleBand, ScaleLinear } from 'd3-scale';
 
-import { useBase } from '@/mixins/base';
+import { useBase } from '@/composables/base';
 
 import { Data } from '@/types/dataset';
 

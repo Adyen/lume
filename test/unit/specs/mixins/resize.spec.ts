@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import { useResizeObserver } from '@/mixins/resize';
+import { useResizeObserver } from '@/composables/resize';
 import { useCustomResizeObserver } from '../../reusable.test';
 import Vue from 'vue';
 

@@ -56,9 +56,9 @@ import { ScaleLinear } from 'd3-scale';
 import AdvLine from '@/core/adv-line';
 import AdvPoint from '@/core/adv-point';
 
-import { getXByIndex, Scale } from '@/mixins/scales';
-import { useBase } from '@/mixins/base';
-import { useLineNullValues } from '@/mixins/line-null-values';
+import { getXByIndex, Scale } from '@/composables/scales';
+import { useBase } from '@/composables/base';
+import { useLineNullValues } from '@/composables/line-null-values';
 
 import { getHighestValue } from '@/utils/helpers';
 import { Data, DatasetValueObject } from '@/types/dataset';

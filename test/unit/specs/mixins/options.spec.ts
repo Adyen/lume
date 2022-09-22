@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { useOptions, withOptions } from '@/mixins/options';
+import { useOptions, withOptions } from '@/composables/options';
 import { isRef, ref } from 'vue';
 
 const getMixin = (options = {}, defaultOptions = {}) => {
