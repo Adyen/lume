@@ -14,6 +14,8 @@ import { singleDatasetValidator } from '@/utils/helpers';
 import { withChartProps } from '@/composables/props';
 import { Options } from '@/composables/options';
 
+import { ORIENTATIONS } from '@/constants';
+
 const TYPES = ['grouped', 'stacked'];
 
 function typeValidator(type: string): boolean {
@@ -44,7 +46,10 @@ export default defineComponent({
     function getBarChartOptions(options: Options) {
       return {
         ...options,
-        startOnZero: true, // Bar chart always starts on zero
+        startOnZero: true, // Bar chart always starts on zero,
+        tooltipOptions: {
+          position: props.orientation === ORIENTATIONS.HORIZONTAL && 'right',
+        },
       };
     }
 
