@@ -5,7 +5,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import AdvBarChart from '@/charts/adv-bar-chart';
+import { AdvBarChart } from '@/charts';
 
 import { withChartProps } from '@/composables/props';
 
