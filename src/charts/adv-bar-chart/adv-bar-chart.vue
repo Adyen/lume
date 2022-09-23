@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineAsyncComponent, defineComponent } from 'vue';
+import { computed, defineAsyncComponent, defineComponent, PropType } from 'vue';
 
 import { singleDatasetValidator } from '@/utils/helpers';
 import { withChartProps } from '@/composables/props';
@@ -16,10 +16,9 @@ import { Options } from '@/composables/options';
 
 import { ORIENTATIONS } from '@/constants';
 
-const TYPES = ['grouped', 'stacked'];
-
-function typeValidator(type: string): boolean {
-  return TYPES.includes(type) || type == null;
+enum TYPES {
+  grouped = 'grouped',
+  stacked = 'stacked',
 }
 
 export default defineComponent({
@@ -37,9 +36,9 @@ export default defineComponent({
   props: {
     ...withChartProps(),
     type: {
-      type: String,
+      type: String as PropType<TYPES>,
       default: null,
-      validator: typeValidator,
+      validator: (type: string): boolean => type in TYPES || type == null,
     },
   },
   setup(props) {

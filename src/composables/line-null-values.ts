@@ -17,8 +17,6 @@ export function useLineNullValues(data: ComputedRef<Data<DatasetValueObject>>) {
         if (!currentInterval) {
           currentInterval = [index];
           if (index === values?.length - 1) intervals.push(currentInterval); // If last value is `null`
-        } else {
-          currentInterval.push(index);
         }
       } else if (currentInterval) {
         intervals.push(currentInterval);
