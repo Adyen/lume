@@ -13,6 +13,7 @@ module.exports = merge(prod, {
       type: 'umd',
       umdNamedDefine: true,
     },
+    clean: true,
   },
   externals: {
     vue: {

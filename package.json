@@ -4,6 +4,9 @@
   "description": "Data visualization is the graphical representation of information and data. By using visual elements like charts, graphs, and maps, data visualization repository provide an accessible way to see and understand trends, outliers, and patterns in data.",
   "main": "dist/adv.umd.js",
   "module": "dist/adv.esm.js",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "build:es": "webpack --config build/webpack.prod.es.js --progress",
     "build:umd": "webpack --config build/webpack.prod.umd.js --progress",

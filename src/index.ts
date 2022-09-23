@@ -4,8 +4,6 @@ import * as charts from './charts';
 import * as core from './core';
 import * as groups from './groups';
 
-import './styles/main.scss';
-
 interface AdvPluginFunction extends PluginFunction<null> {
   installed?: boolean;
 }
