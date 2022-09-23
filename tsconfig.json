@@ -16,5 +16,5 @@
     "target": "es5",
     "resolveJsonModule": true
   },
-  "exclude": ["node_modules", "src/**/*.stories.ts", "src/next"]
+  "exclude": ["node_modules", "test", "src/**/*.stories.ts", "src/next"]
 }
