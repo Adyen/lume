@@ -5,15 +5,14 @@ import {
   xScale,
   yScale,
 } from '../../mock-data';
-import { AdvBarChart } from '@/charts';
+import BarChart from '@/charts/adv-bar-chart';
 import { BaseTestSuite } from '../../../reusable.test';
 
 const numberOfSets = 2;
 const numberOfBars = singleSetData[0].values.length;
 const multiSetData = generateData(numberOfSets, singleSetData[0].values.length);
 
-const barChartTestSuiteFactory = (propsData) =>
-  new BaseTestSuite(AdvBarChart, propsData);
+const barChartTestSuiteFactory = (propsData) => new BaseTestSuite(BarChart, propsData);
 
 describe('adv-bar-chart.vue', () => {
   test('mounts component and sets prop values', async () => {

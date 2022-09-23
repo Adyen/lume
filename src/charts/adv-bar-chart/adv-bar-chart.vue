@@ -25,13 +25,13 @@ function typeValidator(type: string): boolean {
 export default defineComponent({
   components: {
     AdvSingleBarChart: defineAsyncComponent(
-      () => import('@/charts/adv-single-bar-chart/adv-single-bar-chart.vue')
+      () => import('@/charts/adv-single-bar-chart')
     ),
     AdvGroupedBarChart: defineAsyncComponent(
-      () => import('@/charts/adv-grouped-bar-chart/adv-grouped-bar-chart.vue')
+      () => import('@/charts/adv-grouped-bar-chart')
     ),
     AdvStackedBarChart: defineAsyncComponent(
-      () => import('@/charts/adv-stacked-bar-chart/adv-stacked-bar-chart.vue')
+      () => import('@/charts/adv-stacked-bar-chart')
     ),
   },
   props: {
