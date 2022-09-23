@@ -11,7 +11,7 @@ Grouped bar chart shows one or more sets of data represented by discrete groups 
 ### Importing
 
 ```ts
-import AdvGroupedBarChart from '@adv/charts/adv-grouped-bar-chart';
+import { AdvGroupedBarChart } from 'adv/charts';
 ```
 
 ### Basic use

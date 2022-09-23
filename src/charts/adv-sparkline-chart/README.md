@@ -12,7 +12,7 @@ It is meant as an alternative to the regular line chart where it can be displaye
 ### Importing
 
 ```ts
-import AdvSparklineChart from '@adv/charts/sparkline';
+import { AdvSparklineChart } from 'adv/charts';
 ```
 
 ### Basic use

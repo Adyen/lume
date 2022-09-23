@@ -11,7 +11,7 @@ Line charts plot data at regular intervals connected by lines from left to right
 ### Importing
 
 ```ts
-import AdvLineChart from '@adv/charts/line';
+import { AdvLineChart } from 'adv/charts';
 ```
 
 ### Basic use

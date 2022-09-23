@@ -11,7 +11,7 @@ Single bar chart show a single set of data represented by discrete bars at regul
 ### Importing
 
 ```ts
-import AdvSingleBarChart from '@adv/charts/adv-single-bar-chart';
+import { AdvSingleBarChart } from 'adv/charts';
 ```
 
 ### Basic use

@@ -11,7 +11,7 @@ Stacked bar chart shows one or more sets of data represented by discrete stacks 
 ### Importing
 
 ```ts
-import AdvStackedBarChart from '@adv/charts/adv-stacked-bar-chart';
+import { AdvStackedBarChart } from 'adv/charts';
 ```
 
 ### Basic use
