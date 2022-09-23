@@ -17,7 +17,7 @@ import { computed, defineComponent, PropType, toRefs } from 'vue';
 
 import AdvBar from '@/core/adv-bar';
 
-import { Scale } from '@/composables/scales';
+import { withGroupProps } from '@/groups/composables/group-props';
 
 import {
   getEmptyArrayFromData,
@@ -25,26 +25,14 @@ import {
   isBandScale,
 } from '@/utils/helpers';
 import { Orientation, ORIENTATIONS } from '@/constants';
-import { Data } from '@/types/dataset';
 
 export default defineComponent({
   components: { AdvBar },
   props: {
-    data: {
-      type: Array as PropType<Data>,
-      required: true,
-    },
+    ...withGroupProps(),
     orientation: {
       type: String as PropType<Orientation>,
       default: ORIENTATIONS.VERTICAL,
-    },
-    xScale: {
-      type: Function as PropType<Scale>,
-      required: true,
-    },
-    yScale: {
-      type: Function as PropType<Scale>,
-      required: true,
     },
   },
 

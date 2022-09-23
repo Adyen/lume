@@ -50,38 +50,23 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs } from 'vue';
-import { ScaleLinear } from 'd3-scale';
+import { computed, defineComponent, toRefs } from 'vue';
 
 import AdvLine from '@/core/adv-line';
 import AdvPoint from '@/core/adv-point';
 
-import { getXByIndex, Scale } from '@/composables/scales';
+import { getXByIndex } from '@/composables/scales';
 import { useBase } from '@/composables/base';
 import { useLineNullValues } from '@/composables/line-null-values';
+import { withGroupProps } from '@/groups/composables/group-props';
 
 import { getHighestValue } from '@/utils/helpers';
-import { Data, DatasetValueObject } from '@/types/dataset';
+import { DatasetValueObject } from '@/types/dataset';
 
 export default defineComponent({
   components: { AdvLine, AdvPoint },
   props: {
-    data: {
-      type: Array as PropType<Data<DatasetValueObject>>,
-      required: true,
-    },
-    xScale: {
-      type: Function as PropType<Scale>,
-      required: true,
-    },
-    yScale: {
-      type: Function as PropType<ScaleLinear<number, number>>,
-      required: true,
-    },
-    hoveredIndex: {
-      type: Number,
-      default: -1,
-    },
+    ...withGroupProps(),
     withPoints: {
       type: Boolean,
       default: true,

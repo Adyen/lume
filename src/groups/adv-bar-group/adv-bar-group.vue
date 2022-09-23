@@ -24,7 +24,7 @@ import { computed, defineComponent, PropType, toRefs } from 'vue';
 import AdvBar from '@/core/adv-bar';
 
 import { useBase } from '@/composables/base';
-import { Scale } from '@/composables/scales';
+import { withGroupProps } from '@/groups/composables/group-props';
 import {
   getBarChartType,
   useBarMixin,
@@ -36,7 +36,6 @@ import { useSingleBarMixin } from './composables/single-mixin';
 import { useGroupedBarMixin } from './composables/grouped-mixin';
 import { useStackedBarMixin } from './composables/stacked-mixin';
 
-import { Data } from '@/types/dataset';
 import { ORIENTATIONS } from '@/constants';
 
 const MIXIN_MAP = {
@@ -48,31 +47,16 @@ const MIXIN_MAP = {
 export default defineComponent({
   components: { AdvBar },
   props: {
-    data: {
-      type: Array as PropType<Data>,
-      required: true,
-    },
-    xScale: {
-      type: Function as PropType<Scale>,
-      required: true,
-    },
-    yScale: {
-      type: Function as PropType<Scale>,
-      required: true,
-    },
-    hoveredIndex: {
-      type: Number,
-      default: -1,
-    },
-    transition: {
-      type: Boolean,
-      default: true,
-    },
+    ...withGroupProps(),
     classList: {
       type: [String, Array] as PropType<string | Array<string>>,
       default: () => [],
     },
     ...withBarProps(true),
+    transition: {
+      type: Boolean,
+      default: true,
+    },
   },
   setup(props) {
     const {
