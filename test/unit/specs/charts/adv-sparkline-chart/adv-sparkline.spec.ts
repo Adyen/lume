@@ -1,5 +1,5 @@
 import { data, labels, xScale, yScale } from '../../mock-data';
-import AdvSparkline from '@/charts/adv-sparkline-chart/adv-sparkline.vue';
+import AdvSparkline from '@/charts/adv-sparkline-chart/adv-sparkline-chart.vue';
 import { options as defaultOptions } from '@/charts/adv-sparkline-chart/defaults';
 import { BaseTestSuite, useCustomBoundingRectClient, useCustomResizeObserver } from '../../../reusable.test';
 import Vue from 'vue';

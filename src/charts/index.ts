@@ -11,4 +11,4 @@ export { default as AdvStackedBarChart } from './adv-stacked-bar-chart/adv-stack
 export { default as AdvLineChart } from './adv-line-chart/adv-line-chart.vue';
 
 // Sparkline
-export { default as AdvSparklineChart } from './adv-sparkline-chart/adv-sparkline.vue';
+export { default as AdvSparklineChart } from './adv-sparkline-chart/adv-sparkline-chart.vue';
