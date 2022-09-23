@@ -12,12 +12,6 @@
         :orientation="orientation"
       />
     </template>
-    <template
-      v-if="isHorizontal"
-      #tooltip="props"
-    >
-      <adv-horizontal-tooltip v-bind="props" />
-    </template>
   </adv-chart>
 </template>
 
@@ -26,7 +20,6 @@ import { computed, defineComponent, toRefs } from 'vue';
 
 import AdvChart from '@/core/adv-chart';
 import AdvBarGroup from '@/groups/adv-bar-group';
-import AdvHorizontalTooltip from '@/core/adv-horizontal-tooltip';
 
 import { useBase } from '@/composables/base';
 import { useOptions } from '@/composables/options';
@@ -38,7 +31,7 @@ import { ORIENTATIONS } from '@/constants';
 import { options as defaultOptions } from './defaults';
 
 export default defineComponent({
-  components: { AdvChart, AdvBarGroup, AdvHorizontalTooltip },
+  components: { AdvChart, AdvBarGroup },
   props: {
     ...withChartProps(singleDatasetValidator),
   },
@@ -50,15 +43,11 @@ export default defineComponent({
       () => defaultOptions[orientation.value || ORIENTATIONS.VERTICAL] // needs to be computed so that default options are reactive
     );
 
-    const isHorizontal = computed(
-      () => orientation.value === ORIENTATIONS.HORIZONTAL
-    );
-
     const { allOptions } = useOptions(options, baseOptions);
 
     const { computedData } = useBase(data, labels, orientation);
 
-    return { allOptions, computedData, isHorizontal };
+    return { allOptions, computedData };
   },
 });
 </script>

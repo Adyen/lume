@@ -9,6 +9,3 @@ export { default as AdvTooltip } from './adv-tooltip';
 export { default as AdvBar } from './adv-bar';
 export { default as AdvLine } from './adv-line';
 export { default as AdvPoint } from './adv-point';
-
-// Misc
-export { default as AdvHorizontalTooltip } from './adv-horizontal-tooltip';
