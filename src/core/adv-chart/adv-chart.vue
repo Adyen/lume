@@ -173,12 +173,14 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, toRefs } from 'vue';
 
-import AdvAxis from '@/core/adv-axis';
-import AdvBar from '@/core/adv-bar';
-import AdvChartContainer from '@/core/adv-chart-container';
-import AdvChartLegend from '@/core/adv-chart-legend';
+import {
+  AdvAxis,
+  AdvBar,
+  AdvChartContainer,
+  AdvChartLegend,
+  AdvTooltip,
+} from '@/core';
 import AdvOverlayGroup from '@/groups/adv-overlay-group';
-import AdvTooltip from '@/core/adv-tooltip';
 
 import { useBase } from '@/composables/base';
 import { withChartProps } from '@/composables/props';

@@ -1,1 +1,1 @@
-export { default } from './adv-sparkline.vue';
+export { default } from './adv-sparkline-chart.vue';

@@ -6,7 +6,7 @@ import {
 } from '@/utils/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/sparkline-data';
 
-import AdvSparkline from './adv-sparkline.vue';
+import AdvSparkline from './adv-sparkline-chart.vue';
 
 import { options as defaultOptions } from './defaults';
 
