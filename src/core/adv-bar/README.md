@@ -7,7 +7,7 @@ This component is meant to render bar-like elements. It is used mainly by Bar ch
 ### Importing
 
 ```ts
-import AdvBar from '@adv/core/adv-bar';
+import { AdvBar } from 'adv/core';
 ```
 
 ### Basic use

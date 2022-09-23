@@ -18,7 +18,7 @@ By detecting resizes, it alerts all other components so that the chart can smoot
 ### Importing
 
 ```ts
-import AdvChartContainer from '@adv/core/chart-container';
+import { AdvChartContainer } from 'adv/core';
 ```
 
 ### Structure

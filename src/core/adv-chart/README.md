@@ -27,7 +27,7 @@ It is used internally to build all Adv charts but it can also be used to create 
 ### Importing
 
 ```ts
-import AdvChart from '@adv/core/chart';
+import { AdvChart } from 'adv/core';
 ```
 
 ### Slots

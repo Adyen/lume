@@ -11,7 +11,7 @@ Visualizations wrapped by an `AdvChart` component come with two default axes, on
 ### Importing
 
 ```ts
-import AdvAxis from '@adv/core/adv-axis';
+import { AdvAxis } from 'adv/core';
 ```
 
 ### Basic use
