@@ -26,7 +26,7 @@ describe('adv-bar-chart.vue', () => {
     expect(wrapper.find('[data-j-adv-bar-chart]')).toBeTruthy();
   });
 
-  test('should display single bar chart', async () => {
+  test.skip('should display single bar chart', async () => {
     const wrapper = await barChartTestSuiteFactory({
       data: singleSetData,
       labels,
