@@ -9,6 +9,18 @@ const [baseData] = generateData();
 
 describe('adv-alluvial-chart.vue', () => {
   let originalError = null;
+  const stageWithData = values => {
+    const data = [{
+      ...baseData,
+      values
+    }];
+
+    const testSuite = alluvialChartTestSuiteFactory(data);
+
+    const wrapper = testSuite.run().wrapper;
+    const el = wrapper.find('[data-j-alluvial-chart]');
+    expect(el.exists()).toBeTruthy();
+  }
 
   beforeAll(() => {
     // Suppress error output to the console
@@ -22,7 +34,6 @@ describe('adv-alluvial-chart.vue', () => {
   })
 
   test('mounts component and sets prop values', async () => {
-    
     const testSuite = alluvialChartTestSuiteFactory();
 
     const wrapper = testSuite.run().wrapper;
@@ -90,20 +101,36 @@ describe('adv-alluvial-chart.vue', () => {
     const values = [
       { label: 'A', color: '01', value: 'A', targets: [] },
     ];
+    stageWithData(values);
+  })
 
+  test('should be able to handle an dataset with only nodes but no edges', async () => {
+    const values = [
+      { label: 'A', color: '01', value: 'A', targets: [] },
+      { label: 'B', color: '02', value: 'B', targets: [] },
+    ];
+    stageWithData(values)
+  });
+
+  test('should be able to handle an dataset with links to non-existing nodes', async () => {
+    const values = [
+      { label: 'A', color: '01', value: 'A', targets: [] },
+      { label: 'B', color: '02', value: 'B', targets: [{ node: 'C', value: 50 }] },
+    ];
     const data = [{
       ...baseData,
       values
     }];
 
-    const testSuite = alluvialChartTestSuiteFactory(data);
+    const t = () =>
+        mount(AdvAlluvialChart, {
+          propsData: {
+            data
+          }
+        });
 
-    const wrapper = testSuite.run().wrapper;
-    const el = wrapper.find('[data-j-alluvial-chart]');
-    expect(el.exists()).toBeTruthy();
+    expect(t).toThrow('missing: C');
   });
 
-  // Test to see what happens when we specify only nodes with no edges
-  // Test to see what happens when we specify an edge to a non-existing node
   // Test interaction with elements
 });
