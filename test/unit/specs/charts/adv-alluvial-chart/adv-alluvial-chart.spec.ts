@@ -33,25 +33,38 @@ describe('adv-alluvial-chart.vue', () => {
     expect(el.find('[data-j-alluvial-group__node-block]').exists()).toBeFalsy();
   });
 
-  test.skip('should throw error in case of a dataset with circular edges', async () => {
+  test('should throw error in case of a dataset with circular links', async () => {
+    // Suppress error output to the console
+    const originalError = console.error;
+    console.error = jest.fn();
+
     const values = [
       { label: 'A', color: '01', value: 'A', targets: [{ node: 'B', value: 50 }] },
       { label: 'B', color: '02', value: 'B', targets: [{ node: 'A', value: 50 }] },
     ];
 
-    const baseData = generateData();
+    const [baseData] = generateData();
     const data = [{
-      ...baseData[0],
+      ...baseData,
       values
     }];
 
-    const t = () => mount(AdvAlluvialChart, {
-      propsData: {
-        data
-      }
-    });
+    const t = () =>
+      mount(AdvAlluvialChart, {
+        propsData: {
+          data
+        }
+      });
 
-    expect(t).toThrowError('Cannot read property \'nodeBlocks\' of undefined');
     expect(t).toThrow('circular link');
+
+    // Restore default error output setting
+    console.error = originalError;
   });
+
+  // Test to see what happens when we specify empty dataset
+  // Test to see what happens when we specify single node
+  // Test to see what happens when we specify only nodes with no edges
+  // Test to see what happens when we specify an edge to a non-existing node
+  // Test interaction with elements
 });
