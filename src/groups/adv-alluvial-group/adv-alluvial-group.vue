@@ -1,5 +1,6 @@
 <template>
   <g
+    v-if="alluvialInstance"
     class="adv-alluvial-group"
     data-j-alluvial-group
   >
