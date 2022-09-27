@@ -56,7 +56,6 @@ import AdvLine from '@/core/adv-line';
 import AdvPoint from '@/core/adv-point';
 
 import { getXByIndex } from '@/composables/scales';
-import { useBase } from '@/composables/base';
 import { useLineNullValues } from '@/composables/line-null-values';
 import { withGroupProps } from '@/groups/composables/group-props';
 
@@ -80,26 +79,21 @@ export default defineComponent({
   setup(props) {
     const { data, xScale, yScale } = toRefs(props);
 
-    const { computedData } = useBase(data);
-
     const computedGroupData = computed(() => {
       // Check if all datasets have `isDashed` function (which means data has been computed for line null values)
-      if (computedData.value.every((dataset) => dataset.isDashed)) {
-        return computedData.value;
+      if (data.value.every((dataset) => dataset.isDashed)) {
+        return data.value;
       }
 
       // Compute line null values and return it
-      const { computedLineData } = useLineNullValues(computedData);
+      const { computedLineData } = useLineNullValues(data);
       return computedLineData.value;
     });
 
     const overlayLineAttributes = computed(() => {
       if (props.hoveredIndex === -1) return;
 
-      const highestValue = getHighestValue(
-        computedData.value,
-        props.hoveredIndex
-      );
+      const highestValue = getHighestValue(data.value, props.hoveredIndex);
 
       const x = getXByIndex(xScale.value, props.hoveredIndex);
 

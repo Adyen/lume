@@ -6,6 +6,7 @@ import { ref } from 'vue';
 import { Scale } from "@/composables/scales";
 import { scaleLinear } from "d3-scale";
 import Vue from 'vue';
+import { InternalData } from '@/types/dataset';
 
 export const yScaleWithNegativeValues: Scale = scaleLinear<number>()
   .domain([-100, 100])
@@ -31,7 +32,7 @@ describe('negative-values.ts', () => {
         .map(({ value }) => ({ value: -1 * Math.abs(value) }))
       })
       );
-    const { hasNegativeValues } = checkNegativeValues(ref(negativeData));
+    const { hasNegativeValues } = checkNegativeValues(ref(negativeData as InternalData));
 
     expect(hasNegativeValues.value).toEqual(true);
   });
@@ -42,7 +43,7 @@ describe('negative-values.ts', () => {
         .map(({ value }) => ({ value: Math.abs(value) }))
       })
       );
-    const { hasNegativeValues } = checkNegativeValues(ref(positiveData));
+    const { hasNegativeValues } = checkNegativeValues(ref(positiveData as InternalData));
 
     expect(hasNegativeValues.value).toEqual(false)
   })

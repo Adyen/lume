@@ -11,12 +11,12 @@ import {
   PADDING_VERTICAL,
 } from '@/constants';
 import { ContainerSize } from '@/types/size';
-import { Data, DatasetValueObject } from '@/types/dataset';
+import { InternalData } from '@/types/dataset';
 
 export type Scale = ScaleBand<string | number> | ScaleLinear<number, number>;
 
 export type ScaleGenerator<T extends Scale = Scale> = (
-  data: Data,
+  data: InternalData,
   labels: Array<string>,
   size: ContainerSize
 ) => T;
@@ -43,7 +43,7 @@ export const withScales = () => ({
  * @returns A x-axis scale (band) and a y-axis scale (linear).
  */
 export function useBaseScales(
-  data: Ref<Data<DatasetValueObject>>,
+  data: Ref<InternalData>,
   labels: Ref<Array<string | number>>,
   size: ContainerSize,
   orientation?: Ref<Orientation>,
@@ -96,7 +96,7 @@ function generateBandScale(domain: Array<string | number>, size: number) {
 }
 
 function generateLinearScale(
-  data: Data<DatasetValueObject>,
+  data: InternalData,
   size: number,
   orientation: Orientation,
   startOnZero?: boolean

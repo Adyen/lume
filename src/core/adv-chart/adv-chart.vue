@@ -37,7 +37,7 @@
               allOptions.legendPosition !== 'bottom'
           "
           class="adv-chart__legend"
-          :data="computedData"
+          :data="internalData"
         />
       </div>
     </template>
@@ -85,7 +85,7 @@
       <!-- Data groups -->
       <slot
         name="groups"
-        :data="computedData"
+        :data="internalData"
         :labels="computedLabels"
         :orientation="orientation"
         :x-scale="computedXScale"
@@ -98,7 +98,7 @@
       <!-- Overlay bars -->
       <adv-overlay-group
         v-if="allOptions.withHover !== false"
-        :data="computedData"
+        :data="internalData"
         :orientation="orientation"
         :x-scale="computedXScale"
         :y-scale="computedYScale"
@@ -109,7 +109,7 @@
       <!-- Tooltip anchor -->
       <g v-if="allOptions.withTooltip !== false">
         <circle
-          v-for="(_, index) in getEmptyArrayFromData(computedData)"
+          v-for="(_, index) in getEmptyArrayFromData(internalData)"
           v-bind="getTooltipAnchorAttributes(index)"
           ref="tooltipAnchor"
           :key="`anchor-${index}`"
@@ -135,7 +135,7 @@
             allOptions.legendPosition === 'bottom'
         "
         class="adv-chart__legend adv-chart__legend--bottom"
-        :data="computedData"
+        :data="internalData"
       />
     </template>
 
@@ -143,7 +143,7 @@
       <slot
         name="tooltip"
         v-bind="tooltipConfig"
-        :data="computedData"
+        :data="internalData"
         :labels="computedLabels"
         :with-tooltip="allOptions.withTooltip !== false"
         :hovered-index="hoveredIndex"
@@ -160,7 +160,7 @@
         >
           <slot
             name="tooltip-content"
-            :data="computedData"
+            :data="internalData"
             :labels="computedLabels"
             :hovered-index="hoveredIndex"
           />
@@ -217,7 +217,7 @@ export default defineComponent({
     const hoveredIndex = ref<number>(-1);
     const tooltipAnchor = ref<SVGCircleElement>(null);
 
-    const { computedData, computedLabels, containerSize, updateSize } = useBase(
+    const { internalData, computedLabels, containerSize, updateSize } = useBase(
       data,
       labels,
       orientation
@@ -226,7 +226,7 @@ export default defineComponent({
     const { allOptions } = useOptions<ChartOptions>(options);
 
     const { xScale, yScale } = useBaseScales(
-      computedData,
+      internalData,
       computedLabels,
       containerSize,
       orientation,
@@ -237,14 +237,14 @@ export default defineComponent({
       if (!props.xScale) return xScale.value;
       return isScale(props.xScale)
         ? props.xScale
-        : props.xScale?.(computedData.value, labels.value, containerSize);
+        : props.xScale?.(internalData.value, labels.value, containerSize);
     });
 
     const computedYScale = computed<Scale>(() => {
       if (!props.yScale) return yScale.value;
       return isScale(props.yScale)
         ? props.yScale
-        : props.yScale?.(computedData.value, labels.value, containerSize);
+        : props.yScale?.(internalData.value, labels.value, containerSize);
     });
 
     const computedXAxisOptions = computed(() => ({
@@ -289,7 +289,7 @@ export default defineComponent({
       return conditions.every((c) => c() === true);
     });
 
-    const { hasNegativeValues } = checkNegativeValues(computedData);
+    const { hasNegativeValues } = checkNegativeValues(internalData);
     const { negativeBarAttributes } = useNegativeValues(
       containerSize,
       computedXScale,
@@ -300,7 +300,7 @@ export default defineComponent({
     const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();
 
     const { getTooltipAnchorAttributes, getTooltipItems } = useTooltipAnchors(
-      computedData,
+      internalData,
       computedXScale,
       computedYScale,
       orientation,
@@ -343,7 +343,7 @@ export default defineComponent({
 
     return {
       allOptions,
-      computedData,
+      internalData,
       computedLabels,
       computedXAxisOptions,
       computedXScale,

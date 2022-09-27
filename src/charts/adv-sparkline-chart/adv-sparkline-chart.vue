@@ -53,9 +53,9 @@ export default defineComponent({
   setup(props) {
     const { data, options } = toRefs(props);
 
-    const { computedData } = useBase(data);
+    const { internalData } = useBase(data);
     const { allOptions } = useOptions(options, defaultOptions);
-    const { computedLineData } = useLineNullValues(computedData);
+    const { computedLineData } = useLineNullValues(internalData);
     const { areaPathDefinition } = useSparklineArea(computedLineData);
 
     const color = computed(() => data.value[0].color || defaultColor);

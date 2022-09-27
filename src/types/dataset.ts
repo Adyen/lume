@@ -26,3 +26,12 @@ export interface Dataset<T> {
 }
 
 export type Data<T extends DatasetValue = DatasetValue> = Array<Dataset<T>>;
+
+export interface InternalDataset
+  extends Omit<Dataset<DatasetValueObject>, 'values' | 'color'> {
+  values: Array<DatasetValueObject>;
+  color: string;
+  __isInternal: true;
+}
+
+export type InternalData = Array<InternalDataset>;

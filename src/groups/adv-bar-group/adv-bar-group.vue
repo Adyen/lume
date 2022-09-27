@@ -23,7 +23,6 @@ import { computed, defineComponent, PropType, toRefs } from 'vue';
 
 import AdvBar from '@/core/adv-bar';
 
-import { useBase } from '@/composables/base';
 import { withGroupProps } from '@/groups/composables/group-props';
 import {
   getBarChartType,
@@ -70,9 +69,7 @@ export default defineComponent({
       classList,
     } = toRefs(props);
 
-    const { computedData } = useBase(data);
-
-    const { groupedData } = useBarMixin(computedData);
+    const { groupedData } = useBarMixin(data);
 
     const { barXScale, barYScale } = useBarScales(xScale, yScale, orientation);
 
@@ -82,10 +79,10 @@ export default defineComponent({
     });
 
     const getBarAttributes = computed(() => {
-      const chartType = getBarChartType(computedData, type);
+      const chartType = getBarChartType(data, type);
 
       const { barAttributeGenerator } = MIXIN_MAP[chartType](
-        computedData,
+        data,
         barXScale,
         barYScale,
         orientation,
