@@ -3,8 +3,8 @@ import { ScaleBand } from 'd3-scale';
 import { SankeyNode } from 'd3-sankey';
 
 import {
-  SankeyNodeAdditionalProperties,
   SankeyLinkAdditionalProperties,
+  SankeyNodeAdditionalProperties,
 } from '@/types/alluvial';
 import { Data, DatasetValueObject } from '@/types/dataset';
 import { Scale } from '@/composables/scales';
