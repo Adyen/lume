@@ -1,19 +1,19 @@
 import { SankeyLink, SankeyNode } from 'd3-sankey';
 
-import { COLORS } from '@/constants';
-import { Dataset, DatasetValueObject } from "@/types/dataset";
+import { Color } from '@/constants';
+import { Dataset, DatasetValueObject } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 
 export interface SankeyNodeAdditionalProperties {
   id: number | string;
   label: string;
   layer?: number;
-  color?: COLORS;
+  color?: Color;
   transitionValue?: number | undefined;
 }
 
 export interface SankeyLinkAdditionalProperties {
-  color?: COLORS;
+  color?: Color;
   x0?: number | undefined;
   x1?: number | undefined;
 }
@@ -36,7 +36,7 @@ export type HighlightedElements = {
 interface AlluvialNodeTarget {
   node: string;
   value: number;
-  color?: COLORS;
+  color?: Color;
 }
 
 export interface AlluvialNode extends DatasetValueObject {

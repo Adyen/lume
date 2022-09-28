@@ -1,6 +1,4 @@
-@use 'sass:color';
-@use 'sass:list';
-@use 'sass:math';
+@use '../functions/colors' as *;
 
 // Neutrals
 
@@ -38,7 +36,7 @@ $adv-color-skyblue-100: #222b33 !default;
 $adv-color-skyblue-primary: $adv-color-skyblue-50;
 $adv-color-skyblue-secondary: $adv-color-skyblue-30;
 
-$adv-color-skyblue-list: (
+$adv-color-skyblue-map: (
   'skyblue-10': $adv-color-skyblue-10,
   'skyblue-20': $adv-color-skyblue-20,
   'skyblue-30': $adv-color-skyblue-30,
@@ -49,7 +47,7 @@ $adv-color-skyblue-list: (
   'skyblue-80': $adv-color-skyblue-80,
   'skyblue-90': $adv-color-skyblue-90,
   'skyblue-100': $adv-color-skyblue-100,
-);
+) !default;
 
 // Royal blue
 
@@ -67,7 +65,7 @@ $adv-color-royalblue-100: #001433 !default;
 $adv-color-royalblue-primary: $adv-color-royalblue-50;
 $adv-color-royalblue-secondary: $adv-color-royalblue-30;
 
-$adv-color-royalblue-list: (
+$adv-color-royalblue-map: (
   'royalblue-10': $adv-color-royalblue-10,
   'royalblue-20': $adv-color-royalblue-20,
   'royalblue-30': $adv-color-royalblue-30,
@@ -78,7 +76,7 @@ $adv-color-royalblue-list: (
   'royalblue-80': $adv-color-royalblue-80,
   'royalblue-90': $adv-color-royalblue-90,
   'royalblue-100': $adv-color-royalblue-100,
-);
+) !default;
 
 // Violet
 
@@ -96,7 +94,7 @@ $adv-color-violet-100: #2c1e33 !default;
 $adv-color-violet-primary: $adv-color-violet-50;
 $adv-color-violet-secondary: $adv-color-violet-30;
 
-$adv-color-violet-list: (
+$adv-color-violet-map: (
   'violet-10': $adv-color-violet-10,
   'violet-20': $adv-color-violet-20,
   'violet-30': $adv-color-violet-30,
@@ -107,7 +105,7 @@ $adv-color-violet-list: (
   'violet-80': $adv-color-violet-80,
   'violet-90': $adv-color-violet-90,
   'violet-100': $adv-color-violet-100,
-);
+) !default;
 
 // Dark teal
 
@@ -125,7 +123,7 @@ $adv-color-darkteal-100: #041915 !default;
 $adv-color-darkteal-primary: $adv-color-darkteal-50;
 $adv-color-darkteal-secondary: $adv-color-darkteal-30;
 
-$adv-color-darkteal-list: (
+$adv-color-darkteal-map: (
   'darkteal-10': $adv-color-darkteal-10,
   'darkteal-20': $adv-color-darkteal-20,
   'darkteal-30': $adv-color-darkteal-30,
@@ -136,7 +134,7 @@ $adv-color-darkteal-list: (
   'darkteal-80': $adv-color-darkteal-80,
   'darkteal-90': $adv-color-darkteal-90,
   'darkteal-100': $adv-color-darkteal-100,
-);
+) !default;
 
 // Gold
 
@@ -154,7 +152,7 @@ $adv-color-gold-100: #332708 !default;
 $adv-color-gold-primary: $adv-color-gold-50;
 $adv-color-gold-secondary: $adv-color-gold-30;
 
-$adv-color-gold-list: (
+$adv-color-gold-map: (
   'gold-10': $adv-color-gold-10,
   'gold-20': $adv-color-gold-20,
   'gold-30': $adv-color-gold-30,
@@ -165,7 +163,12 @@ $adv-color-gold-list: (
   'gold-80': $adv-color-gold-80,
   'gold-90': $adv-color-gold-90,
   'gold-100': $adv-color-gold-100,
-);
+) !default;
+
+// Blues
+
+$adv-color-blue-10: #e5efff !default;
+$adv-color-blue-50: #0066ff !default;
 
 // Greens
 
@@ -181,94 +184,56 @@ $adv-color-orange-50: #ff9500 !default;
 
 $adv-color-red-10: #fce5e5 !default;
 $adv-color-red-50: #e50000 !default;
-$adv-color-red-60: #a10000 !default;
-$adv-color-red-70: #720000 !default;
 
 // Categorical
 
 $adv-categorical-colors: (
-  ($adv-color-skyblue-primary, $adv-color-skyblue-secondary),
-  ($adv-color-royalblue-primary, $adv-color-royalblue-secondary),
-  ($adv-color-violet-primary, $adv-color-violet-secondary),
-  ($adv-color-darkteal-primary, $adv-color-darkteal-secondary),
-  ($adv-color-gold-primary, $adv-color-gold-secondary)
-);
+  'skyblue': $adv-color-skyblue-primary,
+  'royalblue': $adv-color-royalblue-primary,
+  'violet': $adv-color-violet-primary,
+  'darkteal': $adv-color-darkteal-primary,
+  'gold': $adv-color-gold-primary,
+) !default;
 
 // Sequential
 
 $adv-sequential-colors: (
-  $adv-color-skyblue-list,
-  $adv-color-royalblue-list,
-  $adv-color-violet-list,
-  $adv-color-darkteal-list,
-  $adv-color-gold-list
-);
+  $adv-color-skyblue-map,
+  $adv-color-royalblue-map,
+  $adv-color-violet-map,
+  $adv-color-darkteal-map,
+  $adv-color-gold-map
+) !default;
 
 // Divergent
 
-@function generate-divergent-list($color1, $color2) {
-  $list: ();
-
-  @for $i from 1 through 10 {
-    $percent: math.percentage(math.div((11 - $i), 10));
-
-    @debug $percent;
-
-    $list: list.append($list, color.mix($color1, $color2, $percent));
-  }
-
-  @return $list;
-}
-
 $adv-divergent-colors: (
-  generate-divergent-list(
+  generate-divergent-map(
+    skyblue-darkteal,
     $adv-color-skyblue-primary,
     $adv-color-darkteal-primary
   ),
-  generate-divergent-list(
+  generate-divergent-map(
+    violet-royalblue,
     $adv-color-violet-primary,
     $adv-color-royalblue-primary
   ),
-  generate-divergent-list(
+  generate-divergent-map(
+    violet-darkteal,
     $adv-color-violet-primary,
     $adv-color-darkteal-primary
   ),
-  generate-divergent-list($adv-color-gold-primary, $adv-color-darkteal-primary),
-  generate-divergent-list($adv-color-gold-primary, $adv-color-royalblue-primary)
-);
-
-// @debug generate-divergent-list(
-//   $adv-color-skyblue-primary,
-//   $adv-color-darkteal-primary
-// );
-
-// @debug generate-divergent-list(
-//   $adv-color-violet-primary,
-//   $adv-color-royalblue-primary
-// );
-
-$adv-colors: (
-  'skyblue': (
-    $adv-color-skyblue-primary,
-    $adv-color-skyblue-secondary,
-  ),
-  'royalblue': (
-    $adv-color-royalblue-primary,
-    $adv-color-royalblue-secondary,
-  ),
-  'violet': (
-    $adv-color-violet-primary,
-    $adv-color-violet-secondary,
-  ),
-  'darkteal': (
-    $adv-color-darkteal-primary,
-    $adv-color-darkteal-secondary,
-  ),
-  'gold': (
+  generate-divergent-map(
+    gold-darkteal,
     $adv-color-gold-primary,
-    $adv-color-gold-secondary,
+    $adv-color-darkteal-primary
   ),
-);
+  generate-divergent-map(
+    gold-royalblue,
+    $adv-color-gold-primary,
+    $adv-color-royalblue-primary
+  )
+) !default;
 
 // Data viz
 
@@ -333,8 +298,8 @@ $adv-legacy-colors: (
   ),
   '09': (
     $adv-color-red-50,
-    $adv-color-red-70,
+    $adv-color-red-50,
   ),
-);
+) !default;
 
-$adv-chart-background-color: $adv-color-white;
+$adv-chart-background-color: $adv-color-white !default;

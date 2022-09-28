@@ -2,20 +2,25 @@ import Vue, { computed, ComputedRef, PropType, reactive, Ref } from 'vue';
 
 import {
   BAR_HEIGHT,
-  COLORS,
+  Colors,
+  DivergentColors,
   Orientation,
   ORIENTATIONS,
 } from '@/constants';
 
+import { computeColor } from '@/utils/colors';
 import { getEmptyArrayFromData, isDatasetValueObject } from '@/utils/helpers';
+
 import {
   Data,
   DatasetValue,
   DatasetValueObject,
+  DataType,
   InternalData,
 } from '@/types/dataset';
-import { Color } from '@/types/colors';
 import { ContainerSize } from '@/types/size';
+
+import { Options } from './options';
 
 function computeValues(values: Array<DatasetValue<number>>) {
   return values.map((value) => {
@@ -38,11 +43,17 @@ export const withBase = (dataValidator: DataValidator = null) => ({
     type: Array as PropType<Array<string>>,
     default: undefined,
   },
+  color: {
+    type: String as PropType<Colors | DivergentColors>,
+    default: Colors.Skyblue,
+  },
 });
 
 export function useBase(
   data: Ref<Data>,
   labels?: Ref<Array<string>>,
+  color?: Ref<Colors | DivergentColors>,
+  options?: Ref<Options>,
   orientation?: Ref<Orientation>
 ) {
   const containerSize = reactive({
@@ -52,11 +63,20 @@ export function useBase(
 
   const internalData: ComputedRef<InternalData> = computed(() => {
     return data.value?.map((dataset, index) => {
-      const values = computeValues(dataset.values);
-      const color = dataset.color || Object.values(COLORS)[index];
-      const label = dataset.label;
+      const _values = computeValues(dataset.values);
+      const _color = computeColor(
+        dataset.color,
+        color?.value,
+        options?.value.dataType as DataType,
+        index
+      );
 
-      return { values, color, label, __isInternal: true };
+      return {
+        ...dataset,
+        values: _values,
+        color: _color,
+        __isInternal: true,
+      };
     });
   });
 

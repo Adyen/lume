@@ -2,6 +2,7 @@ import { computed, isRef, PropType, Ref } from 'vue';
 
 import { Margins, TOOLTIP_POSITIONS } from '@/constants';
 import { mergeDeep } from '@/utils/helpers';
+import { DataType } from '@/types/dataset';
 
 export interface AxisOptions extends Options {
   gridLines?: boolean;
@@ -27,6 +28,7 @@ export interface ChartOptions extends Options {
   xAxisOptions?: AxisOptions;
   yAxisOptions?: AxisOptions;
   tooltipOptions?: TooltipOptions;
+  dataType?: DataType;
   startOnZero?: boolean;
   withTooltip?: boolean;
   withLegend?: boolean;

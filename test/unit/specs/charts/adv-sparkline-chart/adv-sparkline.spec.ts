@@ -1,10 +1,15 @@
 import { data, labels, xScale, yScale } from '../../mock-data';
 import AdvSparkline from '@/charts/adv-sparkline-chart/adv-sparkline-chart.vue';
 import { options as defaultOptions } from '@/charts/adv-sparkline-chart/defaults';
-import { BaseTestSuite, useCustomBoundingRectClient, useCustomResizeObserver } from '../../../reusable.test';
+import {
+  BaseTestSuite,
+  useCustomBoundingRectClient,
+  useCustomResizeObserver,
+} from '../../../reusable.test';
 import Vue from 'vue';
 
-const sparklineChartTestSuiteFactory = (propsData) => new BaseTestSuite(AdvSparkline, propsData);
+const sparklineChartTestSuiteFactory = (propsData) =>
+  new BaseTestSuite(AdvSparkline, propsData);
 
 describe('adv-sparkline.vue', () => {
   useCustomResizeObserver();
@@ -18,16 +23,14 @@ describe('adv-sparkline.vue', () => {
       data,
       labels,
       options: defaultOptions,
-      xScale
-    })
-      .run()
-      .wrapper;
+      xScale,
+    }).run().wrapper;
 
     const el = wrapper.findComponent(AdvSparkline);
     const props = wrapper.props();
 
     // We need to trigger a resize for the computed properties to fall into shape
-    const triggerElement = wrapper.find('[data-j-chart-container]')
+    const triggerElement = wrapper.find('[data-j-chart-container]');
     expect(triggerElement.exists()).toBe(true);
     wrapper.find('[data-j-chart-container]').trigger('resize');
     await Vue.nextTick();
@@ -43,7 +46,7 @@ describe('adv-sparkline.vue', () => {
 
     const areaPath = el.find('[data-j-sparkline__area]');
     expect(areaPath.exists()).toBe(true);
-    expect(areaPath.classes().includes(`sparkline-chart__area--color-01`)).toBe(
+    expect(areaPath.classes().includes(`sparkline-chart__area-color--skyblue`)).toBe(
       true
     );
 
@@ -59,10 +62,8 @@ describe('adv-sparkline.vue', () => {
       data: mutatedData,
       labels,
       xScale,
-      options: { ...defaultOptions, showArea: true }
-    })
-      .run()
-      .wrapper;
+      options: { ...defaultOptions, showArea: true },
+    }).run().wrapper;
 
     const el = wrapper.findComponent(AdvSparkline);
     // We need to trigger a resize for the computed properties to fall into shape
@@ -73,12 +74,17 @@ describe('adv-sparkline.vue', () => {
     const areaPath = el.find('[data-j-sparkline__area]');
 
     expect(
-      areaPath.classes().includes(`sparkline-chart__area--color-${areaColor}`)
+      areaPath.classes().includes(`sparkline-chart__area-color--${areaColor}`)
     ).toBe(true);
   });
 
   test('mounts component and checks areaPathDefinition', () => {
-    const wrapper = sparklineChartTestSuiteFactory({ data, labels, xScale, yScale }).wrapper;
+    const wrapper = sparklineChartTestSuiteFactory({
+      data,
+      labels,
+      xScale,
+      yScale,
+    }).wrapper;
 
     const areaPathDefinition = (wrapper.vm as any).areaPathDefinition;
     expect(areaPathDefinition).toBeTruthy();

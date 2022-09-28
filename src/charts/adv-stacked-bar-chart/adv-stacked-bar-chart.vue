@@ -39,7 +39,7 @@ export default defineComponent({
   },
   setup(props) {
     // State from mixins
-    const { data, labels, orientation, options } = toRefs(props);
+    const { data, orientation, options } = toRefs(props);
 
     const baseOptions = computed(
       () => defaultOptions[orientation.value || ORIENTATIONS.VERTICAL] // needs to be computed so that default options are reactive
@@ -47,7 +47,7 @@ export default defineComponent({
 
     const { allOptions } = useOptions(options, baseOptions);
 
-    const { internalData } = useBase(data, labels, orientation);
+    const { internalData } = useBase(data);
 
     const { groupedData } = useBarMixin(internalData);
 

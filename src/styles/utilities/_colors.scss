@@ -1,14 +1,41 @@
 @use 'sass:color';
-@use '../variables' as *;
+@use 'sass:list';
 
+@use '~@/styles/variables' as *;
+@use '~@/styles/functions/colors' as *;
+
+//
+//// Generates util classes for all color values (regular colors, color pairs):
+//// .adv-background-color--{color}-{value}
+//// .adv-fill--{color}-{value}
+//// .adv-stroke--{color}-{value}
+//
+@each $property in (background-color, fill, stroke) {
+  // categorical colors
+  @include generate-util-classes($property, $adv-categorical-colors);
+
+  // sequential colors
+  @each $map in $adv-sequential-colors {
+    @include generate-util-classes($property, $map);
+  }
+
+  // divergent pairs
+  @each $map in $adv-divergent-colors {
+    @include generate-util-classes($property, $map);
+  }
+}
+
+//
+//// Covers primary colors & legacy colors
+//// (e.g. .adv-background-color--skyblue, .adv-background-color--02)
+//
 .adv-background-color {
-  @each $name, $map in $adv-colors {
+  @each $name, $map in $adv-categorical-colors {
     &--#{$name} {
       background-color: nth($map, 1);
     }
   }
 
-  // To remove
   @each $color, $map in $adv-legacy-colors {
     &--#{$color} {
       background-color: nth($map, 1);
@@ -16,49 +43,29 @@
   }
 }
 
-.adv-stroke-color {
-  @each $name, $map in $adv-colors {
-    &--#{$name} {
-      stroke: nth($map, 1);
-    }
-  }
-
-  // To remove
-  @each $color, $map in $adv-legacy-colors {
-    &--#{$color} {
-      stroke: nth($map, 1);
-    }
-  }
-
+//
+//// Covers primary colors & legacy colors
+//// (e.g. .adv-stroke--skyblue, .adv-stroke--02)
+//
+.adv-stroke {
   &--transparent {
     stroke: $adv-color-grey-transparent;
     opacity: 0;
   }
-}
 
-.adv-fill-color {
-  $b: &;
-
-  @each $name, $map in $adv-colors {
-    &--#{$name} {
-      fill: nth($map, 1);
-
-      &#{$b}--faded {
-        fill: nth($map, 2);
-      }
-    }
-  }
-
-  // To remove
   @each $color, $map in $adv-legacy-colors {
     &--#{$color} {
-      fill: nth($map, 1);
-
-      &#{$b}--faded {
-        fill: color.change(nth($map, 1), $alpha: 0.5);
-      }
+      stroke: nth($map, 1);
     }
   }
+}
+
+//
+//// Covers primary colors, variants & legacy colors
+//// (e.g. .adv-fill--skyblue, .adv-fill--02)
+//
+.adv-fill {
+  $b: &;
 
   &--overlay {
     fill: $adv-color-grey-transparent;
@@ -75,5 +82,21 @@
   &--transparent {
     fill: $adv-color-grey-transparent;
     opacity: 0;
+  }
+
+  @each $name, $map in $adv-categorical-colors {
+    &--#{$name} {
+      fill: nth($map, 1);
+    }
+  }
+
+  @each $color, $map in $adv-legacy-colors {
+    &--#{$color} {
+      fill: nth($map, 1);
+
+      &#{$b}--faded {
+        fill: color.change(nth($map, 1), $alpha: 0.5);
+      }
+    }
   }
 }

@@ -3,7 +3,7 @@ import { scaleBand, ScaleBand, scaleLinear } from 'd3-scale';
 
 import { getPaddedScale, Scale } from '@/composables/scales';
 
-import { COLORS, Orientation, ORIENTATIONS } from '@/constants';
+import { Colors, Orientation, ORIENTATIONS } from '@/constants';
 import { Data, DatasetValueObject } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 
@@ -169,10 +169,10 @@ export function useStackedBarMixin(
         : getNegativeOffset(index, groupIndex);
     const { x, y } = getBarTransform(value, groupIndex, offset);
     const color =
-      barColor ?? data.value[index].color ?? Object.values(COLORS)[index];
+      barColor ?? data.value[index].color ?? Object.values(Colors)[index];
 
     return {
-      classList: [`adv-fill-color--${color}`, ...classList],
+      classList: [`adv-fill--${color}`, ...classList],
       width,
       height,
       x,

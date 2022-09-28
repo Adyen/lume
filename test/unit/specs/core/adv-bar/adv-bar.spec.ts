@@ -9,7 +9,7 @@ const classList = 'my-class';
 const transitionWidthClass = 'adv-bar--transition-width';
 const transitionHeightClass = 'adv-bar--transition-height';
 const negativeClass = 'adv-bar--negative';
-const fadeClass = 'adv-bar--faded';
+const fadeClass = 'adv-fill--faded';
 
 const defaultProps = {
   width,

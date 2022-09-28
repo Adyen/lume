@@ -10,7 +10,7 @@
         v-if="allOptions.showArea"
         :class="[
           'sparkline-chart__area',
-          `sparkline-chart__area--color-${areaColor || color}`,
+          `sparkline-chart__area-color--${areaColor || computedColor}`,
         ]"
         :d="areaPathDefinition(props.xScale, props.yScale)"
         data-j-sparkline__area
@@ -36,13 +36,10 @@ import { Options, useOptions, withOptions } from '@/composables/options';
 import { useLineNullValues } from '@/composables/line-null-values';
 import { useSparklineArea } from './composables/sparkline-area';
 
-import { COLORS } from '@/constants';
 import { Data } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 
 import { options as defaultOptions } from './defaults';
-
-const DEFAULT_COLOR = COLORS.SKYBLUE;
 
 export default defineComponent({
   components: { AdvChart, AdvLineGroup },
@@ -58,10 +55,10 @@ export default defineComponent({
     const { computedLineData } = useLineNullValues(internalData);
     const { areaPathDefinition } = useSparklineArea(computedLineData);
 
-    const color = computed(() => data.value[0].color || DEFAULT_COLOR);
+    const computedColor = computed(() => internalData.value[0].color);
 
     const areaColor = computed(
-      () => data.value[0].areaColor || data.value[0].color
+      () => data.value[0].areaColor || computedColor.value
     );
 
     function getSparklineOptions(options: Options) {
@@ -85,7 +82,7 @@ export default defineComponent({
       allOptions,
       areaColor,
       areaPathDefinition,
-      color,
+      computedColor,
       getSparklineOptions,
       xScaleGenerator,
     };
