@@ -7,7 +7,7 @@
   "files": [
     "dist/"
   ],
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "MIT",
   "contributors": [
     {
       "name" : "Govind Srinidhi",
@@ -110,7 +110,12 @@
     "Single bar chart",
     "Grouped bar chart",
     "Stacked bar chart",
-    "Sparkline bar chart",
-    "Line chart"
+    "Sparkline chart",
+    "Line chart",
+    "Alluvial charts", 
+    "Sankey diagrams", 
+    "Vue chart library",
+    "Vue", 
+    "Vue 2.7"
   ]
 }
