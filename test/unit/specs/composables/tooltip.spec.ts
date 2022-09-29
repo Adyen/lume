@@ -3,6 +3,7 @@ import { useTooltip, useTooltipAnchors } from '@/composables/tooltip';
 import { ref } from 'vue';
 import { data, xScale, yScale  } from '../mock-data';
 import { Orientation } from "@/constants";
+import { InternalData } from '@/types/dataset';
 
 const orientation: Orientation = 'vertical';
 const chartType = 'bar';
@@ -13,7 +14,7 @@ const getTooltipAnchorsMixin = (xScale, yScale, orientation) => {
     template: '<div></div>',
     setup() {
       mixin = useTooltipAnchors(
-        ref(data),
+        ref(data as InternalData),
         ref(xScale),
         ref(yScale),
         ref(orientation),

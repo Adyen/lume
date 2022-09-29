@@ -6,7 +6,7 @@ import {
   SankeyLinkAdditionalProperties,
   SankeyNodeAdditionalProperties,
 } from '@/types/alluvial';
-import { Data, DatasetValueObject } from '@/types/dataset';
+import { Data, DatasetValueObject, InternalData } from '@/types/dataset';
 import { Scale } from '@/composables/scales';
 
 /**
@@ -14,7 +14,7 @@ import { Scale } from '@/composables/scales';
  * @param {Data<DatasetValueObject>} data A computed array of datasets.
  * @returns {Array<number>} An array of all numeric values.
  */
-export function flatValues(data: Data<DatasetValueObject>): Array<number> {
+export function flatValues(data: InternalData): Array<number> {
   return (
     data
       ?.map((dataset) =>
@@ -90,7 +90,7 @@ export function getScaleStep(scale: Scale) {
 }
 
 const validateGetHighestValueArguments = (
-  data: Data<DatasetValueObject>,
+  data: InternalData,
   index: number
 ) => {
   if (!data) {
@@ -115,10 +115,7 @@ const validateGetHighestValueArguments = (
  * @param {number} index THe index to check for.
  * @returns {number} The highest value.
  */
-export function getHighestValue(
-  data: Data<DatasetValueObject>,
-  index: number
-): number {
+export function getHighestValue(data: InternalData, index: number): number {
   validateGetHighestValueArguments(data, index);
 
   return (
@@ -136,7 +133,9 @@ export function getHighestValue(
  * @param data A data group.
  * @returns An empty array.
  */
-export function getEmptyArrayFromData(data: Data | Ref<Data>) {
+export function getEmptyArrayFromData(
+  data: (Data | InternalData) | Ref<Data | InternalData>
+) {
   const dataArray = isRef(data) ? data.value : data;
   if (!dataArray) {
     throw new Error('No empty array can be created from specified data value');

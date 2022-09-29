@@ -1,7 +1,7 @@
 <template>
   <g>
     <text
-      v-for="(value, index) in computedData[0].values"
+      v-for="(value, index) in internalData[0].values"
       v-bind="getEmojiPosition(value.value, index)"
       :key="`emoji-${index}`"
       class="emoji"
@@ -44,7 +44,7 @@ export default defineComponent({
   setup(props) {
     const { data, xScale, yScale } = toRefs(props);
 
-    const { computedData } = useBase(data);
+    const { internalData } = useBase(data);
 
     function getEmojiPosition(value: number, index: number) {
       return {
@@ -56,9 +56,9 @@ export default defineComponent({
     }
 
     return {
-      computedData,
       EMOJIS,
       getEmojiPosition,
+      internalData,
     };
   },
 });

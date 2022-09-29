@@ -23,14 +23,12 @@ describe('base.ts', () => {
       const mixin = getMixin();
 
       expect(mixin).toBeTruthy();
-      expect(mixin).toHaveProperty('computedData');
-      expect(mixin.computedData.value).toHaveProperty('values');
-      expect(mixin.computedData.value).toEqual(
-        data.map((record, index) => ({
-          ...record,
-          color: record.color || `0${1 + (index % NUMBER_OF_COLORS)}`,
-        }))
-      );
+      expect(mixin).toHaveProperty('internalData');
+
+      const dataset = mixin.internalData.value[0];
+      expect(dataset).toHaveProperty('values');
+      expect(dataset).toHaveProperty('color');
+      expect(dataset).toHaveProperty('label');
       expect(mixin).toHaveProperty('containerSize');
       expect(mixin).toHaveProperty('updateSize');
     });
