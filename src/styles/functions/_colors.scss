@@ -60,13 +60,24 @@
 }
 
 //
+//// Returns a faded version of the provided color
+//
+@function fade-color($color) {
+  @return color.scale($color, $whiteness: 33.333%);
+}
+
+//
 //// Generates utility classes for the provided $property
 //// from a $map of colors.
 //
-@mixin generate-util-classes($property, $map) {
+@mixin generate-color-classes($property, $map) {
   @each $name, $value in $map {
     .adv-#{$property}--#{$name} {
       #{$property}: $value;
+
+      &.adv-#{$property}--faded {
+        #{$property}: fade-color($value);
+      }
     }
   }
 }

@@ -12,16 +12,16 @@
 //
 @each $property in (background-color, fill, stroke) {
   // categorical colors
-  @include generate-util-classes($property, $adv-categorical-colors);
+  @include generate-color-classes($property, $adv-categorical-colors);
 
   // sequential colors
   @each $map in $adv-sequential-colors {
-    @include generate-util-classes($property, $map);
+    @include generate-color-classes($property, $map);
   }
 
   // divergent pairs
   @each $map in $adv-divergent-colors {
-    @include generate-util-classes($property, $map);
+    @include generate-color-classes($property, $map);
   }
 }
 
@@ -95,7 +95,7 @@
       fill: nth($map, 1);
 
       &#{$b}--faded {
-        fill: color.change(nth($map, 1), $alpha: 0.5);
+        fill: fade-color(nth($map, 1));
       }
     }
   }
