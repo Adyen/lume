@@ -1,19 +1,20 @@
 @use 'sass:math';
 
-@use "~@/styles/variables" as *;
+@use '~@/styles/variables' as *;
 
 // Tooltip box -----------------------------------------------------------------
 $adv-tooltip-color: $adv-color-grey-70 !default;
 $adv-tooltip-background-color: $adv-color-white !default;
 $adv-tooltip-border-radius: $adv-border-radius-8 !default;
 $adv-tooltip-box-shadow: $adv-box-shadow !default;
-$adv-tooltip-max-width: 250px !default;
+$adv-tooltip-max-width: 288px !default;
 
-$adv-tooltip-content-padding: $adv-spacing-12 !default;
+$adv-tooltip-content-padding: $adv-spacing-10 !default;
 $adv-tooltip-z-index: 500 !default;
 
-$adv-tooltip-item-min-width: 112px;
-$adv-tooltip-symbol-size: 10px;
+$adv-tooltip-item-line-height: $adv-spacing-16 !default;
+$adv-tooltip-item-min-width: 112px !default;
+$adv-tooltip-symbol-size: $adv-spacing-10 !default;
 
 .adv-tooltip {
   position: absolute;
@@ -48,15 +49,19 @@ $adv-tooltip-symbol-size: 10px;
 
   &__item {
     display: flex;
-    align-items: center;
     min-width: $adv-tooltip-item-min-width;
     margin-bottom: $adv-spacing-4;
   }
 
   &__symbol {
+    margin-top: math.div(
+      $adv-tooltip-item-line-height - $adv-tooltip-symbol-size,
+      2
+    ); // default: 3px
     margin-right: $adv-spacing-8;
     width: $adv-tooltip-symbol-size;
     height: $adv-tooltip-symbol-size;
+    flex-shrink: 0;
 
     &--line {
       border-radius: 50%;
@@ -65,6 +70,7 @@ $adv-tooltip-symbol-size: 10px;
 
   &__value {
     margin-left: auto;
-    padding-left: $adv-spacing-16;
+    padding-left: $adv-spacing-8;
+    flex-shrink: 0;
   }
 }
