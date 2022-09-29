@@ -76,9 +76,11 @@ export function useLineNullValues(data: Ref<InternalData>) {
             interval.includes(index)
           );
           if (nullInterval) {
-            let start = dataset.values[nullInterval[0] - 1]?.value;
-            let end =
-              dataset.values[nullInterval[nullInterval.length - 1] + 1]?.value;
+            const startIndex = nullInterval[0] - 1; // dataset value of index before the null interval starts
+            const endIndex = nullInterval[nullInterval.length - 1] + 1; // dataset value of index after the null interval ends
+
+            let start = dataset.values[startIndex]?.value;
+            let end = dataset.values[endIndex]?.value;
 
             // If first/last value is `null`, use the first/last non-null value
             if (start == null) start = end;
