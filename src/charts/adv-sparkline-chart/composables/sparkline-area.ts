@@ -2,9 +2,9 @@ import { computed, ComputedRef } from 'vue';
 import { area } from 'd3-shape';
 import { ScaleLinear } from 'd3-scale';
 
-import { Data, DatasetValueObject } from '@/types/dataset';
+import { DatasetValueObject, InternalData } from '@/types/dataset';
 
-export function useSparklineArea(data: ComputedRef<Data<DatasetValueObject>>) {
+export function useSparklineArea(data: ComputedRef<InternalData>) {
   const areaPathDefinition = computed(
     () =>
       function (
