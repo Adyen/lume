@@ -1,18 +1,18 @@
 <template>
   <adv-chart
-    v-bind="$props"
+    v-bind="props"
     chart-type="line"
     :options="allOptions"
     data-j-adv-line-chart
   >
-    <template #groups="props">
-      <adv-line-group v-bind="props" />
+    <template #groups="groupProps">
+      <adv-line-group v-bind="groupProps" />
     </template>
   </adv-chart>
 </template>
 
-<script lang="ts">
-import { defineComponent, toRefs } from 'vue';
+<script setup lang="ts">
+import { toRefs } from 'vue';
 
 import AdvChart from '@/core/adv-chart';
 import AdvLineGroup from '@/groups/adv-line-group';
@@ -22,17 +22,11 @@ import { withChartProps } from '@/composables/props';
 
 import { options as defaultOptions } from './defaults';
 
-export default defineComponent({
-  components: { AdvChart, AdvLineGroup },
-  props: {
-    ...withChartProps(),
-  },
-  setup(props) {
-    const { options } = toRefs(props);
-
-    const { allOptions } = useOptions(options, defaultOptions);
-
-    return { allOptions };
-  },
+const props = defineProps({
+  ...withChartProps(),
 });
+
+const { options } = toRefs(props);
+
+const { allOptions } = useOptions(options, defaultOptions);
 </script>

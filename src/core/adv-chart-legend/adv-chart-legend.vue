@@ -19,18 +19,16 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue';
+<script setup lang="ts">
+import { PropType } from 'vue';
 import { Data, DatasetValueObject } from '@/types/dataset';
 
-export default defineComponent({
-  props: {
-    data: {
-      type: Array as PropType<Data<DatasetValueObject>>,
-      validator: (datasets: Data) =>
-        !!datasets && datasets.every((dataset) => 'color' in dataset),
-      required: true,
-    },
+defineProps({
+  data: {
+    type: Array as PropType<Data<DatasetValueObject>>,
+    validator: (datasets: Data) =>
+      !!datasets && datasets.every((dataset) => 'color' in dataset),
+    required: true,
   },
 });
 </script>
