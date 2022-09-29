@@ -37,7 +37,7 @@ export interface InternalDataset
   extends Omit<Dataset<DatasetValueObject>, 'values' | 'color'> {
   values: Array<DatasetValueObject>;
   color: string; // TODO: InternalColor type that contains all colors w/ variants (e.g. skyblue-40)
-  __isInternal: true;
+  __internal: true;
 }
 
 export type InternalData = Array<InternalDataset>;

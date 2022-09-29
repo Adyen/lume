@@ -13,10 +13,12 @@ import { getEmptyArrayFromData, isDatasetValueObject } from '@/utils/helpers';
 
 import {
   Data,
+  Dataset,
   DatasetValue,
   DatasetValueObject,
   DataType,
   InternalData,
+  InternalDataset,
 } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 
@@ -29,6 +31,10 @@ function computeValues(values: Array<DatasetValue<number>>) {
       ? value
       : ({ value } as DatasetValueObject);
   });
+}
+
+function isInternalDataset(dataset: unknown): dataset is InternalDataset {
+  return (dataset as InternalDataset).__internal === true;
 }
 
 export type DataValidator = (value: Data) => boolean;
@@ -50,7 +56,7 @@ export const withBase = (dataValidator: DataValidator = null) => ({
 });
 
 export function useBase(
-  data: Ref<Data>,
+  data: Ref<Data | InternalData>,
   labels?: Ref<Array<string>>,
   color?: Ref<Colors | DivergentColors>,
   options?: Ref<Options>,
@@ -62,22 +68,27 @@ export function useBase(
   });
 
   const internalData: ComputedRef<InternalData> = computed(() => {
-    return data.value?.map((dataset, index) => {
-      const _values = computeValues(dataset.values);
-      const _color = computeColor(
-        dataset.color,
-        color?.value,
-        options?.value.dataType as DataType,
-        index
-      );
+    return data.value?.map(
+      (dataset: Dataset<DatasetValue> | InternalDataset, index: number) => {
+        // Prevent re-computing internal datasets
+        if (isInternalDataset(dataset)) return dataset;
 
-      return {
-        ...dataset,
-        values: _values,
-        color: _color,
-        __isInternal: true,
-      };
-    });
+        const _values = computeValues(dataset.values);
+        const _color = computeColor(
+          dataset.color,
+          color?.value,
+          options?.value.dataType as DataType,
+          index
+        );
+
+        return {
+          ...dataset,
+          values: _values,
+          color: _color,
+          __internal: true as const,
+        };
+      }
+    );
   });
 
   const computedLabels = computed(() => {
