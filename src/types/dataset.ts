@@ -27,7 +27,7 @@ export interface Dataset<T> {
 
 export type Data<T extends DatasetValue = DatasetValue> = Array<Dataset<T>>;
 
-export enum DataType {
+export enum ColorPalette {
   Categorical = 'categorical',
   Sequential = 'sequential',
   Divergent = 'divergent',

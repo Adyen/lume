@@ -1,14 +1,13 @@
-import { DataType } from '@/types/dataset';
+import { ColorPalette } from '@/types/dataset';
 import { Color, Colors, DivergentColors, LegacyColors } from '@/constants';
 import { shiftItems } from './helpers';
 
-const DEFAULT_TYPE = DataType.Categorical;
-
+const DEFAULT_PALETTE = ColorPalette.Categorical;
 const DEFAULT_COLOR = Colors.Skyblue;
 const DEFAULT_DIVERGENT_COLOR = DivergentColors.SkyTeal;
 
-function getDefaultColorByType(type: DataType) {
-  if (type === DataType.Divergent) return DEFAULT_DIVERGENT_COLOR;
+function getDefaultColorByPalette(palette: ColorPalette) {
+  if (palette === ColorPalette.Divergent) return DEFAULT_DIVERGENT_COLOR;
   return DEFAULT_COLOR;
 }
 
@@ -16,8 +15,8 @@ function isLegacy(color: Color) {
   return Object.values(LegacyColors).includes(color as LegacyColors);
 }
 
-function validateColor(color: Color | null, type: DataType) {
-  if (type === DataType.Divergent) {
+function validateColor(color: Color | null, palette: ColorPalette) {
+  if (palette === ColorPalette.Divergent) {
     return Object.values(DivergentColors).includes(color as DivergentColors);
   }
   return Object.values({ ...Colors, ...LegacyColors }).includes(
@@ -44,16 +43,16 @@ function getDivergentColor(color: DivergentColors, index: number) {
   return `${color}-${value}`;
 }
 
-function getColorByType(color: Color, type: DataType, index: number) {
-  switch (type) {
+function getColorByPalette(color: Color, palette: ColorPalette, index: number) {
+  switch (palette) {
     default:
-    case DataType.Categorical:
+    case ColorPalette.Categorical:
       return isLegacy(color)
         ? color
         : getCategoricalColor(color as Colors, index);
-    case DataType.Sequential:
+    case ColorPalette.Sequential:
       return getSequentialColor(color as Colors, index);
-    case DataType.Divergent:
+    case ColorPalette.Divergent:
       return getDivergentColor(color as DivergentColors, index);
   }
 }
@@ -61,18 +60,20 @@ function getColorByType(color: Color, type: DataType, index: number) {
 export function computeColor(
   datasetColor: Color,
   color: Color,
-  type: DataType = DEFAULT_TYPE,
+  palette: ColorPalette = DEFAULT_PALETTE,
   index: number
 ) {
-  const isDatasetColorValid = validateColor(datasetColor, type);
-  if (isDatasetColorValid) return getColorByType(datasetColor, type, index);
+  const isDatasetColorValid = validateColor(datasetColor, palette);
+  if (isDatasetColorValid) {
+    return getColorByPalette(datasetColor, palette, index);
+  }
 
-  const isColorValid = validateColor(color, type);
-  if (isColorValid) return getColorByType(color, type, index);
+  const isColorValid = validateColor(color, palette);
+  if (isColorValid) return getColorByPalette(color, palette, index);
 
-  return getColorByType(getDefaultColorByType(type), type, index);
+  return getColorByPalette(getDefaultColorByPalette(palette), palette, index);
 }
 
-export function getDataTypeClass(type: DataType = DEFAULT_TYPE) {
+export function getDataTypeClass(type: ColorPalette = DEFAULT_PALETTE) {
   return `adv-data-type--${type}`;
 }

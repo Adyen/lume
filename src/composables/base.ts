@@ -16,7 +16,7 @@ import {
   Dataset,
   DatasetValue,
   DatasetValueObject,
-  DataType,
+  ColorPalette,
   InternalData,
   InternalDataset,
 } from '@/types/dataset';
@@ -77,7 +77,7 @@ export function useBase(
         const _color = computeColor(
           dataset.color,
           color?.value,
-          options?.value.dataType as DataType,
+          options?.value.colorPalette as ColorPalette,
           index
         );
 
