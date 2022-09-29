@@ -1,26 +1,7 @@
-@use 'sass:color';
 @use '~@/styles/variables' as *;
-
-$line-stroke-width: 2px;
-$line-stroke-hover-width: 4px;
-$ghost-line-stroke-width: 8px;
 
 .sparkline-chart {
   &__area {
-    fill: $adv-color-grey-20;
     transition: all $adv-transition-time-long ease;
-
-    @each $name, $map in $adv-categorical-colors {
-      &-color--#{$name} {
-        fill: color.change(nth($map, 1), $alpha: 0.5);
-      }
-    }
-
-    // To remove
-    @each $name, $map in $adv-legacy-colors {
-      &-color--#{$name} {
-        fill: color.change(nth($map, 1), $alpha: 0.5);
-      }
-    }
   }
 }

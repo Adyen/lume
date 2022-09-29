@@ -10,7 +10,8 @@
         v-if="allOptions.showArea"
         :class="[
           'sparkline-chart__area',
-          `sparkline-chart__area-color--${areaColor || computedColor}`,
+          `adv-fill--${areaColor || computedColor}`,
+          'adv-fill--faded',
         ]"
         :d="areaPathDefinition(props.xScale, props.yScale)"
         data-j-sparkline__area
