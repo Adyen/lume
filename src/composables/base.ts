@@ -6,9 +6,23 @@ import {
   ORIENTATIONS,
 } from '@/constants';
 import { getEmptyArrayFromData, isDatasetValueObject } from '@/utils/helpers';
-import { Data, DatasetValueObject } from '@/types/dataset';
+import {
+  Data,
+  DatasetValue,
+  DatasetValueObject,
+  InternalData,
+} from '@/types/dataset';
 import { Color } from '@/types/colors';
 import { ContainerSize } from '@/types/size';
+
+function computeValues(values: Array<DatasetValue<number>>) {
+  return values.map((value) => {
+    // If value is not a DatasetValueObject, convert it into one
+    return isDatasetValueObject(value)
+      ? value
+      : ({ value } as DatasetValueObject);
+  });
+}
 
 export type DataValidator = (value: Data) => boolean;
 
@@ -34,18 +48,13 @@ export function useBase(
     height: 0,
   });
 
-  const computedData: ComputedRef<Data<DatasetValueObject>> = computed(() => {
+  const internalData: ComputedRef<InternalData> = computed(() => {
     return data.value?.map((dataset, index) => {
-      return {
-        ...dataset,
-        values: dataset.values.map((value) => {
-          // If value is not a DatasetValueObject, convert it into one
-          return isDatasetValueObject(value)
-            ? value
-            : ({ value } as DatasetValueObject);
-        }),
-        color: dataset.color || (`0${1 + (index % NUMBER_OF_COLORS)}` as Color),
-      };
+      const values = computeValues(dataset.values);
+      const color = dataset.color || (`0${1 + (index % NUMBER_OF_COLORS)}` as Color);
+      const label = dataset.label;
+
+      return { values, color, label, __isInternal: true };
     });
   });
 
@@ -65,9 +74,9 @@ export function useBase(
   }
 
   return {
-    computedData,
     computedLabels,
     containerSize,
+    internalData,
     updateSize,
   };
 }

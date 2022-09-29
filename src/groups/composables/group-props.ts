@@ -2,11 +2,11 @@ import { PropType } from 'vue';
 
 import { Scale } from '@/composables/scales';
 
-import { Data, DatasetValueObject } from '@/types/dataset';
+import { InternalData } from '@/types/dataset';
 
 export const withGroupProps = () => ({
   data: {
-    type: Array as PropType<Data<DatasetValueObject>>,
+    type: Array as PropType<InternalData>,
     required: true,
   },
   xScale: {

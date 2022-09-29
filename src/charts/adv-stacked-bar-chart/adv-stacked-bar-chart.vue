@@ -2,7 +2,6 @@
   <adv-chart
     v-bind="$props"
     chart-type="stacked-bar"
-    :data="computedData"
     :options="allOptions"
     :x-scale="stackedXScaleGenerator"
     :y-scale="stackedYScaleGenerator"
@@ -48,9 +47,9 @@ export default defineComponent({
 
     const { allOptions } = useOptions(options, baseOptions);
 
-    const { computedData } = useBase(data, labels, orientation);
+    const { internalData } = useBase(data, labels, orientation);
 
-    const { groupedData } = useBarMixin(computedData);
+    const { groupedData } = useBarMixin(internalData);
 
     const { stackedXScaleGenerator, stackedYScaleGenerator } = useStackedAxes(
       groupedData,
@@ -59,7 +58,6 @@ export default defineComponent({
 
     return {
       allOptions,
-      computedData,
       stackedXScaleGenerator,
       stackedYScaleGenerator,
     };

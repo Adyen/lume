@@ -43,14 +43,14 @@ export default defineComponent({
   setup(props) {
     const { data, targetElement } = toRefs(props);
 
-    const { computedData } = useBase(data);
+    const { internalData } = useBase(data);
 
     const position = ref({ x: 0, y: 0 });
 
     function getContent(index: number) {
       const prev =
-        index > 0 ? computedData.value[0].values[index - 1]?.value : -1;
-      const current = computedData.value[0].values[index]?.value;
+        index > 0 ? internalData.value[0].values[index - 1]?.value : -1;
+      const current = internalData.value[0].values[index]?.value;
 
       const emoji = EMOJI_MAP[prev > current ? 'negative' : 'positive'];
       return `${emoji} goin' ${prev > current ? 'down' : 'up'}`;

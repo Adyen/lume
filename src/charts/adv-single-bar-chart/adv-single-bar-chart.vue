@@ -2,7 +2,6 @@
   <adv-chart
     v-bind="$props"
     chart-type="single-bar"
-    :data="computedData"
     :options="allOptions"
     data-j-single-bar-chart
   >
@@ -21,7 +20,6 @@ import { computed, defineComponent, toRefs } from 'vue';
 import AdvChart from '@/core/adv-chart';
 import AdvBarGroup from '@/groups/adv-bar-group';
 
-import { useBase } from '@/composables/base';
 import { useOptions } from '@/composables/options';
 import { withChartProps } from '@/composables/props';
 
@@ -37,7 +35,7 @@ export default defineComponent({
   },
   setup(props) {
     // State from mixins
-    const { data, labels, orientation, options } = toRefs(props);
+    const { orientation, options } = toRefs(props);
 
     const baseOptions = computed(
       () => defaultOptions[orientation.value || ORIENTATIONS.VERTICAL] // needs to be computed so that default options are reactive
@@ -45,9 +43,7 @@ export default defineComponent({
 
     const { allOptions } = useOptions(options, baseOptions);
 
-    const { computedData } = useBase(data, labels, orientation);
-
-    return { allOptions, computedData };
+    return { allOptions };
   },
 });
 </script>

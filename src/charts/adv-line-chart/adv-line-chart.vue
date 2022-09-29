@@ -34,8 +34,8 @@ export default defineComponent({
     const { data, options } = toRefs(props);
 
     const { allOptions } = useOptions(options, defaultOptions);
-    const { computedData } = useBase(data);
-    const { computedLineData } = useLineNullValues(computedData);
+    const { internalData } = useBase(data);
+    const { computedLineData } = useLineNullValues(internalData);
 
     return {
       allOptions,

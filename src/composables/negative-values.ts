@@ -3,11 +3,11 @@ import { computed, Ref } from 'vue';
 import { flatValues } from '@/utils/helpers';
 
 import { Orientation, ORIENTATIONS } from '@/constants';
-import { Data, DatasetValueObject } from '@/types/dataset';
+import { InternalData } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 import { Scale } from './scales';
 
-export function checkNegativeValues(data: Ref<Data<DatasetValueObject>>) {
+export function checkNegativeValues(data: Ref<InternalData>) {
   const hasNegativeValues = computed(() =>
     flatValues(data.value).some((v) => v < 0)
   );

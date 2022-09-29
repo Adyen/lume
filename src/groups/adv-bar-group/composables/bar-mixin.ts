@@ -4,7 +4,7 @@ import { ScaleBand, ScaleLinear } from 'd3-scale';
 import { getPaddedScale, Scale } from '@/composables/scales';
 
 import { BAR_TYPES, BarType, Orientation, ORIENTATIONS } from '@/constants';
-import { Data, DatasetValueObject } from '@/types/dataset';
+import { DatasetValueObject, InternalData } from '@/types/dataset';
 
 function typeValidator(type: string): boolean {
   return Object.values(BAR_TYPES).includes(type as BarType) || type == null;
@@ -20,18 +20,20 @@ export const withBarProps = (useOrientation = false) => ({
     default: null,
     validator: typeValidator,
   },
-  ...(useOrientation ? {
-    orientation: {
-      type: String as PropType<Orientation>,
-      default: ORIENTATIONS.VERTICAL,
-      validator: orientationValidator,
-    }
-  } : {}),
+  ...(useOrientation
+    ? {
+        orientation: {
+          type: String as PropType<Orientation>,
+          default: ORIENTATIONS.VERTICAL,
+          validator: orientationValidator,
+        },
+      }
+    : {}),
 });
 
-export function useBarMixin(data: Ref<Data<DatasetValueObject>>) {
+export function useBarMixin(data: Ref<InternalData>) {
   /** Array of padded (null = 0) number values */
-  const multiBarData: ComputedRef<Data<DatasetValueObject>> = computed(() => {
+  const multiBarData: ComputedRef<InternalData> = computed(() => {
     return data.value.map((dataset) => ({
       ...dataset,
       values: dataset.values.map((datasetValue) => ({
@@ -59,10 +61,7 @@ export function useBarMixin(data: Ref<Data<DatasetValueObject>>) {
   return { multiBarData, groupedData };
 }
 
-export function getBarChartType(
-  data: ComputedRef<Data<DatasetValueObject<number>>>,
-  type: Ref<string>
-) {
+export function getBarChartType(data: Ref<InternalData>, type: Ref<string>) {
   return data.value.length === 1 ? 'single' : type.value;
 }
 
@@ -84,13 +83,13 @@ export function useBarScales(
   const barXScale = computed(() => {
     const scale = isHorizontal.value
       ? (() => {
-        checkValidDomain(xScale.value as ScaleLinear<number, number>);
-        return xScale.value;
-      })()
+          checkValidDomain(xScale.value as ScaleLinear<number, number>);
+          return xScale.value;
+        })()
       : getPaddedScale(
           xScale.value as ScaleBand<string | number>,
           orientation.value
-      );
+        );
 
     return scale;
   });
@@ -100,11 +99,11 @@ export function useBarScales(
       ? getPaddedScale(
           yScale.value as ScaleBand<string | number>,
           orientation.value
-      )
+        )
       : (() => {
-        checkValidDomain(yScale.value as ScaleLinear<number, number>);
-        return yScale.value;
-      })();
+          checkValidDomain(yScale.value as ScaleLinear<number, number>);
+          return yScale.value;
+        })();
 
     return scale;
   });
