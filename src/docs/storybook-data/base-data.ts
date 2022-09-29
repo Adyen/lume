@@ -75,6 +75,7 @@ const DATASETS = {
     ],
     labels: [...Array(10)].map((_, i) => {
       const date = new Date();
+      date.setDate(1);
       date.setMonth(date.getMonth() + i);
       return date.toLocaleString('en', { month: 'short', year: 'numeric' });
     }),

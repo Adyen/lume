@@ -1,10 +1,10 @@
+import { computed } from 'vue';
 import { withSizeArgs, withSizeArgTypes } from '@/utils/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/base-data';
 
 import AdvBarChart from './index';
 
 import { Colors, ORIENTATIONS } from '@/constants';
-import { computed } from 'vue';
 
 export default {
   title: 'Charts/Bar chart',
