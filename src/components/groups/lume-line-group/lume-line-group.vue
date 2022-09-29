@@ -50,8 +50,8 @@
   </g>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, toRefs } from 'vue';
+<script setup lang="ts">
+import { computed, toRefs } from 'vue';
 import { ScaleLinear } from 'd3';
 
 import LumeLine from '@/components/core/lume-line';
@@ -65,56 +65,53 @@ import { LineChartOptions } from '@/composables/options';
 
 import { getHighestValue } from '@/utils/helpers';
 
-export default defineComponent({
-  components: { LumeLine, LumePoint },
-  props: {
-    ...withGroupProps<LineChartOptions>(),
-    withPoints: {
-      type: Boolean,
-      default: true,
-    },
-    transition: {
-      type: Boolean,
-      default: true,
-    },
+const props = defineProps({
+  ...withGroupProps<LineChartOptions>(),
+  withPoints: {
+    type: Boolean,
+    default: true,
   },
+  transition: {
+    type: Boolean,
+    default: true,
+  },
+});
 
-  setup(props) {
-    const { data, options, xScale, yScale } = toRefs(props);
+const { data, options, xScale, yScale } = toRefs(props);
 
-    const computedGroupData = computed(() => {
-      // Check if all datasets have `isDashed` function (which means data has been computed for line null values)
-      if (data.value.every((dataset) => dataset.isDashed)) {
-        return data.value;
-      }
+const computedGroupData = computed(() => {
+  // Check if all datasets have `isDashed` function (which means data has been computed for line null values)
+  if (data.value.every((dataset) => dataset.isDashed)) {
+    return data.value;
+  }
 
-      // Compute line null values and return it
-      const { computedLineData } = useLineNullValues(data);
-      return computedLineData.value;
-    });
+  // Compute line null values and return it
+  const { computedLineData } = useLineNullValues(data);
+  return computedLineData.value;
+});
 
-    const overlayLineAttributes = computed(() => {
-      if (props.hoveredIndex === -1) return;
+const overlayLineAttributes = computed(() => {
+  if (props.hoveredIndex === -1) return;
 
-      const highestValue = getHighestValue(data.value, props.hoveredIndex);
-      const x = getXByIndex(xScale.value, props.hoveredIndex);
+  const highestValue = getHighestValue(data.value, props.hoveredIndex);
+  const x = getXByIndex(xScale.value, props.hoveredIndex);
 
-      return {
-        d: `M ${x},${yScale.value.range()[1]}
+  return {
+    d: `M ${x},${yScale.value.range()[1]}
             V ${yScale.value(highestValue)}`, // Move to X index, Vertical line to the highest point
-      };
-    });
+  };
+});
 
-    const pointRadius = computed(
-      () => options.value?.lineWidth * 2 || undefined // If no `lineWidth`, returns NaN which needs to be undefined
-    );
+const pointRadius = computed(
+  () => options.value?.lineWidth * 2 || undefined // If no `lineWidth`, returns NaN which needs to be undefined
+);
 
-    function getValuesFromDataset(datasetIndex: number) {
-      return computedGroupData.value[datasetIndex].values;
-    }
+function getValuesFromDataset(datasetIndex: number) {
+  return computedGroupData.value[datasetIndex].values;
+}
 
-    function getPathDefinition(lineIndex: number, datasetIndex: number) {
-      const values =
+function getPathDefinition(lineIndex: number, datasetIndex: number) {
+  const values =
         lineIndex === 0
           ? []
           : [
@@ -122,34 +119,23 @@ export default defineComponent({
             getValuesFromDataset(datasetIndex)[lineIndex]?.value,
           ];
 
-      return (
-        getLinePathDefinition(
-          lineIndex,
-          values,
-          xScale.value,
+  return (
+    getLinePathDefinition(
+      lineIndex,
+      values,
+      xScale.value,
           yScale.value as ScaleLinear<number, number>
-        ) || ''
-      );
-    }
+    ) || ''
+  );
+}
 
-    function getPointValue(pointIndex: number, datasetIndex: number) {
-      return getValuesFromDataset(datasetIndex)[pointIndex]?.value;
-    }
+function getPointValue(pointIndex: number, datasetIndex: number) {
+  return getValuesFromDataset(datasetIndex)[pointIndex]?.value;
+}
 
-    function isPointActive(index: number) {
-      return props.hoveredIndex === index;
-    }
-
-    return {
-      computedGroupData,
-      getPathDefinition,
-      getPointValue,
-      isPointActive,
-      overlayLineAttributes,
-      pointRadius,
-    };
-  },
-});
+function isPointActive(index: number) {
+  return props.hoveredIndex === index;
+}
 </script>
 
 <style lang="scss" scoped>

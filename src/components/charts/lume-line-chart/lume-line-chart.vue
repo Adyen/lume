@@ -1,12 +1,12 @@
 <template>
   <lume-chart
-    v-bind="$props"
+    v-bind="props"
     chart-type="line"
     :options="allOptions"
     data-j-lume-line-chart
   >
-    <template #groups="props">
-      <lume-line-group v-bind="props" />
+    <template #groups="groupProps">
+      <lume-line-group v-bind="groupProps" />
     </template>
     <template
       v-for="(_, name) in slots"
@@ -20,8 +20,8 @@
   </lume-chart>
 </template>
 
-<script lang="ts">
-import { defineComponent, toRefs } from 'vue';
+<script setup lang="ts">
+import { toRefs, useSlots } from 'vue';
 
 import LumeChart from '@/components/core/lume-chart';
 import LumeLineGroup from '@/components/groups/lume-line-group';
@@ -32,17 +32,13 @@ import { withChartProps } from '@/composables/props';
 import { options as defaultOptions } from './defaults';
 import { excludeGroups } from '@/utils/helpers';
 
-export default defineComponent({
-  components: { LumeChart, LumeLineGroup },
-  props: {
-    ...withChartProps<LineChartOptions>(null, false),
-  },
-  setup(props, context) {
-    const { options } = toRefs(props);
-
-    const { allOptions } = useOptions(options, defaultOptions);
-
-    return { allOptions, slots: excludeGroups(context.slots) };
-  },
+const props = defineProps({
+  ...withChartProps<LineChartOptions>(null, false),
 });
+
+const slots = excludeGroups(useSlots());
+
+const { options } = toRefs(props);
+
+const { allOptions } = useOptions(options, defaultOptions);
 </script>

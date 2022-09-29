@@ -1,11 +1,11 @@
 <template>
   <lume-chart
-    v-bind="$props"
+    v-bind="props"
     :options="getAlluvialDiagramOptions(allOptions)"
     data-j-alluvial-diagram
   >
-    <template #groups="props">
-      <lume-alluvial-group v-bind="props" />
+    <template #groups="groupProps">
+      <lume-alluvial-group v-bind="groupProps" />
     </template>
     <template
       v-for="(_, name) in slots"
@@ -19,8 +19,8 @@
   </lume-chart>
 </template>
 
-<script lang="ts">
-import { defineComponent, toRefs } from 'vue';
+<script setup lang="ts">
+import { toRefs, useSlots } from 'vue';
 
 import LumeChart from '@/components/core/lume-chart';
 import LumeAlluvialGroup from '@/components/groups/lume-alluvial-group';
@@ -31,28 +31,20 @@ import { ChartOptions, useOptions } from '@/composables/options';
 import { excludeGroups, singleDatasetValidator } from '@/utils/helpers';
 import { options as defaultOptions } from './defaults';
 
-export default defineComponent({
-  components: { LumeChart, LumeAlluvialGroup },
-  props: {
-    ...withChartProps(singleDatasetValidator, false, false),
-  },
-  setup(props, context) {
-    const { options } = toRefs(props);
-
-    const { allOptions } = useOptions(options, defaultOptions);
-
-    function getAlluvialDiagramOptions(options: ChartOptions) {
-      return {
-        ...options,
-        noBaseScales: true, // Alluvial chart never uses base scales
-      };
-    }
-
-    return {
-      allOptions,
-      getAlluvialDiagramOptions,
-      slots: excludeGroups(context.slots),
-    };
-  },
+const props = defineProps({
+  ...withChartProps(singleDatasetValidator, false, false),
 });
+
+const slots = excludeGroups(useSlots());
+
+const { options } = toRefs(props);
+
+const { allOptions } = useOptions(options, defaultOptions);
+
+function getAlluvialDiagramOptions(options: ChartOptions) {
+  return {
+    ...options,
+    noBaseScales: true, // Alluvial chart never uses base scales
+  };
+}
 </script>

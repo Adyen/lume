@@ -21,9 +21,12 @@
 </template>
 
 <script lang="ts">
+type BarTransitionProperty = 'width' | 'height';
+</script>
+
+<script setup lang="ts">
 import {
   computed,
-  defineComponent,
   onMounted,
   PropType,
   ref,
@@ -35,97 +38,80 @@ import { useBarTransition } from './composables/bar-transition';
 
 import { svgCheck } from '@/utils/svg-check';
 
-type BarTransitionProperty = 'width' | 'height';
-
-export default defineComponent({
-  props: {
-    x: {
-      type: Number,
-      default: 0,
-    },
-    y: {
-      type: Number,
-      default: 0,
-    },
-    width: {
-      type: Number,
-      required: true,
-    },
-    height: {
-      type: Number,
-      required: true,
-    },
-    classList: {
-      type: [String, Array] as PropType<string | Array<string>>,
-      default: '',
-    },
-    isFaded: {
-      type: Boolean,
-      default: false,
-    },
-    isNegative: {
-      type: Boolean,
-      default: false,
-    },
-    transition: {
-      type: [String, Boolean] as PropType<BarTransitionProperty | false>,
-      default: false,
-    },
+const props = defineProps({
+  x: {
+    type: Number,
+    default: 0,
   },
-  setup(props) {
-    const { x, y, width, height, transition, classList } = toRefs(props);
-    const root = ref<SVGRectElement>(null);
+  y: {
+    type: Number,
+    default: 0,
+  },
+  width: {
+    type: Number,
+    required: true,
+  },
+  height: {
+    type: Number,
+    required: true,
+  },
+  classList: {
+    type: [String, Array] as PropType<string | Array<string>>,
+    default: '',
+  },
+  isFaded: {
+    type: Boolean,
+    default: false,
+  },
+  isNegative: {
+    type: Boolean,
+    default: false,
+  },
+  transition: {
+    type: [String, Boolean] as PropType<BarTransitionProperty | false>,
+    default: false,
+  },
+});
 
-    const computedClasses = computed(() =>
-      typeof classList.value === 'string' ? [classList.value] : classList.value
-    );
+const { x, y, width, height, transition, classList } = toRefs(props);
+const root = ref<SVGRectElement>(null);
 
-    const shouldTransitionWidth = computed(() => transition.value === 'width');
-    const shouldTransitionHeight = computed(
-      () => transition.value === 'height'
-    );
+const computedClasses = computed(() =>
+  typeof classList.value === 'string' ? [classList.value] : classList.value
+);
 
-    const transitionProps = useBarTransition(x, y, width, height);
+const shouldTransitionWidth = computed(() => transition.value === 'width');
+const shouldTransitionHeight = computed(
+  () => transition.value === 'height'
+);
 
-    const { computedX, computedY, shouldHaveMinWidth, shouldHaveMinHeight } =
+const transitionProps = useBarTransition(x, y, width, height);
+
+const { computedX, computedY, shouldHaveMinWidth, shouldHaveMinHeight } =
       useBarSizing(x, y, width, height);
 
-    const computedWidth = computed(() => {
-      if (shouldHaveMinWidth.value) return 1;
+const computedWidth = computed(() => {
+  if (shouldHaveMinWidth.value) return 1;
 
-      return (
-        shouldTransitionWidth.value ? transitionProps.computedWidth : width
-      ).value;
-    });
+  return (
+    shouldTransitionWidth.value ? transitionProps.computedWidth : width
+  ).value;
+});
 
-    const computedHeight = computed(() => {
-      if (shouldHaveMinHeight.value) return 1;
+const computedHeight = computed(() => {
+  if (shouldHaveMinHeight.value) return 1;
 
-      return (
-        shouldTransitionHeight.value ? transitionProps.computedHeight : height
-      ).value;
-    });
+  return (
+    shouldTransitionHeight.value ? transitionProps.computedHeight : height
+  ).value;
+});
 
-    const transformOrigin =
+const transformOrigin =
       shouldTransitionWidth.value || shouldTransitionHeight.value
         ? transitionProps.transformOrigin
         : null;
 
-    onMounted(() => svgCheck(root.value));
-
-    return {
-      computedClasses,
-      computedWidth,
-      computedHeight,
-      computedX,
-      computedY,
-      root,
-      shouldTransitionWidth,
-      shouldTransitionHeight,
-      transformOrigin,
-    };
-  },
-});
+onMounted(() => svgCheck(root.value));
 </script>
 
 <style lang="scss" scoped>

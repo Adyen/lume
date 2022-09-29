@@ -18,8 +18,8 @@
   </g>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, PropType, toRefs } from 'vue';
+<script setup lang="ts">
+import { computed, PropType, toRefs } from 'vue';
 
 import LumeBar from '@/components/core/lume-bar';
 
@@ -43,73 +43,61 @@ const MIXIN_MAP = {
   stacked: useStackedBarMixin,
 };
 
-export default defineComponent({
-  components: { LumeBar },
-  props: {
-    ...withGroupProps(),
-    classList: {
-      type: [String, Array] as PropType<string | Array<string>>,
-      default: () => [],
-    },
-    ...withBarProps(true),
-    transition: {
-      type: Boolean,
-      default: true,
-    },
+const props = defineProps({
+  ...withGroupProps(),
+  classList: {
+    type: [String, Array] as PropType<string | Array<string>>,
+    default: () => [],
   },
-  setup(props) {
-    const {
-      data,
-      hoveredIndex,
-      options,
-      orientation,
-      transition,
-      type,
-      xScale,
-      yScale,
-      classList,
-    } = toRefs(props);
-
-    const { groupedData } = useBarMixin(data);
-
-    const { barXScale, barYScale } = useBarScales(
-      xScale,
-      yScale,
-      options,
-      orientation
-    );
-
-    const computedClasses = computed(() => {
-      if (typeof classList.value === 'string') return [classList.value];
-      return classList.value;
-    });
-
-    const getBarAttributes = computed(() => {
-      const chartType = getBarChartType(data, type);
-
-      const { barAttributeGenerator } = MIXIN_MAP[chartType](
-        data,
-        barXScale,
-        barYScale,
-        orientation,
-        hoveredIndex,
-        computedClasses.value
-      );
-      return barAttributeGenerator;
-    });
-
-    const computedTransition = computed(() => {
-      if (!transition.value) return;
-      return orientation.value === ORIENTATIONS.HORIZONTAL ? 'width' : 'height';
-    });
-
-    return {
-      barXScale,
-      barYScale,
-      computedTransition,
-      getBarAttributes,
-      groupedData,
-    };
+  ...withBarProps(true),
+  transition: {
+    type: Boolean,
+    default: true,
   },
+});
+
+const {
+  data,
+  hoveredIndex,
+  options,
+  orientation,
+  transition,
+  type,
+  xScale,
+  yScale,
+  classList,
+} = toRefs(props);
+
+const { groupedData } = useBarMixin(data);
+
+const { barXScale, barYScale } = useBarScales(
+  xScale,
+  yScale,
+  options,
+  orientation
+);
+
+const computedClasses = computed(() => {
+  if (typeof classList.value === 'string') return [classList.value];
+  return classList.value;
+});
+
+const getBarAttributes = computed(() => {
+  const chartType = getBarChartType(data, type);
+
+  const { barAttributeGenerator } = MIXIN_MAP[chartType](
+    data,
+    barXScale,
+    barYScale,
+    orientation,
+    hoveredIndex,
+    computedClasses.value
+  );
+  return barAttributeGenerator;
+});
+
+const computedTransition = computed(() => {
+  if (!transition.value) return;
+  return orientation.value === ORIENTATIONS.HORIZONTAL ? 'width' : 'height';
 });
 </script>

@@ -11,62 +11,62 @@
       :stroke-dashoffset="containerWidth"
       :stroke-width="linkPath.strokeWidth + ghostStrokeWidthOffset"
       data-j-alluvial-path__path
-      @mouseover="$emit('mouseover', linkPath.link)"
-      @mouseout="$emit('mouseout')"
+      @mouseover="emit('mouseover', linkPath.link)"
+      @mouseout="emit('mouseout')"
     />
   </g>
 </template>
-
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs } from 'vue';
+
+export const GHOST_STROKE_WIDTH_OFFSET = 8;
+
+</script>
+
+<script setup lang="ts">
+import { computed, PropType, toRefs } from 'vue';
 
 import { isNodeOrLinkFaded } from '@/utils/helpers';
 
 import { LinkPath } from '@/types/alluvial';
 
-export const GHOST_STROKE_WIDTH_OFFSET = 8;
-
-export default defineComponent({
-  props: {
-    linkPaths: {
-      type: Array as PropType<Array<LinkPath>>,
-      default: () => [],
-    },
-    isGhost: {
-      type: Boolean,
-      default: false,
-    },
-    containerWidth: {
-      type: Number,
-      default: 0,
-    },
-    highlightedLinkIds: {
-      type: Array as PropType<Array<string>>,
-      default: () => [],
-    },
+const props = defineProps({
+  linkPaths: {
+    type: Array as PropType<Array<LinkPath>>,
+    default: () => [],
   },
-  setup(props) {
-    const { highlightedLinkIds, isGhost } = toRefs(props);
-
-    const ghostStrokeWidthOffset = computed(() =>
-      isGhost.value ? GHOST_STROKE_WIDTH_OFFSET : 0
-    );
-
-    function getClasses(linkPath: LinkPath) {
-      return {
-        [`lume-stroke--${linkPath.color}`]: !isGhost.value,
-        'lume-stroke--transparent': isGhost.value,
-        'lume-alluvial-path-group__link--ghost': isGhost.value,
-        'lume-alluvial-path-group__link--faded': isNodeOrLinkFaded(
-          linkPath.id,
-          highlightedLinkIds.value
-        ),
-      };
-    }
-
-    return { getClasses, ghostStrokeWidthOffset };
+  isGhost: {
+    type: Boolean,
+    default: false,
+  },
+  containerWidth: {
+    type: Number,
+    default: 0,
+  },
+  highlightedLinkIds: {
+    type: Array as PropType<Array<string>>,
+    default: () => [],
   },
 });
+
+const emit = defineEmits(['mouseover', 'mouseout'])
+
+const { highlightedLinkIds, isGhost } = toRefs(props);
+
+const ghostStrokeWidthOffset = computed(() =>
+  isGhost.value ? GHOST_STROKE_WIDTH_OFFSET : 0
+);
+
+function getClasses(linkPath: LinkPath) {
+  return {
+    [`lume-stroke--${linkPath.color}`]: !isGhost.value,
+    'lume-stroke--transparent': isGhost.value,
+    'lume-alluvial-path-group__link--ghost': isGhost.value,
+    'lume-alluvial-path-group__link--faded': isNodeOrLinkFaded(
+      linkPath.id,
+      highlightedLinkIds.value
+    ),
+  };
+}
 </script>
 
 <style lang="scss" scoped>
