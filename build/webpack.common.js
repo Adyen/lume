@@ -1,12 +1,31 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-undef */
+const fs = require('fs');
 const path = require('path');
 const { VueLoaderPlugin } = require('vue-loader');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+function convertDirToEntryPoints(dir) {
+  return fs
+    .readdirSync(path.resolve(__dirname, '../src/' + dir))
+    .reduce((acc, name) => {
+      if (name.startsWith('adv-')) {
+        acc[`${dir}/${name}`] = `./src/${dir}/${name}`;
+      }
+      return acc;
+    }, {});
+}
+
 module.exports = {
   context: path.resolve(__dirname, '../'),
-  entry: './src/index.ts',
+  entry: {
+    index: './src/index.ts',
+    'styles/main': './src/styles/main.scss',
+    'styles/font': './src/styles/font.scss',
+    ...convertDirToEntryPoints('charts'),
+    ...convertDirToEntryPoints('core'),
+    ...convertDirToEntryPoints('groups'),
+  },
   module: {
     rules: [
       {
@@ -35,13 +54,7 @@ module.exports = {
       },
       {
         test: /\.(woff2?|ttf|otf|eot|svg)$/,
-        use: {
-          loader: 'file-loader',
-          options: {
-            outputPath: 'assets/fonts/',
-            publicPath: 'assets/fonts/',
-          },
-        },
+        type: 'asset/resource',
       },
     ],
   },
@@ -52,5 +65,9 @@ module.exports = {
     alias: {
       '@': path.resolve(__dirname, '../src/'),
     },
+  },
+  cache: {
+    type: 'filesystem',
+    cacheDirectory: path.resolve(__dirname, '../.cache/webpack'),
   },
 };
