@@ -45,12 +45,15 @@
 </template>
 
 <script lang="ts">
-const POSITIONS = ['bottom', 'left'];
+enum POSITIONS {
+  left = 'left',
+  bottom = 'bottom',
+}
 
-const TYPES = {
-  x: 'bottom',
-  y: 'left',
-};
+enum TYPES {
+  x = POSITIONS.bottom,
+  y = POSITIONS.left,
+}
 </script>
 
 <script setup lang="ts">
@@ -93,9 +96,9 @@ const props = defineProps({
     validator: (value: string) => value in TYPES,
   },
   position: {
-    type: String,
+    type: String as PropType<POSITIONS>,
     default: undefined,
-    validator: (value: string) => POSITIONS.includes(value),
+    validator: (value: string) => value in POSITIONS,
   },
   containerSize: {
     type: Object as PropType<ContainerSize>,

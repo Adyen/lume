@@ -1,9 +1,8 @@
 <template>
   <component
     :is="component"
-    v-bind="props"
+    v-bind="{ ...props, ...$attrs }"
     :options="getBarChartOptions(options)"
-    v-on="$listeners"
   />
 </template>
 
