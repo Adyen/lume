@@ -1,30 +1,30 @@
 <template>
   <div style="width: 600px; height: 400px">
-    <adv-chart
+    <lume-chart
       :data="combinedData"
       :labels="labels"
       :options="options"
     >
       <template #groups="props">
-        <adv-bar-group
+        <lume-bar-group
           v-bind="props"
           :data="computedBarData"
         />
-        <adv-line-group
+        <lume-line-group
           v-bind="props"
           :data="computedLineData"
         />
       </template>
-    </adv-chart>
+    </lume-chart>
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs } from 'vue';
 
-import AdvChart from '@/core/adv-chart';
-import AdvBarGroup from '@/groups/adv-bar-group';
-import AdvLineGroup from '@/groups/adv-line-group';
+import LumeChart from '@/core/lume-chart';
+import LumeBarGroup from '@/groups/lume-bar-group';
+import LumeLineGroup from '@/groups/lume-line-group';
 
 import { useBase } from '@/composables/base';
 import { useOptions, withOptions } from '@/composables/options';
@@ -33,9 +33,9 @@ import { Data } from '@/types/dataset';
 
 export default defineComponent({
   components: {
-    AdvChart,
-    AdvLineGroup,
-    AdvBarGroup,
+    LumeChart,
+    LumeLineGroup,
+    LumeBarGroup,
   },
   props: {
     barData: {

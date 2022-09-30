@@ -1,6 +1,6 @@
 @use '../variables' as *;
 
-.adv-background-color {
+.lume-background-color {
   @each $color, $map in $chart-colors {
     &--#{$color} {
       background-color: nth($map, 1);
@@ -8,7 +8,7 @@
   }
 }
 
-.adv-stroke-color {
+.lume-stroke-color {
   @each $color, $map in $chart-colors {
     &--#{$color} {
       stroke: nth($map, 1);
@@ -16,12 +16,12 @@
   }
 
   &--transparent {
-    stroke: $adv-color-grey-transparent;
+    stroke: $lume-color-grey-transparent;
     opacity: 0;
   }
 }
 
-.adv-fill-color {
+.lume-fill-color {
   @each $color, $map in $chart-colors {
     &--#{$color} {
       fill: nth($map, 1);
@@ -29,11 +29,11 @@
   }
 
   &--overlay {
-    fill: $adv-color-grey-transparent;
+    fill: $lume-color-grey-transparent;
   }
 
   &--negative {
-    fill: $adv-color-grey-10;
+    fill: $lume-color-grey-10;
   }
 
   &--none {
@@ -41,7 +41,7 @@
   }
 
   &--transparent {
-    fill: $adv-color-grey-transparent;
+    fill: $lume-color-grey-transparent;
     opacity: 0;
   }
 }

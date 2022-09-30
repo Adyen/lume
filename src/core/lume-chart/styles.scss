@@ -1,0 +1,36 @@
+@use '~@/styles/variables' as *;
+
+.lume-chart {
+  &__header {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: auto auto;
+    grid-template-areas: 'title controls' 'axis-title legend';
+  }
+
+  &__title {
+    grid-area: title;
+  }
+
+  &__controls {
+    grid-area: controls;
+  }
+
+  &__axis-title {
+    grid-area: axis-title;
+
+    &--centered {
+      text-align: center;
+    }
+  }
+
+  &__legend {
+    grid-area: legend;
+    margin-left: auto;
+
+    &--bottom {
+      margin-left: unset;
+      margin-right: auto;
+    }
+  }
+}

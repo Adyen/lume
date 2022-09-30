@@ -1,0 +1,19 @@
+@use '~@/styles/variables' as *;
+
+$line-stroke-width: 2px;
+$line-stroke-hover-width: 4px;
+$ghost-line-stroke-width: 8px;
+
+.sparkline-chart {
+  &__area {
+    fill: $lume-color-grey-20;
+    transition: all $lume-transition-time-long ease;
+
+    @each $color, $map in $chart-colors {
+      &--color-#{$color} {
+        fill: nth($map, 3);
+        opacity: 0.5;
+      }
+    }
+  }
+}

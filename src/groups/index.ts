@@ -1,3 +1,3 @@
-export { default as AdvBarGroup } from './adv-bar-group';
-export { default as AdvLineGroup } from './adv-line-group';
-export { default as AdvOverlayGroup } from './adv-overlay-group';
+export { default as LumeBarGroup } from './lume-bar-group';
+export { default as LumeLineGroup } from './lume-line-group';
+export { default as LumeOverlayGroup } from './lume-overlay-group';

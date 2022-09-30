@@ -1,0 +1,31 @@
+@use '~@/styles/_variables.scss' as *;
+
+$alluvial-link-opacity: 0.6;
+$alluvial-link-opacity-faded: 0.2;
+
+.lume-alluvial-path-group {
+  fill: none;
+  mix-blend-mode: multiply;
+
+  &__link {
+    stroke-opacity: $alluvial-link-opacity;
+    transition: stroke-opacity $lume-transition-time-long;
+
+    animation: strokeReset $lume-transition-time-full linear forwards;
+
+    &--faded {
+      stroke-opacity: $alluvial-link-opacity-faded;
+    }
+
+    &--ghost {
+      animation: unset;
+      transition: unset;
+    }
+  }
+}
+
+@keyframes strokeReset {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
