@@ -1,7 +1,7 @@
 <template>
   <adv-chart
+    v-bind="$props"
     chart-type="line"
-    :data="computedLineData"
     :options="getSparklineOptions(allOptions)"
     :x-scale="xScaleGenerator"
   >
@@ -18,7 +18,6 @@
 
       <adv-line-group
         v-bind="props"
-        :data="computedLineData"
         :with-points="false"
       />
     </template>
@@ -87,7 +86,6 @@ export default defineComponent({
       areaColor,
       areaPathDefinition,
       color,
-      computedLineData,
       getSparklineOptions,
       xScaleGenerator,
     };
