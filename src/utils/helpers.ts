@@ -147,7 +147,7 @@ export function getEmptyArrayFromData(
     0
   );
 
-  return Array(...Array(maxLength));
+  return Array(maxLength).fill(null);
 }
 
 /**
