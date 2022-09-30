@@ -8,11 +8,11 @@
       <template #groups="props">
         <adv-bar-group
           v-bind="props"
-          :data="barData"
+          :data="computedBarData"
         />
         <adv-line-group
           v-bind="props"
-          :data="lineData"
+          :data="computedLineData"
         />
       </template>
     </adv-chart>
@@ -26,6 +26,7 @@ import AdvChart from '@/core/adv-chart';
 import AdvBarGroup from '@/groups/adv-bar-group';
 import AdvLineGroup from '@/groups/adv-line-group';
 
+import { useBase } from '@/composables/base';
 import { useOptions, withOptions } from '@/composables/options';
 
 import { Data } from '@/types/dataset';
@@ -52,16 +53,19 @@ export default defineComponent({
     ...withOptions(),
   },
   setup(props) {
-    const { options } = toRefs(props);
+    const { barData, lineData, options } = toRefs(props);
 
-    const combinedData = computed(() => [...props.lineData, ...props.barData]);
+    const computedBarData = useBase(barData).internalData;
+    const computedLineData = useBase(lineData).internalData;
+
+    const combinedData = computed(() => [
+      ...computedBarData.value,
+      ...computedLineData.value,
+    ]);
 
     const { allOptions } = useOptions(options);
 
-    return {
-      combinedData,
-      allOptions,
-    };
+    return { computedBarData, computedLineData, combinedData, allOptions };
   },
 });
 </script>
