@@ -1,3 +1,4 @@
+import flushPromises from 'flush-promises';
 import {
   generateData,
   labels,
@@ -24,6 +25,8 @@ describe('lume-bar-chart.vue', () => {
       yScale,
     }).run().wrapper;
 
+    await flushPromises();
+
     expect(wrapper.find('[data-j-lume-bar-chart]')).toBeTruthy();
   });
 
@@ -35,12 +38,15 @@ describe('lume-bar-chart.vue', () => {
       yScale,
     }).wrapper;
 
+    await flushPromises();
+
     const el = wrapper.find('[data-j-single-bar-chart]');
+
     expect(el.exists()).toBeTruthy();
     expect(el.findAll('[data-j-lume-bar]')).toHaveLength(numberOfBars);
   });
 
-  test.skip('should display grouped bar chart', async () => {
+  test('should display grouped bar chart', async () => {
     const type = 'grouped';
 
     const wrapper = await barChartTestSuiteFactory({
@@ -51,6 +57,8 @@ describe('lume-bar-chart.vue', () => {
       yScale,
     }).wrapper;
 
+    await flushPromises();
+
     const el = wrapper.find('[data-j-grouped-bar-chart]');
 
     expect(el.exists()).toBeTruthy();
@@ -59,7 +67,7 @@ describe('lume-bar-chart.vue', () => {
     );
   });
 
-  test.skip('should display stacked bar chart', async () => {
+  test('should display stacked bar chart', async () => {
     const type = 'stacked';
 
     const wrapper = await barChartTestSuiteFactory({
@@ -69,6 +77,8 @@ describe('lume-bar-chart.vue', () => {
       xScale,
       yScale,
     }).wrapper;
+
+    await flushPromises();
 
     const el = wrapper.find('[data-j-stacked-bar-chart]');
 
