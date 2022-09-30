@@ -1,360 +1,274 @@
 <template>
-  <lume-chart-container
-    ref="chartContainer"
-    :margins="allOptions.margins"
-    :container-size="containerSize"
-    :no-min-size="allOptions.noMinSize"
-    :transparent-background="allOptions.transparentBackground"
-    data-j-lume-chart
-    @resize="updateSize"
-    @mouseleave="handleMouseleave"
+  <g
+    v-if="scale && !isLoading"
+    ref="root"
+    class="axis"
+    :transform="axisTransform"
+    data-j-axis
   >
-    <template #header>
-      <div class="lume-chart__header">
-        <div class="lume-chart__header-section">
-          <!-- chart title -->
-          <h1
-            v-if="title"
-            class="lume-chart__title lume-chart-title lume-typography--display"
-          >
-            {{ title }}
-          </h1>
+    <defs v-if="computedType === 'x'">
+      <linearGradient id="lume-tick-gradient">
+        <stop
+          offset="0%"
+          stop-color="rgba(255,255,255,0)"
+        />
+        <stop
+          offset="10%"
+          stop-color="var(--lume-chart-background-color)"
+        />
+        <stop
+          offset="90%"
+          stop-color="var(--lume-chart-background-color)"
+        />
+        <stop
+          offset="100%"
+          stop-color="rgba(255,255,255,0)"
+        />
+      </linearGradient>
+    </defs>
 
-          <!-- segmented control / filter -->
-          <div class="lume-chart__controls">
-            <slot name="controls" />
-          </div>
-        </div>
-
-        <div class="lume-chart__header-section">
-          <!-- y axis title -->
-          <h3
-            v-if="showYAxisTitle"
-            class="lume-chart__axis-title lume-axis-title lume-typography--body"
-          >
-            {{ yAxisTitle }}
-          </h3>
-
-          <!-- chart legend -->
-          <!-- Portals to bottom of the chart if `legendPosition` is 'bottom' -->
-          <vue-portal
-            v-if="allOptions.withLegend !== false"
-            :disabled="allOptions.legendPosition !== 'bottom'"
-            :to="`legend-bottom-${chartID}`"
-            slim
-          >
-            <lume-chart-legend
-              :data="internalData"
-              class="lume-chart__legend"
-              data-j-lume-chart__legend
-              @click="emit('click', $event)"
-            />
-          </vue-portal>
-        </div>
-      </div>
-    </template>
-
-    <template v-if="isReady">
-      <!-- Negative values background -->
-      <lume-bar
-        v-if="hasNegativeValues"
-        v-bind="negativeBarAttributes"
-        class-list="lume-fill--negative"
-        :transition="false"
-        data-j-lume-chart__negative-values
-      />
-
-      <!-- Axes -->
-      <slot
-        v-if="allOptions.withAxes !== false"
-        name="axes"
-        :x-scale="computedXScale"
-        :y-scale="computedYScale"
-        :container-size="containerSize"
-        :options="allOptions"
-        :hovered-index="hoveredIndex"
+    <vue-portal
+      v-for="(tick, index) in ticks"
+      :key="tick"
+      slim
+      :disabled="!isHovering(index)"
+      :to="`${chartID}-${computedType}-hovered-portal`"
+    >
+      <g
+        v-bind="mixins.getTickGroupAttributes(tick)"
+        :id="getTickId(index)"
+        class="axis__tick"
+        :class="{
+          'axis__tick--hovered': isHovering(index),
+          'axis__tick--hidden': allOptions.skip && !showTick(index),
+        }"
+        data-j-axis__tick
       >
-        <lume-axis
-          type="x"
-          :scale="computedXScale"
-          :container-size="containerSize"
-          :options="computedXAxisOptions"
-          :hovered-index="hoveredIndex"
-          :orientation="orientation"
-          data-j-lume-chart__x-axis
-          @tick-mouseover="mouseOverHandler($event)"
-        />
-        <lume-axis
-          type="y"
-          :scale="computedYScale"
-          :container-size="containerSize"
-          :options="computedYAxisOptions"
-          :hovered-index="hoveredIndex"
-          :orientation="orientation"
-          data-j-lume-chart__y-axis
-          @tick-mouseover="mouseOverHandler($event)"
-        />
-      </slot>
+        <g
+          class="axis__tick-label lume-typography--axis"
+          pointer-events="all"
+          data-j-axis__tick-label
+          @mouseover="onTickMouseover(index)"
+        >
+          <rect
+            v-bind="mixins.getTickGhostAttributes()"
+            class="axis__ghost"
+            fill="url(#lume-tick-gradient)"
+          />
+          <text
+            v-bind="mixins.getTickLabelAttributes()"
+            ref="tickRefs"
+            class="axis__label"
+          >
+            {{ formatTick(tick) }}
+          </text>
+        </g>
 
-      <!-- Data groups -->
-      <slot
-        name="groups"
-        :data="internalData"
-        :labels="computedLabels"
-        :options="allOptions"
-        :orientation="orientation"
-        :x-scale="computedXScale"
-        :y-scale="computedYScale"
-        :hovered-index="hoveredIndex"
-        :container-size="containerSize"
-        :transition="allOptions.withTransition !== false"
-        :class-list="classList"
-      />
-
-      <!-- Overlay bars -->
-      <lume-overlay-group
-        v-if="allOptions.withHover !== false"
-        :data="internalData"
-        :orientation="orientation"
-        :x-scale="computedXScale"
-        :y-scale="computedYScale"
-        data-j-lume-chart__overlay-group
-        @mouseover="mouseOverHandler"
-      />
-
-      <!-- Tooltip anchors -->
-      <g v-if="shouldGenerateTooltipAnchors">
-        <circle
-          v-for="(_, index) in getEmptyArrayFromData(internalData)"
-          v-bind="getTooltipAnchorAttributes(index)"
-          ref="tooltipAnchor"
-          :key="`anchor-${index}`"
-          :r="tooltipAnchorRadius"
-          class="lume-fill--transparent"
+        <line
+          v-if="allOptions.gridLines"
+          v-bind="mixins.getGridLinesAttributes()"
+          class="axis__grid-line"
         />
       </g>
-    </template>
+    </vue-portal>
 
-    <template #footer>
-      <!-- x axis title -->
-      <h3
-        v-if="showXAxisTitle"
-        class="lume-chart__axis-title lume-chart__axis-title--centered lume-axis-title"
-      >
-        {{ xAxisTitle }}
-      </h3>
-
-      <!-- bottom chart legend -->
-      <vue-portal-target
-        :name="`legend-bottom-${chartID}`"
-        slim
-      />
-    </template>
-
-    <template #extra>
-      <slot
-        name="tooltip"
-        v-bind="tooltipConfig"
-        :data="internalData"
-        :labels="computedLabels"
-        :with-tooltip="allOptions.withTooltip !== false"
-        :hovered-index="hoveredIndex"
-        :options="allOptions.tooltipOptions"
-      >
-        <lume-tooltip
-          v-if="allOptions.withTooltip !== false && tooltipConfig.opened"
-          v-bind="tooltipConfig"
-          :position="tooltipPosition"
-          :title="computedLabels[hoveredIndex]"
-          :items="getTooltipItems(hoveredIndex)"
-          :options="allOptions.tooltipOptions"
-          data-j-lume-chart__tooltip
-        >
-          <slot
-            name="tooltip-content"
-            :data="internalData"
-            :labels="computedLabels"
-            :hovered-index="hoveredIndex"
-          />
-        </lume-tooltip>
-      </slot>
-    </template>
-  </lume-chart-container>
+    <!-- Hovered tick -->
+    <vue-portal-target
+      :name="`${chartID}-${computedType}-hovered-portal`"
+      slim
+    />
+  </g>
 </template>
 
+<script lang="ts">
+enum SCALE_MIXIN_MAP {
+  bandScale = 'band-scale-axis',
+  linearScale = 'linear-scale-axis',
+}
+enum POSITIONS {
+  left = 'left',
+  bottom = 'bottom',
+}
+enum TYPES {
+  x = POSITIONS.bottom,
+  y = POSITIONS.left,
+}
+</script>
+
 <script setup lang="ts">
-import { computed, onMounted, ref, toRefs, useSlots } from 'vue';
+import {
+  computed,
+  onBeforeMount,
+  onMounted,
+  PropType,
+  reactive,
+  ref,
+  toRefs,
+  watch,
+} from 'vue';
+import { ticks as d3TickGenerator } from 'd3';
+import { ScaleBand } from 'd3';
 import {
   Portal as VuePortal,
   PortalTarget as VuePortalTarget,
 } from 'portal-vue';
 
-import {
-  LumeAxis,
-  LumeBar,
-  LumeChartContainer,
-  LumeChartLegend,
-  LumeTooltip,
-} from '@/components/core';
-import LumeOverlayGroup from '@/components/groups/lume-overlay-group';
-
 import { useBase } from '@/composables/base';
-import { withChartProps } from '@/composables/props';
-import { isScale, Scale, useBaseScales } from '@/composables/scales';
-import { ChartOptions, useOptions } from '@/composables/options';
-import {
-  checkNegativeValues,
-  useNegativeValues,
-} from '@/composables/negative-values';
-import { useTooltip, useTooltipAnchors } from '@/composables/tooltip';
+import { useFormat } from '@/composables/format';
+import { AxisOptions, useOptions, withOptions } from '@/composables/options';
+import { Scale } from '@/composables/scales';
+import { useSkip } from './composables/lume-skip';
 
-import { getEmptyArrayFromData } from '@/utils/helpers';
-import { ORIENTATIONS, TOOLTIP_ANCHOR_RADIUS } from '@/constants';
+import { Orientation, ORIENTATIONS } from '@/constants';
+import { svgCheck } from '@/utils/svg-check';
+import { ContainerSize } from '@/types/size';
+import { xOptions, yOptions } from './defaults';
+import { AxisMixin, AxisMixinFunction } from './types';
+
+import mixinTypes from './composables/';
 
 const props = defineProps({
-  ...withChartProps(),
-  chartType: {
-    type: String,
-    default: null,
+  scale: {
+    type: Function as PropType<Scale>,
+    required: true,
   },
+  type: {
+    type: String,
+    default: undefined,
+    validator: (value: string) => value in TYPES,
+  },
+  position: {
+    type: String as PropType<POSITIONS>,
+    default: undefined,
+    validator: (value: string) => value in POSITIONS,
+  },
+  containerSize: {
+    type: Object as PropType<ContainerSize>,
+    default: () => ({ width: 0, height: 0 }),
+  },
+  hoveredIndex: {
+    type: Number,
+    default: -1,
+  },
+  orientation: {
+    type: String as PropType<Orientation>,
+    default: ORIENTATIONS.VERTICAL,
+  },
+  ...withOptions<AxisOptions>(),
 });
 
-const slots = useSlots();
+const emit = defineEmits(['tick-mouseover']);
 
-const emit = defineEmits(['click']);
+const { scale, containerSize, hoveredIndex, options, orientation } =
+      toRefs(props); // Needs to be cast as any to avoid it being cast to never by default
 
-const tooltipAnchorRadius = TOOLTIP_ANCHOR_RADIUS;
+const mixins = reactive<Record<string, AxisMixinFunction>>({});
+const tickRefs = ref<Array<SVGTextElement>>(null);
+const isLoading = ref<boolean>(false);
+const root = ref<SVGGElement>(null);
 
-const { data, labels, color, options, orientation, chartType } =
-      toRefs(props);
+const { chartID } = useBase();
 
-const hoveredIndex = ref<number>(-1);
-const tooltipAnchor = ref<SVGCircleElement>(null);
-const chartContainer = ref<InstanceType<typeof LumeChartContainer>>(null);
-
-const { allOptions } = useOptions<ChartOptions>(options);
-
-const { internalData, computedLabels, containerSize, updateSize, chartID } =
-      useBase(data, labels, color, allOptions, orientation);
-
-const { xScale, yScale } = useBaseScales(
-  internalData,
-  computedLabels,
-  containerSize,
-  orientation,
-  allOptions
+const computedPosition = computed(() =>
+  props.type ? TYPES[props.type] : props.position
 );
 
-const computedXScale = computed<Scale>(() => {
-  if (!props.xScale) return xScale.value;
-  return isScale(props.xScale)
-    ? props.xScale
-    : props.xScale?.(internalData.value, labels.value, containerSize);
-});
+const computedType = computed(
+  () => props.type || (computedPosition.value === 'left' ? 'y' : 'x')
+);
 
-const computedYScale = computed<Scale>(() => {
-  if (!props.yScale) return yScale.value;
-  return isScale(props.yScale)
-    ? props.yScale
-    : props.yScale?.(internalData.value, labels.value, containerSize);
-});
-
-const computedXAxisOptions = computed(() => ({
-  ...allOptions.value.xAxisOptions,
-  withHover: orientation.value === ORIENTATIONS.VERTICAL,
-}));
-
-const computedYAxisOptions = computed(() => ({
-  ...allOptions.value.yAxisOptions,
-  withHover: orientation.value === ORIENTATIONS.HORIZONTAL,
-}));
-
-const xAxisTitle = computed(() => {
-  return allOptions.value.xAxisOptions?.title;
-});
-
-const yAxisTitle = computed(() => {
-  return allOptions.value.yAxisOptions?.title;
-});
-
-const showXAxisTitle = computed(() => {
-  return (
-    allOptions.value.xAxisOptions?.withTitle !== false && xAxisTitle.value
-  );
-});
-
-const showYAxisTitle = computed(() => {
-  return (
-    allOptions.value.yAxisOptions?.withTitle !== false && yAxisTitle.value
-  );
-});
-
-const shouldGenerateTooltipAnchors = computed(
+const shouldHover = computed(
   () =>
-    allOptions.value.withTooltip !== false &&
-        !allOptions.value.tooltipOptions?.targetElement
+    (computedType.value === 'x' &&
+          orientation.value === ORIENTATIONS.VERTICAL) ||
+        (computedType.value === 'y' &&
+          orientation.value === ORIENTATIONS.HORIZONTAL)
 );
 
-const isReady = computed(() => {
-  const conditions = [];
+const { allOptions } = useOptions<AxisOptions>(
+  options,
+  computedType.value === 'x' ? xOptions : yOptions
+);
 
-  const { noBaseScales } = allOptions.value;
+const { showTick } = useSkip(scale, tickRefs, allOptions.value.skip);
 
-  if (!noBaseScales) {
-    conditions.push(() => !!(computedXScale.value && computedYScale.value));
+const axisTransform = computed(
+  () =>
+    `translate(0, ${
+      computedType.value === 'x' ? containerSize.value?.height : 0
+    })`
+);
+
+const ticks = computed(() => {
+  // For band scales, return the full labels array (domain)
+  if ((scale.value as ScaleBand<string | number>).step) {
+    return scale.value.domain();
   }
 
-  return conditions.every((c) => c() === true);
+  const { tickCount } = allOptions.value;
+  const [start, end] = scale.value.domain() as number[];
+
+  return d3TickGenerator(start, end, tickCount);
 });
 
-const { hasNegativeValues } = checkNegativeValues(internalData);
-const { negativeBarAttributes } = useNegativeValues(
-  containerSize,
-  computedXScale,
-  computedYScale,
-  orientation
-);
-
-const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();
-
-const { getTooltipAnchorAttributes, getTooltipItems } = useTooltipAnchors(
-  internalData,
-  computedXScale,
-  computedYScale,
-  orientation,
-  chartType
-);
-
-const tooltipPosition = computed(
-  () => allOptions.value.tooltipOptions?.position || 'top'
-);
-
-function mouseOverHandler(index: number) {
-  // Update hoveredIndex
-  allOptions.value.withHover !== false && (hoveredIndex.value = index);
-
-  // Show/update tooltip
-  const targetElement = !allOptions.value.tooltipOptions?.targetElement
-    ? tooltipAnchor.value[index]
-    : allOptions.value.tooltipOptions.targetElement === 'self'
-      ? chartContainer.value.$el
-      : allOptions.value.tooltipOptions.targetElement;
-
-  if (allOptions.value.withTooltip !== false) {
-    showTooltip(targetElement);
-  }
-}
-
-function handleMouseleave() {
-  hideTooltip();
-  hoveredIndex.value = -1;
-}
-
-onMounted(() => {
-  if (!slots.groups?.()) {
-    console.error('"groups" `<slot>` must have content.');
-  }
+const tickFormatter = computed(() => {
+  const { tickFormat } = allOptions.value;
+  return useFormat(tickFormat);
 });
+
+function formatTick(tick: number | string) {
+  const { showTicks } = allOptions.value;
+
+  // Hides ticks without hiding `gridLines`
+  if (showTicks === false) return '';
+
+  return tickFormatter.value(tick);
+}
+
+function onTickMouseover(index: number) {
+  shouldHover.value && emit('tick-mouseover', index);
+}
+
+function isHovering(index: number) {
+  return (
+    allOptions.value.withHover &&
+        shouldHover.value &&
+        hoveredIndex.value === index
+  );
+}
+
+function getTickId(index: number) {
+  return `${chartID}-${computedType.value}-tick--${index}`;
+}
+
+function init() {
+  isLoading.value = true;
+  const scaleType = (scale.value as ScaleBand<string | number>).step
+    ? 'bandScale'
+    : 'linearScale';
+
+  // Get mixin generator based on the scale type
+  const mixin: AxisMixin =
+        mixinTypes[`${computedType.value}-${SCALE_MIXIN_MAP[scaleType]}`];
+
+  // Push all mixin functions into the `mixins` reactive object
+  Object.entries(mixin(scale, containerSize, allOptions) || []).forEach(
+    ([fnName, fn]) => {
+      mixins[fnName] = fn;
+    }
+  );
+
+  isLoading.value = false;
+}
+
+onBeforeMount(async () => {
+  init();
+
+  // Setup watcher to get new mixins if scale changes (i.e. vertical to horizontal)
+  watch(scale, init, { flush: 'sync' });
+});
+
+onMounted(() => svgCheck(root.value));
 </script>
 
 <style lang="scss" scoped>
