@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { useBase, withBase } from '@/composables/base';
-import { NUMBER_OF_COLORS, Orientation } from '@/constants';
+import { Orientation } from '@/constants';
 import { data, labels } from '../mock-data';
 import { ref } from 'vue';
 
@@ -9,7 +9,7 @@ const getMixin = (orientation: Orientation = 'horizontal') => {
   mount({
     template: '<div></div>',
     setup() {
-      mixin = useBase(ref(data), ref(labels), ref(orientation));
+      mixin = useBase(ref(data), ref(labels), null, null, ref(orientation));
       return mixin;
     },
   });
@@ -28,7 +28,6 @@ describe('base.ts', () => {
       const dataset = mixin.internalData.value[0];
       expect(dataset).toHaveProperty('values');
       expect(dataset).toHaveProperty('color');
-      expect(dataset).toHaveProperty('label');
       expect(mixin).toHaveProperty('containerSize');
       expect(mixin).toHaveProperty('updateSize');
     });

@@ -27,7 +27,7 @@ exports[` 1`] = `
         tabindex="0"
       >
         <span
-          class="adv-chart-legend__circle adv-background-color--01"
+          class="adv-chart-legend__circle adv-background-color--skyblue"
           data-j-chart-legend__circle=""
         />
         

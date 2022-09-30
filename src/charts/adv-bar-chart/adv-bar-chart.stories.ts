@@ -1,9 +1,10 @@
+import { computed } from 'vue';
 import { withSizeArgs, withSizeArgTypes } from '@/utils/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/base-data';
 
 import AdvBarChart from './index';
 
-import { ORIENTATIONS } from '@/constants';
+import { Colors, ORIENTATIONS } from '@/constants';
 
 export default {
   title: 'Charts/Bar chart',
@@ -17,6 +18,10 @@ export default {
     labels: {
       control: 'object',
       description: 'Chart labels.',
+    },
+    color: {
+      control: 'select',
+      options: Object.keys(Colors),
     },
     orientation: {
       control: 'radio',
@@ -42,11 +47,12 @@ const Template = ({ argTypes }) => ({
   components: { AdvBarChart },
   props: Object.keys(argTypes),
   setup(props) {
-    return { props };
+    const computedColor = computed(() => Colors[props.color]);
+    return { computedColor, props };
   },
   template: `
   <div :style="{ width: width + 'px', height: props.orientation !== 'horizontal' ? height + 'px' : undefined }">
-      <adv-bar-chart v-bind="props" />
+      <adv-bar-chart v-bind="props" :color="computedColor" />
   </div>
   `,
 });
@@ -72,6 +78,21 @@ MultipleDatasets.args = {
   options: {
     xAxisOptions: {},
     yAxisOptions: {},
+  },
+};
+
+export const MaximumDatasets = Template.bind({});
+MaximumDatasets.argTypes = {
+  type: { control: 'radio', options: ['grouped', 'stacked'] },
+};
+MaximumDatasets.args = {
+  ...withSizeArgs(720),
+  ...DATASETS.Maximum,
+  type: 'grouped',
+  orientation: ORIENTATIONS.VERTICAL,
+  options: {
+    xAxisOptions: {},
+    yAxisOptions: { tickFormat: '.2s' },
   },
 };
 

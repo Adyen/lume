@@ -54,8 +54,8 @@ export default defineComponent({
 
     function getClasses(linkPath: LinkPath) {
       return {
-        [`adv-stroke-color--${linkPath.color}`]: !isGhost.value,
-        'adv-stroke-color--transparent': isGhost.value,
+        [`adv-stroke--${linkPath.color}`]: !isGhost.value,
+        'adv-stroke--transparent': isGhost.value,
         'adv-alluvial-path-group__link--ghost': isGhost.value,
         'adv-alluvial-path-group__link--faded': isNodeOrLinkFaded(
           linkPath.id,

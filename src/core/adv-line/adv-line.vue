@@ -2,7 +2,7 @@
   <path
     class="adv-line"
     :class="{
-      [`adv-stroke-color--${color}`]: true,
+      [`adv-stroke--${color}`]: true,
       'adv-line--dashed': dashed,
       'adv-line--transition': transition,
     }"

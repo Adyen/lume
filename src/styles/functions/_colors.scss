@@ -1,0 +1,83 @@
+@use 'sass:color';
+// @use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
+
+//
+//// Don't delete
+//// To be used in the future for generating sequential lists
+//
+// @function generate-sequential-list($color) {
+//   $list: ();
+
+//   @for $i from 1 through 5 {
+//     $lightnessValue: (5 - $i) * 20%;
+//     $saturationValue: -(5 - $i) * 10%;
+
+//     $list: list.append(
+//       $list,
+//       color.scale(
+//         $color,
+//         $lightness: $lightnessValue,
+//         $saturation: $saturationValue
+//       )
+//     );
+//   }
+
+//   @for $i from 1 through 5 {
+//     $lightnessValue: -($i * 16.66666666667%);
+//     $saturationValue: -($i * 15%);
+
+//     $list: list.append(
+//       $list,
+//       color.scale(
+//         $color,
+//         $lightness: $lightnessValue,
+//         $saturation: $saturationValue
+//       )
+//     );
+//   }
+
+//   @return $list;
+// }
+
+//
+//// Generates a map of divergent colors, from $color1 to $color2.
+//// Example:
+//// skyblue-darkteal-{ 10 - 50 }
+//
+@function generate-divergent-map($name, $color1, $color2) {
+  $map: ();
+
+  @for $i from 0 through 4 {
+    $percent: math.percentage(math.div((4 - $i), 4));
+    $colorName: '#{$name}-#{$i + 1}0';
+
+    $map: map.set($map, $colorName, color.mix($color1, $color2, $percent));
+  }
+
+  @return $map;
+}
+
+//
+//// Returns a faded version of the provided color
+//
+@function fade-color($color) {
+  @return color.scale($color, $whiteness: 33.333%);
+}
+
+//
+//// Generates utility classes for the provided $property
+//// from a $map of colors.
+//
+@mixin generate-color-classes($property, $map) {
+  @each $name, $value in $map {
+    .adv-#{$property}--#{$name} {
+      #{$property}: $value;
+
+      &.adv-#{$property}--faded {
+        #{$property}: fade-color($value);
+      }
+    }
+  }
+}

@@ -1,19 +1,28 @@
 import Vue, { computed, ComputedRef, PropType, reactive, Ref } from 'vue';
+
 import {
   BAR_HEIGHT,
-  NUMBER_OF_COLORS,
+  Colors,
+  DivergentColors,
   Orientation,
   ORIENTATIONS,
 } from '@/constants';
+
+import { computeColor } from '@/utils/colors';
 import { getEmptyArrayFromData, isDatasetValueObject } from '@/utils/helpers';
+
 import {
   Data,
+  Dataset,
   DatasetValue,
   DatasetValueObject,
+  ColorPalette,
   InternalData,
+  InternalDataset,
 } from '@/types/dataset';
-import { Color } from '@/types/colors';
 import { ContainerSize } from '@/types/size';
+
+import { Options } from './options';
 
 function computeValues(values: Array<DatasetValue<number>>) {
   return values.map((value) => {
@@ -22,6 +31,10 @@ function computeValues(values: Array<DatasetValue<number>>) {
       ? value
       : ({ value } as DatasetValueObject);
   });
+}
+
+function isInternalDataset(dataset: unknown): dataset is InternalDataset {
+  return (dataset as InternalDataset).__internal === true;
 }
 
 export type DataValidator = (value: Data) => boolean;
@@ -36,11 +49,17 @@ export const withBase = (dataValidator: DataValidator = null) => ({
     type: Array as PropType<Array<string>>,
     default: undefined,
   },
+  color: {
+    type: String as PropType<Colors | DivergentColors>,
+    default: Colors.Skyblue,
+  },
 });
 
 export function useBase(
-  data: Ref<Data>,
+  data: Ref<Data | InternalData>,
   labels?: Ref<Array<string>>,
+  color?: Ref<Colors | DivergentColors>,
+  options?: Ref<Options>,
   orientation?: Ref<Orientation>
 ) {
   const containerSize = reactive({
@@ -49,13 +68,27 @@ export function useBase(
   });
 
   const internalData: ComputedRef<InternalData> = computed(() => {
-    return data.value?.map((dataset, index) => {
-      const values = computeValues(dataset.values);
-      const color = dataset.color || (`0${1 + (index % NUMBER_OF_COLORS)}` as Color);
-      const label = dataset.label;
+    return data.value?.map(
+      (dataset: Dataset<DatasetValue> | InternalDataset, index: number) => {
+        // Prevent re-computing internal datasets
+        if (isInternalDataset(dataset)) return dataset;
 
-      return { values, color, label, __isInternal: true };
-    });
+        const _values = computeValues(dataset.values);
+        const _color = computeColor(
+          dataset.color,
+          color?.value,
+          options?.value.colorPalette as ColorPalette,
+          index
+        );
+
+        return {
+          ...dataset,
+          values: _values,
+          color: _color,
+          __internal: true as const,
+        };
+      }
+    );
   });
 
   const computedLabels = computed(() => {
