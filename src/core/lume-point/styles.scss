@@ -1,0 +1,9 @@
+@use '~@/styles/variables' as *;
+
+.lume-point {
+  fill: $lume-color-white;
+  stroke-width: 2px;
+
+  transition: all $lume-transition-time-long ease;
+  pointer-events: none;
+}

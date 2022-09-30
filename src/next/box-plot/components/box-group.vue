@@ -7,17 +7,17 @@
     <rect
       class="box-plot__box"
       v-bind="boxGroup.box"
-      :class="[`adv-fill-color--${boxGroup.color}`]"
+      :class="[`lume-fill-color--${boxGroup.color}`]"
     />
     <line
       class="box-plot__median"
       v-bind="boxGroup.medianLine"
     />
-    <adv-bar
+    <lume-bar
       v-if="overlay"
       v-bind="overlay"
       :class-list="
-        isHovered ? 'adv-fill-color--overlay' : 'adv-fill-color--transparent'
+        isHovered ? 'lume-fill-color--overlay' : 'lume-fill-color--transparent'
       "
       :transition="true"
       @mouseover.native="$emit('mouseover', $event)"
@@ -28,10 +28,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import AdvBar from '@/core/adv-bar';
+import LumeBar from '@/core/lume-bar';
 
 export default defineComponent({
-  components: { AdvBar },
+  components: { LumeBar },
   props: {
     boxGroup: {
       type: Object,
@@ -54,14 +54,14 @@ export default defineComponent({
 
 .box-plot {
   &__line {
-    stroke: $adv-color-data-viz-grey-darker;
+    stroke: $lume-color-data-viz-grey-darker;
     width: 40px;
   }
   &__box {
-    stroke: $adv-color-data-viz-grey-darker;
+    stroke: $lume-color-data-viz-grey-darker;
   }
   &__median {
-    stroke: $adv-color-data-viz-grey-darker;
+    stroke: $lume-color-data-viz-grey-darker;
     width: 80px;
   }
 }

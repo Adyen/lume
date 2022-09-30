@@ -1,16 +1,16 @@
 <template>
-  <AdvBarChart v-bind="$props" />
+  <LumeBarChart v-bind="$props" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import AdvBarChart from '@/charts/adv-bar-chart';
+import LumeBarChart from '@/charts/lume-bar-chart';
 
 import { withChartProps } from '@/composables/props';
 
 export default defineComponent({
-  components: { AdvBarChart },
+  components: { LumeBarChart },
   props: {
     ...withChartProps(),
   },

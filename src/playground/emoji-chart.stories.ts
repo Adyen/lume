@@ -1,4 +1,4 @@
-import AdvChart from '@/core/adv-chart';
+import LumeChart from '@/core/lume-chart';
 import EmojiGroup from './emoji-group.vue';
 
 export default {
@@ -31,18 +31,18 @@ export default {
 
 export const Basic = ({ args, argTypes }) => {
   return {
-    components: { AdvChart, EmojiGroup },
+    components: { LumeChart, EmojiGroup },
     props: Object.keys(argTypes),
     setup() {
       return { args };
     },
     template: `
     <div style="width: 600px; height: 300px">
-      <adv-chart v-bind="args">
+      <lume-chart v-bind="args">
         <template #groups="props">
           <emoji-group v-bind="props" />
         </template>
-      </adv-chart>
+      </lume-chart>
     </div>
     `,
   };

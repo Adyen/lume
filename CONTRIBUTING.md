@@ -1,6 +1,6 @@
 # Contributing guidelines
 
-Welcome and thank you for showing interest in contributing to ADV!
+Welcome and thank you for showing interest in contributing to Lume!
 
 As a new project, we are hoping to create an active community of developers that submits issues, creates merge requests and provides invaluable feedback.
 
@@ -48,4 +48,4 @@ All commits to this project should respect the following rules:
 
 ## License
 
-By contributing your code to the ADV GitHub repository, you agree to license your contribution under the MIT license.
+By contributing your code to the Lume GitHub repository, you agree to license your contribution under the MIT license.

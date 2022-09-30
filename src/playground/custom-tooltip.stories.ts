@@ -1,10 +1,10 @@
-import AdvChart from '@/core/adv-chart';
-import AdvLineGroup from '@/groups/adv-line-group';
+import LumeChart from '@/core/lume-chart';
+import LumeLineGroup from '@/groups/lume-line-group';
 
 import CustomTooltip from './custom-tooltip.vue';
 
 import { withSizeArgs, withSizeArgTypes } from '@/utils/storybook-helpers';
-import { options as defaultOptions } from '@/charts/adv-line-chart/defaults';
+import { options as defaultOptions } from '@/charts/lume-line-chart/defaults';
 
 export default {
   title: 'Playground/Custom tooltip',
@@ -36,41 +36,41 @@ export default {
 };
 
 export const CustomTooltipElement = ({ args, argTypes }) => ({
-  components: { AdvChart, AdvLineGroup, CustomTooltip },
+  components: { LumeChart, LumeLineGroup, CustomTooltip },
   props: Object.keys(argTypes),
   setup() {
     return { args };
   },
   template: `
   <div :style="{ width: width + 'px', height: height + 'px' }">
-    <adv-chart v-bind="args">
+    <lume-chart v-bind="args">
       <template #groups="props">
-        <adv-line-group v-bind="props" />
+        <lume-line-group v-bind="props" />
       </template>
       <template #tooltip="props">
         <custom-tooltip v-bind="props" />
       </template>
-    </adv-chart>
+    </lume-chart>
   </div>
   `,
 });
 
 export const CustomTooltipContent = ({ args, argTypes }) => ({
-  components: { AdvChart, AdvLineGroup, CustomTooltip },
+  components: { LumeChart, LumeLineGroup, CustomTooltip },
   props: Object.keys(argTypes),
   setup() {
     return { args };
   },
   template: `
   <div :style="{ width: width + 'px', height: height + 'px' }">
-    <adv-chart v-bind="args">
+    <lume-chart v-bind="args">
       <template #groups="props">
-        <adv-line-group v-bind="props" />
+        <lume-line-group v-bind="props" />
       </template>
       <template #tooltip-content="{ data, labels, hoveredIndex }">
         On {{ labels[hoveredIndex] }}, the value was <strong>{{ data[0].values[hoveredIndex].value }}</strong>
       </template>
-    </adv-chart>
+    </lume-chart>
   </div>
   `,
 });

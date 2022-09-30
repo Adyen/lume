@@ -2,8 +2,8 @@
   "name": "data-visualization",
   "version": "0.0.1",
   "description": "Data visualization is the graphical representation of information and data. By using visual elements like charts, graphs, and maps, data visualization repository provide an accessible way to see and understand trends, outliers, and patterns in data.",
-  "main": "dist/adv.umd.js",
-  "module": "dist/adv.esm.js",
+  "main": "dist/lume.umd.js",
+  "module": "dist/lume.esm.js",
   "files": [
     "dist/"
   ],

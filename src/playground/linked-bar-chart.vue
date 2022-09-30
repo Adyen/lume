@@ -1,23 +1,23 @@
 <template>
-  <adv-chart
+  <lume-chart
     v-bind="$props"
     chart-type="bar"
   >
     <template #axes="{ xScale, yScale, containerSize, options, hoveredIndex }">
-      <adv-axis
+      <lume-axis
         type="y"
         :scale="getScale(yScale, 0)"
         :container-size="containerSize"
         :options="options.yAxisOptions"
       />
-      <adv-axis
+      <lume-axis
         type="y"
         :scale="getScale(yScale, 1)"
         :container-size="containerSize"
         :options="options.yAxisOptions"
       />
 
-      <adv-axis
+      <lume-axis
         type="x"
         :scale="xScale"
         :container-size="containerSize"
@@ -27,26 +27,26 @@
     </template>
 
     <template #groups="props">
-      <adv-bar-group
+      <lume-bar-group
         v-bind="props"
         :data="[firstDataset]"
         :y-scale="getScale(props.yScale, 0)"
       />
-      <adv-bar-group
+      <lume-bar-group
         v-bind="props"
         :data="[secondDataset]"
         :y-scale="getScale(props.yScale, 1)"
       />
     </template>
-  </adv-chart>
+  </lume-chart>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, toRefs } from 'vue';
 
-import AdvAxis from '@/core/adv-axis';
-import AdvChart from '@/core/adv-chart';
-import AdvBarGroup from '@/groups/adv-bar-group';
+import LumeAxis from '@/core/lume-axis';
+import LumeChart from '@/core/lume-chart';
+import LumeBarGroup from '@/groups/lume-bar-group';
 
 import { Scale } from '@/composables/scales';
 import { withChartProps } from '@/composables/props';
@@ -56,7 +56,7 @@ import { Data } from '@/types/dataset';
 const linkedDataValidator = (data: Data) => data.length === 2;
 
 export default defineComponent({
-  components: { AdvChart, AdvBarGroup, AdvAxis },
+  components: { LumeChart, LumeBarGroup, LumeAxis },
   props: {
     ...withChartProps(linkedDataValidator),
   },
