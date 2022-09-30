@@ -1,3 +1,4 @@
+import flushPromises from 'flush-promises';
 import {
   generateData,
   labels,
@@ -23,6 +24,8 @@ describe('adv-bar-chart.vue', () => {
       yScale,
     }).run().wrapper;
 
+    await flushPromises();
+
     expect(wrapper.find('[data-j-adv-bar-chart]')).toBeTruthy();
   });
 
@@ -34,12 +37,15 @@ describe('adv-bar-chart.vue', () => {
       yScale,
     }).wrapper;
 
+    await flushPromises();
+
     const el = wrapper.find('[data-j-single-bar-chart]');
+
     expect(el.exists()).toBeTruthy();
     expect(el.findAll('[data-j-adv-bar]')).toHaveLength(numberOfBars);
   });
 
-  test.skip('should display grouped bar chart', async () => {
+  test('should display grouped bar chart', async () => {
     const type = 'grouped';
 
     const wrapper = await barChartTestSuiteFactory({
@@ -50,6 +56,8 @@ describe('adv-bar-chart.vue', () => {
       yScale,
     }).wrapper;
 
+    await flushPromises();
+
     const el = wrapper.find('[data-j-grouped-bar-chart]');
 
     expect(el.exists()).toBeTruthy();
@@ -58,7 +66,7 @@ describe('adv-bar-chart.vue', () => {
     );
   });
 
-  test.skip('should display stacked bar chart', async () => {
+  test('should display stacked bar chart', async () => {
     const type = 'stacked';
 
     const wrapper = await barChartTestSuiteFactory({
@@ -68,6 +76,8 @@ describe('adv-bar-chart.vue', () => {
       xScale,
       yScale,
     }).wrapper;
+
+    await flushPromises();
 
     const el = wrapper.find('[data-j-stacked-bar-chart]');
 
