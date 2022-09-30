@@ -18,6 +18,7 @@
 
       <adv-line-group
         v-bind="props"
+        :data="computedLineData"
         :with-points="false"
       />
     </template>

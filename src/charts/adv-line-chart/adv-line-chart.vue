@@ -7,7 +7,10 @@
     data-j-adv-line-chart
   >
     <template #groups="props">
-      <adv-line-group v-bind="props" />
+      <adv-line-group
+        v-bind="props"
+        :data="computedLineData"
+      />
     </template>
   </adv-chart>
 </template>
