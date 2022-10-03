@@ -27,7 +27,7 @@ exports[`adv-bar-chart.vue mounts component and sets prop values 1`] = `
         tabindex="0"
       >
         <span
-          class="adv-chart-legend__circle adv-background-color--01"
+          class="adv-chart-legend__circle adv-background-color--skyblue"
           data-j-chart-legend__circle=""
         />
         
@@ -49,7 +49,7 @@ exports[`adv-bar-chart.vue mounts component and sets prop values 1`] = `
     >
        
       <rect
-        class="adv-bar adv-fill-color--negative"
+        class="adv-bar adv-fill--negative"
         data-j-adv-chart__negative-values=""
         data-j-bar=""
         height="0"
@@ -703,7 +703,7 @@ exports[`adv-bar-chart.vue mounts component and sets prop values 1`] = `
       >
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
             height="-80"
@@ -715,7 +715,7 @@ exports[`adv-bar-chart.vue mounts component and sets prop values 1`] = `
         </g>
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--negative adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--negative adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
             height="-320"
@@ -727,7 +727,7 @@ exports[`adv-bar-chart.vue mounts component and sets prop values 1`] = `
         </g>
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
             height="-240"
@@ -739,7 +739,7 @@ exports[`adv-bar-chart.vue mounts component and sets prop values 1`] = `
         </g>
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
             height="-160"
@@ -751,7 +751,7 @@ exports[`adv-bar-chart.vue mounts component and sets prop values 1`] = `
         </g>
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--negative adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--negative adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
             height="-560"
@@ -763,7 +763,7 @@ exports[`adv-bar-chart.vue mounts component and sets prop values 1`] = `
         </g>
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
             height="-480"
@@ -775,7 +775,7 @@ exports[`adv-bar-chart.vue mounts component and sets prop values 1`] = `
         </g>
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
             height="-400"
@@ -792,7 +792,7 @@ exports[`adv-bar-chart.vue mounts component and sets prop values 1`] = `
         data-j-adv-chart__overlay-group=""
       >
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="0"
           data-j-bar=""
           height="480"
@@ -802,7 +802,7 @@ exports[`adv-bar-chart.vue mounts component and sets prop values 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="1"
           data-j-bar=""
           height="480"
@@ -812,7 +812,7 @@ exports[`adv-bar-chart.vue mounts component and sets prop values 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="2"
           data-j-bar=""
           height="480"
@@ -822,7 +822,7 @@ exports[`adv-bar-chart.vue mounts component and sets prop values 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="3"
           data-j-bar=""
           height="480"
@@ -832,7 +832,7 @@ exports[`adv-bar-chart.vue mounts component and sets prop values 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="4"
           data-j-bar=""
           height="480"
@@ -842,7 +842,7 @@ exports[`adv-bar-chart.vue mounts component and sets prop values 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="5"
           data-j-bar=""
           height="480"
@@ -852,7 +852,7 @@ exports[`adv-bar-chart.vue mounts component and sets prop values 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="6"
           data-j-bar=""
           height="480"
@@ -865,43 +865,43 @@ exports[`adv-bar-chart.vue mounts component and sets prop values 1`] = `
        
       <g>
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="45.714285714285715"
           cy="80"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="137.14285714285714"
           cy="0"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="228.57142857142858"
           cy="240"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="320"
           cy="160"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="411.42857142857144"
           cy="0"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="502.8571428571429"
           cy="480"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="594.2857142857142"
           cy="400"
           r="1"
@@ -945,7 +945,7 @@ exports[`adv-bar-chart.vue should display grouped bar chart 1`] = `
         tabindex="0"
       >
         <span
-          class="adv-chart-legend__circle adv-background-color--01"
+          class="adv-chart-legend__circle adv-background-color--skyblue"
           data-j-chart-legend__circle=""
         />
         
@@ -957,7 +957,7 @@ exports[`adv-bar-chart.vue should display grouped bar chart 1`] = `
         tabindex="0"
       >
         <span
-          class="adv-chart-legend__circle adv-background-color--02"
+          class="adv-chart-legend__circle adv-background-color--royalblue"
           data-j-chart-legend__circle=""
         />
         
@@ -1624,156 +1624,156 @@ exports[`adv-bar-chart.vue should display grouped bar chart 1`] = `
       >
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
-            height="-5906.314939773572"
-            style="transform-origin: 30.400000000000002px 2953.157469886786px;"
+            height="-1126.8171791573548"
+            style="transform-origin: 30.400000000000002px 563.4085895786774px;"
             width="30.628571428571426"
             x="15.085714285714289"
-            y="5906.314939773572"
+            y="1126.8171791573548"
           />
           <rect
-            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            class="adv-bar adv-fill--royalblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
-            height="-2967.838128644427"
-            style="transform-origin: 61.028571428571425px 1483.9190643222134px;"
+            height="-6646.485493474192"
+            style="transform-origin: 61.028571428571425px 3323.242746737096px;"
             width="30.628571428571426"
             x="45.714285714285715"
-            y="2967.838128644427"
+            y="6646.485493474192"
           />
         </g>
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
-            height="-784.3086441454172"
-            style="transform-origin: 121.82857142857144px 392.1543220727086px;"
+            height="-5692.2327818079275"
+            style="transform-origin: 121.82857142857144px 2846.1163909039637px;"
             width="30.628571428571426"
             x="106.51428571428572"
-            y="784.3086441454172"
+            y="5692.2327818079275"
           />
           <rect
-            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            class="adv-bar adv-fill--royalblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
-            height="-2726.468968690206"
-            style="transform-origin: 152.45714285714286px 1363.234484345103px;"
+            height="-552.6465531299945"
+            style="transform-origin: 152.45714285714286px 276.32327656499723px;"
             width="30.628571428571426"
             x="137.14285714285714"
-            y="2726.468968690206"
+            y="552.6465531299945"
           />
         </g>
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
-            height="-6170.816784469965"
-            style="transform-origin: 213.25714285714287px 3085.4083922349823px;"
+            height="-5961.224723290164"
+            style="transform-origin: 213.25714285714287px 2980.612361645082px;"
             width="30.628571428571426"
             x="197.94285714285715"
-            y="6170.816784469965"
+            y="5961.224723290164"
           />
           <rect
-            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            class="adv-bar adv-fill--royalblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
-            height="-6881.311259989795"
-            style="transform-origin: 243.8857142857143px 3440.6556299948975px;"
+            height="-519.6789120974845"
+            style="transform-origin: 243.8857142857143px 259.83945604874225px;"
             width="30.628571428571426"
             x="228.57142857142858"
-            y="6881.311259989795"
+            y="519.6789120974845"
           />
         </g>
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
-            height="-6600.556430784687"
-            style="transform-origin: 304.68571428571425px 3300.2782153923436px;"
+            height="-1439.717437936512"
+            style="transform-origin: 304.68571428571425px 719.858718968256px;"
             width="30.628571428571426"
             x="289.37142857142857"
-            y="6600.556430784687"
+            y="1439.717437936512"
           />
           <rect
-            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            class="adv-bar adv-fill--royalblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
-            height="-1946.940143615885"
-            style="transform-origin: 335.3142857142857px 973.4700718079425px;"
+            height="-1459.6502174830803"
+            style="transform-origin: 335.3142857142857px 729.8251087415401px;"
             width="30.628571428571426"
             x="320"
-            y="1946.940143615885"
+            y="1459.6502174830803"
           />
         </g>
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
-            height="-6982.071672300454"
-            style="transform-origin: 396.1142857142857px 3491.035836150227px;"
+            height="-888.5369775651615"
+            style="transform-origin: 396.1142857142857px 444.26848878258073px;"
             width="30.628571428571426"
             x="380.8"
-            y="6982.071672300454"
+            y="888.5369775651615"
           />
           <rect
-            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            class="adv-bar adv-fill--royalblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
-            height="-5809.426648895467"
-            style="transform-origin: 426.74285714285713px 2904.7133244477336px;"
+            height="-5744.823968995199"
+            style="transform-origin: 426.74285714285713px 2872.4119844975994px;"
             width="30.628571428571426"
             x="411.42857142857144"
-            y="5809.426648895467"
+            y="5744.823968995199"
           />
         </g>
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
-            height="-3460.4410040344255"
-            style="transform-origin: 487.54285714285714px 1730.2205020172128px;"
+            height="-6653.899098054105"
+            style="transform-origin: 487.54285714285714px 3326.9495490270524px;"
             width="30.628571428571426"
             x="472.22857142857146"
-            y="3460.4410040344255"
+            y="6653.899098054105"
           />
           <rect
-            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            class="adv-bar adv-fill--royalblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
-            height="-4419.804613175881"
-            style="transform-origin: 518.1714285714286px 2209.9023065879405px;"
+            height="-3344.5319622809498"
+            style="transform-origin: 518.1714285714286px 1672.2659811404749px;"
             width="30.628571428571426"
             x="502.8571428571429"
-            y="4419.804613175881"
+            y="3344.5319622809498"
           />
         </g>
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
-            height="-7160.974818982312"
-            style="transform-origin: 578.9714285714285px 3580.487409491156px;"
+            height="-1386.7443981876822"
+            style="transform-origin: 578.9714285714285px 693.3721990938411px;"
             width="30.628571428571426"
             x="563.6571428571428"
-            y="7160.974818982312"
+            y="1386.7443981876822"
           />
           <rect
-            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            class="adv-bar adv-fill--royalblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
-            height="-7428.601120581984"
-            style="transform-origin: 609.5999999999999px 3714.300560290992px;"
+            height="-4048.429836972685"
+            style="transform-origin: 609.5999999999999px 2024.2149184863424px;"
             width="30.628571428571426"
             x="594.2857142857142"
-            y="7428.601120581984"
+            y="4048.429836972685"
           />
         </g>
       </g>
@@ -1783,7 +1783,7 @@ exports[`adv-bar-chart.vue should display grouped bar chart 1`] = `
         data-j-adv-chart__overlay-group=""
       >
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="0"
           data-j-bar=""
           height="480"
@@ -1793,7 +1793,7 @@ exports[`adv-bar-chart.vue should display grouped bar chart 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="1"
           data-j-bar=""
           height="480"
@@ -1803,7 +1803,7 @@ exports[`adv-bar-chart.vue should display grouped bar chart 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="2"
           data-j-bar=""
           height="480"
@@ -1813,7 +1813,7 @@ exports[`adv-bar-chart.vue should display grouped bar chart 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="3"
           data-j-bar=""
           height="480"
@@ -1823,7 +1823,7 @@ exports[`adv-bar-chart.vue should display grouped bar chart 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="4"
           data-j-bar=""
           height="480"
@@ -1833,7 +1833,7 @@ exports[`adv-bar-chart.vue should display grouped bar chart 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="5"
           data-j-bar=""
           height="480"
@@ -1843,7 +1843,7 @@ exports[`adv-bar-chart.vue should display grouped bar chart 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="6"
           data-j-bar=""
           height="480"
@@ -1856,45 +1856,45 @@ exports[`adv-bar-chart.vue should display grouped bar chart 1`] = `
        
       <g>
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="45.714285714285715"
-          cy="5906.314939773572"
+          cy="6646.485493474192"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="137.14285714285714"
-          cy="2726.468968690206"
+          cy="5692.2327818079275"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="228.57142857142858"
-          cy="6881.311259989795"
+          cy="5961.224723290164"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="320"
-          cy="6600.556430784687"
+          cy="1459.6502174830803"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="411.42857142857144"
-          cy="6982.071672300454"
+          cy="5744.823968995199"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="502.8571428571429"
-          cy="4419.804613175881"
+          cy="6653.899098054105"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="594.2857142857142"
-          cy="7428.601120581984"
+          cy="4048.429836972685"
           r="1"
         />
       </g>
@@ -1935,7 +1935,7 @@ exports[`adv-bar-chart.vue should display single bar chart 1`] = `
         tabindex="0"
       >
         <span
-          class="adv-chart-legend__circle adv-background-color--01"
+          class="adv-chart-legend__circle adv-background-color--skyblue"
           data-j-chart-legend__circle=""
         />
         
@@ -1957,7 +1957,7 @@ exports[`adv-bar-chart.vue should display single bar chart 1`] = `
     >
        
       <rect
-        class="adv-bar adv-fill-color--negative"
+        class="adv-bar adv-fill--negative"
         data-j-adv-chart__negative-values=""
         data-j-bar=""
         height="0"
@@ -2611,7 +2611,7 @@ exports[`adv-bar-chart.vue should display single bar chart 1`] = `
       >
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
             height="-80"
@@ -2623,7 +2623,7 @@ exports[`adv-bar-chart.vue should display single bar chart 1`] = `
         </g>
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--negative adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--negative adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
             height="-320"
@@ -2635,7 +2635,7 @@ exports[`adv-bar-chart.vue should display single bar chart 1`] = `
         </g>
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
             height="-240"
@@ -2647,7 +2647,7 @@ exports[`adv-bar-chart.vue should display single bar chart 1`] = `
         </g>
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
             height="-160"
@@ -2659,7 +2659,7 @@ exports[`adv-bar-chart.vue should display single bar chart 1`] = `
         </g>
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--negative adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--negative adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
             height="-560"
@@ -2671,7 +2671,7 @@ exports[`adv-bar-chart.vue should display single bar chart 1`] = `
         </g>
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
             height="-480"
@@ -2683,7 +2683,7 @@ exports[`adv-bar-chart.vue should display single bar chart 1`] = `
         </g>
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
             height="-400"
@@ -2700,7 +2700,7 @@ exports[`adv-bar-chart.vue should display single bar chart 1`] = `
         data-j-adv-chart__overlay-group=""
       >
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="0"
           data-j-bar=""
           height="480"
@@ -2710,7 +2710,7 @@ exports[`adv-bar-chart.vue should display single bar chart 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="1"
           data-j-bar=""
           height="480"
@@ -2720,7 +2720,7 @@ exports[`adv-bar-chart.vue should display single bar chart 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="2"
           data-j-bar=""
           height="480"
@@ -2730,7 +2730,7 @@ exports[`adv-bar-chart.vue should display single bar chart 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="3"
           data-j-bar=""
           height="480"
@@ -2740,7 +2740,7 @@ exports[`adv-bar-chart.vue should display single bar chart 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="4"
           data-j-bar=""
           height="480"
@@ -2750,7 +2750,7 @@ exports[`adv-bar-chart.vue should display single bar chart 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="5"
           data-j-bar=""
           height="480"
@@ -2760,7 +2760,7 @@ exports[`adv-bar-chart.vue should display single bar chart 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="6"
           data-j-bar=""
           height="480"
@@ -2773,43 +2773,43 @@ exports[`adv-bar-chart.vue should display single bar chart 1`] = `
        
       <g>
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="45.714285714285715"
           cy="80"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="137.14285714285714"
           cy="0"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="228.57142857142858"
           cy="240"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="320"
           cy="160"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="411.42857142857144"
           cy="0"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="502.8571428571429"
           cy="480"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="594.2857142857142"
           cy="400"
           r="1"
@@ -2853,7 +2853,7 @@ exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
         tabindex="0"
       >
         <span
-          class="adv-chart-legend__circle adv-background-color--01"
+          class="adv-chart-legend__circle adv-background-color--skyblue"
           data-j-chart-legend__circle=""
         />
         
@@ -2865,7 +2865,7 @@ exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
         tabindex="0"
       >
         <span
-          class="adv-chart-legend__circle adv-background-color--02"
+          class="adv-chart-legend__circle adv-background-color--royalblue"
           data-j-chart-legend__circle=""
         />
         
@@ -3140,100 +3140,38 @@ exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
               x="-8"
             >
               
-        1800
-      
-            </text>
-          </g>
-           
-          <line
-            class="axis__grid-line"
-            x1="0"
-          />
-        </g>
-        <g
-          class="axis__tick"
-          data-j-axis__tick=""
-          transform="translate(0, 0)"
-        >
-          <g
-            class="axis__tick-label"
-            data-j-axis__tick-label=""
-            pointer-events="all"
-          >
-            <rect
-              class="axis__ghost"
-            />
-             
-            <text
-              class="axis__label"
-              dy="0.4em"
-              text-anchor="end"
-              x="-8"
-            >
-              
-        1600
-      
-            </text>
-          </g>
-           
-          <line
-            class="axis__grid-line"
-            x1="0"
-          />
-        </g>
-        <g
-          class="axis__tick"
-          data-j-axis__tick=""
-          transform="translate(0, 0)"
-        >
-          <g
-            class="axis__tick-label"
-            data-j-axis__tick-label=""
-            pointer-events="all"
-          >
-            <rect
-              class="axis__ghost"
-            />
-             
-            <text
-              class="axis__label"
-              dy="0.4em"
-              text-anchor="end"
-              x="-8"
-            >
-              
-        1400
-      
-            </text>
-          </g>
-           
-          <line
-            class="axis__grid-line"
-            x1="0"
-          />
-        </g>
-        <g
-          class="axis__tick"
-          data-j-axis__tick=""
-          transform="translate(0, 0)"
-        >
-          <g
-            class="axis__tick-label"
-            data-j-axis__tick-label=""
-            pointer-events="all"
-          >
-            <rect
-              class="axis__ghost"
-            />
-             
-            <text
-              class="axis__label"
-              dy="0.4em"
-              text-anchor="end"
-              x="-8"
-            >
-              
         1200
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        1100
       
             </text>
           </g>
@@ -3295,7 +3233,69 @@ exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
               x="-8"
             >
               
+        900
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
         800
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        700
       
             </text>
           </g>
@@ -3357,7 +3357,69 @@ exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
               x="-8"
             >
               
+        500
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
         400
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        300
       
             </text>
           </g>
@@ -3419,6 +3481,37 @@ exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
               x="-8"
             >
               
+        100
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
         0
       
             </text>
@@ -3439,7 +3532,7 @@ exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
       >
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
             height="0"
@@ -3449,29 +3542,7 @@ exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
             y="0"
           />
           <rect
-            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
-            data-j-adv-bar=""
-            data-j-bar=""
-            height="0"
-            style="transform-origin: 0px 0px;"
-            width="0"
-            x="0"
-            y="0"
-          />
-        </g>
-        <g>
-          <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
-            data-j-adv-bar=""
-            data-j-bar=""
-            height="0"
-            style="transform-origin: 0px 0px;"
-            width="0"
-            x="0"
-            y="0"
-          />
-          <rect
-            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            class="adv-bar adv-fill--royalblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
             height="0"
@@ -3483,7 +3554,7 @@ exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
         </g>
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
             height="0"
@@ -3493,29 +3564,7 @@ exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
             y="0"
           />
           <rect
-            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
-            data-j-adv-bar=""
-            data-j-bar=""
-            height="0"
-            style="transform-origin: 0px 0px;"
-            width="0"
-            x="0"
-            y="0"
-          />
-        </g>
-        <g>
-          <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
-            data-j-adv-bar=""
-            data-j-bar=""
-            height="0"
-            style="transform-origin: 0px 0px;"
-            width="0"
-            x="0"
-            y="0"
-          />
-          <rect
-            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            class="adv-bar adv-fill--royalblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
             height="0"
@@ -3527,7 +3576,7 @@ exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
         </g>
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
             height="0"
@@ -3537,29 +3586,7 @@ exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
             y="0"
           />
           <rect
-            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
-            data-j-adv-bar=""
-            data-j-bar=""
-            height="0"
-            style="transform-origin: 0px 0px;"
-            width="0"
-            x="0"
-            y="0"
-          />
-        </g>
-        <g>
-          <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
-            data-j-adv-bar=""
-            data-j-bar=""
-            height="0"
-            style="transform-origin: 0px 0px;"
-            width="0"
-            x="0"
-            y="0"
-          />
-          <rect
-            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            class="adv-bar adv-fill--royalblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
             height="0"
@@ -3571,7 +3598,7 @@ exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
         </g>
         <g>
           <rect
-            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
             height="0"
@@ -3581,7 +3608,73 @@ exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
             y="0"
           />
           <rect
-            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            class="adv-bar adv-fill--royalblue adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="0"
+            style="transform-origin: 0px 0px;"
+            width="0"
+            x="0"
+            y="0"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="0"
+            style="transform-origin: 0px 0px;"
+            width="0"
+            x="0"
+            y="0"
+          />
+          <rect
+            class="adv-bar adv-fill--royalblue adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="0"
+            style="transform-origin: 0px 0px;"
+            width="0"
+            x="0"
+            y="0"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="0"
+            style="transform-origin: 0px 0px;"
+            width="0"
+            x="0"
+            y="0"
+          />
+          <rect
+            class="adv-bar adv-fill--royalblue adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="0"
+            style="transform-origin: 0px 0px;"
+            width="0"
+            x="0"
+            y="0"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill--skyblue adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="0"
+            style="transform-origin: 0px 0px;"
+            width="0"
+            x="0"
+            y="0"
+          />
+          <rect
+            class="adv-bar adv-fill--royalblue adv-bar--transition-height"
             data-j-adv-bar=""
             data-j-bar=""
             height="0"
@@ -3598,7 +3691,7 @@ exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
         data-j-adv-chart__overlay-group=""
       >
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="0"
           data-j-bar=""
           height="0"
@@ -3608,7 +3701,7 @@ exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="1"
           data-j-bar=""
           height="0"
@@ -3618,7 +3711,7 @@ exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="2"
           data-j-bar=""
           height="0"
@@ -3628,7 +3721,7 @@ exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="3"
           data-j-bar=""
           height="0"
@@ -3638,7 +3731,7 @@ exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="4"
           data-j-bar=""
           height="0"
@@ -3648,7 +3741,7 @@ exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="5"
           data-j-bar=""
           height="0"
@@ -3658,7 +3751,7 @@ exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
           y="0"
         />
         <rect
-          class="adv-bar adv-fill-color--transparent"
+          class="adv-bar adv-fill--transparent"
           data-j-adv-overlay-group="6"
           data-j-bar=""
           height="0"
@@ -3671,43 +3764,43 @@ exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
        
       <g>
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="0"
           cy="0"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="0"
           cy="0"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="0"
           cy="0"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="0"
           cy="0"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="0"
           cy="0"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="0"
           cy="0"
           r="1"
         />
         <circle
-          class="adv-fill-color--transparent"
+          class="adv-fill--transparent"
           cx="0"
           cy="0"
           r="1"
