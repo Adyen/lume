@@ -1,6 +1,7 @@
 @use 'sass:math';
 
 @use '~@/styles/variables' as *;
+@use '~@/styles/mixins/base' as *;
 
 // Tooltip box -----------------------------------------------------------------
 $adv-tooltip-color: $adv-color-grey-90 !default;
@@ -17,11 +18,12 @@ $adv-tooltip-item-min-width: 112px !default;
 $adv-tooltip-symbol-size: $adv-spacing-10 !default;
 
 .adv-tooltip {
+  @include base;
+
   position: absolute;
   max-width: $adv-tooltip-max-width;
   padding: $adv-tooltip-content-padding;
 
-  font-family: $adv-font-family;
   font-size: $adv-text-font-size-small;
   color: $adv-tooltip-color;
 

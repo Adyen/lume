@@ -1,4 +1,5 @@
 @use '~@/styles/variables' as *;
+@use '~@/styles/mixins/base' as *;
 
 $axis-label-font-size: 10px;
 $axis-label-color: $adv-color-grey-50;
@@ -7,6 +8,8 @@ $axis-label-hover-color: $adv-color-grey-70;
 $axis-line-color: $adv-color-grey-20;
 
 .axis {
+  @include base;
+
   &__ghost {
     fill: transparent;
   }

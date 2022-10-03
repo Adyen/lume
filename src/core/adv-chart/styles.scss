@@ -1,6 +1,9 @@
 @use '~@/styles/variables' as *;
+@use '~@/styles/mixins/base' as *;
 
 .adv-chart {
+  @include base;
+
   &__header {
     display: grid;
     grid-template-rows: auto auto;
