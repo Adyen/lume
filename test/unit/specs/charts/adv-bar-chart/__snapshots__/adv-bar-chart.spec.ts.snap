@@ -1,3 +1,3724 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`adv-bar-chart.vue mounts component and sets prop values 1`] = `<!---->`;
+exports[`adv-bar-chart.vue mounts component and sets prop values 1`] = `
+<div
+  class="adv-chart-container adv-chart-container--minimum"
+  data-j-adv-chart=""
+  data-j-chart-container=""
+  data-j-single-bar-chart=""
+>
+  <div
+    class="adv-chart__header"
+  >
+    <!---->
+     
+    <div
+      class="adv-chart__controls"
+    />
+     
+    <!---->
+     
+    <div
+      class="adv-chart-legend adv-chart__legend"
+      data-j-chart-legend=""
+    >
+      <div
+        class="adv-chart-legend__item"
+        tabindex="0"
+      >
+        <span
+          class="adv-chart-legend__circle adv-background-color--01"
+          data-j-chart-legend__circle=""
+        />
+        
+    
+  
+      </div>
+    </div>
+  </div>
+   
+  <svg
+    class="adv-chart-container__svg"
+    data-j-chart-container__root=""
+    height="44"
+  >
+    <g
+      class="adv-chart-container__group"
+      data-j-chart-container__group=""
+      transform="translate(24, 16)"
+    >
+       
+      <rect
+        class="adv-bar adv-fill-color--negative"
+        data-j-adv-chart__negative-values=""
+        data-j-bar=""
+        height="0"
+        transform="translate(0, 0)"
+        width="0"
+        x="0"
+        y="0"
+      />
+       
+      <g
+        class="axis"
+        data-j-adv-chart__x-axis=""
+        data-j-axis=""
+        transform="translate(0, 0)"
+      >
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        0
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(91.42857142857143, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        1
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(182.85714285714286, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        2
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(274.2857142857143, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        3
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(365.7142857142857, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        4
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(457.14285714285717, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        5
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(548.5714285714286, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        6
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+      </g>
+       
+      <g
+        class="axis"
+        data-j-adv-chart__y-axis=""
+        data-j-axis=""
+        transform="translate(0, 0)"
+      >
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        0
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 40)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        5
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 80)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        10
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 120)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        15
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 160)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        20
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 200)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        25
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 240)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        30
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 280)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        35
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 320)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        40
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 360)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        45
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 400)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        50
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 440)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        55
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 480)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        60
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+      </g>
+       
+      <g
+        class="adv-bar-group"
+        containerSize="[object Object]"
+        data-j-bars-group=""
+        labels="Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday"
+      >
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-80"
+            style="transform-origin: 45.714285714285715px 40px;"
+            width="61.25714285714285"
+            x="15.085714285714289"
+            y="80"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--negative adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-320"
+            style="transform-origin: 137.14285714285714px -160px;"
+            width="61.25714285714285"
+            x="106.51428571428572"
+            y="0"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-240"
+            style="transform-origin: 228.57142857142858px 120px;"
+            width="61.25714285714285"
+            x="197.94285714285715"
+            y="240"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-160"
+            style="transform-origin: 320px 80px;"
+            width="61.25714285714285"
+            x="289.37142857142857"
+            y="160"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--negative adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-560"
+            style="transform-origin: 411.42857142857144px -280px;"
+            width="61.25714285714285"
+            x="380.8"
+            y="0"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-480"
+            style="transform-origin: 502.8571428571429px 240px;"
+            width="61.25714285714285"
+            x="472.22857142857146"
+            y="480"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-400"
+            style="transform-origin: 594.2857142857142px 200px;"
+            width="61.25714285714285"
+            x="563.6571428571428"
+            y="400"
+          />
+        </g>
+      </g>
+       
+      <g
+        class="adv-overlay-group"
+        data-j-adv-chart__overlay-group=""
+      >
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="0"
+          data-j-bar=""
+          height="480"
+          transform="translate(0, 0)"
+          width="91.42857142857143"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="1"
+          data-j-bar=""
+          height="480"
+          transform="translate(91.42857142857143, 0)"
+          width="91.42857142857143"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="2"
+          data-j-bar=""
+          height="480"
+          transform="translate(182.85714285714286, 0)"
+          width="91.42857142857143"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="3"
+          data-j-bar=""
+          height="480"
+          transform="translate(274.2857142857143, 0)"
+          width="91.42857142857143"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="4"
+          data-j-bar=""
+          height="480"
+          transform="translate(365.7142857142857, 0)"
+          width="91.42857142857143"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="5"
+          data-j-bar=""
+          height="480"
+          transform="translate(457.14285714285717, 0)"
+          width="91.42857142857143"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="6"
+          data-j-bar=""
+          height="480"
+          transform="translate(548.5714285714286, 0)"
+          width="91.42857142857143"
+          x="0"
+          y="0"
+        />
+      </g>
+       
+      <g>
+        <circle
+          class="adv-fill-color--transparent"
+          cx="45.714285714285715"
+          cy="80"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="137.14285714285714"
+          cy="0"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="228.57142857142858"
+          cy="240"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="320"
+          cy="160"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="411.42857142857144"
+          cy="0"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="502.8571428571429"
+          cy="480"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="594.2857142857142"
+          cy="400"
+          r="1"
+        />
+      </g>
+    </g>
+  </svg>
+   
+  <!---->
+   
+  <!---->
+   
+</div>
+`;
+
+exports[`adv-bar-chart.vue should display grouped bar chart 1`] = `
+<div
+  class="adv-chart-container adv-chart-container--minimum"
+  data-j-adv-chart=""
+  data-j-chart-container=""
+  data-j-grouped-bar-chart=""
+  type="grouped"
+>
+  <div
+    class="adv-chart__header"
+  >
+    <!---->
+     
+    <div
+      class="adv-chart__controls"
+    />
+     
+    <!---->
+     
+    <div
+      class="adv-chart-legend adv-chart__legend"
+      data-j-chart-legend=""
+    >
+      <div
+        class="adv-chart-legend__item"
+        tabindex="0"
+      >
+        <span
+          class="adv-chart-legend__circle adv-background-color--01"
+          data-j-chart-legend__circle=""
+        />
+        
+    
+  
+      </div>
+      <div
+        class="adv-chart-legend__item"
+        tabindex="0"
+      >
+        <span
+          class="adv-chart-legend__circle adv-background-color--02"
+          data-j-chart-legend__circle=""
+        />
+        
+    
+  
+      </div>
+    </div>
+  </div>
+   
+  <svg
+    class="adv-chart-container__svg"
+    data-j-chart-container__root=""
+    height="44"
+  >
+    <g
+      class="adv-chart-container__group"
+      data-j-chart-container__group=""
+      transform="translate(24, 16)"
+    >
+       
+      <!---->
+       
+      <g
+        class="axis"
+        data-j-adv-chart__x-axis=""
+        data-j-axis=""
+        transform="translate(0, 0)"
+      >
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        0
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(91.42857142857143, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        1
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(182.85714285714286, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        2
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(274.2857142857143, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        3
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(365.7142857142857, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        4
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(457.14285714285717, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        5
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(548.5714285714286, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        6
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+      </g>
+       
+      <g
+        class="axis"
+        data-j-adv-chart__y-axis=""
+        data-j-axis=""
+        transform="translate(0, 0)"
+      >
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        0
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 40)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        5
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 80)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        10
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 120)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        15
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 160)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        20
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 200)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        25
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 240)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        30
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 280)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        35
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 320)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        40
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 360)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        45
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 400)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        50
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 440)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        55
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 480)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        60
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+      </g>
+       
+      <g
+        class="adv-bar-group"
+        containerSize="[object Object]"
+        data-j-bars-group=""
+        labels="Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday"
+      >
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-5906.314939773572"
+            style="transform-origin: 30.400000000000002px 2953.157469886786px;"
+            width="30.628571428571426"
+            x="15.085714285714289"
+            y="5906.314939773572"
+          />
+          <rect
+            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-2967.838128644427"
+            style="transform-origin: 61.028571428571425px 1483.9190643222134px;"
+            width="30.628571428571426"
+            x="45.714285714285715"
+            y="2967.838128644427"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-784.3086441454172"
+            style="transform-origin: 121.82857142857144px 392.1543220727086px;"
+            width="30.628571428571426"
+            x="106.51428571428572"
+            y="784.3086441454172"
+          />
+          <rect
+            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-2726.468968690206"
+            style="transform-origin: 152.45714285714286px 1363.234484345103px;"
+            width="30.628571428571426"
+            x="137.14285714285714"
+            y="2726.468968690206"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-6170.816784469965"
+            style="transform-origin: 213.25714285714287px 3085.4083922349823px;"
+            width="30.628571428571426"
+            x="197.94285714285715"
+            y="6170.816784469965"
+          />
+          <rect
+            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-6881.311259989795"
+            style="transform-origin: 243.8857142857143px 3440.6556299948975px;"
+            width="30.628571428571426"
+            x="228.57142857142858"
+            y="6881.311259989795"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-6600.556430784687"
+            style="transform-origin: 304.68571428571425px 3300.2782153923436px;"
+            width="30.628571428571426"
+            x="289.37142857142857"
+            y="6600.556430784687"
+          />
+          <rect
+            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-1946.940143615885"
+            style="transform-origin: 335.3142857142857px 973.4700718079425px;"
+            width="30.628571428571426"
+            x="320"
+            y="1946.940143615885"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-6982.071672300454"
+            style="transform-origin: 396.1142857142857px 3491.035836150227px;"
+            width="30.628571428571426"
+            x="380.8"
+            y="6982.071672300454"
+          />
+          <rect
+            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-5809.426648895467"
+            style="transform-origin: 426.74285714285713px 2904.7133244477336px;"
+            width="30.628571428571426"
+            x="411.42857142857144"
+            y="5809.426648895467"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-3460.4410040344255"
+            style="transform-origin: 487.54285714285714px 1730.2205020172128px;"
+            width="30.628571428571426"
+            x="472.22857142857146"
+            y="3460.4410040344255"
+          />
+          <rect
+            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-4419.804613175881"
+            style="transform-origin: 518.1714285714286px 2209.9023065879405px;"
+            width="30.628571428571426"
+            x="502.8571428571429"
+            y="4419.804613175881"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-7160.974818982312"
+            style="transform-origin: 578.9714285714285px 3580.487409491156px;"
+            width="30.628571428571426"
+            x="563.6571428571428"
+            y="7160.974818982312"
+          />
+          <rect
+            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-7428.601120581984"
+            style="transform-origin: 609.5999999999999px 3714.300560290992px;"
+            width="30.628571428571426"
+            x="594.2857142857142"
+            y="7428.601120581984"
+          />
+        </g>
+      </g>
+       
+      <g
+        class="adv-overlay-group"
+        data-j-adv-chart__overlay-group=""
+      >
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="0"
+          data-j-bar=""
+          height="480"
+          transform="translate(0, 0)"
+          width="91.42857142857143"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="1"
+          data-j-bar=""
+          height="480"
+          transform="translate(91.42857142857143, 0)"
+          width="91.42857142857143"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="2"
+          data-j-bar=""
+          height="480"
+          transform="translate(182.85714285714286, 0)"
+          width="91.42857142857143"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="3"
+          data-j-bar=""
+          height="480"
+          transform="translate(274.2857142857143, 0)"
+          width="91.42857142857143"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="4"
+          data-j-bar=""
+          height="480"
+          transform="translate(365.7142857142857, 0)"
+          width="91.42857142857143"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="5"
+          data-j-bar=""
+          height="480"
+          transform="translate(457.14285714285717, 0)"
+          width="91.42857142857143"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="6"
+          data-j-bar=""
+          height="480"
+          transform="translate(548.5714285714286, 0)"
+          width="91.42857142857143"
+          x="0"
+          y="0"
+        />
+      </g>
+       
+      <g>
+        <circle
+          class="adv-fill-color--transparent"
+          cx="45.714285714285715"
+          cy="5906.314939773572"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="137.14285714285714"
+          cy="2726.468968690206"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="228.57142857142858"
+          cy="6881.311259989795"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="320"
+          cy="6600.556430784687"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="411.42857142857144"
+          cy="6982.071672300454"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="502.8571428571429"
+          cy="4419.804613175881"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="594.2857142857142"
+          cy="7428.601120581984"
+          r="1"
+        />
+      </g>
+    </g>
+  </svg>
+   
+  <!---->
+   
+  <!---->
+   
+</div>
+`;
+
+exports[`adv-bar-chart.vue should display single bar chart 1`] = `
+<div
+  class="adv-chart-container adv-chart-container--minimum"
+  data-j-adv-chart=""
+  data-j-chart-container=""
+  data-j-single-bar-chart=""
+>
+  <div
+    class="adv-chart__header"
+  >
+    <!---->
+     
+    <div
+      class="adv-chart__controls"
+    />
+     
+    <!---->
+     
+    <div
+      class="adv-chart-legend adv-chart__legend"
+      data-j-chart-legend=""
+    >
+      <div
+        class="adv-chart-legend__item"
+        tabindex="0"
+      >
+        <span
+          class="adv-chart-legend__circle adv-background-color--01"
+          data-j-chart-legend__circle=""
+        />
+        
+    
+  
+      </div>
+    </div>
+  </div>
+   
+  <svg
+    class="adv-chart-container__svg"
+    data-j-chart-container__root=""
+    height="44"
+  >
+    <g
+      class="adv-chart-container__group"
+      data-j-chart-container__group=""
+      transform="translate(24, 16)"
+    >
+       
+      <rect
+        class="adv-bar adv-fill-color--negative"
+        data-j-adv-chart__negative-values=""
+        data-j-bar=""
+        height="0"
+        transform="translate(0, 0)"
+        width="0"
+        x="0"
+        y="0"
+      />
+       
+      <g
+        class="axis"
+        data-j-adv-chart__x-axis=""
+        data-j-axis=""
+        transform="translate(0, 0)"
+      >
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        0
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(91.42857142857143, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        1
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(182.85714285714286, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        2
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(274.2857142857143, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        3
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(365.7142857142857, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        4
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(457.14285714285717, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        5
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(548.5714285714286, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        6
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+      </g>
+       
+      <g
+        class="axis"
+        data-j-adv-chart__y-axis=""
+        data-j-axis=""
+        transform="translate(0, 0)"
+      >
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        0
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 40)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        5
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 80)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        10
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 120)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        15
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 160)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        20
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 200)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        25
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 240)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        30
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 280)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        35
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 320)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        40
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 360)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        45
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 400)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        50
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 440)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        55
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 480)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        60
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+      </g>
+       
+      <g
+        class="adv-bar-group"
+        containerSize="[object Object]"
+        data-j-bars-group=""
+        labels="Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday"
+      >
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-80"
+            style="transform-origin: 45.714285714285715px 40px;"
+            width="61.25714285714285"
+            x="15.085714285714289"
+            y="80"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--negative adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-320"
+            style="transform-origin: 137.14285714285714px -160px;"
+            width="61.25714285714285"
+            x="106.51428571428572"
+            y="0"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-240"
+            style="transform-origin: 228.57142857142858px 120px;"
+            width="61.25714285714285"
+            x="197.94285714285715"
+            y="240"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-160"
+            style="transform-origin: 320px 80px;"
+            width="61.25714285714285"
+            x="289.37142857142857"
+            y="160"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--negative adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-560"
+            style="transform-origin: 411.42857142857144px -280px;"
+            width="61.25714285714285"
+            x="380.8"
+            y="0"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-480"
+            style="transform-origin: 502.8571428571429px 240px;"
+            width="61.25714285714285"
+            x="472.22857142857146"
+            y="480"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="-400"
+            style="transform-origin: 594.2857142857142px 200px;"
+            width="61.25714285714285"
+            x="563.6571428571428"
+            y="400"
+          />
+        </g>
+      </g>
+       
+      <g
+        class="adv-overlay-group"
+        data-j-adv-chart__overlay-group=""
+      >
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="0"
+          data-j-bar=""
+          height="480"
+          transform="translate(0, 0)"
+          width="91.42857142857143"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="1"
+          data-j-bar=""
+          height="480"
+          transform="translate(91.42857142857143, 0)"
+          width="91.42857142857143"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="2"
+          data-j-bar=""
+          height="480"
+          transform="translate(182.85714285714286, 0)"
+          width="91.42857142857143"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="3"
+          data-j-bar=""
+          height="480"
+          transform="translate(274.2857142857143, 0)"
+          width="91.42857142857143"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="4"
+          data-j-bar=""
+          height="480"
+          transform="translate(365.7142857142857, 0)"
+          width="91.42857142857143"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="5"
+          data-j-bar=""
+          height="480"
+          transform="translate(457.14285714285717, 0)"
+          width="91.42857142857143"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="6"
+          data-j-bar=""
+          height="480"
+          transform="translate(548.5714285714286, 0)"
+          width="91.42857142857143"
+          x="0"
+          y="0"
+        />
+      </g>
+       
+      <g>
+        <circle
+          class="adv-fill-color--transparent"
+          cx="45.714285714285715"
+          cy="80"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="137.14285714285714"
+          cy="0"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="228.57142857142858"
+          cy="240"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="320"
+          cy="160"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="411.42857142857144"
+          cy="0"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="502.8571428571429"
+          cy="480"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="594.2857142857142"
+          cy="400"
+          r="1"
+        />
+      </g>
+    </g>
+  </svg>
+   
+  <!---->
+   
+  <!---->
+   
+</div>
+`;
+
+exports[`adv-bar-chart.vue should display stacked bar chart 1`] = `
+<div
+  class="adv-chart-container adv-chart-container--minimum"
+  data-j-adv-chart=""
+  data-j-chart-container=""
+  data-j-stacked-bar-chart=""
+  type="stacked"
+>
+  <div
+    class="adv-chart__header"
+  >
+    <!---->
+     
+    <div
+      class="adv-chart__controls"
+    />
+     
+    <!---->
+     
+    <div
+      class="adv-chart-legend adv-chart__legend"
+      data-j-chart-legend=""
+    >
+      <div
+        class="adv-chart-legend__item"
+        tabindex="0"
+      >
+        <span
+          class="adv-chart-legend__circle adv-background-color--01"
+          data-j-chart-legend__circle=""
+        />
+        
+    
+  
+      </div>
+      <div
+        class="adv-chart-legend__item"
+        tabindex="0"
+      >
+        <span
+          class="adv-chart-legend__circle adv-background-color--02"
+          data-j-chart-legend__circle=""
+        />
+        
+    
+  
+      </div>
+    </div>
+  </div>
+   
+  <svg
+    class="adv-chart-container__svg"
+    data-j-chart-container__root=""
+    height="44"
+  >
+    <g
+      class="adv-chart-container__group"
+      data-j-chart-container__group=""
+      transform="translate(24, 16)"
+    >
+       
+      <!---->
+       
+      <g
+        class="axis"
+        data-j-adv-chart__x-axis=""
+        data-j-axis=""
+        transform="translate(0, 0)"
+      >
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="0"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="0"
+              y="8"
+            >
+              
+        Monday
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="0"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="0"
+              y="8"
+            >
+              
+        Tuesday
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="0"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="0"
+              y="8"
+            >
+              
+        Wednesday
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="0"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="0"
+              y="8"
+            >
+              
+        Thursday
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="0"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="0"
+              y="8"
+            >
+              
+        Friday
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="0"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="0"
+              y="8"
+            >
+              
+        Saturday
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick axis__tick--hidden"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="0"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="0"
+              y="8"
+            >
+              
+        Sunday
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+      </g>
+       
+      <g
+        class="axis"
+        data-j-adv-chart__y-axis=""
+        data-j-axis=""
+        transform="translate(0, 0)"
+      >
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        1800
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        1600
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        1400
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        1200
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        1000
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        800
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        600
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        400
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        200
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        0
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+      </g>
+       
+      <g
+        class="adv-bar-group"
+        containerSize="[object Object]"
+        data-j-bars-group=""
+        labels="Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday"
+      >
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="0"
+            style="transform-origin: 0px 0px;"
+            width="0"
+            x="0"
+            y="0"
+          />
+          <rect
+            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="0"
+            style="transform-origin: 0px 0px;"
+            width="0"
+            x="0"
+            y="0"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="0"
+            style="transform-origin: 0px 0px;"
+            width="0"
+            x="0"
+            y="0"
+          />
+          <rect
+            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="0"
+            style="transform-origin: 0px 0px;"
+            width="0"
+            x="0"
+            y="0"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="0"
+            style="transform-origin: 0px 0px;"
+            width="0"
+            x="0"
+            y="0"
+          />
+          <rect
+            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="0"
+            style="transform-origin: 0px 0px;"
+            width="0"
+            x="0"
+            y="0"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="0"
+            style="transform-origin: 0px 0px;"
+            width="0"
+            x="0"
+            y="0"
+          />
+          <rect
+            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="0"
+            style="transform-origin: 0px 0px;"
+            width="0"
+            x="0"
+            y="0"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="0"
+            style="transform-origin: 0px 0px;"
+            width="0"
+            x="0"
+            y="0"
+          />
+          <rect
+            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="0"
+            style="transform-origin: 0px 0px;"
+            width="0"
+            x="0"
+            y="0"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="0"
+            style="transform-origin: 0px 0px;"
+            width="0"
+            x="0"
+            y="0"
+          />
+          <rect
+            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="0"
+            style="transform-origin: 0px 0px;"
+            width="0"
+            x="0"
+            y="0"
+          />
+        </g>
+        <g>
+          <rect
+            class="adv-bar adv-fill-color--01 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="0"
+            style="transform-origin: 0px 0px;"
+            width="0"
+            x="0"
+            y="0"
+          />
+          <rect
+            class="adv-bar adv-fill-color--02 adv-bar--transition-height"
+            data-j-adv-bar=""
+            data-j-bar=""
+            height="0"
+            style="transform-origin: 0px 0px;"
+            width="0"
+            x="0"
+            y="0"
+          />
+        </g>
+      </g>
+       
+      <g
+        class="adv-overlay-group"
+        data-j-adv-chart__overlay-group=""
+      >
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="0"
+          data-j-bar=""
+          height="0"
+          transform="translate(0, 0)"
+          width="0"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="1"
+          data-j-bar=""
+          height="0"
+          transform="translate(0, 0)"
+          width="0"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="2"
+          data-j-bar=""
+          height="0"
+          transform="translate(0, 0)"
+          width="0"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="3"
+          data-j-bar=""
+          height="0"
+          transform="translate(0, 0)"
+          width="0"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="4"
+          data-j-bar=""
+          height="0"
+          transform="translate(0, 0)"
+          width="0"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="5"
+          data-j-bar=""
+          height="0"
+          transform="translate(0, 0)"
+          width="0"
+          x="0"
+          y="0"
+        />
+        <rect
+          class="adv-bar adv-fill-color--transparent"
+          data-j-adv-overlay-group="6"
+          data-j-bar=""
+          height="0"
+          transform="translate(0, 0)"
+          width="0"
+          x="0"
+          y="0"
+        />
+      </g>
+       
+      <g>
+        <circle
+          class="adv-fill-color--transparent"
+          cx="0"
+          cy="0"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="0"
+          cy="0"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="0"
+          cy="0"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="0"
+          cy="0"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="0"
+          cy="0"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="0"
+          cy="0"
+          r="1"
+        />
+        <circle
+          class="adv-fill-color--transparent"
+          cx="0"
+          cy="0"
+          r="1"
+        />
+      </g>
+    </g>
+  </svg>
+   
+  <!---->
+   
+  <!---->
+   
+</div>
+`;

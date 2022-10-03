@@ -19,6 +19,7 @@ import { computed, defineAsyncComponent, PropType } from 'vue';
 import { singleDatasetValidator } from '@/utils/helpers';
 import { withChartProps } from '@/composables/props';
 import { Options } from '@/composables/options';
+import { ORIENTATIONS } from '@/constants';
 
 const AdvSingleBarChart = defineAsyncComponent(
   () => import('@/charts/adv-single-bar-chart')
@@ -30,8 +31,6 @@ const AdvGroupedBarChart = defineAsyncComponent(
 const AdvStackedBarChart = defineAsyncComponent(
   () => import('@/charts/adv-stacked-bar-chart')
 );
-
-import { ORIENTATIONS } from '@/constants';
 
 const componentMap = new Map([
   ['single', AdvSingleBarChart],
