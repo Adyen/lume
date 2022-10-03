@@ -1,22 +1,14 @@
 <template>
-  <LumeBarChart v-bind="$props" />
+  <LumeBarChart v-bind="props" />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
+<script setup lang="ts">
 import LumeBarChart from '@/components/charts/lume-bar-chart';
 
 import { withChartProps } from '@/composables/props';
 
-export default defineComponent({
-  components: { LumeBarChart },
-  props: {
-    ...withChartProps(),
-  },
-  setup() {
-    return {};
-  },
+const props = defineProps({
+  ...withChartProps(),
 });
 </script>
 
