@@ -33,11 +33,8 @@ module.exports = async () => ({
     // process `*.js` files with `babel-jest`
     // ".*\\.(js)$": "babel-jest",
     // process `*.vue` files with `vue-jest`
-    '.*\\.(vue)$': 'vue-jest',
+    '.*\\.(vue)$': '@vue/vue2-jest',
     '^.+\\.ts$': 'ts-jest',
-  },
-  globals: {
-    'ts-jest': { tsconfig: '<rootDir>/tsconfig.test.json' },
   },
   coverageThreshold: {
     global: {

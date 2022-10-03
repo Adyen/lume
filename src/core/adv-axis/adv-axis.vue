@@ -45,9 +45,20 @@
 </template>
 
 <script lang="ts">
+enum POSITIONS {
+  left = 'left',
+  bottom = 'bottom',
+}
+
+enum TYPES {
+  x = POSITIONS.bottom,
+  y = POSITIONS.left,
+}
+</script>
+
+<script setup lang="ts">
 import Vue, {
   computed,
-  defineComponent,
   onBeforeMount,
   PropType,
   reactive,
@@ -74,148 +85,126 @@ const SCALE_MIXIN_MAP = {
   linearScale: 'linear-scale-axis',
 };
 
-const POSITIONS = ['bottom', 'left'];
-
-const TYPES = {
-  x: 'bottom',
-  y: 'left',
-};
-
-export default defineComponent({
-  props: {
-    scale: {
-      type: Function as PropType<Scale>,
-      required: true,
-    },
-    type: {
-      type: String,
-      default: undefined,
-      validator: (value: string) => value in TYPES,
-    },
-    position: {
-      type: String,
-      default: undefined,
-      validator: (value: string) => POSITIONS.includes(value),
-    },
-    containerSize: {
-      type: Object as PropType<ContainerSize>,
-      default: () => ({ width: 0, height: 0 }),
-    },
-    hoveredIndex: {
-      type: Number,
-      default: -1,
-    },
-    ...withOptions<AxisOptions>(),
+const props = defineProps({
+  scale: {
+    type: Function as PropType<Scale>,
+    required: true,
   },
-  setup(props, ctx) {
-    const { scale, containerSize, options } = toRefs(props); // Needs to be cast as any to avoid it being cast to never by default
-
-    const mixins = reactive<Record<string, AxisMixinFunction>>({});
-    const tickRefs = ref<Array<SVGTextElement>>(null);
-    const isLoading = ref<boolean>(false);
-
-    const computedPosition = computed(() =>
-      props.type ? TYPES[props.type] : props.position
-    );
-
-    const computedType = computed(
-      () => props.type || (computedPosition.value === 'left' ? 'y' : 'x')
-    );
-
-    const { allOptions } = useOptions<AxisOptions>(
-      options,
-      computedType.value === 'x' ? xOptions : yOptions
-    );
-
-    const { showTick } = useSkip(scale, tickRefs, allOptions.value.skip);
-
-    const axisTransform = computed(() => {
-      if (computedType.value === 'x') {
-        return `translate(0, ${containerSize.value?.height})`;
-      }
-      return `translate(0, 0)`;
-    });
-
-    const ticks = computed(() => {
-      // For band scales, return the full labels array (domain)
-      if ((scale.value as ScaleBand<string | number>).step) {
-        return scale.value.domain();
-      }
-
-      const { tickCount } = allOptions.value;
-
-      return d3TickGenerator(...scale.value.domain(), tickCount);
-    });
-
-    const tickFormatter = computed(() => {
-      const { tickFormat } = allOptions.value;
-
-      if (typeof tickFormat === 'string') {
-        const formatter = format(tickFormat);
-        return formatter;
-      }
-
-      if (typeof tickFormat === 'function') {
-        return tickFormat;
-      }
-
-      return null;
-    });
-
-    function formatTick(tick: number | string) {
-      const { showTicks } = allOptions.value;
-
-      // Hides ticks without hiding `gridLines`
-      if (showTicks === false) return '';
-
-      return tickFormatter.value ? tickFormatter.value(tick as number) : tick;
-    }
-
-    function onTickMouseover(index: number) {
-      ctx.emit('tick-mouseover', index);
-    }
-
-    async function init() {
-      isLoading.value = true;
-      const scaleType = (scale.value as ScaleBand<string | number>).step
-        ? 'bandScale'
-        : 'linearScale';
-
-      // Get mixin generator based on the scale type
-      const mixin: AxisMixin =
-        mixinTypes[`${computedType.value}-${SCALE_MIXIN_MAP[scaleType]}`];
-
-      // Push all mixin functions into the `mixins` reactive object
-      Object.entries(mixin(scale, containerSize, allOptions) || []).forEach(
-        ([fnName, fn]) => {
-          Vue.set(mixins, fnName, fn);
-        }
-      );
-
-      isLoading.value = false;
-    }
-
-    onBeforeMount(async () => {
-      await init();
-
-      // Setup watcher to get new mixins if scale changes (i.e. vertical to horizontal)
-      watch(scale, init, { flush: 'sync' });
-    });
-
-    return {
-      allOptions,
-      axisTransform,
-      computedPosition,
-      computedType,
-      formatTick,
-      isLoading,
-      mixins,
-      onTickMouseover,
-      showTick,
-      tickRefs,
-      ticks,
-    };
+  type: {
+    type: String,
+    default: undefined,
+    validator: (value: string) => value in TYPES,
   },
+  position: {
+    type: String as PropType<POSITIONS>,
+    default: undefined,
+    validator: (value: string) => value in POSITIONS,
+  },
+  containerSize: {
+    type: Object as PropType<ContainerSize>,
+    default: () => ({ width: 0, height: 0 }),
+  },
+  hoveredIndex: {
+    type: Number,
+    default: -1,
+  },
+  ...withOptions<AxisOptions>(),
+});
+
+const emit = defineEmits(['tick-mouseover']);
+
+const { scale, containerSize, options } = toRefs(props); // Needs to be cast as any to avoid it being cast to never by default
+
+const mixins = reactive<Record<string, AxisMixinFunction>>({});
+const tickRefs = ref<Array<SVGTextElement>>(null);
+const isLoading = ref<boolean>(false);
+
+const computedPosition = computed(() =>
+  props.type ? TYPES[props.type] : props.position
+);
+
+const computedType = computed(
+  () => props.type || (computedPosition.value === 'left' ? 'y' : 'x')
+);
+
+const { allOptions } = useOptions<AxisOptions>(
+  options,
+  computedType.value === 'x' ? xOptions : yOptions
+);
+
+const { showTick } = useSkip(scale, tickRefs, allOptions.value.skip);
+
+const axisTransform = computed(() => {
+  if (computedType.value === 'x') {
+    return `translate(0, ${containerSize.value?.height})`;
+  }
+  return `translate(0, 0)`;
+});
+
+const ticks = computed(() => {
+  // For band scales, return the full labels array (domain)
+  if ((scale.value as ScaleBand<string | number>).step) {
+    return scale.value.domain();
+  }
+
+  const { tickCount } = allOptions.value;
+
+  return d3TickGenerator(...scale.value.domain(), tickCount);
+});
+
+const tickFormatter = computed(() => {
+  const { tickFormat } = allOptions.value;
+
+  if (typeof tickFormat === 'string') {
+    const formatter = format(tickFormat);
+    return formatter;
+  }
+
+  if (typeof tickFormat === 'function') {
+    return tickFormat;
+  }
+
+  return null;
+});
+
+function formatTick(tick: number | string) {
+  const { showTicks } = allOptions.value;
+
+  // Hides ticks without hiding `gridLines`
+  if (showTicks === false) return '';
+
+  return tickFormatter.value ? tickFormatter.value(tick as number) : tick;
+}
+
+function onTickMouseover(index: number) {
+  emit('tick-mouseover', index);
+}
+
+async function init() {
+  isLoading.value = true;
+  const scaleType = (scale.value as ScaleBand<string | number>).step
+    ? 'bandScale'
+    : 'linearScale';
+
+  // Get mixin generator based on the scale type
+  const mixin: AxisMixin =
+    mixinTypes[`${computedType.value}-${SCALE_MIXIN_MAP[scaleType]}`];
+
+  // Push all mixin functions into the `mixins` reactive object
+  Object.entries(mixin(scale, containerSize, allOptions) || []).forEach(
+    ([fnName, fn]) => {
+      Vue.set(mixins, fnName, fn);
+    }
+  );
+
+  isLoading.value = false;
+}
+
+onBeforeMount(async () => {
+  await init();
+
+  // Setup watcher to get new mixins if scale changes (i.e. vertical to horizontal)
+  watch(scale, init, { flush: 'sync' });
 });
 </script>
 

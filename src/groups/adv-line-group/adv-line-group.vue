@@ -49,8 +49,8 @@
   </g>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, toRefs } from 'vue';
+<script setup lang="ts">
+import { computed, toRefs } from 'vue';
 
 import AdvLine from '@/core/adv-line';
 import AdvPoint from '@/core/adv-point';
@@ -62,80 +62,67 @@ import { withGroupProps } from '@/groups/composables/group-props';
 import { getHighestValue } from '@/utils/helpers';
 import { DatasetValueObject } from '@/types/dataset';
 
-export default defineComponent({
-  components: { AdvLine, AdvPoint },
-  props: {
-    ...withGroupProps(),
-    withPoints: {
-      type: Boolean,
-      default: true,
-    },
-    transition: {
-      type: Boolean,
-      default: true,
-    },
+const props = defineProps({
+  ...withGroupProps(),
+  withPoints: {
+    type: Boolean,
+    default: true,
   },
-
-  setup(props) {
-    const { data, xScale, yScale } = toRefs(props);
-
-    const computedGroupData = computed(() => {
-      // Check if all datasets have `isDashed` function (which means data has been computed for line null values)
-      if (data.value.every((dataset) => dataset.isDashed)) {
-        return data.value;
-      }
-
-      // Compute line null values and return it
-      const { computedLineData } = useLineNullValues(data);
-      return computedLineData.value;
-    });
-
-    const overlayLineAttributes = computed(() => {
-      if (props.hoveredIndex === -1) return;
-
-      const highestValue = getHighestValue(data.value, props.hoveredIndex);
-
-      const x = getXByIndex(xScale.value, props.hoveredIndex);
-
-      return {
-        d: `M ${x},${yScale.value.range()[1]}
-            V ${yScale.value(highestValue)}`, // Move to X index, Vertical line to the highest point
-      };
-    });
-
-    function getLineValues(
-      index: number,
-      computedLineValues: Array<DatasetValueObject<number>>
-    ) {
-      // First value
-      if (index === 0) return [];
-
-      return [
-        computedLineValues[index - 1]?.value,
-        computedLineValues[index]?.value,
-      ];
-    }
-
-    function getPointValue(
-      index: number,
-      computedLineValues: Array<DatasetValueObject<number>>
-    ) {
-      return computedLineValues[index]?.value;
-    }
-
-    function isPointActive(index: number) {
-      return props.hoveredIndex === index;
-    }
-
-    return {
-      computedGroupData,
-      getLineValues,
-      getPointValue,
-      isPointActive,
-      overlayLineAttributes,
-    };
+  transition: {
+    type: Boolean,
+    default: true,
   },
 });
+
+const { data, xScale, yScale } = toRefs(props);
+
+const computedGroupData = computed(() => {
+  // Check if all datasets have `isDashed` function (which means data has been computed for line null values)
+  if (data.value.every((dataset) => dataset.isDashed)) {
+    return data.value;
+  }
+
+  // Compute line null values and return it
+  const { computedLineData } = useLineNullValues(data);
+  return computedLineData.value;
+});
+
+const overlayLineAttributes = computed(() => {
+  if (props.hoveredIndex === -1) return;
+
+  const highestValue = getHighestValue(data.value, props.hoveredIndex);
+
+  const x = getXByIndex(xScale.value, props.hoveredIndex);
+
+  return {
+    d: `M ${x},${yScale.value.range()[1]}
+            V ${yScale.value(highestValue)}`, // Move to X index, Vertical line to the highest point
+  };
+});
+
+function getLineValues(
+  index: number,
+  computedLineValues: Array<DatasetValueObject<number>>
+) {
+  // First value
+  if (index === 0) return [];
+
+  return [
+    computedLineValues[index - 1]?.value,
+    computedLineValues[index]?.value,
+  ];
+}
+
+function getPointValue(
+  index: number,
+  computedLineValues: Array<DatasetValueObject<number>>
+) {
+  return computedLineValues[index]?.value;
+}
+
+function isPointActive(index: number) {
+  return props.hoveredIndex === index;
+}
 </script>
 
 <style lang="scss" scoped>

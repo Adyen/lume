@@ -6,7 +6,7 @@ exports[`adv-sparkline.vue mounts component and sets custom area color 1`] = `
   data-j-adv-chart=""
   data-j-chart-container=""
   xscale="function scale(d) {
-    var key = d + \\"\\", i = index.get(key);
+    var key = d + "", i = index.get(key);
     if (!i) {
       if (unknown !== implicit) return unknown;
       index.set(key, i = domain.push(d));
@@ -53,7 +53,7 @@ exports[`adv-sparkline.vue mounts component and sets prop values 1`] = `
   data-j-adv-chart=""
   data-j-chart-container=""
   xscale="function scale(d) {
-    var key = d + \\"\\", i = index.get(key);
+    var key = d + "", i = index.get(key);
     if (!i) {
       if (unknown !== implicit) return unknown;
       index.set(key, i = domain.push(d));

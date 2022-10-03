@@ -170,8 +170,8 @@
   </adv-chart-container>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, onMounted, ref, toRefs } from 'vue';
+<script setup lang="ts">
+import { computed, onMounted, ref, toRefs, useSlots } from 'vue';
 
 import {
   AdvAxis,
@@ -195,185 +195,148 @@ import { useTooltip, useTooltipAnchors } from '@/composables/tooltip';
 import { getEmptyArrayFromData } from '@/utils/helpers';
 import { ORIENTATIONS, TOOLTIP_ANCHOR_RADIUS } from '@/constants';
 
-export default defineComponent({
-  components: {
-    AdvAxis,
-    AdvBar,
-    AdvChartContainer,
-    AdvChartLegend,
-    AdvOverlayGroup,
-    AdvTooltip,
+const props = defineProps({
+  ...withChartProps(),
+  chartType: {
+    type: String,
+    default: null,
   },
-  props: {
-    ...withChartProps(),
-    chartType: {
-      type: String,
-      default: null,
-    },
-  },
-  setup(props, ctx) {
-    const { data, labels, color, options, orientation, chartType } =
+});
+
+const slots = useSlots();
+
+const tooltipAnchorRadius = TOOLTIP_ANCHOR_RADIUS;
+
+const { data, labels, color, options, orientation, chartType } =
       toRefs(props);
 
-    const hoveredIndex = ref<number>(-1);
-    const tooltipAnchor = ref<SVGCircleElement>(null);
+const hoveredIndex = ref<number>(-1);
+const tooltipAnchor = ref<SVGCircleElement>(null);
 
-    const { allOptions } = useOptions<ChartOptions>(options);
+const { allOptions } = useOptions<ChartOptions>(options);
 
-    const { internalData, computedLabels, containerSize, updateSize } = useBase(
-      data,
-      labels,
-      color,
-      allOptions,
-      orientation
-    );
+const { internalData, computedLabels, containerSize, updateSize } = useBase(
+  data,
+  labels,
+  color,
+  allOptions,
+  orientation
+);
 
-    const { xScale, yScale } = useBaseScales(
-      internalData,
-      computedLabels,
-      containerSize,
-      orientation,
-      allOptions
-    );
+const { xScale, yScale } = useBaseScales(
+  internalData,
+  computedLabels,
+  containerSize,
+  orientation,
+  allOptions
+);
 
-    const computedXScale = computed<Scale>(() => {
-      if (!props.xScale) return xScale.value;
-      return isScale(props.xScale)
-        ? props.xScale
-        : props.xScale?.(internalData.value, labels.value, containerSize);
-    });
+const computedXScale = computed<Scale>(() => {
+  if (!props.xScale) return xScale.value;
+  return isScale(props.xScale)
+    ? props.xScale
+    : props.xScale?.(internalData.value, labels.value, containerSize);
+});
 
-    const computedYScale = computed<Scale>(() => {
-      if (!props.yScale) return yScale.value;
-      return isScale(props.yScale)
-        ? props.yScale
-        : props.yScale?.(internalData.value, labels.value, containerSize);
-    });
+const computedYScale = computed<Scale>(() => {
+  if (!props.yScale) return yScale.value;
+  return isScale(props.yScale)
+    ? props.yScale
+    : props.yScale?.(internalData.value, labels.value, containerSize);
+});
 
-    const computedXAxisOptions = computed(() => ({
-      ...allOptions.value.xAxisOptions,
-      withHover: orientation.value === ORIENTATIONS.VERTICAL,
-    }));
+const computedXAxisOptions = computed(() => ({
+  ...allOptions.value.xAxisOptions,
+  withHover: orientation.value === ORIENTATIONS.VERTICAL,
+}));
 
-    const computedYAxisOptions = computed(() => ({
-      ...allOptions.value.yAxisOptions,
-      withHover: orientation.value === ORIENTATIONS.HORIZONTAL,
-    }));
+const computedYAxisOptions = computed(() => ({
+  ...allOptions.value.yAxisOptions,
+  withHover: orientation.value === ORIENTATIONS.HORIZONTAL,
+}));
 
-    const xAxisTitle = computed(() => {
-      return allOptions.value.xAxisOptions?.title;
-    });
+const xAxisTitle = computed(() => {
+  return allOptions.value.xAxisOptions?.title;
+});
 
-    const yAxisTitle = computed(() => {
-      return allOptions.value.yAxisOptions?.title;
-    });
+const yAxisTitle = computed(() => {
+  return allOptions.value.yAxisOptions?.title;
+});
 
-    const showXAxisTitle = computed(() => {
-      return (
-        allOptions.value.xAxisOptions?.withTitle !== false && xAxisTitle.value
-      );
-    });
+const showXAxisTitle = computed(() => {
+  return (
+    allOptions.value.xAxisOptions?.withTitle !== false && xAxisTitle.value
+  );
+});
 
-    const showYAxisTitle = computed(() => {
-      return (
-        allOptions.value.yAxisOptions?.withTitle !== false && yAxisTitle.value
-      );
-    });
+const showYAxisTitle = computed(() => {
+  return (
+    allOptions.value.yAxisOptions?.withTitle !== false && yAxisTitle.value
+  );
+});
 
-    const isReady = computed(() => {
-      const conditions = [];
+const isReady = computed(() => {
+  const conditions = [];
 
-      const { noBaseScales } = allOptions.value;
+  const { noBaseScales } = allOptions.value;
 
-      if (!noBaseScales) {
-        conditions.push(() => !!(computedXScale.value && computedYScale.value));
-      }
+  if (!noBaseScales) {
+    conditions.push(() => !!(computedXScale.value && computedYScale.value));
+  }
 
-      return conditions.every((c) => c() === true);
-    });
+  return conditions.every((c) => c() === true);
+});
 
-    const { hasNegativeValues } = checkNegativeValues(internalData);
-    const { negativeBarAttributes } = useNegativeValues(
-      containerSize,
-      computedXScale,
-      computedYScale,
-      orientation
-    );
+const { hasNegativeValues } = checkNegativeValues(internalData);
+const { negativeBarAttributes } = useNegativeValues(
+  containerSize,
+  computedXScale,
+  computedYScale,
+  orientation
+);
 
-    const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();
+const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();
 
-    const { getTooltipAnchorAttributes, getTooltipItems } = useTooltipAnchors(
-      internalData,
-      computedXScale,
-      computedYScale,
-      orientation,
-      chartType
-    );
+const { getTooltipAnchorAttributes, getTooltipItems } = useTooltipAnchors(
+  internalData,
+  computedXScale,
+  computedYScale,
+  orientation,
+  chartType
+);
 
-    const tooltipPosition = computed(
-      () => allOptions.value.tooltipOptions?.position || 'top'
-    );
+const tooltipPosition = computed(
+  () => allOptions.value.tooltipOptions?.position || 'top'
+);
 
-    function mouseOverHandler(index: number) {
-      // Update hoveredIndex
-      allOptions.value.withHover !== false && (hoveredIndex.value = index);
+function mouseOverHandler(index: number) {
+  // Update hoveredIndex
+  allOptions.value.withHover !== false && (hoveredIndex.value = index);
 
-      // Show/update tooltip
-      allOptions.value.withTooltip !== false &&
+  // Show/update tooltip
+  allOptions.value.withTooltip !== false &&
         showTooltip(tooltipAnchor.value[index]);
-    }
+}
 
-    function handleTickMouseover(type: 'x' | 'y', index: number) {
-      // Only capture hover on the label axis
-      if (
-        (orientation.value === ORIENTATIONS.VERTICAL && type === 'x') ||
+function handleTickMouseover(type: 'x' | 'y', index: number) {
+  // Only capture hover on the label axis
+  if (
+    (orientation.value === ORIENTATIONS.VERTICAL && type === 'x') ||
         (orientation.value === ORIENTATIONS.HORIZONTAL && type === 'y')
-      ) {
-        mouseOverHandler(index);
-      }
-    }
+  ) {
+    mouseOverHandler(index);
+  }
+}
 
-    function handleMouseleave() {
-      hideTooltip();
-      hoveredIndex.value = -1;
-    }
+function handleMouseleave() {
+  hideTooltip();
+  hoveredIndex.value = -1;
+}
 
-    onMounted(() => {
-      if (!ctx.slots.groups?.()) {
-        console.error('"groups" `<slot>` must have content.');
-      }
-    });
-
-    return {
-      allOptions,
-      internalData,
-      computedLabels,
-      computedXAxisOptions,
-      computedXScale,
-      computedYAxisOptions,
-      computedYScale,
-      containerSize,
-      getEmptyArrayFromData: getEmptyArrayFromData,
-      getTooltipAnchorAttributes,
-      getTooltipItems,
-      handleMouseleave,
-      handleTickMouseover,
-      hasNegativeValues,
-      hoveredIndex,
-      isReady,
-      mouseOverHandler,
-      negativeBarAttributes,
-      showXAxisTitle,
-      showYAxisTitle,
-      tooltipAnchor,
-      tooltipAnchorRadius: TOOLTIP_ANCHOR_RADIUS,
-      tooltipConfig,
-      tooltipPosition,
-      updateSize,
-      xAxisTitle,
-      yAxisTitle,
-    };
-  },
+onMounted(() => {
+  if (!slots.groups?.()) {
+    console.error('"groups" `<slot>` must have content.');
+  }
 });
 </script>
 

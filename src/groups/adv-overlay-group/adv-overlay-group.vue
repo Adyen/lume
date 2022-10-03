@@ -12,8 +12,8 @@
   </g>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, PropType, toRefs } from 'vue';
+<script setup lang="ts">
+import { computed, PropType, toRefs } from 'vue';
 
 import AdvBar from '@/core/adv-bar';
 
@@ -26,51 +26,44 @@ import {
 } from '@/utils/helpers';
 import { Orientation, ORIENTATIONS } from '@/constants';
 
-export default defineComponent({
-  components: { AdvBar },
-  props: {
-    ...withGroupProps(),
-    orientation: {
-      type: String as PropType<Orientation>,
-      default: ORIENTATIONS.VERTICAL,
-    },
-  },
-
-  setup(props, ctx) {
-    const { data, orientation, xScale, yScale } = toRefs(props);
-
-    const overlayData = computed(() => getEmptyArrayFromData(data));
-
-    function getOverlayBarAttributes(index: number) {
-      const referenceScale =
-        orientation.value === ORIENTATIONS.HORIZONTAL
-          ? yScale.value
-          : xScale.value;
-      const domain = referenceScale.domain();
-      const step = getScaleStep(referenceScale);
-
-      const translate = isBandScale(referenceScale)
-        ? referenceScale(domain[index])
-        : referenceScale(index) - step / 2;
-
-      return orientation.value === ORIENTATIONS.HORIZONTAL
-        ? {
-          width: Math.max(...xScale.value.range()),
-          height: step,
-          transform: `translate(0, ${translate})`,
-        }
-        : {
-          width: step,
-          height: Math.max(...yScale.value.range()),
-          transform: `translate(${translate}, 0)`,
-        };
-    }
-
-    function handleMouseover(index: number) {
-      ctx.emit('mouseover', index);
-    }
-
-    return { getOverlayBarAttributes, handleMouseover, overlayData };
+const props = defineProps({
+  ...withGroupProps(),
+  orientation: {
+    type: String as PropType<Orientation>,
+    default: ORIENTATIONS.VERTICAL,
   },
 });
+
+const emit = defineEmits(['mouseover']);
+
+const { data, orientation, xScale, yScale } = toRefs(props);
+
+const overlayData = computed(() => getEmptyArrayFromData(data));
+
+function getOverlayBarAttributes(index: number) {
+  const referenceScale =
+    orientation.value === ORIENTATIONS.HORIZONTAL ? yScale.value : xScale.value;
+  const domain = referenceScale.domain();
+  const step = getScaleStep(referenceScale);
+
+  const translate = isBandScale(referenceScale)
+    ? referenceScale(domain[index])
+    : referenceScale(index) - step / 2;
+
+  return orientation.value === ORIENTATIONS.HORIZONTAL
+    ? {
+      width: Math.max(...xScale.value.range()),
+      height: step,
+      transform: `translate(0, ${translate})`,
+    }
+    : {
+      width: step,
+      height: Math.max(...yScale.value.range()),
+      transform: `translate(${translate}, 0)`,
+    };
+}
+
+function handleMouseover(index: number) {
+  emit('mouseover', index);
+}
 </script>

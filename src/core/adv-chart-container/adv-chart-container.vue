@@ -34,16 +34,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import {
-  computed,
-  ComputedRef,
-  defineComponent,
-  PropType,
-  ref,
-  toRefs,
-  watchEffect,
-} from 'vue';
+<script setup lang="ts">
+import { computed, ComputedRef, PropType, ref, toRefs, watchEffect } from 'vue';
 
 import { useResizeObserver } from '@/composables/resize';
 import { Margins } from '@/constants';
@@ -56,69 +48,66 @@ const BASE_MARGINS = {
   bottom: 0,
 };
 
-export default defineComponent({
-  props: {
-    margins: {
-      type: Object as PropType<Margins>,
-      default: () => ({}),
-    },
-    containerSize: {
-      type: Object as PropType<ContainerSize>,
-      default: () => ({ width: 0, height: 0 }),
-    },
-    transparentBackground: {
-      type: Boolean,
-      default: false,
-    },
-    noMinSize: {
-      type: Boolean,
-      default: false,
-    },
+const props = defineProps({
+  margins: {
+    type: Object as PropType<Margins>,
+    default: () => ({}),
   },
-  setup(props, ctx) {
-    const { margins, containerSize } = toRefs(props);
-
-    const root = ref<SVGElement>(null);
-    const { resizeRef, resizeState } = useResizeObserver();
-
-    const computedMargins: ComputedRef<Margins> = computed(() => ({
-      ...BASE_MARGINS, // Default values
-      ...margins.value, // Prop overrides
-    }));
-
-    // Required for horizontal charts
-    const svgHeight = computed(
-      () =>
-        containerSize.value.height +
-        computedMargins.value.top +
-        computedMargins.value.bottom
-    );
-
-    watchEffect(() => {
-      if (!root.value) return;
-
-      const { width } = resizeState.dimensions;
-      const { height } = root.value.getBoundingClientRect();
-
-      if (!width || !height) return;
-
-      const contentWidth =
-        width - computedMargins.value.left - computedMargins.value.right;
-      const contentHeight =
-        height - computedMargins.value.top - computedMargins.value.bottom;
-
-      const _containerSize = {
-        width: contentWidth > 0 ? contentWidth : 0,
-        height: contentHeight > 0 ? contentHeight : 0,
-        outerWidth: width,
-        outerHeight: height,
-      };
-
-      ctx.emit('resize', _containerSize);
-    });
-
-    return { computedMargins, resizeRef, root, svgHeight };
+  containerSize: {
+    type: Object as PropType<ContainerSize>,
+    default: () => ({ width: 0, height: 0 }),
   },
+  transparentBackground: {
+    type: Boolean,
+    default: false,
+  },
+  noMinSize: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const emit = defineEmits(['resize']);
+
+const { margins, containerSize } = toRefs(props);
+
+const root = ref<SVGElement>(null);
+const { resizeRef, resizeState } = useResizeObserver();
+
+const computedMargins: ComputedRef<Margins> = computed(() => ({
+  ...BASE_MARGINS, // Default values
+  ...margins.value, // Prop overrides
+}));
+
+// Required for horizontal charts
+const svgHeight = computed(
+  () =>
+    containerSize.value.height +
+    computedMargins.value.top +
+    computedMargins.value.bottom
+);
+
+watchEffect(() => {
+  if (!root.value) return;
+
+  const { width } = resizeState.dimensions;
+  const { height } = root.value.getBoundingClientRect();
+
+  if (!width || !height) return;
+
+  const contentWidth =
+    width - computedMargins.value.left - computedMargins.value.right;
+  const contentHeight =
+    height - computedMargins.value.top - computedMargins.value.bottom;
+
+  const _containerSize = {
+    width: contentWidth > 0 ? contentWidth : 0,
+    height: contentHeight > 0 ? contentHeight : 0,
+    outerWidth: width,
+    outerHeight: height,
+  };
+
+  emit('resize', _containerSize);
 });
 </script>
 

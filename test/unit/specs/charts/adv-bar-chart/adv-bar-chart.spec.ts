@@ -1,3 +1,4 @@
+import flushPromises from 'flush-promises';
 import {
   generateData,
   labels,
@@ -16,39 +17,58 @@ const barChartTestSuiteFactory = (propsData) => new BaseTestSuite(BarChart, prop
 
 describe('adv-bar-chart.vue', () => {
   test('mounts component and sets prop values', async () => {
-    const wrapper = await barChartTestSuiteFactory({
+    const testSuite = await barChartTestSuiteFactory({
       data: singleSetData,
       labels,
       xScale,
       yScale,
-    }).run().wrapper;
+    });
+
+    const wrapper = testSuite.wrapper;
+
+    await flushPromises();
+
+    testSuite.run();
 
     expect(wrapper.find('[data-j-adv-bar-chart]')).toBeTruthy();
   });
 
-  test.skip('should display single bar chart', async () => {
-    const wrapper = await barChartTestSuiteFactory({
+  test('should display single bar chart', async () => {
+    const testSuite = await barChartTestSuiteFactory({
       data: singleSetData,
       labels,
       xScale,
       yScale,
-    }).wrapper;
+    });
+
+    const wrapper = testSuite.wrapper;
+
+    await flushPromises();
+
+    testSuite.run();
 
     const el = wrapper.find('[data-j-single-bar-chart]');
+
     expect(el.exists()).toBeTruthy();
     expect(el.findAll('[data-j-adv-bar]')).toHaveLength(numberOfBars);
   });
 
-  test.skip('should display grouped bar chart', async () => {
+  test('should display grouped bar chart', async () => {
     const type = 'grouped';
 
-    const wrapper = await barChartTestSuiteFactory({
+    const testSuite = await barChartTestSuiteFactory({
       data: multiSetData,
       type,
       labels,
       xScale,
       yScale,
-    }).wrapper;
+    });
+
+    const wrapper = testSuite.wrapper;
+
+    await flushPromises();
+
+    testSuite.run();
 
     const el = wrapper.find('[data-j-grouped-bar-chart]');
 
@@ -58,16 +78,22 @@ describe('adv-bar-chart.vue', () => {
     );
   });
 
-  test.skip('should display stacked bar chart', async () => {
+  test('should display stacked bar chart', async () => {
     const type = 'stacked';
 
-    const wrapper = await barChartTestSuiteFactory({
+    const testSuite = await barChartTestSuiteFactory({
       data: multiSetData,
       type,
       labels,
       xScale,
       yScale,
-    }).wrapper;
+    });
+
+    const wrapper = testSuite.wrapper;
+
+    await flushPromises();
+
+    testSuite.run();
 
     const el = wrapper.find('[data-j-stacked-bar-chart]');
 

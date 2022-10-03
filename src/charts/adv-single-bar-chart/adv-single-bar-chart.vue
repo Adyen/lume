@@ -1,21 +1,21 @@
 <template>
   <adv-chart
-    v-bind="$props"
+    v-bind="props"
     chart-type="single-bar"
     :options="allOptions"
     data-j-single-bar-chart
   >
-    <template #groups="props">
+    <template #groups="groupProps">
       <adv-bar-group
-        v-bind="props"
+        v-bind="groupProps"
         :orientation="orientation"
       />
     </template>
   </adv-chart>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, toRefs } from 'vue';
+<script setup lang="ts">
+import { computed, toRefs } from 'vue';
 
 import AdvChart from '@/core/adv-chart';
 import AdvBarGroup from '@/groups/adv-bar-group';
@@ -28,22 +28,15 @@ import { ORIENTATIONS } from '@/constants';
 
 import { options as defaultOptions } from './defaults';
 
-export default defineComponent({
-  components: { AdvChart, AdvBarGroup },
-  props: {
-    ...withChartProps(singleDatasetValidator),
-  },
-  setup(props) {
-    // State from mixins
-    const { orientation, options } = toRefs(props);
-
-    const baseOptions = computed(
-      () => defaultOptions[orientation.value || ORIENTATIONS.VERTICAL] // needs to be computed so that default options are reactive
-    );
-
-    const { allOptions } = useOptions(options, baseOptions);
-
-    return { allOptions };
-  },
+const props = defineProps({
+  ...withChartProps(singleDatasetValidator),
 });
+
+const { orientation, options } = toRefs(props);
+
+const baseOptions = computed(
+  () => defaultOptions[orientation.value || ORIENTATIONS.VERTICAL] // needs to be computed so that default options are reactive
+);
+
+const { allOptions } = useOptions(options, baseOptions);
 </script>

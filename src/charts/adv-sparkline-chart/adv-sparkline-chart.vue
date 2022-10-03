@@ -1,11 +1,11 @@
 <template>
   <adv-chart
-    v-bind="$props"
+    v-bind="props"
     chart-type="line"
     :options="getSparklineOptions(allOptions)"
     :x-scale="xScaleGenerator"
   >
-    <template #groups="props">
+    <template #groups="groupProps">
       <path
         v-if="allOptions.showArea"
         :class="[
@@ -13,20 +13,20 @@
           `adv-fill--${areaColor || computedColor}`,
           'adv-fill--faded',
         ]"
-        :d="areaPathDefinition(props.xScale, props.yScale)"
+        :d="areaPathDefinition(groupProps.xScale, groupProps.yScale)"
         data-j-sparkline__area
       />
 
       <adv-line-group
-        v-bind="props"
+        v-bind="groupProps"
         :with-points="false"
       />
     </template>
   </adv-chart>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, toRefs } from 'vue';
+<script setup lang="ts">
+import { computed, toRefs } from 'vue';
 import { scaleLinear } from 'd3-scale';
 
 import AdvChart from '@/core/adv-chart';
@@ -42,53 +42,40 @@ import { ContainerSize } from '@/types/size';
 
 import { options as defaultOptions } from './defaults';
 
-export default defineComponent({
-  components: { AdvChart, AdvLineGroup },
-  props: {
-    ...withBase(null),
-    ...withOptions(),
-  },
-  setup(props) {
-    const { data, options } = toRefs(props);
-
-    const { internalData } = useBase(data);
-    const { allOptions } = useOptions(options, defaultOptions);
-    const { computedLineData } = useLineNullValues(internalData);
-    const { areaPathDefinition } = useSparklineArea(computedLineData);
-
-    const computedColor = computed(() => internalData.value[0].color);
-
-    const areaColor = computed(
-      () => data.value[0].areaColor || computedColor.value
-    );
-
-    function getSparklineOptions(options: Options) {
-      return {
-        ...options,
-        noMinSize: true,
-      };
-    }
-
-    function xScaleGenerator(
-      data: Data,
-      _labels: Array<string>,
-      size: ContainerSize
-    ) {
-      return scaleLinear()
-        .range([0, size.width])
-        .domain([0, data[0].values.length - 1]);
-    }
-
-    return {
-      allOptions,
-      areaColor,
-      areaPathDefinition,
-      computedColor,
-      getSparklineOptions,
-      xScaleGenerator,
-    };
-  },
+const props = defineProps({
+  ...withBase(null),
+  ...withOptions(),
 });
+
+const { data, options } = toRefs(props);
+
+const { internalData } = useBase(data);
+const { allOptions } = useOptions(options, defaultOptions);
+const { computedLineData } = useLineNullValues(internalData);
+const { areaPathDefinition } = useSparklineArea(computedLineData);
+
+const computedColor = computed(() => internalData.value[0].color);
+
+const areaColor = computed(
+  () => data.value[0].areaColor || computedColor.value
+);
+
+function getSparklineOptions(options: Options) {
+  return {
+    ...options,
+    noMinSize: true,
+  };
+}
+
+function xScaleGenerator(
+  data: Data,
+  _labels: Array<string>,
+  size: ContainerSize
+) {
+  return scaleLinear()
+    .range([0, size.width])
+    .domain([0, data[0].values.length - 1]);
+}
 </script>
 
 <style lang="scss" scoped>

@@ -9,58 +9,53 @@
   />
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, PropType } from 'vue';
+<script setup lang="ts">
+import { computed, PropType } from 'vue';
 
 import { Scale } from '@/composables/scales';
 
 import { getScaleStep, isBandScale } from '@/utils/helpers';
 
-export default defineComponent({
-  props: {
-    color: {
-      type: String,
-      default: '01',
-    },
-    radius: {
-      type: Number,
-      default: 4,
-    },
-    value: {
-      type: Number,
-      required: true,
-    },
-    index: {
-      type: Number,
-      required: true,
-    },
-    active: {
-      type: Boolean,
-      default: false,
-    },
-    xScale: {
-      type: Function as PropType<Scale>,
-      required: true,
-    },
-    yScale: {
-      type: Function as PropType<Scale>,
-      required: true,
-    },
+const props = defineProps({
+  color: {
+    type: String,
+    default: '01',
   },
-  setup(props) {
-    const xAxisOffset = computed(() => getScaleStep(props.xScale) / 2);
-    const domain = computed(() => props.xScale.domain());
-
-    const cx = computed(() =>
-      isBandScale(props.xScale)
-        ? props.xScale(domain.value[props.index]) + xAxisOffset.value
-        : props.xScale(props.index)
-    );
-    const cy = computed(() => props.yScale(props.value));
-
-    return { cx, cy };
+  radius: {
+    type: Number,
+    default: 4,
+  },
+  value: {
+    type: Number,
+    required: true,
+  },
+  index: {
+    type: Number,
+    required: true,
+  },
+  active: {
+    type: Boolean,
+    default: false,
+  },
+  xScale: {
+    type: Function as PropType<Scale>,
+    required: true,
+  },
+  yScale: {
+    type: Function as PropType<Scale>,
+    required: true,
   },
 });
+
+const xAxisOffset = computed(() => getScaleStep(props.xScale) / 2);
+const domain = computed(() => props.xScale.domain());
+
+const cx = computed(() =>
+  isBandScale(props.xScale)
+    ? props.xScale(domain.value[props.index]) + xAxisOffset.value
+    : props.xScale(props.index)
+);
+const cy = computed(() => props.yScale(props.value));
 </script>
 
 <style lang="scss" scoped>

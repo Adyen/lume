@@ -1,6 +1,6 @@
 <template>
   <adv-chart
-    v-bind="$props"
+    v-bind="props"
     chart-type="bar"
   >
     <template #axes="{ xScale, yScale, containerSize, options, hoveredIndex }">
@@ -26,23 +26,26 @@
       />
     </template>
 
-    <template #groups="props">
+    <template #groups="groupProps">
       <adv-bar-group
-        v-bind="props"
+        v-bind="groupProps"
         :data="[firstDataset]"
-        :y-scale="getScale(props.yScale, 0)"
+        :y-scale="getScale(groupProps.yScale, 0)"
       />
       <adv-bar-group
-        v-bind="props"
+        v-bind="groupProps"
         :data="[secondDataset]"
-        :y-scale="getScale(props.yScale, 1)"
+        :y-scale="getScale(groupProps.yScale, 1)"
       />
     </template>
   </adv-chart>
 </template>
-
 <script lang="ts">
-import { computed, defineComponent, toRefs } from 'vue';
+const linkedDataValidator = (data: Data) => data.length === 2;
+</script>
+
+<script setup lang="ts">
+import { computed, toRefs } from 'vue';
 
 import AdvAxis from '@/core/adv-axis';
 import AdvChart from '@/core/adv-chart';
@@ -53,32 +56,22 @@ import { withChartProps } from '@/composables/props';
 
 import { Data } from '@/types/dataset';
 
-const linkedDataValidator = (data: Data) => data.length === 2;
-
-export default defineComponent({
-  components: { AdvChart, AdvBarGroup, AdvAxis },
-  props: {
-    ...withChartProps(linkedDataValidator),
-  },
-  setup(props) {
-    const { data } = toRefs(props);
-
-    const firstDataset = computed(() => data.value[0]);
-    const secondDataset = computed(() => data.value[1]);
-
-    function getScale(scale: Scale, index: number) {
-      if (!scale) return scale;
-      const max = Math.max(...scale.range());
-      const half = max / 2;
-
-      return scale
-        .copy()
-        .range(index === 0 ? [0, half - 22] : [half + 22, max]);
-    }
-
-    return { firstDataset, secondDataset, getScale };
-  },
+const props = defineProps({
+  ...withChartProps(linkedDataValidator),
 });
+
+const { data } = toRefs(props);
+
+const firstDataset = computed(() => data.value[0]);
+const secondDataset = computed(() => data.value[1]);
+
+function getScale(scale: Scale, index: number) {
+  if (!scale) return scale;
+  const max = Math.max(...scale.range());
+  const half = max / 2;
+
+  return scale.copy().range(index === 0 ? [0, half - 22] : [half + 22, max]);
+}
 </script>
 
 <style lang="scss"></style>
