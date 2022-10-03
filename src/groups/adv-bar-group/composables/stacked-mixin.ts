@@ -3,7 +3,7 @@ import { scaleBand, ScaleBand, scaleLinear } from 'd3-scale';
 
 import { getPaddedScale, Scale } from '@/composables/scales';
 
-import { Orientation, ORIENTATIONS } from '@/constants';
+import { Colors, Orientation, ORIENTATIONS } from '@/constants';
 import { Data, DatasetValueObject } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 
@@ -47,13 +47,13 @@ export function useStackedAxes(
   ) {
     return isHorizontal.value
       ? scaleLinear()
-        .domain([stackedMinValue.value, stackedMaxValue.value])
-        .range([0, size.width])
-      : getPaddedScale(
-        scaleBand()
-          .domain(labels?.map((v) => v))
+          .domain([stackedMinValue.value, stackedMaxValue.value])
           .range([0, size.width])
-      );
+      : getPaddedScale(
+          scaleBand()
+            .domain(labels?.map((v) => v))
+            .range([0, size.width])
+        );
   }
 
   function stackedYScaleGenerator(
@@ -63,13 +63,13 @@ export function useStackedAxes(
   ) {
     return isHorizontal.value
       ? getPaddedScale(
-        scaleBand()
-          .domain(labels?.map((v) => v))
-          .range([0, size.height])
-      )
+          scaleBand()
+            .domain(labels?.map((v) => v))
+            .range([0, size.height])
+        )
       : scaleLinear()
-        .domain([stackedMaxValue.value, stackedMinValue.value])
-        .range([0, size.height]);
+          .domain([stackedMaxValue.value, stackedMinValue.value])
+          .range([0, size.height]);
   }
 
   return { stackedXScaleGenerator, stackedYScaleGenerator };
@@ -168,16 +168,17 @@ export function useStackedBarMixin(
         ? getPositiveOffset(index, groupIndex)
         : getNegativeOffset(index, groupIndex);
     const { x, y } = getBarTransform(value, groupIndex, offset);
-    const color = barColor ?? data.value[index].color;
+    const color =
+      barColor ?? data.value[index].color ?? Object.values(Colors)[index];
 
     return {
-      classList: [`adv-fill-color--${color}`, ...classList],
+      classList: [`adv-fill--${color}`, ...classList],
       width,
       height,
       x,
       y,
       isFaded: hoveredIndex.value !== -1 && hoveredIndex.value !== groupIndex,
-      isNegative: value < 0
+      isNegative: value < 0,
     };
   }
 

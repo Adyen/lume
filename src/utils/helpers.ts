@@ -195,3 +195,22 @@ export function getAlluvialNodeId(
 export function isNodeOrLinkFaded(id: string, highlightedIds: Array<string>) {
   return highlightedIds.length && highlightedIds.indexOf(id) === -1;
 }
+
+/**
+ * Shifts all items in an array N number of indexes.
+ * Default direction is to the left (e.g [1, 2, 3] -> [2, 3, 1])
+ * @param array An array to shift.
+ * @param amount N number of indexes to move.
+ * @param toRight If true, moves items to the right instead.
+ * @returns A same length array with its items moved.
+ */
+export function shiftItems(
+  array: Array<unknown>,
+  amount: number,
+  toRight?: boolean
+) {
+  const N = toRight ? array.length - amount : amount;
+  const front = array.slice(0, N);
+  const back = array.slice(N);
+  return back.concat(front);
+}

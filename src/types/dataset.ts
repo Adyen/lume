@@ -1,4 +1,4 @@
-import { Color } from '@/types/colors';
+import { Color } from '@/constants';
 
 type ChartType = 'bar' | 'line';
 
@@ -27,11 +27,17 @@ export interface Dataset<T> {
 
 export type Data<T extends DatasetValue = DatasetValue> = Array<Dataset<T>>;
 
+export enum ColorPalette {
+  Categorical = 'categorical',
+  Sequential = 'sequential',
+  Divergent = 'divergent',
+}
+
 export interface InternalDataset
   extends Omit<Dataset<DatasetValueObject>, 'values' | 'color'> {
   values: Array<DatasetValueObject>;
-  color: string;
-  __isInternal: true;
+  color: string; // TODO: InternalColor type that contains all colors w/ variants (e.g. skyblue-40)
+  __internal: true;
 }
 
 export type InternalData = Array<InternalDataset>;

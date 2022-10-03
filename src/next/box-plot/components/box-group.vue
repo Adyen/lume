@@ -7,7 +7,7 @@
     <rect
       class="box-plot__box"
       v-bind="boxGroup.box"
-      :class="[`adv-fill-color--${boxGroup.color}`]"
+      :class="[`adv-fill--${boxGroup.color}`]"
     />
     <line
       class="box-plot__median"
@@ -16,9 +16,7 @@
     <adv-bar
       v-if="overlay"
       v-bind="overlay"
-      :class-list="
-        isHovered ? 'adv-fill-color--overlay' : 'adv-fill-color--transparent'
-      "
+      :class-list="isHovered ? 'adv-fill--overlay' : 'adv-fill--transparent'"
       :transition="true"
       @mouseover.native="$emit('mouseover', $event)"
       @mouseout.native="$emit('mouseout')"

@@ -18,7 +18,7 @@ describe('bar-group.vue', () => {
     const el = wrapper.find('[data-j-bars-group]');
     expect(el.exists()).toBeTruthy()
     expect(wrapper.find('[data-j-adv-bar]').attributes('x')).not.toEqual('0');
-    expect(wrapper.find('[data-j-adv-bar]').attributes()['class'].includes('adv-fill-color--01')).toBe(true);
+    expect(wrapper.find('[data-j-adv-bar]').attributes()['class'].includes('adv-fill--skyblue')).toBe(true);
   });
 
   test('mounts component with horizontal orientation', () => {

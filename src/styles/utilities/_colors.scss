@@ -1,32 +1,71 @@
-@use '../variables' as *;
+@use 'sass:color';
+@use 'sass:list';
 
+@use '~@/styles/variables' as *;
+@use '~@/styles/functions/colors' as *;
+
+//
+//// Generates util classes for all color values (regular colors, color pairs):
+//// .adv-background-color--{color}-{value}
+//// .adv-fill--{color}-{value}
+//// .adv-stroke--{color}-{value}
+//
+@each $property in (background-color, fill, stroke) {
+  // categorical colors
+  @include generate-color-classes($property, $adv-categorical-colors);
+
+  // sequential colors
+  @each $map in $adv-sequential-colors {
+    @include generate-color-classes($property, $map);
+  }
+
+  // divergent pairs
+  @each $map in $adv-divergent-colors {
+    @include generate-color-classes($property, $map);
+  }
+}
+
+//
+//// Covers primary colors & legacy colors
+//// (e.g. .adv-background-color--skyblue, .adv-background-color--02)
+//
 .adv-background-color {
-  @each $color, $map in $chart-colors {
+  @each $name, $map in $adv-categorical-colors {
+    &--#{$name} {
+      background-color: nth($map, 1);
+    }
+  }
+
+  @each $color, $map in $adv-legacy-colors {
     &--#{$color} {
       background-color: nth($map, 1);
     }
   }
 }
 
-.adv-stroke-color {
-  @each $color, $map in $chart-colors {
-    &--#{$color} {
-      stroke: nth($map, 1);
-    }
-  }
-
+//
+//// Covers primary colors & legacy colors
+//// (e.g. .adv-stroke--skyblue, .adv-stroke--02)
+//
+.adv-stroke {
   &--transparent {
     stroke: $adv-color-grey-transparent;
     opacity: 0;
   }
-}
 
-.adv-fill-color {
-  @each $color, $map in $chart-colors {
+  @each $color, $map in $adv-legacy-colors {
     &--#{$color} {
-      fill: nth($map, 1);
+      stroke: nth($map, 1);
     }
   }
+}
+
+//
+//// Covers primary colors, variants & legacy colors
+//// (e.g. .adv-fill--skyblue, .adv-fill--02)
+//
+.adv-fill {
+  $b: &;
 
   &--overlay {
     fill: $adv-color-grey-transparent;
@@ -43,5 +82,21 @@
   &--transparent {
     fill: $adv-color-grey-transparent;
     opacity: 0;
+  }
+
+  @each $name, $map in $adv-categorical-colors {
+    &--#{$name} {
+      fill: nth($map, 1);
+    }
+  }
+
+  @each $color, $map in $adv-legacy-colors {
+    &--#{$color} {
+      fill: nth($map, 1);
+
+      &#{$b}--faded {
+        fill: fade-color(nth($map, 1));
+      }
+    }
   }
 }

@@ -1,3 +1,33 @@
+export enum Colors {
+  Skyblue = 'skyblue',
+  Royalblue = 'royalblue',
+  Violet = 'violet',
+  Darkteal = 'darkteal',
+  Gold = 'gold',
+}
+
+export enum DivergentColors {
+  SkyTeal = 'skyblue-darkteal',
+  VioletRoyal = 'violet-royalblue',
+  VioletTeal = 'violet-darkteal',
+  GoldTeal = 'gold-darkteal',
+  GoldRoyal = 'gold-royalblue',
+}
+
+export enum LegacyColors {
+  '01' = '01',
+  '02' = '02',
+  '03' = '03',
+  '04' = '04',
+  '05' = '05',
+  '06' = '06',
+  '07' = '07',
+  '08' = '08',
+  '09' = '09',
+}
+
+export type Color = Colors | DivergentColors | LegacyColors;
+
 export type Margins = {
   top: number;
   right: number;
@@ -34,8 +64,6 @@ export const DEFAULT_MARGINS = {
     left: 24,
   } as Margins,
 };
-
-export const NUMBER_OF_COLORS = 6;
 
 export const NO_DATA = 'No data';
 

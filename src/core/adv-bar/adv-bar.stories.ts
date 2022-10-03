@@ -37,7 +37,7 @@ const Template = ({ argTypes }) => ({
   props: Object.keys(argTypes),
   setup(props: InstanceType<typeof AdvBar>['$props']) {
     const computedFillClass = computed(
-      () => `adv-fill-color--` + COLOR_CLASS_MAP[props.color]
+      () => `adv-fill--` + COLOR_CLASS_MAP[props.color]
     );
 
     return { props, computedFillClass };

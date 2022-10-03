@@ -1,9 +1,15 @@
+function randomValues(length: number, min: number, max: number) {
+  return [...Array(length)].map(
+    () => Math.floor(Math.random() * (max - min + 1)) + min
+  );
+}
+
 const DATASETS = {
   Single: {
     data: [
       {
         values: [30, -10, 0.1, 70, 50, null, 40],
-        color: '02',
+        // color: '02',
         label: 'Hot dogs',
       },
     ],
@@ -21,17 +27,17 @@ const DATASETS = {
     data: [
       {
         label: 'Toyota',
-        color: '01',
+        // color: '01',
         values: [10, 30, 25, null, 50, 40],
       },
       {
         label: 'Honda',
-        color: '02',
+        // color: '02',
         values: [15, 40, 20, -10, 40, 30],
       },
       {
         label: 'Nissan',
-        color: '03',
+        // color: '03',
         values: [8, 20, 10, 45, 50, 55],
       },
     ],
@@ -43,6 +49,36 @@ const DATASETS = {
       'May 2022',
       'Jun 2022',
     ],
+  },
+  Maximum: {
+    data: [
+      {
+        label: 'Amazon',
+        values: randomValues(10, 1000, 10000),
+      },
+      {
+        label: 'Apple',
+        values: randomValues(10, 1000, 10000),
+      },
+      {
+        label: 'Google',
+        values: randomValues(10, 1000, 10000),
+      },
+      {
+        label: 'Microsoft',
+        values: randomValues(10, 1000, 10000),
+      },
+      {
+        label: 'Meta',
+        values: randomValues(10, 1000, 10000),
+      },
+    ],
+    labels: [...Array(10)].map((_, i) => {
+      const date = new Date();
+      date.setDate(1);
+      date.setMonth(date.getMonth() + i);
+      return date.toLocaleString('en', { month: 'short', year: 'numeric' });
+    }),
   },
   'Chargebacks_Fraud overview 28 days': {
     data: [
