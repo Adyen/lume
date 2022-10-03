@@ -1,8 +1,10 @@
-@use '~@/styles/variables' as *;
+@use 'variables' as *;
+@use 'mixins/base' as *;
 
 @mixin title-base {
+  @include base;
+
   margin: 0;
-  font-family: $adv-font-family;
 }
 
 .adv-chart-title {

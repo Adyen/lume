@@ -1,12 +1,32 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-undef */
+const fs = require('fs');
 const path = require('path');
 const { VueLoaderPlugin } = require('vue-loader');
+const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+function convertDirToEntryPoints(dir) {
+  return fs
+    .readdirSync(path.resolve(__dirname, '../src/' + dir))
+    .reduce((acc, name) => {
+      if (name.startsWith('adv-')) {
+        acc[`${dir}/${name}`] = `./src/${dir}/${name}`;
+      }
+      return acc;
+    }, {});
+}
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
-  entry: './src/index.ts',
+  entry: {
+    index: './src/index.ts',
+    'styles/main': './src/styles/main.scss',
+    'styles/font': './src/styles/font.scss',
+    ...convertDirToEntryPoints('charts'),
+    ...convertDirToEntryPoints('core'),
+    ...convertDirToEntryPoints('groups'),
+  },
   module: {
     rules: [
       {
@@ -26,31 +46,38 @@ module.exports = {
       {
         test: /\.vue\.(s?[ac]ss)$/,
         use: ['vue-style-loader', 'css-loader', 'sass-loader'],
-        exclude: /src\/styles/,
       },
       {
         test: /(?<!\.vue)\.(s?[ac]ss)$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
-        include: /src\/styles/,
       },
       {
         test: /\.(woff2?|ttf|otf|eot|svg)$/,
-        use: {
-          loader: 'file-loader',
-          options: {
-            outputPath: 'assets/fonts/',
-            publicPath: 'assets/fonts/',
-          },
-        },
+        type: 'asset/resource',
       },
     ],
   },
-  plugins: [new VueLoaderPlugin(), new MiniCssExtractPlugin()],
+  plugins: [
+    new VueLoaderPlugin(),
+    new MiniCssExtractPlugin(),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, '../src/styles'),
+          to: path.resolve(__dirname, '../dist/scss'),
+        },
+      ],
+    }),
+  ],
   resolve: {
     extensions: ['.vue', '.js', '.ts'],
     modules: ['./node_modules'],
     alias: {
       '@': path.resolve(__dirname, '../src/'),
     },
+  },
+  cache: {
+    type: 'filesystem',
+    cacheDirectory: path.resolve(__dirname, '../.cache/webpack'),
   },
 };

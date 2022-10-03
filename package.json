@@ -2,40 +2,51 @@
   "name": "data-visualization",
   "version": "0.0.1",
   "description": "Data visualization is the graphical representation of information and data. By using visual elements like charts, graphs, and maps, data visualization repository provide an accessible way to see and understand trends, outliers, and patterns in data.",
-  "main": "dist/adv.umd.js",
-  "module": "dist/adv.esm.js",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.esm.js",
   "files": [
     "dist/"
   ],
+  "exports": {
+    ".": "./dist/index.esm.js",
+    "./styles": "./dist/styles/main.css",
+    "./font": "./dist/styles/font.css",
+    "./scss": "./dist/scss/main.scss",
+    "./charts/*": "./dist/charts/*.js",
+    "./core/*": "./dist/core/*.js",
+    "./groups/*": "./dist/groups/*.js",
+    "./package.json": "./package.json"
+  },
+  "types": "./dist/types/index.d.ts",
   "license": "MIT",
   "contributors": [
     {
-      "name" : "Govind Srinidhi",
-      "email" : "govind.srinidhi@adyen.com"
+      "name": "Govind Srinidhi",
+      "email": "govind.srinidhi@adyen.com"
     },
     {
-      "name" : "Joao Dos Santos",
-      "email" : "joao.dossantos@adyen.com"
+      "name": "Joao Dos Santos",
+      "email": "joao.dossantos@adyen.com"
     },
     {
-      "name" : "Lucas van Heerikhuizen",
-      "email" : "lucas.vanheerikhuizen@adyen.com"
+      "name": "Lucas van Heerikhuizen",
+      "email": "lucas.vanheerikhuizen@adyen.com"
     },
     {
-      "name" : "Vivian Joseph",
-      "email" : "vivian.joseph@adyen.com"
+      "name": "Vivian Joseph",
+      "email": "vivian.joseph@adyen.com"
     }
   ],
   "scripts": {
     "build:es": "webpack --config build/webpack.prod.es.js --progress",
     "build:umd": "webpack --config build/webpack.prod.umd.js --progress",
-    "build": "npm run build:umd && npm run build:es",
+    "build": "NODE_ENV=production npm run build:es",
     "confighooks": "git config core.hooksPath ./git-hooks",
     "dev": "webpack --config build/webpack.dev.js --progress",
     "lint:fix": "npm run lint -- --fix",
     "lint:pretty": "prettier --write --ignore-unknown .",
     "lint": "eslint ./src ./test --ext .js,.ts,.vue",
-    "postinstall": "npm run confighooks && echo \" ✔ Git hooks path configured to ./git-hooks\"",
+    "prepare": "npm run confighooks && echo \" ✔ Git hooks path configured to ./git-hooks\"",
     "start": "npm run storybook",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "unit-exp": "NODE_OPTIONS=\"--experimental-vm-modules\"; jest --config=test/config/jest.config.js",
@@ -49,8 +60,7 @@
   "dependencies": {
     "@popperjs/core": "^2.11.4",
     "d3": "^6.6.2",
-    "d3-sankey": "^0.12.3",
-    "vue": "^2.7.8"
+    "d3-sankey": "^0.12.3"
   },
   "peerDependencies": {
     "vue": "^2.7.8"
@@ -75,6 +85,7 @@
     "@vue/test-utils": "^1.1.3",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^28.1.2",
+    "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^3.6.0",
     "eslint": "^8.12.0",
     "eslint-plugin-vue": "^9.2.0",
@@ -112,10 +123,10 @@
     "Stacked bar chart",
     "Sparkline chart",
     "Line chart",
-    "Alluvial charts", 
-    "Sankey diagrams", 
+    "Alluvial charts",
+    "Sankey diagrams",
     "Vue chart library",
-    "Vue", 
+    "Vue",
     "Vue 2.7"
   ]
 }

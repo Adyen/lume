@@ -1,6 +1,9 @@
-@use '~@/styles/_variables.scss' as *;
+@use '~@/styles/variables' as *;
+@use '~@/styles/mixins/base' as *;
 
 .adv-alluvial-group {
+  @include base;
+
   &__node {
     opacity: 1;
     transition: opacity $adv-transition-time-long;
@@ -24,8 +27,6 @@
   }
 
   &__node-text {
-    font-family: $adv-font-family;
-
     &--right {
       text-anchor: end;
     }

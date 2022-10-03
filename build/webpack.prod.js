@@ -6,4 +6,26 @@ const common = require('./webpack.common.js');
 module.exports = merge(common, {
   mode: 'production',
   devtool: 'source-map',
+  optimization: {
+    mangleExports: 'size',
+    moduleIds: 'deterministic',
+    removeAvailableModules: true,
+    removeEmptyChunks: true,
+    // runtimeChunk: 'single', // this one causes the build to fail
+    splitChunks: {
+      chunks: 'async',
+      cacheGroups: {
+        defaultVendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10,
+          reuseExistingChunk: true,
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true,
+        },
+      },
+    },
+  },
 });

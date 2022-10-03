@@ -1,10 +1,10 @@
-@forward './variables/colors';
-@forward './variables/spacing';
-@forward './variables/typography';
+@forward 'variables/colors';
+@forward 'variables/spacing';
+@forward 'variables/typography';
 
-@use './variables/colors' as *;
-@use './variables/spacing' as *;
-@use './variables/typography' as *;
+@use 'variables/colors' as *;
+@use 'variables/spacing' as *;
+@use 'variables/typography' as *;
 
 // Border
 
