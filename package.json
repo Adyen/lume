@@ -1,7 +1,7 @@
 {
-  "name": "data-visualization",
-  "version": "0.0.1",
-  "description": "Data visualization is the graphical representation of information and data. By using visual elements like charts, graphs, and maps, data visualization repository provide an accessible way to see and understand trends, outliers, and patterns in data.",
+  "name": "lume",
+  "version": "0.1.0",
+  "description": "Lume is a component library for visual representations of data, built for Vue with D3.",
   "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
   "files": [
@@ -25,7 +25,7 @@
       "email": "govind.srinidhi@adyen.com"
     },
     {
-      "name": "Joao Dos Santos",
+      "name": "Joao Santos",
       "email": "joao.dossantos@adyen.com"
     },
     {
@@ -113,6 +113,9 @@
     "webpack-merge": "^5.8.0"
   },
   "keywords": [
+    "Lume",
+    "LumeJS",
+    "Lume Design System",
     "Data Visualization",
     "Charts",
     "d3.js",

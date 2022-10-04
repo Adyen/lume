@@ -1,0 +1,43 @@
+@use '~@/styles/variables' as *;
+@use '~@/styles/mixins/base' as *;
+
+.lume-alluvial-group {
+  @include base;
+
+  &__node {
+    opacity: 1;
+    transition: opacity $lume-transition-time-long;
+
+    &--faded {
+      opacity: 0.5;
+    }
+  }
+
+  &__node-block {
+    @each $color, $map in $lume-categorical-colors {
+      &--#{$color} {
+        $fill: nth($map, 1);
+        fill: $fill;
+
+        & + .lume-alluvial-group__node-text--color {
+          fill: $fill;
+        }
+      }
+    }
+  }
+
+  &__node-text {
+    &--right {
+      text-anchor: end;
+    }
+  }
+
+  &__node-title {
+    font-size: $lume-text-font-size-small;
+  }
+
+  &__node-value {
+    font-size: $lume-text-font-size-small;
+    font-weight: $lume-text-font-weight-semi-bold;
+  }
+}

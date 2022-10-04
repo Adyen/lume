@@ -4,11 +4,11 @@ import * as charts from './charts';
 import * as core from './core';
 import * as groups from './groups';
 
-interface AdvPluginFunction extends PluginFunction<null> {
+interface LumePluginFunction extends PluginFunction<null> {
   installed?: boolean;
 }
 
-const install: AdvPluginFunction = (Vue) => {
+const install: LumePluginFunction = (Vue) => {
   if (install.installed) return;
   install.installed = true;
 

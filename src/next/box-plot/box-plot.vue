@@ -1,16 +1,16 @@
 <template>
-  <adv-chart-container
+  <lume-chart-container
     :margins="allOptions.margins"
     @resize="updateSize"
   >
     <template v-if="allOptions.showAxes && xScale && yScale">
-      <adv-axis
+      <lume-axis
         type="x"
         :options="allOptions.xAxisOptions"
         :scale="xScale"
         :container-size="containerSize"
       />
-      <adv-axis
+      <lume-axis
         type="y"
         :options="allOptions.yAxisOptions"
         :scale="yScale"
@@ -30,7 +30,7 @@
     />
 
     <template #extra>
-      <adv-tooltip
+      <lume-tooltip
         v-if="tooltipConfig.opened"
         v-bind="tooltipConfig"
         position="top"
@@ -41,18 +41,18 @@
           name="tooltip"
           :index="hoveredIndex"
         />
-      </adv-tooltip>
+      </lume-tooltip>
     </template>
-  </adv-chart-container>
+  </lume-chart-container>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, toRefs } from 'vue';
 
-import AdvAxis from '@/core/adv-axis';
+import LumeAxis from '@/core/lume-axis';
 import BoxGroup from './components/box-group.vue';
-import AdvChartContainer from '@/core/adv-chart-container';
-import AdvTooltip from '@/core/adv-tooltip';
+import LumeChartContainer from '@/core/lume-chart-container';
+import LumeTooltip from '@/core/lume-tooltip';
 
 import { useBase } from '@/composables/base';
 import { useOptions, withOptions } from '@/composables/options';
@@ -61,7 +61,7 @@ import { useBoxComputations, withData } from './composables/box-composable';
 
 import { options as defaultOptions } from './defaults';
 export default defineComponent({
-  components: { AdvAxis, AdvChartContainer, BoxGroup, AdvTooltip },
+  components: { LumeAxis, LumeChartContainer, BoxGroup, LumeTooltip },
   props: {
     ...withOptions(),
     ...withData(),

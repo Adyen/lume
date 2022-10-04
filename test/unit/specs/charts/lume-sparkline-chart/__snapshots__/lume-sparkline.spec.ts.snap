@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`lume-sparkline.vue mounts component and sets custom area color 1`] = `
+<div
+  class="lume-chart-container"
+  data-j-chart-container=""
+  data-j-lume-chart=""
+  xscale="function scale(d) {
+    var key = d + \\"\\", i = index.get(key);
+    if (!i) {
+      if (unknown !== implicit) return unknown;
+      index.set(key, i = domain.push(d));
+    }
+    return range[(i - 1) % range.length];
+  }"
+>
+  <div
+    class="lume-chart__header"
+  >
+    <!---->
+     
+    <div
+      class="lume-chart__controls"
+    />
+     
+    <!---->
+     
+    <!---->
+  </div>
+   
+  <svg
+    class="lume-chart-container__svg"
+    data-j-chart-container__root=""
+    height="0"
+  >
+    <g
+      class="lume-chart-container__group"
+      data-j-chart-container__group=""
+      transform="translate(0, 0)"
+    />
+  </svg>
+   
+  <!---->
+   
+  <!---->
+   
+</div>
+`;
+
+exports[`lume-sparkline.vue mounts component and sets prop values 1`] = `
+<div
+  class="lume-chart-container"
+  data-j-chart-container=""
+  data-j-lume-chart=""
+  xscale="function scale(d) {
+    var key = d + \\"\\", i = index.get(key);
+    if (!i) {
+      if (unknown !== implicit) return unknown;
+      index.set(key, i = domain.push(d));
+    }
+    return range[(i - 1) % range.length];
+  }"
+>
+  <div
+    class="lume-chart__header"
+  >
+    <!---->
+     
+    <div
+      class="lume-chart__controls"
+    />
+     
+    <!---->
+     
+    <!---->
+  </div>
+   
+  <svg
+    class="lume-chart-container__svg"
+    data-j-chart-container__root=""
+    height="0"
+  >
+    <g
+      class="lume-chart-container__group"
+      data-j-chart-container__group=""
+      transform="translate(0, 0)"
+    />
+  </svg>
+   
+  <!---->
+   
+  <!---->
+   
+</div>
+`;

@@ -1,0 +1,273 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`lume-alluvial-chart.vue mounts component and sets prop values 1`] = `
+<div
+  class="lume-chart-container lume-chart-container--minimum"
+  data-j-alluvial-chart=""
+  data-j-chart-container=""
+  data-j-lume-chart=""
+>
+  <div
+    class="lume-chart__header"
+  >
+    <!---->
+     
+    <div
+      class="lume-chart__controls"
+    />
+     
+    <!---->
+     
+    <!---->
+  </div>
+   
+  <svg
+    class="lume-chart-container__svg"
+    data-j-chart-container__root=""
+    height="0"
+  >
+    <g
+      class="lume-chart-container__group"
+      data-j-chart-container__group=""
+      transform="translate(0, 0)"
+    >
+       
+      <!---->
+       
+      <!---->
+       
+      <g
+        class="lume-alluvial-group"
+        containerSize="[object Object]"
+        data-j-alluvial-group=""
+        hoveredIndex="-1"
+        transition="true"
+      >
+         
+        <g
+          class="lume-alluvial-path-group"
+          data-j-alluvial-group__ghost-path=""
+        />
+         
+        <g
+          class="lume-alluvial-path-group"
+          data-j-alluvial-group__path=""
+        />
+      </g>
+       
+      <!---->
+       
+      <!---->
+    </g>
+  </svg>
+   
+  <!---->
+   
+  <!---->
+   
+</div>
+`;
+
+exports[`lume-alluvial-chart.vue mounts component and sets prop values using random data 1`] = `
+<div
+  class="lume-chart-container lume-chart-container--minimum"
+  data-j-alluvial-chart=""
+  data-j-chart-container=""
+  data-j-lume-chart=""
+>
+  <div
+    class="lume-chart__header"
+  >
+    <!---->
+     
+    <div
+      class="lume-chart__controls"
+    />
+     
+    <!---->
+     
+    <!---->
+  </div>
+   
+  <svg
+    class="lume-chart-container__svg"
+    data-j-chart-container__root=""
+    height="0"
+  >
+    <g
+      class="lume-chart-container__group"
+      data-j-chart-container__group=""
+      transform="translate(0, 0)"
+    >
+       
+      <!---->
+       
+      <!---->
+       
+      <g
+        class="lume-alluvial-group"
+        containerSize="[object Object]"
+        data-j-alluvial-group=""
+        hoveredIndex="-1"
+        transition="true"
+      >
+         
+        <g
+          class="lume-alluvial-path-group"
+          data-j-alluvial-group__ghost-path=""
+        />
+         
+        <g
+          class="lume-alluvial-path-group"
+          data-j-alluvial-group__path=""
+        />
+      </g>
+       
+      <!---->
+       
+      <!---->
+    </g>
+  </svg>
+   
+  <!---->
+   
+  <!---->
+   
+</div>
+`;
+
+exports[`lume-alluvial-chart.vue should be able to handle an dataset with a single node 1`] = `
+<div
+  class="lume-chart-container lume-chart-container--minimum"
+  data-j-alluvial-chart=""
+  data-j-chart-container=""
+  data-j-lume-chart=""
+>
+  <div
+    class="lume-chart__header"
+  >
+    <!---->
+     
+    <div
+      class="lume-chart__controls"
+    />
+     
+    <!---->
+     
+    <!---->
+  </div>
+   
+  <svg
+    class="lume-chart-container__svg"
+    data-j-chart-container__root=""
+    height="0"
+  >
+    <g
+      class="lume-chart-container__group"
+      data-j-chart-container__group=""
+      transform="translate(0, 0)"
+    >
+       
+      <!---->
+       
+      <!---->
+       
+      <g
+        class="lume-alluvial-group"
+        containerSize="[object Object]"
+        data-j-alluvial-group=""
+        hoveredIndex="-1"
+        transition="true"
+      >
+         
+        <g
+          class="lume-alluvial-path-group"
+          data-j-alluvial-group__ghost-path=""
+        />
+         
+        <g
+          class="lume-alluvial-path-group"
+          data-j-alluvial-group__path=""
+        />
+      </g>
+       
+      <!---->
+       
+      <!---->
+    </g>
+  </svg>
+   
+  <!---->
+   
+  <!---->
+   
+</div>
+`;
+
+exports[`lume-alluvial-chart.vue should be able to handle an dataset with only nodes but no edges 1`] = `
+<div
+  class="lume-chart-container lume-chart-container--minimum"
+  data-j-alluvial-chart=""
+  data-j-chart-container=""
+  data-j-lume-chart=""
+>
+  <div
+    class="lume-chart__header"
+  >
+    <!---->
+     
+    <div
+      class="lume-chart__controls"
+    />
+     
+    <!---->
+     
+    <!---->
+  </div>
+   
+  <svg
+    class="lume-chart-container__svg"
+    data-j-chart-container__root=""
+    height="0"
+  >
+    <g
+      class="lume-chart-container__group"
+      data-j-chart-container__group=""
+      transform="translate(0, 0)"
+    >
+       
+      <!---->
+       
+      <!---->
+       
+      <g
+        class="lume-alluvial-group"
+        containerSize="[object Object]"
+        data-j-alluvial-group=""
+        hoveredIndex="-1"
+        transition="true"
+      >
+         
+        <g
+          class="lume-alluvial-path-group"
+          data-j-alluvial-group__ghost-path=""
+        />
+         
+        <g
+          class="lume-alluvial-path-group"
+          data-j-alluvial-group__path=""
+        />
+      </g>
+       
+      <!---->
+       
+      <!---->
+    </g>
+  </svg>
+   
+  <!---->
+   
+  <!---->
+   
+</div>
+`;

@@ -10,7 +10,7 @@ module.exports = merge(common, {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.js',
-    library: 'ADV',
+    library: 'Lume',
     libraryTarget: 'umd',
     libraryExport: 'default',
   },

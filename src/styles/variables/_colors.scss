@@ -2,304 +2,304 @@
 
 // Neutrals
 
-$adv-color-white: #ffffff !default;
-$adv-color-black: #00112c !default;
+$lume-color-white: #ffffff !default;
+$lume-color-black: #00112c !default;
 
 // Greys
 
-$adv-color-grey-10: #f7f8f9 !default;
-$adv-color-grey-20: #eef0f3 !default;
-$adv-color-grey-30: #dee1e6 !default;
-$adv-color-grey-40: #bfc4ca !default;
-$adv-color-grey-50: #9fa6b0 !default;
-$adv-color-grey-60: #818890 !default;
-$adv-color-grey-70: #6f7988 !default;
-$adv-color-grey-80: #404d61 !default;
-$adv-color-grey-90: #202f46 !default;
-$adv-color-grey-100: #00112c !default;
+$lume-color-grey-10: #f7f8f9 !default;
+$lume-color-grey-20: #eef0f3 !default;
+$lume-color-grey-30: #dee1e6 !default;
+$lume-color-grey-40: #bfc4ca !default;
+$lume-color-grey-50: #9fa6b0 !default;
+$lume-color-grey-60: #818890 !default;
+$lume-color-grey-70: #6f7988 !default;
+$lume-color-grey-80: #404d61 !default;
+$lume-color-grey-90: #202f46 !default;
+$lume-color-grey-100: #00112c !default;
 
-$adv-color-grey-transparent: rgba(210, 218, 225, 0.7) !default;
+$lume-color-grey-transparent: rgba(210, 218, 225, 0.7) !default;
 
 // Sky blue
 
-$adv-color-skyblue-10: #f6fbff !default;
-$adv-color-skyblue-20: #eef7ff !default;
-$adv-color-skyblue-30: #e5f3ff !default;
-$adv-color-skyblue-40: #cbe6ff !default;
-$adv-color-skyblue-50: #a9d6ff !default;
-$adv-color-skyblue-60: #87abcc !default;
-$adv-color-skyblue-70: #658099 !default;
-$adv-color-skyblue-80: #445666 !default;
-$adv-color-skyblue-90: #33404d !default;
-$adv-color-skyblue-100: #222b33 !default;
+$lume-color-skyblue-10: #f6fbff !default;
+$lume-color-skyblue-20: #eef7ff !default;
+$lume-color-skyblue-30: #e5f3ff !default;
+$lume-color-skyblue-40: #cbe6ff !default;
+$lume-color-skyblue-50: #a9d6ff !default;
+$lume-color-skyblue-60: #87abcc !default;
+$lume-color-skyblue-70: #658099 !default;
+$lume-color-skyblue-80: #445666 !default;
+$lume-color-skyblue-90: #33404d !default;
+$lume-color-skyblue-100: #222b33 !default;
 
-$adv-color-skyblue-primary: $adv-color-skyblue-50;
-$adv-color-skyblue-secondary: $adv-color-skyblue-30;
+$lume-color-skyblue-primary: $lume-color-skyblue-50;
+$lume-color-skyblue-secondary: $lume-color-skyblue-30;
 
-$adv-color-skyblue-map: (
-  'skyblue-10': $adv-color-skyblue-10,
-  'skyblue-20': $adv-color-skyblue-20,
-  'skyblue-30': $adv-color-skyblue-30,
-  'skyblue-40': $adv-color-skyblue-40,
-  'skyblue-50': $adv-color-skyblue-50,
-  'skyblue-60': $adv-color-skyblue-60,
-  'skyblue-70': $adv-color-skyblue-70,
-  'skyblue-80': $adv-color-skyblue-80,
-  'skyblue-90': $adv-color-skyblue-90,
-  'skyblue-100': $adv-color-skyblue-100,
+$lume-color-skyblue-map: (
+  'skyblue-10': $lume-color-skyblue-10,
+  'skyblue-20': $lume-color-skyblue-20,
+  'skyblue-30': $lume-color-skyblue-30,
+  'skyblue-40': $lume-color-skyblue-40,
+  'skyblue-50': $lume-color-skyblue-50,
+  'skyblue-60': $lume-color-skyblue-60,
+  'skyblue-70': $lume-color-skyblue-70,
+  'skyblue-80': $lume-color-skyblue-80,
+  'skyblue-90': $lume-color-skyblue-90,
+  'skyblue-100': $lume-color-skyblue-100,
 ) !default;
 
 // Royal blue
 
-$adv-color-royalblue-10: #e5f0ff !default;
-$adv-color-royalblue-20: #cce0ff !default;
-$adv-color-royalblue-30: #b2d1ff !default;
-$adv-color-royalblue-40: #66a3ff !default;
-$adv-color-royalblue-50: #0066ff !default;
-$adv-color-royalblue-60: #0052cc !default;
-$adv-color-royalblue-70: #003d99 !default;
-$adv-color-royalblue-80: #002966 !default;
-$adv-color-royalblue-90: #001f4d !default;
-$adv-color-royalblue-100: #001433 !default;
+$lume-color-royalblue-10: #e5f0ff !default;
+$lume-color-royalblue-20: #cce0ff !default;
+$lume-color-royalblue-30: #b2d1ff !default;
+$lume-color-royalblue-40: #66a3ff !default;
+$lume-color-royalblue-50: #0066ff !default;
+$lume-color-royalblue-60: #0052cc !default;
+$lume-color-royalblue-70: #003d99 !default;
+$lume-color-royalblue-80: #002966 !default;
+$lume-color-royalblue-90: #001f4d !default;
+$lume-color-royalblue-100: #001433 !default;
 
-$adv-color-royalblue-primary: $adv-color-royalblue-50;
-$adv-color-royalblue-secondary: $adv-color-royalblue-30;
+$lume-color-royalblue-primary: $lume-color-royalblue-50;
+$lume-color-royalblue-secondary: $lume-color-royalblue-30;
 
-$adv-color-royalblue-map: (
-  'royalblue-10': $adv-color-royalblue-10,
-  'royalblue-20': $adv-color-royalblue-20,
-  'royalblue-30': $adv-color-royalblue-30,
-  'royalblue-40': $adv-color-royalblue-40,
-  'royalblue-50': $adv-color-royalblue-50,
-  'royalblue-60': $adv-color-royalblue-60,
-  'royalblue-70': $adv-color-royalblue-70,
-  'royalblue-80': $adv-color-royalblue-80,
-  'royalblue-90': $adv-color-royalblue-90,
-  'royalblue-100': $adv-color-royalblue-100,
+$lume-color-royalblue-map: (
+  'royalblue-10': $lume-color-royalblue-10,
+  'royalblue-20': $lume-color-royalblue-20,
+  'royalblue-30': $lume-color-royalblue-30,
+  'royalblue-40': $lume-color-royalblue-40,
+  'royalblue-50': $lume-color-royalblue-50,
+  'royalblue-60': $lume-color-royalblue-60,
+  'royalblue-70': $lume-color-royalblue-70,
+  'royalblue-80': $lume-color-royalblue-80,
+  'royalblue-90': $lume-color-royalblue-90,
+  'royalblue-100': $lume-color-royalblue-100,
 ) !default;
 
 // Violet
 
-$adv-color-violet-10: #fcf5ff !default;
-$adv-color-violet-20: #f8eaff !default;
-$adv-color-violet-30: #f5e0ff !default;
-$adv-color-violet-40: #ebc1ff !default;
-$adv-color-violet-50: #de98ff !default;
-$adv-color-violet-60: #b27acc !default;
-$adv-color-violet-70: #855b99 !default;
-$adv-color-violet-80: #593d66 !default;
-$adv-color-violet-90: #432e4d !default;
-$adv-color-violet-100: #2c1e33 !default;
+$lume-color-violet-10: #fcf5ff !default;
+$lume-color-violet-20: #f8eaff !default;
+$lume-color-violet-30: #f5e0ff !default;
+$lume-color-violet-40: #ebc1ff !default;
+$lume-color-violet-50: #de98ff !default;
+$lume-color-violet-60: #b27acc !default;
+$lume-color-violet-70: #855b99 !default;
+$lume-color-violet-80: #593d66 !default;
+$lume-color-violet-90: #432e4d !default;
+$lume-color-violet-100: #2c1e33 !default;
 
-$adv-color-violet-primary: $adv-color-violet-50;
-$adv-color-violet-secondary: $adv-color-violet-30;
+$lume-color-violet-primary: $lume-color-violet-50;
+$lume-color-violet-secondary: $lume-color-violet-30;
 
-$adv-color-violet-map: (
-  'violet-10': $adv-color-violet-10,
-  'violet-20': $adv-color-violet-20,
-  'violet-30': $adv-color-violet-30,
-  'violet-40': $adv-color-violet-40,
-  'violet-50': $adv-color-violet-50,
-  'violet-60': $adv-color-violet-60,
-  'violet-70': $adv-color-violet-70,
-  'violet-80': $adv-color-violet-80,
-  'violet-90': $adv-color-violet-90,
-  'violet-100': $adv-color-violet-100,
+$lume-color-violet-map: (
+  'violet-10': $lume-color-violet-10,
+  'violet-20': $lume-color-violet-20,
+  'violet-30': $lume-color-violet-30,
+  'violet-40': $lume-color-violet-40,
+  'violet-50': $lume-color-violet-50,
+  'violet-60': $lume-color-violet-60,
+  'violet-70': $lume-color-violet-70,
+  'violet-80': $lume-color-violet-80,
+  'violet-90': $lume-color-violet-90,
+  'violet-100': $lume-color-violet-100,
 ) !default;
 
 // Dark teal
 
-$adv-color-darkteal-10: #e7f2f0 !default;
-$adv-color-darkteal-20: #d0e5e1 !default;
-$adv-color-darkteal-30: #b8d8d2 !default;
-$adv-color-darkteal-40: #72b1a6 !default;
-$adv-color-darkteal-50: #147d6a !default;
-$adv-color-darkteal-60: #106455 !default;
-$adv-color-darkteal-70: #0c4b40 !default;
-$adv-color-darkteal-80: #08322a !default;
-$adv-color-darkteal-90: #062620 !default;
-$adv-color-darkteal-100: #041915 !default;
+$lume-color-darkteal-10: #e7f2f0 !default;
+$lume-color-darkteal-20: #d0e5e1 !default;
+$lume-color-darkteal-30: #b8d8d2 !default;
+$lume-color-darkteal-40: #72b1a6 !default;
+$lume-color-darkteal-50: #147d6a !default;
+$lume-color-darkteal-60: #106455 !default;
+$lume-color-darkteal-70: #0c4b40 !default;
+$lume-color-darkteal-80: #08322a !default;
+$lume-color-darkteal-90: #062620 !default;
+$lume-color-darkteal-100: #041915 !default;
 
-$adv-color-darkteal-primary: $adv-color-darkteal-50;
-$adv-color-darkteal-secondary: $adv-color-darkteal-30;
+$lume-color-darkteal-primary: $lume-color-darkteal-50;
+$lume-color-darkteal-secondary: $lume-color-darkteal-30;
 
-$adv-color-darkteal-map: (
-  'darkteal-10': $adv-color-darkteal-10,
-  'darkteal-20': $adv-color-darkteal-20,
-  'darkteal-30': $adv-color-darkteal-30,
-  'darkteal-40': $adv-color-darkteal-40,
-  'darkteal-50': $adv-color-darkteal-50,
-  'darkteal-60': $adv-color-darkteal-60,
-  'darkteal-70': $adv-color-darkteal-70,
-  'darkteal-80': $adv-color-darkteal-80,
-  'darkteal-90': $adv-color-darkteal-90,
-  'darkteal-100': $adv-color-darkteal-100,
+$lume-color-darkteal-map: (
+  'darkteal-10': $lume-color-darkteal-10,
+  'darkteal-20': $lume-color-darkteal-20,
+  'darkteal-30': $lume-color-darkteal-30,
+  'darkteal-40': $lume-color-darkteal-40,
+  'darkteal-50': $lume-color-darkteal-50,
+  'darkteal-60': $lume-color-darkteal-60,
+  'darkteal-70': $lume-color-darkteal-70,
+  'darkteal-80': $lume-color-darkteal-80,
+  'darkteal-90': $lume-color-darkteal-90,
+  'darkteal-100': $lume-color-darkteal-100,
 ) !default;
 
 // Gold
 
-$adv-color-gold-10: #fff9e9 !default;
-$adv-color-gold-20: #fff3d4 !default;
-$adv-color-gold-30: #ffedbe !default;
-$adv-color-gold-40: #ffda7d !default;
-$adv-color-gold-50: #ffc226 !default;
-$adv-color-gold-60: #cc9b1e !default;
-$adv-color-gold-70: #997417 !default;
-$adv-color-gold-80: #664e0f !default;
-$adv-color-gold-90: #4d3a0b !default;
-$adv-color-gold-100: #332708 !default;
+$lume-color-gold-10: #fff9e9 !default;
+$lume-color-gold-20: #fff3d4 !default;
+$lume-color-gold-30: #ffedbe !default;
+$lume-color-gold-40: #ffda7d !default;
+$lume-color-gold-50: #ffc226 !default;
+$lume-color-gold-60: #cc9b1e !default;
+$lume-color-gold-70: #997417 !default;
+$lume-color-gold-80: #664e0f !default;
+$lume-color-gold-90: #4d3a0b !default;
+$lume-color-gold-100: #332708 !default;
 
-$adv-color-gold-primary: $adv-color-gold-50;
-$adv-color-gold-secondary: $adv-color-gold-30;
+$lume-color-gold-primary: $lume-color-gold-50;
+$lume-color-gold-secondary: $lume-color-gold-30;
 
-$adv-color-gold-map: (
-  'gold-10': $adv-color-gold-10,
-  'gold-20': $adv-color-gold-20,
-  'gold-30': $adv-color-gold-30,
-  'gold-40': $adv-color-gold-40,
-  'gold-50': $adv-color-gold-50,
-  'gold-60': $adv-color-gold-60,
-  'gold-70': $adv-color-gold-70,
-  'gold-80': $adv-color-gold-80,
-  'gold-90': $adv-color-gold-90,
-  'gold-100': $adv-color-gold-100,
+$lume-color-gold-map: (
+  'gold-10': $lume-color-gold-10,
+  'gold-20': $lume-color-gold-20,
+  'gold-30': $lume-color-gold-30,
+  'gold-40': $lume-color-gold-40,
+  'gold-50': $lume-color-gold-50,
+  'gold-60': $lume-color-gold-60,
+  'gold-70': $lume-color-gold-70,
+  'gold-80': $lume-color-gold-80,
+  'gold-90': $lume-color-gold-90,
+  'gold-100': $lume-color-gold-100,
 ) !default;
 
 // Blues
 
-$adv-color-blue-10: #e5efff !default;
-$adv-color-blue-50: #0066ff !default;
+$lume-color-blue-10: #e5efff !default;
+$lume-color-blue-50: #0066ff !default;
 
 // Greens
 
-$adv-color-green-10: #e6f8ed !default;
-$adv-color-green-50: #08a648 !default;
+$lume-color-green-10: #e6f8ed !default;
+$lume-color-green-50: #08a648 !default;
 
 // Oranges
 
-$adv-color-orange-10: #fff4e5 !default;
-$adv-color-orange-50: #ff9500 !default;
+$lume-color-orange-10: #fff4e5 !default;
+$lume-color-orange-50: #ff9500 !default;
 
 // Reds
 
-$adv-color-red-10: #fce5e5 !default;
-$adv-color-red-50: #e50000 !default;
+$lume-color-red-10: #fce5e5 !default;
+$lume-color-red-50: #e50000 !default;
 
 // Categorical
 
-$adv-categorical-colors: (
-  'skyblue': $adv-color-skyblue-primary,
-  'royalblue': $adv-color-royalblue-primary,
-  'violet': $adv-color-violet-primary,
-  'darkteal': $adv-color-darkteal-primary,
-  'gold': $adv-color-gold-primary,
+$lume-categorical-colors: (
+  'skyblue': $lume-color-skyblue-primary,
+  'royalblue': $lume-color-royalblue-primary,
+  'violet': $lume-color-violet-primary,
+  'darkteal': $lume-color-darkteal-primary,
+  'gold': $lume-color-gold-primary,
 ) !default;
 
 // Sequential
 
-$adv-sequential-colors: (
-  $adv-color-skyblue-map,
-  $adv-color-royalblue-map,
-  $adv-color-violet-map,
-  $adv-color-darkteal-map,
-  $adv-color-gold-map
+$lume-sequential-colors: (
+  $lume-color-skyblue-map,
+  $lume-color-royalblue-map,
+  $lume-color-violet-map,
+  $lume-color-darkteal-map,
+  $lume-color-gold-map
 ) !default;
 
 // Divergent
 
-$adv-divergent-colors: (
+$lume-divergent-colors: (
   generate-divergent-map(
     skyblue-darkteal,
-    $adv-color-skyblue-primary,
-    $adv-color-darkteal-primary
+    $lume-color-skyblue-primary,
+    $lume-color-darkteal-primary
   ),
   generate-divergent-map(
     violet-royalblue,
-    $adv-color-violet-primary,
-    $adv-color-royalblue-primary
+    $lume-color-violet-primary,
+    $lume-color-royalblue-primary
   ),
   generate-divergent-map(
     violet-darkteal,
-    $adv-color-violet-primary,
-    $adv-color-darkteal-primary
+    $lume-color-violet-primary,
+    $lume-color-darkteal-primary
   ),
   generate-divergent-map(
     gold-darkteal,
-    $adv-color-gold-primary,
-    $adv-color-darkteal-primary
+    $lume-color-gold-primary,
+    $lume-color-darkteal-primary
   ),
   generate-divergent-map(
     gold-royalblue,
-    $adv-color-gold-primary,
-    $adv-color-royalblue-primary
+    $lume-color-gold-primary,
+    $lume-color-royalblue-primary
   )
 ) !default;
 
 // Data viz
 
-$adv-legacy-color-yellow: #ffda00 !default;
-$adv-legacy-color-yellow-darker: #cbb009 !default;
+$lume-legacy-color-yellow: #ffda00 !default;
+$lume-legacy-color-yellow-darker: #cbb009 !default;
 
-$adv-legacy-color-green: #99e487 !default;
-$adv-legacy-color-green-darker: #79b874 !default;
+$lume-legacy-color-green: #99e487 !default;
+$lume-legacy-color-green-darker: #79b874 !default;
 
-$adv-legacy-color-turquoise: #04c9ca !default;
-$adv-legacy-color-turquoise-darker: #03a3a9 !default;
+$lume-legacy-color-turquoise: #04c9ca !default;
+$lume-legacy-color-turquoise-darker: #03a3a9 !default;
 
-$adv-legacy-color-blue: #025f89 !default;
-$adv-legacy-color-blue-darker: #014e76 !default;
+$lume-legacy-color-blue: #025f89 !default;
+$lume-legacy-color-blue-darker: #014e76 !default;
 
-$adv-legacy-color-navy: #00112c !default;
-$adv-legacy-color-navy-darker: #00112c !default;
+$lume-legacy-color-navy: #00112c !default;
+$lume-legacy-color-navy-darker: #00112c !default;
 
-$adv-legacy-color-grey: #90a2bd !default;
-$adv-legacy-color-grey-darker: #183057 !default;
+$lume-legacy-color-grey: #90a2bd !default;
+$lume-legacy-color-grey-darker: #183057 !default;
 
-$adv-legacy-color-orange: #ff9501 !default;
-$adv-legacy-color-orange-darker: #b36900 !default;
+$lume-legacy-color-orange: #ff9501 !default;
+$lume-legacy-color-orange-darker: #b36900 !default;
 
-$adv-legacy-color-teal: #5bc6c8 !default;
-$adv-legacy-color-teal-darker: #204546 !default;
+$lume-legacy-color-teal: #5bc6c8 !default;
+$lume-legacy-color-teal-darker: #204546 !default;
 
 // Chart
 
-$adv-legacy-colors: (
+$lume-legacy-colors: (
   '01': (
-    $adv-legacy-color-yellow,
-    $adv-legacy-color-yellow-darker,
+    $lume-legacy-color-yellow,
+    $lume-legacy-color-yellow-darker,
   ),
   '02': (
-    $adv-legacy-color-green,
-    $adv-legacy-color-green-darker,
+    $lume-legacy-color-green,
+    $lume-legacy-color-green-darker,
   ),
   '03': (
-    $adv-legacy-color-turquoise,
-    $adv-legacy-color-turquoise-darker,
+    $lume-legacy-color-turquoise,
+    $lume-legacy-color-turquoise-darker,
   ),
   '04': (
-    $adv-legacy-color-blue,
-    $adv-legacy-color-blue-darker,
+    $lume-legacy-color-blue,
+    $lume-legacy-color-blue-darker,
   ),
   '05': (
-    $adv-legacy-color-navy,
-    $adv-legacy-color-navy-darker,
+    $lume-legacy-color-navy,
+    $lume-legacy-color-navy-darker,
   ),
   '06': (
-    $adv-legacy-color-grey,
-    $adv-legacy-color-grey-darker,
+    $lume-legacy-color-grey,
+    $lume-legacy-color-grey-darker,
   ),
   '07': (
-    $adv-legacy-color-orange,
-    $adv-legacy-color-orange-darker,
+    $lume-legacy-color-orange,
+    $lume-legacy-color-orange-darker,
   ),
   '08': (
-    $adv-legacy-color-teal,
-    $adv-legacy-color-teal-darker,
+    $lume-legacy-color-teal,
+    $lume-legacy-color-teal-darker,
   ),
   '09': (
-    $adv-color-red-50,
-    $adv-color-red-50,
+    $lume-color-red-50,
+    $lume-color-red-50,
   ),
 ) !default;
 
-$adv-chart-background-color: $adv-color-white !default;
+$lume-chart-background-color: $lume-color-white !default;

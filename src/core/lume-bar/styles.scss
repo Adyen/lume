@@ -1,0 +1,29 @@
+@use '~@/styles/variables' as *;
+
+.lume-bar {
+  $b: &;
+
+  &--faded {
+    opacity: 0.5; // Temporary while we wait for official data-viz colors
+  }
+
+  &--transition-width {
+    transition: width $lume-transition-time-long ease,
+      opacity $lume-transition-time-long ease;
+    -moz-transition: width $lume-transition-time-long ease;
+
+    &#{$b}--negative {
+      transform: rotate(180deg);
+    }
+  }
+
+  &--transition-height {
+    transition: height $lume-transition-time-long ease,
+      opacity $lume-transition-time-long ease;
+    -moz-transition: height $lume-transition-time-long ease;
+
+    &:not(#{$b}--negative) {
+      transform: rotate(180deg);
+    }
+  }
+}

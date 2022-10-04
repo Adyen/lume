@@ -1,8 +1,11 @@
-# ADV
+# Lume
 
-ADV, or Adyen Data Visualization, is a library for graphical representations of information and data. By using visual elements like charts, graphs, and maps, this repository provide an accessible way to see and understand trends, outliers, and patterns in data. We use Vue to all graphic elements and rely on d3.js for the calculations.
+[![PR workflow](https://github.com/Adyen/lume/actions/workflows/pr.yml/badge.svg)](https://github.com/Adyen/lume/actions/workflows/pr.yml)
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/Adyen/lume/blob/main/LICENSE)
 
-**[Design guidelines (Figma)](https://www.figma.com/file/LlbuDypxEbEZIo4qzPaX5kDG/%F0%9F%93%88Data-visualization?node-id=0%3A1)**
+Lume is a library for graphical representations of information and data. By using visual elements like charts, graphs, and maps, this repository provide an accessible way to see and understand trends, outliers, and patterns in data. We use Vue to all graphic elements and rely on d3.js for the calculations.
+
+**[Design guidelines (Figma)](https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/Data-Visualization-Library?node-id=15%3A2)**
 
 ## Stack
 
@@ -25,23 +28,23 @@ We're currently aiming to use:
 
 ### Installation
 
-To install ADV, run the following command:
+To install Lume, run the following command:
 
 ```shell
-$ npm install adv
+$ npm install @adyen/lume
 ```
 
 ### Plugin
 
-The default export of ADV is a Vue plugin that you can install in your global Vue setup:
+The default export of Lume is a Vue plugin that you can install in your global Vue setup:
 
 ```ts
 import Vue from 'vue';
-import AdvLibrary from 'adv';
+import Lume from 'lume';
 
 import App from './my-app.vue';
 
-Vue.use(AdvLibrary);
+Vue.use(Lume);
 
 const app = new Vue(App).$mount('#root');
 ```
@@ -51,17 +54,15 @@ const app = new Vue(App).$mount('#root');
 If, instead of using the Vue plugin, you rather import single components as you go, you can do that as well:
 
 ```ts
-// SFC <script>
+// SFC <script type="ts">
 
 import { defineComponent } from 'vue';
-
-import { AdvBarChart } from 'adv';
+import LumeBarChart from 'lume/charts/lume-bar-chart';
 
 export default defineComponent({
-  components: { AdvBarChart },
+  components: { LumeBarChart },
   ...
 });
-
 ```
 
 ## Development
@@ -72,7 +73,7 @@ Follow these steps to quickly start developing amazing data-viz components local
 
 1. Clone the repo
    ```shell
-    $ git clone git@gitlab.is.adyen.com:data-viz/data-visualization.git
+    $ git clone git@github.com:Adyen/lume.git
    ```
 2. Install npm packages
    ```shell
@@ -105,51 +106,30 @@ The charts we wish to include:
 
 #### V1
 
-- [x] Alluvial chart
+- [x] Alluvial diagram
 - [x] Bar chart
   - [x] Single
   - [x] Stacked
   - [x] Grouped
   - [x] Horizontal orientation for all
 - [x] Line chart
-- [x] Sparkline
+- [x] Sparkline chart
 
 #### Next
 
-- [ ] Violin plot
-- [x] Box plot
-- [ ] Mini bar chart (Bar sparkline)
+The following are planned for future releases:
 
-Points that should be covered:
+- Violin plot
+- Box plot
+- Mini bar chart (Bar sparkline)
 
-- [x] Charts should be able to handle negative values
-- [x] Charts should be able to handle null values (missing values)
-- [x] Charts should be able to scale relative to the screen
-- [x] Charts should make use of a popup highlighting data of one point
-- [x] Some charts should be able to show/hide x-axis and y-axis
-- [x] Some charts should be able to show/hide gridlines
-- [x] Charts should be able to handle live data updates
-- [ ] Charts should rely on ADV data-viz colors but should also be able to accept custom colors
-- [ ] Some charts should have the ability to select a data point and communicate the data to the caller
-
-Other developmental issues that should be covered:
-
-- [ ] Unit tests for all components - in Jest
-- [ ] ESLinter for .js and .vue files
-- [ ] Documentation of how the components work
-- [x] Storybook for all charts
-  - [ ] Storybook for all core components
-
-### Feature ideas
-
-- Out-of-the-box light/dark theme
-- Click label dots to select data groups [Figma](https://www.figma.com/file/LlbuDypxEbEZIo4qzPaX5kDG/%F0%9F%93%88Data-visualization?node-id=3503%3A25312)
+**Note:** Components from this list can change, so being here doesn't mean it will land on the library for sure.
 
 ## Contacts
 
-This project is currently being developed & maintained by the Insights stream. This includes:
+This project is currently being developed & maintained by team Lume. This includes:
 
-- Govind Srinidhi | @govind - [Mattermost](https://mattermost.is.adyen.com/adyen/messages/@govind)
-- Joao Santos | @joaosa - [Mattermost](https://mattermost.is.adyen.com/adyen/messages/@joaosa)
-- Lucas van Heerikhuizen | @lucasv - [Mattermost](https://mattermost.is.adyen.com/adyen/messages/@lucasv)
-- Vivian Joseph | @vivianj - [Mattermost](https://mattermost.is.adyen.com/adyen/messages/@vivianj)
+- Govind Srinidhi | [@govind-srinidhi](https://github.com/govind-srinidhi)
+- Joao Santos | [@joao-m-santos](https://github.com/joao-m-santos)
+- Lucas van Heerikhuizen | [@Lucas1981](https://github.com/Lucas1981)
+- Vivian Joseph | [@vivy27](https://github.com/vivy27)

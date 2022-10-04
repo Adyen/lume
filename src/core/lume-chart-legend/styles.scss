@@ -1,0 +1,29 @@
+@use '~@/styles/variables' as *;
+@use '~@/styles/mixins/base' as *;
+
+.lume-chart-legend {
+  @include base;
+
+  display: flex;
+  justify-items: end;
+
+  &__item {
+    display: flex;
+    align-items: center;
+
+    padding: 0.25rem 0.5rem;
+    gap: 0.25rem;
+
+    font-size: $lume-text-font-size-small;
+
+    cursor: default;
+  }
+
+  &__circle {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+
+    border-radius: 50%;
+  }
+}

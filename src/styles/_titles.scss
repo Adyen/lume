@@ -7,21 +7,21 @@
   margin: 0;
 }
 
-.adv-chart-title {
+.lume-chart-title {
   @include title-base;
 
   margin-bottom: 1rem;
 
-  font-size: $adv-text-font-size-big;
-  font-weight: $adv-text-font-weight-medium;
+  font-size: $lume-text-font-size-big;
+  font-weight: $lume-text-font-weight-medium;
   line-height: 2rem;
 }
 
-.adv-axis-title {
+.lume-axis-title {
   @include title-base;
 
-  font-size: $adv-text-font-size-medium;
-  font-weight: $adv-text-font-weight-normal;
+  font-size: $lume-text-font-size-medium;
+  font-weight: $lume-text-font-weight-normal;
   line-height: 1rem;
-  color: $adv-color-grey-50;
+  color: $lume-color-grey-50;
 }

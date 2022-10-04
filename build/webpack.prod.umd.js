@@ -7,9 +7,9 @@ const prod = require('./webpack.prod.js');
 module.exports = merge(prod, {
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: 'adv.umd.js',
+    filename: 'lume.umd.js',
     library: {
-      name: 'ADV',
+      name: 'Lume',
       type: 'umd',
       umdNamedDefine: true,
     },
