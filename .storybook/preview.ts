@@ -1,5 +1,6 @@
 import Vue, { Component } from 'vue';
 
+import '@/styles/font.scss';
 import '@/styles/main.scss';
 import './preview-styles.scss';
 

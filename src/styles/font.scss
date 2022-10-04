@@ -1,0 +1,37 @@
+// Inter font face
+
+/* inter-regular  */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''), url('~@/assets/fonts/inter-regular.woff2') format('woff2'),
+    url('~@/assets/fonts/inter-regular.woff') format('woff');
+}
+
+/* inter-500  */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  src: local(''), url('~@/assets/fonts/inter-500.woff2') format('woff2'),
+    url('~@/assets/fonts/inter-500.woff') format('woff');
+}
+
+/* inter-600  */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  src: local(''), url('~@/assets/fonts/inter-600.woff2') format('woff2'),
+    url('~@/assets/fonts/inter-600.woff') format('woff');
+}
+
+/* inter-700  */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  src: local(''), url('~@/assets/fonts/inter-700.woff2') format('woff2'),
+    url('~@/assets/fonts/inter-700.woff') format('woff');
+}

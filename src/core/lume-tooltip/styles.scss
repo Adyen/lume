@@ -1,6 +1,7 @@
 @use 'sass:math';
 
 @use '~@/styles/variables' as *;
+@use '~@/styles/mixins/base' as *;
 
 // Tooltip box -----------------------------------------------------------------
 $lume-tooltip-color: $lume-color-grey-90 !default;
@@ -17,11 +18,12 @@ $lume-tooltip-item-min-width: 112px !default;
 $lume-tooltip-symbol-size: $lume-spacing-10 !default;
 
 .lume-tooltip {
+  @include base;
+
   position: absolute;
   max-width: $lume-tooltip-max-width;
   padding: $lume-tooltip-content-padding;
 
-  font-family: $lume-font-family;
   font-size: $lume-text-font-size-small;
   color: $lume-tooltip-color;
 

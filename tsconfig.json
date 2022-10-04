@@ -14,7 +14,7 @@
       "@/*": ["./src/*"]
     },
     "sourceMap": true,
-    "target": "es5",
+    "target": "esnext",
     "resolveJsonModule": true
   },
   "exclude": ["node_modules", "docs", "test", "src/**/*.stories.ts", "src/next"]

@@ -50,8 +50,4 @@ if (GlobalVue) {
   GlobalVue.use(plugin);
 }
 
-export * from './charts';
-export * from './core';
-export * from './groups';
-
 export default plugin;

@@ -1,17 +1,3 @@
-@forward 'titles';
-@forward 'utilities';
 @forward 'variables';
-
-@use 'variables' as *;
-
-svg,
-text,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  font-family: $lume-font-family;
-}
+@forward 'utilities';
+@forward 'titles';

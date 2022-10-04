@@ -1,6 +1,9 @@
-@use '~@/styles/_variables.scss' as *;
+@use '~@/styles/variables' as *;
+@use '~@/styles/mixins/base' as *;
 
 .lume-alluvial-group {
+  @include base;
+
   &__node {
     opacity: 1;
     transition: opacity $lume-transition-time-long;
@@ -24,8 +27,6 @@
   }
 
   &__node-text {
-    font-family: $lume-font-family;
-
     &--right {
       text-anchor: end;
     }

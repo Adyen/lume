@@ -6,8 +6,12 @@ const prod = require('./webpack.prod.js');
 
 module.exports = merge(prod, {
   output: {
+    clean: true,
     path: path.resolve(__dirname, '../dist'),
-    filename: 'lume.esm.js',
+    assetModuleFilename: 'assets/[hash][ext][query]',
+    filename: ({ chunk: { name } }) => {
+      return name.startsWith('charts/') ? '[name].js' : '[name].esm.js';
+    },
     library: {
       type: 'module',
     },
