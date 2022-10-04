@@ -1,6 +1,6 @@
 # ADV
 
-ADV, or Adyen Data Visualization, is a library for graphical representations of information and data. By using visual elements like charts, graphs, and maps, this repository provide an accessible way to see and understand trends, outliers, and patterns in data. We use Vue to all graphic elements and rely on d3.js for the calculations.
+Lume is a library for graphical representations of information and data. By using visual elements like charts, graphs, and maps, this repository provide an accessible way to see and understand trends, outliers, and patterns in data. We use Vue to all graphic elements and rely on d3.js for the calculations.
 
 **[Design guidelines (Figma)](https://www.figma.com/file/LlbuDypxEbEZIo4qzPaX5kDG/%F0%9F%93%88Data-visualization?node-id=0%3A1)**
 
@@ -25,23 +25,23 @@ We're currently aiming to use:
 
 ### Installation
 
-To install ADV, run the following command:
+To install lume, run the following command:
 
 ```shell
-$ npm install adv
+$ npm install lume
 ```
 
 ### Plugin
 
-The default export of ADV is a Vue plugin that you can install in your global Vue setup:
+The default export of Lume is a Vue plugin that you can install in your global Vue setup:
 
 ```ts
 import Vue from 'vue';
-import AdvLibrary from 'adv';
+import LumeLibrary from 'lume';
 
 import App from './my-app.vue';
 
-Vue.use(AdvLibrary);
+Vue.use(LumeLibrary);
 
 const app = new Vue(App).$mount('#root');
 ```
@@ -55,10 +55,10 @@ If, instead of using the Vue plugin, you rather import single components as you 
 
 import { defineComponent } from 'vue';
 
-import { AdvBarChart } from 'adv';
+import { LumeBarChart } from 'lume';
 
 export default defineComponent({
-  components: { AdvBarChart },
+  components: { LumeBarChart },
   ...
 });
 
@@ -129,7 +129,7 @@ Points that should be covered:
 - [x] Some charts should be able to show/hide x-axis and y-axis
 - [x] Some charts should be able to show/hide gridlines
 - [x] Charts should be able to handle live data updates
-- [ ] Charts should rely on ADV data-viz colors but should also be able to accept custom colors
+- [ ] Charts should rely on Lume data-viz colors but should also be able to accept custom colors
 - [ ] Some charts should have the ability to select a data point and communicate the data to the caller
 
 Other developmental issues that should be covered:

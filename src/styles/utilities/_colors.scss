@@ -6,37 +6,37 @@
 
 //
 //// Generates util classes for all color values (regular colors, color pairs):
-//// .adv-background-color--{color}-{value}
-//// .adv-fill--{color}-{value}
-//// .adv-stroke--{color}-{value}
+//// .lume-background-color--{color}-{value}
+//// .lume-fill--{color}-{value}
+//// .lume-stroke--{color}-{value}
 //
 @each $property in (background-color, fill, stroke) {
   // categorical colors
-  @include generate-color-classes($property, $adv-categorical-colors);
+  @include generate-color-classes($property, $lume-categorical-colors);
 
   // sequential colors
-  @each $map in $adv-sequential-colors {
+  @each $map in $lume-sequential-colors {
     @include generate-color-classes($property, $map);
   }
 
   // divergent pairs
-  @each $map in $adv-divergent-colors {
+  @each $map in $lume-divergent-colors {
     @include generate-color-classes($property, $map);
   }
 }
 
 //
 //// Covers primary colors & legacy colors
-//// (e.g. .adv-background-color--skyblue, .adv-background-color--02)
+//// (e.g. .lume-background-color--skyblue, .lume-background-color--02)
 //
-.adv-background-color {
-  @each $name, $map in $adv-categorical-colors {
+.lume-background-color {
+  @each $name, $map in $lume-categorical-colors {
     &--#{$name} {
       background-color: nth($map, 1);
     }
   }
 
-  @each $color, $map in $adv-legacy-colors {
+  @each $color, $map in $lume-legacy-colors {
     &--#{$color} {
       background-color: nth($map, 1);
     }
@@ -45,15 +45,15 @@
 
 //
 //// Covers primary colors & legacy colors
-//// (e.g. .adv-stroke--skyblue, .adv-stroke--02)
+//// (e.g. .lume-stroke--skyblue, .lume-stroke--02)
 //
-.adv-stroke {
+.lume-stroke {
   &--transparent {
-    stroke: $adv-color-grey-transparent;
+    stroke: $lume-color-grey-transparent;
     opacity: 0;
   }
 
-  @each $color, $map in $adv-legacy-colors {
+  @each $color, $map in $lume-legacy-colors {
     &--#{$color} {
       stroke: nth($map, 1);
     }
@@ -62,17 +62,17 @@
 
 //
 //// Covers primary colors, variants & legacy colors
-//// (e.g. .adv-fill--skyblue, .adv-fill--02)
+//// (e.g. .lume-fill--skyblue, .lume-fill--02)
 //
-.adv-fill {
+.lume-fill {
   $b: &;
 
   &--overlay {
-    fill: $adv-color-grey-transparent;
+    fill: $lume-color-grey-transparent;
   }
 
   &--negative {
-    fill: $adv-color-grey-10;
+    fill: $lume-color-grey-10;
   }
 
   &--none {
@@ -80,17 +80,17 @@
   }
 
   &--transparent {
-    fill: $adv-color-grey-transparent;
+    fill: $lume-color-grey-transparent;
     opacity: 0;
   }
 
-  @each $name, $map in $adv-categorical-colors {
+  @each $name, $map in $lume-categorical-colors {
     &--#{$name} {
       fill: nth($map, 1);
     }
   }
 
-  @each $color, $map in $adv-legacy-colors {
+  @each $color, $map in $lume-legacy-colors {
     &--#{$color} {
       fill: nth($map, 1);
 

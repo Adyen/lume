@@ -8,23 +8,23 @@
 
 // Border
 
-$adv-border-width: 1px !default;
-$adv-border-style: solid !default;
-$adv-border-color: $adv-color-grey-20 !default;
-$adv-border-radius-4: 4px !default;
-$adv-border-radius-8: 8px !default;
-$adv-border: $adv-border-width $adv-border-style $adv-border-color !default;
+$lume-border-width: 1px !default;
+$lume-border-style: solid !default;
+$lume-border-color: $lume-color-grey-20 !default;
+$lume-border-radius-4: 4px !default;
+$lume-border-radius-8: 8px !default;
+$lume-border: $lume-border-width $lume-border-style $lume-border-color !default;
 
 // Box-shadow
 
-$adv-box-shadow: 0 $adv-spacing-8 $adv-spacing-16 rgba($adv-color-black, 0.1) !default;
+$lume-box-shadow: 0 $lume-spacing-8 $lume-spacing-16 rgba($lume-color-black, 0.1) !default;
 
 // Transition
 
-$adv-transition-time-short: 0.1s !default;
-$adv-transition-time-long: 0.3s !default;
-$adv-transition-time-full: 1s !default;
+$lume-transition-time-short: 0.1s !default;
+$lume-transition-time-long: 0.3s !default;
+$lume-transition-time-full: 1s !default;
 
 :export {
-  transitionTimeFull: $adv-transition-time-full;
+  transitionTimeFull: $lume-transition-time-full;
 }

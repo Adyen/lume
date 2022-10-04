@@ -1,11 +1,11 @@
 import { mount, Wrapper } from "@vue/test-utils";
-import { AdvChart } from "@/core";
+import { LumeChart } from "@/core";
 import { generateData } from "./specs/mock-data";
 import { VueConstructor } from "vue";
 
 type ComponentInstance = VueConstructor;
 type PropsData = Record<string, unknown>;
-type WrapperInstance = Wrapper<InstanceType<typeof AdvChart>>;
+type WrapperInstance = Wrapper<InstanceType<typeof LumeChart>>;
 type OptionsType = {
   selector?: string,
   multisetData?: number[]

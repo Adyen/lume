@@ -1,7 +1,0 @@
-@use '~@/styles/variables' as *;
-
-.sparkline-chart {
-  &__area {
-    transition: all $adv-transition-time-long ease;
-  }
-}
