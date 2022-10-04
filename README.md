@@ -1,5 +1,7 @@
 # Lume
 
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/Adyen/lume/blob/main/LICENSE)
+
 Lume is a library for graphical representations of information and data. By using visual elements like charts, graphs, and maps, this repository provide an accessible way to see and understand trends, outliers, and patterns in data. We use Vue to all graphic elements and rely on d3.js for the calculations.
 
 **[Design guidelines (Figma)](https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/Data-Visualization-Library?node-id=15%3A2)**
