@@ -10,7 +10,7 @@ function convertDirToEntryPoints(dir) {
   return fs
     .readdirSync(path.resolve(__dirname, '../src/' + dir))
     .reduce((acc, name) => {
-      if (name.startsWith('adv-')) {
+      if (name.startsWith('lume-')) {
         acc[`${dir}/${name}`] = `./src/${dir}/${name}`;
       }
       return acc;
