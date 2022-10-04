@@ -4,17 +4,16 @@ about: Suggest an idea for this project
 title: ''
 labels: feature request
 assignees: ''
-
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
-
-**Describe the solution you'd like**
+**Feature description**
 A clear and concise description of what you want to happen.
 
+**Problem/motivation**
+Please provide valid reason(s) why this should be added to Lume.
+
 **Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+What alternative solutions or features have you considered before making this request?
 
 **Additional context**
-Add any other context or screenshots about the feature request here.
+What resources (links, screenshots, etc.) do you have to assist this effort?
