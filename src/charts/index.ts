@@ -1,5 +1,5 @@
 // Alluvial
-export { default as LumeAlluvialChart } from './lume-alluvial-chart';
+export { default as LumeAlluvialDiagram } from './lume-alluvial-diagram';
 
 // Bar chart
 export { default as LumeBarChart } from './lume-bar-chart';

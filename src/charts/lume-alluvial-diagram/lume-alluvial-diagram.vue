@@ -1,8 +1,8 @@
 <template>
   <lume-chart
     v-bind="$props"
-    :options="getAlluvialChartOptions(allOptions)"
-    data-j-alluvial-chart
+    :options="getAlluvialDiagramOptions(allOptions)"
+    data-j-alluvial-diagram
   >
     <template #groups="props">
       <lume-alluvial-group v-bind="props" />
@@ -32,14 +32,14 @@ export default defineComponent({
 
     const { allOptions } = useOptions(options, defaultOptions);
 
-    function getAlluvialChartOptions(options: ChartOptions) {
+    function getAlluvialDiagramOptions(options: ChartOptions) {
       return {
         ...options,
         noBaseScales: true, // Alluvial chart never uses base scales
       };
     }
 
-    return { allOptions, getAlluvialChartOptions };
+    return { allOptions, getAlluvialDiagramOptions };
   },
 });
 </script>

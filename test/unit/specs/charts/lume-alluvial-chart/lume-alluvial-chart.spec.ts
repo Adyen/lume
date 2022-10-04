@@ -1,13 +1,13 @@
-import LumeAlluvialChart from '../../../../../src/charts/lume-alluvial-chart/lume-alluvial-chart.vue';
+import LumeAlluvialDiagram from '../../../../../src/charts/lume-alluvial-diagram/lume-alluvial-diagram.vue';
 import DATASETS from '@/docs/storybook-data/alluvial-data';
 import { BaseTestSuite } from '../../../reusable.test';
 import { generateData } from './data-generator';
 import { mount } from '@vue/test-utils';
 
-const alluvialChartTestSuiteFactory = (data: any = DATASETS.Basic.data) => new BaseTestSuite(LumeAlluvialChart, { data });
+const AlluvialDiagramTestSuiteFactory = (data: any = DATASETS.Basic.data) => new BaseTestSuite(LumeAlluvialDiagram, { data });
 const [baseData] = generateData();
 
-describe('lume-alluvial-chart.vue', () => {
+describe('lume-alluvial-diagram.vue', () => {
   let originalError = null;
   const stageWithData = values => {
     const data = [{
@@ -15,10 +15,10 @@ describe('lume-alluvial-chart.vue', () => {
       values
     }];
 
-    const testSuite = alluvialChartTestSuiteFactory(data);
+    const testSuite = AlluvialDiagramTestSuiteFactory(data);
 
     const wrapper = testSuite.run().wrapper;
-    const el = wrapper.find('[data-j-alluvial-chart]');
+    const el = wrapper.find('[data-j-alluvial-diagram]');
     expect(el.exists()).toBeTruthy();
   }
 
@@ -34,10 +34,10 @@ describe('lume-alluvial-chart.vue', () => {
   })
 
   test('mounts component and sets prop values', async () => {
-    const testSuite = alluvialChartTestSuiteFactory();
+    const testSuite = AlluvialDiagramTestSuiteFactory();
 
     const wrapper = testSuite.run().wrapper;
-    const el = wrapper.find('[data-j-alluvial-chart]');
+    const el = wrapper.find('[data-j-alluvial-diagram]');
     expect(el.exists()).toBeTruthy();
     expect(el.find('[data-j-alluvial-group]').exists()).toBeTruthy();
     expect(el.find('[data-j-alluvial-group__ghost-path]').exists()).toBeTruthy();
@@ -47,10 +47,10 @@ describe('lume-alluvial-chart.vue', () => {
 
   test('mounts component and sets prop values using random data', async () => {
     const data = generateData();
-    const testSuite = alluvialChartTestSuiteFactory(data);
+    const testSuite = AlluvialDiagramTestSuiteFactory(data);
 
     const wrapper = testSuite.run().wrapper;
-    const el = wrapper.find('[data-j-alluvial-chart]');
+    const el = wrapper.find('[data-j-alluvial-diagram]');
     expect(el.exists()).toBeTruthy();
     expect(el.find('[data-j-alluvial-group]').exists()).toBeTruthy();
     expect(el.find('[data-j-alluvial-group__ghost-path]').exists()).toBeTruthy();
@@ -70,7 +70,7 @@ describe('lume-alluvial-chart.vue', () => {
     }];
 
     const t = () =>
-      mount(LumeAlluvialChart, {
+      mount(LumeAlluvialDiagram, {
         propsData: {
           data
         }
@@ -88,7 +88,7 @@ describe('lume-alluvial-chart.vue', () => {
     }];
 
     const t = () =>
-      mount(LumeAlluvialChart, {
+      mount(LumeAlluvialDiagram, {
         propsData: {
           data
         }
@@ -123,7 +123,7 @@ describe('lume-alluvial-chart.vue', () => {
     }];
 
     const t = () =>
-        mount(LumeAlluvialChart, {
+        mount(LumeAlluvialDiagram, {
           propsData: {
             data
           }

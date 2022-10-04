@@ -1,12 +1,12 @@
 import { withSizeArgs, withSizeArgTypes } from '@/utils/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/alluvial-data';
 
-import LumeAlluvialChart from './lume-alluvial-chart.vue';
+import LumeAlluvialDiagram from './lume-alluvial-diagram.vue';
 import { options as defaultOptions } from './defaults';
 
 export default {
-  title: 'Charts/Alluvial chart',
-  component: LumeAlluvialChart,
+  title: 'Charts/Alluvial diagram',
+  component: LumeAlluvialDiagram,
   argTypes: {
     ...withSizeArgTypes(),
     data: {
@@ -25,20 +25,20 @@ export default {
   args: {
     ...withSizeArgs(),
     options: defaultOptions,
-    title: 'Alluvial chart',
+    title: 'Alluvial diagram',
   },
 };
 
 const Template = ({ argTypes }) => {
   return {
-    components: { LumeAlluvialChart },
+    components: { LumeAlluvialDiagram },
     props: Object.keys(argTypes),
     setup(props) {
       return { props };
     },
     template: `
       <div :style="{ width: width + 'px', height: height + 'px' }">
-        <lume-alluvial-chart v-bind="props" :data="data" />
+        <lume-alluvial-diagram v-bind="props" :data="data" />
       </div>
   `,
   };
