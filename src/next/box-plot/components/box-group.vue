@@ -7,7 +7,7 @@
     <rect
       class="box-plot__box"
       v-bind="boxGroup.box"
-      :class="[`lume-fill-color--${boxGroup.color}`]"
+      :class="[`lume-fill--${boxGroup.color}`]"
     />
     <line
       class="box-plot__median"
@@ -16,9 +16,7 @@
     <lume-bar
       v-if="overlay"
       v-bind="overlay"
-      :class-list="
-        isHovered ? 'lume-fill-color--overlay' : 'lume-fill-color--transparent'
-      "
+      :class-list="isHovered ? 'lume-fill--overlay' : 'lume-fill--transparent'"
       :transition="true"
       @mouseover.native="$emit('mouseover', $event)"
       @mouseout.native="$emit('mouseout')"

@@ -6,7 +6,7 @@
       :key="`overlay-${index}`"
       :data-j-lume-overlay-group="index"
       :transition="false"
-      class-list="lume-fill-color--transparent"
+      class-list="lume-fill--transparent"
       @mouseover.native="handleMouseover(index)"
     />
   </g>

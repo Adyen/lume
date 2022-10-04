@@ -1,10 +1,15 @@
 import { data, labels, xScale, yScale } from '../../mock-data';
-import LumeSparkline from '../../../../../src/charts/lume-sparkline-chart/lume-sparkline-chart.vue';
+import LumeSparkline from '@/charts/lume-sparkline-chart/lume-sparkline-chart.vue';
 import { options as defaultOptions } from '@/charts/lume-sparkline-chart/defaults';
-import { BaseTestSuite, useCustomBoundingRectClient, useCustomResizeObserver } from '../../../reusable.test';
+import {
+  BaseTestSuite,
+  useCustomBoundingRectClient,
+  useCustomResizeObserver,
+} from '../../../reusable.test';
 import Vue from 'vue';
 
-const sparklineChartTestSuiteFactory = (propsData) => new BaseTestSuite(LumeSparkline, propsData);
+const sparklineChartTestSuiteFactory = (propsData) =>
+  new BaseTestSuite(LumeSparkline, propsData);
 
 describe('lume-sparkline.vue', () => {
   useCustomResizeObserver();
@@ -18,16 +23,14 @@ describe('lume-sparkline.vue', () => {
       data,
       labels,
       options: defaultOptions,
-      xScale
-    })
-      .run()
-      .wrapper;
+      xScale,
+    }).run().wrapper;
 
     const el = wrapper.findComponent(LumeSparkline);
     const props = wrapper.props();
 
     // We need to trigger a resize for the computed properties to fall into shape
-    const triggerElement = wrapper.find('[data-j-chart-container]')
+    const triggerElement = wrapper.find('[data-j-chart-container]');
     expect(triggerElement.exists()).toBe(true);
     wrapper.find('[data-j-chart-container]').trigger('resize');
     await Vue.nextTick();
@@ -43,9 +46,8 @@ describe('lume-sparkline.vue', () => {
 
     const areaPath = el.find('[data-j-sparkline__area]');
     expect(areaPath.exists()).toBe(true);
-    expect(areaPath.classes().includes(`sparkline-chart__area--color-01`)).toBe(
-      true
-    );
+    expect(areaPath.classes().includes('adv-fill--faded')).toBe(true);
+    expect(areaPath.classes().includes('adv-fill--skyblue')).toBe(true);
 
     expect(wrapper.vm.$data).not.toHaveProperty('areaPathDefinition');
   });
@@ -59,10 +61,8 @@ describe('lume-sparkline.vue', () => {
       data: mutatedData,
       labels,
       xScale,
-      options: { ...defaultOptions, showArea: true }
-    })
-      .run()
-      .wrapper;
+      options: { ...defaultOptions, showArea: true },
+    }).run().wrapper;
 
     const el = wrapper.findComponent(LumeSparkline);
     // We need to trigger a resize for the computed properties to fall into shape
@@ -72,13 +72,16 @@ describe('lume-sparkline.vue', () => {
 
     const areaPath = el.find('[data-j-sparkline__area]');
 
-    expect(
-      areaPath.classes().includes(`sparkline-chart__area--color-${areaColor}`)
-    ).toBe(true);
+    expect(areaPath.classes().includes(`adv-fill--${areaColor}`)).toBe(true);
   });
 
   test('mounts component and checks areaPathDefinition', () => {
-    const wrapper = sparklineChartTestSuiteFactory({ data, labels, xScale, yScale }).wrapper;
+    const wrapper = sparklineChartTestSuiteFactory({
+      data,
+      labels,
+      xScale,
+      yScale,
+    }).wrapper;
 
     const areaPathDefinition = (wrapper.vm as any).areaPathDefinition;
     expect(areaPathDefinition).toBeTruthy();

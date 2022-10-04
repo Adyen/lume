@@ -4,8 +4,8 @@
     :class="[
       ...computedClasses,
       {
+        'lume-fill--faded': isFaded,
         'lume-bar--negative': isNegative,
-        'lume-bar--faded': isFaded,
         'lume-bar--transition-width': shouldTransitionWidth,
         'lume-bar--transition-height': shouldTransitionHeight,
       },

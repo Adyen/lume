@@ -9,7 +9,7 @@ const classList = 'my-class';
 const transitionWidthClass = 'lume-bar--transition-width';
 const transitionHeightClass = 'lume-bar--transition-height';
 const negativeClass = 'lume-bar--negative';
-const fadeClass = 'lume-bar--faded';
+const fadeClass = 'lume-fill--faded';
 
 const defaultProps = {
   width,

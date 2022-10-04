@@ -35,6 +35,6 @@ describe('chart-container.vue', () => {
     const wrapper = mount(Point, { propsData: { ...propsData, color } })
 
     const el = wrapper.find('[data-j-point]');
-    expect(el.classes().includes(`lume-stroke-color--${color}`)).toBe(true);
+    expect(el.classes().includes(`lume-stroke--${color}`)).toBe(true);
   });
 });

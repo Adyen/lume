@@ -3,7 +3,7 @@ import { scaleBand, ScaleBand } from 'd3-scale';
 
 import { Scale } from '@/composables/scales';
 
-import { Orientation, ORIENTATIONS } from '@/constants';
+import { Colors, Orientation, ORIENTATIONS } from '@/constants';
 import { Data, DatasetValueObject } from '@/types/dataset';
 
 export function useGroupedBarMixin(
@@ -78,14 +78,15 @@ export function useGroupedBarMixin(
     groupIndex: number
   ) {
     const { value, color: barColor } = barValue;
-    const color = barColor ?? data.value[index].color;
+    const color =
+      barColor ?? data.value[index].color ?? Object.values(Colors)[index];
     const x = getBarTranslateX(value, groupIndex, index);
     const y = getBarTranslateY(value, groupIndex, index);
     const width = getBarWidth(value);
     const height = getBarHeight(value);
 
     return {
-      classList: [`lume-fill-color--${color}`, ...classList],
+      classList: [`lume-fill--${color}`, ...classList],
       x,
       y,
       width,

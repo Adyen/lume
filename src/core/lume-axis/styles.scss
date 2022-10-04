@@ -1,7 +1,7 @@
 @use '~@/styles/variables' as *;
 
 $axis-label-font-size: 10px;
-$axis-label-color: $lume-color-grey-30;
+$axis-label-color: $lume-color-grey-50;
 $axis-label-hover-color: $lume-color-grey-70;
 
 $axis-line-color: $lume-color-grey-20;
@@ -35,7 +35,7 @@ $axis-line-color: $lume-color-grey-20;
       opacity: 1;
 
       .axis__ghost {
-        fill: $chart-background-color;
+        fill: $adv-chart-background-color;
       }
 
       .axis__label {

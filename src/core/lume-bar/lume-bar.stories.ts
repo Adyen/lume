@@ -37,7 +37,7 @@ const Template = ({ argTypes }) => ({
   props: Object.keys(argTypes),
   setup(props: InstanceType<typeof LumeBar>['$props']) {
     const computedFillClass = computed(
-      () => `lume-fill-color--` + COLOR_CLASS_MAP[props.color]
+      () => `lume-fill--` + COLOR_CLASS_MAP[props.color]
     );
 
     return { props, computedFillClass };

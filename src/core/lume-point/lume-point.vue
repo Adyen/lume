@@ -1,7 +1,7 @@
 <template>
   <circle
     class="lume-point"
-    :class="`lume-stroke-color--${color}`"
+    :class="`lume-stroke--${color}`"
     :r="active ? radius : 0"
     :cx="cx"
     :cy="cy"

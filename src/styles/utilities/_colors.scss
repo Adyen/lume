@@ -1,32 +1,71 @@
-@use '../variables' as *;
+@use 'sass:color';
+@use 'sass:list';
 
+@use '~@/styles/variables' as *;
+@use '~@/styles/functions/colors' as *;
+
+//
+//// Generates util classes for all color values (regular colors, color pairs):
+//// .lume-background-color--{color}-{value}
+//// .lume-fill--{color}-{value}
+//// .lume-stroke--{color}-{value}
+//
+@each $property in (background-color, fill, stroke) {
+  // categorical colors
+  @include generate-color-classes($property, $lume-categorical-colors);
+
+  // sequential colors
+  @each $map in $lume-sequential-colors {
+    @include generate-color-classes($property, $map);
+  }
+
+  // divergent pairs
+  @each $map in $lume-divergent-colors {
+    @include generate-color-classes($property, $map);
+  }
+}
+
+//
+//// Covers primary colors & legacy colors
+//// (e.g. .lume-background-color--skyblue, .lume-background-color--02)
+//
 .lume-background-color {
-  @each $color, $map in $chart-colors {
+  @each $name, $map in $lume-categorical-colors {
+    &--#{$name} {
+      background-color: nth($map, 1);
+    }
+  }
+
+  @each $color, $map in $lume-legacy-colors {
     &--#{$color} {
       background-color: nth($map, 1);
     }
   }
 }
 
-.lume-stroke-color {
-  @each $color, $map in $chart-colors {
-    &--#{$color} {
-      stroke: nth($map, 1);
-    }
-  }
-
+//
+//// Covers primary colors & legacy colors
+//// (e.g. .lume-stroke--skyblue, .lume-stroke--02)
+//
+.lume-stroke {
   &--transparent {
     stroke: $lume-color-grey-transparent;
     opacity: 0;
   }
-}
 
-.lume-fill-color {
-  @each $color, $map in $chart-colors {
+  @each $color, $map in $lume-legacy-colors {
     &--#{$color} {
-      fill: nth($map, 1);
+      stroke: nth($map, 1);
     }
   }
+}
+
+//
+//// Covers primary colors, variants & legacy colors
+//// (e.g. .lume-fill--skyblue, .lume-fill--02)
+//
+.lume-fill {
+  $b: &;
 
   &--overlay {
     fill: $lume-color-grey-transparent;
@@ -43,5 +82,21 @@
   &--transparent {
     fill: $lume-color-grey-transparent;
     opacity: 0;
+  }
+
+  @each $name, $map in $lume-categorical-colors {
+    &--#{$name} {
+      fill: nth($map, 1);
+    }
+  }
+
+  @each $color, $map in $lume-legacy-colors {
+    &--#{$color} {
+      fill: nth($map, 1);
+
+      &#{$b}--faded {
+        fill: fade-color(nth($map, 1));
+      }
+    }
   }
 }

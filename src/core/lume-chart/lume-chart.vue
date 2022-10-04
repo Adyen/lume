@@ -47,7 +47,7 @@
       <lume-bar
         v-if="hasNegativeValues"
         v-bind="negativeBarAttributes"
-        class-list="lume-fill-color--negative"
+        class-list="lume-fill--negative"
         :transition="false"
         data-j-lume-chart__negative-values
       />
@@ -114,7 +114,7 @@
           ref="tooltipAnchor"
           :key="`anchor-${index}`"
           :r="tooltipAnchorRadius"
-          class="lume-fill-color--transparent"
+          class="lume-fill--transparent"
         />
       </g>
     </template>
@@ -212,18 +212,21 @@ export default defineComponent({
     },
   },
   setup(props, ctx) {
-    const { data, labels, options, orientation, chartType } = toRefs(props);
+    const { data, labels, color, options, orientation, chartType } =
+      toRefs(props);
 
     const hoveredIndex = ref<number>(-1);
     const tooltipAnchor = ref<SVGCircleElement>(null);
 
+    const { allOptions } = useOptions<ChartOptions>(options);
+
     const { internalData, computedLabels, containerSize, updateSize } = useBase(
       data,
       labels,
+      color,
+      allOptions,
       orientation
     );
-
-    const { allOptions } = useOptions<ChartOptions>(options);
 
     const { xScale, yScale } = useBaseScales(
       internalData,

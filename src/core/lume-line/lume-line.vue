@@ -2,7 +2,7 @@
   <path
     class="lume-line"
     :class="{
-      [`lume-stroke-color--${color}`]: true,
+      [`lume-stroke--${color}`]: true,
       'lume-line--dashed': dashed,
       'lume-line--transition': transition,
     }"

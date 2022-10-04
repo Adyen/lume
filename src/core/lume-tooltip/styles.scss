@@ -1,19 +1,20 @@
 @use 'sass:math';
 
-@use "~@/styles/variables" as *;
+@use '~@/styles/variables' as *;
 
 // Tooltip box -----------------------------------------------------------------
-$lume-tooltip-color: $lume-color-grey-70 !default;
+$lume-tooltip-color: $lume-color-grey-90 !default;
 $lume-tooltip-background-color: $lume-color-white !default;
 $lume-tooltip-border-radius: $lume-border-radius-8 !default;
 $lume-tooltip-box-shadow: $lume-box-shadow !default;
-$lume-tooltip-max-width: 250px !default;
+$lume-tooltip-max-width: 288px !default;
 
-$lume-tooltip-content-padding: $lume-spacing-12 !default;
+$lume-tooltip-content-padding: $lume-spacing-10 !default;
 $lume-tooltip-z-index: 500 !default;
 
-$lume-tooltip-item-min-width: 112px;
-$lume-tooltip-symbol-size: 10px;
+$lume-tooltip-item-line-height: $lume-spacing-16 !default;
+$lume-tooltip-item-min-width: 112px !default;
+$lume-tooltip-symbol-size: $lume-spacing-10 !default;
 
 .lume-tooltip {
   position: absolute;
@@ -48,15 +49,19 @@ $lume-tooltip-symbol-size: 10px;
 
   &__item {
     display: flex;
-    align-items: center;
     min-width: $lume-tooltip-item-min-width;
     margin-bottom: $lume-spacing-4;
   }
 
   &__symbol {
+    margin-top: math.div(
+      $lume-tooltip-item-line-height - $lume-tooltip-symbol-size,
+      2
+    ); // default: 3px
     margin-right: $lume-spacing-8;
     width: $lume-tooltip-symbol-size;
     height: $lume-tooltip-symbol-size;
+    flex-shrink: 0;
 
     &--line {
       border-radius: 50%;
@@ -65,6 +70,7 @@ $lume-tooltip-symbol-size: 10px;
 
   &__value {
     margin-left: auto;
-    padding-left: $lume-spacing-16;
+    padding-left: $lume-spacing-8;
+    flex-shrink: 0;
   }
 }

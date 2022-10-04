@@ -1,19 +1,58 @@
+import { computed } from 'vue';
 import { withSizeArgs, withSizeArgTypes } from '@/utils/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/base-data';
 
 import LumeBarChart from './index';
 
-import { ORIENTATIONS } from '@/constants';
+import { Colors, ORIENTATIONS } from '@/constants';
+
+export default {
+  title: 'Charts/Bar chart',
+  component: LumeBarChart,
+  argTypes: {
+    ...withSizeArgTypes(),
+    data: {
+      control: 'object',
+      description: 'Chart data.',
+    },
+    labels: {
+      control: 'object',
+      description: 'Chart labels.',
+    },
+    color: {
+      control: 'select',
+      options: Object.keys(Colors),
+    },
+    orientation: {
+      control: 'radio',
+      options: [ORIENTATIONS.VERTICAL, ORIENTATIONS.HORIZONTAL],
+    },
+    options: {
+      control: 'object',
+      description: 'Chart/axes options.',
+    },
+    title: {
+      control: 'text',
+      description: 'Chart title',
+    },
+  },
+  args: {
+    ...withSizeArgs(),
+    options: {},
+    title: 'Bar chart',
+  },
+};
 
 const Template = ({ argTypes }) => ({
   components: { LumeBarChart },
   props: Object.keys(argTypes),
   setup(props) {
-    return { props };
+    const computedColor = computed(() => Colors[props.color]);
+    return { computedColor, props };
   },
   template: `
   <div :style="{ width: width + 'px', height: props.orientation !== 'horizontal' ? height + 'px' : undefined }">
-      <lume-bar-chart v-bind="props" />
+      <lume-bar-chart v-bind="props" :color="computedColor" />
   </div>
   `,
 });
@@ -39,6 +78,21 @@ MultipleDatasets.args = {
   options: {
     xAxisOptions: {},
     yAxisOptions: {},
+  },
+};
+
+export const MaximumDatasets = Template.bind({});
+MaximumDatasets.argTypes = {
+  type: { control: 'radio', options: ['grouped', 'stacked'] },
+};
+MaximumDatasets.args = {
+  ...withSizeArgs(720),
+  ...DATASETS.Maximum,
+  type: 'grouped',
+  orientation: ORIENTATIONS.VERTICAL,
+  options: {
+    xAxisOptions: {},
+    yAxisOptions: { tickFormat: '.2s' },
   },
 };
 

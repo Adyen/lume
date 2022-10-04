@@ -18,7 +18,7 @@ describe('chart-container.vue', () => {
 
     const el = wrapper.find('[data-j-line]');
     expect(el.classes().includes('lume-line--dashed')).toBe(true)
-    expect(el.classes().includes(`lume-stroke-color--01`)).toBe(true)
+    expect(el.classes().includes(`lume-stroke--01`)).toBe(true)
   });
 
   test('mounts component with custom color', () => {
@@ -26,6 +26,6 @@ describe('chart-container.vue', () => {
     const wrapper = mount(Line, { propsData: { ...propsData, color } })
 
     const el = wrapper.find('[data-j-line]');
-    expect(el.classes().includes(`lume-stroke-color--${color}`)).toBe(true)
+    expect(el.classes().includes(`lume-stroke--${color}`)).toBe(true)
   });
 });
