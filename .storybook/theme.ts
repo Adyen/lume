@@ -2,12 +2,12 @@ import { create } from '@storybook/theming';
 
 export default create({
   base: 'light',
-  brandTitle: 'Data visualization Storybook',
+  brandTitle: 'Lume Storybook',
   brandImage: './adyen-storybook.svg',
 
   // Storybook-specific color palette
-  colorPrimary: '#0abf53',
-  colorSecondary: '#06f',
+  colorPrimary: '#a9d6ff',
+  colorSecondary: '#0066ff',
 
   // UI
   appBg: '#f3f6f9',
@@ -21,7 +21,7 @@ export default create({
 
   // Toolbar default and active colors
   barTextColor: '#00112c',
-  barSelectedColor: '#06f',
+  barSelectedColor: '#0066ff',
   barBg: '#fff',
 
   // Form colors

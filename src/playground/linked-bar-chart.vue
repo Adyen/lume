@@ -29,12 +29,12 @@
     <template #groups="props">
       <lume-bar-group
         v-bind="props"
-        :data="[firstDataset]"
+        :data="firstDataset"
         :y-scale="getScale(props.yScale, 0)"
       />
       <lume-bar-group
         v-bind="props"
-        :data="[secondDataset]"
+        :data="secondDataset"
         :y-scale="getScale(props.yScale, 1)"
       />
     </template>
@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs } from 'vue';
+import { computed, defineComponent, ref, toRefs } from 'vue';
 
 import LumeAxis from '@/core/lume-axis';
 import LumeChart from '@/core/lume-chart';
@@ -52,6 +52,7 @@ import { Scale } from '@/composables/scales';
 import { withChartProps } from '@/composables/props';
 
 import { Data } from '@/types/dataset';
+import { useBase } from '@/composables/base';
 
 const linkedDataValidator = (data: Data) => data.length === 2;
 
@@ -63,8 +64,12 @@ export default defineComponent({
   setup(props) {
     const { data } = toRefs(props);
 
-    const firstDataset = computed(() => data.value[0]);
-    const secondDataset = computed(() => data.value[1]);
+    const firstDataset = computed(
+      () => useBase(ref([data.value[0]])).internalData.value
+    );
+    const secondDataset = computed(
+      () => useBase(ref([data.value[1]])).internalData.value
+    );
 
     function getScale(scale: Scale, index: number) {
       if (!scale) return scale;

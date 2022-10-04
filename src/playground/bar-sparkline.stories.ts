@@ -14,6 +14,7 @@ export default {
       showAxes: false,
       withHover: false,
       withLegend: false,
+      noMinSize: true,
     },
     data: [
       {
@@ -22,11 +23,10 @@ export default {
           50,
           30,
           35,
-          { value: 70, color: '01' },
-          { value: 80, color: '01' },
-          { value: 75, color: '01' },
+          { value: 70, color: '09' },
+          { value: 80, color: '09' },
+          { value: 75, color: '09' },
         ],
-        color: '02',
         label: 'Emojis',
         type: 'line',
       },
