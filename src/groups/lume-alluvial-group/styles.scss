@@ -11,7 +11,7 @@
   }
 
   &__node-block {
-    @each $color, $map in $adv-categorical-colors {
+    @each $color, $map in $lume-categorical-colors {
       &--#{$color} {
         $fill: nth($map, 1);
         fill: $fill;

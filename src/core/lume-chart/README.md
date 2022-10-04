@@ -1,10 +1,10 @@
-# Adv chart
+# Lume chart
 
-The `adv-chart` component is the base component of all charts of this data visualization library. It implements all generic chart features.
+The `lume-chart` component is the base component of all charts of this data visualization library. It implements all generic chart features.
 
-It is used internally to build all Adv charts but it can also be used to create new, customized charts, by using `<slot>`s.
+It is used internally to build all Lume charts but it can also be used to create new, customized charts, by using `<slot>`s.
 
-- [Adv chart](#adv-chart)
+- [Lume chart](#lume-chart)
   - [Usage](#usage)
     - [Importing](#importing)
     - [Slots](#slots)
@@ -27,12 +27,12 @@ It is used internally to build all Adv charts but it can also be used to create 
 ### Importing
 
 ```ts
-import { AdvChart } from 'adv/core';
+import LumeChart from 'lume/core/lume-chart';
 ```
 
 ### Slots
 
-Adv chart serves as a base to chart building because it provides `<slot>`s for the different chart elements.
+Lume chart serves as a base to chart building because it provides `<slot>`s for the different chart elements.
 
 The available slots are:
 
@@ -48,18 +48,18 @@ All slots except `groups` have fallback content to default to. The `groups` slot
 
 ### Basic use
 
-The simplest use for `adv-chart` is by providing `data` and `labels` props and a data group inside `groups` slot.
+The simplest use for `lume-chart` is by providing `data` and `labels` props and a data group inside `groups` slot.
 
 ```html
 <template>
-  <adv-chart
+  <lume-chart
     :data="data"
     :labels="labels"
   >
     <template #groups="props">
-      <adv-line-group v-bind="props" />
+      <lume-line-group v-bind="props" />
     </template>
-  </adv-chart>
+  </lume-chart>
 </template>
 
 <script
@@ -108,7 +108,7 @@ Interface: `ChartOptions`
 | withTooltip    | `boolean`        | Displays the chart tooltip.                                                |
 | withLegend     | `boolean`        | Displays the chart legend in the header.                                   |
 | withTransition | `boolean`        | Toggles the chart transition animations.                                   |
-| noBaseScales   | `boolean`        | Controls if `AdvChart` should generate general-purpose scales or not.      |
+| noBaseScales   | `boolean`        | Controls if `LumeChart` should generate general-purpose scales or not.     |
 
 ### Slot props
 
@@ -163,11 +163,11 @@ No props.
 
 ```html
 <template>
-  <adv-chart v-bind="$props">
+  <lume-chart v-bind="$props">
     <template #groups="props">
       <my-custom-data-group v-bind="props" />
     </template>
-  </adv-chart>
+  </lume-chart>
 </template>
 ```
 
@@ -175,13 +175,13 @@ No props.
 
 ```html
 <template>
-  <adv-chart v-bind="$props">
+  <lume-chart v-bind="$props">
     <template #groups="props">
-      <adv-bar-group v-bind="props" />
+      <lume-bar-group v-bind="props" />
     </template>
     <template #tooltip>
       <my-custom-tooltip />
     </template>
-  </adv-chart>
+  </lume-chart>
 </template>
 ```

@@ -75,5 +75,5 @@ export function computeColor(
 }
 
 export function getDataTypeClass(type: ColorPalette = DEFAULT_PALETTE) {
-  return `adv-data-type--${type}`;
+  return `lume-data-type--${type}`;
 }

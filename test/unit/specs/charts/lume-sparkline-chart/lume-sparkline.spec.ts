@@ -46,8 +46,8 @@ describe('lume-sparkline.vue', () => {
 
     const areaPath = el.find('[data-j-sparkline__area]');
     expect(areaPath.exists()).toBe(true);
-    expect(areaPath.classes().includes('adv-fill--faded')).toBe(true);
-    expect(areaPath.classes().includes('adv-fill--skyblue')).toBe(true);
+    expect(areaPath.classes().includes('lume-fill--faded')).toBe(true);
+    expect(areaPath.classes().includes('lume-fill--skyblue')).toBe(true);
 
     expect(wrapper.vm.$data).not.toHaveProperty('areaPathDefinition');
   });
@@ -72,7 +72,7 @@ describe('lume-sparkline.vue', () => {
 
     const areaPath = el.find('[data-j-sparkline__area]');
 
-    expect(areaPath.classes().includes(`adv-fill--${areaColor}`)).toBe(true);
+    expect(areaPath.classes().includes(`lume-fill--${areaColor}`)).toBe(true);
   });
 
   test('mounts component and checks areaPathDefinition', () => {

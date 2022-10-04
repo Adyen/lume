@@ -72,10 +72,10 @@
 //
 @mixin generate-color-classes($property, $map) {
   @each $name, $value in $map {
-    .adv-#{$property}--#{$name} {
+    .lume-#{$property}--#{$name} {
       #{$property}: $value;
 
-      &.adv-#{$property}--faded {
+      &.lume-#{$property}--faded {
         #{$property}: fade-color($value);
       }
     }
