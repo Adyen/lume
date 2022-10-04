@@ -1,7 +1,7 @@
 {
-  "name": "data-visualization",
-  "version": "0.0.1",
-  "description": "Data visualization is the graphical representation of information and data. By using visual elements like charts, graphs, and maps, data visualization repository provide an accessible way to see and understand trends, outliers, and patterns in data.",
+  "name": "lume",
+  "version": "0.1.0",
+  "description": "Lume is a component library for visual representations of data, built for Vue with D3.",
   "main": "dist/lume.umd.js",
   "module": "dist/lume.esm.js",
   "files": [
@@ -10,20 +10,20 @@
   "license": "MIT",
   "contributors": [
     {
-      "name" : "Govind Srinidhi",
-      "email" : "govind.srinidhi@adyen.com"
+      "name": "Govind Srinidhi",
+      "email": "govind.srinidhi@adyen.com"
     },
     {
-      "name" : "Joao Dos Santos",
-      "email" : "joao.dossantos@adyen.com"
+      "name": "Joao Dos Santos",
+      "email": "joao.dossantos@adyen.com"
     },
     {
-      "name" : "Lucas van Heerikhuizen",
-      "email" : "lucas.vanheerikhuizen@adyen.com"
+      "name": "Lucas van Heerikhuizen",
+      "email": "lucas.vanheerikhuizen@adyen.com"
     },
     {
-      "name" : "Vivian Joseph",
-      "email" : "vivian.joseph@adyen.com"
+      "name": "Vivian Joseph",
+      "email": "vivian.joseph@adyen.com"
     }
   ],
   "scripts": {
@@ -35,7 +35,7 @@
     "lint:fix": "npm run lint -- --fix",
     "lint:pretty": "prettier --write --ignore-unknown .",
     "lint": "eslint ./src ./test --ext .js,.ts,.vue",
-    "postinstall": "npm run confighooks && echo \" ✔ Git hooks path configured to ./git-hooks\"",
+    "prepare": "npm run confighooks && echo \" ✔ Git hooks path configured to ./git-hooks\"",
     "start": "npm run storybook",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "unit-exp": "NODE_OPTIONS=\"--experimental-vm-modules\"; jest --config=test/config/jest.config.js",
@@ -102,6 +102,9 @@
     "webpack-merge": "^5.8.0"
   },
   "keywords": [
+    "Lume",
+    "LumeJS",
+    "Lume Design System",
     "Data Visualization",
     "Charts",
     "d3.js",
@@ -112,10 +115,10 @@
     "Stacked bar chart",
     "Sparkline chart",
     "Line chart",
-    "Alluvial charts", 
-    "Sankey diagrams", 
+    "Alluvial charts",
+    "Sankey diagrams",
     "Vue chart library",
-    "Vue", 
+    "Vue",
     "Vue 2.7"
   ]
 }
