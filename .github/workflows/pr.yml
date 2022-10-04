@@ -2,7 +2,7 @@
 #   1. Do a clean installation of node dependencies, cache/restore them, and run tests across different versions of Node
 #   2. Scan push/PRs for leaked credentials using TruffleHog
 
-name: PR checks
+name: PR workflow
 
 on:
   push:
