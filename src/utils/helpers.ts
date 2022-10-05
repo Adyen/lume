@@ -9,6 +9,10 @@ import {
 import { Data, DatasetValueObject, InternalData } from '@/types/dataset';
 import { Scale } from '@/composables/scales';
 
+export function isProd() {
+  return process.env.NODE_ENV === 'production';
+}
+
 /**
  * Returns an array with all numeric values present in a chart's `data` (array of datasets).
  * @param {Data<DatasetValueObject>} data A computed array of datasets.

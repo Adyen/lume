@@ -7,6 +7,7 @@ module.exports = merge(common, {
   mode: 'production',
   devtool: 'source-map',
   optimization: {
+    nodeEnv: false, // Prevent resolving NODE_ENV to string during build
     mangleExports: 'size',
     moduleIds: 'deterministic',
     removeAvailableModules: true,
