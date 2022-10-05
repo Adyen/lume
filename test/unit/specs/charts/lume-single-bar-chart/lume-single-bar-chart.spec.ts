@@ -1,16 +1,22 @@
 import { data, labels, xScale, yScale } from '../../mock-data';
-import SingleBarChart from '../../../../../src/charts/lume-single-bar-chart/lume-single-bar-chart.vue';
-import { BaseTestSuite } from "../../../reusable.test";
+import SingleBarChart from '@/components/charts/lume-single-bar-chart/lume-single-bar-chart.vue';
+import { BaseTestSuite } from '../../../reusable.test';
 
 const numberOfPositiveBars = 5;
 const numberOfNegativeBars = 2;
 const totalNumberOfBars = data[0].values.length;
 
-const singleBarChartTestSuiteFactory = (propsData) => new BaseTestSuite(SingleBarChart, propsData);
+const singleBarChartTestSuiteFactory = (propsData) =>
+  new BaseTestSuite(SingleBarChart, propsData);
 
 describe('lume-single-bar-chart.vue', () => {
   test('mounts component and sets prop values', () => {
-    const wrapper = singleBarChartTestSuiteFactory({ data, labels, xScale, yScale }).wrapper;
+    const wrapper = singleBarChartTestSuiteFactory({
+      data,
+      labels,
+      xScale,
+      yScale,
+    }).wrapper;
 
     const el = wrapper.find('[data-j-single-bar-chart]');
     const props = wrapper.vm.$props;
@@ -35,38 +41,75 @@ describe('lume-single-bar-chart.vue', () => {
   });
 
   test('should display single bar chart with positive, negative and null bars', () => {
-    const wrapper = singleBarChartTestSuiteFactory({ data, labels, xScale, yScale }).wrapper;
+    const wrapper = singleBarChartTestSuiteFactory({
+      data,
+      labels,
+      xScale,
+      yScale,
+    }).wrapper;
 
     const el = wrapper.find('[data-j-single-bar-chart]');
 
     // check +ve bars
-    expect(el.findAll('[data-j-lume-bar]').at(0).props('isNegative')).toBeFalsy();
-    expect(el.findAll('[data-j-lume-bar]').at(2).props('isNegative')).toBeFalsy();
-    expect(el.findAll('[data-j-lume-bar]').at(3).props('isNegative')).toBeFalsy();
-    expect(el.findAll('[data-j-lume-bar]').at(6).props('isNegative')).toBeFalsy();
-    expect(el.findAll('[data-j-lume-bar]').filter((item) => !item.props('isNegative'))).toHaveLength(numberOfPositiveBars);
+    expect(
+      el.findAll('[data-j-lume-bar]').at(0).props('isNegative')
+    ).toBeFalsy();
+    expect(
+      el.findAll('[data-j-lume-bar]').at(2).props('isNegative')
+    ).toBeFalsy();
+    expect(
+      el.findAll('[data-j-lume-bar]').at(3).props('isNegative')
+    ).toBeFalsy();
+    expect(
+      el.findAll('[data-j-lume-bar]').at(6).props('isNegative')
+    ).toBeFalsy();
+    expect(
+      el
+        .findAll('[data-j-lume-bar]')
+        .filter((item) => !item.props('isNegative'))
+    ).toHaveLength(numberOfPositiveBars);
     // check -ve bars
-    expect(el.findAll('[data-j-lume-bar]').at(1).props('isNegative')).toBeTruthy();
-    expect(el.findAll('[data-j-lume-bar]').at(4).props('isNegative')).toBeTruthy();
-    expect(el.findAll('[data-j-lume-bar]').filter((item) => item.props('isNegative'))).toHaveLength(numberOfNegativeBars);
+    expect(
+      el.findAll('[data-j-lume-bar]').at(1).props('isNegative')
+    ).toBeTruthy();
+    expect(
+      el.findAll('[data-j-lume-bar]').at(4).props('isNegative')
+    ).toBeTruthy();
+    expect(
+      el.findAll('[data-j-lume-bar]').filter((item) => item.props('isNegative'))
+    ).toHaveLength(numberOfNegativeBars);
     // check null bars
-    expect(el.findAll('[data-j-lume-bar]').at(5).props('isNegative')).toBeFalsy();
+    expect(
+      el.findAll('[data-j-lume-bar]').at(5).props('isNegative')
+    ).toBeFalsy();
   });
 
   test('should not display any bar with empty dataset', () => {
-    const data = [{
-      values: []
-    }];
+    const data = [
+      {
+        values: [],
+      },
+    ];
 
     const labels = [];
 
-    const wrapper = singleBarChartTestSuiteFactory({ data, labels, xScale, yScale }).wrapper;
+    const wrapper = singleBarChartTestSuiteFactory({
+      data,
+      labels,
+      xScale,
+      yScale,
+    }).wrapper;
 
     const el = wrapper.find('[data-j-single-bar-chart]');
 
     expect(el.findAll('[data-j-lume-bar]')).toHaveLength(0);
-  })
+  });
 
-  const testSuite = singleBarChartTestSuiteFactory({ data: [{ values: [] }], labels, xScale, yScale });
+  const testSuite = singleBarChartTestSuiteFactory({
+    data: [{ values: [] }],
+    labels,
+    xScale,
+    yScale,
+  });
   testSuite.run({ selector: '[data-j-lume-bar]', multisetData: [1, 7, 1, 5] });
 });

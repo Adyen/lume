@@ -26,7 +26,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import LumeBar from '@/core/lume-bar';
+import LumeBar from '@/components/core/lume-bar';
 
 export default defineComponent({
   components: { LumeBar },

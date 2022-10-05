@@ -22,9 +22,9 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, toRefs } from 'vue';
 
-import LumeChart from '@/core/lume-chart';
-import LumeBarGroup from '@/groups/lume-bar-group';
-import LumeLineGroup from '@/groups/lume-line-group';
+import LumeChart from '@/components/core/lume-chart';
+import LumeBarGroup from '@/components/groups/lume-bar-group';
+import LumeLineGroup from '@/components/groups/lume-line-group';
 
 import { useBase } from '@/composables/base';
 import { useOptions, withOptions } from '@/composables/options';

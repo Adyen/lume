@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import LumeBarGroup from '@/groups/lume-bar-group/lume-bar-group.vue';
+import LumeBarGroup from '@/components/groups/lume-bar-group/lume-bar-group.vue';
 import { data, xScale, yScale } from '../../mock-data';
 import { Orientation } from '@/constants';
 
@@ -11,14 +11,19 @@ describe('bar-group.vue', () => {
       propsData: {
         data,
         xScale,
-        yScale
-      }
-    })
+        yScale,
+      },
+    });
 
     const el = wrapper.find('[data-j-bars-group]');
-    expect(el.exists()).toBeTruthy()
+    expect(el.exists()).toBeTruthy();
     expect(wrapper.find('[data-j-lume-bar]').attributes('x')).not.toEqual('0');
-    expect(wrapper.find('[data-j-lume-bar]').attributes()['class'].includes('lume-fill--skyblue')).toBe(true);
+    expect(
+      wrapper
+        .find('[data-j-lume-bar]')
+        .attributes()
+        .class.includes('lume-fill--skyblue')
+    ).toBe(true);
   });
 
   test('mounts component with horizontal orientation', () => {
@@ -27,12 +32,12 @@ describe('bar-group.vue', () => {
         data,
         xScale: yScale,
         yScale: xScale,
-        orientation
-      }
-    })
+        orientation,
+      },
+    });
 
     const el = wrapper.find('[data-j-bars-group]');
-    expect(el.exists()).toBeTruthy()
+    expect(el.exists()).toBeTruthy();
     expect(wrapper.find('[data-j-lume-bar]').attributes('x')).toEqual('0');
-  })
+  });
 });

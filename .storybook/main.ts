@@ -18,8 +18,8 @@ module.exports = {
   ],
   framework: '@storybook/vue',
   stories: [
-    '../src/charts/**/*.stories.@(ts)',
-    '../src/core/**/*.stories.@(ts)',
+    '../src/components/charts/**/*.stories.@(ts)',
+    '../src/components/core/**/*.stories.@(ts)',
     '../src/playground/**/*.stories.@(ts)',
   ],
   staticDirs: ['./static'],

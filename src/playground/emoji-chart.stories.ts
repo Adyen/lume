@@ -1,4 +1,4 @@
-import LumeChart from '@/core/lume-chart';
+import LumeChart from '@/components/core/lume-chart';
 import EmojiGroup from './emoji-group.vue';
 
 export default {

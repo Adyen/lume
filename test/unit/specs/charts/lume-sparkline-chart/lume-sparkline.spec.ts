@@ -1,6 +1,6 @@
 import { data, labels, xScale, yScale } from '../../mock-data';
-import LumeSparkline from '@/charts/lume-sparkline-chart/lume-sparkline-chart.vue';
-import { options as defaultOptions } from '@/charts/lume-sparkline-chart/defaults';
+import LumeSparkline from '@/components/charts/lume-sparkline-chart/lume-sparkline-chart.vue';
+import { options as defaultOptions } from '@/components/charts/lume-sparkline-chart/defaults';
 import {
   BaseTestSuite,
   useCustomBoundingRectClient,

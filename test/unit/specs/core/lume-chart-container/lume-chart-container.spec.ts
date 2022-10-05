@@ -1,6 +1,9 @@
 import { mount } from '@vue/test-utils';
-import LumeChartContainer from '@/core/lume-chart-container';
-import { useCustomBoundingRectClient, useCustomResizeObserver } from '../../../reusable.test';
+import LumeChartContainer from '@/components/core/lume-chart-container';
+import {
+  useCustomBoundingRectClient,
+  useCustomResizeObserver,
+} from '../../../reusable.test';
 import Vue from 'vue';
 
 describe('chart-container.vue', () => {

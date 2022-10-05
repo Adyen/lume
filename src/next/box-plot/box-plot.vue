@@ -49,10 +49,10 @@
 <script lang="ts">
 import { defineComponent, ref, toRefs } from 'vue';
 
-import LumeAxis from '@/core/lume-axis';
+import LumeAxis from '@/components/core/lume-axis';
 import BoxGroup from './components/box-group.vue';
-import LumeChartContainer from '@/core/lume-chart-container';
-import LumeTooltip from '@/core/lume-tooltip';
+import LumeChartContainer from '@/components/core/lume-chart-container';
+import LumeTooltip from '@/components/core/lume-tooltip';
 
 import { useBase } from '@/composables/base';
 import { useOptions, withOptions } from '@/composables/options';

@@ -51,7 +51,7 @@
 import { computed, defineComponent, ref, toRefs } from 'vue';
 import { scaleTime } from 'd3-scale';
 
-import { useSkip } from '@/core/lume-axis/composables/lume-skip';
+import { useSkip } from '@/components/core/lume-axis/composables/lume-skip';
 
 export default defineComponent({
   props: {
