@@ -1,6 +1,7 @@
 import { ColorPalette } from '@/types/dataset';
 import { Color, Colors, DivergentColors, LegacyColors } from '@/constants';
 import { shiftItems } from './helpers';
+import { warn, Warnings } from './warnings';
 
 const DEFAULT_PALETTE = ColorPalette.Categorical;
 const DEFAULT_COLOR = Colors.Skyblue;
@@ -66,6 +67,11 @@ export function computeColor(
   const isDatasetColorValid = validateColor(datasetColor, palette);
   if (isDatasetColorValid) {
     return getColorByPalette(datasetColor, palette, index);
+  }
+
+  if (index > 4) {
+    warn(Warnings.ColorLoop);
+    index = index % 5; // Loop colors back after the 5th dataset
   }
 
   const isColorValid = validateColor(color, palette);

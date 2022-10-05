@@ -12,17 +12,18 @@ import { computeColor } from '@/utils/colors';
 import { getEmptyArrayFromData, isDatasetValueObject } from '@/utils/helpers';
 
 import {
+  ColorPalette,
   Data,
   Dataset,
   DatasetValue,
   DatasetValueObject,
-  ColorPalette,
   InternalData,
   InternalDataset,
 } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 
 import { Options } from './options';
+import { warn, Warnings } from '@/utils/warnings';
 
 function computeValues(values: Array<DatasetValue<number>>) {
   return values.map((value) => {
@@ -68,6 +69,8 @@ export function useBase(
   });
 
   const internalData: ComputedRef<InternalData> = computed(() => {
+    if (data.value.length > 5) warn(Warnings.DatasetLength);
+
     return data.value?.map(
       (dataset: Dataset<DatasetValue> | InternalDataset, index: number) => {
         // Prevent re-computing internal datasets

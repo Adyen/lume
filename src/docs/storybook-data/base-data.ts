@@ -72,6 +72,11 @@ const DATASETS = {
         label: 'Meta',
         values: randomValues(10, 1000, 10000),
       },
+      {
+        label: 'Other',
+        values: randomValues(10, 1000, 10000),
+        color: '07'
+      },
     ],
     labels: [...Array(10)].map((_, i) => {
       const date = new Date();
