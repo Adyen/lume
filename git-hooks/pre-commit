@@ -5,7 +5,7 @@ GREEN="\033[1;32m"
 COLOR_RESET="\033[0m"
 
 linter_exit_code=1
-staged_files=$(git diff --cached --diff-filter=d --name-only | grep -E '.js$|.vue$') # grab only .js or .vue files
+staged_files=$(git diff --cached --diff-filter=d --name-only | grep -E '.js$|.ts$|.scss$|.vue$')
 
 # Run prettier
 echo "\n Formatting files with prettier: \n"
