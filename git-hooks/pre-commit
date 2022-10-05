@@ -5,21 +5,22 @@ GREEN="\033[1;32m"
 COLOR_RESET="\033[0m"
 
 linter_exit_code=1
-staged_files=$(git diff --cached --diff-filter=d --name-only | grep -E '.js$|.ts$|.scss$|.vue$')
+staged_files_prettier=$(git diff --cached --diff-filter=d --name-only)
+staged_files_lint=$(git diff --cached --diff-filter=d --name-only | grep -E '.js$|.ts$|.vue$')
 
 # Run prettier
 echo "\n Formatting files with prettier: \n"
-./node_modules/.bin/prettier --write --ignore-unknown $staged_files
+./node_modules/.bin/prettier --write --ignore-unknown $staged_files_prettier
 
 # Run ESLint
 echo "\n Linting files with ESLint: \n"
-./node_modules/.bin/eslint $staged_files --fix
+./node_modules/.bin/eslint $staged_files_lint --fix
 
 linter_exit_code=$?
 
-if [ ! -z "$staged_files" ]
+if [ ! -z "${staged_files_prettier} ${staged_files_lint}" ]
 then
-    git add -f $staged_files
+    git add -f ${staged_files_prettier} ${staged_files_lint}
 fi
 
 if [ $linter_exit_code -ne 0 ]
