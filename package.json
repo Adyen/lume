@@ -47,15 +47,15 @@
     "lint:pretty": "prettier --write --ignore-unknown .",
     "lint": "eslint ./src ./test --ext .js,.ts,.vue",
     "prepare": "npm run confighooks && echo \" ✔ Git hooks path configured to ./git-hooks\"",
-    "start": "npm run storybook",
-    "storybook": "start-storybook -p 9001 -c .storybook",
-    "unit-exp": "NODE_OPTIONS=\"--experimental-vm-modules\"; jest --config=test/config/jest.config.js",
-    "unit-exp:update:snapshot": "npm run unit-exp -- -u",
-    "unit": "jest --config=test/config/jest.config.js",
-    "release": "standard-version",
+    "release:major": "standard-version --release-as major",
     "release:minor": "standard-version --release-as minor",
     "release:patch": "standard-version --release-as patch",
-    "release:major": "standard-version --release-as major"
+    "release": "standard-version",
+    "start": "npm run storybook",
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "unit-exp:update:snapshot": "npm run unit-exp -- -u",
+    "unit-exp": "NODE_OPTIONS=\"--experimental-vm-modules\"; jest --config=test/config/jest.config.js",
+    "unit": "jest --config=test/config/jest.config.js"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.4",
