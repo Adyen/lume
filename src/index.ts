@@ -1,8 +1,8 @@
 import { PluginFunction, PluginObject } from 'vue';
 
-import * as charts from './charts';
-import * as core from './core';
-import * as groups from './groups';
+import * as charts from './components/charts';
+import * as core from './components/core';
+import * as groups from './components/groups';
 
 interface LumePluginFunction extends PluginFunction<null> {
   installed?: boolean;

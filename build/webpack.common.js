@@ -8,10 +8,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 function convertDirToEntryPoints(dir) {
   return fs
-    .readdirSync(path.resolve(__dirname, '../src/' + dir))
+    .readdirSync(path.resolve(__dirname, '../src/components/' + dir))
     .reduce((acc, name) => {
       if (name.startsWith('lume-')) {
-        acc[`${dir}/${name}`] = `./src/${dir}/${name}`;
+        acc[`${dir}/${name}`] = `./src/components/${dir}/${name}`;
       }
       return acc;
     }, {});

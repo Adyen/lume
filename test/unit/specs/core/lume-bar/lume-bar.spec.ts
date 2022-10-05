@@ -1,7 +1,7 @@
 import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
 
-import LumeBar from '@/core/lume-bar/lume-bar.vue';
+import LumeBar from '@/components/core/lume-bar/lume-bar.vue';
 
 const width = 100;
 const height = 100;
@@ -47,7 +47,6 @@ describe('lume-bar.vue', () => {
     expect(el.attributes()['y']).toEqual(y.toString());
   });
 
-
   test('mounts component and sets custom width and height prop values', () => {
     const width = 0.7;
     const height = 0.7;
@@ -60,7 +59,6 @@ describe('lume-bar.vue', () => {
     expect(el.attributes()['width']).toEqual('1');
     expect(el.attributes()['height']).toEqual('1');
   });
-
 
   test('mounts component and sets custom isFaded and animate prop values', () => {
     const wrapper = mount(LumeBar, {

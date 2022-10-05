@@ -1,19 +1,19 @@
-import { mount, Wrapper } from "@vue/test-utils";
-import { LumeChart } from "@/core";
-import { generateData } from "./specs/mock-data";
-import { VueConstructor } from "vue";
+import { mount, Wrapper } from '@vue/test-utils';
+import { LumeChart } from '@/components/core';
+import { generateData } from './specs/mock-data';
+import { VueConstructor } from 'vue';
 
 type ComponentInstance = VueConstructor;
 type PropsData = Record<string, unknown>;
 type WrapperInstance = Wrapper<InstanceType<typeof LumeChart>>;
 type OptionsType = {
-  selector?: string,
-  multisetData?: number[]
-}
+  selector?: string;
+  multisetData?: number[];
+};
 type ContentRect = {
-  width: number,
-  height: number
-}
+  width: number;
+  height: number;
+};
 
 const defaultFirstNumberOfSets = 3;
 const defaultFirstNumberOfRecords = 7;
@@ -24,8 +24,14 @@ const defaultContentRect: ContentRect = { width: 123, height: 234 };
 export class BaseTestSuite {
   private _wrapper: WrapperInstance = null;
 
-  constructor(private readonly component: ComponentInstance, private readonly propsData: PropsData) {
-    this._wrapper = mount(this.component, this.propsData ? { propsData: this.propsData } : {});
+  constructor(
+    private readonly component: ComponentInstance,
+    private readonly propsData: PropsData
+  ) {
+    this._wrapper = mount(
+      this.component,
+      this.propsData ? { propsData: this.propsData } : {}
+    );
   }
 
   public get wrapper(): WrapperInstance {
@@ -36,9 +42,9 @@ export class BaseTestSuite {
     this._wrapper = wrapper;
   }
 
-  public run({ selector, multisetData }: OptionsType = {}): this {    
+  public run({ selector, multisetData }: OptionsType = {}): this {
     this.snapShotTest();
-    if(selector) this.multiDataSetTest(selector, ...multisetData);
+    if (selector) this.multiDataSetTest(selector, ...multisetData);
     return this;
   }
 
@@ -50,19 +56,33 @@ export class BaseTestSuite {
     secondNumberOfRecords = defaultSecondNumberOfRecords
   ) {
     const firstDataSet = generateData(firstNumberOfSets, firstNumberOfRecords);
-    const secondDataSet = generateData(secondNumberOfSets, secondNumberOfRecords);
+    const secondDataSet = generateData(
+      secondNumberOfSets,
+      secondNumberOfRecords
+    );
     const emptyDataSet = generateData(1, 0);
 
     const cases = [
-      { dataset: firstDataSet, expectedResult: firstNumberOfSets * firstNumberOfRecords },
+      {
+        dataset: firstDataSet,
+        expectedResult: firstNumberOfSets * firstNumberOfRecords,
+      },
       { dataset: emptyDataSet, expectedResult: 0 },
-      { dataset: secondDataSet, expectedResult: secondNumberOfSets * secondNumberOfRecords },
+      {
+        dataset: secondDataSet,
+        expectedResult: secondNumberOfSets * secondNumberOfRecords,
+      },
     ];
-    
-    test.each(cases)('mounts component and updates dataset', async ({ dataset, expectedResult }) => {              
-      await this.wrapper.setProps({ data: dataset });
-      expect(this.wrapper.findAll(targetIdentifier)).toHaveLength(expectedResult);
-    });
+
+    test.each(cases)(
+      'mounts component and updates dataset',
+      async ({ dataset, expectedResult }) => {
+        await this.wrapper.setProps({ data: dataset });
+        expect(this.wrapper.findAll(targetIdentifier)).toHaveLength(
+          expectedResult
+        );
+      }
+    );
   }
 
   private snapShotTest() {
@@ -76,16 +96,23 @@ class ResizeObserver {
   private static _newContentRect = null;
   readonly decoratedCallback = null;
 
-  constructor(
-      private callback
-  ) {
-    this.decoratedCallback = () => this.callback([{ contentRect: ResizeObserver._newContentRect } ])
+  constructor(private callback) {
+    this.decoratedCallback = () =>
+      this.callback([{ contentRect: ResizeObserver._newContentRect }]);
   }
 
-  public static get spy() { return this._spy; }
-  public static set spy(spy) { this._spy = spy; }
-  public static get newContentRect() { return this._newContentRect; }
-  public static set newContentRect(newContentRect) { this._newContentRect = newContentRect; }
+  public static get spy() {
+    return this._spy;
+  }
+  public static set spy(spy) {
+    this._spy = spy;
+  }
+  public static get newContentRect() {
+    return this._newContentRect;
+  }
+  public static set newContentRect(newContentRect) {
+    this._newContentRect = newContentRect;
+  }
 
   public observe(el) {
     this.el?.removeEventListener('resize', this.decoratedCallback);
@@ -122,16 +149,18 @@ export const useCustomBoundingRectClient = () => {
     getBoundingRectClient = Element.prototype.getBoundingClientRect;
     Element.prototype.getBoundingClientRect = () => ({
       ...response,
-      toJSON: () => response
+      toJSON: () => response,
     });
   });
 
   afterAll(() => {
     Element.prototype.getBoundingClientRect = getBoundingRectClient;
-  })
-}
+  });
+};
 
-export const useCustomResizeObserver = (newContentRect: ContentRect = defaultContentRect) => {
+export const useCustomResizeObserver = (
+  newContentRect: ContentRect = defaultContentRect
+) => {
   // Note that we have to keep the behaviour of the class clean and compliant with the real ResizeObserver.
   // For that reason, if we still want to register a spy for the events, we'll have to sneak it in by having it
   // be a static property on the class itself rather than on its instance.
@@ -147,7 +176,7 @@ export const useCustomResizeObserver = (newContentRect: ContentRect = defaultCon
 
   afterAll(() => {
     window.ResizeObserver = oldResizeObserver;
-  })
+  });
 
   return ResizeObserver.spy;
-}
+};

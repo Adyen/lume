@@ -1,4 +1,4 @@
-import LumeCharLineGroup from '@/groups/lume-line-group';
+import LumeCharLineGroup from '@/components/groups/lume-line-group';
 import { mount } from '@vue/test-utils';
 import { getXByIndex } from '@/composables/scales';
 import { data, xScale, yScale } from '../../mock-data';

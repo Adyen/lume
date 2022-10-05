@@ -44,9 +44,9 @@
 <script lang="ts">
 import { computed, defineComponent, ref, toRefs } from 'vue';
 
-import LumeAxis from '@/core/lume-axis';
-import LumeChart from '@/core/lume-chart';
-import LumeBarGroup from '@/groups/lume-bar-group';
+import LumeAxis from '@/components/core/lume-axis';
+import LumeChart from '@/components/core/lume-chart';
+import LumeBarGroup from '@/components/groups/lume-bar-group';
 
 import { Scale } from '@/composables/scales';
 import { withChartProps } from '@/composables/props';

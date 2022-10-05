@@ -1,5 +1,5 @@
 import LinkedBarChart from './linked-bar-chart.vue';
-import { options as defaultOptions } from '@/charts/lume-single-bar-chart/defaults';
+import { options as defaultOptions } from '@/components/charts/lume-single-bar-chart/defaults';
 
 export default {
   title: 'Playground/Linked bar chart',

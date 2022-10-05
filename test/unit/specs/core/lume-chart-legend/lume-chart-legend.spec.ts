@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import LumeLegend from '@/core/lume-chart-legend';
+import LumeLegend from '@/components/core/lume-chart-legend';
 import { generateData } from '../../mock-data';
 
 describe('lume-chart-legend.vue', () => {

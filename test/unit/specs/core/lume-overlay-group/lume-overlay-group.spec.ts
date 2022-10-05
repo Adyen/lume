@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 
-import LumeOverlayGroup from '@/groups/lume-overlay-group';
+import LumeOverlayGroup from '@/components/groups/lume-overlay-group';
 
 import { data, xScale, yScale } from '../../mock-data';
 

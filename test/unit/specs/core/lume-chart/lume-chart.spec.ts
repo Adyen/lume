@@ -1,43 +1,43 @@
 import { mount } from '@vue/test-utils';
-import LumeChart from '@/core/lume-chart/lume-chart.vue';
+import LumeChart from '@/components/core/lume-chart/lume-chart.vue';
 import { data, labels, xScale, yScale } from '../../mock-data';
 
 const defaultProps = {
   data,
   labels,
   xScale,
-  yScale
-}
+  yScale,
+};
 
 describe('lume-chart.vue', () => {
   test('mounts component and sets prop values', () => {
     const wrapper = mount(LumeChart, {
       slots: {
-        groups: 'Mock groups'
+        groups: 'Mock groups',
       },
-      propsData: defaultProps
-    })
+      propsData: defaultProps,
+    });
 
     const el = wrapper.find('[data-j-lume-chart]');
-    expect(el.exists()).toBeTruthy()
-    expect(el.find('[data-j-lume-chart__tooltip]').exists()).toBe(false)
-  })
+    expect(el.exists()).toBeTruthy();
+    expect(el.find('[data-j-lume-chart__tooltip]').exists()).toBe(false);
+  });
 
   test('mounts component with tooltip disabled', () => {
     const wrapper = mount(LumeChart, {
       slots: {
-        groups: 'Mock groups'
+        groups: 'Mock groups',
       },
       propsData: {
         ...defaultProps,
         options: {
-          withTooltip: false
-        }
-      }
-    })
+          withTooltip: false,
+        },
+      },
+    });
 
     const el = wrapper.find('[data-j-lume-chart__tooltip]');
-    expect(el.exists()).toBeFalsy()
+    expect(el.exists()).toBeFalsy();
   });
 
   // In order for this to work, we would have to alter the structure of the component that is being tested
@@ -45,30 +45,34 @@ describe('lume-chart.vue', () => {
   test('mounts component with axes disabled', () => {
     const wrapper = mount(LumeChart, {
       slots: {
-        groups: 'Mock groups'
+        groups: 'Mock groups',
       },
       propsData: {
         ...defaultProps,
         options: {
-          showAxes: false
-        }
-      }
-    })
+          showAxes: false,
+        },
+      },
+    });
 
     const el = wrapper.find('[data-j-lume-chart__axes]');
-    expect(el.exists()).toBeFalsy()
+    expect(el.exists()).toBeFalsy();
   });
 
   test('mounts component with negative values', () => {
     const wrapper = mount(LumeChart, {
       slots: {
-        groups: 'Mock groups'
+        groups: 'Mock groups',
       },
       propsData: {
         ...defaultProps,
-        data: [{ values: data[0].values.map(({ value }) => ({ value: -1 * value })) }],
-      }
-    })
+        data: [
+          {
+            values: data[0].values.map(({ value }) => ({ value: -1 * value })),
+          },
+        ],
+      },
+    });
 
     const el = wrapper.find('[data-j-lume-chart__negative-values]');
     expect(el.exists()).toBeTruthy();
@@ -77,16 +81,16 @@ describe('lume-chart.vue', () => {
   test('should show tooltip on bar overlay mouseover event', async () => {
     const wrapper = mount(LumeChart, {
       slots: {
-        groups: 'Mock groups'
+        groups: 'Mock groups',
       },
       propsData: {
         ...defaultProps,
-        options: { withTooltip: true }
-      }
+        options: { withTooltip: true },
+      },
     });
 
     expect(wrapper.find('[data-j-lume-chart__tooltip]').exists()).toBe(false);
-    const overlay =  wrapper.find('[data-j-lume-overlay-group]');
+    const overlay = wrapper.find('[data-j-lume-overlay-group]');
     await overlay.trigger('mouseover');
     expect(wrapper.find('[data-j-lume-chart__tooltip]').exists()).toBe(true);
   });
@@ -94,9 +98,9 @@ describe('lume-chart.vue', () => {
   test('should show tooltip on tick-mouseover for x-axis', async () => {
     const wrapper = await mount(LumeChart, {
       slots: {
-        groups: 'Mock groups'
+        groups: 'Mock groups',
       },
-      propsData: defaultProps
+      propsData: defaultProps,
     });
 
     expect(wrapper.find('[data-j-lume-chart__tooltip]').exists()).toBe(false);
@@ -108,12 +112,12 @@ describe('lume-chart.vue', () => {
   test('should show tooltip on tick-mouseover for y-axis with horizontal orientation', async () => {
     const wrapper = await mount(LumeChart, {
       slots: {
-        groups: 'Mock groups'
+        groups: 'Mock groups',
       },
       propsData: {
         ...defaultProps,
-        orientation: 'horizontal'
-      }
+        orientation: 'horizontal',
+      },
     });
 
     expect(wrapper.find('[data-j-lume-chart__tooltip]').exists()).toBe(false);
@@ -125,15 +129,15 @@ describe('lume-chart.vue', () => {
   test('should hide tooltip after root element hover event', async () => {
     const wrapper = await mount(LumeChart, {
       slots: {
-        groups: 'Mock groups'
+        groups: 'Mock groups',
       },
-      propsData: defaultProps
+      propsData: defaultProps,
     });
 
-    const overlay =  wrapper.find('[data-j-lume-overlay-group]');
+    const overlay = wrapper.find('[data-j-lume-overlay-group]');
     await overlay.trigger('mouseover');
     expect(wrapper.find('[data-j-lume-chart__tooltip]').exists()).toBe(true);
     await wrapper.find('[data-j-chart-container__root]').trigger('mouseleave');
     expect(wrapper.find('[data-j-lume-chart__tooltip]').exists()).toBe(false);
-  })
+  });
 });

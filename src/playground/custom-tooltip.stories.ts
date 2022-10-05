@@ -1,10 +1,10 @@
-import LumeChart from '@/core/lume-chart';
-import LumeLineGroup from '@/groups/lume-line-group';
+import LumeChart from '@/components/core/lume-chart';
+import LumeLineGroup from '@/components/groups/lume-line-group';
 
 import CustomTooltip from './custom-tooltip.vue';
 
 import { withSizeArgs, withSizeArgTypes } from '@/docs/storybook-helpers';
-import { options as defaultOptions } from '@/charts/lume-line-chart/defaults';
+import { options as defaultOptions } from '@/components/charts/lume-line-chart/defaults';
 
 export default {
   title: 'Playground/Custom tooltip',
