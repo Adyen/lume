@@ -1,5 +1,5 @@
 import { computed } from 'vue';
-import { withSizeArgs, withSizeArgTypes } from '@/utils/storybook-helpers';
+import { withSizeArgs, withSizeArgTypes } from '@/docs/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/base-data';
 
 import LumeBarChart from './index';

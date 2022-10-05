@@ -1,4 +1,4 @@
-import { withSizeArgs, withSizeArgTypes } from '@/utils/storybook-helpers';
+import { withSizeArgs, withSizeArgTypes } from '@/docs/storybook-helpers';
 import { computed } from 'vue';
 import { scaleBand, scaleLinear } from 'd3-scale';
 

@@ -1,4 +1,4 @@
-import { withSizeArgs, withSizeArgTypes } from '@/utils/storybook-helpers';
+import { withSizeArgs, withSizeArgTypes } from '@/docs/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/base-data';
 
 import LumeLineChart from './lume-line-chart.vue';

@@ -3,7 +3,7 @@ import {
   COLOR_CLASS_MAP,
   withSizeArgs,
   withSizeArgTypes,
-} from '@/utils/storybook-helpers';
+} from '@/docs/storybook-helpers';
 
 import LumeBar from './lume-bar.vue';
 

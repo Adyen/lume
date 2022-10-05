@@ -1,4 +1,4 @@
-import { withSizeArgs, withSizeArgTypes } from '@/utils/storybook-helpers';
+import { withSizeArgs, withSizeArgTypes } from '@/docs/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/alluvial-data';
 
 import LumeAlluvialDiagram from './lume-alluvial-diagram.vue';

@@ -3,7 +3,7 @@ import {
   COLOR_CLASS_MAP,
   withSizeArgs,
   withSizeArgTypes,
-} from '@/utils/storybook-helpers';
+} from '@/docs/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/sparkline-data';
 
 import LumeSparkline from './lume-sparkline-chart.vue';
