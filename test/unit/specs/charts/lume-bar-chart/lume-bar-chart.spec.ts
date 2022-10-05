@@ -1,4 +1,3 @@
-import flushPromises from 'flush-promises';
 import {
   generateData,
   labels,
@@ -8,6 +7,7 @@ import {
 } from '../../mock-data';
 import BarChart from '@/components/charts/lume-bar-chart';
 import { BaseTestSuite } from '../../../reusable.test';
+import { flushPromises } from '../../../flush-promises';
 
 const numberOfSets = 2;
 const numberOfBars = singleSetData[0].values.length;
