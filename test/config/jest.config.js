@@ -9,10 +9,11 @@ module.exports = async () => ({
   preset: 'ts-jest',
   // eslint-disable-next-line no-undef
   rootDir: path.resolve(__dirname, '..', '..'),
-  roots: ['<rootDir>/test/unit/specs/'],
+  roots: ['<rootDir>/src/components/', '<rootDir>/src/composables/'],
   moduleNameMapper: {
     '^.+\\.(css|less|scss)$': 'identity-obj-proxy',
     '^@/(.*)$': '<rootDir>/src/$1',
+    '^@test/(.*)$': '<rootDir>/test/$1',
   },
   moduleFileExtensions: [
     'js',
@@ -29,6 +30,7 @@ module.exports = async () => ({
   ],
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/test/config/setupTests.ts'],
+  snapshotResolver: '<rootDir>/test/config/snapshotResolver.js',
   transform: {
     // process `*.js` files with `babel-jest`
     // ".*\\.(js)$": "babel-jest",
