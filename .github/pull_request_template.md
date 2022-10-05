@@ -15,6 +15,8 @@ Relates to # <!-- [Relates to / Closes / Fixes] + Github issue # here -->
 
 ## 💥 Is this a breaking change (Yes/No):
 
-<!-- If Yes, please describe the impact and migration path for existing Lume users. -->
+> <!-- If Yes, please describe the impact and migration path for existing Lume users. -->
 
 ## 📝 Additional Information
+
+>
