@@ -1,7 +1,9 @@
-import { mount, Wrapper } from '@vue/test-utils';
-import { LumeChart } from '@/components/core';
-import { generateData } from './specs/mock-data';
 import { VueConstructor } from 'vue';
+import { mount, Wrapper } from '@vue/test-utils';
+
+import { LumeChart } from '@/components/core';
+
+import { generateData } from './mock-data';
 
 type ComponentInstance = VueConstructor;
 type PropsData = Record<string, unknown>;

@@ -17,5 +17,12 @@
     "target": "esnext",
     "resolveJsonModule": true
   },
-  "exclude": ["node_modules", "docs", "test", "src/**/*.stories.ts", "src/next"]
+  "exclude": [
+    "node_modules",
+    "docs",
+    "test",
+    "src/**/*.stories.ts",
+    "src/**/*.spec.ts",
+    "src/next"
+  ]
 }
