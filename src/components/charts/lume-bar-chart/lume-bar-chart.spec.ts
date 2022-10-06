@@ -8,7 +8,7 @@ import {
   xScale,
   yScale,
 } from '@test/unit/mock-data';
-import { flushPromises } from '@test/unit/flush-promises';
+import { flushPromises } from '@test/unit/utils/flush-promises';
 
 const numberOfSets = 2;
 const numberOfBars = singleSetData[0].values.length;
