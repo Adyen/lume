@@ -17,7 +17,8 @@
     },
     "sourceMap": true,
     "target": "esnext",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "jsx": "preserve"
   },
   "exclude": [
     "node_modules",
