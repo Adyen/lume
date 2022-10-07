@@ -8,10 +8,7 @@ module.exports = merge(prod, {
   output: {
     clean: true,
     path: path.resolve(__dirname, '../dist'),
-    assetModuleFilename: 'assets/[hash][ext][query]',
-    filename: ({ chunk: { name } }) => {
-      return name.startsWith('charts/') ? '[name].js' : '[name].esm.js';
-    },
+    filename: '[name].esm.js',
     library: {
       type: 'module',
     },
@@ -20,6 +17,11 @@ module.exports = merge(prod, {
   experiments: {
     outputModule: true,
   },
-  externals: { vue: 'vue' },
+  externals: {
+    '@popperjs/core': '@popperjs/core',
+    d3: 'd3',
+    'd3-sankey': 'd3-sankey',
+    vue: 'vue',
+  },
   externalsType: 'module',
 });

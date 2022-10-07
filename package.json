@@ -58,12 +58,11 @@
     "unit-exp": "NODE_OPTIONS=\"--experimental-vm-modules\"; jest --config=test/config/jest.config.js",
     "unit": "jest --config=test/config/jest.config.js"
   },
-  "dependencies": {
+  "dependencies": {},
+  "peerDependencies": {
     "@popperjs/core": "^2.11.4",
     "d3": "^6.6.2",
-    "d3-sankey": "^0.12.3"
-  },
-  "peerDependencies": {
+    "d3-sankey": "^0.12.3",
     "vue": "^2.7.8"
   },
   "devDependencies": {
