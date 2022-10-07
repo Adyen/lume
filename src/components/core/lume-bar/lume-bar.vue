@@ -1,5 +1,6 @@
 <template>
   <rect
+    ref="root"
     class="lume-bar"
     :class="[
       ...computedClasses,
@@ -20,10 +21,19 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, toRefs } from 'vue';
+import {
+  computed,
+  defineComponent,
+  onMounted,
+  PropType,
+  ref,
+  toRefs,
+} from 'vue';
 
 import { useBarSizing } from './composables/bar-sizing';
 import { useBarTransition } from './composables/bar-transition';
+
+import { svgCheck } from '@/utils/svg-check';
 
 type BarTransitionProperty = 'width' | 'height';
 
@@ -64,6 +74,7 @@ export default defineComponent({
   },
   setup(props) {
     const { x, y, width, height, transition, classList } = toRefs(props);
+    const root = ref<SVGRectElement>(null);
 
     const computedClasses = computed(() => {
       if (typeof classList.value === 'string') return [classList.value];
@@ -101,12 +112,15 @@ export default defineComponent({
         ? transitionProps.transformOrigin
         : null;
 
+    onMounted(() => svgCheck(root.value));
+
     return {
       computedClasses,
       computedWidth,
       computedHeight,
       computedX,
       computedY,
+      root,
       shouldTransitionWidth,
       shouldTransitionHeight,
       transformOrigin,

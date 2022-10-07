@@ -1,5 +1,6 @@
 <template>
   <circle
+    ref="root"
     class="lume-point"
     :class="`lume-stroke--${color}`"
     :r="active ? radius : 0"
@@ -10,11 +11,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue';
+import { computed, defineComponent, onMounted, PropType, ref } from 'vue';
 
 import { Scale } from '@/composables/scales';
 
 import { getScaleStep, isBandScale } from '@/utils/helpers';
+import { svgCheck } from '@/utils/svg-check';
 
 export default defineComponent({
   props: {
@@ -48,6 +50,8 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const root = ref<SVGCircleElement>(null);
+
     const xAxisOffset = computed(() => getScaleStep(props.xScale) / 2);
     const domain = computed(() => props.xScale.domain());
 
@@ -58,7 +62,9 @@ export default defineComponent({
     );
     const cy = computed(() => props.yScale(props.value));
 
-    return { cx, cy };
+    onMounted(() => svgCheck(root.value));
+
+    return { cx, cy, root };
   },
 });
 </script>

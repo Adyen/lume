@@ -1,5 +1,6 @@
 <template>
   <path
+    ref="root"
     class="lume-line"
     :class="{
       [`lume-stroke--${color}`]: true,
@@ -16,13 +17,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue';
+import { computed, defineComponent, onMounted, PropType, ref } from 'vue';
 import { ScaleBand, ScaleLinear } from 'd3-scale';
 import { line } from 'd3-shape';
 
 import { Scale } from '@/composables/scales';
 
 import { getDomainLength, getScaleStep, isBandScale } from '@/utils/helpers';
+import { svgCheck } from '@/utils/svg-check';
 
 import styleVariables from '@/styles/_variables.scss';
 
@@ -60,6 +62,8 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const root = ref<SVGPathElement>(null);
+
     const animationDuration = computed(
       () => LUME_TRANSITION_TIME_FULL / (getDomainLength(props.xScale) - 1) // Subtracting the first line (read below)
     );
@@ -93,7 +97,9 @@ export default defineComponent({
         .y((d) => props.yScale(d))(props.values);
     });
 
-    return { animationDelay, animationDuration, pathDefinition };
+    onMounted(() => svgCheck(root.value));
+
+    return { animationDelay, animationDuration, pathDefinition, root };
   },
 });
 </script>

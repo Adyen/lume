@@ -1,8 +1,12 @@
 import { isProd } from './helpers';
 
 export enum Warnings {
+  // Datasets
   DatasetLength = 'Our guidelines highly recommend not having more than 5 datasets in one chart.\nLearn more: https://lume.design/guidelines/datasets',
   ColorLoop = 'Colors will loop around after the 5th dataset. You can prevent this by setting specific colors for your datasets.',
+
+  // SVG rules
+  NotContainedInSvg = 'This component is an `SVGElement`, thus it is required to be inside an `<svg>` container.',
 }
 
 const PREFIX = '[lume] ';

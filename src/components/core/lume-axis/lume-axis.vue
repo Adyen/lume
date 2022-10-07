@@ -1,6 +1,7 @@
 <template>
   <g
     v-if="scale && !isLoading"
+    ref="root"
     class="axis"
     :transform="axisTransform"
     data-j-axis
@@ -49,6 +50,7 @@ import Vue, {
   computed,
   defineComponent,
   onBeforeMount,
+  onMounted,
   PropType,
   reactive,
   ref,
@@ -63,6 +65,7 @@ import { AxisOptions, useOptions, withOptions } from '@/composables/options';
 import { Scale } from '@/composables/scales';
 import { useSkip } from './composables/lume-skip';
 
+import { svgCheck } from '@/utils/svg-check';
 import { ContainerSize } from '@/types/size';
 import { xOptions, yOptions } from './defaults';
 import { AxisMixin, AxisMixinFunction } from './types';
@@ -113,6 +116,7 @@ export default defineComponent({
     const mixins = reactive<Record<string, AxisMixinFunction>>({});
     const tickRefs = ref<Array<SVGTextElement>>(null);
     const isLoading = ref<boolean>(false);
+    const root = ref<SVGGElement>(null);
 
     const computedPosition = computed(() =>
       props.type ? TYPES[props.type] : props.position
@@ -202,6 +206,8 @@ export default defineComponent({
       watch(scale, init, { flush: 'sync' });
     });
 
+    onMounted(() => svgCheck(root.value));
+
     return {
       allOptions,
       axisTransform,
@@ -211,6 +217,7 @@ export default defineComponent({
       isLoading,
       mixins,
       onTickMouseover,
+      root,
       showTick,
       tickRefs,
       ticks,
