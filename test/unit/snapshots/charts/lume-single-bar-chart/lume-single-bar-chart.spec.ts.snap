@@ -10,29 +10,37 @@ exports[` 1`] = `
   <div
     class="lume-chart__header"
   >
-    <!---->
-     
     <div
-      class="lume-chart__controls"
-    />
-     
-    <!---->
-     
-    <div
-      class="lume-chart-legend lume-chart__legend"
-      data-j-chart-legend=""
+      class="lume-chart__header-section"
     >
+      <!---->
+       
       <div
-        class="lume-chart-legend__item"
-        tabindex="0"
+        class="lume-chart__controls"
+      />
+    </div>
+     
+    <div
+      class="lume-chart__header-section"
+    >
+      <!---->
+       
+      <div
+        class="lume-chart-legend lume-chart__legend"
+        data-j-chart-legend=""
       >
-        <span
-          class="lume-chart-legend__circle lume-background-color--skyblue"
-          data-j-chart-legend__circle=""
-        />
-        
+        <div
+          class="lume-chart-legend__item"
+          tabindex="0"
+        >
+          <span
+            class="lume-chart-legend__circle lume-background-color--skyblue"
+            data-j-chart-legend__circle=""
+          />
+          
     
   
+        </div>
       </div>
     </div>
   </div>
