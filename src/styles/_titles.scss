@@ -1,5 +1,6 @@
 @use 'variables' as *;
 @use 'mixins/base' as *;
+@use 'mixins/typography' as *;
 
 @mixin title-base {
   @include base;
@@ -9,19 +10,15 @@
 
 .lume-chart-title {
   @include title-base;
+  @include typography-heading;
 
+  color: $lume-color-grey-100;
   margin-bottom: 1rem;
-
-  font-size: $lume-text-font-size-big;
-  font-weight: $lume-text-font-weight-medium;
-  line-height: 2rem;
 }
 
 .lume-axis-title {
   @include title-base;
+  @include typography-body;
 
-  font-size: $lume-text-font-size-medium;
-  font-weight: $lume-text-font-weight-normal;
-  line-height: 1rem;
-  color: $lume-color-grey-50;
+  color: $lume-color-grey-60;
 }

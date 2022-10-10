@@ -1,0 +1,25 @@
+@use '../variables/typography' as *;
+
+@mixin typography-heading {
+  font-size: $lume-font-size-lg;
+  font-weight: $lume-font-weight-medium;
+  line-height: $lume-line-height-lg;
+}
+
+@mixin typography-body {
+  font-size: $lume-font-size-md;
+  font-weight: $lume-font-weight-regular;
+  line-height: $lume-line-height-md;
+}
+
+@mixin typography-caption {
+  font-size: $lume-font-size-sm;
+  font-weight: $lume-font-weight-regular;
+  line-height: $lume-line-height-sm;
+}
+
+@mixin typography-axis {
+  font-size: $lume-font-size-xs;
+  font-weight: $lume-font-weight-medium;
+  line-height: $lume-line-height-xs;
+}

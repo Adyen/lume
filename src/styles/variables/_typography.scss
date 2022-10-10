@@ -2,15 +2,21 @@
 
 $lume-font-family: 'Inter', sans-serif !default;
 
-// Weight
-
-$lume-text-font-weight-normal: 400 !default;
-$lume-text-font-weight-medium: 500 !default;
-$lume-text-font-weight-semi-bold: 600 !default;
-$lume-text-font-weight-bold: 700 !default;
-
 // Size
 
-$lume-text-font-size-small: 13px !default;
-$lume-text-font-size-medium: 14px !default;
-$lume-text-font-size-big: 24px !default;
+$lume-font-size-xs: 10px !default;
+$lume-font-size-sm: 12px !default;
+$lume-font-size-md: 14px !default;
+$lume-font-size-lg: 20px !default;
+
+// Line height
+
+$lume-line-height-xs: 14px !default;
+$lume-line-height-sm: 16px !default;
+$lume-line-height-md: 22px !default;
+$lume-line-height-lg: 28px !default;
+
+// Weight
+
+$lume-font-weight-regular: 400 !default;
+$lume-font-weight-medium: 500 !default;

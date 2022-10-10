@@ -1,5 +1,6 @@
 @use '~@/styles/variables' as *;
 @use '~@/styles/mixins/base' as *;
+@use '~@/styles/mixins/typography' as *;
 
 .lume-alluvial-group {
   @include base;
@@ -44,11 +45,12 @@
   }
 
   &__node-title {
-    font-size: $lume-text-font-size-small;
+    @include typography-caption;
   }
 
   &__node-value {
-    font-size: $lume-text-font-size-small;
-    font-weight: $lume-text-font-weight-semi-bold;
+    @include typography-caption;
+
+    font-weight: $lume-font-weight-medium;
   }
 }

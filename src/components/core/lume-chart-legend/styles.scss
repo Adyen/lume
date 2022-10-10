@@ -1,5 +1,6 @@
 @use '~@/styles/variables' as *;
 @use '~@/styles/mixins/base' as *;
+@use '~@/styles/mixins/typography' as *;
 
 .lume-chart-legend {
   @include base;
@@ -8,13 +9,15 @@
   justify-items: end;
 
   &__item {
+    @include typography-body;
+
     display: flex;
     align-items: center;
 
     padding: 0.25rem 0.5rem;
     gap: 0.25rem;
 
-    font-size: $lume-text-font-size-small;
+    color: $lume-color-grey-60;
 
     cursor: default;
   }

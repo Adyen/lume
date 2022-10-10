@@ -17,15 +17,23 @@ exports[`lume-sparkline.vue mounts component and sets custom area color 1`] = `
   <div
     class="lume-chart__header"
   >
-    <!---->
+    <div
+      class="lume-chart__header-section"
+    >
+      <!---->
+       
+      <div
+        class="lume-chart__controls"
+      />
+    </div>
      
     <div
-      class="lume-chart__controls"
-    />
-     
-    <!---->
-     
-    <!---->
+      class="lume-chart__header-section"
+    >
+      <!---->
+       
+      <!---->
+    </div>
   </div>
    
   <svg
@@ -64,15 +72,23 @@ exports[`lume-sparkline.vue mounts component and sets prop values 1`] = `
   <div
     class="lume-chart__header"
   >
-    <!---->
+    <div
+      class="lume-chart__header-section"
+    >
+      <!---->
+       
+      <div
+        class="lume-chart__controls"
+      />
+    </div>
      
     <div
-      class="lume-chart__controls"
-    />
-     
-    <!---->
-     
-    <!---->
+      class="lume-chart__header-section"
+    >
+      <!---->
+       
+      <!---->
+    </div>
   </div>
    
   <svg
