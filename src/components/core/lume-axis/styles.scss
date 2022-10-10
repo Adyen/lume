@@ -1,7 +1,7 @@
 @use '~@/styles/variables' as *;
 @use '~@/styles/mixins/base' as *;
+@use '~@/styles/mixins/typography' as *;
 
-$axis-label-font-size: 10px;
 $axis-label-color: $lume-color-grey-50;
 $axis-label-hover-color: $lume-color-grey-70;
 
@@ -21,8 +21,9 @@ $axis-line-color: $lume-color-grey-20;
   }
 
   &__label {
+    @include typography-axis;
+
     fill: $axis-label-color;
-    font-size: $axis-label-font-size;
     cursor: default;
     transition: all $lume-transition-time-short ease-in-out;
   }
