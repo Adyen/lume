@@ -9,36 +9,40 @@
   >
     <template #header>
       <div class="lume-chart__header">
-        <!-- chart title -->
-        <h1
-          v-if="title"
-          class="lume-chart__title lume-chart-title"
-        >
-          {{ title }}
-        </h1>
+        <div class="lume-chart__header-section">
+          <!-- chart title -->
+          <h1
+            v-if="title"
+            class="lume-chart__title lume-chart-title"
+          >
+            {{ title }}
+          </h1>
 
-        <!-- segmented control / filter -->
-        <div class="lume-chart__controls">
-          <slot name="controls" />
+          <!-- segmented control / filter -->
+          <div class="lume-chart__controls">
+            <slot name="controls" />
+          </div>
         </div>
 
-        <!-- y axis title -->
-        <h3
-          v-if="showYAxisTitle"
-          class="lume-chart__axis-title lume-axis-title"
-        >
-          {{ yAxisTitle }}
-        </h3>
+        <div class="lume-chart__header-section">
+          <!-- y axis title -->
+          <h3
+            v-if="showYAxisTitle"
+            class="lume-chart__axis-title lume-axis-title"
+          >
+            {{ yAxisTitle }}
+          </h3>
 
-        <!-- chart legend -->
-        <lume-chart-legend
-          v-if="
-            allOptions.withLegend !== false &&
-              allOptions.legendPosition !== 'bottom'
-          "
-          class="lume-chart__legend"
-          :data="internalData"
-        />
+          <!-- chart legend -->
+          <lume-chart-legend
+            v-if="
+              allOptions.withLegend !== false &&
+                allOptions.legendPosition !== 'bottom'
+            "
+            class="lume-chart__legend"
+            :data="internalData"
+          />
+        </div>
       </div>
     </template>
 

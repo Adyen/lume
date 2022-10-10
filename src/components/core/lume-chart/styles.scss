@@ -5,22 +5,24 @@
   @include base;
 
   &__header {
-    display: grid;
-    grid-template-rows: auto auto;
-    grid-template-columns: auto auto;
-    grid-template-areas: 'title controls' 'axis-title legend';
+    &-section {
+      display: flex;
+      align-items: center;
+      grid-template-columns: auto auto;
+      grid-template-areas: 'left right';
+    }
   }
 
   &__title {
-    grid-area: title;
+    grid-area: left;
   }
 
   &__controls {
-    grid-area: controls;
+    grid-area: right;
   }
 
   &__axis-title {
-    grid-area: axis-title;
+    grid-area: left;
 
     &--centered {
       text-align: center;
@@ -28,7 +30,7 @@
   }
 
   &__legend {
-    grid-area: legend;
+    grid-area: right;
     margin-left: auto;
 
     &--bottom {
