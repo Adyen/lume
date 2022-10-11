@@ -92,4 +92,4 @@ export const TOOLTIP_POSITIONS = [
   'left',
   'left-start',
   'left-end',
-] as const; // so that type is not string[]
+];

@@ -249,7 +249,7 @@ function init() {
 
   // Get mixin generator based on the scale type
   const mixin: AxisMixin =
-        mixinTypes[`${computedType.value}-${SCALE_MIXIN_MAP[scaleType]}`];
+    mixinTypes[`${computedType.value}-${SCALE_MIXIN_MAP[scaleType]}`];
 
   // Push all mixin functions into the `mixins` reactive object
   Object.entries(mixin(scale, containerSize, allOptions) || []).forEach(
