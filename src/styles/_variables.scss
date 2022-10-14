@@ -17,14 +17,11 @@ $lume-border: $lume-border-width $lume-border-style $lume-border-color !default;
 
 // Box-shadow
 
-$lume-box-shadow: 0 $lume-spacing-8 $lume-spacing-16 rgba($lume-color-black, 0.1) !default;
+$lume-box-shadow: 0 $lume-spacing-8 $lume-spacing-16
+  rgba($lume-color-black, 0.1) !default;
 
 // Transition
 
 $lume-transition-time-short: 0.1s !default;
 $lume-transition-time-long: 0.3s !default;
 $lume-transition-time-full: 1s !default;
-
-:export {
-  transitionTimeFull: $lume-transition-time-full;
-}

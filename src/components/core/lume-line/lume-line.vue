@@ -26,9 +26,7 @@ import { Scale } from '@/composables/scales';
 import { getDomainLength, getScaleStep, isBandScale } from '@/utils/helpers';
 import { svgCheck } from '@/utils/svg-check';
 
-import styleVariables from '@/styles/_variables.scss';
-
-const LUME_TRANSITION_TIME_FULL = parseFloat(styleVariables.transitionTimeFull);
+const LUME_TRANSITION_TIME_FULL = 1; // 1s
 
 export default defineComponent({
   props: {
