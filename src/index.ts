@@ -50,4 +50,6 @@ if (GlobalVue) {
   GlobalVue.use(plugin);
 }
 
+export * from './components/index';
+
 export default plugin;

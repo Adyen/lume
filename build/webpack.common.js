@@ -1,31 +1,15 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable no-undef */
-const fs = require('fs');
-const path = require('path');
-const { VueLoaderPlugin } = require('vue-loader');
-const CopyPlugin = require('copy-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+import { VueLoaderPlugin } from 'vue-loader';
+import CopyPlugin from 'copy-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
-function convertDirToEntryPoints(dir) {
-  return fs
-    .readdirSync(path.resolve(__dirname, '../src/components/' + dir))
-    .reduce((acc, name) => {
-      if (name.startsWith('lume-')) {
-        acc[`${dir}/${name}`] = `./src/components/${dir}/${name}`;
-      }
-      return acc;
-    }, {});
-}
+import { resolve } from './util.js';
 
-module.exports = {
-  context: path.resolve(__dirname, '../'),
+export default {
+  context: resolve(),
   entry: {
     index: './src/index.ts',
     'styles/main': './src/styles/main.scss',
     'styles/font': './src/styles/font.scss',
-    ...convertDirToEntryPoints('charts'),
-    ...convertDirToEntryPoints('core'),
-    ...convertDirToEntryPoints('groups'),
   },
   module: {
     rules: [
@@ -66,8 +50,8 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, '../src/styles'),
-          to: path.resolve(__dirname, '../dist/scss'),
+          from: resolve('src/styles'),
+          to: resolve('dist/scss'),
         },
       ],
     }),
@@ -76,11 +60,11 @@ module.exports = {
     extensions: ['.vue', '.js', '.ts'],
     modules: ['./node_modules'],
     alias: {
-      '@': path.resolve(__dirname, '../src/'),
+      '@': resolve('src/'),
     },
   },
   cache: {
     type: 'filesystem',
-    cacheDirectory: path.resolve(__dirname, '../.cache/webpack'),
+    cacheDirectory: resolve('.cache/webpack'),
   },
 };
