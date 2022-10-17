@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 const path = require('path');
 // eslint-disable-next-line
-const istanbulConfig = require('./istanbul.config');
+const istanbulConfig = require('./istanbul.config.cjs');
 
 // eslint-disable-next-line no-undef
 module.exports = async () => ({
