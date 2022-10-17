@@ -57,7 +57,6 @@
     "unit-exp": "NODE_OPTIONS=\"--experimental-vm-modules\"; jest --config=test/config/jest.config.js",
     "unit": "jest --config=test/config/jest.config.js"
   },
-  "dependencies": {},
   "peerDependencies": {
     "@popperjs/core": "^2.11.4",
     "d3": "^6.6.2",
@@ -105,7 +104,7 @@
     "vue-jest": "^3.0.7",
     "vue-loader": "^15.10.0",
     "vue-style-loader": "^4.1.3",
-    "vue-template-compiler": "^2.7.8",
+    "vue-template-compiler": "^2.7.10",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.10.0",
