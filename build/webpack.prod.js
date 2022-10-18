@@ -17,8 +17,11 @@ export default merge(common, {
   experiments: { outputModule: true },
   externals: {
     '@popperjs/core': '@popperjs/core',
-    d3: 'd3',
+    'd3-array': 'd3-array',
+    'd3-format': 'd3-format',
     'd3-sankey': 'd3-sankey',
+    'd3-scale': 'd3-scale',
+    'd3-shape': 'd3-shape',
     vue: 'vue',
   },
   externalsType: 'module',
