@@ -52,22 +52,26 @@
     "unit-exp": "NODE_OPTIONS=\"--experimental-vm-modules\"; jest --config=test/config/jest.config.cjs",
     "unit": "jest --config=test/config/jest.config.cjs"
   },
-  "dependencies": {},
-  "peerDependencies": {
+  "dependencies": {
     "@popperjs/core": "^2.11.4",
-    "d3": "^6.6.2",
+    "d3-array": "^2.12.1",
+    "d3-format": "^1.4.5",
     "d3-sankey": "^0.12.3",
+    "d3-scale": "^4.0.2",
+    "d3-shape": "^2.1.0"
+  },
+  "peerDependencies": {
     "vue": "^2.7.8"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^6.5.4",
-    "@storybook/addon-essentials": "^6.5.4",
+    "@storybook/addon-essentials": "^6.5.12",
     "@storybook/addon-storysource": "^6.5.4",
     "@storybook/addons": "^6.5.4",
     "@storybook/builder-webpack5": "^6.5.4",
     "@storybook/manager-webpack5": "^6.5.4",
     "@storybook/theming": "^6.5.4",
-    "@storybook/vue": "^6.5.4",
+    "@storybook/vue": "^6.5.12",
     "@types/d3-format": "^3.0.1",
     "@types/d3-sankey": "^0.11.2",
     "@types/d3-scale": "^4.0.2",
