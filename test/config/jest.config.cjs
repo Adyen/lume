@@ -30,7 +30,7 @@ module.exports = async () => ({
   ],
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/test/config/setupTests.ts'],
-  snapshotResolver: '<rootDir>/test/config/snapshotResolver.js',
+  snapshotResolver: '<rootDir>/test/config/snapshotResolver.cjs',
   transform: {
     // process `*.js` files with `babel-jest`
     // ".*\\.(js)$": "babel-jest",

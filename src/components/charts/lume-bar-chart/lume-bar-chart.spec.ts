@@ -19,7 +19,7 @@ const barChartTestSuiteFactory = (propsData) =>
 
 describe('lume-bar-chart.vue', () => {
   test('mounts component and sets prop values', async () => {
-    const wrapper = await barChartTestSuiteFactory({
+    const wrapper = barChartTestSuiteFactory({
       data: singleSetData,
       labels,
       xScale,
@@ -31,8 +31,8 @@ describe('lume-bar-chart.vue', () => {
     expect(wrapper.find('[data-j-lume-bar-chart]')).toBeTruthy();
   });
 
-  test.skip('should display single bar chart', async () => {
-    const wrapper = await barChartTestSuiteFactory({
+  test('should display single bar chart', async () => {
+    const wrapper = barChartTestSuiteFactory({
       data: singleSetData,
       labels,
       xScale,
@@ -47,10 +47,10 @@ describe('lume-bar-chart.vue', () => {
     expect(el.findAll('[data-j-lume-bar]')).toHaveLength(numberOfBars);
   });
 
-  test('should display grouped bar chart', async () => {
+  test.skip('should display grouped bar chart', async () => {
     const type = 'grouped';
 
-    const wrapper = await barChartTestSuiteFactory({
+    const wrapper = barChartTestSuiteFactory({
       data: multiSetData,
       type,
       labels,
@@ -68,10 +68,10 @@ describe('lume-bar-chart.vue', () => {
     );
   });
 
-  test('should display stacked bar chart', async () => {
+  test.skip('should display stacked bar chart', async () => {
     const type = 'stacked';
 
-    const wrapper = await barChartTestSuiteFactory({
+    const wrapper = barChartTestSuiteFactory({
       data: multiSetData,
       type,
       labels,
