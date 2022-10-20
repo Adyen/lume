@@ -35,7 +35,7 @@ exports[` 1`] = `
         >
           <span
             class="lume-chart-legend__circle lume-background-color--skyblue"
-            data-j-chart-legend__circle=""
+            data-j-chart-legend__symbol=""
           />
           
     
