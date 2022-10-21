@@ -54,6 +54,10 @@ $lume-tooltip-symbol-size: $lume-spacing-10 !default;
     display: flex;
     min-width: $lume-tooltip-item-min-width;
     margin-bottom: $lume-spacing-4;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   &__symbol {

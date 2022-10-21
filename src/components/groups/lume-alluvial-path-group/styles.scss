@@ -1,6 +1,6 @@
-@use '~@/styles/_variables.scss' as *;
+@use '~@/styles/variables' as *;
 
-$alluvial-link-opacity: 0.6;
+$alluvial-link-opacity: 0.5;
 $alluvial-link-opacity-faded: 0.2;
 
 .lume-alluvial-path-group {

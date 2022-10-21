@@ -24,6 +24,11 @@ module.exports = {
   ],
   staticDirs: ['./static'],
   webpackFinal: async (config) => {
+    // https://github.com/storybookjs/storybook/issues/15335#issuecomment-1013136904
+    config.module.rules.push({
+      resolve: { fullySpecified: false },
+    });
+
     config.module.rules.push({
       test: /\.s[ac]ss|\.css$/,
       use: ['vue-style-loader', 'css-loader', 'sass-loader'],
