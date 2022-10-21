@@ -23,7 +23,7 @@ import LumeChart from '@/components/core/lume-chart';
 import LumeBarGroup from '@/components/groups/lume-bar-group';
 
 import { useBase } from '@/composables/base';
-import { useOptions } from '@/composables/options';
+import { BarChartOptions, useOptions } from '@/composables/options';
 import { withChartProps } from '@/composables/props';
 import { useBarMixin } from '@/components/groups/lume-bar-group/composables/bar-mixin';
 import { useStackedAxes } from '@/components/groups/lume-bar-group/composables/stacked-mixin';
@@ -35,7 +35,7 @@ import { options as defaultOptions } from './defaults';
 export default defineComponent({
   components: { LumeChart, LumeBarGroup },
   props: {
-    ...withChartProps(),
+    ...withChartProps<BarChartOptions>(),
   },
   setup(props) {
     // State from mixins

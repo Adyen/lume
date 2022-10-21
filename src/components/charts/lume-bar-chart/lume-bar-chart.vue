@@ -12,7 +12,7 @@ import { computed, defineAsyncComponent, defineComponent, PropType } from 'vue';
 
 import { singleDatasetValidator } from '@/utils/helpers';
 import { withChartProps } from '@/composables/props';
-import { Options } from '@/composables/options';
+import { BarChartOptions, Options } from '@/composables/options';
 
 import { ORIENTATIONS } from '@/constants';
 
@@ -39,7 +39,7 @@ export default defineComponent({
     ),
   },
   props: {
-    ...withChartProps(),
+    ...withChartProps<BarChartOptions>(),
     type: {
       type: String as PropType<TYPES>,
       default: null,

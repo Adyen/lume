@@ -61,6 +61,7 @@ export default defineComponent({
     const {
       data,
       hoveredIndex,
+      options,
       orientation,
       transition,
       type,
@@ -71,7 +72,12 @@ export default defineComponent({
 
     const { groupedData } = useBarMixin(data);
 
-    const { barXScale, barYScale } = useBarScales(xScale, yScale, orientation);
+    const { barXScale, barYScale } = useBarScales(
+      xScale,
+      yScale,
+      options,
+      orientation
+    );
 
     const computedClasses = computed(() => {
       if (typeof classList.value === 'string') return [classList.value];

@@ -132,6 +132,7 @@ No props.
 | -------------- | ---------------------------- | ---------------------------------------- |
 | `data`         | `Data`                       | The data to plot.                        |
 | `labels`       | `Array<string \| number>`    | The group of labels to plot the data to. |
+| `options`      | `Options`                    | A set of chart options.                  |
 | `orientation`  | `'vertical' \| 'horizontal'` | The chart's orientation.                 |
 | `xScale`       | `Scale`                      | The base X scale.                        |
 | `yScale`       | `Scale`                      | The base Y scale.                        |

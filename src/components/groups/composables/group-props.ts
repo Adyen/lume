@@ -1,5 +1,6 @@
 import { PropType } from 'vue';
 
+import { Options } from '@/composables/options';
 import { Scale } from '@/composables/scales';
 
 import { InternalData } from '@/types/dataset';
@@ -20,5 +21,9 @@ export const withGroupProps = () => ({
   hoveredIndex: {
     type: Number,
     default: -1,
+  },
+  options: {
+    type: Object as PropType<Options>,
+    default: () => ({}),
   },
 });
