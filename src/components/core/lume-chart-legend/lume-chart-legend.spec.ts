@@ -13,18 +13,18 @@ describe('lume-chart-legend.vue', () => {
     });
 
     expect(wrapper.exists()).toBeTruthy();
-    expect(wrapper.findAll('[data-j-chart-legend__circle]')).toHaveLength(
+    expect(wrapper.findAll('[data-j-chart-legend__symbol]')).toHaveLength(
       numberOfSets
     );
     expect(
       wrapper
-        .find('[data-j-chart-legend__circle]')
+        .find('[data-j-chart-legend__symbol]')
         .classes()
         .includes('lume-background-color--01')
     ).toBe(true);
     expect(
       wrapper
-        .findAll('[data-j-chart-legend__circle]')
+        .findAll('[data-j-chart-legend__symbol]')
         .at(1)
         .classes()
         .includes('lume-background-color--02')
