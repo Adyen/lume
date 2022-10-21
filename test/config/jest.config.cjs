@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 const path = require('path');
 // eslint-disable-next-line
-const istanbulConfig = require('./istanbul.config');
+const istanbulConfig = require('./istanbul.config.cjs');
 
 // eslint-disable-next-line no-undef
 module.exports = async () => ({
@@ -30,7 +30,7 @@ module.exports = async () => ({
   ],
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/test/config/setupTests.ts'],
-  snapshotResolver: '<rootDir>/test/config/snapshotResolver.js',
+  snapshotResolver: '<rootDir>/test/config/snapshotResolver.cjs',
   transform: {
     // process `*.js` files with `babel-jest`
     // ".*\\.(js)$": "babel-jest",

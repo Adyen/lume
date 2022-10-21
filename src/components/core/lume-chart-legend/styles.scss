@@ -2,6 +2,8 @@
 @use '~@/styles/mixins/base' as *;
 @use '~@/styles/mixins/typography' as *;
 
+$legend-symbol-size: $lume-spacing-10 !default;
+
 .lume-chart-legend {
   @include base;
 
@@ -22,10 +24,10 @@
     cursor: default;
   }
 
-  &__circle {
+  &__symbol {
     display: inline-block;
-    width: 0.5rem;
-    height: 0.5rem;
+    width: $legend-symbol-size;
+    height: $legend-symbol-size;
 
     border-radius: 50%;
   }

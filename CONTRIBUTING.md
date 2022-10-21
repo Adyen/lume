@@ -8,9 +8,9 @@ To help you get ready to do meaningful contributions to this repository, please 
 
 ## Important links
 
-- Code of Conduct
+- [Code of conduct](https://github.com/Adyen/lume/blob/main/CODE_OF_CONDUCT.md)
 - Design principles
-- [Design guidelines](https://www.figma.com/file/LlbuDypxEbEZIo4qzPaX5kDG/%F0%9F%93%88Data-visualization?node-id=0%3A1)
+- [Design guidelines](https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A2)
 - [gitmoji](https://gitmoji.dev/)
 
 ## Development

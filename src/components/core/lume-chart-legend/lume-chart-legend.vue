@@ -10,9 +10,9 @@
       tabindex="0"
     >
       <span
-        class="lume-chart-legend__circle"
+        class="lume-chart-legend__symbol"
         :class="`lume-background-color--${dataset.color}`"
-        data-j-chart-legend__circle
+        data-j-chart-legend__symbol
       />
       {{ dataset.label }}
     </div>
