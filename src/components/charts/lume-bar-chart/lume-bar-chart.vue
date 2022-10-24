@@ -80,9 +80,7 @@ const component = computed(() => {
   if (singleDatasetValidator(props.data)) return COMPONENT_MAP.get('single');
 
   if (!props.type) {
-    throw new Error(
-      "Bar chart needs a type when there's multiple datasets."
-    );
+    throw new Error("Bar chart needs a type when there's multiple datasets.");
   }
 
   return COMPONENT_MAP.get(props.type);
