@@ -146,14 +146,21 @@ export function getXByIndex(scale: Scale, index: number): number {
 
 export function getPaddedScale(
   scale: ScaleBand<string | number>,
-  orientation?: Orientation
+  orientation?: Orientation,
+  {
+    padding,
+    paddingInner,
+    paddingOuter,
+  }: { padding?: number; paddingInner?: number; paddingOuter?: number } = {}
 ) {
-  const padding =
-    orientation === ORIENTATIONS.HORIZONTAL
+  const defaultPadding =
+    padding ??
+    (orientation === ORIENTATIONS.HORIZONTAL
       ? PADDING_HORIZONTAL
-      : PADDING_VERTICAL;
+      : PADDING_VERTICAL);
+
   return scale
     .copy()
-    .paddingInner(padding)
-    .paddingOuter(padding / 2);
+    .paddingInner(paddingInner ?? defaultPadding)
+    .paddingOuter(paddingOuter ?? defaultPadding / 2);
 }

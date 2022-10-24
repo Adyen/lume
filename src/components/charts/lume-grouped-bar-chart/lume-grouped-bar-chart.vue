@@ -20,7 +20,7 @@ import { computed, defineComponent, toRefs } from 'vue';
 import LumeChart from '@/components/core/lume-chart';
 import LumeBarGroup from '@/components/groups/lume-bar-group';
 
-import { useOptions } from '@/composables/options';
+import { BarChartOptions, useOptions } from '@/composables/options';
 import { withChartProps } from '@/composables/props';
 
 import { ORIENTATIONS } from '@/constants';
@@ -30,7 +30,7 @@ import { options as defaultOptions } from './defaults';
 export default defineComponent({
   components: { LumeChart, LumeBarGroup },
   props: {
-    ...withChartProps(),
+    ...withChartProps<BarChartOptions>(),
   },
   setup(props) {
     // State from mixins

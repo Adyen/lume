@@ -38,6 +38,12 @@ export interface ChartOptions extends Options {
   noMinSize?: boolean;
 }
 
+export interface BarChartOptions extends ChartOptions {
+  padding?: number;
+  paddingInner?: number;
+  paddingOuter?: number;
+}
+
 export type Options = Record<string, unknown>;
 
 export const withOptions = <T = Options>() => ({

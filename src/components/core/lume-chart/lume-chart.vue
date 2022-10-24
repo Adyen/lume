@@ -91,6 +91,7 @@
         name="groups"
         :data="internalData"
         :labels="computedLabels"
+        :options="allOptions"
         :orientation="orientation"
         :x-scale="computedXScale"
         :y-scale="computedYScale"

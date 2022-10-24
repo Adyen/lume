@@ -159,5 +159,38 @@ describe('scales.ts', () => {
       expect(paddedScale.paddingInner()).toEqual(PADDING_VERTICAL);
       expect(paddedScale.paddingOuter()).toEqual(PADDING_VERTICAL / 2);
     });
+
+    test('should return scale with custom padding', () => {
+      const { yScale } = await getMixin(data);
+
+      const paddedScale = getPaddedScale(yScale.value, 'horizontal', {
+        padding: 1,
+      });
+
+      expect(paddedScale.paddingInner()).toEqual(1);
+      expect(paddedScale.paddingOuter()).toEqual(0.5);
+    });
+
+    test('should return scale with custom paddingInner', () => {
+      const { yScale } = await getMixin(data);
+
+      const paddedScale = getPaddedScale(yScale.value, 'horizontal', {
+        paddingInner: 1,
+      });
+
+      expect(paddedScale.paddingInner()).toEqual(1);
+      expect(paddedScale.paddingOuter()).toEqual(PADDING_VERTICAL / 2);
+    });
+
+    test('should return scale with custom paddingOuter', () => {
+      const { yScale } = await getMixin(data);
+
+      const paddedScale = getPaddedScale(yScale.value, 'horizontal', {
+        paddingOuter: 1,
+      });
+
+      expect(paddedScale.paddingInner()).toEqual(PADDING_VERTICAL);
+      expect(paddedScale.paddingOuter()).toEqual(1);
+    });
   });
 });
