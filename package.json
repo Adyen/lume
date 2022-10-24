@@ -1,6 +1,6 @@
 {
   "name": "@adyen/lume",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lume is a component library for visual representations of data, built for Vue with D3.",
   "type": "module",
   "module": "dist/index.js",
@@ -34,6 +34,10 @@
       "email": "vivian.joseph@adyen.com"
     }
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Adyen/lume.git"
+  },
   "scripts": {
     "build": "NODE_ENV=production webpack --config build/webpack.prod.js --progress",
     "confighooks": "git config core.hooksPath ./git-hooks",
