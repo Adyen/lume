@@ -25,4 +25,8 @@ export const withChartProps = <T extends Options = ChartOptions>(
       default: ORIENTATIONS.VERTICAL,
       validator: orientationValidator,
     },
+    classList: {
+      type: [String, Array] as PropType<string | Array<string>>,
+      default: () => [],
+    },
   });

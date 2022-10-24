@@ -3,13 +3,13 @@
     ref="root"
     class="lume-bar"
     :class="[
-      ...computedClasses,
       {
         'lume-fill--faded': isFaded,
         'lume-bar--negative': isNegative,
         'lume-bar--transition-width': shouldTransitionWidth,
         'lume-bar--transition-height': shouldTransitionHeight,
       },
+      ...computedClasses,
     ]"
     :style="{ transformOrigin: transformOrigin }"
     :x="computedX"

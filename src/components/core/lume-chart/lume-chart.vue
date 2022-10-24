@@ -98,6 +98,7 @@
         :hovered-index="hoveredIndex"
         :container-size="containerSize"
         :transition="allOptions.withTransition !== false"
+        :class-list="classList"
       />
 
       <!-- Overlay bars -->
