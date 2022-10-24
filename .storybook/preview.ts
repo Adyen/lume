@@ -1,4 +1,5 @@
-import Vue, { Component } from 'vue';
+import Vue from 'vue';
+import { useArgs } from '@storybook/client-api';
 
 import '@/styles/font.scss';
 import '@/styles/main.scss';
@@ -31,14 +32,17 @@ export const parameters = {
 };
 
 export const decorators = [
-  (Story: Component) => ({
-    components: { Story },
+  (story, context) => {
+    const [_, updateArgs] = useArgs();
+    return story({ ...context, updateArgs });
+  },
+  () => ({
     template: `
       <div class="preview">
         <div class="card">
           <story />
         </div>
       </div>
-    `,
+      `,
   }),
 ];
