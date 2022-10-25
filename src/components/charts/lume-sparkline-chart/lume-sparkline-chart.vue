@@ -22,6 +22,12 @@
         :with-points="false"
       />
     </template>
+    <template #tooltip="{ targetElement, hoveredIndex }">
+      <slot
+        :hovered-index="hoveredIndex"
+        :target-element="targetElement"
+      />
+    </template>
   </lume-chart>
 </template>
 

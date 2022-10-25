@@ -7,6 +7,12 @@
     <template #groups="props">
       <lume-alluvial-group v-bind="props" />
     </template>
+    <template #tooltip="{ targetElement, hoveredIndex }">
+      <slot
+        :hovered-index="hoveredIndex"
+        :target-element="targetElement"
+      />
+    </template>
   </lume-chart>
 </template>
 

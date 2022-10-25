@@ -8,6 +8,12 @@
     <template #groups="props">
       <lume-line-group v-bind="props" />
     </template>
+    <template #tooltip="{ targetElement, hoveredIndex }">
+      <slot
+        :hovered-index="hoveredIndex"
+        :target-element="targetElement"
+      />
+    </template>
   </lume-chart>
 </template>
 

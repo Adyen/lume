@@ -4,7 +4,14 @@
     v-bind="$props"
     :options="getBarChartOptions(options)"
     v-on="$listeners"
-  />
+  >
+    <template #tooltip="{ targetElement, hoveredIndex }">
+      <slot
+        :hovered-index="hoveredIndex"
+        :target-element="targetElement"
+      />
+    </template>
+  </component>
 </template>
 
 <script lang="ts">
