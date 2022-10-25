@@ -13,8 +13,8 @@ on:
     branches: ['main']
 
 jobs:
-  setup:
-    name: Setup
+  build:
+    name: Setup & build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repo
@@ -31,6 +31,9 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Build the package
+        run: npm run build
 
   # Skipped while test setup is crashing
   #
@@ -52,14 +55,6 @@ jobs:
   #       run: npm install vue@2.7.8 vue-template-compiler@2.7.8 --no-save
   #     - name: Run unit tests (with experimental VM modules)
   #       run: npm run unit-exp
-
-  build:
-    name: Build
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build the package
-        run: npm run build
 
   trufflehog:
     name: TruffleHog
