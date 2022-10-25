@@ -35,16 +35,16 @@ export default {
   },
 };
 
-export const Basic = ({ args, argTypes }) => {
+export const Basic = ({ argTypes }) => {
   return {
     components: { BarSparkline },
     props: Object.keys(argTypes),
     setup() {
-      return { args };
+      return { props };
     },
     template: `
     <div style="width: 160px; height: 40px">
-      <bar-sparkline v-bind="args" />
+      <bar-sparkline v-bind="props" />
     </div>
     `,
   };
