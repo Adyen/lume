@@ -11,7 +11,8 @@
     "moduleResolution": "node",
     "outDir": "./dist/",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@test/*": ["./test/*"]
     },
     "sourceMap": true,
     "target": "esnext",
