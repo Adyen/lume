@@ -59,7 +59,7 @@
   "dependencies": {
     "@popperjs/core": "^2.11.4",
     "d3-array": "^2.12.1",
-    "d3-format": "^1.4.5",
+    "d3-format": "^3.1.0",
     "d3-sankey": "^0.12.3",
     "d3-scale": "^4.0.2",
     "d3-shape": "^2.1.0"
