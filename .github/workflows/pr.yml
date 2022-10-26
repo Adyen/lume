@@ -1,9 +1,3 @@
-# This workflow will:
-#   1. Do a clean installation of node dependencies
-#   2. [skipped] Run unit tests
-#   3. Build the package
-#   4. Scan push/PRs for leaked credentials using TruffleHog
-
 name: PR workflow
 
 on:
@@ -13,48 +7,24 @@ on:
     branches: ['main']
 
 jobs:
-  build:
-    name: Setup & build
+  run-unit-tests:
+    name: Test on Node ${{ matrix.node_version }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14, 16, 18] # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
-      - name: Checkout the repo
-        uses: actions/checkout@v3
-
-      - name: Read .nvmrc
-        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
-        id: nvm
-
-      - name: Use Node version from .nvmrc
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ steps.nvm.outputs.NVMRC }}
-
+          node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: npm install
-
-      - name: Build the package
-        run: npm run build
-
-  # Skipped while test setup is crashing
-  #
-  # run-unit-tests:
-  #   name: Test on Node ${{ matrix.node_version }}
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       node-version: [14, 16, 18] # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Use Node.js ${{ matrix.node-version }}
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: ${{ matrix.node-version }}
-  #     - name: Install dependencies
-  #       run: npm ci
-  #     - name: Install Vue (peer dependency)
-  #       run: npm install vue@2.7.8 vue-template-compiler@2.7.8 --no-save
-  #     - name: Run unit tests (with experimental VM modules)
-  #       run: npm run unit-exp
+        run: npm ci
+      - name: Install Vue (peer dependency)
+        run: npm install vue@2.7.8 vue-template-compiler@2.7.8 --no-save
+      - name: Run unit tests (with experimental VM modules)
+        run: npm run unit-exp
 
   trufflehog:
     name: TruffleHog
