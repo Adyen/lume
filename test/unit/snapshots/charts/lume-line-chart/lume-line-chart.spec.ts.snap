@@ -34,7 +34,7 @@ exports[` 1`] = `
           tabindex="0"
         >
           <span
-            class="lume-chart-legend__circle lume-background-color--skyblue"
+            class="lume-chart-legend__symbol lume-background-color--skyblue"
             data-j-chart-legend__symbol=""
           />
           
@@ -696,6 +696,7 @@ exports[` 1`] = `
        
       <g
         class="lume-line-group"
+        classList=""
         containerSize="[object Object]"
         data-j-lume-line-group=""
         labels="Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday"

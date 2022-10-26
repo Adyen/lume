@@ -160,7 +160,7 @@ describe('scales.ts', () => {
       expect(paddedScale.paddingOuter()).toEqual(PADDING_VERTICAL / 2);
     });
 
-    test('should return scale with custom padding', () => {
+    test('should return scale with custom padding', async () => {
       const { yScale } = await getMixin(data);
 
       const paddedScale = getPaddedScale(yScale.value, 'horizontal', {
@@ -171,7 +171,7 @@ describe('scales.ts', () => {
       expect(paddedScale.paddingOuter()).toEqual(0.5);
     });
 
-    test('should return scale with custom paddingInner', () => {
+    test('should return scale with custom paddingInner', async () => {
       const { yScale } = await getMixin(data);
 
       const paddedScale = getPaddedScale(yScale.value, 'horizontal', {
@@ -182,7 +182,7 @@ describe('scales.ts', () => {
       expect(paddedScale.paddingOuter()).toEqual(PADDING_VERTICAL / 2);
     });
 
-    test('should return scale with custom paddingOuter', () => {
+    test('should return scale with custom paddingOuter', async () => {
       const { yScale } = await getMixin(data);
 
       const paddedScale = getPaddedScale(yScale.value, 'horizontal', {
