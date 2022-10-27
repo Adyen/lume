@@ -98,18 +98,22 @@ The simplest use for `lume-chart` is by providing `data` and `labels` props and 
 
 Interface: `ChartOptions`
 
-| Name           | Type                      | Description                                                                                 |
-| -------------- | ------------------------- | ------------------------------------------------------------------------------------------- |
-| margins        | `Margins`                 | Space around the chart.                                                                     |
-| xAxisOptions   | `AxisOptions`             | Set of options for the X axis.                                                              |
-| yAxisOptions   | `AxisOptions`             | Set of options for the Y axis.                                                              |
-| tooltipOptions | `TooltipOptions`          | Set of options for the tooltip component.                                                   |
-| startOnZero    | `boolean`                 | Controls if the Y scale should start on `0`. Always `true` for Bar charts.                  |
-| withTooltip    | `boolean`                 | Displays the chart tooltip.                                                                 |
-| withLegend     | `boolean`                 | Displays the chart legend in the header.                                                    |
-| withTransition | `boolean`                 | Toggles the chart transition animations.                                                    |
-| noBaseScales   | `boolean`                 | Controls if `LumeChart` should generate general-purpose scales or not.                      |
-| classList      | `string \| Array<string>` | A class or array of classes to apply to the chart group elements, such as bars, lines, etc. |
+| Name                  | Type                      | Description                                                                                 |
+| --------------------- | ------------------------- | ------------------------------------------------------------------------------------------- |
+| margins               | `Margins`                 | Space around the chart.                                                                     |
+| xAxisOptions          | `AxisOptions`             | Set of options for the X axis.                                                              |
+| yAxisOptions          | `AxisOptions`             | Set of options for the Y axis.                                                              |
+| tooltipOptions        | `TooltipOptions`          | Set of options for the tooltip component.                                                   |
+| colorPalette          | `ColorPalette`            | Which color sequence to use for rendering the datasets.                                     |
+| startOnZero           | `boolean`                 | Controls if the Y scale should start on `0`. Always `true` for Bar charts.                  |
+| withTooltip           | `boolean`                 | Displays the chart tooltip.                                                                 |
+| withLegend            | `boolean`                 | Displays the chart legend in the header.                                                    |
+| legendPosition        | `'top' \| 'bottom'`       | Where to display the chart legend.                                                          |
+| withTransition        | `boolean`                 | Toggles the chart transition animations.                                                    |
+| noBaseScales          | `boolean`                 | Controls if `LumeChart` should generate general-purpose scales or not.                      |
+| noMinSize             | `boolean`                 | If true, the chart container will not have minimum width/height.                            |
+| transparentBackground | `boolean`                 | If true, the `<svg>` container will not have a solid background.                            |
+| classList             | `string \| Array<string>` | A class or array of classes to apply to the chart group elements, such as bars, lines, etc. |
 
 ### Slot props
 

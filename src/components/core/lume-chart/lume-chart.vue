@@ -3,6 +3,7 @@
     :margins="allOptions.margins"
     :container-size="containerSize"
     :no-min-size="allOptions.noMinSize"
+    :transparent-background="allOptions.transparentBackground"
     data-j-lume-chart
     @resize="updateSize"
     @mouseleave="handleMouseleave"
