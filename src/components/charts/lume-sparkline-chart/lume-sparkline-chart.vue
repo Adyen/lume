@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, toRefs } from 'vue';
-import { scaleLinear } from 'd3-scale';
+import { scaleLinear } from 'd3';
 
 import LumeChart from '@/components/core/lume-chart';
 import LumeLineGroup from '@/components/groups/lume-line-group';

@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, toRefs } from 'vue';
-import { ScaleBand, ScaleLinear } from 'd3-scale';
+import { ScaleBand, ScaleLinear } from 'd3';
 
 import { useBase } from '@/composables/base';
 

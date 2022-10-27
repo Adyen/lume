@@ -1,6 +1,6 @@
 import Vue, { ref } from 'vue';
 import { mount } from '@vue/test-utils';
-import { scaleLinear } from 'd3-scale';
+import { scaleLinear } from 'd3';
 
 import { checkNegativeValues, useNegativeValues } from './negative-values';
 

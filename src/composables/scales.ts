@@ -1,5 +1,5 @@
 import { PropType, ref, Ref, watchEffect } from 'vue';
-import { ScaleBand, scaleBand, ScaleLinear, scaleLinear } from 'd3-scale';
+import { ScaleBand, scaleBand, ScaleLinear, scaleLinear } from 'd3';
 
 import { flatValues, isBandScale } from '@/utils/helpers';
 import { ChartOptions } from '@/composables/options';
