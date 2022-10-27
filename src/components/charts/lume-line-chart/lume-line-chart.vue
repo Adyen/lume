@@ -8,10 +8,13 @@
     <template #groups="props">
       <lume-line-group v-bind="props" />
     </template>
-    <template #tooltip="{ targetElement, hoveredIndex }">
+    <template
+      v-for="(_, name) in slots"
+      #[name]="slotData"
+    >
       <slot
-        :hovered-index="hoveredIndex"
-        :target-element="targetElement"
+        :name="name"
+        v-bind="slotData || {}"
       />
     </template>
   </lume-chart>
@@ -33,12 +36,12 @@ export default defineComponent({
   props: {
     ...withChartProps(),
   },
-  setup(props) {
+  setup(props, context) {
     const { options } = toRefs(props);
 
     const { allOptions } = useOptions(options, defaultOptions);
 
-    return { allOptions };
+    return { allOptions, slots: context.slots };
   },
 });
 </script>

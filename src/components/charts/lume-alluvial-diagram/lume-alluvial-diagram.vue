@@ -7,10 +7,13 @@
     <template #groups="props">
       <lume-alluvial-group v-bind="props" />
     </template>
-    <template #tooltip="{ targetElement, hoveredIndex }">
+    <template
+      v-for="(_, name) in slots"
+      #[name]="slotData"
+    >
       <slot
-        :hovered-index="hoveredIndex"
-        :target-element="targetElement"
+        :name="name"
+        v-bind="slotData || {}"
       />
     </template>
   </lume-chart>
@@ -33,7 +36,7 @@ export default defineComponent({
   props: {
     ...withChartProps(singleDatasetValidator),
   },
-  setup(props) {
+  setup(props, context) {
     const { options } = toRefs(props);
 
     const { allOptions } = useOptions(options, defaultOptions);
@@ -45,7 +48,7 @@ export default defineComponent({
       };
     }
 
-    return { allOptions, getAlluvialDiagramOptions };
+    return { allOptions, getAlluvialDiagramOptions, slots: context.slots };
   },
 });
 </script>

@@ -22,10 +22,13 @@
         :with-points="false"
       />
     </template>
-    <template #tooltip="{ targetElement, hoveredIndex }">
+    <template
+      v-for="(_, name) in slots"
+      #[name]="slotData"
+    >
       <slot
-        :hovered-index="hoveredIndex"
-        :target-element="targetElement"
+        :name="name"
+        v-bind="slotData || {}"
       />
     </template>
   </lume-chart>
@@ -54,7 +57,7 @@ export default defineComponent({
     ...withBase(null),
     ...withOptions(),
   },
-  setup(props) {
+  setup(props, context) {
     const { data, options } = toRefs(props);
 
     const { internalData } = useBase(data);
@@ -92,6 +95,7 @@ export default defineComponent({
       computedColor,
       getSparklineOptions,
       xScaleGenerator,
+      slots: context.slots,
     };
   },
 });

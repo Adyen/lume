@@ -5,10 +5,13 @@
     :options="getBarChartOptions(options)"
     v-on="$listeners"
   >
-    <template #tooltip="{ targetElement, hoveredIndex }">
+    <template
+      v-for="(_, name) in slots"
+      #[name]="slotData"
+    >
       <slot
-        :hovered-index="hoveredIndex"
-        :target-element="targetElement"
+        :name="name"
+        v-bind="slotData || {}"
       />
     </template>
   </component>
@@ -53,7 +56,7 @@ export default defineComponent({
       validator: (type: string): boolean => type in TYPES || type == null,
     },
   },
-  setup(props) {
+  setup(props, context) {
     function getBarChartOptions(options: Options) {
       return {
         ...options,
@@ -79,7 +82,7 @@ export default defineComponent({
       return componentMap[props.type];
     });
 
-    return { component, getBarChartOptions };
+    return { component, getBarChartOptions, slots: context.slots };
   },
 });
 </script>

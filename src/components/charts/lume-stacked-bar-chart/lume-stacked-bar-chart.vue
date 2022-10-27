@@ -13,10 +13,13 @@
         type="stacked"
       />
     </template>
-    <template #tooltip="{ targetElement, hoveredIndex }">
+    <template
+      v-for="(_, name) in slots"
+      #[name]="slotData"
+    >
       <slot
-        :hovered-index="hoveredIndex"
-        :target-element="targetElement"
+        :name="name"
+        v-bind="slotData || {}"
       />
     </template>
   </lume-chart>
@@ -43,7 +46,7 @@ export default defineComponent({
   props: {
     ...withChartProps<BarChartOptions>(),
   },
-  setup(props) {
+  setup(props, context) {
     // State from mixins
     const { data, orientation, options } = toRefs(props);
 
@@ -66,6 +69,7 @@ export default defineComponent({
       allOptions,
       stackedXScaleGenerator,
       stackedYScaleGenerator,
+      slots: context.slots,
     };
   },
 });
