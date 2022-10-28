@@ -1,5 +1,5 @@
 import { Ref } from 'vue';
-import { ScaleLinear } from 'd3-scale';
+import { ScaleLinear } from 'd3';
 
 import { AxisOptions } from '@/composables/options';
 import { AxisMixin } from '../types';

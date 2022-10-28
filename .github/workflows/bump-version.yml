@@ -1,13 +1,19 @@
-name: npm publish
+name: bump version
 
 on:
-  workflow_run:
-    workflows: ['bump version']
-    types:
-      - completed
+  workflow_dispatch:
+    inputs:
+      version:
+        type: choice
+        description: 'Select the type of new version'
+        options:
+          - patch
+          - minor
+          - major
+        required: true
 
 jobs:
-  setup:
+  bump-version:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repo
@@ -25,11 +31,8 @@ jobs:
       - name: Write .npmrc so it can login to npmjs
         run: npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
 
-      - name: Install dependencies
-        run: npm install
+      - name: Bump version
+        run: npm version ${{ github.event.inputs.version }}
 
-      - name: Build the package
-        run: npm run build
-
-      - name: Publish to npm registry
-        run: npm publish --access restricted
+      - name: Push latest version
+        run: git push origin main --follow-tags

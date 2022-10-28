@@ -18,8 +18,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, PropType, ref } from 'vue';
-import { ScaleBand, ScaleLinear } from 'd3-scale';
-import { line } from 'd3-shape';
+import { ScaleBand, ScaleLinear } from 'd3';
+import { line } from 'd3';
 
 import { Scale } from '@/composables/scales';
 

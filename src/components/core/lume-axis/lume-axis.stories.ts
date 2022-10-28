@@ -1,6 +1,6 @@
 import { withSizeArgs, withSizeArgTypes } from '@/docs/storybook-helpers';
 import { computed } from 'vue';
-import { scaleBand, scaleLinear } from 'd3-scale';
+import { scaleBand, scaleLinear } from 'd3';
 
 import LumeAxis from './lume-axis.vue';
 import { xOptions, yOptions } from './defaults';

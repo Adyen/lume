@@ -57,9 +57,9 @@ import Vue, {
   toRefs,
   watch,
 } from 'vue';
-import { format } from 'd3-format';
-import { ticks as d3TickGenerator } from 'd3-array';
-import { ScaleBand } from 'd3-scale';
+import { format } from 'd3';
+import { ticks as d3TickGenerator } from 'd3';
+import { ScaleBand } from 'd3';
 
 import { AxisOptions, useOptions, withOptions } from '@/composables/options';
 import { Scale } from '@/composables/scales';
@@ -147,8 +147,9 @@ export default defineComponent({
       }
 
       const { tickCount } = allOptions.value;
+      const [start, end] = scale.value.domain() as number[];
 
-      return d3TickGenerator(...scale.value.domain(), tickCount);
+      return d3TickGenerator(start, end, tickCount);
     });
 
     const tickFormatter = computed(() => {

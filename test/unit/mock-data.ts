@@ -1,6 +1,6 @@
 import { Data, DatasetValueObject } from '@/types/dataset';
 import { Scale } from '@/composables/scales';
-import { scaleBand, scaleLinear } from 'd3-scale';
+import { scaleBand, scaleLinear } from 'd3';
 import { ContainerSize } from '@/types/size';
 import { LegacyColors } from '@/constants';
 

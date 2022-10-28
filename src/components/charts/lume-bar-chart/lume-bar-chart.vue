@@ -22,7 +22,11 @@ import { computed, defineAsyncComponent, defineComponent, PropType } from 'vue';
 
 import { singleDatasetValidator } from '@/utils/helpers';
 import { withChartProps } from '@/composables/props';
-import { BarChartOptions, Options } from '@/composables/options';
+import {
+  BarChartOptions,
+  Options,
+  TooltipOptions,
+} from '@/composables/options';
 
 import { ORIENTATIONS } from '@/constants';
 
@@ -62,6 +66,7 @@ export default defineComponent({
         ...options,
         startOnZero: true, // Bar chart always starts on zero,
         tooltipOptions: {
+          ...((options?.tooltipOptions as TooltipOptions) || {}),
           position: props.orientation === ORIENTATIONS.HORIZONTAL && 'right',
         },
       };
