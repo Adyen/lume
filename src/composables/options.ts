@@ -36,6 +36,7 @@ export interface ChartOptions extends Options {
   withTransition?: boolean;
   noBaseScales?: boolean;
   noMinSize?: boolean;
+  transparentBackground?: boolean;
 }
 
 export interface BarChartOptions extends ChartOptions {
