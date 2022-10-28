@@ -147,8 +147,9 @@ export default defineComponent({
       }
 
       const { tickCount } = allOptions.value;
+      const [start, end] = scale.value.domain() as number[];
 
-      return d3TickGenerator(...scale.value.domain(), tickCount);
+      return d3TickGenerator(start, end, tickCount);
     });
 
     const tickFormatter = computed(() => {
