@@ -8,7 +8,7 @@ import {
 } from '@/types/alluvial';
 import { Data, DatasetValueObject, InternalData } from '@/types/dataset';
 import { Scale } from '@/composables/scales';
-import { Slot, Slots } from 'vue/types/v3-setup-context';
+import { Slots } from 'vue/types/v3-setup-context';
 
 export function isProd() {
   return process.env.NODE_ENV === 'production';
