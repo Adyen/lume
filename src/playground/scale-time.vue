@@ -49,7 +49,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, toRefs } from 'vue';
-import { scaleTime } from 'd3-scale';
+import { scaleTime } from 'd3';
 
 import { useSkip } from '@/components/core/lume-axis/composables/lume-skip';
 

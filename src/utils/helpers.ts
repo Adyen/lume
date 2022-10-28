@@ -1,5 +1,5 @@
 import { isRef, Ref } from 'vue';
-import { ScaleBand } from 'd3-scale';
+import { ScaleBand } from 'd3';
 import { SankeyNode } from 'd3-sankey';
 
 import {

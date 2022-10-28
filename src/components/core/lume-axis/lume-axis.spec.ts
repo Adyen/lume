@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { scaleBand } from 'd3-scale';
+import { scaleBand } from 'd3';
 
 import LumeAxis from './lume-axis.vue';
 

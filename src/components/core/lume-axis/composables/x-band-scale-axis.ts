@@ -1,5 +1,5 @@
 import { computed, Ref } from 'vue';
-import { ScaleBand } from 'd3-scale';
+import { ScaleBand } from 'd3';
 
 import { AxisOptions } from '@/composables/options';
 import { AxisMixin } from '../types';

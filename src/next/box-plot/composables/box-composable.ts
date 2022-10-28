@@ -1,29 +1,29 @@
 import { computed, ComputedRef, PropType } from 'vue';
 import { Data } from '@/types/dataset';
-import { scaleBand, scaleLinear } from "d3-scale";
-import { ascending, quantile } from 'd3-array';
+import { scaleBand, scaleLinear } from 'd3';
+import { ascending, quantile } from 'd3';
 import { Options } from '@/composables/options';
 import { PADDING_VERTICAL } from '@/constants';
 
 export const withData = () => ({
   data: {
     type: Array as PropType<Data<number>>,
-    default: () => []
-  }
+    default: () => [],
+  },
 });
 
 export function useBoxComputations(
   data: Data<number>,
-  containerSize: { width: number, height: number },
+  containerSize: { width: number; height: number },
   allOptions: ComputedRef<Options>
 ) {
   const domain = computed(() => {
-    return data.map(ele => ele.legend);
+    return data.map((ele) => ele.legend);
   });
 
   const values = computed(() => {
     return data
-      .map(ele => ele.values)
+      .map((ele) => ele.values)
       .reduce((acc, record) => [...acc, ...record]);
   });
 
@@ -36,10 +36,12 @@ export function useBoxComputations(
       .range([0, containerSize.width])
       .domain(domain.value)
       .paddingInner(padding.value)
-      .paddingOuter(padding.value / 2)
+      .paddingOuter(padding.value / 2);
   });
 
-  const boxPadding = computed(() => xScale.value ? xScale.value.step() - xScale.value.bandwidth() : 0);
+  const boxPadding = computed(() =>
+    xScale.value ? xScale.value.step() - xScale.value.bandwidth() : 0
+  );
 
   const yScale = computed(() => {
     return scaleLinear()
@@ -52,7 +54,7 @@ export function useBoxComputations(
 
   const quantiles = computed(() => {
     // Compute quartiles, median, inter quantile range min and max --> these info are then used to draw the box.
-    return data.map(ele => {
+    return data.map((ele) => {
       const q1 = quantile(ele.values.sort(ascending), 0.25);
       const median = quantile(ele.values.sort(ascending), 0.5);
       const q3 = quantile(ele.values.sort(ascending), 0.75);
@@ -60,8 +62,15 @@ export function useBoxComputations(
       const min = q1 - 1.5 * interQuantileRange;
       const max = q3 + 1.5 * interQuantileRange;
       return {
-        key: ele.legend, color: ele.color, q1, median, q3, interQuantileRange, min, max
-      }
+        key: ele.legend,
+        color: ele.color,
+        q1,
+        median,
+        q3,
+        interQuantileRange,
+        min,
+        max,
+      };
     });
   });
 
@@ -71,10 +80,10 @@ export function useBoxComputations(
       quantile: {
         '25th percentile': quantile.q1.toFixed(2),
         '75th percentile': quantile.q3.toFixed(2),
-        'Inter quantile range':quantile.interQuantileRange.toFixed(2),
-        'Median': quantile.median.toFixed(2),
-        'Minimum': quantile.min.toFixed(2),
-        'Maximum': quantile.max.toFixed(2)
+        'Inter quantile range': quantile.interQuantileRange.toFixed(2),
+        Median: quantile.median.toFixed(2),
+        Minimum: quantile.min.toFixed(2),
+        Maximum: quantile.max.toFixed(2),
       },
       verticalLine: {
         x1: xScale.value(quantile.key) + boxWidth / 2,
@@ -95,7 +104,7 @@ export function useBoxComputations(
         y2: yScale.value(quantile.median),
       },
       key: quantile.key,
-      color: quantile.color
+      color: quantile.color,
     }));
   });
 
@@ -104,5 +113,13 @@ export function useBoxComputations(
     return allOptions.value.yAxisOptions?.label;
   });
 
-  return { domain, boxPadding, xScale, yScale, quantiles, boxGroups, yAxisLabel }
+  return {
+    domain,
+    boxPadding,
+    xScale,
+    yScale,
+    quantiles,
+    boxGroups,
+    yAxisLabel,
+  };
 }

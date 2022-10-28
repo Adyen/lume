@@ -1,5 +1,5 @@
 import { computed, ComputedRef, Ref } from 'vue';
-import { scaleBand, ScaleBand, scaleLinear } from 'd3-scale';
+import { scaleBand, ScaleBand, scaleLinear } from 'd3';
 
 import { getPaddedScale, Scale } from '@/composables/scales';
 
