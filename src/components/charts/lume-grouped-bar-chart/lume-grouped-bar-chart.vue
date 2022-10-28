@@ -35,6 +35,7 @@ import { withChartProps } from '@/composables/props';
 import { ORIENTATIONS } from '@/constants';
 
 import { options as defaultOptions } from './defaults';
+import { excludeGroups } from '@/utils/helpers';
 
 export default defineComponent({
   components: { LumeChart, LumeBarGroup },
@@ -51,7 +52,7 @@ export default defineComponent({
 
     const { allOptions } = useOptions(options, baseOptions);
 
-    return { allOptions, slots: context.slots };
+    return { allOptions, slots: excludeGroups(context.slots) };
   },
 });
 </script>

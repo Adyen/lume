@@ -32,7 +32,7 @@ import LumeBarGroup from '@/components/groups/lume-bar-group';
 import { BarChartOptions, useOptions } from '@/composables/options';
 import { withChartProps } from '@/composables/props';
 
-import { singleDatasetValidator } from '@/utils/helpers';
+import { excludeGroups, singleDatasetValidator } from '@/utils/helpers';
 import { ORIENTATIONS } from '@/constants';
 
 import { options as defaultOptions } from './defaults';
@@ -52,7 +52,7 @@ export default defineComponent({
 
     const { allOptions } = useOptions(options, baseOptions);
 
-    return { allOptions, slots: context.slots };
+    return { allOptions, slots: excludeGroups(context.slots) };
   },
 });
 </script>

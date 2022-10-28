@@ -20,7 +20,7 @@
 <script lang="ts">
 import { computed, defineAsyncComponent, defineComponent, PropType } from 'vue';
 
-import { singleDatasetValidator } from '@/utils/helpers';
+import { excludeGroups, singleDatasetValidator } from '@/utils/helpers';
 import { withChartProps } from '@/composables/props';
 import {
   BarChartOptions,
@@ -87,7 +87,11 @@ export default defineComponent({
       return componentMap[props.type];
     });
 
-    return { component, getBarChartOptions, slots: context.slots };
+    return {
+      component,
+      getBarChartOptions,
+      slots: excludeGroups(context.slots),
+    };
   },
 });
 </script>

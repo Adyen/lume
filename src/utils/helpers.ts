@@ -8,6 +8,7 @@ import {
 } from '@/types/alluvial';
 import { Data, DatasetValueObject, InternalData } from '@/types/dataset';
 import { Scale } from '@/composables/scales';
+import { Slot, Slots } from 'vue/types/v3-setup-context';
 
 export function isProd() {
   return process.env.NODE_ENV === 'production';
@@ -217,4 +218,19 @@ export function shiftItems(
   const front = array.slice(0, N);
   const back = array.slice(N);
   return back.concat(front);
+}
+
+/**
+ * @param slots
+ * @returns all slots except the groups
+ */
+export function excludeGroups(slots: Slots) {
+  if (slots.groups) {
+    const keys = Object.keys(slots);
+    return Object.assign(
+      {},
+      ...keys.map((key) => (key !== 'groups' ? { [key]: slots[key] } : {}))
+    );
+  }
+  return slots;
 }

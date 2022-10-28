@@ -50,6 +50,7 @@ import { Data } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 
 import { options as defaultOptions } from './defaults';
+import { excludeGroups } from '@/utils/helpers';
 
 export default defineComponent({
   components: { LumeChart, LumeLineGroup },
@@ -95,7 +96,7 @@ export default defineComponent({
       computedColor,
       getSparklineOptions,
       xScaleGenerator,
-      slots: context.slots,
+      slots: excludeGroups(context.slots),
     };
   },
 });

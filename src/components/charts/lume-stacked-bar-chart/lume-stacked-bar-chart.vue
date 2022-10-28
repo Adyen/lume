@@ -40,6 +40,7 @@ import { useStackedAxes } from '@/components/groups/lume-bar-group/composables/s
 import { ORIENTATIONS } from '@/constants';
 
 import { options as defaultOptions } from './defaults';
+import { excludeGroups } from '@/utils/helpers';
 
 export default defineComponent({
   components: { LumeChart, LumeBarGroup },
@@ -69,7 +70,7 @@ export default defineComponent({
       allOptions,
       stackedXScaleGenerator,
       stackedYScaleGenerator,
-      slots: context.slots,
+      slots: excludeGroups(context.slots),
     };
   },
 });
