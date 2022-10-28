@@ -13,6 +13,28 @@ on:
     branches: ['main']
 
 jobs:
+  build:
+    name: Setup & build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v3
+
+      - name: Read .nvmrc
+        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        id: nvm
+
+      - name: Use Node version from .nvmrc
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ steps.nvm.outputs.NVMRC }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the package
+        run: npm run build
+
   run-unit-tests:
     name: Test on Node ${{ matrix.node_version }}
     runs-on: ubuntu-latest
