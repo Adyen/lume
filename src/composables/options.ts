@@ -20,6 +20,7 @@ export interface TooltipOptions extends Options {
   position?: typeof TOOLTIP_POSITIONS[number];
   showTitle?: boolean;
   targetElement?: Element | 'self';
+  fixedPositioning?: boolean;
 }
 
 type LegendPosition = 'top' | 'bottom';

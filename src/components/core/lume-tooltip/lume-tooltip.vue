@@ -101,8 +101,12 @@ export default defineComponent({
     const { allOptions } = useOptions<TooltipOptions>(options);
 
     // Computed
+    const computedFixedPositioning = computed(
+      () => allOptions.value.fixedPositioning ?? props.fixedPositioning
+    );
+
     const strategy = computed<PositioningStrategy>(() =>
-      props.fixedPositioning ? 'fixed' : 'absolute'
+      computedFixedPositioning.value ? 'fixed' : 'absolute'
     );
 
     const allModifiers = computed(() => [
