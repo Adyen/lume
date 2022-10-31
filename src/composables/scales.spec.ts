@@ -27,14 +27,14 @@ const flatData = data.reduce(
 const min = Math.min(...flatData);
 const max = Math.max(...flatData);
 
-const getMixin = async (
+const getMixin = (
   data,
   orientation: Orientation = 'horizontal',
   options: ChartOptions = {}
 ) => {
   let mixin = null;
 
-  await mount({
+  mount({
     template: '<div></div>',
     setup() {
       mixin = useBaseScales(
@@ -53,8 +53,8 @@ const getMixin = async (
 
 describe('scales.ts', () => {
   describe('getMixin', () => {
-    test('should return expected object', async () => {
-      const mixin = await getMixin(data);
+    test('should return expected object', () => {
+      const mixin = getMixin(data);
 
       expect(mixin).toBeTruthy();
       expect(mixin).toHaveProperty('xScale');
@@ -65,8 +65,8 @@ describe('scales.ts', () => {
       expect(mixin.yScale.value?.range()).toEqual([0, containerSize.height]);
     });
 
-    test('should return expected object with custom orientation', async () => {
-      const mixin = await getMixin(data, 'vertical');
+    test('should return expected object with custom orientation', () => {
+      const mixin = getMixin(data, 'vertical');
 
       expect(mixin).toBeTruthy();
       expect(mixin).toHaveProperty('xScale');
@@ -77,8 +77,8 @@ describe('scales.ts', () => {
       expect(mixin.xScale.value?.range()).toEqual([0, containerSize.width]);
     });
 
-    test('should start scale on lowest value in dataset', async () => {
-      const mixin = await getMixin(aboveZeroDataSet, 'horizontal', {
+    test('should start scale on lowest value in dataset', () => {
+      const mixin = getMixin(aboveZeroDataSet, 'horizontal', {
         startOnZero: false,
       });
 
@@ -87,16 +87,16 @@ describe('scales.ts', () => {
       );
     });
 
-    test('should start scale on 0', async () => {
-      const mixin = await getMixin(aboveZeroDataSet, 'horizontal', {
+    test('should start scale on 0', () => {
+      const mixin = getMixin(aboveZeroDataSet, 'horizontal', {
         startOnZero: true,
       });
 
       expect(mixin.xScale.value.domain()[0]).toEqual(0);
     });
 
-    test('should return a range of [0, 0] for the linear scale when no values are specified', async () => {
-      const { xScale } = await getMixin([], 'horizontal', {
+    test('should return a range of [0, 0] for the linear scale when no values are specified', () => {
+      const { xScale } = getMixin([], 'horizontal', {
         startOnZero: false,
       });
 
@@ -105,7 +105,7 @@ describe('scales.ts', () => {
   });
 
   describe('withScales', () => {
-    test('should return expected properties', async () => {
+    test('should return expected properties', () => {
       const wrapper = mount({
         template: '<div></div>',
         props: {
@@ -118,8 +118,8 @@ describe('scales.ts', () => {
   });
 
   describe('isScale', () => {
-    test('should confirm that the scales are of the type Scale', async () => {
-      const { xScale, yScale } = await getMixin(data);
+    test('should confirm that the scales are of the type Scale', () => {
+      const { xScale, yScale } = getMixin(data);
 
       expect(isScale(xScale.value)).toBe(true);
       expect(isScale(yScale.value)).toBe(true);
@@ -131,9 +131,9 @@ describe('scales.ts', () => {
   });
 
   describe('getXByIndex', () => {
-    test('should give correct x value by index', async () => {
+    test('should give correct x value by index', () => {
       const index = 1;
-      const { xScale, yScale } = await getMixin(data);
+      const { xScale, yScale } = getMixin(data);
 
       expect(getXByIndex(xScale.value, index)).toEqual(xScale.value(index));
       expect(getXByIndex(yScale.value, index)).toEqual(
@@ -144,16 +144,16 @@ describe('scales.ts', () => {
   });
 
   describe('getPaddedScale', () => {
-    test('should return scale with horizontal padding as padding if so indicated', async () => {
-      const { yScale } = await getMixin(data);
+    test('should return scale with horizontal padding as padding if so indicated', () => {
+      const { yScale } = getMixin(data);
 
       const paddedScale = getPaddedScale(yScale.value, 'horizontal');
       expect(paddedScale.paddingInner()).toEqual(PADDING_HORIZONTAL);
       expect(paddedScale.paddingOuter()).toEqual(PADDING_HORIZONTAL / 2);
     });
 
-    test('should return scale with vertical padding as padding if so indicated', async () => {
-      const { yScale } = await getMixin(data);
+    test('should return scale with vertical padding as padding if so indicated', () => {
+      const { yScale } = getMixin(data);
 
       const paddedScale = getPaddedScale(yScale.value, 'vertical');
       expect(paddedScale.paddingInner()).toEqual(PADDING_VERTICAL);
@@ -161,7 +161,7 @@ describe('scales.ts', () => {
     });
 
     test('should return scale with custom padding', () => {
-      const { yScale } = await getMixin(data);
+      const { yScale } = getMixin(data);
 
       const paddedScale = getPaddedScale(yScale.value, 'horizontal', {
         padding: 1,
@@ -172,9 +172,9 @@ describe('scales.ts', () => {
     });
 
     test('should return scale with custom paddingInner', () => {
-      const { yScale } = await getMixin(data);
+      const { yScale } = getMixin(data);
 
-      const paddedScale = getPaddedScale(yScale.value, 'horizontal', {
+      const paddedScale = getPaddedScale(yScale.value, 'vertical', {
         paddingInner: 1,
       });
 
@@ -183,9 +183,9 @@ describe('scales.ts', () => {
     });
 
     test('should return scale with custom paddingOuter', () => {
-      const { yScale } = await getMixin(data);
+      const { yScale } = getMixin(data);
 
-      const paddedScale = getPaddedScale(yScale.value, 'horizontal', {
+      const paddedScale = getPaddedScale(yScale.value, 'vertical', {
         paddingOuter: 1,
       });
 

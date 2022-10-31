@@ -34,7 +34,7 @@ exports[` 1`] = `
           tabindex="0"
         >
           <span
-            class="lume-chart-legend__circle lume-background-color--skyblue"
+            class="lume-chart-legend__symbol lume-background-color--skyblue"
             data-j-chart-legend__symbol=""
           />
           
