@@ -8,6 +8,15 @@
     <template #groups="props">
       <lume-line-group v-bind="props" />
     </template>
+    <template
+      v-for="(_, name) in slots"
+      #[name]="slotData"
+    >
+      <slot
+        :name="name"
+        v-bind="slotData || {}"
+      />
+    </template>
   </lume-chart>
 </template>
 
@@ -21,18 +30,19 @@ import { useOptions } from '@/composables/options';
 import { withChartProps } from '@/composables/props';
 
 import { options as defaultOptions } from './defaults';
+import { excludeGroups } from '@/utils/helpers';
 
 export default defineComponent({
   components: { LumeChart, LumeLineGroup },
   props: {
     ...withChartProps(),
   },
-  setup(props) {
+  setup(props, context) {
     const { options } = toRefs(props);
 
     const { allOptions } = useOptions(options, defaultOptions);
 
-    return { allOptions };
+    return { allOptions, slots: excludeGroups(context.slots) };
   },
 });
 </script>

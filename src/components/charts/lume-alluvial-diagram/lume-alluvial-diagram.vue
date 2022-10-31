@@ -7,6 +7,15 @@
     <template #groups="props">
       <lume-alluvial-group v-bind="props" />
     </template>
+    <template
+      v-for="(_, name) in slots"
+      #[name]="slotData"
+    >
+      <slot
+        :name="name"
+        v-bind="slotData || {}"
+      />
+    </template>
   </lume-chart>
 </template>
 
@@ -19,7 +28,7 @@ import LumeAlluvialGroup from '@/components/groups/lume-alluvial-group';
 import { withChartProps } from '@/composables/props';
 import { ChartOptions, useOptions } from '@/composables/options';
 
-import { singleDatasetValidator } from '@/utils/helpers';
+import { excludeGroups, singleDatasetValidator } from '@/utils/helpers';
 import { options as defaultOptions } from './defaults';
 
 export default defineComponent({
@@ -27,7 +36,7 @@ export default defineComponent({
   props: {
     ...withChartProps(singleDatasetValidator),
   },
-  setup(props) {
+  setup(props, context) {
     const { options } = toRefs(props);
 
     const { allOptions } = useOptions(options, defaultOptions);
@@ -39,7 +48,11 @@ export default defineComponent({
       };
     }
 
-    return { allOptions, getAlluvialDiagramOptions };
+    return {
+      allOptions,
+      getAlluvialDiagramOptions,
+      slots: excludeGroups(context.slots),
+    };
   },
 });
 </script>

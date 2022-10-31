@@ -4,13 +4,23 @@
     v-bind="$props"
     :options="getBarChartOptions(options)"
     v-on="$listeners"
-  />
+  >
+    <template
+      v-for="(_, name) in slots"
+      #[name]="slotData"
+    >
+      <slot
+        :name="name"
+        v-bind="slotData || {}"
+      />
+    </template>
+  </component>
 </template>
 
 <script lang="ts">
 import { computed, defineAsyncComponent, defineComponent, PropType } from 'vue';
 
-import { singleDatasetValidator } from '@/utils/helpers';
+import { excludeGroups, singleDatasetValidator } from '@/utils/helpers';
 import { withChartProps } from '@/composables/props';
 import {
   BarChartOptions,
@@ -50,7 +60,7 @@ export default defineComponent({
       validator: (type: string): boolean => type in TYPES || type == null,
     },
   },
-  setup(props) {
+  setup(props, context) {
     function getBarChartOptions(options: Options) {
       return {
         ...options,
@@ -77,7 +87,11 @@ export default defineComponent({
       return componentMap[props.type];
     });
 
-    return { component, getBarChartOptions };
+    return {
+      component,
+      getBarChartOptions,
+      slots: excludeGroups(context.slots),
+    };
   },
 });
 </script>
