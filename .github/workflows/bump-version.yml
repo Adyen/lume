@@ -28,6 +28,11 @@ jobs:
         with:
           node-version: ${{ steps.nvm.outputs.NVMRC }}
 
+      - name: Git configuration
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
       - name: Write .npmrc so it can login to npmjs
         run: npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
 
