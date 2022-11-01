@@ -75,18 +75,30 @@ interface TooltipItem {
 
 export default defineComponent({
   props: {
-    targetElement: Element,
+    targetElement: {
+      type: Element,
+      required: true,
+    },
+    items: {
+      type: Array as PropType<Array<TooltipItem>>,
+      required: true,
+    },
     position: {
       type: String as PropType<Placement>,
       default: 'auto',
       validator: (value: string) =>
         TOOLTIP_POSITIONS.includes(value as typeof TOOLTIP_POSITIONS[number]),
     },
-    fixedPositioning: { type: Boolean, default: false },
-    modifiers: { type: Array, default: null },
-    title: { type: [String, Number], default: null },
-    items: {
-      type: Array as PropType<Array<TooltipItem>>,
+    fixedPositioning: {
+      type: Boolean,
+      default: false,
+    },
+    modifiers: {
+      type: Array,
+      default: null,
+    },
+    title: {
+      type: [String, Number],
       default: null,
     },
     ...withOptions<TooltipOptions>(),
@@ -110,7 +122,6 @@ export default defineComponent({
     );
 
     const allModifiers = computed(() => [
-      ...(props.modifiers || []),
       {
         name: 'computeStyles',
         options: {
@@ -121,6 +132,7 @@ export default defineComponent({
         name: 'offset',
         options: { offset: [0, allOptions.value.offset || 8] },
       },
+      ...(props.modifiers || []),
     ]);
 
     const showTitle = computed(
