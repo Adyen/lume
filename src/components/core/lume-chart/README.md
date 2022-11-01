@@ -27,7 +27,7 @@ It is used internally to build all Lume charts but it can also be used to create
 ### Importing
 
 ```ts
-import LumeChart from 'lume/core/lume-chart';
+import { LumeChart } from '@adyen/lume';
 ```
 
 ### Slots

@@ -11,7 +11,7 @@ Visualizations wrapped by an `LumeChart` component come with two default axes, o
 ### Importing
 
 ```ts
-import { LumeAxis } from 'lume/core';
+import { LumeAxis } from '@adyen/lume';
 ```
 
 ### Basic use

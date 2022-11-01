@@ -40,7 +40,7 @@ The default export of Lume is a Vue plugin that you can install in your global V
 
 ```ts
 import Vue from 'vue';
-import Lume from 'lume';
+import Lume from '@adyen/lume';
 
 import App from './my-app.vue';
 
@@ -57,7 +57,7 @@ If, instead of using the Vue plugin, you rather import single components as you 
 // SFC <script type="ts">
 
 import { defineComponent } from 'vue';
-import LumeBarChart from 'lume/charts/lume-bar-chart';
+import { LumeBarChart } from '@adyen/lume';
 
 export default defineComponent({
   components: { LumeBarChart },

@@ -1,17 +1,13 @@
-import { Story, Description } from '@storybook/addon-docs';
-
 # Single bar chart
 
 Single bar chart show a single set of data represented by discrete bars at regular intervals.
-
-<Story id="charts-bar-chart--basic" />
 
 ## Usage
 
 ### Importing
 
 ```ts
-import { LumeSingleBarChart } from 'lume/charts';
+import { LumeSingleBarChart } from '@adyen/lume';
 ```
 
 ### Basic use
@@ -20,10 +16,16 @@ To generate a simple bar chart with default settings, simply pass the `data` and
 
 ```html
 <template>
-  <lume-single-bar-chart :data="data" :labels="labels" />
+  <lume-single-bar-chart
+    :data="data"
+    :labels="labels"
+  />
 </template>
 
-<script lang="ts" setup>
+<script
+  lang="ts"
+  setup
+>
   import { ref } from 'vue';
 
   const data = ref([
@@ -42,48 +44,12 @@ To generate a simple bar chart with default settings, simply pass the `data` and
 
 ### Props
 
-| Name          | Type                                            | Default         | Description                                                               |
-| ------------- | ----------------------------------------------- | --------------- | ------------------------------------------------------------------------- |
-| `data`        | `Data`                                          | Required        | The data to plot. Must contain only one dataset                           |
-| `labels`      | `Array<string \| number>`                       | Required        | The group of labels to plot the data to.                                  |
-| `orientation  | `String`                                        | `'vertical'`    | Must be either 'horizontal' or 'vertical'                                 |
-| `xScale`      | `ScaleGenerator \| ScaleBand<string \| number>` | `undefined`     | A d3 scale or a scale generator function to override the default X scale. |
-| `yScale`      | `ScaleGenerator \| ScaleLinear<number, number>` | `undefined`     | A d3 scale or a scale generator function to override the default Y scale. |
-| `options`     | `Options`                                       | `undefined`     | A set of chart options.                                                   |
-| `title`       | `String`                                        | `undefined`     | The chart title.                                                          |
-
-## Examples
-
-### Horizontal orientation
-
-<Story
-  id="charts-bar-chart--basic"
-  args={{ orientation: 'horizontal' }}
-/>
-
-```html
-<template>
-  <lume-single-bar-chart :data="data" :labels="labels" :orientation="horizontal" />
-</template>
-
-<script lang="ts" setup>
-  import { ref } from 'vue';
-
-  const data = ref([
-    {
-      label: 'Toyota',
-      color: '01',
-      values: [10, 30, 25, null, 50, 40],
-    }
-  ]);
-
-  const labels = ref([
-    'Jan 2022',
-    'Feb 2022',
-    'Mar 2022',
-    'Apr 2022',
-    'May 2022',
-    'Jun 2022',
-  ]);
-</script>
-```
+| Name         | Type                                            | Default      | Description                                                               |
+| ------------ | ----------------------------------------------- | ------------ | ------------------------------------------------------------------------- |
+| `data`       | `Data`                                          | Required     | The data to plot. Must contain only one dataset                           |
+| `labels`     | `Array<string \| number>`                       | Required     | The group of labels to plot the data to.                                  |
+| `orientation | `String`                                        | `'vertical'` | Must be either 'horizontal' or 'vertical'                                 |
+| `xScale`     | `ScaleGenerator \| ScaleBand<string \| number>` | `undefined`  | A d3 scale or a scale generator function to override the default X scale. |
+| `yScale`     | `ScaleGenerator \| ScaleLinear<number, number>` | `undefined`  | A d3 scale or a scale generator function to override the default Y scale. |
+| `options`    | `Options`                                       | `undefined`  | A set of chart options.                                                   |
+| `title`      | `String`                                        | `undefined`  | The chart title.                                                          |
