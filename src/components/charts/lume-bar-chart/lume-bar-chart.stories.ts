@@ -66,6 +66,12 @@ Basic.args = {
     yAxisOptions: {},
   },
 };
+Basic.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A3148',
+  },
+};
 
 export const MultipleDatasets = Template.bind({});
 MultipleDatasets.argTypes = {
@@ -78,6 +84,12 @@ MultipleDatasets.args = {
   options: {
     xAxisOptions: {},
     yAxisOptions: {},
+  },
+};
+MultipleDatasets.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A5994',
   },
 };
 
@@ -95,6 +107,12 @@ MaximumDatasets.args = {
     yAxisOptions: { tickFormat: '.2s' },
   },
 };
+MaximumDatasets.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A5994',
+  },
+};
 
 export const RealData = Template.bind({});
 RealData.args = {
@@ -104,5 +122,11 @@ RealData.args = {
   options: {
     xAxisOptions: {},
     yAxisOptions: { tickFormat: '~p' },
+  },
+};
+RealData.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A7280',
   },
 };

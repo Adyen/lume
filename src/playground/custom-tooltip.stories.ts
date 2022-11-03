@@ -33,6 +33,12 @@ export default {
       'Sep 2022',
     ],
   },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=18%3A2643',
+    },
+  },
 };
 
 export const CustomTooltipElement = ({ args, argTypes }) => ({
