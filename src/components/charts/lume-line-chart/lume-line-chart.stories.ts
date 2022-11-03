@@ -31,6 +31,12 @@ export default {
     options: defaultOptions,
     title: 'Line chart',
   },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A6671',
+    },
+  },
 };
 
 const Template = ({ argTypes }) => ({
