@@ -15,7 +15,7 @@
           <!-- chart title -->
           <h1
             v-if="title"
-            class="lume-chart__title lume-chart-title lume-typography--heading"
+            class="lume-chart__title lume-chart-title lume-typography--display"
           >
             {{ title }}
           </h1>
