@@ -1,24 +1,11 @@
 @use 'variables' as *;
-@use 'mixins/base' as *;
-@use 'mixins/typography' as *;
-
-@mixin title-base {
-  @include base;
-
-  margin: 0;
-}
 
 .lume-chart-title {
-  @include title-base;
-  @include typography-heading;
-
   color: $lume-color-grey-100;
-  margin-bottom: 1rem;
+  margin: 0 0 1rem;
 }
 
 .lume-axis-title {
-  @include title-base;
-  @include typography-body;
-
   color: $lume-color-grey-80;
+  margin: 0;
 }

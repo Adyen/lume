@@ -15,7 +15,7 @@
           <!-- chart title -->
           <h1
             v-if="title"
-            class="lume-chart__title lume-chart-title"
+            class="lume-chart__title lume-chart-title lume-typography--heading"
           >
             {{ title }}
           </h1>
@@ -30,7 +30,7 @@
           <!-- y axis title -->
           <h3
             v-if="showYAxisTitle"
-            class="lume-chart__axis-title lume-axis-title"
+            class="lume-chart__axis-title lume-axis-title lume-typography--body"
           >
             {{ yAxisTitle }}
           </h3>
