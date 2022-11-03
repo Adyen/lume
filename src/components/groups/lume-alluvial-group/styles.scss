@@ -1,10 +1,6 @@
 @use '~@/styles/variables' as *;
-@use '~@/styles/mixins/base' as *;
-@use '~@/styles/mixins/typography' as *;
 
 .lume-alluvial-group {
-  @include base;
-
   &__node {
     opacity: 1;
     transition: opacity $lume-transition-time-long;
@@ -44,13 +40,7 @@
     }
   }
 
-  &__node-title {
-    @include typography-caption;
-  }
-
   &__node-value {
-    @include typography-caption;
-
     font-weight: $lume-font-weight-medium;
   }
 }

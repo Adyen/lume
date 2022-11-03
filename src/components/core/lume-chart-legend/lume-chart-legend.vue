@@ -6,7 +6,7 @@
     <div
       v-for="(dataset, index) in data"
       :key="`legend-item-${index}`"
-      class="lume-chart-legend__item"
+      class="lume-chart-legend__item lume-typography--body"
       tabindex="0"
     >
       <span

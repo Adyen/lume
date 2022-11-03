@@ -18,7 +18,7 @@
       data-j-axis__tick
     >
       <g
-        class="axis__tick-label"
+        class="axis__tick-label lume-typography--axis"
         pointer-events="all"
         data-j-axis__tick-label
         @mouseover="onTickMouseover(index)"
