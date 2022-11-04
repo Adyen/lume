@@ -40,6 +40,7 @@
   },
   "scripts": {
     "build": "NODE_ENV=production webpack --config build/webpack.prod.js --progress",
+    "build:storybook": "NODE_ENV=production build-storybook -c .storybook -o storybook",
     "confighooks": "git config core.hooksPath ./git-hooks",
     "dev": "webpack --config build/webpack.dev.js --progress",
     "lint:fix": "npm run lint -- --fix",
