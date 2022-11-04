@@ -1,7 +1,10 @@
 @use '~@/styles/variables' as *;
 
+$lume-sparkline-area-opacity: 0.3333 !default;
+
 .sparkline-chart {
   &__area {
+    opacity: $lume-sparkline-area-opacity;
     transition: all $lume-transition-time-long ease;
   }
 }
