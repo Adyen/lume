@@ -1,14 +1,14 @@
 <template>
   <div
     ref="root"
-    class="lume-tooltip"
+    class="lume-tooltip lume-typography--caption"
     data-j-tooltip
   >
     <slot>
       <!-- Default chart tooltip content -->
       <div
         v-if="showTitle"
-        class="lume-tooltip__title lume-typography--caption"
+        class="lume-tooltip__title"
         data-j-tooltip__title
       >
         {{ title }}
@@ -17,7 +17,7 @@
         <li
           v-for="item in items"
           :key="item.label"
-          class="lume-tooltip__item lume-typography--caption"
+          class="lume-tooltip__item"
           data-j-tooltip__item
         >
           <span
