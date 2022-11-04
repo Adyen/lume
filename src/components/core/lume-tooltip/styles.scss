@@ -67,10 +67,7 @@ $lume-tooltip-symbol-size: $lume-spacing-10 !default;
     width: $lume-tooltip-symbol-size;
     height: $lume-tooltip-symbol-size;
     flex-shrink: 0;
-
-    &--line {
-      border-radius: 50%;
-    }
+    border-radius: 50%;
   }
 
   &__value {

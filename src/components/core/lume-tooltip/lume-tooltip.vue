@@ -21,10 +21,7 @@
           data-j-tooltip__item
         >
           <span
-            :class="[
-              `lume-tooltip__symbol--${item.type}`,
-              `lume-background-color--${item.color || '01'}`,
-            ]"
+            :class="[`lume-background-color--${item.color}`]"
             class="lume-tooltip__symbol"
             data-j-tooltip__item__symbol
           />
@@ -67,7 +64,6 @@ import { TooltipOptions, useOptions, withOptions } from '@/composables/options';
 import { TOOLTIP_POSITIONS } from '@/constants';
 
 interface TooltipItem {
-  type: string;
   color: string;
   label: string;
   value: number | string;
