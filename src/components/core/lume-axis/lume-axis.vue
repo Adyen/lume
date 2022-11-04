@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import Vue, {
+import {
   computed,
   defineComponent,
   onBeforeMount,
@@ -156,8 +156,7 @@ export default defineComponent({
       const { tickFormat } = allOptions.value;
 
       if (typeof tickFormat === 'string') {
-        const formatter = format(tickFormat);
-        return formatter;
+        return format(tickFormat);
       }
 
       if (typeof tickFormat === 'function') {
@@ -180,7 +179,7 @@ export default defineComponent({
       ctx.emit('tick-mouseover', index);
     }
 
-    async function init() {
+    function init() {
       isLoading.value = true;
       const scaleType = (scale.value as ScaleBand<string | number>).step
         ? 'bandScale'
@@ -193,7 +192,7 @@ export default defineComponent({
       // Push all mixin functions into the `mixins` reactive object
       Object.entries(mixin(scale, containerSize, allOptions) || []).forEach(
         ([fnName, fn]) => {
-          Vue.set(mixins, fnName, fn);
+          mixins[fnName] = fn;
         }
       );
 
@@ -201,7 +200,7 @@ export default defineComponent({
     }
 
     onBeforeMount(async () => {
-      await init();
+      init();
 
       // Setup watcher to get new mixins if scale changes (i.e. vertical to horizontal)
       watch(scale, init, { flush: 'sync' });
