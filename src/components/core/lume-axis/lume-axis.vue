@@ -134,10 +134,9 @@ export default defineComponent({
     const { showTick } = useSkip(scale, tickRefs, allOptions.value.skip);
 
     const axisTransform = computed(() => {
-      if (computedType.value === 'x') {
-        return `translate(0, ${containerSize.value?.height})`;
-      }
-      return `translate(0, 0)`;
+      return `translate(0,
+        ${computedType.value === 'x' ? containerSize.value?.height : 0}
+      )`;
     });
 
     const ticks = computed(() => {
@@ -153,17 +152,17 @@ export default defineComponent({
 
     const tickFormatter = computed(() => {
       const { tickFormat } = allOptions.value;
+      let formatter = null;
 
-      if (typeof tickFormat === 'string') {
-        const formatter = format(tickFormat);
+      switch (typeof tickFormat) {
+      case 'string':
+        formatter = format(tickFormat);
         return formatter;
-      }
-
-      if (typeof tickFormat === 'function') {
+      case 'function':
         return tickFormat;
+      default:
+        return null;
       }
-
-      return null;
     });
 
     function formatTick(tick: number | string) {
