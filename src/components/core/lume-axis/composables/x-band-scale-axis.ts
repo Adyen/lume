@@ -4,8 +4,8 @@ import { ScaleBand } from 'd3-scale';
 import { AxisOptions } from '@/composables/options';
 import { AxisMixin } from '../types';
 
-const textHeight = 12;
-const bottomPadding = 8;
+const TEXT_HEIGHT = 12;
+const BOTTOM_PADDING = 8;
 
 const useBandScaleAxis: AxisMixin = function (
   scale: Ref<ScaleBand<number | string>>,
@@ -27,7 +27,7 @@ const useBandScaleAxis: AxisMixin = function (
   function getTickGhostAttributes() {
     return {
       width: scale.value.step(),
-      height: options.value.tickPadding + textHeight + bottomPadding,
+      height: options.value.tickPadding + TEXT_HEIGHT + BOTTOM_PADDING,
     };
   }
 
