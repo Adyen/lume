@@ -179,7 +179,7 @@ describe('scales.ts', () => {
       });
 
       expect(paddedScale.paddingInner()).toEqual(1);
-      expect(paddedScale.paddingOuter()).toEqual(PADDING_VERTICAL / 2);
+      expect(paddedScale.paddingOuter()).toEqual(PADDING_HORIZONTAL / 2);
     });
 
     test('should return scale with custom paddingOuter', () => {
@@ -189,7 +189,7 @@ describe('scales.ts', () => {
         paddingOuter: 1,
       });
 
-      expect(paddedScale.paddingInner()).toEqual(PADDING_VERTICAL);
+      expect(paddedScale.paddingInner()).toEqual(PADDING_HORIZONTAL);
       expect(paddedScale.paddingOuter()).toEqual(1);
     });
   });
