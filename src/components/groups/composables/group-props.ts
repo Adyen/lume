@@ -10,6 +10,10 @@ export const withGroupProps = () => ({
     type: Array as PropType<InternalData>,
     required: true,
   },
+  labels: {
+    type: Array as PropType<Array<string | number>>,
+    default: () => [],
+  },
   xScale: {
     type: Function as PropType<Scale>,
     required: true,
