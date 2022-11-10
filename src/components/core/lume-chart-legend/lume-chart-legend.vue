@@ -8,6 +8,8 @@
       :key="`legend-item-${index}`"
       class="lume-chart-legend__item lume-typography--body"
       tabindex="0"
+      data-j-chart-legend__symbol-wrapper
+      @click="$emit('click', index)"
     >
       <span
         class="lume-chart-legend__symbol"

@@ -37,4 +37,21 @@ describe('lume-chart-legend.vue', () => {
 
     expect((LumeLegend as any).props.data.validator(data)).toBe(false);
   });
+
+  test('should emit click event with clicked index on clicking a legend item', () => {
+    const numberOfSets = 3;
+    const data = generateData(numberOfSets, 7, 1000, false, false, true);
+    const wrapper = mount(LumeLegend, {
+      propsData: { data },
+    });
+
+    const target = wrapper.findAll('[data-j-chart-legend__symbol-wrapper]');
+    target.at(0).trigger('click');
+    target.at(2).trigger('click');
+
+    const mouseoverEvent = wrapper.emitted('click');
+
+    expect(mouseoverEvent[0]).toEqual([0]); // first trigger
+    expect(mouseoverEvent[1]).toEqual([2]); // second trigger
+  });
 });
