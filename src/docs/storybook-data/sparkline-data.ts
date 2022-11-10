@@ -21,7 +21,7 @@ const DATASETS = {
       {
         values: [30, null, 40, 50, null, null, 60, 20, 10, null],
         color: 'violet',
-        label: 'Toyota vehicles purchased (M)',
+        label: 'Pets adopted',
       },
     ],
   },
