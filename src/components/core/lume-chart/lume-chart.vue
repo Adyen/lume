@@ -76,6 +76,7 @@
           :container-size="containerSize"
           :options="computedXAxisOptions"
           :hovered-index="hoveredIndex"
+          :orientation="orientation"
           data-j-lume-chart__x-axis
           @tick-mouseover="handleTickMouseover('x', $event)"
         />
@@ -85,6 +86,7 @@
           :container-size="containerSize"
           :options="computedYAxisOptions"
           :hovered-index="hoveredIndex"
+          :orientation="orientation"
           data-j-lume-chart__y-axis
           @tick-mouseover="handleTickMouseover('y', $event)"
         />
