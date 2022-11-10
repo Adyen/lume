@@ -50,7 +50,7 @@ const DATASETS = {
       {
         values: [
           {
-            label: 'Other',
+            label: 'Admin',
             value: 0,
             targets: [
               { node: 2, value: 70128, color: '03' },
@@ -61,7 +61,7 @@ const DATASETS = {
             color: '03',
           },
           {
-            label: 'Visa',
+            label: 'Technician',
             value: 1,
             targets: [
               { node: 2, value: 70391, color: '03' },
@@ -72,23 +72,16 @@ const DATASETS = {
             color: '03',
           },
           {
-            label: 'No 3DS',
+            label: 'Basic education',
             value: 2,
             targets: [
-              { node: 3, value: 182659, color: '03' },
-              { node: 4, value: 65013, color: '09' },
+              { node: 6, value: 182659, color: '09' },
+              { node: 7, value: 65013, color: '03' },
             ],
             color: '03',
           },
           {
-            label: 'Authorized',
-            value: 3,
-            targets: [],
-            color: '03',
-          },
-          { label: 'Refused', value: 4, targets: [], color: '09' },
-          {
-            label: '3DS1',
+            label: 'University degree',
             value: 5,
             targets: [
               { node: 6, value: 209822, color: '09' },
@@ -97,28 +90,25 @@ const DATASETS = {
             color: '03',
           },
           {
-            label: 'Failed authentications',
+            label: "Doesn't pay tax",
             value: 6,
             targets: [],
             color: '09',
           },
           {
-            label: 'Authenticated',
+            label: 'Pays tax',
             value: 7,
-            targets: [
-              { node: 3, value: 1107265, color: '03' },
-              { node: 4, value: 199362, color: '09' },
-            ],
+            targets: [],
             color: '03',
           },
           {
-            label: '3DS2 Frictionless',
+            label: 'High school',
             value: 8,
             targets: [{ node: 7, value: 385543, color: '03' }],
             color: '03',
           },
           {
-            label: '3DS2 Challenged',
+            label: 'Professional course',
             value: 9,
             targets: [
               { node: 6, value: 55553, color: '09' },
@@ -127,7 +117,7 @@ const DATASETS = {
             color: '03',
           },
           {
-            label: 'Mastercard',
+            label: 'Management',
             value: 10,
             targets: [
               { node: 2, value: 61907, color: '03' },
@@ -138,7 +128,7 @@ const DATASETS = {
             color: '03',
           },
           {
-            label: 'Cartes Bancaires',
+            label: 'Services',
             value: 11,
             targets: [
               { node: 2, value: 45246, color: '03' },
