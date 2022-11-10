@@ -340,7 +340,9 @@ export default defineComponent({
           ? chartContainer.value.$el
           : allOptions.value.tooltipOptions.targetElement;
 
-      allOptions.value.withTooltip !== false && showTooltip(targetElement);
+      if (allOptions.value.withTooltip !== false) {
+        showTooltip(targetElement);
+      }
     }
 
     function handleTickMouseover(type: 'x' | 'y', index: number) {
