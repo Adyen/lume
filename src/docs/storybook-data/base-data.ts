@@ -61,7 +61,7 @@ const DATASETS = {
         values: randomValues(10, 1000, 10000),
       },
       {
-        label: 'Ferret',
+        label: 'Ferrets',
         values: randomValues(10, 1000, 10000),
       },
       {
