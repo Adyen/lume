@@ -224,7 +224,7 @@ export default defineComponent({
     }
 
     function onTickMouseover(index: number) {
-      ctx.emit('tick-mouseover', index);
+      shouldHover.value && ctx.emit('tick-mouseover', index);
     }
 
     function isHovering(index: number) {

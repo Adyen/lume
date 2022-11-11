@@ -78,7 +78,7 @@
           :hovered-index="hoveredIndex"
           :orientation="orientation"
           data-j-lume-chart__x-axis
-          @tick-mouseover="handleTickMouseover('x', $event)"
+          @tick-mouseover="mouseOverHandler($event)"
         />
         <lume-axis
           type="y"
@@ -88,7 +88,7 @@
           :hovered-index="hoveredIndex"
           :orientation="orientation"
           data-j-lume-chart__y-axis
-          @tick-mouseover="handleTickMouseover('y', $event)"
+          @tick-mouseover="mouseOverHandler($event)"
         />
       </slot>
 
@@ -350,16 +350,6 @@ export default defineComponent({
       }
     }
 
-    function handleTickMouseover(type: 'x' | 'y', index: number) {
-      // Only capture hover on the label axis
-      if (
-        (orientation.value === ORIENTATIONS.VERTICAL && type === 'x') ||
-        (orientation.value === ORIENTATIONS.HORIZONTAL && type === 'y')
-      ) {
-        mouseOverHandler(index);
-      }
-    }
-
     function handleMouseleave() {
       hideTooltip();
       hoveredIndex.value = -1;
@@ -385,7 +375,6 @@ export default defineComponent({
       getTooltipAnchorAttributes,
       getTooltipItems,
       handleMouseleave,
-      handleTickMouseover,
       hasNegativeValues,
       hoveredIndex,
       isReady,
