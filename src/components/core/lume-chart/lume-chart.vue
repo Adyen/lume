@@ -43,6 +43,8 @@
             "
             class="lume-chart__legend"
             :data="internalData"
+            data-j-lume-chart__legend
+            @click="$emit('click', $event)"
           />
         </div>
       </div>
@@ -144,6 +146,7 @@
         "
         class="lume-chart__legend lume-chart__legend--bottom"
         :data="internalData"
+        @click="$emit('click', $event)"
       />
     </template>
 

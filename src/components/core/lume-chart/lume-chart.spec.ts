@@ -142,4 +142,18 @@ describe('lume-chart.vue', () => {
     await wrapper.find('[data-j-chart-container__root]').trigger('mouseleave');
     expect(wrapper.find('[data-j-lume-chart__tooltip]').exists()).toBe(false);
   });
+
+  test('should propagate click event to parent, coming from the legend', async () => {
+    const wrapper = await mount(LumeChart, {
+      slots: {
+        groups: 'Mock groups',
+      },
+      propsData: defaultProps,
+    });
+
+    const legend = wrapper.find('[data-j-lume-chart__legend]');
+    legend.trigger('click', { value: 1 });
+
+    expect(wrapper.emitted('click')).toBeTruthy();
+  });
 });
