@@ -62,9 +62,8 @@ export function useTooltipAnchors(
   });
 
   function getTooltipItems(index: number) {
-    return data.value.map(({ color, label, values, type }) => ({
-      type: type || 'line',
-      color,
+    return data.value.map(({ color, label, values }) => ({
+      color: values[index]?.color || color,
       label,
       value: values[index]?.label ?? values[index]?.value ?? NO_DATA,
     }));
