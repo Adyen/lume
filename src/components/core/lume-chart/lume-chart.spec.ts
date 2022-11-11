@@ -152,7 +152,7 @@ describe('lume-chart.vue', () => {
     });
 
     const legend = wrapper.find('[data-j-lume-chart__legend]');
-    legend.trigger('click', { value: 1 });
+    await legend.trigger('click', { value: 1 });
 
     expect(wrapper.emitted('click')).toBeTruthy();
   });
