@@ -76,10 +76,9 @@ export default defineComponent({
     const { x, y, width, height, transition, classList } = toRefs(props);
     const root = ref<SVGRectElement>(null);
 
-    const computedClasses = computed(() => {
-      if (typeof classList.value === 'string') return [classList.value];
-      return classList.value;
-    });
+    const computedClasses = computed(() =>
+      typeof classList.value === 'string' ? [classList.value] : classList.value
+    );
 
     const shouldTransitionWidth = computed(() => transition.value === 'width');
     const shouldTransitionHeight = computed(

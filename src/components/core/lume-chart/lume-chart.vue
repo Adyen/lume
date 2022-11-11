@@ -1,8 +1,10 @@
 <template>
   <lume-chart-container
+    ref="chartContainer"
     :margins="allOptions.margins"
     :container-size="containerSize"
     :no-min-size="allOptions.noMinSize"
+    :transparent-background="allOptions.transparentBackground"
     data-j-lume-chart
     @resize="updateSize"
     @mouseleave="handleMouseleave"
@@ -13,7 +15,7 @@
           <!-- chart title -->
           <h1
             v-if="title"
-            class="lume-chart__title lume-chart-title"
+            class="lume-chart__title lume-chart-title lume-typography--display"
           >
             {{ title }}
           </h1>
@@ -28,7 +30,7 @@
           <!-- y axis title -->
           <h3
             v-if="showYAxisTitle"
-            class="lume-chart__axis-title lume-axis-title"
+            class="lume-chart__axis-title lume-axis-title lume-typography--body"
           >
             {{ yAxisTitle }}
           </h3>
@@ -112,8 +114,8 @@
         @mouseover="mouseOverHandler"
       />
 
-      <!-- Tooltip anchor -->
-      <g v-if="allOptions.withTooltip !== false">
+      <!-- Tooltip anchors -->
+      <g v-if="shouldGenerateTooltipAnchors">
         <circle
           v-for="(_, index) in getEmptyArrayFromData(internalData)"
           v-bind="getTooltipAnchorAttributes(index)"
@@ -223,6 +225,7 @@ export default defineComponent({
 
     const hoveredIndex = ref<number>(-1);
     const tooltipAnchor = ref<SVGCircleElement>(null);
+    const chartContainer = ref<InstanceType<typeof LumeChartContainer>>(null);
 
     const { allOptions } = useOptions<ChartOptions>(options);
 
@@ -286,6 +289,12 @@ export default defineComponent({
       );
     });
 
+    const shouldGenerateTooltipAnchors = computed(
+      () =>
+        allOptions.value.withTooltip !== false &&
+        !allOptions.value.tooltipOptions?.targetElement
+    );
+
     const isReady = computed(() => {
       const conditions = [];
 
@@ -325,8 +334,15 @@ export default defineComponent({
       allOptions.value.withHover !== false && (hoveredIndex.value = index);
 
       // Show/update tooltip
-      allOptions.value.withTooltip !== false &&
-        showTooltip(tooltipAnchor.value[index]);
+      const targetElement = !allOptions.value.tooltipOptions?.targetElement
+        ? tooltipAnchor.value[index]
+        : allOptions.value.tooltipOptions.targetElement === 'self'
+          ? chartContainer.value.$el
+          : allOptions.value.tooltipOptions.targetElement;
+
+      if (allOptions.value.withTooltip !== false) {
+        showTooltip(targetElement);
+      }
     }
 
     function handleTickMouseover(type: 'x' | 'y', index: number) {
@@ -353,6 +369,7 @@ export default defineComponent({
     return {
       allOptions,
       internalData,
+      chartContainer,
       computedLabels,
       computedXAxisOptions,
       computedXScale,
@@ -369,6 +386,7 @@ export default defineComponent({
       isReady,
       mouseOverHandler,
       negativeBarAttributes,
+      shouldGenerateTooltipAnchors,
       showXAxisTitle,
       showYAxisTitle,
       tooltipAnchor,

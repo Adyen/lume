@@ -1,6 +1,6 @@
 import { computed, ComputedRef } from 'vue';
-import { area } from 'd3-shape';
-import { ScaleLinear } from 'd3-scale';
+import { area } from 'd3';
+import { ScaleLinear } from 'd3';
 
 import { DatasetValueObject, InternalData } from '@/types/dataset';
 

@@ -13,6 +13,15 @@
         type="stacked"
       />
     </template>
+    <template
+      v-for="(_, name) in slots"
+      #[name]="slotData"
+    >
+      <slot
+        :name="name"
+        v-bind="slotData || {}"
+      />
+    </template>
   </lume-chart>
 </template>
 
@@ -31,13 +40,14 @@ import { useStackedAxes } from '@/components/groups/lume-bar-group/composables/s
 import { ORIENTATIONS } from '@/constants';
 
 import { options as defaultOptions } from './defaults';
+import { excludeGroups } from '@/utils/helpers';
 
 export default defineComponent({
   components: { LumeChart, LumeBarGroup },
   props: {
     ...withChartProps<BarChartOptions>(),
   },
-  setup(props) {
+  setup(props, context) {
     // State from mixins
     const { data, orientation, options } = toRefs(props);
 
@@ -60,6 +70,7 @@ export default defineComponent({
       allOptions,
       stackedXScaleGenerator,
       stackedYScaleGenerator,
+      slots: excludeGroups(context.slots),
     };
   },
 });

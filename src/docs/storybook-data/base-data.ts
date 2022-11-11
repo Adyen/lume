@@ -26,17 +26,17 @@ const DATASETS = {
   Multiple: {
     data: [
       {
-        label: 'Toyota',
+        label: 'Cats',
         // color: '01',
         values: [10, 30, 25, null, 50, 40],
       },
       {
-        label: 'Honda',
+        label: 'Dogs',
         // color: '02',
         values: [15, 40, 20, -10, 40, 30],
       },
       {
-        label: 'Nissan',
+        label: 'Fish',
         // color: '03',
         values: [8, 20, 10, 45, 50, 55],
       },
@@ -53,29 +53,29 @@ const DATASETS = {
   Maximum: {
     data: [
       {
-        label: 'Amazon',
+        label: 'Cats',
         values: randomValues(10, 1000, 10000),
       },
       {
-        label: 'Apple',
+        label: 'Dogs',
         values: randomValues(10, 1000, 10000),
       },
       {
-        label: 'Google',
+        label: 'Ferrets',
         values: randomValues(10, 1000, 10000),
       },
       {
-        label: 'Microsoft',
+        label: 'Rabbits',
         values: randomValues(10, 1000, 10000),
       },
       {
-        label: 'Meta',
+        label: 'Hamsters',
         values: randomValues(10, 1000, 10000),
       },
       {
         label: 'Other',
         values: randomValues(10, 1000, 10000),
-        color: '07'
+        color: '07',
       },
     ],
     labels: [...Array(10)].map((_, i) => {

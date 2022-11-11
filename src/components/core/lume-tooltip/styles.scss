@@ -1,11 +1,12 @@
 @use 'sass:math';
 
 @use '~@/styles/variables' as *;
-@use '~@/styles/mixins/base' as *;
-@use '~@/styles/mixins/typography' as *;
 
 // Tooltip box -----------------------------------------------------------------
-$lume-tooltip-color: $lume-color-grey-100 !default;
+$lume-tooltip-title-color: $lume-color-grey-100 !default;
+$lume-tooltip-item-color: $lume-color-grey-90 !default;
+$lume-tooltip-value-color: $lume-color-grey-100 !default;
+
 $lume-tooltip-background-color: $lume-color-white !default;
 $lume-tooltip-border-radius: $lume-border-radius-8 !default;
 $lume-tooltip-box-shadow: $lume-box-shadow !default;
@@ -19,14 +20,9 @@ $lume-tooltip-item-min-width: 112px !default;
 $lume-tooltip-symbol-size: $lume-spacing-10 !default;
 
 .lume-tooltip {
-  @include base;
-  @include typography-caption;
-
   position: absolute;
   max-width: $lume-tooltip-max-width;
   padding: $lume-tooltip-content-padding;
-
-  color: $lume-tooltip-color;
 
   background: $lume-tooltip-background-color;
   border: $lume-border;
@@ -42,6 +38,7 @@ $lume-tooltip-symbol-size: $lume-spacing-10 !default;
   &__title {
     margin-bottom: $lume-spacing-8;
     font-weight: $lume-font-weight-medium;
+    color: $lume-tooltip-title-color;
   }
 
   &__items {
@@ -54,6 +51,7 @@ $lume-tooltip-symbol-size: $lume-spacing-10 !default;
     display: flex;
     min-width: $lume-tooltip-item-min-width;
     margin-bottom: $lume-spacing-4;
+    color: $lume-tooltip-item-color;
 
     &:last-child {
       margin-bottom: 0;
@@ -69,10 +67,7 @@ $lume-tooltip-symbol-size: $lume-spacing-10 !default;
     width: $lume-tooltip-symbol-size;
     height: $lume-tooltip-symbol-size;
     flex-shrink: 0;
-
-    &--line {
-      border-radius: 50%;
-    }
+    border-radius: 50%;
   }
 
   &__value {
@@ -80,5 +75,6 @@ $lume-tooltip-symbol-size: $lume-spacing-10 !default;
     font-weight: $lume-font-weight-medium;
     margin-left: auto;
     padding-left: $lume-spacing-8;
+    color: $lume-tooltip-value-color;
   }
 }

@@ -39,7 +39,7 @@ export const Basic = ({ argTypes }) => {
   return {
     components: { BarSparkline },
     props: Object.keys(argTypes),
-    setup() {
+    setup(props) {
       return { props };
     },
     template: `

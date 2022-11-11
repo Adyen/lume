@@ -19,6 +19,8 @@ export interface TooltipOptions extends Options {
   offset?: number;
   position?: typeof TOOLTIP_POSITIONS[number];
   showTitle?: boolean;
+  targetElement?: Element | 'self';
+  fixedPositioning?: boolean;
 }
 
 type LegendPosition = 'top' | 'bottom';
@@ -30,12 +32,14 @@ export interface ChartOptions extends Options {
   tooltipOptions?: TooltipOptions;
   colorPalette?: ColorPalette;
   startOnZero?: boolean;
+  withHover?: boolean;
   withTooltip?: boolean;
   withLegend?: boolean;
   legendPosition?: LegendPosition;
   withTransition?: boolean;
   noBaseScales?: boolean;
   noMinSize?: boolean;
+  transparentBackground?: boolean;
 }
 
 export interface BarChartOptions extends ChartOptions {

@@ -11,6 +11,15 @@
         :orientation="orientation"
       />
     </template>
+    <template
+      v-for="(_, name) in slots"
+      #[name]="slotData"
+    >
+      <slot
+        :name="name"
+        v-bind="slotData || {}"
+      />
+    </template>
   </lume-chart>
 </template>
 
@@ -23,7 +32,7 @@ import LumeBarGroup from '@/components/groups/lume-bar-group';
 import { BarChartOptions, useOptions } from '@/composables/options';
 import { withChartProps } from '@/composables/props';
 
-import { singleDatasetValidator } from '@/utils/helpers';
+import { excludeGroups, singleDatasetValidator } from '@/utils/helpers';
 import { ORIENTATIONS } from '@/constants';
 
 import { options as defaultOptions } from './defaults';
@@ -33,7 +42,7 @@ export default defineComponent({
   props: {
     ...withChartProps<BarChartOptions>(singleDatasetValidator),
   },
-  setup(props) {
+  setup(props, context) {
     // State from mixins
     const { orientation, options } = toRefs(props);
 
@@ -43,7 +52,7 @@ export default defineComponent({
 
     const { allOptions } = useOptions(options, baseOptions);
 
-    return { allOptions };
+    return { allOptions, slots: excludeGroups(context.slots) };
   },
 });
 </script>

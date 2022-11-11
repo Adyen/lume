@@ -1,8 +1,11 @@
 import { computed, Ref } from 'vue';
-import { ScaleBand } from 'd3-scale';
+import { ScaleBand } from 'd3';
 
 import { AxisOptions } from '@/composables/options';
 import { AxisMixin } from '../types';
+
+const TEXT_HEIGHT = 12;
+const BOTTOM_PADDING = 8;
 
 const useBandScaleAxis: AxisMixin = function (
   scale: Ref<ScaleBand<number | string>>,
@@ -24,14 +27,16 @@ const useBandScaleAxis: AxisMixin = function (
   function getTickGhostAttributes() {
     return {
       width: scale.value.step(),
-      height: options.value.tickPadding + 12 + 8, // Padding plus text height plus 8 bottom padding
+      height: options.value.tickPadding + TEXT_HEIGHT + BOTTOM_PADDING,
     };
   }
 
   function getGridLinesAttributes() {
+    const halfStep = scale.value.step() / 2;
+
     return {
-      x1: scale.value.step() / 2,
-      x2: scale.value.step() / 2,
+      x1: halfStep,
+      x2: halfStep,
       y1: -containerSize.value.height, // Negative height means it goes from bottom to top
     };
   }

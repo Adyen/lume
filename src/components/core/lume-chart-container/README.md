@@ -18,7 +18,7 @@ By detecting resizes, it alerts all other components so that the chart can smoot
 ### Importing
 
 ```ts
-import { LumeChartContainer } from 'lume/core';
+import { LumeChartContainer } from '@adyen/lume';
 ```
 
 ### Structure

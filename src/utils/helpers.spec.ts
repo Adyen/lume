@@ -1,5 +1,5 @@
 import { ref } from 'vue';
-import { scaleBand, scaleLinear } from 'd3-scale';
+import { scaleBand, scaleLinear } from 'd3';
 
 import {
   flatValues,

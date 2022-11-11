@@ -1,25 +1,19 @@
 @use '~@/styles/variables' as *;
-@use '~@/styles/mixins/base' as *;
-@use '~@/styles/mixins/typography' as *;
 
 $legend-symbol-size: $lume-spacing-10 !default;
 
 .lume-chart-legend {
-  @include base;
-
   display: flex;
   justify-items: end;
 
   &__item {
-    @include typography-body;
-
     display: flex;
     align-items: center;
 
     padding: 0.25rem 0.5rem;
     gap: 0.25rem;
 
-    color: $lume-color-grey-60;
+    color: $lume-color-grey-80;
 
     cursor: default;
   }

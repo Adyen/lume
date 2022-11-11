@@ -1,4 +1,4 @@
-import { computed } from 'vue';
+import { computed, toRefs, watch } from 'vue';
 import { withSizeArgs, withSizeArgTypes } from '@/docs/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/base-data';
 
@@ -43,16 +43,41 @@ export default {
   },
 };
 
-const Template = ({ argTypes }) => ({
+const Template = ({ argTypes, updateArgs, id }) => ({
   components: { LumeBarChart },
   props: Object.keys(argTypes),
   setup(props) {
     const computedColor = computed(() => Colors[props.color]);
+    const { orientation } = toRefs(props);
+    const tickFormat = {
+      'charts-bar-chart--maximum-datasets': '.2s',
+      'charts-bar-chart--real-data': '~p',
+    };
+
+    watch(
+      orientation,
+      (value) => {
+        updateArgs({
+          options: {
+            xAxisOptions:
+              value === ORIENTATIONS.HORIZONTAL && tickFormat[id]
+                ? { tickFormat: tickFormat[id] }
+                : {},
+            yAxisOptions:
+              value === ORIENTATIONS.VERTICAL && tickFormat[id]
+                ? { tickFormat: tickFormat[id] }
+                : {},
+          },
+        });
+      },
+      { immediate: true }
+    );
+
     return { computedColor, props };
   },
   template: `
   <div :style="{ width: width + 'px', height: props.orientation !== 'horizontal' ? height + 'px' : undefined }">
-      <lume-bar-chart v-bind="props" :color="computedColor" />
+      <lume-bar-chart v-bind="props" :color="computedColor"/>
   </div>
   `,
 });
@@ -64,6 +89,12 @@ Basic.args = {
   options: {
     xAxisOptions: {},
     yAxisOptions: {},
+  },
+};
+Basic.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A3148',
   },
 };
 
@@ -80,6 +111,12 @@ MultipleDatasets.args = {
     yAxisOptions: {},
   },
 };
+MultipleDatasets.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A5994',
+  },
+};
 
 export const MaximumDatasets = Template.bind({});
 MaximumDatasets.argTypes = {
@@ -90,9 +127,11 @@ MaximumDatasets.args = {
   ...DATASETS.Maximum,
   type: 'grouped',
   orientation: ORIENTATIONS.VERTICAL,
-  options: {
-    xAxisOptions: {},
-    yAxisOptions: { tickFormat: '.2s' },
+};
+MaximumDatasets.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A5994',
   },
 };
 
@@ -101,8 +140,10 @@ RealData.args = {
   ...DATASETS['Chargebacks_Fraud overview 28 days'],
   type: 'stacked',
   orientation: ORIENTATIONS.VERTICAL,
-  options: {
-    xAxisOptions: {},
-    yAxisOptions: { tickFormat: '~p' },
+};
+RealData.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A7280',
   },
 };

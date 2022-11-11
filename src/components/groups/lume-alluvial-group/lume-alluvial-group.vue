@@ -30,7 +30,7 @@
       <text
         :id="`node-text-${nodeBlock.node.id}`"
         ref="nodeText"
-        class="lume-alluvial-group__node-text"
+        class="lume-alluvial-group__node-text lume-typography--caption"
         :class="{
           'lume-alluvial-group__node-text--right': nodeBlock.node.depth === 0,
           'lume-alluvial-group__node-text--color':

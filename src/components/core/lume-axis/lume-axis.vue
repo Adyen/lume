@@ -18,7 +18,7 @@
       data-j-axis__tick
     >
       <g
-        class="axis__tick-label"
+        class="axis__tick-label lume-typography--axis"
         pointer-events="all"
         data-j-axis__tick-label
         @mouseover="onTickMouseover(index)"
@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import Vue, {
+import {
   computed,
   defineComponent,
   onBeforeMount,
@@ -57,9 +57,9 @@ import Vue, {
   toRefs,
   watch,
 } from 'vue';
-import { format } from 'd3-format';
-import { ticks as d3TickGenerator } from 'd3-array';
-import { ScaleBand } from 'd3-scale';
+import { format } from 'd3';
+import { ticks as d3TickGenerator } from 'd3';
+import { ScaleBand } from 'd3';
 
 import { AxisOptions, useOptions, withOptions } from '@/composables/options';
 import { Scale } from '@/composables/scales';
@@ -133,12 +133,12 @@ export default defineComponent({
 
     const { showTick } = useSkip(scale, tickRefs, allOptions.value.skip);
 
-    const axisTransform = computed(() => {
-      if (computedType.value === 'x') {
-        return `translate(0, ${containerSize.value?.height})`;
-      }
-      return `translate(0, 0)`;
-    });
+    const axisTransform = computed(
+      () =>
+        `translate(0, ${
+          computedType.value === 'x' ? containerSize.value?.height : 0
+        })`
+    );
 
     const ticks = computed(() => {
       // For band scales, return the full labels array (domain)
@@ -147,23 +147,24 @@ export default defineComponent({
       }
 
       const { tickCount } = allOptions.value;
+      const [start, end] = scale.value.domain() as number[];
 
-      return d3TickGenerator(...scale.value.domain(), tickCount);
+      return d3TickGenerator(start, end, tickCount);
     });
 
     const tickFormatter = computed(() => {
       const { tickFormat } = allOptions.value;
+      let formatter = null;
 
-      if (typeof tickFormat === 'string') {
-        const formatter = format(tickFormat);
+      switch (typeof tickFormat) {
+      case 'string':
+        formatter = format(tickFormat);
         return formatter;
-      }
-
-      if (typeof tickFormat === 'function') {
+      case 'function':
         return tickFormat;
+      default:
+        return null;
       }
-
-      return null;
     });
 
     function formatTick(tick: number | string) {
@@ -179,7 +180,7 @@ export default defineComponent({
       ctx.emit('tick-mouseover', index);
     }
 
-    async function init() {
+    function init() {
       isLoading.value = true;
       const scaleType = (scale.value as ScaleBand<string | number>).step
         ? 'bandScale'
@@ -192,7 +193,7 @@ export default defineComponent({
       // Push all mixin functions into the `mixins` reactive object
       Object.entries(mixin(scale, containerSize, allOptions) || []).forEach(
         ([fnName, fn]) => {
-          Vue.set(mixins, fnName, fn);
+          mixins[fnName] = fn;
         }
       );
 
@@ -200,7 +201,7 @@ export default defineComponent({
     }
 
     onBeforeMount(async () => {
-      await init();
+      init();
 
       // Setup watcher to get new mixins if scale changes (i.e. vertical to horizontal)
       watch(scale, init, { flush: 'sync' });

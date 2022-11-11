@@ -2,6 +2,7 @@
 
 [![PR workflow](https://github.com/Adyen/lume/actions/workflows/pr.yml/badge.svg)](https://github.com/Adyen/lume/actions/workflows/pr.yml)
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/Adyen/lume/blob/main/LICENSE)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a6c48bc7-b4d2-4be4-ad36-cbd353ab4f07/deploy-status)](https://app.netlify.com/sites/adyen-lume/deploys)
 
 Lume is a library for graphical representations of information and data. By using visual elements like charts, graphs, and maps, this repository provide an accessible way to see and understand trends, outliers, and patterns in data. We use Vue to all graphic elements and rely on d3.js for the calculations.
 
@@ -40,7 +41,7 @@ The default export of Lume is a Vue plugin that you can install in your global V
 
 ```ts
 import Vue from 'vue';
-import Lume from 'lume';
+import Lume from '@adyen/lume';
 
 import App from './my-app.vue';
 
@@ -57,7 +58,7 @@ If, instead of using the Vue plugin, you rather import single components as you 
 // SFC <script type="ts">
 
 import { defineComponent } from 'vue';
-import LumeBarChart from 'lume/charts/lume-bar-chart';
+import { LumeBarChart } from '@adyen/lume';
 
 export default defineComponent({
   components: { LumeBarChart },

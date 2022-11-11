@@ -22,12 +22,21 @@
         :with-points="false"
       />
     </template>
+    <template
+      v-for="(_, name) in slots"
+      #[name]="slotData"
+    >
+      <slot
+        :name="name"
+        v-bind="slotData || {}"
+      />
+    </template>
   </lume-chart>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, toRefs } from 'vue';
-import { scaleLinear } from 'd3-scale';
+import { scaleLinear } from 'd3';
 
 import LumeChart from '@/components/core/lume-chart';
 import LumeLineGroup from '@/components/groups/lume-line-group';
@@ -41,6 +50,7 @@ import { Data } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 
 import { options as defaultOptions } from './defaults';
+import { excludeGroups } from '@/utils/helpers';
 
 export default defineComponent({
   components: { LumeChart, LumeLineGroup },
@@ -48,7 +58,7 @@ export default defineComponent({
     ...withBase(null),
     ...withOptions(),
   },
-  setup(props) {
+  setup(props, context) {
     const { data, options } = toRefs(props);
 
     const { internalData } = useBase(data);
@@ -86,6 +96,7 @@ export default defineComponent({
       computedColor,
       getSparklineOptions,
       xScaleGenerator,
+      slots: excludeGroups(context.slots),
     };
   },
 });

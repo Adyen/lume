@@ -2,8 +2,10 @@ name: npm publish
 
 on:
   workflow_dispatch:
-  release:
-    types: [created]
+  workflow_run:
+    workflows: ['bump version']
+    types:
+      - completed
 
 jobs:
   setup:

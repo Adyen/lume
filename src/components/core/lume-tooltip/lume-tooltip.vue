@@ -1,7 +1,7 @@
 <template>
   <div
     ref="root"
-    class="lume-tooltip"
+    class="lume-tooltip lume-typography--caption"
     data-j-tooltip
   >
     <slot>
@@ -21,10 +21,7 @@
           data-j-tooltip__item
         >
           <span
-            :class="[
-              `lume-tooltip__symbol--${item.type}`,
-              `lume-background-color--${item.color || '01'}`,
-            ]"
+            :class="[`lume-background-color--${item.color}`]"
             class="lume-tooltip__symbol"
             data-j-tooltip__item__symbol
           />
@@ -67,7 +64,6 @@ import { TooltipOptions, useOptions, withOptions } from '@/composables/options';
 import { TOOLTIP_POSITIONS } from '@/constants';
 
 interface TooltipItem {
-  type: string;
   color: string;
   label: string;
   value: number | string;
@@ -75,18 +71,30 @@ interface TooltipItem {
 
 export default defineComponent({
   props: {
-    targetElement: Element,
+    targetElement: {
+      type: Element,
+      required: true,
+    },
+    items: {
+      type: Array as PropType<Array<TooltipItem>>,
+      required: true,
+    },
     position: {
       type: String as PropType<Placement>,
       default: 'auto',
       validator: (value: string) =>
         TOOLTIP_POSITIONS.includes(value as typeof TOOLTIP_POSITIONS[number]),
     },
-    fixedPositioning: { type: Boolean, default: false },
-    modifiers: { type: Array, default: null },
-    title: { type: [String, Number], default: null },
-    items: {
-      type: Array as PropType<Array<TooltipItem>>,
+    fixedPositioning: {
+      type: Boolean,
+      default: false,
+    },
+    modifiers: {
+      type: Array,
+      default: null,
+    },
+    title: {
+      type: [String, Number],
       default: null,
     },
     ...withOptions<TooltipOptions>(),
@@ -101,12 +109,15 @@ export default defineComponent({
     const { allOptions } = useOptions<TooltipOptions>(options);
 
     // Computed
+    const computedFixedPositioning = computed(
+      () => allOptions.value.fixedPositioning ?? props.fixedPositioning
+    );
+
     const strategy = computed<PositioningStrategy>(() =>
-      props.fixedPositioning ? 'fixed' : 'absolute'
+      computedFixedPositioning.value ? 'fixed' : 'absolute'
     );
 
     const allModifiers = computed(() => [
-      ...(props.modifiers || []),
       {
         name: 'computeStyles',
         options: {
@@ -117,6 +128,7 @@ export default defineComponent({
         name: 'offset',
         options: { offset: [0, allOptions.value.offset || 8] },
       },
+      ...(props.modifiers || []),
     ]);
 
     const showTitle = computed(

@@ -1,5 +1,5 @@
 import { computed, Ref } from 'vue';
-import { ScaleBand } from 'd3-scale';
+import { ScaleBand } from 'd3';
 
 import { AxisOptions } from '@/composables/options';
 import { AxisMixin } from '../types';
@@ -30,9 +30,11 @@ const useBandScaleAxis: AxisMixin = function (
   }
 
   function getGridLinesAttributes() {
+    const halfStep = scale.value.step() / 2;
+
     return {
-      y1: scale.value.step() / 2,
-      y2: scale.value.step() / 2,
+      y1: halfStep,
+      y2: halfStep,
       x1: containerSize.value.width,
     };
   }

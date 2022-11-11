@@ -7,7 +7,7 @@ This component is meant to render bar-like elements. It is used mainly by Bar ch
 ### Importing
 
 ```ts
-import { LumeBar } from 'lume/core';
+import { LumeBar } from '@adyen/lume';
 ```
 
 ### Basic use
