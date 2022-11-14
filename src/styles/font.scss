@@ -1,6 +1,12 @@
-// Inter font face
+/* 
+  Inter font face 
 
-/* inter-regular  */
+  This is a Sass file so that the assets get encoded by Webpack
+  into Base64 to be included in the bundled package. It is removed
+  from dist/scss in the final package to avoid confusion.
+*/
+
+/* inter-regular */
 @font-face {
   font-family: 'Inter';
   font-style: normal;
@@ -9,7 +15,7 @@
     url('../assets/fonts/inter-regular.woff') format('woff');
 }
 
-/* inter-500  */
+/* inter-500 */
 @font-face {
   font-family: 'Inter';
   font-style: normal;

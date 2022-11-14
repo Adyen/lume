@@ -36,11 +36,10 @@ export default {
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.(woff2?|ttf|otf|eot)$/,
-        type: 'asset/resource',
-        generator: {
-          filename: 'assets/fonts/[name][ext][query]',
-        },
+        // Encode font to Base 64 and inline it in font.css
+        // This makes it so consumers don't have to deal with font file types from their node_modules.
+        test: /\.(woff2?)$/,
+        type: 'asset/inline',
       },
     ],
   },
