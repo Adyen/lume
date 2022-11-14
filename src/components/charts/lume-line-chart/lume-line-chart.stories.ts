@@ -64,12 +64,11 @@ MultipleDatasets.args = {
 
 export const RealData = Template.bind({});
 RealData.args = {
-  ...DATASETS['Chargebacks_Fraud overview 28 days'],
+  ...DATASETS['Adoption rate overview 28 days'],
   options: {
     ...defaultOptions,
     yAxisOptions: {
       ...defaultOptions.yAxisOptions,
-      tickFormat: '~p',
     },
   },
 };

@@ -51,7 +51,7 @@ const Template = ({ argTypes, updateArgs, id }) => ({
     const { orientation } = toRefs(props);
     const tickFormat = {
       'charts-bar-chart--maximum-datasets': '.2s',
-      'charts-bar-chart--real-data': '~p',
+      'charts-bar-chart--real-data': '~s',
     };
 
     watch(
@@ -137,9 +137,12 @@ MaximumDatasets.parameters = {
 
 export const RealData = Template.bind({});
 RealData.args = {
-  ...DATASETS['Chargebacks_Fraud overview 28 days'],
+  ...DATASETS['Adoption rate overview 28 days'],
   type: 'stacked',
   orientation: ORIENTATIONS.VERTICAL,
+  options: {
+    yAxisOptions: {},
+  },
 };
 RealData.parameters = {
   design: {
