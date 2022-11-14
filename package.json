@@ -39,7 +39,7 @@
     "url": "https://github.com/Adyen/lume.git"
   },
   "scripts": {
-    "build": "NODE_ENV=production webpack --config build/webpack.prod.js --progress",
+    "build": "NODE_ENV=production webpack --config build/webpack.prod.js --progress && node build/postbuild.js",
     "build:storybook": "NODE_ENV=production build-storybook -c .storybook -o storybook",
     "confighooks": "git config core.hooksPath ./git-hooks",
     "dev": "webpack --config build/webpack.dev.js --progress",
