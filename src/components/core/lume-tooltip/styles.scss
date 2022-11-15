@@ -1,6 +1,6 @@
 @use 'sass:math';
 
-@use '~@/styles/variables' as *;
+@use '@/styles/variables' as *;
 
 // Tooltip box -----------------------------------------------------------------
 $lume-tooltip-title-color: $lume-color-grey-100 !default;
