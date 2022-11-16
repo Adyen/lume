@@ -90,9 +90,11 @@ export default defineComponent({
     }
 
     const pathDefinition = computed(() => {
-      return line<number>()
+      const lineFn = line<number>()
         .x(isBandScale(props.xScale) ? findBandX : findLinearX)
-        .y((d) => props.yScale(d))(props.values);
+        .y((d) => props.yScale(d));
+
+      return lineFn(props.values);
     });
 
     onMounted(() => svgCheck(root.value));
