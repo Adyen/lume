@@ -30,7 +30,8 @@ export default defineComponent({
     data: {
       type: Array as PropType<Data<DatasetValueObject>>,
       validator: (datasets: Data) =>
-        !!datasets && datasets.every((dataset) => 'color' in dataset),
+        !!datasets &&
+        datasets.every((dataset) => 'color' in dataset && 'label' in dataset),
       required: true,
     },
   },
