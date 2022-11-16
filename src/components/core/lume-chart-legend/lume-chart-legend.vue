@@ -28,7 +28,9 @@ import { Data, DatasetValueObject } from '@/types/dataset';
 export default defineComponent({
   props: {
     data: {
-      type: Array as PropType<Data<DatasetValueObject>>,
+      type: Array as PropType<
+        Array<Pick<DatasetValueObject, 'color' | 'label'>>
+      >,
       validator: (datasets: Data) =>
         !!datasets &&
         datasets.every((dataset) => 'color' in dataset && 'label' in dataset),
