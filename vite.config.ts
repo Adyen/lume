@@ -1,7 +1,7 @@
 import { join } from 'path';
 import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue2';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
+import vue from '@vitejs/plugin-vue2';
 
 export default defineConfig({
   build: {
@@ -18,14 +18,11 @@ export default defineConfig({
     sourcemap: true,
     rollupOptions: {
       external: ['@popperjs/core', 'd3', 'd3-sankey', 'vue'],
-      // output: {
-      //   format: 'es',
-      //   chunkFileNames: 'common/[name].[hash].js',
-      //   entryFileNames: '[name].js',
-      // },
+      output: {
+        chunkFileNames: 'common/[hash].js',
+      },
     },
   },
-  publicDir: 'src/assets',
   plugins: [
     vue(),
     viteStaticCopy({
