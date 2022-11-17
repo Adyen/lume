@@ -6,6 +6,9 @@ const config: StorybookViteConfig = {
   core: {
     builder: '@storybook/builder-vite',
   },
+  features: {
+    storyStoreV7: true,
+  },
   addons: [
     {
       name: '@storybook/addon-essentials',
@@ -30,7 +33,7 @@ const config: StorybookViteConfig = {
     return mergeConfig(config, {
       resolve: {
         alias: {
-          '@': path.join(__dirname, 'src/'),
+          '@': path.resolve(__dirname, '../src/'),
         },
       },
     });
