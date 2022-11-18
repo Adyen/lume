@@ -63,7 +63,8 @@
   "dependencies": {
     "@popperjs/core": "^2.11.4",
     "d3": "7.6.1",
-    "d3-sankey": "0.12.3"
+    "d3-sankey": "0.12.3",
+    "portal-vue": "^2.1.7"
   },
   "peerDependencies": {
     "vue": "^2.7.8"
