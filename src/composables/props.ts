@@ -11,7 +11,8 @@ function orientationValidator(orientation: string): boolean {
 }
 
 export const withChartProps = <T extends Options = ChartOptions>(
-  dataValidator?: DataValidator
+  dataValidator?: DataValidator,
+  withOrientation = true
 ) => ({
     ...withBase(dataValidator),
     ...withScales(),
@@ -20,11 +21,15 @@ export const withChartProps = <T extends Options = ChartOptions>(
       type: String,
       default: null,
     },
-    orientation: {
-      type: String as PropType<Orientation>,
-      default: ORIENTATIONS.VERTICAL,
-      validator: orientationValidator,
-    },
+    ...(withOrientation
+      ? {
+        orientation: {
+          type: String as PropType<Orientation>,
+          default: ORIENTATIONS.VERTICAL,
+          validator: orientationValidator,
+        },
+      }
+      : {}),
     classList: {
       type: [String, Array] as PropType<string | Array<string>>,
       default: () => [],
