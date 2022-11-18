@@ -48,7 +48,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-@use '~@/styles/variables' as *;
+@use '@/styles/variables' as *;
 
 .box-plot {
   &__line {
