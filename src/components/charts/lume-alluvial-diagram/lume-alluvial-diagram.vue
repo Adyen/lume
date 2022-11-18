@@ -34,7 +34,7 @@ import { options as defaultOptions } from './defaults';
 export default defineComponent({
   components: { LumeChart, LumeAlluvialGroup },
   props: {
-    ...withChartProps(singleDatasetValidator),
+    ...withChartProps(singleDatasetValidator, false),
   },
   setup(props, context) {
     const { options } = toRefs(props);

@@ -35,7 +35,7 @@ import { excludeGroups } from '@/utils/helpers';
 export default defineComponent({
   components: { LumeChart, LumeLineGroup },
   props: {
-    ...withChartProps(),
+    ...withChartProps(null, false),
   },
   setup(props, context) {
     const { options } = toRefs(props);
