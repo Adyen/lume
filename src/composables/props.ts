@@ -12,10 +12,11 @@ function orientationValidator(orientation: string): boolean {
 
 export const withChartProps = <T extends Options = ChartOptions>(
   dataValidator?: DataValidator,
-  withOrientation = true
+  withOrientation = true,
+  withScalesFlag = true
 ) => ({
     ...withBase(dataValidator),
-    ...withScales(),
+    ...(withScalesFlag ? withScales() : {}),
     ...withOptions<T>(),
     title: {
       type: String,
