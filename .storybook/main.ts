@@ -1,13 +1,8 @@
-import { mergeConfig } from 'vite';
 import path from 'path';
-import { StorybookViteConfig } from '@storybook/builder-vite';
 
-const config: StorybookViteConfig = {
+const config = {
   core: {
-    builder: '@storybook/builder-vite',
-  },
-  features: {
-    storyStoreV7: true,
+    builder: 'webpack5',
   },
   addons: [
     {
@@ -28,15 +23,20 @@ const config: StorybookViteConfig = {
     '../src/playground/**/*.stories.@(ts)',
   ],
   staticDirs: ['./static'],
-  viteFinal(config) {
-    // Merge custom configuration into the default config
-    return mergeConfig(config, {
-      resolve: {
-        alias: {
-          '@': path.resolve(__dirname, '../src/'),
-        },
-      },
+  webpackFinal: async (config) => {
+    // https://github.com/storybookjs/storybook/issues/15335#issuecomment-1013136904
+    config.module.rules.push({
+      resolve: { fullySpecified: false },
     });
+
+    config.module.rules.push({
+      test: /\.s[ac]ss|\.css$/,
+      use: ['vue-style-loader', 'css-loader', 'sass-loader'],
+    });
+
+    config.resolve.alias['@'] = path.resolve(__dirname, '../src/');
+
+    return config;
   },
 };
 
