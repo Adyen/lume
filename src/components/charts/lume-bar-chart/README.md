@@ -1,6 +1,6 @@
 # Bar chart
 
-Bar charts plot data at regular intervals represented by bards from either left to right or top to bottom to demonstrate changes in value. The `lume-bar-chart.vue` component can be regarded as a broker component for the different types of bar chart - single, stacked and grouped.
+Bar charts plot data at regular intervals represented by bars from either left to right or top to bottom to demonstrate changes in value. The `lume-bar-chart.vue` component can be regarded as a broker component for the different types of bar chart - single, stacked and grouped.
 
 ## Usage
 
@@ -12,7 +12,7 @@ import { LumeBarChart } from '@adyen/lume';
 
 ### Basic use
 
-To generate a simple line chart with default settings, simply pass the `data` and `labels` props.
+To generate a simple bar chart with default settings, simply pass the `data` and `labels` props.
 
 ```html
 <template>
