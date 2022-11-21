@@ -303,3 +303,7 @@ $lume-legacy-colors: (
 ) !default;
 
 $lume-chart-background-color: $lume-color-white !default;
+
+:root {
+  --lume-chart-background-color: #{$lume-chart-background-color};
+}
