@@ -31,7 +31,7 @@ To show a the legend, provide a `data` property.
 ```ts
 [
   {
-    color: '01', // String value corresponding to mapped Lume color values
+    color: 'skyblue', // String with value 'skyblue', 'royalblue', 'violet', 'darkteal' or 'gold'
     label: 'Monday', // String
   },
 ];
