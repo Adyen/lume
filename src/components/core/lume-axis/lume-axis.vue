@@ -6,42 +6,73 @@
     :transform="axisTransform"
     data-j-axis
   >
-    <g
+    <defs>
+      <linearGradient :id="`${computedType}-gradient`">
+        <stop
+          offset="0%"
+          stop-color="rgba(255,255,255,0)"
+        />
+        <stop
+          offset="10%"
+          stop-color="var(--lume-chart-background-color)"
+        />
+        <stop
+          offset="90%"
+          stop-color="var(--lume-chart-background-color)"
+        />
+        <stop
+          offset="100%"
+          stop-color="rgba(255,255,255,0)"
+        />
+      </linearGradient>
+    </defs>
+
+    <vue-portal
       v-for="(tick, index) in ticks"
-      v-bind="mixins.getTickGroupAttributes(tick)"
       :key="tick"
-      class="axis__tick"
-      :class="{
-        'axis__tick--hovered': allOptions.withHover && hoveredIndex === index,
-        'axis__tick--hidden': allOptions.skip && !showTick(index),
-      }"
-      data-j-axis__tick
+      :disabled="!isHovering(index)"
+      :selector="`#${computedType}-hovered-portal`"
     >
       <g
-        class="axis__tick-label lume-typography--axis"
-        pointer-events="all"
-        data-j-axis__tick-label
-        @mouseover="onTickMouseover(index)"
+        v-bind="mixins.getTickGroupAttributes(tick)"
+        :id="getTickId(index)"
+        class="axis__tick"
+        :class="{
+          'axis__tick--hovered': isHovering(index),
+          'axis__tick--hidden': allOptions.skip && !showTick(index),
+        }"
+        data-j-axis__tick
       >
-        <rect
-          v-bind="mixins.getTickGhostAttributes()"
-          class="axis__ghost"
-        />
-        <text
-          v-bind="mixins.getTickLabelAttributes()"
-          ref="tickRefs"
-          class="axis__label"
+        <g
+          class="axis__tick-label lume-typography--axis"
+          pointer-events="all"
+          data-j-axis__tick-label
+          @mouseover="onTickMouseover(index)"
         >
-          {{ formatTick(tick) }}
-        </text>
-      </g>
+          <rect
+            v-bind="mixins.getTickGhostAttributes()"
+            class="axis__ghost"
+            :fill="`url(#${`${computedType}-gradient`})`"
+          />
+          <text
+            v-bind="mixins.getTickLabelAttributes()"
+            ref="tickRefs"
+            class="axis__label"
+          >
+            {{ formatTick(tick) }}
+          </text>
+        </g>
 
-      <line
-        v-if="allOptions.gridLines"
-        v-bind="mixins.getGridLinesAttributes()"
-        class="axis__grid-line"
-      />
-    </g>
+        <line
+          v-if="allOptions.gridLines"
+          v-bind="mixins.getGridLinesAttributes()"
+          class="axis__grid-line"
+        />
+      </g>
+    </vue-portal>
+
+    <!-- Hovered tick -->
+    <g :id="`${computedType}-hovered-portal`" />
   </g>
 </template>
 
@@ -60,11 +91,13 @@ import {
 import { format } from 'd3';
 import { ticks as d3TickGenerator } from 'd3';
 import { ScaleBand } from 'd3';
+import { Portal as VuePortal } from 'portal-vue';
 
 import { AxisOptions, useOptions, withOptions } from '@/composables/options';
 import { Scale } from '@/composables/scales';
 import { useSkip } from './composables/lume-skip';
 
+import { Orientation, ORIENTATIONS } from '@/constants';
 import { svgCheck } from '@/utils/svg-check';
 import { ContainerSize } from '@/types/size';
 import { xOptions, yOptions } from './defaults';
@@ -85,6 +118,7 @@ const TYPES = {
 };
 
 export default defineComponent({
+  components: { VuePortal },
   props: {
     scale: {
       type: Function as PropType<Scale>,
@@ -108,10 +142,15 @@ export default defineComponent({
       type: Number,
       default: -1,
     },
+    orientation: {
+      type: String as PropType<Orientation>,
+      default: ORIENTATIONS.VERTICAL,
+    },
     ...withOptions<AxisOptions>(),
   },
   setup(props, ctx) {
-    const { scale, containerSize, options } = toRefs(props); // Needs to be cast as any to avoid it being cast to never by default
+    const { scale, containerSize, hoveredIndex, options, orientation } =
+      toRefs(props); // Needs to be cast as any to avoid it being cast to never by default
 
     const mixins = reactive<Record<string, AxisMixinFunction>>({});
     const tickRefs = ref<Array<SVGTextElement>>(null);
@@ -124,6 +163,14 @@ export default defineComponent({
 
     const computedType = computed(
       () => props.type || (computedPosition.value === 'left' ? 'y' : 'x')
+    );
+
+    const shouldHover = computed(
+      () =>
+        (computedType.value === 'x' &&
+          orientation.value === ORIENTATIONS.VERTICAL) ||
+        (computedType.value === 'y' &&
+          orientation.value === ORIENTATIONS.HORIZONTAL)
     );
 
     const { allOptions } = useOptions<AxisOptions>(
@@ -177,7 +224,19 @@ export default defineComponent({
     }
 
     function onTickMouseover(index: number) {
-      ctx.emit('tick-mouseover', index);
+      shouldHover.value && ctx.emit('tick-mouseover', index);
+    }
+
+    function isHovering(index: number) {
+      return (
+        allOptions.value.withHover &&
+        shouldHover.value &&
+        hoveredIndex.value === index
+      );
+    }
+
+    function getTickId(index: number) {
+      return `${computedType.value}-tick--${index}`;
     }
 
     function init() {
@@ -215,10 +274,13 @@ export default defineComponent({
       computedPosition,
       computedType,
       formatTick,
+      getTickId,
+      isHovering,
       isLoading,
       mixins,
       onTickMouseover,
       root,
+      shouldHover,
       showTick,
       tickRefs,
       ticks,

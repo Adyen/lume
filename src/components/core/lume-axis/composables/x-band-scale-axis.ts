@@ -26,7 +26,8 @@ const useBandScaleAxis: AxisMixin = function (
 
   function getTickGhostAttributes() {
     return {
-      width: scale.value.step(),
+      x: -8,
+      width: scale.value.step() + 16,
       height: options.value.tickPadding + TEXT_HEIGHT + BOTTOM_PADDING,
     };
   }
