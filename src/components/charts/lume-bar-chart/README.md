@@ -1,6 +1,6 @@
 # Bar chart
 
-Bar charts plot data at regular intervals represented by bards from either left to right or top to bottom to demonstrate changes in value. The `LumeBarChart` component can be regarded as a broker component for the different types of bar chart - single, stacked and grouped.
+Bar charts plot data at regular intervals represented by bars from either left to right or top to bottom to demonstrate changes in value. The `LumeBarChart` component can be regarded as a broker component for the different types of bar chart - single, stacked and grouped.
 
 ## Usage
 
@@ -12,7 +12,7 @@ import { LumeBarChart } from '@adyen/lume';
 
 ### Basic use
 
-To generate a simple line chart with default settings, simply pass the `data` and `labels` props. If you have more than one dataset, be sure to pass `type` as well, with either `'group'` or `'stacked'` as a value.
+To generate a simple line chart with default settings, simply pass the `data` and `labels` props. If you have more than one dataset, be sure to pass `type` as well, with either `'grouped'` or `'stacked'` as a value.
 
 ```html
 <template>

@@ -12,7 +12,7 @@ import { LumeAlluvialDiagram } from '@adyen/lume';
 
 ### Basic use
 
-To generate a simple line chart with default settings, simply pass the `data` and `labels` props.
+To generate a simple alluvial diagram with default settings, simply pass the `data` and `labels` props.
 
 ```html
 <template>
