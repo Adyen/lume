@@ -8,7 +8,7 @@ export default defineConfig({
     threads: false,
     root: 'src',
     setupFiles: ['./test/config/setupTests.ts'],
-    environment: 'happy-dom',
+    environment: 'jsdom',
     coverage: {
       provider: 'istanbul',
       reportsDirectory: `./test/coverage`,
