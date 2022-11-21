@@ -19,13 +19,6 @@ To generate a simple alluvial diagram with default settings, simply pass the `da
   <lume-alluvial-diagram
     :data="data"
     :labels="labels"
-    :color="color"
-    :title="title"
-    :orientation="orientation"
-    :classlist="classlist"
-    :x-scale="xScale"
-    :y-scale="yScale"
-    :options="options"
   />
 </template>
 
@@ -40,7 +33,7 @@ To generate a simple alluvial diagram with default settings, simply pass the `da
       values: [
         {
           label: 'A',
-          color: '01',
+          color: 'skyblue',
           value: 'A',
           targets: [
             { node: 'D', value: 15 },
@@ -50,7 +43,7 @@ To generate a simple alluvial diagram with default settings, simply pass the `da
         },
         {
           label: 'B',
-          color: '02',
+          color: 'royalblue',
           value: 'B',
           targets: [
             { node: 'D', value: 45 },
@@ -59,21 +52,21 @@ To generate a simple alluvial diagram with default settings, simply pass the `da
         },
         {
           label: 'C',
-          color: '03',
+          color: 'violet',
           value: 'C',
           targets: [{ node: 'D', value: 20 }],
         },
         {
           label: 'D',
           value: 'D',
-          color: '07',
+          color: 'darkteal',
         },
         {
           label: 'E',
           value: 'E',
-          color: '06',
+          color: 'gold',
         },
-        { label: 'G', value: 'G', color: '08' },
+        { label: 'G', value: 'G', color: 'skyblue' },
       ],
       nodePadding: 20,
       nodeWidth: 16,
