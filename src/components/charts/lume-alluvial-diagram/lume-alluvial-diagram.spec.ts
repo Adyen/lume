@@ -31,7 +31,7 @@ describe('lume-alluvial-diagram.vue', () => {
   beforeAll(() => {
     // Suppress error output to the console
     originalError = console.error;
-    console.error = jest.fn();
+    console.error = vi.fn();
   });
 
   afterAll(() => {

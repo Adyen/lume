@@ -28,7 +28,7 @@ describe('chart-container.vue', () => {
     };
 
     const wrapper = mount(LumeChartContainer, {
-      propsData: { margins },
+      props: { margins },
     });
 
     const el = wrapper.find('[data-j-chart-container__group]');

@@ -1,0 +1,321 @@
+// Vitest Snapshot v1
+
+exports[`lume-alluvial-diagram.vue > mounts component and sets prop values 1`] = `
+<div
+  class="lume-chart-container lume-chart-container--minimum"
+  data-j-alluvial-diagram=""
+  data-j-chart-container=""
+  data-j-lume-chart=""
+  data-v-8124b354=""
+  data-v-e7119ab8=""
+>
+  <div
+    class="lume-chart__header"
+    data-v-8124b354=""
+    data-v-e7119ab8=""
+  >
+    <div
+      class="lume-chart__header-section"
+      data-v-8124b354=""
+      data-v-e7119ab8=""
+    >
+      <!---->
+      <div
+        class="lume-chart__controls"
+        data-v-8124b354=""
+        data-v-e7119ab8=""
+      />
+    </div>
+    <div
+      class="lume-chart__header-section"
+      data-v-8124b354=""
+      data-v-e7119ab8=""
+    >
+      <!---->
+      <!---->
+    </div>
+  </div>
+  <svg
+    class="lume-chart-container__svg"
+    data-j-chart-container__root=""
+    data-v-8124b354=""
+    height="0"
+  >
+    <g
+      class="lume-chart-container__group"
+      data-j-chart-container__group=""
+      data-v-8124b354=""
+      transform="translate(0, 0)"
+    >
+      <!---->
+      <!---->
+      <g
+        class="lume-alluvial-group"
+        containerSize="[object Object]"
+        data-j-alluvial-group=""
+        data-v-8124b354=""
+        data-v-ce3d709d=""
+        hoveredIndex="-1"
+        transition="true"
+      >
+        <g
+          class="lume-alluvial-path-group"
+          data-j-alluvial-group__ghost-path=""
+          data-v-ce3d709d=""
+          data-v-e924c8b9=""
+        />
+        <g
+          class="lume-alluvial-path-group"
+          data-j-alluvial-group__path=""
+          data-v-ce3d709d=""
+          data-v-e924c8b9=""
+        />
+      </g>
+      <!---->
+      <!---->
+    </g>
+  </svg>
+  <!---->
+  <!---->
+</div>
+`;
+
+exports[`lume-alluvial-diagram.vue > mounts component and sets prop values using random data 1`] = `
+<div
+  class="lume-chart-container lume-chart-container--minimum"
+  data-j-alluvial-diagram=""
+  data-j-chart-container=""
+  data-j-lume-chart=""
+  data-v-8124b354=""
+  data-v-e7119ab8=""
+>
+  <div
+    class="lume-chart__header"
+    data-v-8124b354=""
+    data-v-e7119ab8=""
+  >
+    <div
+      class="lume-chart__header-section"
+      data-v-8124b354=""
+      data-v-e7119ab8=""
+    >
+      <!---->
+      <div
+        class="lume-chart__controls"
+        data-v-8124b354=""
+        data-v-e7119ab8=""
+      />
+    </div>
+    <div
+      class="lume-chart__header-section"
+      data-v-8124b354=""
+      data-v-e7119ab8=""
+    >
+      <!---->
+      <!---->
+    </div>
+  </div>
+  <svg
+    class="lume-chart-container__svg"
+    data-j-chart-container__root=""
+    data-v-8124b354=""
+    height="0"
+  >
+    <g
+      class="lume-chart-container__group"
+      data-j-chart-container__group=""
+      data-v-8124b354=""
+      transform="translate(0, 0)"
+    >
+      <!---->
+      <!---->
+      <g
+        class="lume-alluvial-group"
+        containerSize="[object Object]"
+        data-j-alluvial-group=""
+        data-v-8124b354=""
+        data-v-ce3d709d=""
+        hoveredIndex="-1"
+        transition="true"
+      >
+        <g
+          class="lume-alluvial-path-group"
+          data-j-alluvial-group__ghost-path=""
+          data-v-ce3d709d=""
+          data-v-e924c8b9=""
+        />
+        <g
+          class="lume-alluvial-path-group"
+          data-j-alluvial-group__path=""
+          data-v-ce3d709d=""
+          data-v-e924c8b9=""
+        />
+      </g>
+      <!---->
+      <!---->
+    </g>
+  </svg>
+  <!---->
+  <!---->
+</div>
+`;
+
+exports[`lume-alluvial-diagram.vue > should be able to handle an dataset with a single node 1`] = `
+<div
+  class="lume-chart-container lume-chart-container--minimum"
+  data-j-alluvial-diagram=""
+  data-j-chart-container=""
+  data-j-lume-chart=""
+  data-v-8124b354=""
+  data-v-e7119ab8=""
+>
+  <div
+    class="lume-chart__header"
+    data-v-8124b354=""
+    data-v-e7119ab8=""
+  >
+    <div
+      class="lume-chart__header-section"
+      data-v-8124b354=""
+      data-v-e7119ab8=""
+    >
+      <!---->
+      <div
+        class="lume-chart__controls"
+        data-v-8124b354=""
+        data-v-e7119ab8=""
+      />
+    </div>
+    <div
+      class="lume-chart__header-section"
+      data-v-8124b354=""
+      data-v-e7119ab8=""
+    >
+      <!---->
+      <!---->
+    </div>
+  </div>
+  <svg
+    class="lume-chart-container__svg"
+    data-j-chart-container__root=""
+    data-v-8124b354=""
+    height="0"
+  >
+    <g
+      class="lume-chart-container__group"
+      data-j-chart-container__group=""
+      data-v-8124b354=""
+      transform="translate(0, 0)"
+    >
+      <!---->
+      <!---->
+      <g
+        class="lume-alluvial-group"
+        containerSize="[object Object]"
+        data-j-alluvial-group=""
+        data-v-8124b354=""
+        data-v-ce3d709d=""
+        hoveredIndex="-1"
+        transition="true"
+      >
+        <g
+          class="lume-alluvial-path-group"
+          data-j-alluvial-group__ghost-path=""
+          data-v-ce3d709d=""
+          data-v-e924c8b9=""
+        />
+        <g
+          class="lume-alluvial-path-group"
+          data-j-alluvial-group__path=""
+          data-v-ce3d709d=""
+          data-v-e924c8b9=""
+        />
+      </g>
+      <!---->
+      <!---->
+    </g>
+  </svg>
+  <!---->
+  <!---->
+</div>
+`;
+
+exports[`lume-alluvial-diagram.vue > should be able to handle an dataset with only nodes but no edges 1`] = `
+<div
+  class="lume-chart-container lume-chart-container--minimum"
+  data-j-alluvial-diagram=""
+  data-j-chart-container=""
+  data-j-lume-chart=""
+  data-v-8124b354=""
+  data-v-e7119ab8=""
+>
+  <div
+    class="lume-chart__header"
+    data-v-8124b354=""
+    data-v-e7119ab8=""
+  >
+    <div
+      class="lume-chart__header-section"
+      data-v-8124b354=""
+      data-v-e7119ab8=""
+    >
+      <!---->
+      <div
+        class="lume-chart__controls"
+        data-v-8124b354=""
+        data-v-e7119ab8=""
+      />
+    </div>
+    <div
+      class="lume-chart__header-section"
+      data-v-8124b354=""
+      data-v-e7119ab8=""
+    >
+      <!---->
+      <!---->
+    </div>
+  </div>
+  <svg
+    class="lume-chart-container__svg"
+    data-j-chart-container__root=""
+    data-v-8124b354=""
+    height="0"
+  >
+    <g
+      class="lume-chart-container__group"
+      data-j-chart-container__group=""
+      data-v-8124b354=""
+      transform="translate(0, 0)"
+    >
+      <!---->
+      <!---->
+      <g
+        class="lume-alluvial-group"
+        containerSize="[object Object]"
+        data-j-alluvial-group=""
+        data-v-8124b354=""
+        data-v-ce3d709d=""
+        hoveredIndex="-1"
+        transition="true"
+      >
+        <g
+          class="lume-alluvial-path-group"
+          data-j-alluvial-group__ghost-path=""
+          data-v-ce3d709d=""
+          data-v-e924c8b9=""
+        />
+        <g
+          class="lume-alluvial-path-group"
+          data-j-alluvial-group__path=""
+          data-v-ce3d709d=""
+          data-v-e924c8b9=""
+        />
+      </g>
+      <!---->
+      <!---->
+    </g>
+  </svg>
+  <!---->
+  <!---->
+</div>
+`;

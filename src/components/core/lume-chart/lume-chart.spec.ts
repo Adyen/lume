@@ -17,7 +17,7 @@ describe('lume-chart.vue', () => {
       slots: {
         groups: 'Mock groups',
       },
-      propsData: defaultProps,
+      props: defaultProps,
     });
 
     const el = wrapper.find('[data-j-lume-chart]');
@@ -30,7 +30,7 @@ describe('lume-chart.vue', () => {
       slots: {
         groups: 'Mock groups',
       },
-      propsData: {
+      props: {
         ...defaultProps,
         options: {
           withTooltip: false,
@@ -49,7 +49,7 @@ describe('lume-chart.vue', () => {
       slots: {
         groups: 'Mock groups',
       },
-      propsData: {
+      props: {
         ...defaultProps,
         options: {
           showAxes: false,
@@ -66,7 +66,7 @@ describe('lume-chart.vue', () => {
       slots: {
         groups: 'Mock groups',
       },
-      propsData: {
+      props: {
         ...defaultProps,
         data: [
           {
@@ -85,7 +85,7 @@ describe('lume-chart.vue', () => {
       slots: {
         groups: 'Mock groups',
       },
-      propsData: {
+      props: {
         ...defaultProps,
         options: { withTooltip: true },
       },
@@ -102,7 +102,7 @@ describe('lume-chart.vue', () => {
       slots: {
         groups: 'Mock groups',
       },
-      propsData: defaultProps,
+      props: defaultProps,
     });
 
     expect(wrapper.find('[data-j-lume-chart__tooltip]').exists()).toBe(false);
@@ -116,7 +116,7 @@ describe('lume-chart.vue', () => {
       slots: {
         groups: 'Mock groups',
       },
-      propsData: {
+      props: {
         ...defaultProps,
         orientation: 'horizontal',
       },
@@ -133,7 +133,7 @@ describe('lume-chart.vue', () => {
       slots: {
         groups: 'Mock groups',
       },
-      propsData: defaultProps,
+      props: defaultProps,
     });
 
     const overlay = wrapper.find('[data-j-lume-overlay-group]');
@@ -148,7 +148,7 @@ describe('lume-chart.vue', () => {
       slots: {
         groups: 'Mock groups',
       },
-      propsData: defaultProps,
+      props: defaultProps,
     });
 
     const legend = wrapper.find('[data-j-lume-chart__legend]');
