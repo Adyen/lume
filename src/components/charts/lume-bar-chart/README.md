@@ -12,7 +12,7 @@ import { LumeBarChart } from '@adyen/lume';
 
 ### Basic use
 
-To generate a simple bar chart with default settings, simply pass the `data` and `labels` props. If you have more than one dataset, be sure to pass `type` as well, with either `'group'` or `'stacked'` as a value.
+To generate a simple bar chart with default settings, simply pass the `data` and `labels` props. If you have more than one dataset, be sure to pass `type` as well, with either `'grouped'` or `'stacked'` as a value.
 
 ```html
 <template>
