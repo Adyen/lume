@@ -34,7 +34,7 @@ enum TYPES {
   grouped = 'grouped',
   stacked = 'stacked',
 }
-const componentMap = {
+const COMPONENT_MAP = {
   single: 'lume-single-bar-chart',
   grouped: 'lume-grouped-bar-chart',
   stacked: 'lume-stacked-bar-chart',
@@ -76,7 +76,7 @@ export default defineComponent({
       if (!props.data) return;
 
       // Single bar chart
-      if (singleDatasetValidator(props.data)) return componentMap.single;
+      if (singleDatasetValidator(props.data)) return COMPONENT_MAP.single;
 
       if (!props.type) {
         throw new Error(
@@ -84,7 +84,7 @@ export default defineComponent({
         );
       }
 
-      return componentMap[props.type];
+      return COMPONENT_MAP[props.type];
     });
 
     return {
