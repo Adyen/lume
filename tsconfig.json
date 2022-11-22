@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["vitest/globals"],
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "declaration": true,
