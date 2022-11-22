@@ -9,6 +9,23 @@
     @resize="updateSize"
     @mouseleave="handleMouseleave"
   >
+    <vue-portal
+      v-if="allOptions.withLegend !== false"
+      :to="
+        allOptions.legendPosition === 'bottom' ? 'legend-bottom' : 'legend-top'
+      "
+    >
+      <lume-chart-legend
+        class="lume-chart__legend"
+        :class="{
+          'lume-chart__legend--bottom': allOptions.legendPosition === 'bottom',
+        }"
+        :data="internalData"
+        data-j-lume-chart__legend
+        @click="$emit('click', $event)"
+      />
+    </vue-portal>
+
     <template #header>
       <div class="lume-chart__header">
         <div class="lume-chart__header-section">
@@ -36,15 +53,9 @@
           </h3>
 
           <!-- chart legend -->
-          <lume-chart-legend
-            v-if="
-              allOptions.withLegend !== false &&
-                allOptions.legendPosition !== 'bottom'
-            "
-            class="lume-chart__legend"
-            :data="internalData"
-            data-j-lume-chart__legend
-            @click="$emit('click', $event)"
+          <vue-portal-target
+            class="u-display-flex u-width-full"
+            name="legend-top"
           />
         </div>
       </div>
@@ -141,15 +152,7 @@
       </h3>
 
       <!-- bottom chart legend -->
-      <lume-chart-legend
-        v-if="
-          allOptions.withLegend !== false &&
-            allOptions.legendPosition === 'bottom'
-        "
-        class="lume-chart__legend lume-chart__legend--bottom"
-        :data="internalData"
-        @click="$emit('click', $event)"
-      />
+      <vue-portal-target name="legend-bottom" />
     </template>
 
     <template #extra>
@@ -185,6 +188,10 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, toRefs } from 'vue';
+import {
+  Portal as VuePortal,
+  PortalTarget as VuePortalTarget,
+} from 'portal-vue';
 
 import {
   LumeAxis,
@@ -216,6 +223,8 @@ export default defineComponent({
     LumeChartLegend,
     LumeOverlayGroup,
     LumeTooltip,
+    VuePortal,
+    VuePortalTarget,
   },
   props: {
     ...withChartProps(),
