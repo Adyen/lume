@@ -7,6 +7,7 @@ export default defineConfig({
     globals: true,
     threads: false,
     root: 'src',
+    include: ['**/*.spec.{js,ts}'],
     setupFiles: ['./test/config/setupTests.ts'],
     environment: 'jsdom',
     coverage: {
@@ -16,10 +17,11 @@ export default defineConfig({
     },
   },
   resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@test': path.resolve(__dirname, './test'),
-    },
+    alias: [
+      { find: '@', replacement: path.resolve(__dirname, './src') },
+      { find: '@test', replacement: path.resolve(__dirname, './test') },
+      { find: /^vue$/, replacement: 'vue/dist/vue.runtime.common.js' },
+    ],
   },
   css: {
     preprocessorOptions: {
