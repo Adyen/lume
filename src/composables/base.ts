@@ -9,7 +9,11 @@ import {
 } from '@/constants';
 
 import { computeColor } from '@/utils/colors';
-import { getEmptyArrayFromData, isDatasetValueObject } from '@/utils/helpers';
+import {
+  getEmptyArrayFromData,
+  isDatasetValueObject,
+  nanoid,
+} from '@/utils/helpers';
 
 import {
   ColorPalette,
@@ -57,7 +61,7 @@ export const withBase = (dataValidator: DataValidator = null) => ({
 });
 
 export function useBase(
-  data: Ref<Data | InternalData>,
+  data?: Ref<Data | InternalData>,
   labels?: Ref<Array<string>>,
   color?: Ref<Colors | DivergentColors>,
   options?: Ref<Options>,
@@ -67,6 +71,8 @@ export function useBase(
     width: 0,
     height: 0,
   });
+
+  const chartID = nanoid(12);
 
   const internalData: ComputedRef<InternalData> = computed(() => {
     if (data.value.length > 5) warn(Warnings.DatasetLength);
@@ -110,6 +116,7 @@ export function useBase(
   }
 
   return {
+    chartID,
     computedLabels,
     containerSize,
     internalData,

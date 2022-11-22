@@ -32,7 +32,7 @@
       :key="tick"
       slim
       :disabled="!isHovering(index)"
-      :to="`${computedType}-hovered-portal`"
+      :to="`${chartID}-${computedType}-hovered-portal`"
     >
       <g
         v-bind="mixins.getTickGroupAttributes(tick)"
@@ -74,7 +74,7 @@
 
     <!-- Hovered tick -->
     <vue-portal-target
-      :name="`${computedType}-hovered-portal`"
+      :name="`${chartID}-${computedType}-hovered-portal`"
       slim
     />
   </g>
@@ -100,6 +100,7 @@ import {
   PortalTarget as VuePortalTarget,
 } from 'portal-vue';
 
+import { useBase } from '@/composables/base';
 import { AxisOptions, useOptions, withOptions } from '@/composables/options';
 import { Scale } from '@/composables/scales';
 import { useSkip } from './composables/lume-skip';
@@ -163,6 +164,8 @@ export default defineComponent({
     const tickRefs = ref<Array<SVGTextElement>>(null);
     const isLoading = ref<boolean>(false);
     const root = ref<SVGGElement>(null);
+
+    const { chartID } = useBase();
 
     const computedPosition = computed(() =>
       props.type ? TYPES[props.type] : props.position
@@ -243,7 +246,7 @@ export default defineComponent({
     }
 
     function getTickId(index: number) {
-      return `${computedType.value}-tick--${index}`;
+      return `${chartID}-${computedType.value}-tick--${index}`;
     }
 
     function init() {
@@ -278,6 +281,7 @@ export default defineComponent({
     return {
       allOptions,
       axisTransform,
+      chartID,
       computedPosition,
       computedType,
       formatTick,
