@@ -6,8 +6,8 @@
     :transform="axisTransform"
     data-j-axis
   >
-    <defs>
-      <linearGradient :id="`${computedType}-gradient`">
+    <defs v-if="computedType === 'x'">
+      <linearGradient id="lume-tick-gradient">
         <stop
           offset="0%"
           stop-color="rgba(255,255,255,0)"
@@ -53,7 +53,7 @@
           <rect
             v-bind="mixins.getTickGhostAttributes()"
             class="axis__ghost"
-            :fill="`url(#${`${computedType}-gradient`})`"
+            fill="url(#lume-tick-gradient)"
           />
           <text
             v-bind="mixins.getTickLabelAttributes()"
