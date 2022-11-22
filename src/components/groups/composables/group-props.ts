@@ -5,7 +5,7 @@ import { Scale } from '@/composables/scales';
 
 import { InternalData } from '@/types/dataset';
 
-export const withGroupProps = () => ({
+export const withGroupProps = <T extends Options = Options>() => ({
   data: {
     type: Array as PropType<InternalData>,
     required: true,
@@ -27,7 +27,7 @@ export const withGroupProps = () => ({
     default: -1,
   },
   options: {
-    type: Object as PropType<Options>,
+    type: Object as PropType<T>,
     default: () => ({}),
   },
 });

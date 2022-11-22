@@ -1,12 +1,6 @@
 @use '@/styles/variables' as *;
 
-$line-stroke-width: 2px;
-$line-stroke-hover-width: 4px;
-
-$ghost-line-stroke-width: 8px;
-
 .lume-line {
-  stroke-width: $line-stroke-width;
   stroke-linejoin: round;
   stroke-linecap: round;
   fill: none;

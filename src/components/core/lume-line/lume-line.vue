@@ -8,6 +8,7 @@
       'lume-line--transition': transition,
     }"
     :d="pathDefinition"
+    :stroke-width="width"
     :style="{
       animationDelay: transition && animationDelay + 's',
       animationDuration: transition && animationDuration + 's',
@@ -28,6 +29,8 @@ import { svgCheck } from '@/utils/svg-check';
 
 const LUME_TRANSITION_TIME_FULL = 1; // 1s
 
+const DEFAULT_LINE_WIDTH = 2; // 2px
+
 export default defineComponent({
   props: {
     color: {
@@ -37,6 +40,10 @@ export default defineComponent({
     index: {
       type: Number,
       required: true,
+    },
+    width: {
+      type: Number,
+      default: DEFAULT_LINE_WIDTH,
     },
     values: {
       type: Array as PropType<Array<number>>,
@@ -99,7 +106,12 @@ export default defineComponent({
 
     onMounted(() => svgCheck(root.value));
 
-    return { animationDelay, animationDuration, pathDefinition, root };
+    return {
+      animationDelay,
+      animationDuration,
+      pathDefinition,
+      root,
+    };
   },
 });
 </script>

@@ -3,9 +3,10 @@
     ref="root"
     class="lume-point"
     :class="`lume-stroke--${color}`"
-    :r="active ? radius : 0"
     :cx="cx"
     :cy="cy"
+    :r="active ? radius : 0"
+    :stroke-width="strokeWidth"
     data-j-point
   />
 </template>
@@ -18,6 +19,8 @@ import { Scale } from '@/composables/scales';
 import { getScaleStep, isBandScale } from '@/utils/helpers';
 import { svgCheck } from '@/utils/svg-check';
 
+const DEFAULT_RADIUS = 4; // 4px; If together with a `lume-line`, should double its width
+
 export default defineComponent({
   props: {
     color: {
@@ -26,7 +29,7 @@ export default defineComponent({
     },
     radius: {
       type: Number,
-      default: 4,
+      default: DEFAULT_RADIUS,
     },
     value: {
       type: Number,
@@ -62,9 +65,11 @@ export default defineComponent({
     );
     const cy = computed(() => props.yScale(props.value));
 
+    const strokeWidth = computed(() => props.radius / 2);
+
     onMounted(() => svgCheck(root.value));
 
-    return { cx, cy, root };
+    return { cx, cy, root, strokeWidth };
   },
 });
 </script>

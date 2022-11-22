@@ -26,7 +26,7 @@ import { defineComponent, toRefs } from 'vue';
 import LumeChart from '@/components/core/lume-chart';
 import LumeLineGroup from '@/components/groups/lume-line-group';
 
-import { useOptions } from '@/composables/options';
+import { LineChartOptions, useOptions } from '@/composables/options';
 import { withChartProps } from '@/composables/props';
 
 import { options as defaultOptions } from './defaults';
@@ -35,7 +35,7 @@ import { excludeGroups } from '@/utils/helpers';
 export default defineComponent({
   components: { LumeChart, LumeLineGroup },
   props: {
-    ...withChartProps(null, false),
+    ...withChartProps<LineChartOptions>(null, false),
   },
   setup(props, context) {
     const { options } = toRefs(props);
