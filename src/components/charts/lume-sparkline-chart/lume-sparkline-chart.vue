@@ -42,7 +42,12 @@ import LumeChart from '@/components/core/lume-chart';
 import LumeLineGroup from '@/components/groups/lume-line-group';
 
 import { useBase, withBase } from '@/composables/base';
-import { Options, useOptions, withOptions } from '@/composables/options';
+import {
+  LineChartOptions,
+  Options,
+  useOptions,
+  withOptions,
+} from '@/composables/options';
 import { useLineNullValues } from '@/composables/line-null-values';
 import { useSparklineArea } from './composables/sparkline-area';
 
@@ -56,7 +61,7 @@ export default defineComponent({
   components: { LumeChart, LumeLineGroup },
   props: {
     ...withBase(null),
-    ...withOptions(),
+    ...withOptions<LineChartOptions>(),
   },
   setup(props, context) {
     const { data, options } = toRefs(props);

@@ -27,6 +27,7 @@
           :color="dataset.color"
           :dashed="dataset.isDashed(index)"
           :transition="transition"
+          :width="options.lineWidth"
         />
       </g>
       <g
@@ -43,6 +44,7 @@
           :index="index"
           :color="dataset.color"
           :active="isPointActive(index)"
+          :radius="options.lineWidth * 2"
         />
       </g>
     </g>
@@ -58,6 +60,7 @@ import LumePoint from '@/components/core/lume-point';
 import { getXByIndex } from '@/composables/scales';
 import { useLineNullValues } from '@/composables/line-null-values';
 import { withGroupProps } from '@/components/groups/composables/group-props';
+import { LineChartOptions } from '@/composables/options';
 
 import { getHighestValue } from '@/utils/helpers';
 import { DatasetValueObject } from '@/types/dataset';
@@ -65,7 +68,7 @@ import { DatasetValueObject } from '@/types/dataset';
 export default defineComponent({
   components: { LumeLine, LumePoint },
   props: {
-    ...withGroupProps(),
+    ...withGroupProps<LineChartOptions>(),
     withPoints: {
       type: Boolean,
       default: true,

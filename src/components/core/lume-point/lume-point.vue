@@ -6,6 +6,7 @@
     :r="active ? radius : 0"
     :cx="cx"
     :cy="cy"
+    :stroke-width="radius / 2"
     data-j-point
   />
 </template>
@@ -18,6 +19,8 @@ import { Scale } from '@/composables/scales';
 import { getScaleStep, isBandScale } from '@/utils/helpers';
 import { svgCheck } from '@/utils/svg-check';
 
+const DEFAULT_RADIUS = 4; // 4px; If together with a `lume-line`, should double its width
+
 export default defineComponent({
   props: {
     color: {
@@ -26,7 +29,7 @@ export default defineComponent({
     },
     radius: {
       type: Number,
-      default: 4,
+      default: DEFAULT_RADIUS,
     },
     value: {
       type: Number,

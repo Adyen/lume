@@ -48,6 +48,10 @@ export interface BarChartOptions extends ChartOptions {
   paddingOuter?: number;
 }
 
+export interface LineChartOptions extends ChartOptions {
+  lineWidth?: number;
+}
+
 export type Options = Record<string, unknown>;
 
 export const withOptions = <T = Options>() => ({
