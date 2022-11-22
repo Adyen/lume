@@ -147,7 +147,6 @@
       <!-- bottom chart legend -->
       <vue-portal-target
         name="legend-bottom"
-        class="lume-chart__legend--bottom u-display-flex u-width-full"
         slim
       />
     </template>
