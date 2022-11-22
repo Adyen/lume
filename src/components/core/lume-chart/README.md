@@ -106,6 +106,7 @@ Interface: `ChartOptions`
 | tooltipOptions        | `TooltipOptions`          | Set of options for the tooltip component.                                                   |
 | colorPalette          | `ColorPalette`            | Which color sequence to use for rendering the datasets.                                     |
 | startOnZero           | `boolean`                 | Controls if the Y scale should start on `0`. Always `true` for Bar charts.                  |
+| withAxes              | `boolean`                 | Displays chart axes.                                                                        |
 | withTooltip           | `boolean`                 | Displays the chart tooltip.                                                                 |
 | withLegend            | `boolean`                 | Displays the chart legend in the header.                                                    |
 | legendPosition        | `'top' \| 'bottom'`       | Where to display the chart legend.                                                          |
