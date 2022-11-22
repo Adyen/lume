@@ -39,6 +39,7 @@
           <!-- Portals to bottom of the chart if `legendPosition` is 'bottom' -->
           <vue-portal
             v-if="allOptions.withLegend !== false"
+            class="u-display-flex u-width-full"
             :disabled="allOptions.legendPosition !== 'bottom'"
             to="legend-bottom"
             slim
@@ -147,7 +148,7 @@
       <!-- bottom chart legend -->
       <vue-portal-target
         name="legend-bottom"
-        class="lume-chart__legend--bottom"
+        class="lume-chart__legend--bottom u-display-flex u-width-full"
         slim
       />
     </template>
