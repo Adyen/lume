@@ -90,7 +90,7 @@ describe('lume-bar-chart.vue', () => {
   });
 
   test('should throw an error when type is not applied for multiset', () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation(jest.fn);
+    const spy = vi.spyOn(console, 'error').mockImplementation(vi.fn);
     expect(() =>
       barChartTestSuiteFactory({ data: multiSetData, labels, xScale, yScale })
     ).toThrowError("Bar chart needs a type when there's multiple datasets.");

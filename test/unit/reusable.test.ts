@@ -168,7 +168,7 @@ export const useCustomResizeObserver = (
   // be a static property on the class itself rather than on its instance.
 
   let oldResizeObserver = null;
-  ResizeObserver.spy = jest.fn();
+  ResizeObserver.spy = vi.fn();
   ResizeObserver.newContentRect = newContentRect;
 
   beforeAll(() => {
