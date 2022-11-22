@@ -234,3 +234,26 @@ export function excludeGroups(slots: Slots) {
   }
   return slots;
 }
+
+/**
+ * Generates a random string.
+ * https://github.com/ai/nanoid/blob/main/nanoid.js
+ *
+ * @param t String length.
+ * @returns Random string of characters.
+ */
+export const nanoid = (n = 21) =>
+  crypto
+    .getRandomValues(new Uint8Array(n))
+    .reduce(
+      (n, e) =>
+        (n +=
+          (e &= 63) < 36
+            ? e.toString(36)
+            : e < 62
+              ? (e - 26).toString(36).toUpperCase()
+              : e > 62
+                ? '-'
+                : '_'),
+      ''
+    );
