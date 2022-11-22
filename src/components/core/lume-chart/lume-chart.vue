@@ -9,23 +9,6 @@
     @resize="updateSize"
     @mouseleave="handleMouseleave"
   >
-    <vue-portal
-      v-if="allOptions.withLegend !== false"
-      :to="
-        allOptions.legendPosition === 'bottom' ? 'legend-bottom' : 'legend-top'
-      "
-    >
-      <lume-chart-legend
-        class="lume-chart__legend"
-        :class="{
-          'lume-chart__legend--bottom': allOptions.legendPosition === 'bottom',
-        }"
-        :data="internalData"
-        data-j-lume-chart__legend
-        @click="$emit('click', $event)"
-      />
-    </vue-portal>
-
     <template #header>
       <div class="lume-chart__header">
         <div class="lume-chart__header-section">
@@ -53,10 +36,20 @@
           </h3>
 
           <!-- chart legend -->
-          <vue-portal-target
-            class="u-display-flex u-width-full"
-            name="legend-top"
-          />
+          <!-- Portals to bottom of the chart if `legendPosition` is 'bottom' -->
+          <vue-portal
+            v-if="allOptions.withLegend !== false"
+            :disabled="allOptions.legendPosition !== 'bottom'"
+            to="legend-bottom"
+            slim
+          >
+            <lume-chart-legend
+              :data="internalData"
+              class="lume-chart__legend"
+              data-j-lume-chart__legend
+              @click="$emit('click', $event)"
+            />
+          </vue-portal>
         </div>
       </div>
     </template>
@@ -152,7 +145,11 @@
       </h3>
 
       <!-- bottom chart legend -->
-      <vue-portal-target name="legend-bottom" />
+      <vue-portal-target
+        name="legend-bottom"
+        class="lume-chart__legend--bottom"
+        slim
+      />
     </template>
 
     <template #extra>
