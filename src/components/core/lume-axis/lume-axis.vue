@@ -30,8 +30,9 @@
     <vue-portal
       v-for="(tick, index) in ticks"
       :key="tick"
+      slim
       :disabled="!isHovering(index)"
-      :selector="`#${computedType}-hovered-portal`"
+      :to="`${computedType}-hovered-portal`"
     >
       <g
         v-bind="mixins.getTickGroupAttributes(tick)"
@@ -72,7 +73,10 @@
     </vue-portal>
 
     <!-- Hovered tick -->
-    <g :id="`${computedType}-hovered-portal`" />
+    <vue-portal-target
+      :name="`${computedType}-hovered-portal`"
+      slim
+    />
   </g>
 </template>
 
@@ -91,7 +95,10 @@ import {
 import { format } from 'd3';
 import { ticks as d3TickGenerator } from 'd3';
 import { ScaleBand } from 'd3';
-import { Portal as VuePortal } from 'portal-vue';
+import {
+  Portal as VuePortal,
+  PortalTarget as VuePortalTarget,
+} from 'portal-vue';
 
 import { AxisOptions, useOptions, withOptions } from '@/composables/options';
 import { Scale } from '@/composables/scales';
@@ -118,7 +125,7 @@ const TYPES = {
 };
 
 export default defineComponent({
-  components: { VuePortal },
+  components: { VuePortal, VuePortalTarget },
   props: {
     scale: {
       type: Function as PropType<Scale>,
