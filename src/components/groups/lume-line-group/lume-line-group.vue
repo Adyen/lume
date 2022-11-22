@@ -20,14 +20,12 @@
         <lume-line
           v-for="(_, index) in dataset.values"
           :key="`line-${index}`"
+          :path-definition="getPathDefinition(index, dataset.values)"
           :color="dataset.color"
           :dashed="dataset.isDashed(index)"
-          :index="index"
           :transition="transition"
-          :values="getLineValues(index, dataset.values)"
           :width="options.lineWidth"
           :x-scale="xScale"
-          :y-scale="yScale"
         />
       </g>
       <g
@@ -59,6 +57,7 @@ import LumePoint from '@/components/core/lume-point';
 
 import { getXByIndex } from '@/composables/scales';
 import { useLineNullValues } from '@/composables/line-null-values';
+import { useLineValues } from '@/composables/line-values';
 import { withGroupProps } from '@/components/groups/composables/group-props';
 import { LineChartOptions } from '@/composables/options';
 
@@ -110,17 +109,26 @@ export default defineComponent({
       () => options.value?.lineWidth * 2 || undefined // If no `lineWidth`, returns NaN which needs to be undefined
     );
 
-    function getLineValues(
+    function getPathDefinition(
       index: number,
       computedLineValues: Array<DatasetValueObject<number>>
     ) {
-      // First value
-      if (index === 0) return [];
+      const values =
+        index === 0
+          ? []
+          : [
+            computedLineValues[index - 1]?.value,
+            computedLineValues[index]?.value,
+          ];
 
-      return [
-        computedLineValues[index - 1]?.value,
-        computedLineValues[index]?.value,
-      ];
+      const { pathDefinition } = useLineValues(
+        index,
+        values,
+        xScale.value,
+        yScale.value
+      );
+
+      return pathDefinition;
     }
 
     function getPointValue(
@@ -136,7 +144,7 @@ export default defineComponent({
 
     return {
       computedGroupData,
-      getLineValues,
+      getPathDefinition,
       getPointValue,
       isPointActive,
       overlayLineAttributes,
