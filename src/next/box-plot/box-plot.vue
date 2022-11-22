@@ -3,7 +3,7 @@
     :margins="allOptions.margins"
     @resize="updateSize"
   >
-    <template v-if="allOptions.showAxes && xScale && yScale">
+    <template v-if="allOptions.withAxes !== false && xScale && yScale">
       <lume-axis
         type="x"
         :options="allOptions.xAxisOptions"

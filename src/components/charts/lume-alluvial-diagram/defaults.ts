@@ -5,7 +5,7 @@ export const options = {
     bottom: 0,
     left: 0,
   },
-  showAxes: false,
+  withAxes: false,
   withTooltip: false,
   withHover: false,
   withLegend: false,

@@ -62,7 +62,7 @@
 
       <!-- Axes -->
       <slot
-        v-if="allOptions.showAxes !== false"
+        v-if="allOptions.withAxes !== false"
         name="axes"
         :x-scale="computedXScale"
         :y-scale="computedYScale"

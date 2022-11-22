@@ -32,6 +32,7 @@ export interface ChartOptions extends Options {
   tooltipOptions?: TooltipOptions;
   colorPalette?: ColorPalette;
   startOnZero?: boolean;
+  withAxes?: boolean;
   withHover?: boolean;
   withTooltip?: boolean;
   withLegend?: boolean;

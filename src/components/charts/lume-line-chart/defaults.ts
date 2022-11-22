@@ -3,7 +3,6 @@ import { ChartOptions } from '@/composables/options';
 
 export const options: ChartOptions = {
   margins: DEFAULT_MARGINS.VERTICAL,
-  showAxes: true,
   startOnZero: true,
   withTooltip: true,
   xAxisOptions: {},

@@ -7,7 +7,7 @@ export const options: ChartOptions = {
     bottom: 0,
     left: 0,
   },
-  showAxes: false,
+  withAxes: false,
   showArea: true,
   startOnZero: true,
   withLegend: false,

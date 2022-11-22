@@ -52,7 +52,7 @@ describe('lume-chart.vue', () => {
       propsData: {
         ...defaultProps,
         options: {
-          showAxes: false,
+          withAxes: false,
         },
       },
     });

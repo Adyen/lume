@@ -70,16 +70,10 @@ Basic.args = {
   ],
   labels: ['Aug 29 - Oct 2, 2022', 'Oct 3 - Nov 6, 2022'],
   options: {
+    withAxes: false,
     withLegend: false,
     withHover: false,
     noMinSize: true,
     startOnZero: true,
-    xAxisOptions: {
-      showTicks: false,
-    },
-    yAxisOptions: {
-      showTicks: false,
-      gridLines: false,
-    },
   },
 };
