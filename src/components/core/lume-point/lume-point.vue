@@ -3,10 +3,10 @@
     ref="root"
     class="lume-point"
     :class="`lume-stroke--${color}`"
-    :r="active ? radius : 0"
     :cx="cx"
     :cy="cy"
-    :stroke-width="radius / 2"
+    :r="active ? radius : 0"
+    :stroke-width="strokeWidth"
     data-j-point
   />
 </template>
@@ -65,9 +65,11 @@ export default defineComponent({
     );
     const cy = computed(() => props.yScale(props.value));
 
+    const strokeWidth = computed(() => props.radius / 2);
+
     onMounted(() => svgCheck(root.value));
 
-    return { cx, cy, root };
+    return { cx, cy, root, strokeWidth };
   },
 });
 </script>

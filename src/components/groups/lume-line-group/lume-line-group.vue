@@ -20,14 +20,14 @@
         <lume-line
           v-for="(_, index) in dataset.values"
           :key="`line-${index}`"
-          :x-scale="xScale"
-          :y-scale="yScale"
-          :values="getLineValues(index, dataset.values)"
-          :index="index"
           :color="dataset.color"
           :dashed="dataset.isDashed(index)"
+          :index="index"
           :transition="transition"
+          :values="getLineValues(index, dataset.values)"
           :width="options.lineWidth"
+          :x-scale="xScale"
+          :y-scale="yScale"
         />
       </g>
       <g
@@ -38,13 +38,13 @@
         <lume-point
           v-for="(_, index) in dataset.values"
           :key="`point-${index}`"
+          :active="isPointActive(index)"
+          :color="dataset.color"
+          :index="index"
+          :radius="pointRadius"
+          :value="getPointValue(index, dataset.values)"
           :x-scale="xScale"
           :y-scale="yScale"
-          :value="getPointValue(index, dataset.values)"
-          :index="index"
-          :color="dataset.color"
-          :active="isPointActive(index)"
-          :radius="options.lineWidth * 2"
         />
       </g>
     </g>
@@ -80,7 +80,7 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { data, xScale, yScale } = toRefs(props);
+    const { data, options, xScale, yScale } = toRefs(props);
 
     const computedGroupData = computed(() => {
       // Check if all datasets have `isDashed` function (which means data has been computed for line null values)
@@ -105,6 +105,10 @@ export default defineComponent({
             V ${yScale.value(highestValue)}`, // Move to X index, Vertical line to the highest point
       };
     });
+
+    const pointRadius = computed(
+      () => options.value?.lineWidth * 2 || undefined // If no `lineWidth`, returns NaN which needs to be undefined
+    );
 
     function getLineValues(
       index: number,
@@ -136,6 +140,7 @@ export default defineComponent({
       getPointValue,
       isPointActive,
       overlayLineAttributes,
+      pointRadius,
     };
   },
 });
