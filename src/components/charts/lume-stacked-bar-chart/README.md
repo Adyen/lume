@@ -31,12 +31,12 @@ To generate a simple bar chart with default settings, simply pass the `data` and
   const data = ref([
     {
       label: 'My first dataset',
-      color: '01',
+      color: 'royalblue',
       values: [10, 30, 20, 50, 40],
     },
     {
       label: 'My second dataset',
-      color: '02',
+      color: 'violet',
       values: [40, 50, 20, 30, 10],
     },
   ]);

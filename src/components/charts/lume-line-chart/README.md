@@ -31,7 +31,7 @@ To generate a simple line chart with default settings, simply pass the `data` an
   const data = ref([
     {
       label: 'My dataset',
-      color: '01',
+      color: 'skyblue',
       values: [10, 30, 20, 50, 40],
     },
   ]);

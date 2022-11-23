@@ -71,7 +71,7 @@ The simplest use for `lume-chart` is by providing `data` and `labels` props and 
   const data = ref([
     {
       label: 'My dataset',
-      color: '01',
+      color: 'darkteal',
       values: [10, 30, 20, 50, 40],
     },
   ]);
