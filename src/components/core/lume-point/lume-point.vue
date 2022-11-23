@@ -16,6 +16,7 @@ import { computed, defineComponent, onMounted, PropType, ref } from 'vue';
 
 import { Scale } from '@/composables/scales';
 
+import { Colors } from '@/constants';
 import { getScaleStep, isBandScale } from '@/utils/helpers';
 import { svgCheck } from '@/utils/svg-check';
 
@@ -25,7 +26,7 @@ export default defineComponent({
   props: {
     color: {
       type: String,
-      default: '01',
+      default: Colors.Skyblue,
     },
     radius: {
       type: Number,

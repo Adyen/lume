@@ -19,11 +19,11 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, PropType, ref } from 'vue';
-import { ScaleBand, ScaleLinear } from 'd3';
-import { line } from 'd3';
+import { line, ScaleBand, ScaleLinear } from 'd3';
 
 import { Scale } from '@/composables/scales';
 
+import { Colors } from '@/constants';
 import { getDomainLength, getScaleStep, isBandScale } from '@/utils/helpers';
 import { svgCheck } from '@/utils/svg-check';
 
@@ -35,7 +35,7 @@ export default defineComponent({
   props: {
     color: {
       type: String,
-      default: '01',
+      default: Colors.Skyblue,
     },
     index: {
       type: Number,
