@@ -6,19 +6,20 @@
 
 Lume is a library for graphical representations of information and data. By using visual elements like charts, graphs, and maps, this repository provide an accessible way to see and understand trends, outliers, and patterns in data. We use Vue to all graphic elements and rely on d3.js for the calculations.
 
-**[Design guidelines (Figma)](https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/Data-Visualization-Library?node-id=15%3A2)**
+**[Design guidelines (Figma)](https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library)**
 
 ## Stack
 
-We're currently aiming to use:
+### Dependencies
 
 - [D3.js](https://d3js.org/) for calculations
 - [Vue _(v2.7)_](https://v2.vuejs.org/) for rendering
 - [Popper.js](https://popper.js.org/) for tooltip functionality
+- [Portal Vue](https://portal-vue.linusb.org/) for portalling (not available in Vue 2)
 
 ### Dev stack
 
-- [Webpack](https://webpack.js.org/) for bundling/local dev server
+- [Vite](https://vitejs.dev/) and [Webpack](https://webpack.js.org/) for bundling
 - [Sass](https://sass-lang.com/) for complex/reusable styling
 - [TypeScript](https://www.typescriptlang.org/) for type checking
 - [TypeScript ESLint](https://typescript-eslint.io/) for linting _(with the help of [eslint-plugin-vue](https://eslint.vuejs.org/))_
