@@ -23,17 +23,5 @@ export default defineConfig({
       { find: /^vue$/, replacement: 'vue/dist/vue.runtime.common.js' },
     ],
   },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `
-                  @import "${path.resolve(
-    __dirname,
-    './src/styles/variables'
-  )}";
-              `,
-      },
-    },
-  },
   plugins: [vue()],
 });
