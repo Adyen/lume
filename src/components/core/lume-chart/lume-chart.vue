@@ -36,16 +36,20 @@
           </h3>
 
           <!-- chart legend -->
-          <lume-chart-legend
-            v-if="
-              allOptions.withLegend !== false &&
-                allOptions.legendPosition !== 'bottom'
-            "
-            class="lume-chart__legend"
-            :data="internalData"
-            data-j-lume-chart__legend
-            @click="$emit('click', $event)"
-          />
+          <!-- Portals to bottom of the chart if `legendPosition` is 'bottom' -->
+          <vue-portal
+            v-if="allOptions.withLegend !== false"
+            :disabled="allOptions.legendPosition !== 'bottom'"
+            to="legend-bottom"
+            slim
+          >
+            <lume-chart-legend
+              :data="internalData"
+              class="lume-chart__legend"
+              data-j-lume-chart__legend
+              @click="$emit('click', $event)"
+            />
+          </vue-portal>
         </div>
       </div>
     </template>
@@ -141,14 +145,9 @@
       </h3>
 
       <!-- bottom chart legend -->
-      <lume-chart-legend
-        v-if="
-          allOptions.withLegend !== false &&
-            allOptions.legendPosition === 'bottom'
-        "
-        class="lume-chart__legend lume-chart__legend--bottom"
-        :data="internalData"
-        @click="$emit('click', $event)"
+      <vue-portal-target
+        name="legend-bottom"
+        slim
       />
     </template>
 
@@ -185,6 +184,10 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, toRefs } from 'vue';
+import {
+  Portal as VuePortal,
+  PortalTarget as VuePortalTarget,
+} from 'portal-vue';
 
 import {
   LumeAxis,
@@ -216,6 +219,8 @@ export default defineComponent({
     LumeChartLegend,
     LumeOverlayGroup,
     LumeTooltip,
+    VuePortal,
+    VuePortalTarget,
   },
   props: {
     ...withChartProps(),
