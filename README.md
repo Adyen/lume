@@ -8,17 +8,10 @@ Lume is a library for graphical representations of information and data. By usin
 
 **[Design guidelines (Figma)](https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library)**
 
-<br />
-<a href="#stack">Stack</a>
-<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
-<a href="#getting-started">Getting started</a>
-<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
-<a href="#development">Development</a>
-<span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
-<a href="#contacts">Contacts</a>
-<br />
-<hr />
-
+- [Stack](#stack)
+- [Getting started](#getting-started)
+- [Development](#development)
+- [Contacts](#contacts)
 ## Stack
 
 ### Dependencies
