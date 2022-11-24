@@ -12,6 +12,7 @@ Lume is a library for graphical representations of information and data. By usin
 - [Getting started](#getting-started)
 - [Development](#development)
 - [Contacts](#contacts)
+
 ## Stack
 
 ### Dependencies
@@ -40,24 +41,9 @@ To install Lume, run the following command:
 $ npm install @adyen/lume
 ```
 
-### Plugin
-
-The default export of Lume is a Vue plugin that you can install in your global Vue setup:
-
-```ts
-import Vue from 'vue';
-import Lume from '@adyen/lume';
-
-import App from './my-app.vue';
-
-Vue.use(Lume);
-
-const app = new Vue(App).$mount('#root');
-```
-
 ### Components
 
-If, instead of using the Vue plugin, you rather import single components as you go, you can do that as well:
+You can import Lume components to your Vue app:
 
 ```ts
 // SFC <script type="ts">
@@ -69,6 +55,21 @@ export default defineComponent({
   components: { LumeBarChart },
   ...
 });
+```
+
+### Plugin
+
+You can also import Lume as a Vue plugin that you install in your global Vue setup:
+
+```ts
+import Vue from 'vue';
+import LumePlugin from '@adyen/lume/plugin';
+
+import App from './my-app.vue';
+
+Vue.use(LumePlugin);
+
+const app = new Vue(App).$mount('#root');
 ```
 
 ## Development
