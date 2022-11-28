@@ -2,9 +2,18 @@ import { mount } from '@vue/test-utils';
 
 import LumeLine from './lume-line.vue';
 
+import { useLineValues } from '@/composables/line-values';
+
 import { data, xScale, yScale } from '@test/unit/mock-data';
 
-const propsData = { index: 0, values: data[0].values, xScale, yScale };
+const pathDefinition = useLineValues(
+  1,
+  [data[0].values[0].value, data[0].values[1].value],
+  xScale,
+  yScale
+);
+
+const propsData = { pathDefinition, xScale };
 
 describe('chart-container.vue', () => {
   test('mounts component', () => {
