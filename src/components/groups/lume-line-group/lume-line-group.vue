@@ -128,7 +128,7 @@ export default defineComponent({
         yScale.value
       );
 
-      return pathDefinition;
+      return pathDefinition.value || '';
     }
 
     function getPointValue(

@@ -42,7 +42,7 @@ const DEFAULT_LINE_WIDTH = 2; // 2px
 export default defineComponent({
   props: {
     pathDefinition: {
-      type: Computed<String>,
+      type: String,
       required: true,
     },
     color: {

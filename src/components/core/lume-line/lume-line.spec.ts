@@ -13,7 +13,7 @@ const pathDefinition = useLineValues(
   yScale
 );
 
-const propsData = { pathDefinition, xScale };
+const propsData = { pathDefinition: pathDefinition.value, xScale };
 
 describe('chart-container.vue', () => {
   test('mounts component', () => {
