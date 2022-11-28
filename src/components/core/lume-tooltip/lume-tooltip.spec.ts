@@ -43,12 +43,6 @@ describe('tooltip.vue', () => {
       el
         .find('[data-j-tooltip__item__symbol]')
         .classes()
-        .includes(`lume-tooltip__symbol--${item.type}`)
-    ).toBeTruthy();
-    expect(
-      el
-        .find('[data-j-tooltip__item__symbol]')
-        .classes()
         .includes(`lume-background-color--${item.color}`)
     ).toBeTruthy();
     expect(el.find('[data-j-tooltip__item__label]').text()).toEqual(item.label);

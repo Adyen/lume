@@ -22,7 +22,7 @@ describe('chart-container.vue', () => {
 
     const el = wrapper.find('[data-j-line]');
     expect(el.classes().includes('lume-line--dashed')).toBe(true);
-    expect(el.classes().includes(`lume-stroke--01`)).toBe(true);
+    expect(el.classes().includes(`lume-stroke--skyblue`)).toBe(true);
   });
 
   test('mounts component with custom color', () => {
