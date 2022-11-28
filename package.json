@@ -56,8 +56,8 @@
     "release": "standard-version",
     "start": "npm run storybook",
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "test:unit": "vitest --config=vitest.config.ts",
-    "test:unit:update:snapshot": "vitest --config=vitest.config.ts -u",
+    "test": "vitest --config=vitest.config.ts",
+    "test:update:snapshot": "vitest --config=vitest.config.ts -u",
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
