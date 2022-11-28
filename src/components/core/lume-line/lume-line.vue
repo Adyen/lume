@@ -53,6 +53,10 @@ export default defineComponent({
       type: Number,
       default: DEFAULT_LINE_WIDTH,
     },
+    dashed: {
+      type: Boolean,
+      default: false,
+    },
     xScale: {
       type: Function as PropType<Scale>,
       required: true,
