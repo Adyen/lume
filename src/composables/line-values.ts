@@ -9,6 +9,7 @@ export const useLineValues = (firstIndex, values, xScale, yScale) => {
     return (xScale as ScaleLinear<number, number>)(firstIndex + (index - 1));
   }
 
+  // Note that d3's line() will pass the index as the second argument, so we need the '_' first argument to reach it
   function findBandX(_: unknown, index: number) {
     return (
       (xScale as ScaleBand<string | number>)(
