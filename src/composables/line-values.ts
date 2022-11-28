@@ -5,6 +5,7 @@ import { getScaleStep, isBandScale } from '@/utils/helpers';
 export const useLineValues = (firstIndex, values, xScale, yScale) => {
   const xAxisOffset = computed(() => getScaleStep(xScale) / 2);
 
+  // Note that d3's line() will pass the index as the second argument, so we need the '_' first argument to reach it
   function findLinearX(_: unknown, index: number) {
     return (xScale as ScaleLinear<number, number>)(firstIndex + (index - 1));
   }
