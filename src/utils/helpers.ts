@@ -14,20 +14,6 @@ export function isProd() {
   return process.env.NODE_ENV === 'production';
 }
 
-function getUniqueIdProvider() {
-  let id = 0;
-  return function (): string {
-    id++;
-    return id.toString();
-  };
-}
-
-/**
- * Returns an id that we know will never repeat.
- * @returns string
- */
-export const getUniqueId = getUniqueIdProvider();
-
 /**
  * Returns an array with all numeric values present in a chart's `data` (array of datasets).
  * @param {Data<DatasetValueObject>} data A computed array of datasets.

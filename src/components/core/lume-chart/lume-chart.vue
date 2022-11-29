@@ -40,7 +40,7 @@
           <vue-portal
             v-if="allOptions.withLegend !== false"
             :disabled="allOptions.legendPosition !== 'bottom'"
-            :to="`legend-bottom-${uniqueId}`"
+            :to="`legend-bottom-${chartID}`"
             slim
           >
             <lume-chart-legend
@@ -146,7 +146,7 @@
 
       <!-- bottom chart legend -->
       <vue-portal-target
-        :name="`legend-bottom-${uniqueId}`"
+        :name="`legend-bottom-${chartID}`"
         slim
       />
     </template>
@@ -208,7 +208,7 @@ import {
 } from '@/composables/negative-values';
 import { useTooltip, useTooltipAnchors } from '@/composables/tooltip';
 
-import { getEmptyArrayFromData, getUniqueId } from '@/utils/helpers';
+import { getEmptyArrayFromData } from '@/utils/helpers';
 import { ORIENTATIONS, TOOLTIP_ANCHOR_RADIUS } from '@/constants';
 
 export default defineComponent({
@@ -233,20 +233,14 @@ export default defineComponent({
     const { data, labels, color, options, orientation, chartType } =
       toRefs(props);
 
-    const uniqueId = getUniqueId();
     const hoveredIndex = ref<number>(-1);
     const tooltipAnchor = ref<SVGCircleElement>(null);
     const chartContainer = ref<InstanceType<typeof LumeChartContainer>>(null);
 
     const { allOptions } = useOptions<ChartOptions>(options);
 
-    const { internalData, computedLabels, containerSize, updateSize } = useBase(
-      data,
-      labels,
-      color,
-      allOptions,
-      orientation
-    );
+    const { internalData, computedLabels, containerSize, updateSize, chartID } =
+      useBase(data, labels, color, allOptions, orientation);
 
     const { xScale, yScale } = useBaseScales(
       internalData,
@@ -396,7 +390,7 @@ export default defineComponent({
       updateSize,
       xAxisTitle,
       yAxisTitle,
-      uniqueId,
+      chartID,
     };
   },
 });
