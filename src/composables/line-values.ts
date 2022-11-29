@@ -1,31 +1,55 @@
-import { computed } from 'vue';
 import { line, ScaleBand, ScaleLinear } from 'd3';
+
 import { getScaleStep, isBandScale } from '@/utils/helpers';
+import { Scale } from './scales';
 
-export const useLineValues = (firstIndex, values, xScale, yScale) => {
-  const xAxisOffset = computed(() => getScaleStep(xScale) / 2);
+/**
+ * Returns the X acessor function for a `ScaleBand`.
+ *
+ * @param scale The chart X axis scale.
+ * @param lineIndex The index of the data point of the line to render.
+ * @returns The X acessor function to provide to d3 `line` method.
+ */
+function getFindBandX(scale: ScaleBand<string | number>, lineIndex: number) {
+  const xAxisOffset = getScaleStep(scale) / 2;
+  return (_: unknown, index: number) =>
+    scale(scale.domain()[lineIndex + (index - 1)]) + xAxisOffset;
+}
 
-  // Note that d3's line() will pass the index as the second argument, so we need the '_' first argument to reach it
-  function findLinearX(_: unknown, index: number) {
-    return (xScale as ScaleLinear<number, number>)(firstIndex + (index - 1));
-  }
+/**
+ * Returns the X acessor function for a `ScaleLinear`.
+ *
+ * @param scale The chart X axis scale.
+ * @param lineIndex The index of the data point of the line to render.
+ * @returns The X acessor function to provide to d3 `line` method.
+ */
+function getFindLinearX(scale: ScaleLinear<number, number>, lineIndex: number) {
+  return (_: unknown, index: number) => scale(lineIndex + (index - 1));
+}
 
-  // Note that d3's line() will pass the index as the second argument, so we need the '_' first argument to reach it
-  function findBandX(_: unknown, index: number) {
-    return (
-      (xScale as ScaleBand<string | number>)(
-        xScale.domain()[firstIndex + (index - 1)]
-      ) + xAxisOffset.value
-    );
-  }
+/**
+ * Generates the path definition between the point at a provided index (`lineIndex`)
+ * and the previous point relative to that index.
+ *
+ * @param lineIndex The index of the data point of the line to render.
+ * @param values An array of the previous and current data value
+ * @param xScale The chart X axis scale.
+ * @param yScale The chart Y axis scale.
+ * @returns A path definition string to provide to the `d` attribute of `<path>`.
+ */
+export function getLinePathDefinition(
+  lineIndex: number,
+  values: Array<number>,
+  xScale: Scale,
+  yScale: ScaleLinear<number, number>
+) {
+  const lineFn = line<number>()
+    .x(
+      isBandScale(xScale)
+        ? getFindBandX(xScale, lineIndex)
+        : getFindLinearX(xScale, lineIndex)
+    )
+    .y((d) => yScale(d));
 
-  const pathDefinition = computed(() => {
-    const lineFn = line<number>()
-      .x(isBandScale(xScale) ? findBandX : findLinearX)
-      .y((d) => yScale(d));
-
-    return lineFn(values);
-  });
-
-  return { pathDefinition };
-};
+  return lineFn(values);
+}

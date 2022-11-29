@@ -18,14 +18,7 @@
 </template>
 
 <script lang="ts">
-import {
-  Computed,
-  computed,
-  defineComponent,
-  onMounted,
-  PropType,
-  ref,
-} from 'vue';
+import { computed, defineComponent, onMounted, PropType, ref } from 'vue';
 
 import { Scale } from '@/composables/scales';
 
@@ -48,6 +41,10 @@ export default defineComponent({
     color: {
       type: String,
       default: Colors.Skyblue,
+    },
+    index: {
+      type: Number,
+      required: true,
     },
     width: {
       type: Number,
