@@ -1,19 +1,20 @@
-import { computed } from 'vue';
-import { mount } from '@vue/test-utils';
-
-import { useLineValues } from './line-values';
+import { getLinePathDefinition } from './line-values';
 
 import { data, xScale, yScale } from '@test/unit/mock-data';
 
 describe('line-values', () => {
-  it('should convert index and values along with xScale and yScale into a path definition', () => {
-    const expected = 'M36.857142857142854,121L110.57142857142856,242';
-    const pathDefinition = useLineValues(
+  it('should generate a path definition string', () => {
+    const pathDefinition = getLinePathDefinition(
       1,
-      [data[0].values[0], data[0].values[1]],
+      [data[0].values[0].value, data[0].values[1].value],
       xScale,
       yScale
     );
-    expect(pathDefinition.value).toEqual(expected);
+
+    // should return a string
+    expect(typeof pathDefinition).toBe('string');
+
+    // shouldn't have any NaNs - otherwise something would be wrong
+    expect(pathDefinition?.includes('NaN')).toBeFalsy();
   });
 });

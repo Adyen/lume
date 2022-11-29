@@ -2,11 +2,11 @@ import { mount } from '@vue/test-utils';
 
 import LumeLine from './lume-line.vue';
 
-import { useLineValues } from '@/composables/line-values';
+import { getLinePathDefinition } from '@/composables/line-values';
 
 import { data, xScale, yScale } from '@test/unit/mock-data';
 
-const pathDefinition = useLineValues(
+const pathDefinition = getLinePathDefinition(
   1,
   [data[0].values[0].value, data[0].values[1].value],
   xScale,
