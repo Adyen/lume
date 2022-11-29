@@ -16,13 +16,8 @@ To show a point, provide `xScale`, `yScale`, `ìndex`, `values`, `color`, `dashe
 
 ```html
 <lume-line
+  :path-definition="pathDefinition"
   :x-scale="xScale"
-  :y-scale="yScale"
-  :values="values"
-  :index="index"
-  :color="color"
-  :dashed="isDashed(index)"
-  :transition="transition"
 />
 ```
 
@@ -30,12 +25,13 @@ To show a point, provide `xScale`, `yScale`, `ìndex`, `values`, `color`, `dashe
 
 ### Props
 
-| Name         | Type                                            | Default  | Description                                                                                                                       |
-| ------------ | ----------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `xScale`     | `ScaleGenerator or ScaleLinear<number, number>` | Required | A d3 scale or a scale generator function to override the default Y scale.                                                         |
-| `yScale`     | `ScaleGenerator or ScaleLinear<number, number>` | Required | A d3 scale or a scale generator function to override the default Y scale.                                                         |
-| `values`     | `Array<number>`                                 | Required | The values with which to determine the location on the value scale. Values should be relative to index -1 and index respectively. |
-| `index`      | `number`                                        | Required | The index with which to determine the location based on the label scale.                                                          |
-| `color`      | `string`                                        | `01`     | Indicating what color to use, representing an index to one of the available Lume colors.                                          |
-| `dashed`     | `boolean`                                       | `false`  | Indicating whether or not this line should be displayed as dashed or solid.                                                       |
-| `transition` | `boolean`                                       | `true`   | Indicating whether or not this line should animate.                                                                               |
+| Name             | Type                                            | Default  | Description                                                                                  |
+| ---------------- | ----------------------------------------------- | -------- | -------------------------------------------------------------------------------------------- |
+| `pathDefinition` | `Computed<string>`                              | Required | A string representing a path that can be fed into the `d` attribute of an SVG `path`element. |
+| `xScale`         | `ScaleGenerator or ScaleLinear<number, number>` | Required | A d3 scale or a scale generator function to override the default Y scale.                    |
+| `color`          | `string`                                        | `'01'`   | Indicating what color to use, representing an index to one of the available Lume colors.     |
+| `width`          | `number`                                        | `2`      | Indicating the stroke width of the line.                                                     |
+| `dashed`         | `boolean`                                       | `false`  | Indicating whether or not this line should be displayed as dashed or solid.                  |
+| `transition`     | `boolean`                                       | `true`   | Indicating whether or not this line should animate.                                          |
+
+NOTE: A composable `useLineValues` exists to convert indices and values along with their scales to path definitions. For an example of how to use this, see `LumeLineGroup`.
