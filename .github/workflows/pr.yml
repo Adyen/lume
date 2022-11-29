@@ -52,7 +52,7 @@ jobs:
         run: npm install
 
       - name: Run unit tests (with experimental VM modules)
-        run: npm run unit-exp
+        run: npm test
 
   trufflehog:
     name: TruffleHog

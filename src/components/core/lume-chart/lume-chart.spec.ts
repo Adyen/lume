@@ -144,14 +144,14 @@ describe('lume-chart.vue', () => {
   });
 
   test('should propagate click event to parent, coming from the legend', async () => {
-    const wrapper = await mount(LumeChart, {
+    const wrapper = mount(LumeChart, {
       slots: {
         groups: 'Mock groups',
       },
       propsData: defaultProps,
     });
 
-    const legend = wrapper.find('[data-j-lume-chart__legend]');
+    const legend = wrapper.find('[data-j-chart-legend__symbol-wrapper]');
     await legend.trigger('click', { value: 1 });
 
     expect(wrapper.emitted('click')).toBeTruthy();
