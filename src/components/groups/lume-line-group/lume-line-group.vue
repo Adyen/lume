@@ -12,7 +12,7 @@
 
     <!-- Line groups -->
     <g
-      v-for="dataset in computedGroupData"
+      v-for="(dataset, datasetIndex) in computedGroupData"
       :key="dataset.label"
       class="lume-line-group__group"
     >
@@ -20,14 +20,13 @@
         <lume-line
           v-for="(_, index) in dataset.values"
           :key="`line-${index}`"
+          :path-definition="getPathDefinition(index, datasetIndex)"
           :color="dataset.color"
           :dashed="dataset.isDashed(index)"
           :index="index"
           :transition="transition"
-          :values="getLineValues(index, dataset.values)"
           :width="options.lineWidth"
           :x-scale="xScale"
-          :y-scale="yScale"
         />
       </g>
       <g
@@ -42,7 +41,7 @@
           :color="dataset.color"
           :index="index"
           :radius="pointRadius"
-          :value="getPointValue(index, dataset.values)"
+          :value="getPointValue(index, datasetIndex)"
           :x-scale="xScale"
           :y-scale="yScale"
         />
@@ -53,17 +52,18 @@
 
 <script lang="ts">
 import { computed, defineComponent, toRefs } from 'vue';
+import { ScaleLinear } from 'd3';
 
 import LumeLine from '@/components/core/lume-line';
 import LumePoint from '@/components/core/lume-point';
 
 import { getXByIndex } from '@/composables/scales';
 import { useLineNullValues } from '@/composables/line-null-values';
+import { getLinePathDefinition } from '@/composables/line-values';
 import { withGroupProps } from '@/components/groups/composables/group-props';
 import { LineChartOptions } from '@/composables/options';
 
 import { getHighestValue } from '@/utils/helpers';
-import { DatasetValueObject } from '@/types/dataset';
 
 export default defineComponent({
   components: { LumeLine, LumePoint },
@@ -97,7 +97,6 @@ export default defineComponent({
       if (props.hoveredIndex === -1) return;
 
       const highestValue = getHighestValue(data.value, props.hoveredIndex);
-
       const x = getXByIndex(xScale.value, props.hoveredIndex);
 
       return {
@@ -110,24 +109,31 @@ export default defineComponent({
       () => options.value?.lineWidth * 2 || undefined // If no `lineWidth`, returns NaN which needs to be undefined
     );
 
-    function getLineValues(
-      index: number,
-      computedLineValues: Array<DatasetValueObject<number>>
-    ) {
-      // First value
-      if (index === 0) return [];
-
-      return [
-        computedLineValues[index - 1]?.value,
-        computedLineValues[index]?.value,
-      ];
+    function getValuesFromDataset(datasetIndex: number) {
+      return computedGroupData.value[datasetIndex].values;
     }
 
-    function getPointValue(
-      index: number,
-      computedLineValues: Array<DatasetValueObject<number>>
-    ) {
-      return computedLineValues[index]?.value;
+    function getPathDefinition(lineIndex: number, datasetIndex: number) {
+      const values =
+        lineIndex === 0
+          ? []
+          : [
+            getValuesFromDataset(datasetIndex)[lineIndex - 1]?.value,
+            getValuesFromDataset(datasetIndex)[lineIndex]?.value,
+          ];
+
+      return (
+        getLinePathDefinition(
+          lineIndex,
+          values,
+          xScale.value,
+          yScale.value as ScaleLinear<number, number>
+        ) || ''
+      );
+    }
+
+    function getPointValue(pointIndex: number, datasetIndex: number) {
+      return getValuesFromDataset(datasetIndex)[pointIndex]?.value;
     }
 
     function isPointActive(index: number) {
@@ -136,7 +142,7 @@ export default defineComponent({
 
     return {
       computedGroupData,
-      getLineValues,
+      getPathDefinition,
       getPointValue,
       isPointActive,
       overlayLineAttributes,

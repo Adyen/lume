@@ -19,12 +19,13 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, PropType, ref } from 'vue';
-import { line, ScaleBand, ScaleLinear } from 'd3';
 
 import { Scale } from '@/composables/scales';
 
 import { Colors } from '@/constants';
-import { getDomainLength, getScaleStep, isBandScale } from '@/utils/helpers';
+
+import { getDomainLength } from '@/utils/helpers';
+
 import { svgCheck } from '@/utils/svg-check';
 
 const LUME_TRANSITION_TIME_FULL = 1; // 1s
@@ -33,6 +34,10 @@ const DEFAULT_LINE_WIDTH = 2; // 2px
 
 export default defineComponent({
   props: {
+    pathDefinition: {
+      type: String,
+      required: true,
+    },
     color: {
       type: String,
       default: Colors.Skyblue,
@@ -45,19 +50,11 @@ export default defineComponent({
       type: Number,
       default: DEFAULT_LINE_WIDTH,
     },
-    values: {
-      type: Array as PropType<Array<number>>,
-      required: true,
-    },
     dashed: {
       type: Boolean,
       default: false,
     },
     xScale: {
-      type: Function as PropType<Scale>,
-      required: true,
-    },
-    yScale: {
       type: Function as PropType<Scale>,
       required: true,
     },
@@ -80,36 +77,11 @@ export default defineComponent({
       return props.transition && (props.index - 1) * animationDuration.value;
     });
 
-    const xAxisOffset = computed(() => getScaleStep(props.xScale) / 2);
-
-    function findLinearX(_: unknown, index: number) {
-      return (props.xScale as ScaleLinear<number, number>)(
-        props.index + (index - 1)
-      );
-    }
-
-    function findBandX(_: unknown, index: number) {
-      return (
-        (props.xScale as ScaleBand<string | number>)(
-          props.xScale.domain()[props.index + (index - 1)]
-        ) + xAxisOffset.value
-      );
-    }
-
-    const pathDefinition = computed(() => {
-      const lineFn = line<number>()
-        .x(isBandScale(props.xScale) ? findBandX : findLinearX)
-        .y((d) => props.yScale(d));
-
-      return lineFn(props.values);
-    });
-
     onMounted(() => svgCheck(root.value));
 
     return {
       animationDelay,
       animationDuration,
-      pathDefinition,
       root,
     };
   },
