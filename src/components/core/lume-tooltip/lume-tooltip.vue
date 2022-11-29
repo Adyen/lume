@@ -32,7 +32,7 @@
             class="lume-tooltip__value"
             data-j-tooltip__item__value
           >
-            {{ item.value }}
+            {{ formatValue(item.value) }}
           </strong>
         </li>
       </ul>
@@ -59,6 +59,7 @@ import {
   PositioningStrategy,
 } from '@popperjs/core';
 
+import { useFormat } from '@/composables/format';
 import { TooltipOptions, useOptions, withOptions } from '@/composables/options';
 
 import { TOOLTIP_POSITIONS } from '@/constants';
@@ -135,6 +136,10 @@ export default defineComponent({
       () => allOptions.value.showTitle !== false && props.title != undefined
     );
 
+    const formatValue = computed(() => {
+      return useFormat(allOptions.value.valueFormat);
+    });
+
     // Methods
     function initPopper() {
       if (props.targetElement && root.value) {
@@ -172,7 +177,15 @@ export default defineComponent({
     onMounted(initPopper);
     onBeforeUnmount(destroyPopper);
 
-    return { allModifiers, allOptions, popper, root, showTitle, strategy };
+    return {
+      allModifiers,
+      allOptions,
+      formatValue,
+      popper,
+      root,
+      showTitle,
+      strategy,
+    };
   },
 });
 </script>

@@ -1,5 +1,6 @@
 import { computed, isRef, PropType, Ref } from 'vue';
 
+import { Format } from '@/composables/format';
 import { Margins, TOOLTIP_POSITIONS } from '@/constants';
 import { mergeDeep } from '@/utils/helpers';
 import { ColorPalette } from '@/types/dataset';
@@ -10,7 +11,7 @@ export interface AxisOptions extends Options {
   title?: string;
   showTicks?: boolean;
   tickCount?: number;
-  tickFormat?: string | (() => string);
+  tickFormat?: Format;
   tickPadding?: number;
   skip?: true | number; // `true` will enable auto-skip, number will be used as amount of ticks to skip
 }
@@ -21,6 +22,7 @@ export interface TooltipOptions extends Options {
   showTitle?: boolean;
   targetElement?: Element | 'self';
   fixedPositioning?: boolean;
+  valueFormat?: Format;
 }
 
 type LegendPosition = 'top' | 'bottom';
