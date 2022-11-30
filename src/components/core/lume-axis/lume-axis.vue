@@ -92,7 +92,6 @@ import {
   toRefs,
   watch,
 } from 'vue';
-import { format } from 'd3';
 import { ticks as d3TickGenerator } from 'd3';
 import { ScaleBand } from 'd3';
 import {
@@ -101,6 +100,7 @@ import {
 } from 'portal-vue';
 
 import { useBase } from '@/composables/base';
+import { useFormat } from '@/composables/format';
 import { AxisOptions, useOptions, withOptions } from '@/composables/options';
 import { Scale } from '@/composables/scales';
 import { useSkip } from './composables/lume-skip';
@@ -211,17 +211,7 @@ export default defineComponent({
 
     const tickFormatter = computed(() => {
       const { tickFormat } = allOptions.value;
-      let formatter = null;
-
-      switch (typeof tickFormat) {
-      case 'string':
-        formatter = format(tickFormat);
-        return formatter;
-      case 'function':
-        return tickFormat;
-      default:
-        return null;
-      }
+      return useFormat(tickFormat);
     });
 
     function formatTick(tick: number | string) {
@@ -230,7 +220,7 @@ export default defineComponent({
       // Hides ticks without hiding `gridLines`
       if (showTicks === false) return '';
 
-      return tickFormatter.value ? tickFormatter.value(tick as number) : tick;
+      return tickFormatter.value(tick);
     }
 
     function onTickMouseover(index: number) {
