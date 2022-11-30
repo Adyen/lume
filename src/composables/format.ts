@@ -22,7 +22,6 @@ export const useFormat = (format: Format) => {
     break;
   default:
     formatter = null;
-    break;
   }
 
   function formatValue(value: number | string) {
