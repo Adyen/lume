@@ -14,6 +14,23 @@
         {{ title }}
       </div>
       <ul class="lume-tooltip__items">
+        <template v-if="summaryItem.label">
+          <li
+            class="lume-tooltip__item"
+            data-j-tooltip__summary-item
+          >
+            <span> {{ summaryItem.label }} </span>
+            <strong
+              v-if="summaryItem.value"
+              class="lume-tooltip__value"
+            >
+              {{ formatValue(summaryItem.value) }}
+            </strong>
+          </li>
+          <li class="lume-tooltip__break">
+            <hr>
+          </li>
+        </template>
         <li
           v-for="item in items"
           :key="item.label"
@@ -65,9 +82,10 @@ import { TooltipOptions, useOptions, withOptions } from '@/composables/options';
 import { TOOLTIP_POSITIONS } from '@/constants';
 
 interface TooltipItem {
-  color: string;
+  color?: string;
   label: string;
-  value: number | string;
+  value?: number | string;
+  isSummary?: true;
 }
 
 export default defineComponent({
@@ -98,12 +116,16 @@ export default defineComponent({
       type: [String, Number],
       default: null,
     },
+    summary: {
+      type: String,
+      default: null,
+    },
     ...withOptions<TooltipOptions>(),
   },
   setup(props) {
     // Refs
     const root = ref<HTMLDivElement>(null);
-    const { options } = toRefs(props);
+    const { items, options } = toRefs(props);
 
     // Data
     const popper: Ref<PopperInstance | null> = ref(null);
@@ -136,9 +158,14 @@ export default defineComponent({
       () => allOptions.value.showTitle !== false && props.title != undefined
     );
 
-    const formatValue = computed(() => {
-      return useFormat(allOptions.value.valueFormat);
-    });
+    const formatValue = computed(() => useFormat(allOptions.value.valueFormat));
+
+    const summaryItem = computed(
+      () =>
+        items.value?.find((item) => item.isSummary) || {
+          label: allOptions.value.summary ?? props.summary,
+        }
+    );
 
     // Methods
     function initPopper() {
@@ -180,6 +207,7 @@ export default defineComponent({
     return {
       allModifiers,
       allOptions,
+      summaryItem,
       formatValue,
       popper,
       root,
