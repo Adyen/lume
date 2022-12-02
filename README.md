@@ -91,6 +91,23 @@ Follow these steps to quickly start developing amazing data-viz components local
    $ npm start
    ```
 
+### Docker
+
+To run the app inside a Docker container:
+
+1. Create a `.env` file with your Docker image URL:
+   ```shell
+     $ echo DOCKER_IMAGE={YOUR_IMAGE_HERE} >> .env
+   ```
+2. Start your container:
+   ```shell
+     $ docker compose up -d
+   ```
+3. Attach to it in your terminal:
+   ```shell
+     $ docker attach lume
+   ```
+
 #### Storybook
 
 Storybook is available by running the following command:
