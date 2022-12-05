@@ -1,0 +1,13 @@
+version: '3.9'
+services:
+  web:
+    container_name: lume
+    tty: true
+    stdin_open: true
+    entrypoint: ['bash']
+    build:
+      context: .
+      args:
+        docker_image: $DOCKER_IMAGE
+    volumes:
+      - ./:/home/node/lume
