@@ -48,4 +48,44 @@ describe('tooltip.vue', () => {
     expect(el.find('[data-j-tooltip__item__label]').text()).toEqual(item.label);
     expect(el.find('[data-j-tooltip__item__value]').text()).toEqual(item.value);
   });
+
+  describe('summary item', () => {
+    test('mount component with summary item from items array', () => {
+      const wrapper = mount(LumeTooltip, {
+        propsData: {
+          items: [{ ...item, isSummary: true }, item],
+          element: mockElement,
+        },
+      });
+
+      const el = wrapper.find('[data-j-tooltip__summary-item]');
+      expect(el.exists()).toBeTruthy();
+    });
+
+    test('mount component with summary item from options', () => {
+      const wrapper = mount(LumeTooltip, {
+        propsData: {
+          items: [item],
+          element: mockElement,
+          options: { summary: 'test summary' },
+        },
+      });
+
+      const el = wrapper.find('[data-j-tooltip__summary-item]');
+      expect(el.exists()).toBeTruthy();
+    });
+
+    test('mount component with summary item from property', () => {
+      const wrapper = mount(LumeTooltip, {
+        propsData: {
+          items: [item],
+          element: mockElement,
+          summary: 'test summary',
+        },
+      });
+
+      const el = wrapper.find('[data-j-tooltip__summary-item]');
+      expect(el.exists()).toBeTruthy();
+    });
+  });
 });

@@ -36,9 +36,18 @@ $lume-tooltip-symbol-size: $lume-spacing-10 !default;
   }
 
   &__title {
-    margin-bottom: $lume-spacing-8;
+    margin-bottom: $lume-spacing-4;
     font-weight: $lume-font-weight-medium;
     color: $lume-tooltip-title-color;
+  }
+
+  &__break {
+    hr {
+      margin-top: $lume-spacing-4;
+      margin-bottom: $lume-spacing-4;
+      border: 0;
+      border-top: 1px solid $lume-color-grey-30;
+    }
   }
 
   &__items {
