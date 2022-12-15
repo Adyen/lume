@@ -1,9 +1,8 @@
 <template>
   <component
     :is="component"
-    v-bind="$props"
+    v-bind="{ ...props, ...$attrs }"
     :options="getBarChartOptions(options)"
-    v-on="$listeners"
   >
     <template
       v-for="(_, name) in slots"
@@ -18,7 +17,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineAsyncComponent, defineComponent, PropType } from 'vue';
+enum TYPES {
+  grouped = 'grouped',
+  stacked = 'stacked',
+}
+</script>
+
+<script setup lang="ts">
+import { computed, defineAsyncComponent, PropType, useSlots } from 'vue';
 
 import { excludeGroups, singleDatasetValidator } from '@/utils/helpers';
 import { withChartProps } from '@/composables/props';
@@ -30,68 +36,53 @@ import {
 
 import { ORIENTATIONS } from '@/constants';
 
-enum TYPES {
-  grouped = 'grouped',
-  stacked = 'stacked',
-}
-const COMPONENT_MAP = {
-  single: 'lume-single-bar-chart',
-  grouped: 'lume-grouped-bar-chart',
-  stacked: 'lume-stacked-bar-chart',
-};
+const LumeSingleBarChart = defineAsyncComponent(
+  () => import('@/components/charts/lume-single-bar-chart')
+);
+const LumeGroupedBarChart = defineAsyncComponent(
+  () => import('@/components/charts/lume-grouped-bar-chart')
+);
+const LumeStackedBarChart = defineAsyncComponent(
+  () => import('@/components/charts/lume-stacked-bar-chart')
+);
+const COMPONENT_MAP = new Map([
+  ['single', LumeSingleBarChart],
+  ['grouped', LumeGroupedBarChart],
+  ['stacked', LumeStackedBarChart],
+]);
 
-export default defineComponent({
-  components: {
-    LumeSingleBarChart: defineAsyncComponent(
-      () => import('@/components/charts/lume-single-bar-chart')
-    ),
-    LumeGroupedBarChart: defineAsyncComponent(
-      () => import('@/components/charts/lume-grouped-bar-chart')
-    ),
-    LumeStackedBarChart: defineAsyncComponent(
-      () => import('@/components/charts/lume-stacked-bar-chart')
-    ),
+const props = defineProps({
+  ...withChartProps<BarChartOptions>(),
+  type: {
+    type: String as PropType<TYPES>,
+    default: null,
+    validator: (type: string): boolean => type in TYPES || type == null,
   },
-  props: {
-    ...withChartProps<BarChartOptions>(),
-    type: {
-      type: String as PropType<TYPES>,
-      default: null,
-      validator: (type: string): boolean => type in TYPES || type == null,
+});
+
+const slots = excludeGroups(useSlots());
+
+function getBarChartOptions(options: Options) {
+  return {
+    ...options,
+    startOnZero: true, // Bar chart always starts on zero,
+    tooltipOptions: {
+      ...((options?.tooltipOptions as TooltipOptions) || {}),
+      position: props.orientation === ORIENTATIONS.HORIZONTAL && 'right',
     },
-  },
-  setup(props, context) {
-    function getBarChartOptions(options: Options) {
-      return {
-        ...options,
-        startOnZero: true, // Bar chart always starts on zero,
-        tooltipOptions: {
-          ...((options?.tooltipOptions as TooltipOptions) || {}),
-          position: props.orientation === ORIENTATIONS.HORIZONTAL && 'right',
-        },
-      };
-    }
+  };
+}
 
-    const component = computed(() => {
-      if (!props.data) return;
+const component = computed(() => {
+  if (!props.data) return;
 
-      // Single bar chart
-      if (singleDatasetValidator(props.data)) return COMPONENT_MAP.single;
+  // Single bar chart
+  if (singleDatasetValidator(props.data)) return COMPONENT_MAP.get('single');
 
-      if (!props.type) {
-        throw new Error(
-          "Bar chart needs a type when there's multiple datasets."
-        );
-      }
+  if (!props.type) {
+    throw new Error("Bar chart needs a type when there's multiple datasets.");
+  }
 
-      return COMPONENT_MAP[props.type];
-    });
-
-    return {
-      component,
-      getBarChartOptions,
-      slots: excludeGroups(context.slots),
-    };
-  },
+  return COMPONENT_MAP.get(props.type);
 });
 </script>
