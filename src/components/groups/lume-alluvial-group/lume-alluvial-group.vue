@@ -72,8 +72,8 @@
   </g>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, Ref, toRef, watch } from 'vue';
+<script setup lang="ts">
+import { onBeforeMount, Ref, ref, toRef, useAttrs, watch } from 'vue';
 
 import LumeAlluvialPathGroup from '@/components/groups/lume-alluvial-path-group';
 
@@ -98,110 +98,100 @@ import { ContainerSize } from '@/types/size';
 
 import { DEFAULT_COLOR, NODE_LABEL_PADDING } from './constants';
 
-export default defineComponent({
-  components: { LumeAlluvialPathGroup },
-  props: {
-    ...withChartProps(singleDatasetValidator),
-  },
-  setup(props, context) {
-    const data = toRef(props, 'data') as Ref<Data<AlluvialNode>>;
+const props = defineProps({
+  ...withChartProps(singleDatasetValidator),
+});
 
-    const highlightedLinkIds = ref([]);
-    const highlightedNodeIds = ref([]);
-    const nodeText = ref(null);
+const defaultColor = DEFAULT_COLOR;
 
-    const computedData = getAlluvialComputedData(data);
+const attrs = useAttrs();
 
-    const { graph, alluvialInstance } = useAlluvialBlocks(
-      computedData,
-      context.attrs.containerSize as ContainerSize
+const data = toRef(props, 'data') as Ref<Data<AlluvialNode>>;
+
+const highlightedLinkIds = ref([]);
+const highlightedNodeIds = ref([]);
+const nodeText = ref(null);
+
+const computedData = getAlluvialComputedData(data);
+
+const { graph, alluvialInstance } = useAlluvialBlocks(
+  computedData,
+  attrs.containerSize as ContainerSize
+);
+
+const {
+  leftMostNodeLabelWidth,
+  rightMostNodeLabelWidth,
+  topMostNodeLabelExtraHeight,
+  bottomMostNodeLabelExtraHeight,
+} = useCoordinates(computedData, graph, nodeText);
+
+const {
+  highlightedElements,
+  highlightLinks,
+  updateNodes,
+  renderChart,
+  maxDepth,
+} = useAlluvialInteractions(alluvialInstance, computedData, graph);
+
+onBeforeMount(() => {
+  watch(highlightedElements, (newElements, previousElements) => {
+    const isEntering = newElements.nodes != null && newElements.links != null;
+    const links = new Set(newElements.links ?? []);
+    const { nodes = new Map() } =
+      (isEntering ? newElements : previousElements) || {};
+    const { nodeIds, linkIds } = highlightLinks(
+      graph.value?.links?.filter((link) => links.has(link))
     );
-
-    const {
-      leftMostNodeLabelWidth,
-      rightMostNodeLabelWidth,
-      topMostNodeLabelExtraHeight,
-      bottomMostNodeLabelExtraHeight,
-    } = useCoordinates(computedData, graph, nodeText);
-
-    const {
-      highlightedElements,
-      highlightLinks,
-      updateNodes,
-      renderChart,
-      maxDepth,
-    } = useAlluvialInteractions(alluvialInstance, computedData, graph);
-
-    watch(highlightedElements, function (newElements, previousElements) {
-      const isEntering = newElements.nodes != null && newElements.links != null;
-      const links = new Set(newElements.links ?? []);
-      const { nodes = new Map() } =
-        (isEntering ? newElements : previousElements) || {};
-      const { nodeIds, linkIds } = highlightLinks(
-        graph.value?.links?.filter((link) => links.has(link))
-      );
-      const updateHighlightedBlocks = (_nodeIds = [], _linkIds = []) => {
-        highlightedNodeIds.value = _nodeIds;
-        highlightedLinkIds.value = _linkIds;
-      };
-
-      updateHighlightedBlocks(nodeIds, linkIds);
-      updateNodes({
-        isEntering,
-        values: nodes,
-        updatingNodes: graph.value?.nodes?.filter((node) =>
-          nodes.has(getAlluvialNodeId(node))
-        ),
-      });
-    });
-
-    watch(graph, (sankeyElements) =>
-      renderChart({ nodes: sankeyElements.nodes, links: sankeyElements.links })
-    );
-
-    watch(
-      leftMostNodeLabelWidth,
-      (width) =>
-        (alluvialInstance.value.leftExtent = width + NODE_LABEL_PADDING)
-    );
-
-    watch(
-      rightMostNodeLabelWidth,
-      (width) =>
-        (alluvialInstance.value.rightExtent =
-          alluvialInstance.value.containerSize.width -
-          (width + NODE_LABEL_PADDING))
-    );
-
-    watch(
-      bottomMostNodeLabelExtraHeight,
-      (height) => (alluvialInstance.value.bottomExtent = height)
-    );
-
-    watch(
-      topMostNodeLabelExtraHeight,
-      (height) => (alluvialInstance.value.topExtent = height)
-    );
-
-    watch(
-      alluvialInstance.value.containerSize,
-      (containerSize) =>
-        (alluvialInstance.value.rightExtent =
-          containerSize.width -
-          (rightMostNodeLabelWidth.value + NODE_LABEL_PADDING))
-    );
-
-    return {
-      alluvialInstance,
-      computedData,
-      defaultColor: DEFAULT_COLOR,
-      highlightedLinkIds,
-      highlightedNodeIds,
-      isNodeOrLinkFaded,
-      maxDepth,
-      nodeText,
+    const updateHighlightedBlocks = (_nodeIds = [], _linkIds = []) => {
+      highlightedNodeIds.value = _nodeIds;
+      highlightedLinkIds.value = _linkIds;
     };
-  },
+
+    updateHighlightedBlocks(nodeIds, linkIds);
+    updateNodes({
+      isEntering,
+      values: nodes,
+      updatingNodes: graph.value?.nodes?.filter((node) =>
+        nodes.has(getAlluvialNodeId(node))
+      ),
+    });
+  });
+
+  watch(graph, (sankeyElements) =>
+    renderChart({ nodes: sankeyElements.nodes, links: sankeyElements.links })
+  );
+
+  watch(
+    leftMostNodeLabelWidth,
+    (width) => (alluvialInstance.value.leftExtent = width + NODE_LABEL_PADDING)
+  );
+
+  watch(
+    rightMostNodeLabelWidth,
+    (width) =>
+      (alluvialInstance.value.rightExtent =
+        alluvialInstance.value.containerSize.width -
+        (width + NODE_LABEL_PADDING))
+  );
+
+  watch(
+    bottomMostNodeLabelExtraHeight,
+    (height) => (alluvialInstance.value.bottomExtent = height)
+  );
+
+  watch(
+    topMostNodeLabelExtraHeight,
+    (height) => (alluvialInstance.value.topExtent = height)
+  );
+
+  watch(
+    alluvialInstance.value.containerSize,
+    (containerSize) =>
+      (alluvialInstance.value.rightExtent =
+        containerSize.width -
+        (rightMostNodeLabelWidth.value + NODE_LABEL_PADDING))
+  );
 });
 </script>
 
