@@ -46,15 +46,15 @@ function getDivergentColor(color: DivergentColors, index: number) {
 
 function getColorByPalette(color: Color, palette: ColorPalette, index: number) {
   switch (palette) {
-    default:
-    case ColorPalette.Categorical:
-      return isLegacy(color)
-        ? color
-        : getCategoricalColor(color as Colors, index);
-    case ColorPalette.Sequential:
-      return getSequentialColor(color as Colors, index);
-    case ColorPalette.Divergent:
-      return getDivergentColor(color as DivergentColors, index);
+  default:
+  case ColorPalette.Categorical:
+    return isLegacy(color)
+      ? color
+      : getCategoricalColor(color as Colors, index);
+  case ColorPalette.Sequential:
+    return getSequentialColor(color as Colors, index);
+  case ColorPalette.Divergent:
+    return getDivergentColor(color as DivergentColors, index);
   }
 }
 
@@ -65,9 +65,7 @@ export function computeColor(
   index: number
 ) {
   const isDatasetColorValid = validateColor(datasetColor, palette);
-  if (isDatasetColorValid) {
-    return getColorByPalette(datasetColor, palette, index);
-  }
+  if (isDatasetColorValid) return datasetColor;
 
   if (index > 4) {
     warn(Warnings.ColorLoop);
