@@ -1,0 +1,143 @@
+### Changelog
+
+All notable changes to this project will be documented in this file. Dates are displayed in UTC.
+
+#### [v0.1.8](https://github.com/Adyen/lume/compare/v0.1.8...v0.1.8)
+
+- 🔖 0.1.8 [`#120`](https://github.com/Adyen/lume/pull/120)
+- 🔧 Update changelog generation config [`68357a9`](https://github.com/Adyen/lume/commit/68357a9d842ba445869039d19cf240bb40269ba6)
+- 🔧 Add release-it config [`3a2e716`](https://github.com/Adyen/lume/commit/3a2e7169f5fe96571432f2c2f2c0bddfda1e07f8)
+- ➕ Add release-it dependency [`ea962da`](https://github.com/Adyen/lume/commit/ea962da8bcbe1c74b6077bc93a9b362450acb59c)
+
+#### [v0.1.8](https://github.com/Adyen/lume/compare/v0.1.7...v0.1.8)
+
+> 30 December 2022
+
+- 🐛 Fix color logic for cases when color is defined in the dataset [`#119`](https://github.com/Adyen/lume/pull/119)
+- 🔧 Add commit prefix to renovate config [`#116`](https://github.com/Adyen/lume/pull/116)
+- ✨ Introduce summary item in LumeTooltip [`#113`](https://github.com/Adyen/lume/pull/113)
+- 🧑‍💻 Add Dockerfile, compose & guide [`#114`](https://github.com/Adyen/lume/pull/114)
+- 🔖 0.1.7 [`#111`](https://github.com/Adyen/lume/pull/111)
+
+#### [v0.1.7](https://github.com/Adyen/lume/compare/v0.1.6...v0.1.7)
+
+> 30 November 2022
+
+- ✨ Make sure portals are scoped to component by using a unique id gene… [`#108`](https://github.com/Adyen/lume/pull/108)
+- ✨ Tooltip should have an option to format value [`#110`](https://github.com/Adyen/lume/pull/110)
+- ♻️ Rough setup to move out the logic from the line and line-group co… [`#103`](https://github.com/Adyen/lume/pull/103)
+- ✨ Introduce vitest for test [`#101`](https://github.com/Adyen/lume/pull/101)
+- ♻️ Use portal to broker for the chart legend in the lume chart compo… [`#97`](https://github.com/Adyen/lume/pull/97)
+- 📝 docs: add quick link for navigation [`#104`](https://github.com/Adyen/lume/pull/104)
+- ✨ Introduce format composable [`44f50fa`](https://github.com/Adyen/lume/commit/44f50fab29a6e5318f6ef8cfa8780d21721b6ac2)
+- 🔥 remove jest and istanbul config files [`d75c882`](https://github.com/Adyen/lume/commit/d75c882f93227f9a84d07b8468f98bf6968b6742)
+- ♻️ Use portal to broker for the chart legend in the lume chart component #96 [`f8d5653`](https://github.com/Adyen/lume/commit/f8d5653b88c260c8969a6515e95ef7badfb08193)
+
+#### [v0.1.6](https://github.com/Adyen/lume/compare/v0.1.5...v0.1.6)
+
+> 23 November 2022
+
+- 🔖 0.1.5 [`b617827`](https://github.com/Adyen/lume/commit/b61782724a55593eaae0c51f082d19bb9883a558)
+
+#### [v0.1.5](https://github.com/Adyen/lume/compare/v0.1.4...v0.1.5)
+
+> 23 November 2022
+
+- 🐛 Add chart ID to fix portal names issue [`#100`](https://github.com/Adyen/lume/pull/100)
+- ✨ Add option to control line width [`#98`](https://github.com/Adyen/lume/pull/98)
+- Configure Renovate [`#83`](https://github.com/Adyen/lume/pull/83)
+- 🐛 Fix axis ticks not displaying [`#91`](https://github.com/Adyen/lume/pull/91)
+- Mr/main/lucasv/changing the case for consts in lume bar chart [`#89`](https://github.com/Adyen/lume/pull/89)
+- 🔧 gitignore package-lock.json [`41df3dc`](https://github.com/Adyen/lume/commit/41df3dc505c5ce78cc7d52f0d2a53b348f93e085)
+- 📝 Added documentation for alluvial chart [`a6d34df`](https://github.com/Adyen/lume/commit/a6d34df65fb6a23fc02e06003f9186fde4c1b7f7)
+- 📝 Added doccumentation for the bar chart component [`8f07819`](https://github.com/Adyen/lume/commit/8f07819a02a54e0c7493dc6c725369cad27a2a0f)
+
+#### [v0.1.4](https://github.com/Adyen/lume/compare/v0.1.3...v0.1.4)
+
+> 21 November 2022
+
+- 📝 Added README.md for lume chart legend [`#82`](https://github.com/Adyen/lume/pull/82)
+- 🚸 Improve axis tick display on hover [`#68`](https://github.com/Adyen/lume/pull/68)
+- 🎨 Make orientation optional and don't make it a prop for the alluvial… [`#85`](https://github.com/Adyen/lume/pull/85)
+- ⏪️ Rollback Storybook config to use Webpack [`#84`](https://github.com/Adyen/lume/pull/84)
+- 👷 Change build tool to Vite [`#79`](https://github.com/Adyen/lume/pull/79)
+- 🔀 Mr/main/lucasv/added documentation for lume line [`#81`](https://github.com/Adyen/lume/pull/81)
+- 📝 Documentation for lume-point component [`#80`](https://github.com/Adyen/lume/pull/80)
+- ⬆️ Bump @types/d3-sankey from 0.11.2 to 0.12.0 [`#76`](https://github.com/Adyen/lume/pull/76)
+- ⬆️ Bump webpack from 5.74.0 to 5.75.0 [`#77`](https://github.com/Adyen/lume/pull/77)
+- ⬆️ Bump @typescript-eslint/parser from 5.42.1 to 5.43.0 [`#78`](https://github.com/Adyen/lume/pull/78)
+- ⬆️ Bump eslint from 8.26.0 to 8.27.0 [`#74`](https://github.com/Adyen/lume/pull/74)
+- ⬆️ Bump sass-loader from 8.0.2 to 13.2.0 [`#73`](https://github.com/Adyen/lume/pull/73)
+- ⬆️ Bump jest-environment-jsdom from 29.2.2 to 29.3.1 [`#72`](https://github.com/Adyen/lume/pull/72)
+- 📝 Mocked base data for real time charts [`#67`](https://github.com/Adyen/lume/pull/67)
+- ⬆️ Bump loader-utils from 1.4.0 to 1.4.2 [`#70`](https://github.com/Adyen/lume/pull/70)
+- ⬆️ Bump @typescript-eslint/parser from 5.42.0 to 5.42.1 [`#56`](https://github.com/Adyen/lume/pull/56)
+- ⬆️ Bump jest and @types/jest [`#71`](https://github.com/Adyen/lume/pull/71)
+- ⬆️ Bump @vue/vue2-jest from 29.1.1 to 29.2.0 [`#59`](https://github.com/Adyen/lume/pull/59)
+- 👷 Add cleanup postbuild script; Inline font assets [`#69`](https://github.com/Adyen/lume/pull/69)
+- 📝 Updated the storybook mock data [`#66`](https://github.com/Adyen/lume/pull/66)
+- ✅ Restore outcome of the unit tests for the scales spec [`#64`](https://github.com/Adyen/lume/pull/64)
+- 🎨 Small improvement proposal to the axis component and its constituen… [`#61`](https://github.com/Adyen/lume/pull/61)
+- 📝 invert bar chart options upon orientation change [`#29`](https://github.com/Adyen/lume/pull/29)
+- 🔥 Remove different symbols for lume-tooltip [`#54`](https://github.com/Adyen/lume/pull/54)
+- 📝 Added figma links to the chart stories [`#53`](https://github.com/Adyen/lume/pull/53)
+- :arrow_up: Bump jest and @types/jest [`1bf2360`](https://github.com/Adyen/lume/commit/1bf2360447e595f9d0ba81fed7b4547c9923d381)
+- 👷 Improve build scripts; Add webpack build for font.css [`f959b2f`](https://github.com/Adyen/lume/commit/f959b2f6c2cf2a087c7b8440612943c4b538ee63)
+- 📝 Add performance comparison playground example [`27bd956`](https://github.com/Adyen/lume/commit/27bd956e370f82d9e20811aeec7e8c4c2bb83873)
+
+#### [v0.1.3](https://github.com/Adyen/lume/compare/v0.1.2...v0.1.3)
+
+> 3 November 2022
+
+- 💄 Update styles to allow for typography customization [`#52`](https://github.com/Adyen/lume/pull/52)
+- ⬆️ Bump d3-color and d3 [`#51`](https://github.com/Adyen/lume/pull/51)
+- 📌 Pin d3 version [`5f7d289`](https://github.com/Adyen/lume/commit/5f7d2899d284965e170745957a0d0474fdda7d73)
+- :arrow_up: Bump d3-color and d3 [`b7ff046`](https://github.com/Adyen/lume/commit/b7ff04623a6a0e385cc37b503a598e06261a76a7)
+- 📝 Update imports in docs; Remove Storybook mdx syntax from md files [`1ba924d`](https://github.com/Adyen/lume/commit/1ba924d6f610bb4bdead58f35f43f7087cb0a4fc)
+
+#### [v0.1.2](https://github.com/Adyen/lume/compare/0.1.1...v0.1.2)
+
+> 1 November 2022
+
+- 👷 add git config [`#50`](https://github.com/Adyen/lume/pull/50)
+- ✨ Included tooltip slots in chart components so that they can be overridden by the consumers [`#36`](https://github.com/Adyen/lume/pull/36)
+- 🔀 39 Allow for custom tooltip targetElement [`#44`](https://github.com/Adyen/lume/pull/44)
+- Add d3 package to fix jest errors [`#37`](https://github.com/Adyen/lume/pull/37)
+- 🔀 41 add option to set/remove chart background color [`#43`](https://github.com/Adyen/lume/pull/43)
+- ⬆️ Bump jest and @types/jest [`#33`](https://github.com/Adyen/lume/pull/33)
+- ⬆️ Bump @types/node from 17.0.45 to 18.11.5 [`#35`](https://github.com/Adyen/lume/pull/35)
+- ⬆️ Bump d3-shape from 2.1.0 to 3.1.0 [`#34`](https://github.com/Adyen/lume/pull/34)
+- ⬆️ Bump d3-format from 1.4.5 to 3.1.0 [`#31`](https://github.com/Adyen/lume/pull/31)
+- ⬆️ Bump jest-environment-jsdom from 29.2.1 to 29.2.2 [`#30`](https://github.com/Adyen/lume/pull/30)
+- ⬆️ Upgrade jest/ts-jest versions [`fa20f20`](https://github.com/Adyen/lume/commit/fa20f20bcd21f636d92e560cb88657fa4f8ed8cc)
+- :arrow_up: Bump jest and @types/jest [`ebaf222`](https://github.com/Adyen/lume/commit/ebaf222e9fda5cea65d2468ef13ce2d34fc6ee86)
+- ⬆️ Upgrade dependencies; Remove unused deps; Minor tsconfig fix [`18313f7`](https://github.com/Adyen/lume/commit/18313f7c0c68c1512b0b4dce20ea6ba2f5e12584)
+
+#### 0.1.1
+
+> 24 October 2022
+
+- ✨ Provide options to customize bar paddings [`#27`](https://github.com/Adyen/lume/pull/27)
+- ⬆️ Bump css-loader from 3.6.0 to 6.7.1 [`#23`](https://github.com/Adyen/lume/pull/23)
+- ⬆️ Bump babel-jest from 28.1.3 to 29.2.0 [`#24`](https://github.com/Adyen/lume/pull/24)
+- ⬆️ Bump jest-environment-jsdom from 28.1.3 to 29.2.0 [`#21`](https://github.com/Adyen/lume/pull/21)
+- 💚 fix broken test in github action [`#19`](https://github.com/Adyen/lume/pull/19)
+- ⏪ add back the md version issue templates [`#17`](https://github.com/Adyen/lume/pull/17)
+- 💄 Update typography styles [`#15`](https://github.com/Adyen/lume/pull/15)
+- 🎨 enhance issue templates [`#13`](https://github.com/Adyen/lume/pull/13)
+- 👷 Add npm publish script (dry) [`#14`](https://github.com/Adyen/lume/pull/14)
+- ♻️ Move overlay logic to new adv-overlay-group component [`#12`](https://github.com/Adyen/lume/pull/12)
+- Bumped testing versions and suspended some tests that need more attention [`#11`](https://github.com/Adyen/lume/pull/11)
+- Added test for adv-chart, refactored out shared resources for the other tests,... [`#9`](https://github.com/Adyen/lume/pull/9)
+- Rename axis to adv-axis; Remove `any` from axis types [`#10`](https://github.com/Adyen/lume/pull/10)
+- Refactor core bar component [`#8`](https://github.com/Adyen/lume/pull/8)
+- Refactor, rename & remove bar-related components [`#6`](https://github.com/Adyen/lume/pull/6)
+- Refactor, rename & remove line-related components [`#7`](https://github.com/Adyen/lume/pull/7)
+- Added adv-bar-group [`#5`](https://github.com/Adyen/lume/pull/5)
+- Replace any with Scale type [`#4`](https://github.com/Adyen/lume/pull/4)
+- adv-axis [`#3`](https://github.com/Adyen/lume/pull/3)
+- VID-2616 Migrate to Storybook 6 [`#2`](https://github.com/Adyen/lume/pull/2)
+- VID-2617 Migrate to Composition API / TypeScript [`#1`](https://github.com/Adyen/lume/pull/1)
+- ⬆️ Update dependency configs [`5fae939`](https://github.com/Adyen/lume/commit/5fae939926db1f32a1ab28594eac2c5adcc8399a)
+- 🚚 Move charts, core & groups to src/components directory [`4c3b094`](https://github.com/Adyen/lume/commit/4c3b09418f8adeae32ad63965440de09ce2b2898)
+- 🚚 Move spec files to same dir of what they're testing [`e50c9a6`](https://github.com/Adyen/lume/commit/e50c9a60faa7cfa80899a7d90a028aa00e83375e)
