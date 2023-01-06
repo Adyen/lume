@@ -221,7 +221,9 @@ const props = defineProps({
 
 const slots = useSlots();
 
-const emit = defineEmits(['click']);
+const emit = defineEmits<{
+  (e: 'click', value: number): void;
+}>();
 
 const tooltipAnchorRadius = TOOLTIP_ANCHOR_RADIUS;
 

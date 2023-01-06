@@ -35,7 +35,9 @@ defineProps({
   },
 });
 
-const emit = defineEmits(['click']);
+const emit = defineEmits<{
+  (e: 'click', value: number): void;
+}>();
 </script>
 
 <style lang="scss" scoped>

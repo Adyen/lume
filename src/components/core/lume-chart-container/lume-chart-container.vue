@@ -67,7 +67,9 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['resize']);
+const emit = defineEmits<{
+  (e: 'resize', value: ContainerSize): void;
+}>();
 
 const { margins, containerSize } = toRefs(props);
 
