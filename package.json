@@ -50,7 +50,7 @@
     "lint": "eslint ./src ./test --ext .js,.ts,.vue",
     "postbuild": "node build/postbuild.js",
     "prepare": "npm run confighooks && echo \" ✔ Git hooks path configured to ./git-hooks\"",
-    "release": "release-it --",
+    "release": "release-it",
     "start": "npm run storybook",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "test": "vitest --config=vitest.config.ts",
