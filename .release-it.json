@@ -1,0 +1,18 @@
+{
+  "git": {
+    "commitMessage": "🔖 Release v${version}",
+    "changelog": "auto-changelog --stdout --commit-limit false --unreleased --template changelog-template.hbs"
+  },
+  "npm": {
+    "publish": false
+  },
+  "github": {
+    "release": true,
+    "autoGenerate": true,
+    "skipChecks": true,
+    "web": true
+  },
+  "hooks": {
+    "after:bump": "auto-changelog -p"
+  }
+}
