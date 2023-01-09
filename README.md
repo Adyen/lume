@@ -124,6 +124,16 @@ Every chart component should have its own `.stories` file, and it will be automa
 - [`addon-storysource`](https://www.npmjs.com/package/@storybook/addon-storysource)
 - [`addon-a11y`](https://www.npmjs.com/package/@storybook/addon-a11y)
 
+### Releasing
+
+To generate a release, run:
+
+```shell
+$ npm run release
+```
+
+This will prompt you with an interactive CLI to create a new version, tag, changelog entry and release.
+
 ### Roadmap
 
 The charts we wish to include:

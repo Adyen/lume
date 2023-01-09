@@ -2,7 +2,7 @@
 
 Welcome and thank you for showing interest in contributing to Lume!
 
-As a new project, we are hoping to create an active community of developers that submits issues, creates merge requests and provides invaluable feedback.
+As a new project, we are hoping to create an active community of developers that submits issues, creates pull requests and provides invaluable feedback.
 
 To help you get ready to do meaningful contributions to this repository, please read along these guidelines, as they cover some important aspects of this project.
 
@@ -15,7 +15,7 @@ To help you get ready to do meaningful contributions to this repository, please 
 
 ## Development
 
-Any contribution must start by creating an issue — this is important for tracking. Code contributions should be made via merge requests. These must be reviewed and need at least two approvals from project owners to be merged.
+Any contribution must start by creating an issue — this is important for tracking. Code contributions should be made via pull requests. These must be reviewed and need at least two approvals from project owners to be merged.
 
 ## Issues
 
@@ -25,15 +25,16 @@ Before creating a new issue, please thoroughly check the existing issues (both o
 
 When creating an issue, a template will be loaded to guide you through collecting and providing the information we need to investigate. If it is a problem report, please provide a minimal and concise way to reproduce it.
 
-### Merge requests
+### Pull requests
 
-Merge requests should:
+Pull requests should:
 
 - Add unit or integration tests for fixed or changed functionality (if a test suite already exists).
 - Include documentation.
-- Be accompanied by a complete Merge Request template (loaded automatically when an MR is created).
+- Be accompanied by a complete Pull Request template (loaded automatically when an MR is created).
+- Have a version bump and according changelog entry, following the [Semver](https://semver.org/) conventions.
 
-Before creating a Merge request, please check whether your commits comply with the conventions used in this repository.
+Before creating a Pull request, please check whether your commits comply with the conventions used in this repository.
 
 ### Commits
 
