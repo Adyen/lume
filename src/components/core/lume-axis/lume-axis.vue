@@ -1,6 +1,6 @@
 <template>
   <g
-    v-if="scale && !isLoading"
+    v-if="scale"
     ref="root"
     class="axis"
     :transform="axisTransform"
@@ -28,14 +28,14 @@
     </defs>
 
     <vue-portal
-      v-for="(tick, index) in ticks"
-      :key="tick"
+      v-for="(tick, index) in ticksWithAttributes"
+      :key="tick.value"
       slim
       :disabled="!isHovering(index)"
       :to="`${chartID}-${computedType}-hovered-portal`"
     >
       <g
-        v-bind="mixins.getTickGroupAttributes(tick)"
+        v-bind="tick.group"
         :id="getTickId(index)"
         class="axis__tick"
         :class="{
@@ -51,22 +51,23 @@
           @mouseover="onTickMouseover(index)"
         >
           <rect
-            v-bind="mixins.getTickGhostAttributes()"
+            v-bind="tick.ghost"
             class="axis__ghost"
             fill="url(#lume-tick-gradient)"
           />
           <text
-            v-bind="mixins.getTickLabelAttributes()"
+            v-bind="tick.label"
             ref="tickRefs"
             class="axis__label"
+            :data-index="index"
           >
-            {{ formatTick(tick) }}
+            {{ formatTick(tick.value) }}
           </text>
         </g>
 
         <line
           v-if="allOptions.gridLines"
-          v-bind="mixins.getGridLinesAttributes()"
+          v-bind="tick.gridLine"
           class="axis__grid-line"
         />
       </g>
@@ -84,7 +85,6 @@
 import {
   computed,
   defineComponent,
-  onBeforeMount,
   onMounted,
   PropType,
   reactive,
@@ -162,8 +162,8 @@ export default defineComponent({
 
     const mixins = reactive<Record<string, AxisMixinFunction>>({});
     const tickRefs = ref<Array<SVGTextElement>>(null);
-    const isLoading = ref<boolean>(false);
     const root = ref<SVGGElement>(null);
+    const ticksWithAttributes = ref(null);
 
     const { chartID } = useBase();
 
@@ -239,8 +239,25 @@ export default defineComponent({
       return `${chartID}-${computedType.value}-tick--${index}`;
     }
 
+    // Needed because tick element index changes in the `tickRefs` array
+    function getTextNode(index: number) {
+      if (!tickRefs.value) return;
+      return tickRefs.value.find((tick) => +tick.dataset.index === index);
+    }
+
+    function setTicks() {
+      ticksWithAttributes.value = ticks.value.map((tick, index) => {
+        return {
+          value: tick,
+          group: mixins.getTickGroupAttributes(tick),
+          ghost: mixins.getTickGhostAttributes(getTextNode(index)),
+          label: mixins.getTickLabelAttributes(),
+          gridLine: mixins.getGridLinesAttributes(),
+        };
+      });
+    }
+
     function init() {
-      isLoading.value = true;
       const scaleType = (scale.value as ScaleBand<string | number>).step
         ? 'bandScale'
         : 'linearScale';
@@ -255,16 +272,14 @@ export default defineComponent({
           mixins[fnName] = fn;
         }
       );
-
-      isLoading.value = false;
     }
 
-    onBeforeMount(async () => {
-      init();
+    // Setup watcher to get new mixins if scale changes (i.e. vertical to horizontal)
+    watch(scale, init, { flush: 'sync', immediate: true });
 
-      // Setup watcher to get new mixins if scale changes (i.e. vertical to horizontal)
-      watch(scale, init, { flush: 'sync' });
-    });
+    // Re-render after `tickRefs` is defined (to grab text width)
+    // and only when `ticks` change (if scale changes)
+    watch([ticks, tickRefs], setTicks, { immediate: true });
 
     onMounted(() => svgCheck(root.value));
 
@@ -275,9 +290,9 @@ export default defineComponent({
       computedPosition,
       computedType,
       formatTick,
+      getTextNode,
       getTickId,
       isHovering,
-      isLoading,
       mixins,
       onTickMouseover,
       root,
@@ -285,6 +300,7 @@ export default defineComponent({
       showTick,
       tickRefs,
       ticks,
+      ticksWithAttributes,
     };
   },
 });
