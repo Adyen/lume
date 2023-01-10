@@ -1,8 +1,6 @@
 #!/bin/sh
 
-RED="\033[1;31m"
-GREEN="\033[1;32m"
-COLOR_RESET="\033[0m"
+. ./git-hooks/utils.sh
 
 linter_exit_code=1
 staged_files_prettier=$(git diff --cached --diff-filter=d --name-only)
