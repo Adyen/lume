@@ -1,5 +1,11 @@
 import { computed, ComputedRef, ref, Ref } from 'vue';
-import { sankey, sankeyJustify, SankeyLink, SankeyNode } from 'd3-sankey';
+import {
+  sankey,
+  SankeyGraph,
+  sankeyJustify,
+  SankeyLink,
+  SankeyNode,
+} from 'd3-sankey';
 
 import { getAlluvialNodeId } from '@/utils/helpers';
 
@@ -65,6 +71,7 @@ export function useAlluvialBlocks(
   const layout = computed(() => {
     const { leftExtent, rightExtent, topExtent, bottomExtent, containerSize } =
       alluvialInstance.value;
+
     return sankey<
       SankeyNodeAdditionalProperties,
       SankeyLinkAdditionalProperties
@@ -81,10 +88,21 @@ export function useAlluvialBlocks(
   });
 
   const graph = computed(() => {
-    return layout.value({
-      nodes: nodes.value.map((node) => ({ ...node })),
-      links: links.value.map((link) => ({ ...link })),
-    });
+    try {
+      return layout.value({
+        nodes: nodes.value.map((node) => ({ ...node })),
+        links: links.value.map((link) => ({ ...link })),
+      });
+    } catch (error) {
+      console.error('[lume]', error);
+      return {
+        nodes: [],
+        links: [],
+      } as SankeyGraph<
+        SankeyNodeAdditionalProperties,
+        SankeyLinkAdditionalProperties
+      >;
+    }
   });
 
   return {

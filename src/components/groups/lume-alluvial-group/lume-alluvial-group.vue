@@ -73,7 +73,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, Ref, ref, toRef, useAttrs, watch } from 'vue';
+import { Ref, ref, toRef, useAttrs, watch } from 'vue';
 
 import LumeAlluvialPathGroup from '@/components/groups/lume-alluvial-path-group';
 
@@ -134,65 +134,62 @@ const {
   maxDepth,
 } = useAlluvialInteractions(alluvialInstance, computedData, graph);
 
-onBeforeMount(() => {
-  watch(highlightedElements, (newElements, previousElements) => {
-    const isEntering = newElements.nodes != null && newElements.links != null;
-    const links = new Set(newElements.links ?? []);
-    const { nodes = new Map() } =
-      (isEntering ? newElements : previousElements) || {};
-    const { nodeIds, linkIds } = highlightLinks(
-      graph.value?.links?.filter((link) => links.has(link))
-    );
-    const updateHighlightedBlocks = (_nodeIds = [], _linkIds = []) => {
-      highlightedNodeIds.value = _nodeIds;
-      highlightedLinkIds.value = _linkIds;
-    };
+watch(highlightedElements, (newElements, previousElements) => {
+  const isEntering = newElements.nodes != null && newElements.links != null;
+  const links = new Set(newElements.links ?? []);
+  const { nodes = new Map() } =
+    (isEntering ? newElements : previousElements) || {};
+  const { nodeIds, linkIds } = highlightLinks(
+    graph.value?.links?.filter((link) => links.has(link))
+  );
+  const updateHighlightedBlocks = (_nodeIds = [], _linkIds = []) => {
+    highlightedNodeIds.value = _nodeIds;
+    highlightedLinkIds.value = _linkIds;
+  };
 
-    updateHighlightedBlocks(nodeIds, linkIds);
-    updateNodes({
-      isEntering,
-      values: nodes,
-      updatingNodes: graph.value?.nodes?.filter((node) =>
-        nodes.has(getAlluvialNodeId(node))
-      ),
-    });
+  updateHighlightedBlocks(nodeIds, linkIds);
+  updateNodes({
+    isEntering,
+    values: nodes,
+    updatingNodes: graph.value?.nodes?.filter((node) =>
+      nodes.has(getAlluvialNodeId(node))
+    ),
   });
-
-  watch(graph, (sankeyElements) =>
-    renderChart({ nodes: sankeyElements.nodes, links: sankeyElements.links })
-  );
-
-  watch(
-    leftMostNodeLabelWidth,
-    (width) => (alluvialInstance.value.leftExtent = width + NODE_LABEL_PADDING)
-  );
-
-  watch(
-    rightMostNodeLabelWidth,
-    (width) =>
-      (alluvialInstance.value.rightExtent =
-        alluvialInstance.value.containerSize.width -
-        (width + NODE_LABEL_PADDING))
-  );
-
-  watch(
-    bottomMostNodeLabelExtraHeight,
-    (height) => (alluvialInstance.value.bottomExtent = height)
-  );
-
-  watch(
-    topMostNodeLabelExtraHeight,
-    (height) => (alluvialInstance.value.topExtent = height)
-  );
-
-  watch(
-    alluvialInstance.value.containerSize,
-    (containerSize) =>
-      (alluvialInstance.value.rightExtent =
-        containerSize.width -
-        (rightMostNodeLabelWidth.value + NODE_LABEL_PADDING))
-  );
 });
+
+watch(graph, (sankeyElements) =>
+  renderChart({ nodes: sankeyElements.nodes, links: sankeyElements.links })
+);
+
+watch(
+  leftMostNodeLabelWidth,
+  (width) => (alluvialInstance.value.leftExtent = width + NODE_LABEL_PADDING)
+);
+
+watch(
+  rightMostNodeLabelWidth,
+  (width) =>
+    (alluvialInstance.value.rightExtent =
+      alluvialInstance.value.containerSize.width - (width + NODE_LABEL_PADDING))
+);
+
+watch(
+  bottomMostNodeLabelExtraHeight,
+  (height) => (alluvialInstance.value.bottomExtent = height)
+);
+
+watch(
+  topMostNodeLabelExtraHeight,
+  (height) => (alluvialInstance.value.topExtent = height)
+);
+
+watch(
+  alluvialInstance.value.containerSize,
+  (containerSize) =>
+    (alluvialInstance.value.rightExtent =
+      containerSize.width -
+      (rightMostNodeLabelWidth.value + NODE_LABEL_PADDING))
+);
 </script>
 
 <style lang="scss" scoped>
