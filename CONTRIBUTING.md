@@ -33,6 +33,7 @@ Pull requests should:
 - Include documentation.
 - Be accompanied by a complete Pull Request template (loaded automatically when an MR is created).
 - Have a version bump and according changelog entry, following the [Semver](https://semver.org/) conventions.
+- Refer the issue(s) it relates to. It should also classify how it relates to it (e.g. _fixes #123_).
 
 Before creating a Pull request, please check whether your commits comply with the conventions used in this repository.
 
@@ -44,7 +45,6 @@ All commits to this project should respect the following rules:
 - **Commit messages must use [gitmoji](https://gitmoji.dev/)** - it helps to scope the commit purpose and also provides a visual filter in a commit list.
 - **Commit subject must be concise and imperative** - it shouldn't exceed 60 characters; use _fix_, not _fixes_ or _fixed_.
 - **Use the commit body to provide extra information** - when the subject isn't sufficiently explanatory. If present, it should explain _what_ and _why_, but not _how_ (that belongs in documentation/implementation).
-- **Commit body must include a reference to all issues related** - it should also classify how it relates to the issues (e.g. _resolves #123_).
 - **Any line of the commit message shouldn't exceed 100 characters** - this makes the message easier to read on GitHub as well as in various git tools.
 
 ## License

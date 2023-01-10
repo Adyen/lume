@@ -6,12 +6,7 @@ echo "\n Checking commit structure: \n"
 
 input_file=$1
 
-# message=$(grep "^[^#;+]" $input_file)
-
-# echo $message
-
 index=0
-found_issue_reference=0
 
 while IFS= read -r line
 do
@@ -37,22 +32,12 @@ do
         echo "\n${RED} ❌ Commit message lines should have less than 100 characters${COLOR_RESET}\n"
         exit 1
       fi
-
-      # Check for issue reference (#number)
-      if [[ $line =~ \#[0-9]+ ]]; then
-        found_issue_reference=1
-      fi
     fi
   fi
 
   index=$((index+1))
 
 done < "$input_file"
-
-if [ $found_issue_reference == 0 ]; then
-  echo "\n${RED} ❌ Commit message doesn't have issue reference${COLOR_RESET}\n"
-  exit 1
-fi
 
 echo "\n${GREEN} ✔ Commit message structure is compliant :)${COLOR_RESET}\n"
 
