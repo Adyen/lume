@@ -2,12 +2,17 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [v0.1.8](https://github.com/Adyen/lume/compare/v0.1.8...v0.1.8)
+#### [v0.1.9](https://github.com/Adyen/lume/compare/v0.1.8...v0.1.9)
 
+- 🐛 Fix skipped tick label hover logic [`#128`](https://github.com/Adyen/lume/pull/128)
+- 🧑‍💻 Remove issue reference commit requirement [`#129`](https://github.com/Adyen/lume/pull/129)
+- 🧑‍💻 Add commit message check for conventions [`#125`](https://github.com/Adyen/lume/pull/125)
+- 🔀 122 automate releases [`#123`](https://github.com/Adyen/lume/pull/123)
 - 🔖 0.1.8 [`#120`](https://github.com/Adyen/lume/pull/120)
+- 🐛 Fix skipped tick label hover logic [`#127`](https://github.com/Adyen/lume/issues/127)
+- 📝 Add CHANGELOG.md [`35b4bae`](https://github.com/Adyen/lume/commit/35b4baeaeb926b1e5398f89950c363f0dcaef3af)
+- 👷 Remove bump-version workflow; Update npm-publish workflow [`865ce66`](https://github.com/Adyen/lume/commit/865ce661a1231502b5541fbffc605b77d4f1db5e)
 - 🔧 Update changelog generation config [`68357a9`](https://github.com/Adyen/lume/commit/68357a9d842ba445869039d19cf240bb40269ba6)
-- 🔧 Add release-it config [`3a2e716`](https://github.com/Adyen/lume/commit/3a2e7169f5fe96571432f2c2f2c0bddfda1e07f8)
-- ➕ Add release-it dependency [`ea962da`](https://github.com/Adyen/lume/commit/ea962da8bcbe1c74b6077bc93a9b362450acb59c)
 
 #### [v0.1.8](https://github.com/Adyen/lume/compare/v0.1.7...v0.1.8)
 
