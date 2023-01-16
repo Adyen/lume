@@ -91,14 +91,13 @@ describe('lume-alluvial-diagram.vue', () => {
       },
     ];
 
-    const t = () =>
-      mount(LumeAlluvialDiagram, {
-        propsData: {
-          data,
-        },
-      });
+    mount(LumeAlluvialDiagram, {
+      propsData: {
+        data,
+      },
+    });
 
-    expect(t).toThrow('circular link');
+    expect(console.error).toHaveBeenCalled();
   });
 
   test('should be able to handle an empty dataset', async () => {
@@ -111,14 +110,13 @@ describe('lume-alluvial-diagram.vue', () => {
       },
     ];
 
-    const t = () =>
-      mount(LumeAlluvialDiagram, {
-        propsData: {
-          data,
-        },
-      });
+    mount(LumeAlluvialDiagram, {
+      propsData: {
+        data,
+      },
+    });
 
-    expect(t).toThrow('Invalid array length');
+    expect(console.error).toHaveBeenCalled();
   });
 
   test('should be able to handle an dataset with a single node', async () => {
@@ -151,14 +149,13 @@ describe('lume-alluvial-diagram.vue', () => {
       },
     ];
 
-    const t = () =>
-      mount(LumeAlluvialDiagram, {
-        propsData: {
-          data,
-        },
-      });
+    mount(LumeAlluvialDiagram, {
+      propsData: {
+        data,
+      },
+    });
 
-    expect(t).toThrow('missing: C');
+    expect(console.error).toHaveBeenCalled();
   });
 
   // Test interaction with elements

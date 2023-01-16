@@ -1,13 +1,13 @@
 <template>
   <lume-chart
-    v-bind="$props"
+    v-bind="props"
     chart-type="single-bar"
     :options="allOptions"
     data-j-single-bar-chart
   >
-    <template #groups="props">
+    <template #groups="groupProps">
       <lume-bar-group
-        v-bind="props"
+        v-bind="groupProps"
         :orientation="orientation"
       />
     </template>
@@ -23,8 +23,8 @@
   </lume-chart>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, toRefs } from 'vue';
+<script setup lang="ts">
+import { computed, toRefs, useSlots } from 'vue';
 
 import LumeChart from '@/components/core/lume-chart';
 import LumeBarGroup from '@/components/groups/lume-bar-group';
@@ -37,22 +37,17 @@ import { ORIENTATIONS } from '@/constants';
 
 import { options as defaultOptions } from './defaults';
 
-export default defineComponent({
-  components: { LumeChart, LumeBarGroup },
-  props: {
-    ...withChartProps<BarChartOptions>(singleDatasetValidator),
-  },
-  setup(props, context) {
-    // State from mixins
-    const { orientation, options } = toRefs(props);
-
-    const baseOptions = computed(
-      () => defaultOptions[orientation.value || ORIENTATIONS.VERTICAL] // needs to be computed so that default options are reactive
-    );
-
-    const { allOptions } = useOptions(options, baseOptions);
-
-    return { allOptions, slots: excludeGroups(context.slots) };
-  },
+const props = defineProps({
+  ...withChartProps<BarChartOptions>(singleDatasetValidator),
 });
+
+const slots = excludeGroups(useSlots());
+
+const { orientation, options } = toRefs(props);
+
+const baseOptions = computed(
+  () => defaultOptions[orientation.value || ORIENTATIONS.VERTICAL] // needs to be computed so that default options are reactive
+);
+
+const { allOptions } = useOptions(options, baseOptions);
 </script>

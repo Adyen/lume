@@ -47,7 +47,7 @@
               :data="internalData"
               class="lume-chart__legend"
               data-j-lume-chart__legend
-              @click="$emit('click', $event)"
+              @click="emit('click', $event)"
             />
           </vue-portal>
         </div>
@@ -182,8 +182,8 @@
   </lume-chart-container>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, onMounted, ref, toRefs } from 'vue';
+<script setup lang="ts">
+import { computed, onMounted, ref, toRefs, useSlots } from 'vue';
 import {
   Portal as VuePortal,
   PortalTarget as VuePortalTarget,
@@ -211,188 +211,146 @@ import { useTooltip, useTooltipAnchors } from '@/composables/tooltip';
 import { getEmptyArrayFromData } from '@/utils/helpers';
 import { ORIENTATIONS, TOOLTIP_ANCHOR_RADIUS } from '@/constants';
 
-export default defineComponent({
-  components: {
-    LumeAxis,
-    LumeBar,
-    LumeChartContainer,
-    LumeChartLegend,
-    LumeOverlayGroup,
-    LumeTooltip,
-    VuePortal,
-    VuePortalTarget,
+const props = defineProps({
+  ...withChartProps(),
+  chartType: {
+    type: String,
+    default: null,
   },
-  props: {
-    ...withChartProps(),
-    chartType: {
-      type: String,
-      default: null,
-    },
-  },
-  setup(props, ctx) {
-    const { data, labels, color, options, orientation, chartType } =
-      toRefs(props);
+});
 
-    const hoveredIndex = ref<number>(-1);
-    const tooltipAnchor = ref<SVGCircleElement>(null);
-    const chartContainer = ref<InstanceType<typeof LumeChartContainer>>(null);
+const slots = useSlots();
 
-    const { allOptions } = useOptions<ChartOptions>(options);
+const emit = defineEmits<{
+  (e: 'click', value: number): void;
+}>();
 
-    const { internalData, computedLabels, containerSize, updateSize, chartID } =
-      useBase(data, labels, color, allOptions, orientation);
+const tooltipAnchorRadius = TOOLTIP_ANCHOR_RADIUS;
 
-    const { xScale, yScale } = useBaseScales(
-      internalData,
-      computedLabels,
-      containerSize,
-      orientation,
-      allOptions
-    );
+const { data, labels, color, options, orientation, chartType } = toRefs(props);
 
-    const computedXScale = computed<Scale>(() => {
-      if (!props.xScale) return xScale.value;
-      return isScale(props.xScale)
-        ? props.xScale
-        : props.xScale?.(internalData.value, labels.value, containerSize);
-    });
+const hoveredIndex = ref<number>(-1);
+const tooltipAnchor = ref<SVGCircleElement>(null);
+const chartContainer = ref<InstanceType<typeof LumeChartContainer>>(null);
 
-    const computedYScale = computed<Scale>(() => {
-      if (!props.yScale) return yScale.value;
-      return isScale(props.yScale)
-        ? props.yScale
-        : props.yScale?.(internalData.value, labels.value, containerSize);
-    });
+const { allOptions } = useOptions<ChartOptions>(options);
 
-    const computedXAxisOptions = computed(() => ({
-      ...allOptions.value.xAxisOptions,
-      withHover: orientation.value === ORIENTATIONS.VERTICAL,
-    }));
+const { internalData, computedLabels, containerSize, updateSize, chartID } =
+  useBase(data, labels, color, allOptions, orientation);
 
-    const computedYAxisOptions = computed(() => ({
-      ...allOptions.value.yAxisOptions,
-      withHover: orientation.value === ORIENTATIONS.HORIZONTAL,
-    }));
+const { xScale, yScale } = useBaseScales(
+  internalData,
+  computedLabels,
+  containerSize,
+  orientation,
+  allOptions
+);
 
-    const xAxisTitle = computed(() => {
-      return allOptions.value.xAxisOptions?.title;
-    });
+const computedXScale = computed<Scale>(() => {
+  if (!props.xScale) return xScale.value;
+  return isScale(props.xScale)
+    ? props.xScale
+    : props.xScale?.(internalData.value, labels.value, containerSize);
+});
 
-    const yAxisTitle = computed(() => {
-      return allOptions.value.yAxisOptions?.title;
-    });
+const computedYScale = computed<Scale>(() => {
+  if (!props.yScale) return yScale.value;
+  return isScale(props.yScale)
+    ? props.yScale
+    : props.yScale?.(internalData.value, labels.value, containerSize);
+});
 
-    const showXAxisTitle = computed(() => {
-      return (
-        allOptions.value.xAxisOptions?.withTitle !== false && xAxisTitle.value
-      );
-    });
+const computedXAxisOptions = computed(() => ({
+  ...allOptions.value.xAxisOptions,
+  withHover: orientation.value === ORIENTATIONS.VERTICAL,
+}));
 
-    const showYAxisTitle = computed(() => {
-      return (
-        allOptions.value.yAxisOptions?.withTitle !== false && yAxisTitle.value
-      );
-    });
+const computedYAxisOptions = computed(() => ({
+  ...allOptions.value.yAxisOptions,
+  withHover: orientation.value === ORIENTATIONS.HORIZONTAL,
+}));
 
-    const shouldGenerateTooltipAnchors = computed(
-      () =>
-        allOptions.value.withTooltip !== false &&
-        !allOptions.value.tooltipOptions?.targetElement
-    );
+const xAxisTitle = computed(() => {
+  return allOptions.value.xAxisOptions?.title;
+});
 
-    const isReady = computed(() => {
-      const conditions = [];
+const yAxisTitle = computed(() => {
+  return allOptions.value.yAxisOptions?.title;
+});
 
-      const { noBaseScales } = allOptions.value;
+const showXAxisTitle = computed(() => {
+  return allOptions.value.xAxisOptions?.withTitle !== false && xAxisTitle.value;
+});
 
-      if (!noBaseScales) {
-        conditions.push(() => !!(computedXScale.value && computedYScale.value));
-      }
+const showYAxisTitle = computed(() => {
+  return allOptions.value.yAxisOptions?.withTitle !== false && yAxisTitle.value;
+});
 
-      return conditions.every((c) => c() === true);
-    });
+const shouldGenerateTooltipAnchors = computed(
+  () =>
+    allOptions.value.withTooltip !== false &&
+    !allOptions.value.tooltipOptions?.targetElement
+);
 
-    const { hasNegativeValues } = checkNegativeValues(internalData);
-    const { negativeBarAttributes } = useNegativeValues(
-      containerSize,
-      computedXScale,
-      computedYScale,
-      orientation
-    );
+const isReady = computed(() => {
+  const conditions = [];
 
-    const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();
+  const { noBaseScales } = allOptions.value;
 
-    const { getTooltipAnchorAttributes, getTooltipItems } = useTooltipAnchors(
-      internalData,
-      computedXScale,
-      computedYScale,
-      orientation,
-      chartType
-    );
+  if (!noBaseScales) {
+    conditions.push(() => !!(computedXScale.value && computedYScale.value));
+  }
 
-    const tooltipPosition = computed(
-      () => allOptions.value.tooltipOptions?.position || 'top'
-    );
+  return conditions.every((c) => c() === true);
+});
 
-    function mouseOverHandler(index: number) {
-      // Update hoveredIndex
-      allOptions.value.withHover !== false && (hoveredIndex.value = index);
+const { hasNegativeValues } = checkNegativeValues(internalData);
+const { negativeBarAttributes } = useNegativeValues(
+  containerSize,
+  computedXScale,
+  computedYScale,
+  orientation
+);
 
-      // Show/update tooltip
-      const targetElement = !allOptions.value.tooltipOptions?.targetElement
-        ? tooltipAnchor.value[index]
-        : allOptions.value.tooltipOptions.targetElement === 'self'
-          ? chartContainer.value.$el
-          : allOptions.value.tooltipOptions.targetElement;
+const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();
 
-      if (allOptions.value.withTooltip !== false) {
-        showTooltip(targetElement);
-      }
-    }
+const { getTooltipAnchorAttributes, getTooltipItems } = useTooltipAnchors(
+  internalData,
+  computedXScale,
+  computedYScale,
+  orientation,
+  chartType
+);
 
-    function handleMouseleave() {
-      hideTooltip();
-      hoveredIndex.value = -1;
-    }
+const tooltipPosition = computed(
+  () => allOptions.value.tooltipOptions?.position || 'top'
+);
 
-    onMounted(() => {
-      if (!ctx.slots.groups?.()) {
-        console.error('"groups" `<slot>` must have content.');
-      }
-    });
+function mouseOverHandler(index: number) {
+  // Update hoveredIndex
+  allOptions.value.withHover !== false && (hoveredIndex.value = index);
 
-    return {
-      allOptions,
-      internalData,
-      chartContainer,
-      computedLabels,
-      computedXAxisOptions,
-      computedXScale,
-      computedYAxisOptions,
-      computedYScale,
-      containerSize,
-      getEmptyArrayFromData: getEmptyArrayFromData,
-      getTooltipAnchorAttributes,
-      getTooltipItems,
-      handleMouseleave,
-      hasNegativeValues,
-      hoveredIndex,
-      isReady,
-      mouseOverHandler,
-      negativeBarAttributes,
-      shouldGenerateTooltipAnchors,
-      showXAxisTitle,
-      showYAxisTitle,
-      tooltipAnchor,
-      tooltipAnchorRadius: TOOLTIP_ANCHOR_RADIUS,
-      tooltipConfig,
-      tooltipPosition,
-      updateSize,
-      xAxisTitle,
-      yAxisTitle,
-      chartID,
-    };
-  },
+  // Show/update tooltip
+  const targetElement = !allOptions.value.tooltipOptions?.targetElement
+    ? tooltipAnchor.value[index]
+    : allOptions.value.tooltipOptions.targetElement === 'self'
+      ? chartContainer.value.$el
+      : allOptions.value.tooltipOptions.targetElement;
+
+  if (allOptions.value.withTooltip !== false) {
+    showTooltip(targetElement);
+  }
+}
+
+function handleMouseleave() {
+  hideTooltip();
+  hoveredIndex.value = -1;
+}
+
+onMounted(() => {
+  if (!slots.groups?.()) {
+    console.error('"groups" `<slot>` must have content.');
+  }
 });
 </script>
 
