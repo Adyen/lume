@@ -33,7 +33,7 @@ import { BarChartOptions, useOptions } from '@/composables/options';
 import { withChartProps } from '@/composables/props';
 
 import { excludeGroups, singleDatasetValidator } from '@/utils/helpers';
-import { ORIENTATIONS } from '@/constants';
+import { ORIENTATIONS } from '@/utils/constants';
 
 import { options as defaultOptions } from './defaults';
 

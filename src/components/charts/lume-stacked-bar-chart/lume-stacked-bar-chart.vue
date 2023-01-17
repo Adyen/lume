@@ -37,7 +37,7 @@ import { withChartProps } from '@/composables/props';
 import { useBarMixin } from '@/components/groups/lume-bar-group/composables/bar-mixin';
 import { useStackedAxes } from '@/components/groups/lume-bar-group/composables/stacked-mixin';
 
-import { ORIENTATIONS } from '@/constants';
+import { ORIENTATIONS } from '@/utils/constants';
 
 import { options as defaultOptions } from './defaults';
 import { excludeGroups } from '@/utils/helpers';

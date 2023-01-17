@@ -10,7 +10,7 @@ import {
   yScale,
 } from '@test/unit/mock-data';
 
-import { Orientation } from '@/constants';
+import { Orientation } from '@/utils/constants';
 
 const orientation: Orientation = 'horizontal';
 const numberOfBars = data[0].values.length;

@@ -24,7 +24,7 @@ import {
   getScaleStep,
   isBandScale,
 } from '@/utils/helpers';
-import { Orientation, ORIENTATIONS } from '@/constants';
+import { Orientation, ORIENTATIONS } from '@/utils/constants';
 
 export default defineComponent({
   components: { LumeBar },

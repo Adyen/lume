@@ -9,7 +9,7 @@ import {
   ORIENTATIONS,
   PADDING_HORIZONTAL,
   PADDING_VERTICAL,
-} from '@/constants';
+} from '@/utils/constants';
 import { ContainerSize } from '@/types/size';
 import { InternalData } from '@/types/dataset';
 

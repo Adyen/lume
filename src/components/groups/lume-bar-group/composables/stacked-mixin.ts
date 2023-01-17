@@ -3,7 +3,7 @@ import { scaleBand, ScaleBand, scaleLinear } from 'd3';
 
 import { getPaddedScale, Scale } from '@/composables/scales';
 
-import { Colors, Orientation, ORIENTATIONS } from '@/constants';
+import { Colors, Orientation, ORIENTATIONS } from '@/utils/constants';
 import { Data, DatasetValueObject } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 

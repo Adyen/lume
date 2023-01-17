@@ -1,4 +1,4 @@
-import { Color } from '@/constants';
+import { Color } from '@/utils/constants';
 
 type ChartType = 'bar' | 'line';
 

@@ -87,7 +87,7 @@ import {
 import { useFormat } from '@/composables/format';
 import { TooltipOptions, useOptions, withOptions } from '@/composables/options';
 
-import { TOOLTIP_POSITIONS } from '@/constants';
+import { TOOLTIP_POSITIONS } from '@/utils/constants';
 
 const props = defineProps({
   targetElement: {

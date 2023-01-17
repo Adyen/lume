@@ -1,4 +1,4 @@
-import { DEFAULT_MARGINS, ORIENTATIONS, TOOLTIP_POSITIONS } from '@/constants';
+import { DEFAULT_MARGINS, ORIENTATIONS } from '@/utils/constants';
 
 export const options = {
   [ORIENTATIONS.VERTICAL]: {
@@ -12,6 +12,6 @@ export const options = {
     xAxisOptions: { gridLines: true },
     yAxisOptions: { gridLines: false },
     margins: DEFAULT_MARGINS.HORIZONTAL,
-    tooltipOptions: { position: TOOLTIP_POSITIONS[6] },
+    tooltipOptions: { position: 'right' },
   },
 };

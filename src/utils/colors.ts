@@ -5,7 +5,7 @@ import {
   DivergentColors,
   LegacyColors,
   OtherColors,
-} from '@/constants';
+} from '@/utils/constants';
 import { shiftItems } from './helpers';
 import { warn, Warnings } from './warnings';
 

@@ -6,7 +6,7 @@ import {
   DivergentColors,
   Orientation,
   ORIENTATIONS,
-} from '@/constants';
+} from '@/utils/constants';
 
 import { computeColor } from '@/utils/colors';
 import {

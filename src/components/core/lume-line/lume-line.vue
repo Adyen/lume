@@ -27,7 +27,7 @@ import { computed, onMounted, PropType, ref } from 'vue';
 
 import { Scale } from '@/composables/scales';
 
-import { Colors } from '@/constants';
+import { Colors } from '@/utils/constants';
 
 import { getDomainLength } from '@/utils/helpers';
 

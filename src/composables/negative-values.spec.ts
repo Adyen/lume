@@ -6,7 +6,7 @@ import { checkNegativeValues, useNegativeValues } from './negative-values';
 
 import { containerSize, data, xScale, yScale } from '@test/unit/mock-data';
 
-import { Orientation } from '@/constants';
+import { Orientation } from '@/utils/constants';
 import { Scale } from '@/composables/scales';
 import { InternalData } from '@/types/dataset';
 

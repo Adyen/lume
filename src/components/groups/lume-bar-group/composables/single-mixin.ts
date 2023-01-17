@@ -3,7 +3,7 @@ import { ScaleBand } from 'd3';
 
 import { Scale } from '@/composables/scales';
 
-import { Orientation, ORIENTATIONS } from '@/constants';
+import { Orientation, ORIENTATIONS } from '@/utils/constants';
 import { Data, DatasetValueObject } from '@/types/dataset';
 import { DEFAULT_COLOR } from '../constants';
 

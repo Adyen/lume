@@ -1,4 +1,4 @@
-import { DEFAULT_MARGINS } from '@/constants';
+import { DEFAULT_MARGINS } from '@/utils/constants';
 import { ChartOptions } from '@/composables/options';
 
 export const options: ChartOptions = {
