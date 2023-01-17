@@ -9,6 +9,7 @@
   },
   "github": {
     "release": true,
+    "draft": true,
     "skipChecks": true,
     "web": true
   },
