@@ -1,5 +1,7 @@
 @use '@/styles/variables' as *;
 
+$lume-alluvial-text-color: $lume-color-grey-80;
+
 .lume-alluvial-group {
   &__node {
     opacity: 1;
@@ -15,10 +17,6 @@
       &--#{$color} {
         $fill: nth($map, 1);
         fill: $fill;
-
-        & + .lume-alluvial-group__node-text--color {
-          fill: $fill;
-        }
       }
     }
 
@@ -37,15 +35,13 @@
       &--#{$color} {
         $fill: nth($map, 1);
         fill: $fill;
-
-        & + .lume-alluvial-group__node-text--color {
-          fill: $fill;
-        }
       }
     }
   }
 
   &__node-text {
+    fill: $lume-alluvial-text-color;
+
     &--right {
       text-anchor: end;
     }
