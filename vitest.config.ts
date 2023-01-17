@@ -8,7 +8,7 @@ export default defineConfig({
     threads: false,
     root: 'src',
     include: ['**/*.spec.{js,ts}'],
-    setupFiles: ['./test/config/setupTests.ts'],
+    setupFiles: ['../test/config/setupTests.ts'], // relative to `root` (src)
     environment: 'jsdom',
     coverage: {
       provider: 'istanbul',
