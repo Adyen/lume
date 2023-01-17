@@ -22,6 +22,17 @@
       }
     }
 
+    @each $color, $map in $lume-other-colors {
+      &--#{$color} {
+        $fill: nth($map, 1);
+        fill: $fill;
+
+        & + .lume-alluvial-group__node-text--color {
+          fill: $fill;
+        }
+      }
+    }
+
     @each $color, $map in $lume-legacy-colors {
       &--#{$color} {
         $fill: nth($map, 1);
