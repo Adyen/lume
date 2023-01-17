@@ -19,7 +19,7 @@
     >
       <rect
         :class="`lume-alluvial-group__node-block--${
-          nodeBlock.node.color || defaultColor
+          nodeBlock.node.color || DEFAULT_COLOR
         }`"
         :transform="`translate(${nodeBlock.node.x0},${nodeBlock.node.y0})`"
         :height="nodeBlock.rect.height"
@@ -33,8 +33,6 @@
         class="lume-alluvial-group__node-text lume-typography--caption"
         :class="{
           'lume-alluvial-group__node-text--right': nodeBlock.node.depth === 0,
-          'lume-alluvial-group__node-text--color':
-            nodeBlock.node.depth === maxDepth,
         }"
         :transform="`translate(${nodeBlock.textTransform.x},${nodeBlock.textTransform.y})`"
       >
@@ -77,7 +75,7 @@ import { Ref, ref, toRef, useAttrs, watch } from 'vue';
 
 import LumeAlluvialPathGroup from '@/components/groups/lume-alluvial-path-group';
 
-import { withChartProps } from '@/composables/props';
+import { withGroupProps } from '../composables/group-props';
 
 import { useAlluvialInteractions } from './composables/lume-alluvial-interactions';
 import { useCoordinates } from './composables/lume-alluvial-coordinates';
@@ -86,11 +84,7 @@ import {
   useAlluvialBlocks,
 } from './composables/lume-alluvial-building-blocks';
 
-import {
-  getAlluvialNodeId,
-  isNodeOrLinkFaded,
-  singleDatasetValidator,
-} from '@/utils/helpers';
+import { getAlluvialNodeId, isNodeOrLinkFaded } from '@/utils/helpers';
 
 import { AlluvialNode } from '@/types/alluvial';
 import { Data } from '@/types/dataset';
@@ -99,10 +93,8 @@ import { ContainerSize } from '@/types/size';
 import { DEFAULT_COLOR, NODE_LABEL_PADDING } from './constants';
 
 const props = defineProps({
-  ...withChartProps(singleDatasetValidator),
+  ...withGroupProps(),
 });
-
-const defaultColor = DEFAULT_COLOR;
 
 const attrs = useAttrs();
 
@@ -126,13 +118,8 @@ const {
   bottomMostNodeLabelExtraHeight,
 } = useCoordinates(computedData, graph, nodeText);
 
-const {
-  highlightedElements,
-  highlightLinks,
-  updateNodes,
-  renderChart,
-  maxDepth,
-} = useAlluvialInteractions(alluvialInstance, computedData, graph);
+const { highlightedElements, highlightLinks, updateNodes, renderChart } =
+  useAlluvialInteractions(alluvialInstance, computedData, graph);
 
 watch(highlightedElements, (newElements, previousElements) => {
   const isEntering = newElements.nodes != null && newElements.links != null;

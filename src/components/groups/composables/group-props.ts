@@ -16,11 +16,11 @@ export const withGroupProps = <T extends Options = Options>() => ({
   },
   xScale: {
     type: Function as PropType<Scale>,
-    required: true,
+    default: () => null,
   },
   yScale: {
     type: Function as PropType<Scale>,
-    required: true,
+    default: () => null,
   },
   hoveredIndex: {
     type: Number,

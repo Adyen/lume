@@ -35,10 +35,6 @@ export function useAlluvialInteractions(
     isBeingDestroyed = true;
   });
 
-  const maxDepth = computed(() => {
-    return Math.max(...graph.value.nodes.map(({ depth }) => depth));
-  });
-
   const highlightedElements: ComputedRef<{
     links?: SankeyLink<
       SankeyNodeAdditionalProperties,
@@ -214,6 +210,5 @@ export function useAlluvialInteractions(
     highlightLinks,
     updateNodes,
     renderChart,
-    maxDepth,
   };
 }
