@@ -162,7 +162,7 @@ const emit = defineEmits<{
 }>();
 
 const { scale, containerSize, hoveredIndex, options, orientation } =
-      toRefs(props); // Needs to be cast as any to avoid it being cast to never by default
+  toRefs(props); // Needs to be cast as any to avoid it being cast to never by default
 
 const mixins = reactive<Record<string, AxisMixinFunction>>({});
 const tickRefs = ref<Array<SVGTextElement>>(null);
@@ -182,9 +182,9 @@ const computedType = computed(
 const shouldHover = computed(
   () =>
     (computedType.value === 'x' &&
-          orientation.value === ORIENTATIONS.VERTICAL) ||
-        (computedType.value === 'y' &&
-          orientation.value === ORIENTATIONS.HORIZONTAL)
+      orientation.value === ORIENTATIONS.VERTICAL) ||
+    (computedType.value === 'y' &&
+      orientation.value === ORIENTATIONS.HORIZONTAL)
 );
 
 const { allOptions } = useOptions<AxisOptions>(
@@ -234,8 +234,8 @@ function onTickMouseover(index: number) {
 function isHovering(index: number) {
   return (
     allOptions.value.withHover &&
-        shouldHover.value &&
-        hoveredIndex.value === index
+    shouldHover.value &&
+    hoveredIndex.value === index
   );
 }
 
@@ -268,7 +268,7 @@ function init() {
 
   // Get mixin generator based on the scale type
   const mixin: AxisMixin =
-        mixinTypes[`${computedType.value}-${SCALE_MIXIN_MAP[scaleType]}`];
+    mixinTypes[`${computedType.value}-${SCALE_MIXIN_MAP[scaleType]}`];
 
   // Push all mixin functions into the `mixins` reactive object
   Object.entries(mixin(scale, containerSize, allOptions) || []).forEach(
@@ -283,7 +283,16 @@ watch(scale, init, { flush: 'sync', immediate: true });
 
 // Re-render after `tickRefs` is defined (to grab text width)
 // and only when `ticks` change (if scale changes)
-watch([ticks, tickRefs], setTicks, { immediate: true });
+watch(
+  [
+    ticks,
+    tickRefs,
+    () => containerSize.value.width, //  also re-render
+    () => containerSize.value.height, // when containerSize changes
+  ],
+  setTicks,
+  { immediate: true }
+);
 
 onMounted(() => svgCheck(root.value));
 </script>
