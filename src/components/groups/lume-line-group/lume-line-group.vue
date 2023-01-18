@@ -19,14 +19,13 @@
       <g class="lume-line-group__lines">
         <lume-line
           v-for="(_, index) in dataset.values"
+          v-bind="getLineTransitionParams(index)"
           :key="`line-${index}`"
-          :path-definition="getPathDefinition(index, datasetIndex)"
           :color="dataset.color"
           :dashed="dataset.isDashed(index)"
-          :index="index"
+          :path-definition="getPathDefinition(index, datasetIndex)"
           :transition="transition"
           :width="options.lineWidth"
-          :x-scale="xScale"
         />
       </g>
       <g
@@ -63,7 +62,9 @@ import { getLinePathDefinition } from '@/composables/line-values';
 import { withGroupProps } from '@/components/groups/composables/group-props';
 import { LineChartOptions } from '@/composables/options';
 
-import { getHighestValue } from '@/utils/helpers';
+import { getDomainLength, getHighestValue } from '@/utils/helpers';
+
+const LUME_TRANSITION_TIME_FULL = 1; // 1s
 
 export default defineComponent({
   components: { LumeLine, LumePoint },
@@ -105,6 +106,12 @@ export default defineComponent({
       };
     });
 
+    const animationDuration = computed(
+      () =>
+        xScale.value &&
+        LUME_TRANSITION_TIME_FULL / (getDomainLength(xScale.value) - 1) // Subtracting the first line (read below)
+    );
+
     const pointRadius = computed(
       () => options.value?.lineWidth * 2 || undefined // If no `lineWidth`, returns NaN which needs to be undefined
     );
@@ -132,6 +139,15 @@ export default defineComponent({
       );
     }
 
+    function getLineTransitionParams(lineIndex: number) {
+      const animationDelay =
+        lineIndex < 2 ? 0 : (lineIndex - 1) * animationDuration.value;
+      return {
+        animationDelay,
+        animationDuration: animationDuration.value,
+      };
+    }
+
     function getPointValue(pointIndex: number, datasetIndex: number) {
       return getValuesFromDataset(datasetIndex)[pointIndex]?.value;
     }
@@ -142,6 +158,7 @@ export default defineComponent({
 
     return {
       computedGroupData,
+      getLineTransitionParams,
       getPathDefinition,
       getPointValue,
       isPointActive,
