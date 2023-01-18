@@ -183,7 +183,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, toRefs, useSlots } from 'vue';
+import { computed, onMounted, PropType, ref, toRefs, useSlots } from 'vue';
 import {
   Portal as VuePortal,
   PortalTarget as VuePortalTarget,
@@ -208,13 +208,14 @@ import {
 } from '@/composables/negative-values';
 import { useTooltip, useTooltipAnchors } from '@/composables/tooltip';
 
-import { getEmptyArrayFromData } from '@/utils/helpers';
 import { ORIENTATIONS, TOOLTIP_ANCHOR_RADIUS } from '@/utils/constants';
+import { getEmptyArrayFromData } from '@/utils/helpers';
+import { ChartType } from '@/types/dataset';
 
 const props = defineProps({
   ...withChartProps(),
   chartType: {
-    type: String,
+    type: String as PropType<ChartType>,
     default: null,
   },
 });
