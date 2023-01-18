@@ -35,14 +35,12 @@
       >
         <lume-point
           v-for="(_, index) in dataset.values"
+          v-bind="getPointPosition(index, datasetIndex)"
           :key="`point-${index}`"
           :active="isPointActive(index)"
           :color="dataset.color"
           :index="index"
           :radius="pointRadius"
-          :value="getPointValue(index, datasetIndex)"
-          :x-scale="xScale"
-          :y-scale="yScale"
         />
       </g>
     </g>
@@ -66,7 +64,12 @@ import { getLinePathDefinition } from '@/composables/line-values';
 import { withGroupProps } from '@/components/groups/composables/group-props';
 import { LineChartOptions } from '@/composables/options';
 
-import { getDomainLength, getHighestValue } from '@/utils/helpers';
+import {
+  getDomainLength,
+  getHighestValue,
+  getScaleStep,
+  isBandScale,
+} from '@/utils/helpers';
 
 const props = defineProps({
   ...withGroupProps<LineChartOptions>(),
@@ -115,6 +118,9 @@ const pointRadius = computed(
   () => options.value?.lineWidth * 2 || undefined // If no `lineWidth`, returns NaN which needs to be undefined
 );
 
+const xAxisOffset = computed(() => getScaleStep(xScale.value) / 2);
+const domain = computed(() => xScale.value.domain() as Array<number>);
+
 function getValuesFromDataset(datasetIndex: number) {
   return computedGroupData.value[datasetIndex].values;
 }
@@ -147,8 +153,15 @@ function getLineTransitionParams(lineIndex: number) {
   };
 }
 
-function getPointValue(pointIndex: number, datasetIndex: number) {
-  return getValuesFromDataset(datasetIndex)[pointIndex]?.value;
+function getPointPosition(pointIndex: number, datasetIndex: number) {
+  const value = getValuesFromDataset(datasetIndex)[pointIndex]?.value;
+
+  return {
+    x: isBandScale(xScale.value)
+      ? props.xScale(domain.value[pointIndex]) + xAxisOffset.value
+      : props.xScale(pointIndex),
+    y: yScale.value(value),
+  };
 }
 
 function isPointActive(index: number) {

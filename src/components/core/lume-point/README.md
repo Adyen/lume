@@ -12,14 +12,12 @@ import { LumePoint } from '@adyen/lume';
 
 ### Basic use
 
-To show a point, provide `xScale`, `yScale`, `value`, `index`, `color` and `active` properties
+To show a point, provide `x`, `y`, `color` and `active` properties
 
 ```html
-<lume-tooltip
-  :x-scale="xScale"
-  :y-scale="yScale"
-  :value="getPointValue(index, dataset.values)"
-  :index="index"
+<lume-point
+  :x="100"
+  :y="200"
   :color="dataset.color"
   :active="isPointActive(index)"
 />
@@ -29,11 +27,10 @@ To show a point, provide `xScale`, `yScale`, `value`, `index`, `color` and `acti
 
 ### Props
 
-| Name     | Type                                            | Default  | Description                                                                               |
-| -------- | ----------------------------------------------- | -------- | ----------------------------------------------------------------------------------------- |
-| `xScale` | `ScaleGenerator or ScaleLinear<number, number>` | Required | A d3 scale or a scale generator function to override the default Y scale.                 |
-| `yScale` | `ScaleGenerator or ScaleLinear<number, number>` | Required | A d3 scale or a scale generator function to override the default Y scale.                 |
-| `value`  | `number`                                        | Required | The value with which to determine the location on the value scale.                        |
-| `index`  | `number`                                        | Required | The index in the array of values with which to determine the location on the label scale. |
-| `color`  | `string`                                        | `01`     | Indicating what color to use, representing an index to one of the available Lume colors.  |
-| `active` | `boolean`                                       | `false`  | Indicating whether or not this point is active or not.                                    |
+| Name     | Type      | Default  | Description                                                                                 |
+| -------- | --------- | -------- | ------------------------------------------------------------------------------------------- |
+| `x`      | `number`  | Required | The horizontal coordinate to position the point.                                            |
+| `y`      | `number`  | Required | The bertical coordinate to position the point.                                              |
+| `color`  | `string`  | `01`     | Indicating what color to use, representing an index to one of the available Lume colors.    |
+| `radius` | `number`  | `4`      | The radius (in pixels) of the point. If accompanying a line, should double its width value. |
+| `active` | `boolean` | `false`  | Indicating whether or not this point is active or not.                                      |
