@@ -165,25 +165,18 @@ $lume-color-gold-map: (
   'gold-100': $lume-color-gold-100,
 ) !default;
 
-// Blues
+// Other
 
-$lume-color-blue-10: #e5efff !default;
-$lume-color-blue-50: #0066ff !default;
+$lume-color-green: #0abf53 !default;
+$lume-color-orange: #ff9000 !default;
+$lume-color-red: #f33030 !default;
 
-// Greens
-
-$lume-color-green-10: #e6f8ed !default;
-$lume-color-green-50: #08a648 !default;
-
-// Oranges
-
-$lume-color-orange-10: #fff4e5 !default;
-$lume-color-orange-50: #ff9500 !default;
-
-// Reds
-
-$lume-color-red-10: #fce5e5 !default;
-$lume-color-red-50: #e50000 !default;
+$lume-other-colors: (
+  'grey': $lume-color-grey-50,
+  'green': $lume-color-green,
+  'orange': $lume-color-orange,
+  'red': $lume-color-red,
+) !default;
 
 // Categorical
 
@@ -235,7 +228,7 @@ $lume-divergent-colors: (
   )
 ) !default;
 
-// Data viz
+// Legacy colors
 
 $lume-legacy-color-yellow: #ffda00 !default;
 $lume-legacy-color-yellow-darker: #cbb009 !default;
@@ -297,8 +290,8 @@ $lume-legacy-colors: (
     $lume-legacy-color-teal-darker,
   ),
   '09': (
-    $lume-color-red-50,
-    $lume-color-red-50,
+    $lume-color-red,
+    $lume-color-red,
   ),
 ) !default;
 

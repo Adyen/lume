@@ -25,6 +25,9 @@
   @each $map in $lume-divergent-colors {
     @include generate-color-classes($property, $map);
   }
+
+  // other colors
+  @include generate-color-classes($property, $lume-other-colors);
 }
 
 //

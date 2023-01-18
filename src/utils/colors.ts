@@ -1,5 +1,11 @@
 import { ColorPalette } from '@/types/dataset';
-import { Color, Colors, DivergentColors, LegacyColors } from '@/constants';
+import {
+  Color,
+  Colors,
+  DivergentColors,
+  LegacyColors,
+  OtherColors,
+} from '@/constants';
 import { shiftItems } from './helpers';
 import { warn, Warnings } from './warnings';
 
@@ -20,7 +26,7 @@ function validateColor(color: Color | null, palette: ColorPalette) {
   if (palette === ColorPalette.Divergent) {
     return Object.values(DivergentColors).includes(color as DivergentColors);
   }
-  return Object.values({ ...Colors, ...LegacyColors }).includes(
+  return Object.values({ ...Colors, ...OtherColors, ...LegacyColors }).includes(
     color as Colors | LegacyColors
   );
 }
@@ -31,7 +37,9 @@ function getCategoricalColor(color: Colors, index: number) {
   // For instance, if the user says the first color should be `royalblue`, then we
   //   move items in the enum so that index 0 is now `royalblue` (and `skyblue` is last).
   const colorIndex = Object.values(Colors).indexOf(color);
-  return shiftItems(Object.values(Colors), colorIndex)[index] as Colors;
+  return shiftItems(Object.values(Colors), colorIndex > -1 ? colorIndex : 0)[
+    index
+  ] as Colors;
 }
 
 function getSequentialColor(color: Colors, index: number) {

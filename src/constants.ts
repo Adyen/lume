@@ -14,6 +14,13 @@ export enum DivergentColors {
   GoldRoyal = 'gold-royalblue',
 }
 
+export enum OtherColors {
+  Grey = 'grey',
+  Green = 'green',
+  Orange = 'orange',
+  Red = 'red',
+}
+
 export enum LegacyColors {
   '01' = '01',
   '02' = '02',
