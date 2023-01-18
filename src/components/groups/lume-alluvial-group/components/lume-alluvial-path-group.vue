@@ -17,15 +17,13 @@
   </g>
 </template>
 
-<script lang="ts">
-const GHOST_STROKE_WIDTH_OFFSET = 8;
-</script>
-
 <script setup lang="ts">
 import { computed, defineProps, PropType, toRefs } from 'vue';
 import { SankeyLink } from 'd3-sankey';
 
 import { isNodeOrLinkFaded } from '@/utils/helpers';
+
+import { GHOST_STROKE_WIDTH_OFFSET } from '../constants';
 
 import {
   LinkPath,

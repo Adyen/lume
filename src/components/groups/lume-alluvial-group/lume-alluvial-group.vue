@@ -73,7 +73,7 @@
 <script setup lang="ts">
 import { Ref, ref, toRef, useAttrs, watch } from 'vue';
 
-import LumeAlluvialPathGroup from '@/components/groups/lume-alluvial-path-group';
+import LumeAlluvialPathGroup from './components/lume-alluvial-path-group.vue';
 
 import { withGroupProps } from '../composables/group-props';
 
