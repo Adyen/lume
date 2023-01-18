@@ -2,7 +2,25 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.2.0](https://github.com/Adyen/lume/compare/v0.1.9...v0.2.0)
+
+- 🐛 Fix axis grid lines not updating on size change [`#138`](https://github.com/Adyen/lume/pull/138)
+- 💄 Add other colors (green, orange, red) [`#136`](https://github.com/Adyen/lume/pull/136)
+- 💚 Fix vitest config [`#140`](https://github.com/Adyen/lume/pull/140)
+- 🔧 Update release config to create draft Github releases [`#133`](https://github.com/Adyen/lume/pull/133)
+- ⬆️ Update vitest monorepo to ^0.27.0 [`#132`](https://github.com/Adyen/lume/pull/132)
+- ✨ Introduce script setup [`#121`](https://github.com/Adyen/lume/pull/121)
+- ⬆️ Update dependency d3 to v7.8.0 [`#118`](https://github.com/Adyen/lume/pull/118)
+- ⬆️ Update dependency vite-plugin-static-copy to ^0.13.0 [`#117`](https://github.com/Adyen/lume/pull/117)
+- ⬆️ Update vitest monorepo to ^0.26.0 [`#126`](https://github.com/Adyen/lume/pull/126)
+- 🔖 Release v0.1.9 [`#131`](https://github.com/Adyen/lume/pull/131)
+- ✨ add script setup to core components [`3af8d6f`](https://github.com/Adyen/lume/commit/3af8d6f2d91f6d59192a428c415cb54a560cb621)
+- ✨ add script setup to chart components [`5abe8e7`](https://github.com/Adyen/lume/commit/5abe8e76fdf31470eebf55dcf9b14c0acab8bc0d)
+- ✅ fix failing tests [`b713d44`](https://github.com/Adyen/lume/commit/b713d446250071d2617b060b5930432601efcbc6)
+
 #### [v0.1.9](https://github.com/Adyen/lume/compare/v0.1.8...v0.1.9)
+
+> 10 January 2023
 
 - 🐛 Fix skipped tick label hover logic [`#128`](https://github.com/Adyen/lume/pull/128)
 - 🧑‍💻 Remove issue reference commit requirement [`#129`](https://github.com/Adyen/lume/pull/129)
