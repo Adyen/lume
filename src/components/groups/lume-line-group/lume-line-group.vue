@@ -50,7 +50,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs } from 'vue';
+const LUME_TRANSITION_TIME_FULL = 1; // 1s
+</script>
+
+<script setup lang="ts">
+import { computed, defineProps, toRefs } from 'vue';
 import { ScaleLinear } from 'd3';
 
 import LumeLine from '@/components/core/lume-line';
@@ -64,109 +68,92 @@ import { LineChartOptions } from '@/composables/options';
 
 import { getDomainLength, getHighestValue } from '@/utils/helpers';
 
-const LUME_TRANSITION_TIME_FULL = 1; // 1s
-
-export default defineComponent({
-  components: { LumeLine, LumePoint },
-  props: {
-    ...withGroupProps<LineChartOptions>(),
-    withPoints: {
-      type: Boolean,
-      default: true,
-    },
-    transition: {
-      type: Boolean,
-      default: true,
-    },
+const props = defineProps({
+  ...withGroupProps<LineChartOptions>(),
+  withPoints: {
+    type: Boolean,
+    default: true,
   },
-
-  setup(props) {
-    const { data, options, xScale, yScale } = toRefs(props);
-
-    const computedGroupData = computed(() => {
-      // Check if all datasets have `isDashed` function (which means data has been computed for line null values)
-      if (data.value.every((dataset) => dataset.isDashed)) {
-        return data.value;
-      }
-
-      // Compute line null values and return it
-      const { computedLineData } = useLineNullValues(data);
-      return computedLineData.value;
-    });
-
-    const overlayLineAttributes = computed(() => {
-      if (props.hoveredIndex === -1) return;
-
-      const highestValue = getHighestValue(data.value, props.hoveredIndex);
-      const x = getXByIndex(xScale.value, props.hoveredIndex);
-
-      return {
-        d: `M ${x},${yScale.value.range()[1]}
-            V ${yScale.value(highestValue)}`, // Move to X index, Vertical line to the highest point
-      };
-    });
-
-    const animationDuration = computed(
-      () =>
-        xScale.value &&
-        LUME_TRANSITION_TIME_FULL / (getDomainLength(xScale.value) - 1) // Subtracting the first line (read below)
-    );
-
-    const pointRadius = computed(
-      () => options.value?.lineWidth * 2 || undefined // If no `lineWidth`, returns NaN which needs to be undefined
-    );
-
-    function getValuesFromDataset(datasetIndex: number) {
-      return computedGroupData.value[datasetIndex].values;
-    }
-
-    function getPathDefinition(lineIndex: number, datasetIndex: number) {
-      const values =
-        lineIndex === 0
-          ? []
-          : [
-            getValuesFromDataset(datasetIndex)[lineIndex - 1]?.value,
-            getValuesFromDataset(datasetIndex)[lineIndex]?.value,
-          ];
-
-      return (
-        getLinePathDefinition(
-          lineIndex,
-          values,
-          xScale.value,
-          yScale.value as ScaleLinear<number, number>
-        ) || ''
-      );
-    }
-
-    function getLineTransitionParams(lineIndex: number) {
-      const animationDelay =
-        lineIndex < 2 ? 0 : (lineIndex - 1) * animationDuration.value;
-      return {
-        animationDelay,
-        animationDuration: animationDuration.value,
-      };
-    }
-
-    function getPointValue(pointIndex: number, datasetIndex: number) {
-      return getValuesFromDataset(datasetIndex)[pointIndex]?.value;
-    }
-
-    function isPointActive(index: number) {
-      return props.hoveredIndex === index;
-    }
-
-    return {
-      computedGroupData,
-      getLineTransitionParams,
-      getPathDefinition,
-      getPointValue,
-      isPointActive,
-      overlayLineAttributes,
-      pointRadius,
-    };
+  transition: {
+    type: Boolean,
+    default: true,
   },
 });
+
+const { data, options, xScale, yScale } = toRefs(props);
+
+const computedGroupData = computed(() => {
+  // Check if all datasets have `isDashed` function (which means data has been computed for line null values)
+  if (data.value.every((dataset) => dataset.isDashed)) {
+    return data.value;
+  }
+
+  // Compute line null values and return it
+  const { computedLineData } = useLineNullValues(data);
+  return computedLineData.value;
+});
+
+const overlayLineAttributes = computed(() => {
+  if (props.hoveredIndex === -1) return;
+
+  const highestValue = getHighestValue(data.value, props.hoveredIndex);
+  const x = getXByIndex(xScale.value, props.hoveredIndex);
+
+  return {
+    d: `M ${x},${yScale.value.range()[1]}
+        V ${yScale.value(highestValue)}`, // Move to X index, Vertical line to the highest point
+  };
+});
+
+const animationDuration = computed(
+  () =>
+    xScale.value &&
+    LUME_TRANSITION_TIME_FULL / (getDomainLength(xScale.value) - 1) // Subtracting the first line (read below)
+);
+
+const pointRadius = computed(
+  () => options.value?.lineWidth * 2 || undefined // If no `lineWidth`, returns NaN which needs to be undefined
+);
+
+function getValuesFromDataset(datasetIndex: number) {
+  return computedGroupData.value[datasetIndex].values;
+}
+
+function getPathDefinition(lineIndex: number, datasetIndex: number) {
+  const values =
+    lineIndex === 0
+      ? []
+      : [
+        getValuesFromDataset(datasetIndex)[lineIndex - 1]?.value,
+        getValuesFromDataset(datasetIndex)[lineIndex]?.value,
+      ];
+
+  return (
+    getLinePathDefinition(
+      lineIndex,
+      values,
+      xScale.value,
+      yScale.value as ScaleLinear<number, number>
+    ) || ''
+  );
+}
+
+function getLineTransitionParams(lineIndex: number) {
+  const animationDelay =
+    lineIndex < 2 ? 0 : (lineIndex - 1) * animationDuration.value;
+  return {
+    animationDelay,
+    animationDuration: animationDuration.value,
+  };
+}
+
+function getPointValue(pointIndex: number, datasetIndex: number) {
+  return getValuesFromDataset(datasetIndex)[pointIndex]?.value;
+}
+
+function isPointActive(index: number) {
+  return props.hoveredIndex === index;
+}
 </script>
 
 <style lang="scss" scoped>
