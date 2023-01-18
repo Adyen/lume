@@ -1,6 +1,6 @@
 import { Color } from '@/constants';
 
-type ChartType = 'bar' | 'line';
+export type ChartType = 'grouped-bar' | 'line' | 'single-bar' | 'stacked-bar';
 
 type DatasetValueType = number | string | Array<number>;
 

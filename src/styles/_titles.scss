@@ -1,11 +1,14 @@
 @use 'variables' as *;
 
+$lume-chart-title-color: $lume-color-grey-100 !default;
+$lume-axis-title-color: $lume-color-grey-80 !default;
+
 .lume-chart-title {
-  color: $lume-color-grey-100;
+  color: $lume-chart-title-color;
   margin: 0 0 1rem;
 }
 
 .lume-axis-title {
-  color: $lume-color-grey-80;
+  color: $lume-axis-title-color;
   margin: 0;
 }

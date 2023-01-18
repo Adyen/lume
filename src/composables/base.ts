@@ -1,4 +1,4 @@
-import Vue, { computed, ComputedRef, PropType, reactive, Ref } from 'vue';
+import { computed, ComputedRef, PropType, reactive, Ref } from 'vue';
 
 import {
   BAR_HEIGHT,
@@ -111,8 +111,8 @@ export function useBase(
         ? getEmptyArrayFromData(data).length * (BAR_HEIGHT * 2)
         : size.height;
 
-    Vue.set(containerSize, 'width', size.width);
-    Vue.set(containerSize, 'height', height);
+    containerSize.width = size.width;
+    containerSize.height = height;
   }
 
   return {
