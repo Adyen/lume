@@ -26,7 +26,7 @@ describe('lume-line-group.vue', () => {
     const peak = data[0].values[hoveredIndex].value;
     const x = getXByIndex(xScale, hoveredIndex);
     const d = `M ${x},${yScale.range()[1]}
-            V ${yScale(peak)}`;
+        V ${yScale(peak)}`;
 
     const wrapper = mount(LumeLineGroup, {
       propsData: {
