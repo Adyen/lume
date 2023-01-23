@@ -38,8 +38,10 @@ function computeValues(values: Array<DatasetValue<number>>) {
   });
 }
 
-function isInternalDataset(dataset: unknown): dataset is InternalDataset {
-  return (dataset as InternalDataset).__internal === true;
+function isInternalDataset(
+  dataset: unknown
+): dataset is InternalDataset<DatasetValueObject> {
+  return (dataset as InternalDataset<DatasetValueObject>).__internal === true;
 }
 
 export type DataValidator = (value: Data) => boolean;
@@ -78,7 +80,10 @@ export function useBase(
     if (data.value.length > 5) warn(Warnings.DatasetLength);
 
     return data.value?.map(
-      (dataset: Dataset<DatasetValue> | InternalDataset, index: number) => {
+      (
+        dataset: Dataset<DatasetValue> | InternalDataset<DatasetValueObject>,
+        index: number
+      ) => {
         // Prevent re-computing internal datasets
         if (isInternalDataset(dataset)) return dataset;
 

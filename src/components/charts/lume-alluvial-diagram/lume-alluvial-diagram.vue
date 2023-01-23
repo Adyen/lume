@@ -26,13 +26,17 @@ import LumeChart from '@/components/core/lume-chart';
 import LumeAlluvialGroup from '@/components/groups/lume-alluvial-group';
 
 import { withChartProps } from '@/composables/props';
-import { ChartOptions, useOptions } from '@/composables/options';
+import { AlluvialDiagramOptions, useOptions } from '@/composables/options';
 
 import { excludeGroups, singleDatasetValidator } from '@/utils/helpers';
 import { options as defaultOptions } from './defaults';
 
 const props = defineProps({
-  ...withChartProps(singleDatasetValidator, false, false),
+  ...withChartProps<AlluvialDiagramOptions>(
+    singleDatasetValidator,
+    false,
+    false
+  ),
 });
 
 const slots = excludeGroups(useSlots());
@@ -41,7 +45,7 @@ const { options } = toRefs(props);
 
 const { allOptions } = useOptions(options, defaultOptions);
 
-function getAlluvialDiagramOptions(options: ChartOptions) {
+function getAlluvialDiagramOptions(options: AlluvialDiagramOptions) {
   return {
     ...options,
     noBaseScales: true, // Alluvial chart never uses base scales

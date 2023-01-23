@@ -19,7 +19,7 @@ const DATASETS = {
             value: 'B',
             targets: [
               { node: 'D', value: 45 },
-              { node: 'E', value: 42 },
+              { node: 'E', value: 102 },
             ],
           },
           {

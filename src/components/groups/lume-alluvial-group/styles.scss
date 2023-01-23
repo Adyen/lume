@@ -24,10 +24,6 @@ $lume-alluvial-text-color: $lume-color-grey-80;
       &--#{$color} {
         $fill: nth($map, 1);
         fill: $fill;
-
-        & + .lume-alluvial-group__node-text--color {
-          fill: $fill;
-        }
       }
     }
 
@@ -40,6 +36,7 @@ $lume-alluvial-text-color: $lume-color-grey-80;
   }
 
   &__node-text {
+    cursor: default;
     fill: $lume-alluvial-text-color;
 
     &--right {

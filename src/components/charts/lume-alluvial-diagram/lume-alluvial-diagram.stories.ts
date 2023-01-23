@@ -24,7 +24,11 @@ export default {
   },
   args: {
     ...withSizeArgs(),
-    options: defaultOptions,
+    options: Object.fromEntries(
+      Object.entries(defaultOptions).filter(
+        ([key]) => !key.includes('nodeAlign') && !key.includes('valueFormat')
+      )
+    ),
     title: 'Alluvial diagram',
   },
   parameters: {

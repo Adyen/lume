@@ -1,37 +1,12 @@
-import { SankeyLink, SankeyNode } from 'd3-sankey';
+import {
+  SankeyExtraProperties,
+  SankeyGraph,
+  SankeyLink,
+  SankeyNode,
+} from 'd3-sankey';
 
 import { Color } from '@/utils/constants';
 import { Dataset, DatasetValueObject } from '@/types/dataset';
-import { ContainerSize } from '@/types/size';
-
-export interface SankeyNodeAdditionalProperties {
-  id: number | string;
-  label: string;
-  layer?: number;
-  color?: Color;
-  transitionValue?: number | undefined;
-}
-
-export interface SankeyLinkAdditionalProperties {
-  color?: Color;
-  x0?: number | undefined;
-  x1?: number | undefined;
-}
-
-export type HighlightedElements = {
-  node?: SankeyNode<
-    SankeyNodeAdditionalProperties,
-    SankeyLinkAdditionalProperties
-  >;
-  link?: SankeyLink<
-    SankeyNodeAdditionalProperties,
-    SankeyLinkAdditionalProperties
-  >;
-  links?: SankeyLink<
-    SankeyNodeAdditionalProperties,
-    SankeyLinkAdditionalProperties
-  >[];
-};
 
 interface AlluvialNodeTarget {
   node: string;
@@ -42,75 +17,60 @@ interface AlluvialNodeTarget {
 export interface AlluvialNode extends DatasetValueObject {
   targets?: Array<AlluvialNodeTarget>;
 }
-
-export interface AlluvialDataset extends Dataset<AlluvialNode> {
-  nodePadding?: number;
-  nodeWidth?: number;
-  nodeSort?: (
-    nodeA: SankeyNode<
-      SankeyNodeAdditionalProperties,
-      SankeyLinkAdditionalProperties
-    >,
-    nodeB: SankeyNode<
-      SankeyNodeAdditionalProperties,
-      SankeyLinkAdditionalProperties
-    >
-  ) => number;
-  valueFormatter?: (value: number) => string;
-  getHighlightedElements?: ({ node, link, links }: HighlightedElements) => {
-    links: SankeyLink<
-      SankeyNodeAdditionalProperties,
-      SankeyLinkAdditionalProperties
-    >[];
-    nodes: Map<unknown, unknown>;
-  };
-  nodeAlign?: (
-    node: SankeyNode<
-      SankeyNodeAdditionalProperties,
-      SankeyLinkAdditionalProperties
-    >,
-    n: number
-  ) => number;
+export interface SankeyNodeProps extends SankeyExtraProperties {
+  id: number | string;
+  label: string;
+  color: Color;
+  transitionValue?: number;
 }
 
+export interface SankeyLinkProps extends SankeyExtraProperties {
+  color?: Color;
+  x0?: number | undefined;
+  x1?: number | undefined;
+}
+
+export interface HighlightedElements {
+  nodes: { [id: string]: string | number };
+  links: Array<string>;
+}
+
+export type GetHighlightedElementsFunction = (
+  element:
+    | SankeyNode<SankeyNodeProps, SankeyLinkProps>
+    | SankeyLink<SankeyNodeProps, SankeyLinkProps>,
+  graph?: SankeyGraph<SankeyNodeProps, SankeyLinkProps>
+) => HighlightedElements;
+
+export type AlluvialDataset = Dataset<AlluvialNode>;
+
 export type NodeBlock = {
-  id?: string;
-  rect?: {
-    width: number;
-    height: number;
-  };
-  textTransform?: { x: number; y: number };
-  node?: SankeyNode<
-    SankeyNodeAdditionalProperties,
-    SankeyLinkAdditionalProperties
-  >;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  textTransform: { x: number; y: number };
+  node: SankeyNode<SankeyNodeProps, SankeyLinkProps>;
 };
 
 export type LinkPath = {
-  id?: string;
-  d?: string;
-  color?: string;
-  strokeWidth?: number;
-  link?: SankeyLink<
-    SankeyNodeAdditionalProperties,
-    SankeyLinkAdditionalProperties
-  >;
+  id: string;
+  color: string;
+  d: string;
+  strokeWidth: number;
+  link: SankeyLink<SankeyNodeProps, SankeyLinkProps>;
 };
 
-export type AlluvialInstance = {
-  containerSize: ContainerSize;
-  highlightedLink: SankeyLink<
-    SankeyNodeAdditionalProperties,
-    SankeyLinkAdditionalProperties
-  >;
-  highlightedNode: SankeyNode<
-    SankeyNodeAdditionalProperties,
-    SankeyLinkAdditionalProperties
-  >;
-  leftExtent: number;
-  rightExtent: number;
-  topExtent: number;
-  bottomExtent: number;
-  nodeBlocks: Array<NodeBlock>;
-  linkPaths: Array<LinkPath>;
-};
+export interface AlluvialExtents {
+  x0: number;
+  y0: number;
+  x1: number;
+  y1: number;
+}
+
+export interface AlluvialLabelMargins {
+  left: number;
+  top: number;
+  right: number;
+  bottom: number;
+}
