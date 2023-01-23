@@ -1,11 +1,6 @@
 import { isRef, Ref } from 'vue';
 import { ScaleBand } from 'd3';
-import { SankeyNode } from 'd3-sankey';
 
-import {
-  SankeyLinkAdditionalProperties,
-  SankeyNodeAdditionalProperties,
-} from '@/types/alluvial';
 import { Data, DatasetValueObject, InternalData } from '@/types/dataset';
 import { Scale } from '@/composables/scales';
 import { Slots } from 'vue/types/v3-setup-context';
@@ -58,7 +53,7 @@ export function mergeDeep(
   target: Record<string, unknown>,
   source: Record<string, unknown>
 ) {
-  const object = structuredClone(target);
+  const object = { ...target }; // structuredClone doesn't work for objects that have functions
 
   Object.entries(source).forEach(([key, value]) => {
     object[key] =
@@ -174,31 +169,6 @@ export function getDomainLength(scale: Scale): number {
  */
 export function interpolateRound(start: number, end: number) {
   return (t: number) => Math.round(start * (1 - t) + end * t);
-}
-
-/**
- * Gets the ID of an alluvial node.
- * @param node An alluvial node.
- * @returns The node ID.
- */
-export function getAlluvialNodeId(
-  node:
-    | string
-    | number
-    | SankeyNode<SankeyNodeAdditionalProperties, SankeyLinkAdditionalProperties>
-): number | string {
-  if (typeof node === 'string' || typeof node === 'number') return node;
-  return node.id ?? node.label;
-}
-
-/**
- * Checks if a given node or link is being hovered.
- * @param id The node/link ID.
- * @param highlightedIds An array of IDs currently hovered.
- * @returns True if node is being hovered.
- */
-export function isNodeOrLinkFaded(id: string, highlightedIds: Array<string>) {
-  return highlightedIds.length && highlightedIds.indexOf(id) === -1;
 }
 
 /**

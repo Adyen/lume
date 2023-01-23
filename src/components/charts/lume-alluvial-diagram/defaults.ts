@@ -1,4 +1,8 @@
-export const options = {
+import { sankeyJustify } from 'd3-sankey';
+
+import { AlluvialDiagramOptions } from '@/composables/options';
+
+export const options: AlluvialDiagramOptions = {
   margins: {
     top: 0,
     right: 0,
@@ -9,4 +13,10 @@ export const options = {
   withTooltip: false,
   withHover: false,
   withLegend: false,
+
+  // Alluvial options
+  nodePadding: 16,
+  nodeWidth: 16,
+  nodeAlign: sankeyJustify,
+  valueFormat: (value: number) => String(value),
 };
