@@ -17,7 +17,7 @@ import { computed, defineProps, PropType, toRefs } from 'vue';
 
 import LumeBar from '@/components/core/lume-bar';
 
-import { withGroupProps } from '@/components/groups/composables/group-props';
+import { withGroupProps } from '@/composables/group-props';
 
 import {
   getEmptyArrayFromData,
