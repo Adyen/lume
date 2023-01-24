@@ -10,7 +10,7 @@ import { shiftItems } from './helpers';
 import { warn, Warnings } from './warnings';
 
 const DEFAULT_PALETTE = ColorPalette.Categorical;
-const DEFAULT_COLOR = Colors.Skyblue;
+export const DEFAULT_COLOR = Colors.Skyblue;
 const DEFAULT_DIVERGENT_COLOR = DivergentColors.SkyTeal;
 
 function getDefaultColorByPalette(palette: ColorPalette) {

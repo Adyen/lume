@@ -6,11 +6,9 @@ import {
   SankeyNode,
 } from 'd3-sankey';
 
+import { DEFAULT_COLOR } from '@/utils/colors';
 import { getAlluvialNodeId, interpolateRound } from '@/utils/helpers';
-import {
-  DEFAULT_COLOR,
-  NODE_LABEL_PADDING,
-} from '@/components/groups/lume-alluvial-group/constants';
+import { NODE_LABEL_PADDING } from '@/components/groups/lume-alluvial-group/constants';
 
 import {
   AlluvialDataset,
