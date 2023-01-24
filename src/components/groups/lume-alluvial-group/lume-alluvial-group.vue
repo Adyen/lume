@@ -84,13 +84,14 @@ import {
   useAlluvialBlocks,
 } from './composables/lume-alluvial-building-blocks';
 
+import { DEFAULT_COLOR } from '@/utils/colors';
 import { getAlluvialNodeId, isNodeOrLinkFaded } from '@/utils/helpers';
 
 import { AlluvialNode } from '@/types/alluvial';
 import { Data } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 
-import { DEFAULT_COLOR, NODE_LABEL_PADDING } from './constants';
+import { NODE_LABEL_PADDING } from './constants';
 
 const props = defineProps({
   ...withGroupProps(),
