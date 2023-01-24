@@ -59,7 +59,7 @@ import { scaleLinear } from 'd3';
 
 import LumeBar from '@/components/core/lume-bar';
 
-import { withGroupProps } from '@/components/groups/composables/group-props';
+import { withGroupProps } from '@/composables/group-props';
 import { InternalDataset } from '@/types/dataset';
 import { flatValues } from '@/utils/helpers';
 

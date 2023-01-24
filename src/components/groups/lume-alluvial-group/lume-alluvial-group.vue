@@ -75,7 +75,7 @@ import { Ref, ref, toRef, useAttrs, watch } from 'vue';
 
 import LumeAlluvialPathGroup from './components/lume-alluvial-path-group.vue';
 
-import { withGroupProps } from '../composables/group-props';
+import { withGroupProps } from '@/composables/group-props';
 
 import { useAlluvialInteractions } from './composables/lume-alluvial-interactions';
 import { useCoordinates } from './composables/lume-alluvial-coordinates';

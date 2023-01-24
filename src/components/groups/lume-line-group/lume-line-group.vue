@@ -61,7 +61,7 @@ import LumePoint from '@/components/core/lume-point';
 import { getXByIndex } from '@/composables/scales';
 import { useLineNullValues } from '@/composables/line-null-values';
 import { getLinePathDefinition } from '@/composables/line-values';
-import { withGroupProps } from '@/components/groups/composables/group-props';
+import { withGroupProps } from '@/composables/group-props';
 import { LineChartOptions } from '@/composables/options';
 
 import {
