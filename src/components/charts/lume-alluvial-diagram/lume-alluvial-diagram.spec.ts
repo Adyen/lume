@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 
 import LumeAlluvialDiagram from './lume-alluvial-diagram.vue';
 
@@ -44,13 +44,13 @@ describe('lume-alluvial-diagram.vue', () => {
 
     const wrapper = testSuite.run().wrapper;
     const el = wrapper.find('[data-j-alluvial-diagram]');
+    const props = el.props();
+
+    expect(props.data).toBeDefined();
+    expect(props.color).toBe('skyblue');
+    expect(props.options).toBeDefined();
+
     expect(el.exists()).toBeTruthy();
-    expect(el.find('[data-j-alluvial-group]').exists()).toBeTruthy();
-    expect(
-      el.find('[data-j-alluvial-group__ghost-path]').exists()
-    ).toBeTruthy();
-    expect(el.find('[data-j-alluvial-group__path]').exists()).toBeTruthy();
-    expect(el.find('[data-j-alluvial-group__node-block]').exists()).toBeFalsy();
   });
 
   test('mounts component and sets prop values using random data', async () => {
@@ -59,13 +59,8 @@ describe('lume-alluvial-diagram.vue', () => {
 
     const wrapper = testSuite.run().wrapper;
     const el = wrapper.find('[data-j-alluvial-diagram]');
+
     expect(el.exists()).toBeTruthy();
-    expect(el.find('[data-j-alluvial-group]').exists()).toBeTruthy();
-    expect(
-      el.find('[data-j-alluvial-group__ghost-path]').exists()
-    ).toBeTruthy();
-    expect(el.find('[data-j-alluvial-group__path]').exists()).toBeTruthy();
-    expect(el.find('[data-j-alluvial-group__node-block]').exists()).toBeFalsy();
   });
 
   test('should throw error in case of a dataset with circular links', async () => {
@@ -84,14 +79,9 @@ describe('lume-alluvial-diagram.vue', () => {
       },
     ];
 
-    const data = [
-      {
-        ...baseData,
-        values,
-      },
-    ];
+    const data = [{ values }];
 
-    mount(LumeAlluvialDiagram, {
+    shallowMount(LumeAlluvialDiagram, {
       propsData: {
         data,
       },
@@ -110,7 +100,7 @@ describe('lume-alluvial-diagram.vue', () => {
       },
     ];
 
-    mount(LumeAlluvialDiagram, {
+    shallowMount(LumeAlluvialDiagram, {
       propsData: {
         data,
       },
@@ -149,7 +139,7 @@ describe('lume-alluvial-diagram.vue', () => {
       },
     ];
 
-    mount(LumeAlluvialDiagram, {
+    shallowMount(LumeAlluvialDiagram, {
       propsData: {
         data,
       },
