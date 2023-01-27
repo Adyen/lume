@@ -6,9 +6,10 @@ import {
   SankeyNode,
 } from 'd3-sankey';
 
+import { DEFAULT_COLOR } from '@/utils/colors';
 import { interpolateRound } from '@/utils/helpers';
 
-import { DEFAULT_COLOR, NODE_LABEL_PADDING } from './constants';
+import { NODE_LABEL_PADDING } from './constants';
 
 import {
   LinkPath,
