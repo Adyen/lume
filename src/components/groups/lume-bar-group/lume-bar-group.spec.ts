@@ -4,7 +4,7 @@ import LumeBarGroup from './lume-bar-group.vue';
 
 import { data, xScale, yScale } from '@test/unit/mock-data';
 
-import { Orientation } from '@/constants';
+import { Orientation } from '@/utils/constants';
 
 const orientation: Orientation = 'horizontal';
 

@@ -1,7 +1,7 @@
 import { computed, isRef, PropType, Ref } from 'vue';
 
 import { Format } from '@/composables/format';
-import { Margins, TOOLTIP_POSITIONS } from '@/constants';
+import { Margins, TOOLTIP_POSITIONS } from '@/utils/constants';
 import { mergeDeep } from '@/utils/helpers';
 import { ColorPalette } from '@/types/dataset';
 

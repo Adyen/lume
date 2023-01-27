@@ -35,7 +35,7 @@ import { useSingleBarMixin } from './composables/single-mixin';
 import { useGroupedBarMixin } from './composables/grouped-mixin';
 import { useStackedBarMixin } from './composables/stacked-mixin';
 
-import { ORIENTATIONS } from '@/constants';
+import { ORIENTATIONS } from '@/utils/constants';
 
 const MIXIN_MAP = {
   single: useSingleBarMixin,

@@ -2,7 +2,7 @@ import Vue, { computed, reactive, Ref } from 'vue';
 
 import { getXByIndex, Scale } from './scales';
 
-import { NO_DATA, Orientation, ORIENTATIONS } from '@/constants';
+import { NO_DATA, Orientation, ORIENTATIONS } from '@/utils/constants';
 import { getHighestValue } from '@/utils/helpers';
 import { Data, DatasetValueObject, InternalData } from '@/types/dataset';
 

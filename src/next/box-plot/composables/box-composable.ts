@@ -3,7 +3,7 @@ import { Data } from '@/types/dataset';
 import { scaleBand, scaleLinear } from 'd3';
 import { ascending, quantile } from 'd3';
 import { Options } from '@/composables/options';
-import { PADDING_VERTICAL } from '@/constants';
+import { PADDING_VERTICAL } from '@/utils/constants';
 
 export const withData = () => ({
   data: {

@@ -209,7 +209,7 @@ import {
 import { useTooltip, useTooltipAnchors } from '@/composables/tooltip';
 
 import { getEmptyArrayFromData } from '@/utils/helpers';
-import { ORIENTATIONS, TOOLTIP_ANCHOR_RADIUS } from '@/constants';
+import { ORIENTATIONS, TOOLTIP_ANCHOR_RADIUS } from '@/utils/constants';
 
 const props = defineProps({
   ...withChartProps(),

@@ -2,7 +2,7 @@ import { computed, Ref } from 'vue';
 
 import { flatValues } from '@/utils/helpers';
 
-import { Orientation, ORIENTATIONS } from '@/constants';
+import { Orientation, ORIENTATIONS } from '@/utils/constants';
 import { InternalData } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 import { Scale } from './scales';

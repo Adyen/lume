@@ -1,6 +1,6 @@
 import { SankeyLink, SankeyNode } from 'd3-sankey';
 
-import { Color } from '@/constants';
+import { Color } from '@/utils/constants';
 import { Dataset, DatasetValueObject } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 

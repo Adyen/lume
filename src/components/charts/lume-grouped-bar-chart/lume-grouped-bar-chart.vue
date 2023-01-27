@@ -32,7 +32,7 @@ import LumeBarGroup from '@/components/groups/lume-bar-group';
 import { BarChartOptions, useOptions } from '@/composables/options';
 import { withChartProps } from '@/composables/props';
 
-import { ORIENTATIONS } from '@/constants';
+import { ORIENTATIONS } from '@/utils/constants';
 
 import { options as defaultOptions } from './defaults';
 import { excludeGroups } from '@/utils/helpers';

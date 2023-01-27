@@ -38,7 +38,7 @@
 import { computed, ComputedRef, PropType, ref, toRefs, watchEffect } from 'vue';
 
 import { useResizeObserver } from '@/composables/resize';
-import { Margins } from '@/constants';
+import { Margins } from '@/utils/constants';
 import { ContainerSize } from '@/types/size';
 
 const BASE_MARGINS = {

@@ -3,7 +3,7 @@ import { scaleBand, ScaleBand } from 'd3';
 
 import { Scale } from '@/composables/scales';
 
-import { Colors, Orientation, ORIENTATIONS } from '@/constants';
+import { Colors, Orientation, ORIENTATIONS } from '@/utils/constants';
 import { Data, DatasetValueObject } from '@/types/dataset';
 
 export function useGroupedBarMixin(

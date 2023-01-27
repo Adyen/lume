@@ -119,7 +119,7 @@ import { AxisOptions, useOptions, withOptions } from '@/composables/options';
 import { Scale } from '@/composables/scales';
 import { useSkip } from './composables/lume-skip';
 
-import { Orientation, ORIENTATIONS } from '@/constants';
+import { Orientation, ORIENTATIONS } from '@/utils/constants';
 import { svgCheck } from '@/utils/svg-check';
 import { ContainerSize } from '@/types/size';
 import { xOptions, yOptions } from './defaults';

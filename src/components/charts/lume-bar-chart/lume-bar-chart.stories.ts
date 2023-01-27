@@ -4,7 +4,7 @@ import DATASETS from '@/docs/storybook-data/base-data';
 
 import LumeBarChart from './index';
 
-import { Colors, ORIENTATIONS } from '@/constants';
+import { Colors, ORIENTATIONS } from '@/utils/constants';
 
 export default {
   title: 'Charts/Bar chart',

@@ -34,7 +34,7 @@ import {
   TooltipOptions,
 } from '@/composables/options';
 
-import { ORIENTATIONS } from '@/constants';
+import { ORIENTATIONS } from '@/utils/constants';
 
 const LumeSingleBarChart = defineAsyncComponent(
   () => import('@/components/charts/lume-single-bar-chart')
