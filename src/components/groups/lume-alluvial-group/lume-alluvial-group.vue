@@ -1,9 +1,9 @@
 <template>
   <g
-    v-if="nodeBlocks && linkPaths"
     class="lume-alluvial-group"
     data-j-alluvial-group
   >
+    <!-- Nodes -->
     <g
       v-for="(nodeBlock, index) in nodeBlocks"
       :key="`node-block_${index}`"
@@ -53,28 +53,49 @@
         </text>
       </g>
     </g>
-    <g @mouseleave="hoveredElement = null">
-      <lume-alluvial-path-group
-        :link-paths="linkPaths"
-        is-ghost
-        data-j-alluvial-group__ghost-path
-        @mouseover="hoveredElement = $event"
+
+    <!-- Links -->
+    <g
+      class="lume-alluvial-link-group"
+      @mouseleave="hoveredElement = null"
+    >
+      <!-- Ghost paths -->
+      <path
+        v-for="linkPath in linkPaths"
+        :key="`link-ghost_${linkPath.id}`"
+        class="lume-alluvial-group__link"
+        :class="[
+          'lume-stroke--transparent',
+          'lume-alluvial-group__link--ghost',
+        ]"
+        :d="linkPath.d"
+        :stroke-width="linkPath.strokeWidth + GHOST_STROKE_WIDTH_OFFSET"
+        data-j-alluvial-ghost
+        @mouseover="hoveredElement = linkPath.link"
       />
-      <lume-alluvial-path-group
-        :link-paths="linkPaths"
-        :container-width="containerSize.width"
-        :highlighted-links="highlightedElements.links"
-        data-j-alluvial-group__path
-        @mouseover="hoveredElement = $event"
+
+      <!-- Link paths -->
+      <path
+        v-for="linkPath in linkPaths"
+        :key="`link_${linkPath.id}`"
+        class="lume-alluvial-group__link"
+        :class="{
+          [`lume-stroke--${linkPath.color}`]: linkPath.color,
+          'lume-alluvial-group__link--faded': isLinkFaded(linkPath.id),
+        }"
+        :d="linkPath.d"
+        :stroke-dasharray="containerSize.width"
+        :stroke-dashoffset="containerSize.width"
+        :stroke-width="linkPath.strokeWidth"
+        data-j-alluvial-path
+        @mouseover="hoveredElement = linkPath.link"
       />
     </g>
   </g>
 </template>
 
 <script setup lang="ts">
-import { computed, ref, toRefs, useAttrs, watch } from 'vue';
-
-import LumeAlluvialPathGroup from './components/lume-alluvial-path-group.vue';
+import { computed, ref, toRefs, watch } from 'vue';
 
 import { useFormat } from '@/composables/format';
 import { withGroupProps } from '@/composables/group-props';
@@ -84,6 +105,7 @@ import { useAlluvialExtents } from './composables/alluvial-extents';
 import { useAlluvialGraph } from './composables/alluvial-graph';
 import { useAlluvialHover } from './composables/alluvial-hover';
 
+import { GHOST_STROKE_WIDTH_OFFSET } from './constants';
 import { DEFAULT_COLOR } from '@/utils/colors';
 import {
   getLabelSizes,
@@ -92,13 +114,10 @@ import {
 } from './helpers';
 
 import { AlluvialNode } from '@/types/alluvial';
-import { ContainerSize } from '@/types/size';
 
 const props = defineProps({
   ...withGroupProps<AlluvialDiagramOptions, AlluvialNode>(),
 });
-
-const { containerSize } = <{ containerSize: ContainerSize }>useAttrs();
 
 const { data, options } = toRefs(props);
 
@@ -107,7 +126,7 @@ const linkPaths = ref([]);
 
 const nodeTextRefs = ref<Array<SVGTextElement>>(null);
 
-const { extents, updateExtents } = useAlluvialExtents(containerSize);
+const { extents, updateExtents } = useAlluvialExtents(props.containerSize);
 const { graph } = useAlluvialGraph(data, options, extents);
 const { hoveredElement, highlightedElements } = useAlluvialHover(
   nodeBlocks,
@@ -128,6 +147,13 @@ function isNodeFaded(id: string | number) {
   );
 }
 
+function isLinkFaded(id: string) {
+  return (
+    highlightedElements.value.links.length > 0 &&
+    !highlightedElements.value.links.includes(id)
+  );
+}
+
 // Render nodes/paths whenever the SankeyGraph changes
 watch(graph, (newGraph) => {
   nodeBlocks.value = getNodeBlockAttributes(newGraph.nodes);
@@ -135,8 +161,8 @@ watch(graph, (newGraph) => {
 });
 
 // Update extents whenever 1. container size changes or 2. node labels are rendered (hence defining new margins)
-watch([containerSize, nodeTextRefs], () => {
-  if (containerSize.width && containerSize.height) {
+watch([props.containerSize, nodeTextRefs], () => {
+  if (props.containerSize.width && props.containerSize.height) {
     const labelSizes = getLabelSizes(graph.value, nodeTextRefs.value);
     updateExtents(labelSizes);
   }
