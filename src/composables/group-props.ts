@@ -4,7 +4,7 @@ import { Options } from '@/composables/options';
 import { orientationValidator } from '@/composables/props';
 import { Scale } from '@/composables/scales';
 
-import { Orientation, ORIENTATIONS } from '@/constants';
+import { Orientation, ORIENTATIONS } from '@/utils/constants';
 import { DatasetValueObject, InternalData } from '@/types/dataset';
 import { ContainerSize } from '@/types/size';
 
