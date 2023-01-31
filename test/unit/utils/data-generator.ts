@@ -2,14 +2,10 @@ const defaultLabels = 12;
 const maxNumberOfEdges = 4;
 const maxNumberOfColors = 7;
 const defaultHighestValue = 1000;
-const defaultNodePadding = 20;
-const defaultNodeWidth = 16;
 
 export const generateData = (
   numberOfLabels = defaultLabels,
-  highestValue = defaultHighestValue,
-  nodePadding = defaultNodePadding,
-  nodeWidth = defaultNodeWidth
+  highestValue = defaultHighestValue
 ) => {
   const labels = [];
   const data = [];
@@ -45,8 +41,6 @@ export const generateData = (
   return [
     {
       values: data,
-      nodePadding,
-      nodeWidth,
     },
   ];
 };

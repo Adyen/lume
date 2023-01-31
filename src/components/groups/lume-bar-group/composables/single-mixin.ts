@@ -4,8 +4,8 @@ import { ScaleBand } from 'd3';
 import { Scale } from '@/composables/scales';
 
 import { Orientation, ORIENTATIONS } from '@/utils/constants';
+import { DEFAULT_COLOR } from '@/utils/colors';
 import { Data, DatasetValueObject } from '@/types/dataset';
-import { DEFAULT_COLOR } from '../constants';
 
 export function useSingleBarMixin(
   data: ComputedRef<Data<DatasetValueObject<number>>>,

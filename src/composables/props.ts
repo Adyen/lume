@@ -6,7 +6,7 @@ import { withScales } from './scales';
 
 import { Orientation, ORIENTATIONS } from '@/utils/constants';
 
-function orientationValidator(orientation: string): boolean {
+export function orientationValidator(orientation: string): boolean {
   return Object.values(ORIENTATIONS).includes(orientation as Orientation);
 }
 

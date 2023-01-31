@@ -1,6 +1,10 @@
+import { toRefs } from 'vue';
+
 import DATASETS from '@/docs/storybook-data/base-data';
 
 import LumeChartLegend from './lume-chart-legend.vue';
+
+import { useBase } from '../../../composables/base';
 
 export default {
   title: 'Core/Legend',
@@ -18,10 +22,12 @@ const Template = ({ argTypes }) => ({
   components: { LumeChartLegend },
   props: Object.keys(argTypes),
   setup(props: InstanceType<typeof LumeChartLegend>['$props']) {
-    return { props };
+    const { data, labels } = toRefs(props);
+    const { internalData } = useBase(data, labels);
+    return { props, internalData };
   },
   template: `
-    <lume-chart-legend v-bind="props" />
+    <lume-chart-legend v-bind="props" :data="internalData" />
   `,
 });
 

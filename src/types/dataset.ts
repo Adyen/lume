@@ -1,6 +1,6 @@
 import { Color } from '@/utils/constants';
 
-type ChartType = 'bar' | 'line';
+export type ChartType = 'grouped-bar' | 'line' | 'single-bar' | 'stacked-bar';
 
 type DatasetValueType = number | string | Array<number>;
 
@@ -33,11 +33,13 @@ export enum ColorPalette {
   Divergent = 'divergent',
 }
 
-export interface InternalDataset
-  extends Omit<Dataset<DatasetValueObject>, 'values' | 'color'> {
-  values: Array<DatasetValueObject>;
+export interface InternalDataset<T extends DatasetValueObject>
+  extends Omit<Dataset<T>, 'values' | 'color'> {
+  values: Array<T>;
   color: string; // TODO: InternalColor type that contains all colors w/ variants (e.g. skyblue-40)
   __internal: true;
 }
 
-export type InternalData = Array<InternalDataset>;
+export type InternalData<
+  T extends DatasetValueObject<number> = DatasetValueObject<number>
+> = Array<InternalDataset<T>>;

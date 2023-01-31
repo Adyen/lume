@@ -1,5 +1,10 @@
 @use '@/styles/variables' as *;
 
+$lume-alluvial-text-color: $lume-color-grey-80;
+
+$lume-alluvial-link-opacity: 0.5 !default;
+$lume-alluvial-link-opacity-faded: 0.2 !default;
+
 .lume-alluvial-group {
   &__node {
     opacity: 1;
@@ -15,10 +20,6 @@
       &--#{$color} {
         $fill: nth($map, 1);
         fill: $fill;
-
-        & + .lume-alluvial-group__node-text--color {
-          fill: $fill;
-        }
       }
     }
 
@@ -26,10 +27,6 @@
       &--#{$color} {
         $fill: nth($map, 1);
         fill: $fill;
-
-        & + .lume-alluvial-group__node-text--color {
-          fill: $fill;
-        }
       }
     }
 
@@ -37,15 +34,14 @@
       &--#{$color} {
         $fill: nth($map, 1);
         fill: $fill;
-
-        & + .lume-alluvial-group__node-text--color {
-          fill: $fill;
-        }
       }
     }
   }
 
   &__node-text {
+    cursor: default;
+    fill: $lume-alluvial-text-color;
+
     &--right {
       text-anchor: end;
     }
@@ -53,5 +49,33 @@
 
   &__node-value {
     font-weight: $lume-font-weight-medium;
+  }
+
+  .lume-alluvial-link-group {
+    fill: none;
+    mix-blend-mode: multiply;
+  }
+
+  &__link {
+    stroke-opacity: $lume-alluvial-link-opacity;
+    transition: stroke-opacity $lume-transition-time-long;
+
+    animation: strokeReset $lume-transition-time-full linear forwards;
+
+    &--faded {
+      stroke-opacity: $lume-alluvial-link-opacity-faded;
+    }
+
+    &--ghost {
+      stroke-opacity: 0;
+      animation: unset;
+      transition: unset;
+    }
+  }
+}
+
+@keyframes strokeReset {
+  to {
+    stroke-dashoffset: 0;
   }
 }
