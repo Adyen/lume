@@ -53,7 +53,7 @@
     "release": "release-it",
     "start": "npm run storybook",
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "test": "vitest --config=vitest.config.ts",
+    "test": "vitest --config=vitest.config.ts --coverage",
     "test:update:snapshot": "vitest --config=vitest.config.ts -u",
     "test:coverage": "vitest run --coverage"
   },
