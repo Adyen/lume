@@ -85,7 +85,3 @@ export function computeColor(
 
   return getColorByPalette(getDefaultColorByPalette(palette), palette, index);
 }
-
-export function getDataTypeClass(type: ColorPalette = DEFAULT_PALETTE) {
-  return `lume-data-type--${type}`;
-}
