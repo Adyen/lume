@@ -40,8 +40,6 @@ const DATASETS = {
           },
           { label: 'G', value: 'G', color: '08' },
         ],
-        nodePadding: 20,
-        nodeWidth: 16,
       },
     ],
   },
