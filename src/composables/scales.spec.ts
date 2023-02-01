@@ -65,7 +65,8 @@ describe('scales.ts', () => {
       expect(mixin.xScale.value?.domain()).toEqual([min, max]);
       expect(mixin.xScale.value?.range()).toEqual([0, containerSize.width]);
       expect(mixin).toHaveProperty('yScale');
-      expect(mixin.yScale.value?.domain()).toEqual(labels);
+      expect(mixin.yScale.value?.domain()).toEqual(labels.map((_, i) => i));
+      expect(mixin.yScale.value?.labels).toEqual(labels);
       expect(mixin.yScale.value?.range()).toEqual([0, containerSize.height]);
     });
 
@@ -77,7 +78,8 @@ describe('scales.ts', () => {
       expect(mixin.yScale.value?.domain()).toEqual([max, min]);
       expect(mixin.yScale.value?.range()).toEqual([0, containerSize.height]);
       expect(mixin).toHaveProperty('yScale');
-      expect(mixin.xScale.value?.domain()).toEqual(labels);
+      expect(mixin.xScale.value?.domain()).toEqual(labels.map((_, i) => i));
+      expect(mixin.xScale.value?.labels).toEqual(labels);
       expect(mixin.xScale.value?.range()).toEqual([0, containerSize.width]);
     });
 
