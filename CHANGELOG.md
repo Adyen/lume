@@ -2,7 +2,20 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.2.1](https://github.com/Adyen/lume/compare/v0.2.0...v0.2.1)
+
+- 🐛 Fix repeated label scaleBand issue [`#149`](https://github.com/Adyen/lume/pull/149)
+- 🩹 Fix wrong import path in component stories [`#148`](https://github.com/Adyen/lume/pull/148)
+- 🎨 Code clean-up [`#139`](https://github.com/Adyen/lume/pull/139)
+- 🚚 Move constants to @/utils/ [`#141`](https://github.com/Adyen/lume/pull/141)
+- 🔖 Release v0.2.0 [`#142`](https://github.com/Adyen/lume/pull/142)
+- ♻️ Refactor Alluvial diagram and its sub-elements [`b8f810a`](https://github.com/Adyen/lume/commit/b8f810ab478cb0d921699f7ac643f52a614a1e26)
+- ♻️ Refactor group components into script setup [`a4089b1`](https://github.com/Adyen/lume/commit/a4089b1286cd019a0bd0c96b1d07143201d9a333)
+- ♻️ Abstract lume-alluvial-path-group to lume-alluvial-group [`1afa447`](https://github.com/Adyen/lume/commit/1afa447eb83013d785458bac0bca2c1de44c3602)
+
 #### [v0.2.0](https://github.com/Adyen/lume/compare/v0.1.9...v0.2.0)
+
+> 18 January 2023
 
 - 🐛 Fix axis grid lines not updating on size change [`#138`](https://github.com/Adyen/lume/pull/138)
 - 💄 Add other colors (green, orange, red) [`#136`](https://github.com/Adyen/lume/pull/136)
