@@ -16,10 +16,10 @@ const useBandScaleAxis: AxisMixin = function (
     return (scale.value.step() * scale.value.paddingInner()) / 2;
   });
 
-  function getTickGroupAttributes(value: number | string) {
+  function getTickGroupAttributes(value: number | string, index: number) {
     return {
       transform: `translate(${
-        scale.value(value) - paddingCorrection.value
+        (scale.value(index) ?? scale.value(value)) - paddingCorrection.value
       }, 0)`,
     };
   }

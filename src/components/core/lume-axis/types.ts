@@ -5,7 +5,8 @@ import { Scale } from '@/composables/scales';
 import { ContainerSize } from '@/types/size';
 
 export type AxisMixinFunction = (
-  value?: string | number | SVGTextElement
+  value?: string | number | SVGTextElement,
+  index?: number
 ) => Record<string, string | number>;
 
 export type AxisMixin = (

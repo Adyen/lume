@@ -49,10 +49,13 @@ export function useStackedAxes(
       ? scaleLinear()
         .domain([stackedMinValue.value, stackedMaxValue.value])
         .range([0, size.width])
-      : getPaddedScale(
-        scaleBand()
-          .domain(labels?.map((v) => v))
-          .range([0, size.width])
+      : Object.assign(
+        getPaddedScale(
+          scaleBand<number>()
+            .domain(labels.map((_, i) => i))
+            .range([0, size.width])
+        ),
+        { labels }
       );
   }
 
@@ -62,10 +65,13 @@ export function useStackedAxes(
     size: ContainerSize
   ) {
     return isHorizontal.value
-      ? getPaddedScale(
-        scaleBand()
-          .domain(labels?.map((v) => v))
-          .range([0, size.height])
+      ? Object.assign(
+        getPaddedScale(
+          scaleBand<number>()
+            .domain(labels.map((_, i) => i))
+            .range([0, size.height])
+        ),
+        { labels }
       )
       : scaleLinear()
         .domain([stackedMaxValue.value, stackedMinValue.value])
