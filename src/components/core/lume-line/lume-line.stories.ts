@@ -1,6 +1,6 @@
 import { computed } from 'vue';
 
-import { Colors } from '@/constants';
+import { Colors } from '@/utils/constants';
 
 import LumeLine from './lume-line.vue';
 
