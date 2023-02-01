@@ -13,6 +13,10 @@ import {
 import { ContainerSize } from '@/types/size';
 import { InternalData } from '@/types/dataset';
 
+export interface ComputedScaleBand extends ScaleBand<string | number> {
+  labels: Array<string | number>;
+}
+
 export type Scale = ScaleBand<string | number> | ScaleLinear<number, number>;
 
 export type ScaleGenerator<T extends Scale = Scale> = (
@@ -91,8 +95,12 @@ export function useBaseScales(
 
 function generateBandScale(domain: Array<string | number>, size: number) {
   const range = [0, size];
-
-  return scaleBand<string | number>().range(range).domain(domain);
+  return Object.assign(
+    scaleBand<string | number>()
+      .range(range)
+      .domain(domain.map((_, i) => i)),
+    { labels: domain }
+  ) as ComputedScaleBand;
 }
 
 function generateLinearScale(

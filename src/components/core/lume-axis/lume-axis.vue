@@ -29,7 +29,7 @@
 
     <vue-portal
       v-for="(tick, index) in ticksWithAttributes"
-      :key="tick.value"
+      :key="`${tick.value}_${index}`"
       slim
       :disabled="!isHovering(index)"
       :to="`${chartID}-${computedType}-hovered-portal`"
@@ -116,10 +116,11 @@ import {
 import { useBase } from '@/composables/base';
 import { useFormat } from '@/composables/format';
 import { AxisOptions, useOptions, withOptions } from '@/composables/options';
-import { Scale } from '@/composables/scales';
+import { ComputedScaleBand, Scale } from '@/composables/scales';
 import { useSkip } from './composables/lume-skip';
 
 import { Orientation, ORIENTATIONS } from '@/utils/constants';
+import { isBandScale } from '@/utils/helpers';
 import { svgCheck } from '@/utils/svg-check';
 import { ContainerSize } from '@/types/size';
 import { xOptions, yOptions } from './defaults';
@@ -203,8 +204,8 @@ const axisTransform = computed(
 
 const ticks = computed(() => {
   // For band scales, return the full labels array (domain)
-  if ((scale.value as ScaleBand<string | number>).step) {
-    return scale.value.domain();
+  if (isBandScale(scale.value)) {
+    return (scale.value as ComputedScaleBand).labels || scale.value.domain();
   }
 
   const { tickCount } = allOptions.value;
@@ -253,7 +254,7 @@ function setTicks() {
   ticksWithAttributes.value = ticks.value.map((tick, index) => {
     return {
       value: tick,
-      group: mixins.getTickGroupAttributes(tick),
+      group: mixins.getTickGroupAttributes(tick, index),
       ghost: mixins.getTickGhostAttributes(getTextNode(index)),
       label: mixins.getTickLabelAttributes(),
       gridLine: mixins.getGridLinesAttributes(),
