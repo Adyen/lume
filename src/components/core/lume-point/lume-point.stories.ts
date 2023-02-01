@@ -1,6 +1,6 @@
 import { computed } from 'vue';
 
-import { Colors } from '@/constants';
+import { Colors } from '@/utils/constants';
 
 import LumePoint from './lume-point.vue';
 
