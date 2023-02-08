@@ -23,9 +23,6 @@ jobs:
         with:
           node-version: ${{ steps.nvm.outputs.NVMRC }}
 
-      - name: Write .npmrc so it can login to npmjs
-        run: npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_ADYEN_LUME_TOKEN }}
-
       - name: Install dependencies
         run: npm install
 
@@ -33,4 +30,6 @@ jobs:
         run: npm run build
 
       - name: Publish to npm registry
-        run: npm publish --access restricted
+        run: |
+          npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_ADYEN_LUME_TOKEN }}
+          npm publish --access restricted
