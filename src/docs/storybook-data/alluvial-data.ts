@@ -140,6 +140,70 @@ const DATASETS = {
       },
     ],
   },
+  MultipleLevels: {
+    data: [
+      {
+        values: [
+          {
+            color: '01',
+            value: 'A',
+            targets: [
+              { node: 'C', value: 20 },
+              { node: 'D', value: 15 },
+            ],
+          },
+          {
+            color: '02',
+            value: 'B',
+            targets: [{ node: 'D', value: 10 }],
+          },
+          {
+            label: 'C',
+            color: '03',
+            value: 'C',
+            targets: [
+              { node: 'E', value: 15 },
+              { node: 'F', value: 5 },
+            ],
+          },
+          {
+            label: 'D',
+            value: 'D',
+            color: '07',
+            targets: [{ node: 'F', value: 25 }],
+          },
+          {
+            label: 'E',
+            value: 'E',
+            color: '06',
+            targets: [
+              { node: 'G', value: 10 },
+              { node: 'H', value: 5 },
+            ],
+          },
+          {
+            label: 'F',
+            value: 'F',
+            color: '04',
+            targets: [
+              { node: 'G', value: 10 },
+              { node: 'H', value: 20 },
+            ],
+          },
+          {
+            label: 'G',
+            value: 'G',
+            color: '05',
+          },
+          {
+            label: 'H',
+            value: 'H',
+            color: 'royalblue',
+          },
+        ],
+      },
+    ],
+  },
 };
 
 export default DATASETS;

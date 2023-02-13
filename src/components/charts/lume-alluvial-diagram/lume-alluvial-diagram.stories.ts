@@ -64,3 +64,9 @@ RealData.args = {
   ...withSizeArgs(920, 460),
   ...DATASETS.RealData,
 };
+
+export const MultipleLevels = Template.bind({});
+MultipleLevels.args = {
+  ...withSizeArgs(),
+  ...DATASETS.MultipleLevels,
+};
