@@ -87,3 +87,55 @@ To generate a simple alluvial diagram with default settings, simply pass the `da
 | `labels`  | `Array<string>` or `Array<number>` | Required    | The group of labels to plot the data to. |
 | `title`   | `String`                           | `undefined` | The chart title.                         |
 | `options` | `Options`                          | `undefined` | A set of chart options.                  |
+
+### Alluvial options
+
+Interface: `AlluvialDiagramOptions`
+
+| Name                | Type                                                     | Description                                                                                          |
+| ------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| highlightedElements | `'full' \| 'close' \| GetHighlightedElementsFunction`    | Defines the diagram's hover behavior. More info below.                                               |
+| nodeAlign           | `(node: SankeyNode, n: number) => number`                | Defines the node alignment method. [Read more](https://github.com/d3/d3-sankey#sankey_nodeAlign)     |
+| nodePadding         | `number`                                                 | Sets the vertical space between nodes at each column.                                                |
+| nodeSort            | `(a: SankeyNode, b: SankeyNode) => number`               | Defines the node sort method. [Read more](https://github.com/d3/d3-sankey#sankey_nodeSort)           |
+| nodeWidth           | `number`                                                 | Sets the node block width.                                                                           |
+| valueFormat         | `string \| (tick: number \| string) => number \| string` | A format specifier string for [d3-format](https://github.com/d3/d3-format) or a formatting function. |
+
+#### Highlighted elements
+
+In the alluvial diagram, there are multiple possible behaviors for when you hover a node or a link. Lume provides two different behaviors, plus a way to add your own custom one.
+
+##### `full`
+
+When a node or link is hovered, highlight the full connecting nodes/links. This is the default behavior.
+
+<!-- TODO: Add example image -->
+
+##### `close`
+
+When a node or link is hovered, highlight only the closeste nodes/links.
+
+<!-- TODO: Add example image -->
+
+##### Custom function
+
+You can customize which nodes/links to highlight upon hovering by passing a `GetHighlightedElementsFunction` function in the `highlightedElements` option.
+
+This function has two arguments: the node/link being hovered and a [graph](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/d3-sankey/index.d.ts#L172) representing the sankey layout.
+It must return an object with a `nodes` map of node IDs and the value they should display, and a `links` array of link IDs. These are the nodes/links that will be highlighted when hovered.
+
+```ts
+type GetHighlightedElementsFunction = (
+  element:
+    | SankeyNode<SankeyNodeProps, SankeyLinkProps>
+    | SankeyLink<SankeyNodeProps, SankeyLinkProps>,
+  graph: SankeyGraph<SankeyNodeProps, SankeyLinkProps>
+) => HighlightedElements;
+
+interface HighlightedElements {
+  nodes: { [id: string]: string | number };
+  links: Array<string>;
+}
+```
+
+**Note:** Link IDs follow this structure: `{SOURCE_NODE_ID} + ':' + {TARGET_NODE_ID}`
