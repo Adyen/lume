@@ -30,7 +30,7 @@ export function useAlluvialGraph(
     Array<SankeyNode<SankeyNodeProps, SankeyLinkProps>>
   > = computed(() => {
     return data.value?.[0].values.map(({ label, color, value }) => ({
-      label,
+      label: label || value.toString(),
       color,
       id: value,
     }));

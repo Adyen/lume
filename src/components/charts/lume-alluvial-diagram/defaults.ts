@@ -15,6 +15,7 @@ export const options: AlluvialDiagramOptions = {
   withLegend: false,
 
   // Alluvial options
+  highlightedElements: 'full',
   nodePadding: 16,
   nodeWidth: 16,
   nodeAlign: sankeyJustify,

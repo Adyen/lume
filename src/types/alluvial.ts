@@ -1,7 +1,7 @@
 import {
+  SankeyLink as D3SankeyLink,
   SankeyExtraProperties,
   SankeyGraph,
-  SankeyLink,
   SankeyNode,
 } from 'd3-sankey';
 
@@ -30,6 +30,14 @@ export interface SankeyLinkProps extends SankeyExtraProperties {
   x1?: number | undefined;
 }
 
+export interface SankeyLink<
+  N extends SankeyNodeProps,
+  L extends SankeyLinkProps
+> extends D3SankeyLink<SankeyNodeProps, SankeyLinkProps> {
+  source: SankeyNode<N, L>;
+  target: SankeyNode<N, L>;
+}
+
 export interface HighlightedElements {
   nodes: { [id: string]: string | number };
   links: Array<string>;
@@ -39,7 +47,7 @@ export type GetHighlightedElementsFunction = (
   element:
     | SankeyNode<SankeyNodeProps, SankeyLinkProps>
     | SankeyLink<SankeyNodeProps, SankeyLinkProps>,
-  graph?: SankeyGraph<SankeyNodeProps, SankeyLinkProps>
+  graph: SankeyGraph<SankeyNodeProps, SankeyLinkProps>
 ) => HighlightedElements;
 
 export type AlluvialDataset = Dataset<AlluvialNode>;

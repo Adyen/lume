@@ -1,5 +1,5 @@
 import { computed, Ref, ref, watch } from 'vue';
-import { SankeyGraph, SankeyLink, SankeyNode } from 'd3-sankey';
+import { SankeyGraph, SankeyNode } from 'd3-sankey';
 
 import { AlluvialDiagramOptions } from '@/composables/options';
 
@@ -14,11 +14,86 @@ import {
   GetHighlightedElementsFunction,
   HighlightedElements,
   NodeBlock,
+  SankeyLink,
   SankeyLinkProps,
   SankeyNodeProps,
 } from '@/types/alluvial';
 
-const defaultGetHighlightedElements: GetHighlightedElementsFunction = (
+function getSourceNodes(
+  node: SankeyNode<SankeyNodeProps, SankeyLinkProps>,
+  group?: { [id: string]: number }
+) {
+  if (!group) group = {};
+
+  if (node.targetLinks) {
+    node.targetLinks.forEach(({ source, value }) => {
+      group[(source as SankeyNode<SankeyNodeProps, unknown>).id] = value;
+      getSourceNodes(source as SankeyNode<SankeyNodeProps, unknown>, group);
+    });
+  }
+
+  return group;
+}
+
+function getTargetNodes(
+  node: SankeyNode<SankeyNodeProps, SankeyLinkProps>,
+  group?: { [id: string]: number }
+) {
+  if (!group) group = {};
+
+  if (node.sourceLinks) {
+    node.sourceLinks.forEach(({ target, value }) => {
+      group[(target as SankeyNode<SankeyNodeProps, unknown>).id] = value;
+      getTargetNodes(target as SankeyNode<SankeyNodeProps, unknown>, group);
+    });
+  }
+
+  return group;
+}
+
+function getLinkIdsFromNodes(
+  nodes: { [id: string]: string | number },
+  graph: SankeyGraph<SankeyNodeProps, SankeyLinkProps>
+): Array<string> {
+  return graph.links.reduce((array, link) => {
+    if (
+      (link as SankeyLink<SankeyNodeProps, SankeyLinkProps>).source.id in
+        nodes &&
+      (link as SankeyLink<SankeyNodeProps, SankeyLinkProps>).target.id in nodes
+    ) {
+      array.push(generateLinkId(link));
+    }
+    return array;
+  }, []);
+}
+
+const getFullHighlightedElements: GetHighlightedElementsFunction = (
+  element,
+  graph
+) => {
+  let nodes: { [id: string]: string | number };
+
+  // Hovering a node
+  if (isSankeyNode(element)) {
+    nodes = {
+      [element.id]: element.value,
+      ...getSourceNodes(element),
+      ...getTargetNodes(element),
+    };
+  } else {
+    nodes = {
+      [element.source.id]: element.source.value,
+      [element.target.id]: element.target.value,
+      ...getSourceNodes(element.source),
+      ...getTargetNodes(element.target),
+    };
+  }
+  const links = getLinkIdsFromNodes(nodes, graph);
+
+  return { nodes, links };
+};
+
+const getCloseHighlightedElements: GetHighlightedElementsFunction = (
   element
 ) => {
   // Hovering a node
@@ -65,14 +140,19 @@ export function useAlluvialHover(
       return { nodes: {}, links: [] };
     }
 
-    if (options.value.getHighlightedElements) {
-      return options.value.getHighlightedElements(
+    // Custom highlight function
+    if (typeof options.value.highlightedElements === 'function') {
+      return options.value.highlightedElements(
         hoveredElement.value,
         graph.value
       );
     }
 
-    return defaultGetHighlightedElements(hoveredElement.value);
+    if (options.value.highlightedElements === 'close') {
+      return getCloseHighlightedElements(hoveredElement.value, graph.value);
+    }
+
+    return getFullHighlightedElements(hoveredElement.value, graph.value);
   });
 
   watch(highlightedElements, (elements, lastElements) => {
@@ -106,8 +186,5 @@ export function useAlluvialHover(
     });
   });
 
-  return {
-    highlightedElements,
-    hoveredElement,
-  };
+  return { highlightedElements, hoveredElement };
 }

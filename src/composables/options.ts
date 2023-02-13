@@ -60,7 +60,7 @@ export interface LineChartOptions extends ChartOptions {
 }
 
 export interface AlluvialDiagramOptions extends ChartOptions {
-  getHighlightedElements?: GetHighlightedElementsFunction;
+  highlightedElements?: 'full' | 'close' | GetHighlightedElementsFunction;
   nodeAlign?: (node: SankeyNode<unknown, unknown>, n: number) => number;
   nodePadding?: number;
   nodeSort?: (
