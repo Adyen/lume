@@ -93,7 +93,7 @@ const getFullHighlightedElements: GetHighlightedElementsFunction = (
   return { nodes, links };
 };
 
-const getCloseHighlightedElements: GetHighlightedElementsFunction = (
+const getClosestHighlightedElements: GetHighlightedElementsFunction = (
   element
 ) => {
   // Hovering a node
@@ -148,8 +148,8 @@ export function useAlluvialHover(
       );
     }
 
-    if (options.value.highlightedElements === 'close') {
-      return getCloseHighlightedElements(hoveredElement.value, graph.value);
+    if (options.value.highlightedElements === 'closest') {
+      return getClosestHighlightedElements(hoveredElement.value, graph.value);
     }
 
     return getFullHighlightedElements(hoveredElement.value, graph.value);

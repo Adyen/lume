@@ -94,7 +94,7 @@ Interface: `AlluvialDiagramOptions`
 
 | Name                | Type                                                     | Description                                                                                          |
 | ------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| highlightedElements | `'full' \| 'close' \| GetHighlightedElementsFunction`    | Defines the diagram's hover behavior. More info below.                                               |
+| highlightedElements | `'full' \| 'closest' \| GetHighlightedElementsFunction`  | Defines the diagram's hover behavior. More info below.                                               |
 | nodeAlign           | `(node: SankeyNode, n: number) => number`                | Defines the node alignment method. [Read more](https://github.com/d3/d3-sankey#sankey_nodeAlign)     |
 | nodePadding         | `number`                                                 | Sets the vertical space between nodes at each column.                                                |
 | nodeSort            | `(a: SankeyNode, b: SankeyNode) => number`               | Defines the node sort method. [Read more](https://github.com/d3/d3-sankey#sankey_nodeSort)           |
@@ -111,9 +111,9 @@ When a node or link is hovered, highlight the full connecting nodes/links. This 
 
 <!-- TODO: Add example image -->
 
-##### `close`
+##### `closest`
 
-When a node or link is hovered, highlight only the closeste nodes/links.
+When a node or link is hovered, highlight only the closest nodes/links.
 
 <!-- TODO: Add example image -->
 
