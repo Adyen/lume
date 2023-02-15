@@ -2,7 +2,17 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.3.0](https://github.com/Adyen/lume/compare/v0.2.1...v0.3.0)
+
+- 🔨 Authenticate with NPM only when needed [`#144`](https://github.com/Adyen/lume/pull/144)
+- 🔖 Release v0.2.1 [`#150`](https://github.com/Adyen/lume/pull/150)
+- ✨ Add full path highlighting to Alluvial [`991ccd5`](https://github.com/Adyen/lume/commit/991ccd5b868b0bcac060fdefa2a8bf19fa7e4382)
+- ♻️ Refactor tooltip anchor logic [`64e2fa0`](https://github.com/Adyen/lume/commit/64e2fa09c709dcf8b2ad384d4dc1adaa429c6f49)
+- 📝 Update alluvial diagram documentation [`3a704e9`](https://github.com/Adyen/lume/commit/3a704e99bfc5bb352ccb2fe13ce6d61c742d5f19)
+
 #### [v0.2.1](https://github.com/Adyen/lume/compare/v0.2.0...v0.2.1)
+
+> 1 February 2023
 
 - 🐛 Fix repeated label scaleBand issue [`#149`](https://github.com/Adyen/lume/pull/149)
 - 🩹 Fix wrong import path in component stories [`#148`](https://github.com/Adyen/lume/pull/148)
