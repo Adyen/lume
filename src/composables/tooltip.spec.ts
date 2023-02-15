@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import { mount } from '@vue/test-utils';
 
-import { useTooltip, useTooltipAnchors } from './tooltip';
+import { useTooltip, useTooltipAnchors, useTooltipItems } from './tooltip';
 
 import { data, xScale, yScale } from '@test/unit/mock-data';
 
@@ -17,10 +17,10 @@ const getTooltipAnchorsMixin = (xScale, yScale, orientation) => {
     template: '<div></div>',
     setup() {
       mixin = useTooltipAnchors(
-        ref(data as InternalData),
         ref(xScale),
         ref(yScale),
         ref(orientation),
+        ref(data as InternalData),
         ref(chartType)
       );
       return mixin;
@@ -48,17 +48,24 @@ describe('tooltip.ts', () => {
     test('should return expected object with orientation vertical', () => {
       const expected = { cy: 80, cx: 45.714285714285715 };
       const mixin = getTooltipAnchorsMixin(xScale, yScale, orientation);
+      mixin.updateTooltipAnchorAttributes(data);
 
-      expect(mixin.getTooltipAnchorAttributes.value(0)).toEqual(expected);
-      expect(mixin.getTooltipItems(0)[0]).toHaveProperty('value');
-      expect(mixin.getTooltipItems(0)[0].value).toEqual(10);
+      expect(mixin.tooltipAnchorAttributes.value[0]).toEqual(expected);
+    });
+
+    test('should return formatted tooltip items', () => {
+      const { getTooltipItems } = useTooltipItems(ref(data));
+
+      expect(getTooltipItems.value(0)[0]).toHaveProperty('value');
+      expect(getTooltipItems.value(0)[0].value).toEqual(10);
     });
 
     test('should return expected object with orientation horizontal', () => {
       const expected = { cy: 45.714285714285715, cx: 80 };
       const mixin = getTooltipAnchorsMixin(yScale, xScale, 'horizontal');
+      mixin.updateTooltipAnchorAttributes(data);
 
-      expect(mixin.getTooltipAnchorAttributes.value(0)).toEqual(expected);
+      expect(mixin.tooltipAnchorAttributes.value[0]).toEqual(expected);
     });
   });
 
