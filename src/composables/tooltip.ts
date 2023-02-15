@@ -68,11 +68,15 @@ export function useTooltipAnchors(
     }));
   }
 
-  watch([xScale, yScale], ([xScaleValue, yScaleValue]) => {
-    if (xScaleValue && yScaleValue && data?.value) {
-      updateTooltipAnchorAttributes(data.value);
-    }
-  });
+  watch(
+    [xScale, yScale],
+    () => {
+      if (xScale.value && yScale.value && data?.value) {
+        updateTooltipAnchorAttributes(data.value);
+      }
+    },
+    { immediate: true }
+  );
 
   return { tooltipAnchorAttributes, updateTooltipAnchorAttributes };
 }
