@@ -1,75 +1,80 @@
-import { computed, reactive, Ref } from 'vue';
+import { computed, reactive, ref, Ref, watch } from 'vue';
 
 import { getXByIndex, Scale } from './scales';
 
 import { NO_DATA, Orientation, ORIENTATIONS } from '@/utils/constants';
-import { getHighestValue } from '@/utils/helpers';
-import { Data, DatasetValueObject, InternalData } from '@/types/dataset';
+import { InternalData } from '@/types/dataset';
+
+interface AnchorAttributes {
+  cx: number;
+  cy: number;
+}
+
+type GetHighestValuesFunction = (data: InternalData) => Array<number>;
 
 export interface TooltipConfig {
   opened: boolean;
   targetElement: Element | null;
 }
 
-function getStackedHighestValue(
-  data: Data<DatasetValueObject>,
-  index: number
-): number {
-  return data.reduce((sum, curr) => {
-    const val = curr.values[index]?.value;
-    if (val > 0) sum += val;
-    return sum;
-  }, 0);
+function getHighestValues(data: InternalData) {
+  return data.reduce((acc, curr) => {
+    return curr.values.map((value, index) => {
+      if (!acc[index]) return value.value ?? 0;
+      return value.value > acc[index] ? value.value : acc[index];
+    });
+  }, [] as Array<number>);
 }
 
-const ANCHOR_CALCULATION_METHOD_MAP = {
+function getStackedHighestValue(data: InternalData) {
+  return data.reduce((acc, curr) => {
+    return curr.values.map((value, index) => {
+      if (!acc[index]) return value.value ?? 0;
+      return value.value + acc[index]; // Instead of returning the highest value, sums them
+    });
+  }, [] as Array<number>);
+}
+
+const ANCHOR_CALCULATION_METHOD_MAP: {
+  [type: string]: GetHighestValuesFunction;
+} = {
   'stacked-bar': getStackedHighestValue,
 };
 
+const tooltipAnchorAttributes = ref<Array<AnchorAttributes> | null>(null);
+
 export function useTooltipAnchors(
-  data: Ref<InternalData>,
   xScale: Ref<Scale>,
   yScale: Ref<Scale>,
-  orientation: Ref<Orientation>,
+  orientation?: Ref<Orientation>,
+  data?: Ref<InternalData>,
   chartType?: Ref<string>
 ) {
-  // TODO: Needs to account for bar chart, negative values should default to 0.
-  const getTooltipAnchorAttributes = computed(() => (index: number) => {
-    let highestValue =
-      chartType.value && ANCHOR_CALCULATION_METHOD_MAP[chartType.value]
-        ? ANCHOR_CALCULATION_METHOD_MAP[chartType.value](data.value, index)
-        : getHighestValue(data.value, index);
+  function updateTooltipAnchorAttributes(renderedData: InternalData) {
+    const highestValues =
+      chartType?.value && ANCHOR_CALCULATION_METHOD_MAP[chartType.value]
+        ? ANCHOR_CALCULATION_METHOD_MAP[chartType.value](renderedData)
+        : getHighestValues(renderedData);
 
-    // Negative bar anchor point should always be at 0 level
-    if (chartType?.value?.includes('bar') && highestValue < 0) {
-      highestValue = 0;
-    }
-
-    const cx =
-      orientation.value === ORIENTATIONS.HORIZONTAL
-        ? xScale.value(highestValue)
-        : getXByIndex(xScale.value, index);
-
-    const cy =
-      orientation.value === ORIENTATIONS.HORIZONTAL
-        ? getXByIndex(yScale.value, index)
-        : yScale.value(highestValue);
-
-    return {
-      cx,
-      cy,
-    };
-  });
-
-  function getTooltipItems(index: number) {
-    return data.value.map(({ color, label, values }) => ({
-      color: values[index]?.color || color,
-      label,
-      value: values[index]?.label ?? values[index]?.value ?? NO_DATA,
+    tooltipAnchorAttributes.value = highestValues.map((value, index) => ({
+      cx:
+        orientation?.value === ORIENTATIONS.HORIZONTAL
+          ? xScale.value(value)
+          : getXByIndex(xScale.value, index),
+      cy:
+        orientation?.value === ORIENTATIONS.HORIZONTAL
+          ? getXByIndex(yScale.value, index)
+          : yScale.value(value),
     }));
   }
 
-  return { getTooltipAnchorAttributes, getTooltipItems };
+  watch([xScale, yScale], ([xScaleValue, yScaleValue]) => {
+    if (xScaleValue && yScaleValue && data?.value) {
+      updateTooltipAnchorAttributes(data.value);
+    }
+  });
+
+  return { tooltipAnchorAttributes, updateTooltipAnchorAttributes };
 }
 
 export function useTooltip() {
@@ -89,4 +94,17 @@ export function useTooltip() {
   };
 
   return { tooltipConfig, showTooltip, hideTooltip };
+}
+
+export function useTooltipItems(data: Ref<InternalData>) {
+  const getTooltipItems = computed(
+    () => (index: number) =>
+      data.value.map(({ color, label, values }) => ({
+        color: values[index]?.color || color,
+        label,
+        value: values[index]?.label ?? values[index]?.value ?? NO_DATA,
+      }))
+  );
+
+  return { getTooltipItems };
 }

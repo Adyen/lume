@@ -26,7 +26,7 @@ const DATASETS = {
     data: [
       {
         label: 'Cats',
-        values: [10, 30, 25, null, 50, 40],
+        values: [10, 30, 50, null, 70, 40],
       },
       {
         label: 'Dogs',
