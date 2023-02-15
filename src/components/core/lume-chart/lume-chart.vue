@@ -125,10 +125,10 @@
       <!-- Tooltip anchors -->
       <g v-if="shouldGenerateTooltipAnchors">
         <circle
-          v-for="(_, index) in getEmptyArrayFromData(internalData)"
-          v-bind="getTooltipAnchorAttributes(index)"
+          v-for="attrs in tooltipAnchorAttributes"
+          v-bind="attrs"
           ref="tooltipAnchor"
-          :key="`anchor-${index}`"
+          :key="`anchor-${attrs.cx}`"
           :r="tooltipAnchorRadius"
           class="lume-fill--transparent"
         />
@@ -206,10 +206,13 @@ import {
   checkNegativeValues,
   useNegativeValues,
 } from '@/composables/negative-values';
-import { useTooltip, useTooltipAnchors } from '@/composables/tooltip';
+import {
+  useTooltip,
+  useTooltipAnchors,
+  useTooltipItems,
+} from '@/composables/tooltip';
 
 import { ORIENTATIONS, TOOLTIP_ANCHOR_RADIUS } from '@/utils/constants';
-import { getEmptyArrayFromData } from '@/utils/helpers';
 import { ChartType } from '@/types/dataset';
 
 const props = defineProps({
@@ -313,15 +316,17 @@ const { negativeBarAttributes } = useNegativeValues(
   orientation
 );
 
-const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();
-
-const { getTooltipAnchorAttributes, getTooltipItems } = useTooltipAnchors(
-  internalData,
+const { tooltipAnchorAttributes } = useTooltipAnchors(
   computedXScale,
   computedYScale,
   orientation,
+  internalData,
   chartType
 );
+
+const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();
+
+const { getTooltipItems } = useTooltipItems(internalData);
 
 const tooltipPosition = computed(
   () => allOptions.value.tooltipOptions?.position || 'top'
@@ -331,14 +336,14 @@ function mouseOverHandler(index: number) {
   // Update hoveredIndex
   allOptions.value.withHover !== false && (hoveredIndex.value = index);
 
-  // Show/update tooltip
-  const targetElement = !allOptions.value.tooltipOptions?.targetElement
-    ? tooltipAnchor.value[index]
-    : allOptions.value.tooltipOptions.targetElement === 'self'
-      ? chartContainer.value.$el
-      : allOptions.value.tooltipOptions.targetElement;
-
   if (allOptions.value.withTooltip !== false) {
+    // Show/update tooltip
+    const targetElement = !allOptions.value.tooltipOptions?.targetElement
+      ? tooltipAnchor.value[index]
+      : allOptions.value.tooltipOptions.targetElement === 'self'
+        ? chartContainer.value.$el
+        : allOptions.value.tooltipOptions.targetElement;
+
     showTooltip(targetElement);
   }
 }

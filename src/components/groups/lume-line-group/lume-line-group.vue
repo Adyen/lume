@@ -63,6 +63,7 @@ import { useLineNullValues } from '@/composables/line-null-values';
 import { getLinePathDefinition } from '@/composables/line-values';
 import { withGroupProps } from '@/composables/group-props';
 import { LineChartOptions } from '@/composables/options';
+import { useTooltipAnchors } from '@/composables/tooltip';
 
 import {
   getDomainLength,
@@ -93,13 +94,22 @@ const computedGroupData = computed(() => {
 
   // Compute line null values and return it
   const { computedLineData } = useLineNullValues(data);
+
+  if (options.value.withTooltip !== false) {
+    const { updateTooltipAnchorAttributes } = useTooltipAnchors(xScale, yScale);
+    updateTooltipAnchorAttributes(computedLineData.value); // Updates tooltip anchors for null values
+  }
+
   return computedLineData.value;
 });
 
 const overlayLineAttributes = computed(() => {
   if (props.hoveredIndex === -1) return;
 
-  const highestValue = getHighestValue(data.value, props.hoveredIndex);
+  const highestValue = getHighestValue(
+    computedGroupData.value,
+    props.hoveredIndex
+  );
   const x = getXByIndex(xScale.value, props.hoveredIndex);
 
   return {
