@@ -128,7 +128,7 @@
           v-for="attrs in tooltipAnchorAttributes"
           v-bind="attrs"
           ref="tooltipAnchor"
-          :key="`anchor-${attrs.cx}`"
+          :key="`anchor-${attrs.cx}${attrs.cy}`"
           :r="tooltipAnchorRadius"
           class="lume-fill--transparent"
         />
