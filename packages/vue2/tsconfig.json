@@ -1,0 +1,12 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@adyen/lume-core": [
+                "../../node_modules/@adyen/ui-assets-icons-16/dist/vue/*.vue",
+                "node_modules/@adyen/ui-assets-icons-16/dist/vue/*.vue"
+            ]
+        }
+    }
+}
