@@ -39,15 +39,14 @@ export default {
   },
 };
 
-const Template = ({ argTypes }) => ({
+const Template = ({ args }) => ({
   components: { LumeLineChart },
-  props: Object.keys(argTypes),
-  setup(props: InstanceType<typeof LumeLineChart>['$props']) {
-    return { props };
+  setup() {
+    return { args };
   },
   template: `
-    <div :style="{ width: width + 'px', height: height + 'px' }">
-        <lume-line-chart v-bind="props" :data="data" :labels="labels" />
+    <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+        <lume-line-chart v-bind="args" />
     </div>
   `,
 });

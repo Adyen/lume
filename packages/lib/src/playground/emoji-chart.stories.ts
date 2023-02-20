@@ -29,10 +29,9 @@ export default {
   },
 };
 
-export const Basic = ({ args, argTypes }) => {
+export const Basic = ({ args }) => {
   return {
     components: { LumeChart, EmojiGroup },
-    props: Object.keys(argTypes),
     setup() {
       return { args };
     },

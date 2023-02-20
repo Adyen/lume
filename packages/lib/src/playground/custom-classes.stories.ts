@@ -27,16 +27,15 @@ export default {
   },
 };
 
-export const Basic = ({ argTypes }) => {
+export const Basic = ({ args }) => {
   return {
     components: { CustomClasses },
-    props: Object.keys(argTypes),
-    setup(props) {
-      return { props };
+    setup() {
+      return { args };
     },
     template: `
-    <div :style="{ width: width + 'px', height: height + 'px' }">
-      <custom-classes v-bind="props" />
+    <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+      <custom-classes v-bind="args" />
     </div>
     `,
   };

@@ -15,19 +15,18 @@ export default {
   },
 };
 
-export const Basic = ({ argTypes }) => {
+export const Basic = ({ args }) => {
   return {
     components: { LumeChart, PerformanceComparison },
-    props: Object.keys(argTypes),
-    setup(props) {
-      return { props };
+    setup() {
+      return { args };
     },
     template: `
-      <div :style="{ width: width + 'px' }">
+      <div :style="{ width: args.width + 'px' }">
           <lume-chart
-            v-bind="props"
-            :data="[props.data[0]]"
-            :title="props.data[0].label"
+            v-bind="args"
+            :data="[args.data[0]]"
+            :title="args.data[0].label"
             style="height: 182px"
             orientation="horizontal"
           >
@@ -37,9 +36,9 @@ export const Basic = ({ argTypes }) => {
           </lume-chart>
 
           <lume-chart
-            v-bind="props"
-            :data="[props.data[1]]"
-            :title="props.data[1].label"
+            v-bind="args"
+            :data="[args.data[1]]"
+            :title="args.data[1].label"
             style="height: 182px"
             orientation="horizontal"
           >

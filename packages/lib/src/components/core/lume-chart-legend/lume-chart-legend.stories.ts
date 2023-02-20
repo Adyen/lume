@@ -18,16 +18,15 @@ export default {
   args: {},
 };
 
-const Template = ({ argTypes }) => ({
+const Template = ({ args }) => ({
   components: { LumeChartLegend },
-  props: Object.keys(argTypes),
-  setup(props: InstanceType<typeof LumeChartLegend>['$props']) {
-    const { data, labels } = toRefs(props);
+  setup() {
+    const { data, labels } = toRefs(args);
     const { internalData } = useBase(data, labels);
-    return { props, internalData };
+    return { args, internalData };
   },
   template: `
-    <lume-chart-legend v-bind="props" :data="internalData" />
+    <lume-chart-legend v-bind="args" :data="internalData" />
   `,
 });
 
