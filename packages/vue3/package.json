@@ -1,0 +1,20 @@
+{
+  "name": "lib",
+  "version": "*",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@vue/vue3-jest": "29.2.2",
+    "vue": "3.2.36",
+    "vue-template-compiler": "3.2.36"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

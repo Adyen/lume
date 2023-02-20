@@ -13,7 +13,10 @@
     "outDir": "./dist/",
     "paths": {
       "@/*": ["./src/*"],
-      "@test/*": ["./test/*"]
+      "@test/*": ["./test/*"],
+      "@adyen/lume-core": [
+          "node_modules/@adyen/lib/src"
+      ]
     },
     "sourceMap": true,
     "target": "esnext",
