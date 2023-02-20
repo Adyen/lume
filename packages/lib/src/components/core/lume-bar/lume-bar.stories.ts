@@ -32,19 +32,18 @@ export default {
   },
 };
 
-const Template = ({ argTypes }) => ({
+const Template = ({ args }) => ({
   components: { LumeBar },
-  props: Object.keys(argTypes),
-  setup(props: InstanceType<typeof LumeBar>['$props']) {
+  setup() {
     const computedFillClass = computed(
-      () => `lume-fill--` + COLOR_CLASS_MAP[props.color]
+      () => `lume-fill--` + COLOR_CLASS_MAP[args.color]
     );
 
-    return { props, computedFillClass };
+    return { args, computedFillClass };
   },
   template: `
     <svg width="300" height="300">
-      <lume-bar v-bind="props" :class-list="computedFillClass" />
+      <lume-bar v-bind="args" :class-list="computedFillClass" />
     </svg>
   `,
 });

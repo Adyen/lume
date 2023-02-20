@@ -1,10 +1,16 @@
-import { computed, toRefs, watch } from 'vue';
+import { computed, watch } from 'vue';
+
 import { withSizeArgs, withSizeArgTypes } from '@/docs/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/base-data';
 
 import LumeBarChart from './index';
 
 import { Colors, ORIENTATIONS } from '@/utils/constants';
+
+const tickFormat = {
+  'charts-bar-chart--maximum-datasets': '.2s',
+  'charts-bar-chart--real-data': '~s',
+};
 
 export default {
   title: 'Charts/Bar chart',
@@ -43,41 +49,15 @@ export default {
   },
 };
 
-const Template = ({ argTypes, updateArgs, id }) => ({
+const Template = ({ args }) => ({
   components: { LumeBarChart },
-  props: Object.keys(argTypes),
-  setup(props) {
-    const computedColor = computed(() => Colors[props.color]);
-    const { orientation } = toRefs(props);
-    const tickFormat = {
-      'charts-bar-chart--maximum-datasets': '.2s',
-      'charts-bar-chart--real-data': '~s',
-    };
-
-    watch(
-      orientation,
-      (value) => {
-        updateArgs({
-          options: {
-            xAxisOptions:
-              value === ORIENTATIONS.HORIZONTAL && tickFormat[id]
-                ? { tickFormat: tickFormat[id] }
-                : {},
-            yAxisOptions:
-              value === ORIENTATIONS.VERTICAL && tickFormat[id]
-                ? { tickFormat: tickFormat[id] }
-                : {},
-          },
-        });
-      },
-      { immediate: true }
-    );
-
-    return { computedColor, props };
+  setup() {
+    const computedColor = computed(() => Colors[args.color]);
+    return { args, computedColor };
   },
   template: `
-  <div :style="{ width: width + 'px', height: props.orientation !== 'horizontal' ? height + 'px' : undefined }">
-      <lume-bar-chart v-bind="props" :color="computedColor"/>
+  <div :style="{ width: args.width + 'px', height: args.orientation !== 'horizontal' ? args.height + 'px' : undefined }">
+      <lume-bar-chart v-bind="args" :color="computedColor"/>
   </div>
   `,
 });

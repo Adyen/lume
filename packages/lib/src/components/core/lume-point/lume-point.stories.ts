@@ -25,17 +25,16 @@ export default {
   },
 };
 
-const Template = ({ argTypes }) => ({
+const Template = ({ args }) => ({
   components: { LumePoint },
-  props: Object.keys(argTypes),
-  setup(props) {
-    const computedColor = computed(() => Colors[props.color]);
+  setup() {
+    const computedColor = computed(() => Colors[args.color]);
 
-    return { props, computedColor };
+    return { args, computedColor };
   },
   template: `
     <svg width="300" height="300">
-      <lume-point v-bind="props" :color="computedColor" active />
+      <lume-point v-bind="args" :color="computedColor" active />
     </svg>
   `,
 });

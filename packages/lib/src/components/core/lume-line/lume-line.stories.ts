@@ -31,20 +31,19 @@ export default {
   },
 };
 
-const Template = ({ argTypes }) => ({
+const Template = ({ args }) => ({
   components: { LumeLine },
-  props: Object.keys(argTypes),
-  setup(props) {
-    const computedColor = computed(() => Colors[props.color]);
+  setup() {
+    const computedColor = computed(() => Colors[args.color]);
     const pathDefinition = computed(
-      () => `M${props.x1},${props.y1} L${props.x2},${props.y2}`
+      () => `M${args.x1},${args.y1} L${args.x2},${args.y2}`
     );
 
-    return { props, computedColor, pathDefinition };
+    return { args, computedColor, pathDefinition };
   },
   template: `
     <svg width="300" height="300">
-      <lume-line v-bind="props" :color="computedColor" :path-definition="pathDefinition" />
+      <lume-line v-bind="args" :color="computedColor" :path-definition="pathDefinition" />
     </svg>
   `,
 });

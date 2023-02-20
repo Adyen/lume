@@ -50,25 +50,24 @@ export default {
   },
 };
 
-const Template = ({ args, argTypes }) => {
+const Template = ({ args }) => {
   return {
     components: { LumeSparkline },
-    props: Object.keys(argTypes),
-    setup(props) {
+    setup() {
       const computedData = computed(() => {
         // eslint-disable-next-line no-undef
-        const dataset = structuredClone(props.data); // Deep copy dataset array
-        if (props.color) dataset[0].color = COLOR_CLASS_MAP[props.color];
-        if (props.areaColor)
-          dataset[0].areaColor = COLOR_CLASS_MAP[props.areaColor];
+        const dataset = structuredClone(args.data); // Deep copy dataset array
+        if (args.color) dataset[0].color = COLOR_CLASS_MAP[args.color];
+        if (args.areaColor)
+          dataset[0].areaColor = COLOR_CLASS_MAP[args.areaColor];
         return dataset;
       });
 
       return { args, computedData };
     },
     template: `
-        <div :style="{ width: width + 'px', height: height + 'px' }">
-            <lume-sparkline :data="computedData" :options="options" />
+        <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+            <lume-sparkline v-bind="args" :data="computedData" />
         </div>
     `,
   };
