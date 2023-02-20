@@ -1,14 +1,8 @@
-import Vue from 'vue';
 import { useArgs } from '@storybook/client-api';
 
 import '@/styles/font.scss';
 import '@/styles/main.scss';
 import './preview-styles.scss';
-
-if (process.env.NODE_ENV === 'development') {
-  Vue.config.performance = true;
-  Vue.config.productionTip = false;
-}
 
 export const parameters = {
   passArgsFirst: false,

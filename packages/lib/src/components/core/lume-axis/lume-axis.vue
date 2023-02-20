@@ -27,12 +27,9 @@
       </linearGradient>
     </defs>
 
-    <vue-portal
+    <template
       v-for="(tick, index) in ticksWithAttributes"
       :key="`${tick.value}_${index}`"
-      slim
-      :disabled="!isHovering(index)"
-      :to="`${chartID}-${computedType}-hovered-portal`"
     >
       <g
         v-bind="tick.group"
@@ -71,13 +68,13 @@
           class="axis__grid-line"
         />
       </g>
-    </vue-portal>
+    </template>
 
     <!-- Hovered tick -->
-    <vue-portal-target
+    <!-- <vue-portal-target
       :name="`${chartID}-${computedType}-hovered-portal`"
       slim
-    />
+    /> -->
   </g>
 </template>
 
@@ -109,10 +106,6 @@ import {
 } from 'vue';
 import { ticks as d3TickGenerator } from 'd3';
 import { ScaleBand } from 'd3';
-import {
-  Portal as VuePortal,
-  PortalTarget as VuePortalTarget,
-} from 'portal-vue';
 
 import { useFormat } from '@/composables/format';
 import { AxisOptions, useOptions, withOptions } from '@/composables/options';

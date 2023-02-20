@@ -1,13 +1,20 @@
 {
   "name": "@adyen/lume-core",
-  "version": "*",
+  "version": "0.3.0",
   "description": "",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./plugin": "./src/plugin.ts",
+    "./font": "./src/styles/font.scss"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint:fix": "npm run lint -- --fix",
+    "lint:pretty": "prettier --write --ignore-unknown .",
+    "lint": "eslint ./src ./test --ext .js,.ts,.vue"
   },
   "keywords": [],
   "author": "",

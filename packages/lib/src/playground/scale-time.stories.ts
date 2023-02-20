@@ -17,10 +17,9 @@ export default {
   },
 };
 
-export const Basic = ({ args, argTypes }) => {
+export const Basic = ({ args }) => {
   return {
     components: { ScaleTime },
-    props: Object.keys(argTypes),
     setup() {
       return { args };
     },

@@ -39,16 +39,15 @@ export default {
   },
 };
 
-const Template = ({ argTypes }) => {
+const Template = ({ args }) => {
   return {
     components: { LumeAlluvialDiagram },
-    props: Object.keys(argTypes),
-    setup(props) {
-      return { props };
+    setup() {
+      return { args };
     },
     template: `
-      <div :style="{ width: width + 'px', height: height + 'px' }">
-        <lume-alluvial-diagram v-bind="props" :data="data" />
+      <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+        <lume-alluvial-diagram v-bind="args" />
       </div>
   `,
   };

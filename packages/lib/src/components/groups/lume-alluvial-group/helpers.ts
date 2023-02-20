@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import {
   SankeyGraph,
   SankeyLink,
@@ -135,7 +134,7 @@ export function updateNode(
       iteration = 1;
     }
 
-    Vue.set(nodeBlock.node, 'transitionValue', interpolator(iteration));
+    nodeBlock.node.transitionValue = interpolator(iteration);
 
     if (iteration < 1) {
       requestAnimationFrame(performNextUpdate);

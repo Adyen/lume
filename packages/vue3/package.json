@@ -1,18 +1,38 @@
 {
-  "name": "lib",
-  "version": "*",
+  "name": "@adyen/lume",
+  "version": "0.3.0",
   "description": "",
-  "main": "index.js",
-  "directories": {
-    "test": "test"
+  "type": "module",
+  "module": "dist/index.js",
+  "files": [
+    "dist/"
+  ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./plugin": "./dist/plugin.js",
+    "./styles": "./dist/styles/main.css",
+    "./font": "./dist/styles/font.css",
+    "./scss": "./dist/scss/main.scss",
+    "./package.json": "./package.json"
   },
+  "types": "./dist/types/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "NODE_ENV=production npm run build:vite && npm run build:font",
+    "build:vite": "vite build",
+    "build:font": "webpack",
+    "postbuild": "node ../../build/postbuild.js"
   },
   "dependencies": {
-    "@vue/vue3-jest": "29.2.2",
-    "vue": "3.2.36",
-    "vue-template-compiler": "3.2.36"
+    "@popperjs/core": "^2.11.4",
+    "d3": "7.8.0",
+    "d3-sankey": "0.12.3"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.36"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "vue": "^3.2.36"
   },
   "keywords": [],
   "author": "",

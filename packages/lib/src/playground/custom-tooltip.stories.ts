@@ -35,14 +35,13 @@ export default {
   },
 };
 
-export const CustomTooltipElement = ({ args, argTypes }) => ({
+export const CustomTooltipElement = ({ args }) => ({
   components: { LumeChart, LumeLineGroup, CustomTooltip },
-  props: Object.keys(argTypes),
   setup() {
     return { args };
   },
   template: `
-  <div :style="{ width: width + 'px', height: height + 'px' }">
+  <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
     <lume-chart v-bind="args">
       <template #groups="props">
         <lume-line-group v-bind="props" />
@@ -55,14 +54,13 @@ export const CustomTooltipElement = ({ args, argTypes }) => ({
   `,
 });
 
-export const CustomTooltipContent = ({ args, argTypes }) => ({
+export const CustomTooltipContent = ({ args }) => ({
   components: { LumeChart, LumeLineGroup, CustomTooltip },
-  props: Object.keys(argTypes),
   setup() {
     return { args };
   },
   template: `
-  <div :style="{ width: width + 'px', height: height + 'px' }">
+  <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
     <lume-chart v-bind="args">
       <template #groups="props">
         <lume-line-group v-bind="props" />

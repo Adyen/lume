@@ -31,34 +31,33 @@ export default {
   },
 };
 
-const Template = ({ argTypes }) => ({
+const Template = ({ args }) => ({
   components: { LumeAxis },
-  props: Object.keys(argTypes),
-  setup(props: InstanceType<typeof LumeAxis>['$props']) {
+  setup() {
     const computedContainerSize = computed(() => ({
-      width: props.width,
-      height: props.height,
+      width: args.width,
+      height: args.height,
     }));
 
     const computedScale = computed(() =>
-      props.scale.range(
-        props.type === 'x' ? [0, props.width] : [props.height - 28, 0]
+      args.scale.range(
+        args.type === 'x' ? [0, args.width] : [args.height - 28, 0]
       )
     );
 
     const transform = computed(
       () =>
-        `translate(${props.type === 'x' ? 0 : 28}, ${
-          props.type === 'x' ? -28 : 14
+        `translate(${args.type === 'x' ? 0 : 28}, ${
+          args.type === 'x' ? -28 : 14
         })`
     );
 
-    return { props, computedContainerSize, computedScale, transform };
+    return { args, computedContainerSize, computedScale, transform };
   },
   template: `
-    <svg :width="width" :height="height">
+    <svg :width="args.width" :height="args.height">
       <g :transform="transform">
-        <lume-axis v-bind="props" :scale="computedScale" :container-size="computedContainerSize" />
+        <lume-axis v-bind="args" :scale="computedScale" :container-size="computedContainerSize" />
       </g>
     </svg>
   `,
@@ -80,27 +79,26 @@ yAxis.args = {
 };
 yAxis.storyName = 'Y Axis (linear scale)';
 
-export const bothAxes = ({ argTypes }) => ({
+export const bothAxes = ({ args }) => ({
   components: { LumeAxis },
-  props: Object.keys(argTypes),
-  setup(props: InstanceType<typeof LumeAxis>['$props']) {
+  setup() {
     const computedContainerSize = computed(() => ({
-      width: props.width - 28,
-      height: props.height - 32,
+      width: args.width - 28,
+      height: args.height - 32,
     }));
 
     const computedXScale = computed(() =>
-      SCALES.band.range([0, props.width - 28])
+      SCALES.band.range([0, args.width - 28])
     );
 
     const computedYScale = computed(() =>
-      SCALES.linear.range([props.height - 32, 0])
+      SCALES.linear.range([args.height - 32, 0])
     );
 
     const transform = computed(() => `translate(28, 14)`);
 
     return {
-      props,
+      args,
       computedContainerSize,
       computedXScale,
       computedYScale,
@@ -108,10 +106,10 @@ export const bothAxes = ({ argTypes }) => ({
     };
   },
   template: `
-    <svg :width="width" :height="height">
+    <svg :width="args.width" :height="args.height">
       <g :transform="transform">
-        <lume-axis v-bind="props" type="x" :scale="computedXScale" :container-size="computedContainerSize" />
-        <lume-axis v-bind="props" type="y" :scale="computedYScale" :container-size="computedContainerSize" />
+        <lume-axis v-bind="args" type="x" :scale="computedXScale" :container-size="computedContainerSize" />
+        <lume-axis v-bind="args" type="y" :scale="computedYScale" :container-size="computedContainerSize" />
       </g>
     </svg>
   `,

@@ -37,7 +37,6 @@
           </h3>
 
           <!-- chart legend -->
-          <!-- Portals to bottom of the chart if `legendPosition` is 'bottom' -->
           <slot
             name="legend"
             :data="internalData"
@@ -192,15 +191,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  computed,
-  onMounted,
-  PropType,
-  provide,
-  ref,
-  toRefs,
-  useSlots,
-} from 'vue';
+import { computed, onMounted, PropType, ref, toRefs, useSlots } from 'vue';
 
 import {
   LumeAxis,
