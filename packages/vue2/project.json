@@ -1,0 +1,6 @@
+{
+    "name": "two",
+    "root": "packages/vue2",
+    "projectType": "application"
+}
+

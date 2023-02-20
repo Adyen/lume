@@ -1,0 +1,6 @@
+{
+    "name": "three",
+    "root": "packages/vue3",
+    "projectType": "application"
+}
+
