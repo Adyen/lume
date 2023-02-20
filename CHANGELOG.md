@@ -2,7 +2,14 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.3.1](https://github.com/Adyen/lume/compare/v0.3.0...v0.3.1)
+
+- 🔖 Release v0.3.0 [`233ba20`](https://github.com/Adyen/lume/commit/233ba20a07fdd5afcf70db2d00239d26c3e11354)
+- 🐛 Fix duplicated keys in tooltip anchors [`df072c6`](https://github.com/Adyen/lume/commit/df072c6ccdb55b6846ada98ec970d50b0c5047f0)
+
 #### [v0.3.0](https://github.com/Adyen/lume/compare/v0.2.1...v0.3.0)
+
+> 15 February 2023
 
 - 🔨 Authenticate with NPM only when needed [`#144`](https://github.com/Adyen/lume/pull/144)
 - 🔖 Release v0.2.1 [`#150`](https://github.com/Adyen/lume/pull/150)
