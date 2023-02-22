@@ -5,6 +5,7 @@ import {
   DivergentColors,
   LegacyColors,
   OtherColors,
+  SequentialColors,
 } from '@/utils/constants';
 import { shiftItems } from './helpers';
 import { warn, Warnings } from './warnings';
@@ -26,9 +27,12 @@ function validateColor(color: Color | null, palette: ColorPalette) {
   if (palette === ColorPalette.Divergent) {
     return Object.values(DivergentColors).includes(color as DivergentColors);
   }
-  return Object.values({ ...Colors, ...OtherColors, ...LegacyColors }).includes(
-    color as Colors | LegacyColors
-  );
+  return Object.values({
+    ...Colors,
+    ...SequentialColors,
+    ...OtherColors,
+    ...LegacyColors,
+  }).includes(color as Colors | LegacyColors);
 }
 
 function getCategoricalColor(color: Colors, index: number) {
