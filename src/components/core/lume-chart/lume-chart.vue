@@ -37,19 +37,21 @@
 
           <!-- chart legend -->
           <!-- Portals to bottom of the chart if `legendPosition` is 'bottom' -->
-          <vue-portal
-            v-if="allOptions.withLegend !== false"
-            :disabled="allOptions.legendPosition !== 'bottom'"
-            :to="`legend-bottom-${chartID}`"
-            slim
+          <slot
+            name="legend"
+            :data="internalData"
           >
             <lume-chart-legend
+              v-if="
+                allOptions.withLegend !== false &&
+                  allOptions.legendPosition !== 'bottom'
+              "
               :data="internalData"
               class="lume-chart__legend"
               data-j-lume-chart__legend
               @click="emit('click', $event)"
             />
-          </vue-portal>
+          </slot>
         </div>
       </div>
     </template>
@@ -145,9 +147,15 @@
       </h3>
 
       <!-- bottom chart legend -->
-      <vue-portal-target
-        :name="`legend-bottom-${chartID}`"
-        slim
+      <lume-chart-legend
+        v-if="
+          allOptions.withLegend !== false &&
+            allOptions.legendPosition == 'bottom'
+        "
+        :data="internalData"
+        class="lume-chart__legend lume-chart__legend--bottom"
+        data-j-lume-chart__legend
+        @click="emit('click', $event)"
       />
     </template>
 
@@ -184,10 +192,6 @@
 
 <script setup lang="ts">
 import { computed, onMounted, PropType, ref, toRefs, useSlots } from 'vue';
-import {
-  Portal as VuePortal,
-  PortalTarget as VuePortalTarget,
-} from 'portal-vue';
 
 import {
   LumeAxis,
@@ -239,8 +243,13 @@ const chartContainer = ref<InstanceType<typeof LumeChartContainer>>(null);
 
 const { allOptions } = useOptions<ChartOptions>(options);
 
-const { internalData, computedLabels, containerSize, updateSize, chartID } =
-  useBase(data, labels, color, allOptions, orientation);
+const { internalData, computedLabels, containerSize, updateSize } = useBase(
+  data,
+  labels,
+  color,
+  allOptions,
+  orientation
+);
 
 const { xScale, yScale } = useBaseScales(
   internalData,
