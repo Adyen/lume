@@ -1,6 +1,6 @@
 {
   "name": "@adyen/lume",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Lume is a component library for visual representations of data, built for Vue with D3.",
   "type": "module",
   "module": "dist/index.js",
