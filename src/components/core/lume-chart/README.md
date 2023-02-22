@@ -14,6 +14,7 @@ It is used internally to build all Lume charts but it can also be used to create
     - [Chart options](#chart-options)
     - [Slot props](#slot-props)
       - [`controls`](#controls)
+      - [`legend`](#legend)
       - [`axes`](#axes)
       - [`groups`](#groups)
       - [`tooltip`](#tooltip)
@@ -37,6 +38,7 @@ Lume chart serves as a base to chart building because it provides `<slot>`s for 
 The available slots are:
 
 - `controls` - for chart controls on the top-right of the header
+- `legend` - for the chart legend on the top-right of the header, below `controls`
 - `axes` - for chart axes
 - `groups` - for data groups
 - `tooltip` - for the tooltip element (replaces default tooltip)
@@ -121,6 +123,12 @@ Interface: `ChartOptions`
 #### `controls`
 
 No props.
+
+#### `legend`
+
+| Name   | Type   | Description       |
+| ------ | ------ | ----------------- |
+| `data` | `Data` | The data to plot. |
 
 #### `axes`
 
