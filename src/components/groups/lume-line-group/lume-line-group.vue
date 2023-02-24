@@ -52,7 +52,7 @@ const LUME_TRANSITION_TIME_FULL = 1; // 1s
 </script>
 
 <script setup lang="ts">
-import { computed, defineProps, toRefs } from 'vue';
+import { computed, defineProps, inject, Ref, toRefs } from 'vue';
 import { ScaleLinear } from 'd3';
 
 import LumeLine from '@/components/core/lume-line';
@@ -63,7 +63,7 @@ import { useLineNullValues } from '@/composables/line-null-values';
 import { getLinePathDefinition } from '@/composables/line-values';
 import { withGroupProps } from '@/composables/group-props';
 import { LineChartOptions } from '@/composables/options';
-import { useTooltipAnchors } from '@/composables/tooltip';
+import { AnchorAttributes, useTooltipAnchors } from '@/composables/tooltip';
 
 import {
   getDomainLength,
@@ -86,6 +86,16 @@ const props = defineProps({
 
 const { data, options, xScale, yScale } = toRefs(props);
 
+const tooltipAnchorAttributes: Ref<AnchorAttributes[]> = inject(
+  'tooltipAnchorAttributes'
+);
+const { updateTooltipAnchorAttributes } = useTooltipAnchors(
+  tooltipAnchorAttributes,
+  options,
+  xScale,
+  yScale
+);
+
 const computedGroupData = computed(() => {
   // Check if all datasets have `isDashed` function (which means data has been computed for line null values)
   if (data.value.every((dataset) => dataset.isDashed)) {
@@ -96,7 +106,6 @@ const computedGroupData = computed(() => {
   const { computedLineData } = useLineNullValues(data);
 
   if (options.value.withTooltip !== false) {
-    const { updateTooltipAnchorAttributes } = useTooltipAnchors(xScale, yScale);
     updateTooltipAnchorAttributes(computedLineData.value); // Updates tooltip anchors for null values
   }
 

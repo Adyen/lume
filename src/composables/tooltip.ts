@@ -1,11 +1,12 @@
-import { computed, reactive, ref, Ref, watch } from 'vue';
+import { computed, reactive, Ref, watch } from 'vue';
 
 import { getXByIndex, Scale } from './scales';
 
 import { NO_DATA, Orientation, ORIENTATIONS } from '@/utils/constants';
 import { InternalData } from '@/types/dataset';
+import { ChartOptions } from './options';
 
-interface AnchorAttributes {
+export interface AnchorAttributes {
   cx: number;
   cy: number;
 }
@@ -41,22 +42,28 @@ const ANCHOR_CALCULATION_METHOD_MAP: {
   'stacked-bar': getStackedHighestValue,
 };
 
-const tooltipAnchorAttributes = ref<Array<AnchorAttributes> | null>(null);
-
 export function useTooltipAnchors(
+  anchorAttributeArray: Ref<Array<AnchorAttributes> | null>,
+  options: Ref<ChartOptions>,
   xScale: Ref<Scale>,
   yScale: Ref<Scale>,
   orientation?: Ref<Orientation>,
   data?: Ref<InternalData>,
   chartType?: Ref<string>
 ) {
+  const shouldGenerateTooltipAnchors = computed(
+    () =>
+      options.value.withTooltip !== false &&
+      !options.value.tooltipOptions?.targetElement
+  );
+
   function updateTooltipAnchorAttributes(renderedData: InternalData) {
     const highestValues =
       chartType?.value && ANCHOR_CALCULATION_METHOD_MAP[chartType.value]
         ? ANCHOR_CALCULATION_METHOD_MAP[chartType.value](renderedData)
         : getHighestValues(renderedData);
 
-    tooltipAnchorAttributes.value = highestValues.map((value, index) => ({
+    anchorAttributeArray.value = highestValues.map((value, index) => ({
       cx:
         orientation?.value === ORIENTATIONS.HORIZONTAL
           ? xScale.value(value)
@@ -68,17 +75,18 @@ export function useTooltipAnchors(
     }));
   }
 
-  watch(
-    [xScale, yScale],
-    () => {
-      if (xScale.value && yScale.value && data?.value) {
-        updateTooltipAnchorAttributes(data.value);
-      }
-    },
-    { immediate: true }
-  );
+  watch([xScale, yScale], () => {
+    if (
+      xScale.value &&
+      yScale.value &&
+      data?.value &&
+      shouldGenerateTooltipAnchors.value
+    ) {
+      updateTooltipAnchorAttributes(data.value);
+    }
+  });
 
-  return { tooltipAnchorAttributes, updateTooltipAnchorAttributes };
+  return { shouldGenerateTooltipAnchors, updateTooltipAnchorAttributes };
 }
 
 export function useTooltip() {

@@ -1,5 +1,6 @@
 <template>
   <lume-chart-container
+    :id="`lume-chart_${chartID}`"
     ref="chartContainer"
     :margins="allOptions.margins"
     :container-size="containerSize"
@@ -127,10 +128,10 @@
       <!-- Tooltip anchors -->
       <g v-if="shouldGenerateTooltipAnchors">
         <circle
-          v-for="attrs in tooltipAnchorAttributes"
+          v-for="(attrs, index) in tooltipAnchorAttributes"
           v-bind="attrs"
           ref="tooltipAnchor"
-          :key="`anchor-${attrs.cx}${attrs.cy}`"
+          :key="`anchor_${index}`"
           :r="tooltipAnchorRadius"
           class="lume-fill--transparent"
         />
@@ -191,7 +192,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, PropType, ref, toRefs, useSlots } from 'vue';
+import {
+  computed,
+  onMounted,
+  PropType,
+  provide,
+  ref,
+  toRefs,
+  useSlots,
+} from 'vue';
 
 import {
   LumeAxis,
@@ -211,6 +220,7 @@ import {
   useNegativeValues,
 } from '@/composables/negative-values';
 import {
+  AnchorAttributes,
   useTooltip,
   useTooltipAnchors,
   useTooltipItems,
@@ -240,16 +250,12 @@ const { data, labels, color, options, orientation, chartType } = toRefs(props);
 const hoveredIndex = ref<number>(-1);
 const tooltipAnchor = ref<SVGCircleElement>(null);
 const chartContainer = ref<InstanceType<typeof LumeChartContainer>>(null);
+const tooltipAnchorAttributes = ref<Array<AnchorAttributes> | null>(null);
 
 const { allOptions } = useOptions<ChartOptions>(options);
 
-const { internalData, computedLabels, containerSize, updateSize } = useBase(
-  data,
-  labels,
-  color,
-  allOptions,
-  orientation
-);
+const { internalData, computedLabels, containerSize, updateSize, chartID } =
+  useBase(data, labels, color, allOptions, orientation);
 
 const { xScale, yScale } = useBaseScales(
   internalData,
@@ -299,12 +305,6 @@ const showYAxisTitle = computed(() => {
   return allOptions.value.yAxisOptions?.withTitle !== false && yAxisTitle.value;
 });
 
-const shouldGenerateTooltipAnchors = computed(
-  () =>
-    allOptions.value.withTooltip !== false &&
-    !allOptions.value.tooltipOptions?.targetElement
-);
-
 const isReady = computed(() => {
   const conditions = [];
 
@@ -325,7 +325,9 @@ const { negativeBarAttributes } = useNegativeValues(
   orientation
 );
 
-const { tooltipAnchorAttributes } = useTooltipAnchors(
+const { shouldGenerateTooltipAnchors } = useTooltipAnchors(
+  tooltipAnchorAttributes,
+  allOptions,
   computedXScale,
   computedYScale,
   orientation,
@@ -361,6 +363,9 @@ function handleMouseleave() {
   hideTooltip();
   hoveredIndex.value = -1;
 }
+
+provide('chartID', chartID);
+provide('tooltipAnchorAttributes', tooltipAnchorAttributes); // provide anchors to re-compute in some cases
 
 onMounted(() => {
   if (!slots.groups?.()) {

@@ -99,6 +99,7 @@ enum TYPES {
 <script setup lang="ts">
 import {
   computed,
+  inject,
   onMounted,
   PropType,
   reactive,
@@ -113,7 +114,6 @@ import {
   PortalTarget as VuePortalTarget,
 } from 'portal-vue';
 
-import { useBase } from '@/composables/base';
 import { useFormat } from '@/composables/format';
 import { AxisOptions, useOptions, withOptions } from '@/composables/options';
 import { ComputedScaleBand, Scale } from '@/composables/scales';
@@ -170,7 +170,7 @@ const tickRefs = ref<Array<SVGTextElement>>(null);
 const root = ref<SVGGElement>(null);
 const ticksWithAttributes = ref(null);
 
-const { chartID } = useBase();
+const chartID = inject('chartID');
 
 const computedPosition = computed(() =>
   props.type ? TYPES[props.type] : props.position
