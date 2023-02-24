@@ -250,7 +250,7 @@ const { data, labels, color, options, orientation, chartType } = toRefs(props);
 const hoveredIndex = ref<number>(-1);
 const tooltipAnchor = ref<SVGCircleElement>(null);
 const chartContainer = ref<InstanceType<typeof LumeChartContainer>>(null);
-const tooltipAnchorAttributes = ref<Array<AnchorAttributes> | null>(null);
+const tooltipAnchorAttributes = ref<Array<AnchorAttributes>>([]);
 
 const { allOptions } = useOptions<ChartOptions>(options);
 
