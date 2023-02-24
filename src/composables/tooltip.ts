@@ -43,7 +43,7 @@ const ANCHOR_CALCULATION_METHOD_MAP: {
 };
 
 export function useTooltipAnchors(
-  anchorAttributeArray: Ref<Array<AnchorAttributes> | null>,
+  anchorAttributeArray: Ref<Array<AnchorAttributes>>,
   options: Ref<ChartOptions>,
   xScale: Ref<Scale>,
   yScale: Ref<Scale>,
@@ -75,16 +75,20 @@ export function useTooltipAnchors(
     }));
   }
 
-  watch([xScale, yScale], () => {
-    if (
-      xScale.value &&
-      yScale.value &&
-      data?.value &&
-      shouldGenerateTooltipAnchors.value
-    ) {
-      updateTooltipAnchorAttributes(data.value);
-    }
-  });
+  watch(
+    [xScale, yScale],
+    () => {
+      if (
+        xScale.value &&
+        yScale.value &&
+        data?.value &&
+        shouldGenerateTooltipAnchors.value
+      ) {
+        updateTooltipAnchorAttributes(data.value);
+      }
+    },
+    { immediate: true }
+  );
 
   return { shouldGenerateTooltipAnchors, updateTooltipAnchorAttributes };
 }

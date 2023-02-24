@@ -1,3 +1,4 @@
+import { ref } from 'vue';
 import { mount } from '@vue/test-utils';
 
 import LumeLineGroup from './lume-line-group.vue';
@@ -12,6 +13,11 @@ describe('lume-line-group.vue', () => {
   test('mounts component and sets prop values', () => {
     const wrapper = mount(LumeLineGroup, {
       propsData: defaultPropsData,
+      provide: {
+        tooltipAnchorAttributes() {
+          return ref([]);
+        },
+      },
     });
 
     const el = wrapper.find('[data-j-lume-line-group]');
@@ -33,6 +39,11 @@ describe('lume-line-group.vue', () => {
         ...defaultPropsData,
         hoveredIndex,
       },
+      provide: {
+        tooltipAnchorAttributes() {
+          return ref([]);
+        },
+      },
     });
 
     const el = wrapper.find('[data-j-lume-line-group__overlay-line]');
@@ -44,6 +55,11 @@ describe('lume-line-group.vue', () => {
       propsData: {
         ...defaultPropsData,
         withPoints: false,
+      },
+      provide: {
+        tooltipAnchorAttributes() {
+          return ref([]);
+        },
       },
     });
 

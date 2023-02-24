@@ -11,12 +11,14 @@ import { InternalData } from '@/types/dataset';
 const orientation: Orientation = 'vertical';
 const chartType = 'bar';
 
-const getTooltipAnchorsMixin = (xScale, yScale, orientation) => {
+const getTooltipAnchorsMixin = (anchors, xScale, yScale, orientation) => {
   let mixin = null;
   mount({
     template: '<div></div>',
     setup() {
       mixin = useTooltipAnchors(
+        anchors,
+        ref({}),
         ref(xScale),
         ref(yScale),
         ref(orientation),
@@ -47,10 +49,16 @@ describe('tooltip.ts', () => {
   describe('useTooltipAnchors', () => {
     test('should return expected object with orientation vertical', () => {
       const expected = { cy: 80, cx: 45.714285714285715 };
-      const mixin = getTooltipAnchorsMixin(xScale, yScale, orientation);
+      const anchors = ref([]);
+      const mixin = getTooltipAnchorsMixin(
+        anchors,
+        xScale,
+        yScale,
+        orientation
+      );
       mixin.updateTooltipAnchorAttributes(data);
 
-      expect(mixin.tooltipAnchorAttributes.value[0]).toEqual(expected);
+      expect(anchors.value[0]).toEqual(expected);
     });
 
     test('should return formatted tooltip items', () => {
@@ -62,10 +70,16 @@ describe('tooltip.ts', () => {
 
     test('should return expected object with orientation horizontal', () => {
       const expected = { cy: 45.714285714285715, cx: 80 };
-      const mixin = getTooltipAnchorsMixin(yScale, xScale, 'horizontal');
+      const anchors = ref([]);
+      const mixin = getTooltipAnchorsMixin(
+        anchors,
+        yScale,
+        xScale,
+        'horizontal'
+      );
       mixin.updateTooltipAnchorAttributes(data);
 
-      expect(mixin.tooltipAnchorAttributes.value[0]).toEqual(expected);
+      expect(anchors.value[0]).toEqual(expected);
     });
   });
 
