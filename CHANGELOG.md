@@ -2,11 +2,19 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.3.3](https://github.com/Adyen/lume/compare/v0.3.2...v0.3.3)
+
+- 🐛 Fix chart ID not being unique + tooltip anchor issues [`8391edf`](https://github.com/Adyen/lume/commit/8391edf224c2adf4ae72044e111bbc288d427b54)
+- ✅ Update & fix unit tests [`9fdc431`](https://github.com/Adyen/lume/commit/9fdc431f3e686d280b07b4bdb8c24ad599d09705)
+- 🔖 Release v0.3.2 [`e5f3259`](https://github.com/Adyen/lume/commit/e5f32595123daa9c7945035814c22ea941e4c7ef)
+
 #### [v0.3.2](https://github.com/Adyen/lume/compare/v0.3.1...v0.3.2)
+
+> 22 February 2023
 
 - 🐛 Add missing sequential colors enum [`2325c36`](https://github.com/Adyen/lume/commit/2325c364d18d12784b2d9b8afb08e8d874510a65)
 - 🐛 Add missing header chart legend slot [`fbfa8cd`](https://github.com/Adyen/lume/commit/fbfa8cd491f03f6fdfe430d709cff8df9983c1ca)
-- 🔖 Release v0.3.1 [`efed115`](https://github.com/Adyen/lume/commit/efed11534a39bb33be3d475b4e4dbfaa44c09251)
+- 🔖 Release v0.3.2 [`86f23ea`](https://github.com/Adyen/lume/commit/86f23ea3c7eee4b16cf342d6be67fe739cdda664)
 
 #### [v0.3.1](https://github.com/Adyen/lume/compare/v0.3.0...v0.3.1)
 
