@@ -86,8 +86,9 @@ const props = defineProps({
 
 const { data, options, xScale, yScale } = toRefs(props);
 
-const tooltipAnchorAttributes: Ref<AnchorAttributes[]> = inject(
-  'tooltipAnchorAttributes'
+const tooltipAnchorAttributes = inject<Ref<AnchorAttributes[]> | null>(
+  'tooltipAnchorAttributes',
+  null
 );
 const { updateTooltipAnchorAttributes } = useTooltipAnchors(
   tooltipAnchorAttributes,
@@ -105,7 +106,7 @@ const computedGroupData = computed(() => {
   // Compute line null values and return it
   const { computedLineData } = useLineNullValues(data);
 
-  if (options.value.withTooltip !== false) {
+  if (options.value.withTooltip !== false && tooltipAnchorAttributes?.value) {
     updateTooltipAnchorAttributes(computedLineData.value); // Updates tooltip anchors for null values
   }
 
