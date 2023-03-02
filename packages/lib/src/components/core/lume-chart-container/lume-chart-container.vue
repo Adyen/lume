@@ -17,7 +17,7 @@
       }"
       :height="svgHeight"
       data-j-chart-container__root
-      @mouseleave="$emit('mouseleave', $event)"
+      @mouseleave="emit('mouseleave', $event)"
     >
       <g
         :transform="`translate(${computedMargins.left}, ${computedMargins.top})`"
@@ -69,6 +69,7 @@ const props = defineProps({
 
 const emit = defineEmits<{
   (e: 'resize', value: ContainerSize): void;
+  (e: 'mouseleave', value: MouseEvent): void;
 }>();
 
 const { margins, containerSize } = toRefs(props);

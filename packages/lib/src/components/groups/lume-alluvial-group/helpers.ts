@@ -134,7 +134,11 @@ export function updateNode(
       iteration = 1;
     }
 
-    nodeBlock.node.transitionValue = interpolator(iteration);
+    // Needs reassign so that the value updates in Vue 2
+    nodeBlock.node = {
+      ...nodeBlock.node,
+      transitionValue: interpolator(iteration),
+    };
 
     if (iteration < 1) {
       requestAnimationFrame(performNextUpdate);
