@@ -245,8 +245,13 @@ const tooltipAnchorAttributes = ref<Array<AnchorAttributes>>([]);
 
 const { allOptions } = useOptions<ChartOptions>(options);
 
-const { internalData, computedLabels, containerSize, updateSize, chartID } =
-  useBase(data, labels, color, allOptions, orientation);
+const { internalData, computedLabels, containerSize, updateSize } = useBase(
+  data,
+  labels,
+  color,
+  allOptions,
+  orientation
+);
 
 const { xScale, yScale } = useBaseScales(
   internalData,
@@ -359,7 +364,7 @@ provide('chartID', chartID);
 provide('tooltipAnchorAttributes', tooltipAnchorAttributes); // provide anchors to re-compute in some cases
 
 onMounted(() => {
-  if (!slots.groups?.()) {
+  if (!slots.groups) {
     console.error('"groups" `<slot>` must have content.');
   }
 });
