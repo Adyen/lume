@@ -1,6 +1,6 @@
 {
   "name": "@adyen/lume-core",
-  "version": "0.3.0",
+  "version": "*",
   "description": "",
   "main": "index.js",
   "directories": {
