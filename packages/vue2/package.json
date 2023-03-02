@@ -1,6 +1,6 @@
 {
   "name": "@adyen/lume2",
-  "version": "0.3.0",
+  "version": "0.3.3",
   "description": "",
   "type": "module",
   "module": "dist/index.js",

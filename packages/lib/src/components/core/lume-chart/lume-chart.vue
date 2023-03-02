@@ -191,7 +191,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, PropType, ref, toRefs, useSlots } from 'vue';
+import {
+  computed,
+  onMounted,
+  PropType,
+  provide,
+  ref,
+  toRefs,
+  useSlots,
+} from 'vue';
 
 import {
   LumeAxis,
@@ -245,13 +253,8 @@ const tooltipAnchorAttributes = ref<Array<AnchorAttributes>>([]);
 
 const { allOptions } = useOptions<ChartOptions>(options);
 
-const { internalData, computedLabels, containerSize, updateSize } = useBase(
-  data,
-  labels,
-  color,
-  allOptions,
-  orientation
-);
+const { internalData, computedLabels, containerSize, updateSize, chartID } =
+  useBase(data, labels, color, allOptions, orientation);
 
 const { xScale, yScale } = useBaseScales(
   internalData,
