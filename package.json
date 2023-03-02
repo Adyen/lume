@@ -8,19 +8,6 @@
     "packages/vue2",
     "packages/vue3"
   ],
-  "module": "dist/index.js",
-  "files": [
-    "dist/"
-  ],
-  "exports": {
-    ".": "./dist/index.js",
-    "./plugin": "./dist/plugin.js",
-    "./styles": "./dist/styles/main.css",
-    "./font": "./dist/styles/font.css",
-    "./scss": "./dist/scss/main.scss",
-    "./package.json": "./package.json"
-  },
-  "types": "./dist/types/index.d.ts",
   "license": "MIT",
   "contributors": [
     {
