@@ -15,8 +15,8 @@ import { Orientation } from '@/utils/constants';
 const orientation: Orientation = 'horizontal';
 const numberOfBars = data[0].values.length;
 
-const groupedBarChartTestSuiteFactory = (propsData) =>
-  new BaseTestSuite(GroupedBarChart, propsData);
+const groupedBarChartTestSuiteFactory = (props) =>
+  new BaseTestSuite(GroupedBarChart, props);
 
 describe('lume-grouped-bar-chart.vue', () => {
   test('mounts component and sets prop values', () => {
@@ -30,7 +30,7 @@ describe('lume-grouped-bar-chart.vue', () => {
     const el = wrapper.find('[data-j-grouped-bar-chart]');
     expect(el.exists()).toBeTruthy();
     expect(el.find('[data-j-bars-group]').exists()).toBeTruthy();
-    const barsGroupComponent = el.find('[data-j-bars-group]');
+    const barsGroupComponent = el.findComponent('[data-j-bars-group]');
     expect(barsGroupComponent.props('orientation')).toEqual('vertical');
     expect(el.findAll('[data-j-lume-bar]')).toHaveLength(numberOfBars);
   });
@@ -45,7 +45,7 @@ describe('lume-grouped-bar-chart.vue', () => {
       orientation,
     }).wrapper;
 
-    const el = wrapper.find('[data-j-bars-group]');
+    const el = wrapper.findComponent('[data-j-bars-group]');
     expect(el.props('orientation')).toEqual('horizontal');
     expect(el.findAll('[data-j-lume-bar]')).toHaveLength(numberOfBars);
   });
@@ -62,7 +62,7 @@ describe('lume-grouped-bar-chart.vue', () => {
       yScale: linearScale,
     }).wrapper;
 
-    const el = wrapper.find('[data-j-bars-group]');
+    const el = wrapper.findComponent('[data-j-bars-group]');
     expect(el.findAll('[data-j-lume-bar]')).toHaveLength(
       numberOfSets * numberOfBars
     );
@@ -81,7 +81,7 @@ describe('lume-grouped-bar-chart.vue', () => {
       orientation,
     }).wrapper;
 
-    const el = wrapper.find('[data-j-bars-group]');
+    const el = wrapper.findComponent('[data-j-bars-group]');
     expect(el.findAll('[data-j-lume-bar]')).toHaveLength(
       numberOfSets * numberOfBars
     );
@@ -105,7 +105,7 @@ describe('lume-grouped-bar-chart.vue', () => {
       yScale: linearScale,
     }).wrapper;
 
-    const el = wrapper.find('[data-j-bars-group]');
+    const el = wrapper.findComponent('[data-j-bars-group]');
     expect(el.findAll('[data-j-lume-bar]')).toHaveLength(
       numberOfSets * numberOfBars
     );
@@ -130,7 +130,7 @@ describe('lume-grouped-bar-chart.vue', () => {
       orientation,
     }).wrapper;
 
-    const el = wrapper.find('[data-j-bars-group]');
+    const el = wrapper.findComponent('[data-j-bars-group]');
     expect(el.findAll('[data-j-lume-bar]')).toHaveLength(
       numberOfSets * numberOfBars
     );

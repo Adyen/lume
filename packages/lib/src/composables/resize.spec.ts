@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { nextTick } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 
 import { useResizeObserver } from './resize';
@@ -35,7 +35,7 @@ describe('resize.ts', () => {
 
     // NOTE: We need to trigger the element resize, not the window
     wrapper.find('[data-j-resize-root]').trigger('resize');
-    await Vue.nextTick();
+    await nextTick();
 
     const el = wrapper.find('[data-j-resize-root]').element;
     expect(mixin.resizeRef.value).toEqual(el);
@@ -49,7 +49,7 @@ describe('resize.ts', () => {
       '<div ref="resizeRef" data-j-resize-root></div>'
     );
 
-    wrapper.destroy();
+    wrapper.unmount();
     expect(spy).toHaveBeenCalledWith('unobserve');
   });
 

@@ -201,13 +201,11 @@ import {
   useSlots,
 } from 'vue';
 
-import {
-  LumeAxis,
-  LumeBar,
-  LumeChartContainer,
-  LumeChartLegend,
-  LumeTooltip,
-} from '@/components/core';
+import LumeAxis from '@/components/core/lume-axis';
+import LumeBar from '@/components/core/lume-bar';
+import LumeChartContainer from '@/components/core/lume-chart-container';
+import LumeChartLegend from '@/components/core/lume-chart-legend';
+import LumeTooltip from '@/components/core/lume-tooltip';
 import LumeOverlayGroup from '@/components/groups/lume-overlay-group';
 
 import { useBase } from '@/composables/base';

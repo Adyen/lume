@@ -7,13 +7,13 @@
       :data-j-lume-overlay-group="index"
       :transition="false"
       class-list="lume-fill--transparent"
-      @mouseover.native="emit('mouseover', index)"
+      @mouseover="emit('mouseover', index)"
     />
   </g>
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps, PropType, toRefs } from 'vue';
+import { computed, PropType, toRefs } from 'vue';
 
 import LumeBar from '@/components/core/lume-bar';
 

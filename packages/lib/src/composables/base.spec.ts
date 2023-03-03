@@ -70,7 +70,7 @@ describe('base.ts', () => {
             return mixin;
           },
         },
-        { propsData: { data } }
+        { props: { data } }
       );
 
       expect(wrapper.vm.$props.labels).toEqual(undefined);

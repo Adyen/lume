@@ -6,7 +6,7 @@ import { LumeChart } from '@/components/core';
 import { generateData } from './mock-data';
 
 type ComponentInstance = VueConstructor;
-type PropsData = Record<string, unknown>;
+type props = Record<string, unknown>;
 type WrapperInstance = Wrapper<InstanceType<typeof LumeChart>>;
 type OptionsType = {
   selector?: string;
@@ -28,11 +28,11 @@ export class BaseTestSuite {
 
   constructor(
     private readonly component: ComponentInstance,
-    private readonly propsData: PropsData
+    private readonly props: props
   ) {
     this._wrapper = mount(
       this.component,
-      this.propsData ? { propsData: this.propsData } : {}
+      this.props ? { props: this.props } : {}
     );
   }
 

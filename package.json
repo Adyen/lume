@@ -37,11 +37,11 @@
     "confighooks": "git config core.hooksPath ./git-hooks",
     "prepare": "npm run confighooks && echo \" ✔ Git hooks path configured to ./git-hooks\"",
     "release": "release-it",
-    "start": "npm run storybook",
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "test": "vitest --config=vitest.config.ts",
-    "test:update:snapshot": "vitest --config=vitest.config.ts -u",
-    "test:coverage": "vitest run --coverage"
+    "test": "nx test lib",
+    "test:watch": "nx test:watch lib",
+    "test:update:snapshot": "nx test:update:snapshot lib",
+    "test:coverage": "nx test:coverage lib"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.4",

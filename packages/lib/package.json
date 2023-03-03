@@ -14,7 +14,11 @@
   "scripts": {
     "lint:fix": "npm run lint -- --fix",
     "lint:pretty": "prettier --write --ignore-unknown .",
-    "lint": "eslint ./src ./test --ext .js,.ts,.vue"
+    "lint": "eslint ./src ./test --ext .js,.ts,.vue",
+    "test": "vitest run --config=vitest.config.ts --silent",
+    "test:watch": "vitest --config=vitest.config.ts",
+    "test:update:snapshot": "vitest --config=vitest.config.ts -u",
+    "test:coverage": "vitest run --coverage"
   },
   "keywords": [],
   "author": "",

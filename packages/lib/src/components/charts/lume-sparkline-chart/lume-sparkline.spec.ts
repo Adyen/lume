@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { nextTick } from 'vue';
 
 import LumeSparkline from './lume-sparkline-chart.vue';
 
@@ -11,8 +11,8 @@ import { data, labels, xScale, yScale } from '@test/unit/mock-data';
 
 import { options as defaultOptions } from './defaults';
 
-const sparklineChartTestSuiteFactory = (propsData) =>
-  new BaseTestSuite(LumeSparkline, propsData);
+const sparklineChartTestSuiteFactory = (props) =>
+  new BaseTestSuite(LumeSparkline, props);
 
 describe('lume-sparkline.vue', () => {
   useCustomResizeObserver();
@@ -36,7 +36,7 @@ describe('lume-sparkline.vue', () => {
     const triggerElement = wrapper.find('[data-j-chart-container]');
     expect(triggerElement.exists()).toBe(true);
     wrapper.find('[data-j-chart-container]').trigger('resize');
-    await Vue.nextTick();
+    await nextTick();
 
     expect(el.exists()).toBe(true);
 
@@ -71,7 +71,7 @@ describe('lume-sparkline.vue', () => {
     // We need to trigger a resize for the computed properties to fall into shape
     el.trigger('resize');
 
-    await Vue.nextTick();
+    await nextTick();
 
     const areaPath = el.find('[data-j-sparkline__area]');
 

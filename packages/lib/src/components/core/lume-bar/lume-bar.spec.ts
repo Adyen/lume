@@ -20,7 +20,7 @@ const defaultProps = {
 describe('lume-bar.vue', () => {
   test('mounts component and sets prop values', () => {
     const wrapper = mount(LumeBar, {
-      propsData: defaultProps,
+      props: defaultProps,
     });
 
     const el = wrapper.find('[data-j-bar]');
@@ -39,7 +39,7 @@ describe('lume-bar.vue', () => {
     const y = 52;
 
     const wrapper = mount(LumeBar, {
-      propsData: { ...defaultProps, x, y },
+      props: { ...defaultProps, x, y },
     });
 
     const el = wrapper.find('[data-j-bar]');
@@ -52,7 +52,7 @@ describe('lume-bar.vue', () => {
     const height = 0.7;
 
     const wrapper = mount(LumeBar, {
-      propsData: { ...defaultProps, width, height },
+      props: { ...defaultProps, width, height },
     });
 
     const el = wrapper.find('[data-j-bar]');
@@ -62,7 +62,7 @@ describe('lume-bar.vue', () => {
 
   test('mounts component and sets custom isFaded and animate prop values', () => {
     const wrapper = mount(LumeBar, {
-      propsData: { ...defaultProps, isFaded: true, transition: false },
+      props: { ...defaultProps, isFaded: true, transition: false },
     });
 
     const el = wrapper.find('[data-j-bar]');
@@ -72,7 +72,7 @@ describe('lume-bar.vue', () => {
 
   test('mounts with negative class when isNegative prop is true', () => {
     const wrapper = mount(LumeBar, {
-      propsData: { ...defaultProps, isNegative: true },
+      props: { ...defaultProps, isNegative: true },
     });
 
     const el = wrapper.find('[data-j-bar]');
@@ -81,7 +81,7 @@ describe('lume-bar.vue', () => {
 
   test('mounts with transition class when transition prop is valid', async () => {
     const wrapper = mount(LumeBar, {
-      propsData: { ...defaultProps, transition: 'height' },
+      props: { ...defaultProps, transition: 'height' },
     });
 
     const el = wrapper.find('[data-j-bar]');

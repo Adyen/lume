@@ -1,4 +1,4 @@
-import Vue, { ref } from 'vue';
+import { nextTick, ref } from 'vue';
 import { mount } from '@vue/test-utils';
 import { scaleLinear } from 'd3';
 
@@ -80,7 +80,7 @@ describe('negative-values.ts', () => {
     test('should return expected object with negative values', async () => {
       const mixin = getMixin(orientation, true);
 
-      await Vue.nextTick();
+      await nextTick();
 
       expect(mixin.negativeBarAttributes.value.width).toEqual(
         containerSize.width
@@ -117,7 +117,7 @@ describe('negative-values.ts', () => {
     test('should return expected object with negative values', async () => {
       const mixin = getMixin(orientation, true);
 
-      await Vue.nextTick();
+      await nextTick();
 
       expect(mixin.negativeBarAttributes.value.width).toEqual(0);
       expect(mixin.negativeBarAttributes.value.height).toEqual(

@@ -27,7 +27,7 @@ const useBandScaleAxis: AxisMixin = function (
   function getTickGhostAttributes(textRef: SVGTextElement) {
     // If label element not yet rendered, assume one scale step, otherwise get its width.
     const width =
-      (textRef ? textRef.getComputedTextLength() : scale.value.step()) + 20;
+      (textRef ? textRef.getComputedTextLength?.() : scale.value.step()) + 20;
     return {
       x: -(width - scale.value.step()) / 2,
       width,

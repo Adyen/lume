@@ -27,7 +27,7 @@ const MIXIN_MAP = {
 </script>
 
 <script setup lang="ts">
-import { computed, defineProps, PropType, toRefs } from 'vue';
+import { computed, PropType, toRefs } from 'vue';
 
 import LumeBar from '@/components/core/lume-bar';
 
