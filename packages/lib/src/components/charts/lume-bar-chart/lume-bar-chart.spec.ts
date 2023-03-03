@@ -14,8 +14,7 @@ const numberOfSets = 2;
 const numberOfBars = singleSetData[0].values.length;
 const multiSetData = generateData(numberOfSets, singleSetData[0].values.length);
 
-const barChartTestSuiteFactory = (propsData) =>
-  new BaseTestSuite(BarChart, propsData);
+const barChartTestSuiteFactory = (props) => new BaseTestSuite(BarChart, props);
 
 describe('lume-bar-chart.vue', () => {
   test('mounts component and sets prop values', async () => {

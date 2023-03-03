@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitest/config';
 import { resolve } from 'path';
-import vue from '@vitejs/plugin-vue2';
+import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
   test: {
@@ -20,7 +20,6 @@ export default defineConfig({
     alias: [
       { find: '@', replacement: resolve(__dirname, './src') },
       { find: '@test', replacement: resolve(__dirname, './test') },
-      // { find: /^vue$/, replacement: 'vue/dist/vue.runtime.common.js' },
     ],
   },
   plugins: [vue()],

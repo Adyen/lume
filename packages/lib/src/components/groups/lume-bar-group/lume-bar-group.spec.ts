@@ -11,7 +11,7 @@ const orientation: Orientation = 'horizontal';
 describe('bar-group.vue', () => {
   test('mounts component', () => {
     const wrapper = mount(LumeBarGroup, {
-      propsData: {
+      props: {
         data,
         xScale,
         yScale,
@@ -31,7 +31,7 @@ describe('bar-group.vue', () => {
 
   test('mounts component with horizontal orientation', () => {
     const wrapper = mount(LumeBarGroup, {
-      propsData: {
+      props: {
         data,
         xScale: yScale,
         yScale: xScale,

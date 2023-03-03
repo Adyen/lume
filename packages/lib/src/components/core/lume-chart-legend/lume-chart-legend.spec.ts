@@ -8,9 +8,7 @@ describe('lume-chart-legend.vue', () => {
   test('mounts component', () => {
     const numberOfSets = 3;
     const data = generateData(numberOfSets, 7, 1000, false, false, true);
-    const wrapper = mount(LumeLegend, {
-      propsData: { data },
-    });
+    const wrapper = mount(LumeLegend, { props: { data } });
 
     expect(wrapper.exists()).toBeTruthy();
     expect(wrapper.findAll('[data-j-chart-legend__symbol]')).toHaveLength(
@@ -27,13 +25,11 @@ describe('lume-chart-legend.vue', () => {
   test('should emit click event with clicked index on clicking a legend item', async () => {
     const numberOfSets = 3;
     const data = generateData(numberOfSets, 7, 1000, false, false, true);
-    const wrapper = mount(LumeLegend, {
-      propsData: { data },
-    });
+    const wrapper = mount(LumeLegend, { props: { data } });
 
     const target = wrapper.findAll('[data-j-chart-legend__symbol-wrapper]');
-    target.at(0).trigger('click');
-    target.at(2).trigger('click');
+    target[0].trigger('click');
+    target[2].trigger('click');
 
     await wrapper.vm.$nextTick();
 

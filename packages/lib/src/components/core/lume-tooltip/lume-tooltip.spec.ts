@@ -14,7 +14,7 @@ const item = {
 describe('tooltip.vue', () => {
   test('mounts component and sets prop values', () => {
     const wrapper = mount(LumeTooltip, {
-      propsData: { element: mockElement },
+      props: { element: mockElement },
     });
 
     const el = wrapper.find('[data-j-tooltip]');
@@ -24,7 +24,7 @@ describe('tooltip.vue', () => {
 
   test('mounts component and sets custom title prop', () => {
     const wrapper = mount(LumeTooltip, {
-      propsData: { title, element: mockElement },
+      props: { title, element: mockElement },
     });
 
     const el = wrapper.find('[data-j-tooltip__title]');
@@ -34,7 +34,7 @@ describe('tooltip.vue', () => {
 
   test('mounts component and shows list of items', () => {
     const wrapper = mount(LumeTooltip, {
-      propsData: { items: [item], element: mockElement },
+      props: { items: [item], element: mockElement },
     });
 
     const el = wrapper.find('[data-j-tooltip__item]');
@@ -52,7 +52,7 @@ describe('tooltip.vue', () => {
   describe('summary item', () => {
     test('mount component with summary item from items array', () => {
       const wrapper = mount(LumeTooltip, {
-        propsData: {
+        props: {
           items: [{ ...item, isSummary: true }, item],
           element: mockElement,
         },
@@ -64,7 +64,7 @@ describe('tooltip.vue', () => {
 
     test('mount component with summary item from options', () => {
       const wrapper = mount(LumeTooltip, {
-        propsData: {
+        props: {
           items: [item],
           element: mockElement,
           options: { summary: 'test summary' },
@@ -77,7 +77,7 @@ describe('tooltip.vue', () => {
 
     test('mount component with summary item from property', () => {
       const wrapper = mount(LumeTooltip, {
-        propsData: {
+        props: {
           items: [item],
           element: mockElement,
           summary: 'test summary',
