@@ -52,7 +52,7 @@ const LUME_TRANSITION_TIME_FULL = 1; // 1s
 </script>
 
 <script setup lang="ts">
-import { computed, defineProps, inject, Ref, toRefs } from 'vue';
+import { computed, inject, Ref, toRefs } from 'vue';
 import { ScaleLinear } from 'd3';
 
 import LumeLine from '@/components/core/lume-line';

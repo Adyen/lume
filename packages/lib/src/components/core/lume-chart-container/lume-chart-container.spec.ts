@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
 
 import LumeChartContainer from './lume-chart-container.vue';
@@ -28,7 +28,7 @@ describe('chart-container.vue', () => {
     };
 
     const wrapper = mount(LumeChartContainer, {
-      propsData: { margins },
+      props: { margins },
     });
 
     const el = wrapper.find('[data-j-chart-container__group]');
@@ -49,7 +49,7 @@ describe('chart-container.vue', () => {
     const wrapper = mount(LumeChartContainer);
 
     wrapper.find('[data-j-chart-container]').trigger('resize');
-    await Vue.nextTick();
+    await nextTick();
     expect(wrapper.emitted('resize')).toBeTruthy();
   });
 });

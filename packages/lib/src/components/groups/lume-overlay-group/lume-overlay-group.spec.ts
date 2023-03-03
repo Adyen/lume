@@ -4,29 +4,27 @@ import LumeOverlayGroup from './lume-overlay-group.vue';
 
 import { data, xScale, yScale } from '@test/unit/mock-data';
 
-const defaultPropsData = { data, xScale, yScale };
+const defaultprops = { data, xScale, yScale };
 
 describe('lume-line-group.vue', () => {
   test('mounts component and sets prop values', () => {
     const wrapper = mount(LumeOverlayGroup, {
-      propsData: defaultPropsData,
+      props: defaultprops,
     });
 
     const el = wrapper.find('[data-j-lume-overlay-group]');
     expect(el.exists()).toBeTruthy();
-    expect(el.find('[data-j-lume-overlay-group]').exists()).toBeTruthy();
-    expect(true).toBe(true);
   });
 
   test('emits mouseover event with hovered index', () => {
     const wrapper = mount(LumeOverlayGroup, {
-      propsData: {
-        ...defaultPropsData,
+      props: {
+        ...defaultprops,
       },
     });
 
-    wrapper.findAll('rect').at(0).trigger('mouseover');
-    wrapper.findAll('rect').at(3).trigger('mouseover');
+    wrapper.findAll('rect')[0].trigger('mouseover');
+    wrapper.findAll('rect')[3].trigger('mouseover');
 
     const mouseoverEvent = wrapper.emitted('mouseover');
 

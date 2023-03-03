@@ -11,8 +11,8 @@ import {
 } from '@test/unit/mock-data';
 
 const numberOfLines = data[0].values.length;
-const lineChartTestSuiteFactory = (propsData) =>
-  new BaseTestSuite(LumeLineChart, propsData);
+const lineChartTestSuiteFactory = (props) =>
+  new BaseTestSuite(LumeLineChart, props);
 
 describe('lume-line-chart.vue', () => {
   test('mounts component and sets prop values', () => {

@@ -7,12 +7,12 @@ import { data, xScale, yScale } from '@test/unit/mock-data';
 
 import { getXByIndex } from '@/composables/scales';
 
-const defaultPropsData = { data, xScale, yScale };
+const defaultprops = { data, xScale, yScale };
 
 describe('lume-line-group.vue', () => {
   test('mounts component and sets prop values', () => {
     const wrapper = mount(LumeLineGroup, {
-      propsData: defaultPropsData,
+      props: defaultprops,
       provide: {
         tooltipAnchorAttributes() {
           return ref([]);
@@ -35,8 +35,8 @@ describe('lume-line-group.vue', () => {
         V ${yScale(peak)}`;
 
     const wrapper = mount(LumeLineGroup, {
-      propsData: {
-        ...defaultPropsData,
+      props: {
+        ...defaultprops,
         hoveredIndex,
       },
       provide: {
@@ -52,8 +52,8 @@ describe('lume-line-group.vue', () => {
 
   test('mounts without points', () => {
     const wrapper = mount(LumeLineGroup, {
-      propsData: {
-        ...defaultPropsData,
+      props: {
+        ...defaultprops,
         withPoints: false,
       },
       provide: {

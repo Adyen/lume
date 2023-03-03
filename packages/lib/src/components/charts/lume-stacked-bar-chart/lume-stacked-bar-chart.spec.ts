@@ -15,8 +15,8 @@ import { Orientation } from '@/utils/constants';
 const orientation: Orientation = 'horizontal';
 const numberOfBars = data[0].values.length;
 
-const stackedBarChartTestSuiteFactory = (propsData) =>
-  new BaseTestSuite(StackedBarChart, propsData);
+const stackedBarChartTestSuiteFactory = (props) =>
+  new BaseTestSuite(StackedBarChart, props);
 
 describe('lume-stacked-bar-chart.vue', () => {
   test('mounts component and sets prop values', () => {
@@ -29,8 +29,9 @@ describe('lume-stacked-bar-chart.vue', () => {
 
     const el = wrapper.find('[data-j-stacked-bar-chart]');
     expect(el.exists()).toBeTruthy();
-    expect(el.find('[data-j-bars-group]').exists()).toBeTruthy();
-    const barsGroupComponent = el.find('[data-j-bars-group]');
+
+    const barsGroupComponent = el.findComponent('[data-j-bars-group]');
+    expect(barsGroupComponent.exists()).toBeTruthy();
     expect(barsGroupComponent.props('orientation')).toEqual('vertical');
     expect(el.findAll('[data-j-lume-bar]')).toHaveLength(numberOfBars);
   });
@@ -44,7 +45,7 @@ describe('lume-stacked-bar-chart.vue', () => {
       orientation,
     }).wrapper;
 
-    const el = wrapper.find('[data-j-bars-group]');
+    const el = wrapper.findComponent('[data-j-bars-group]');
     expect(el.props('orientation')).toEqual('horizontal');
   });
 

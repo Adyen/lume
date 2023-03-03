@@ -13,11 +13,11 @@ const pathDefinition = getLinePathDefinition(
   yScale
 );
 
-const propsData = { pathDefinition: pathDefinition.value, xScale };
+const props = { pathDefinition: pathDefinition.value, xScale };
 
 describe('chart-container.vue', () => {
   test('mounts component', () => {
-    const wrapper = mount(LumeLine, { propsData });
+    const wrapper = mount(LumeLine, { props });
 
     const el = wrapper.find('[data-j-line]');
     expect(el.exists()).toBeTruthy();
@@ -26,7 +26,7 @@ describe('chart-container.vue', () => {
 
   test('mounts component and sets dashed line to true', () => {
     const wrapper = mount(LumeLine, {
-      propsData: { ...propsData, dashed: true },
+      props: { ...props, dashed: true },
     });
 
     const el = wrapper.find('[data-j-line]');
@@ -36,7 +36,7 @@ describe('chart-container.vue', () => {
 
   test('mounts component with custom color', () => {
     const color = '02';
-    const wrapper = mount(LumeLine, { propsData: { ...propsData, color } });
+    const wrapper = mount(LumeLine, { props: { ...props, color } });
 
     const el = wrapper.find('[data-j-line]');
     expect(el.classes().includes(`lume-stroke--${color}`)).toBe(true);

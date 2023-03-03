@@ -37,6 +37,10 @@ export default {
       options: Object.keys(COLOR_CLASS_MAP),
       description: 'Line color',
     },
+    title: {
+      control: 'text',
+      description: 'Chart title.',
+    },
   },
   args: {
     ...withSizeArgs(300, 80),

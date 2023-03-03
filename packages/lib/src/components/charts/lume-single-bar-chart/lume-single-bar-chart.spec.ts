@@ -7,8 +7,8 @@ const numberOfPositiveBars = 5;
 const numberOfNegativeBars = 2;
 const totalNumberOfBars = data[0].values.length;
 
-const singleBarChartTestSuiteFactory = (propsData) =>
-  new BaseTestSuite(SingleBarChart, propsData);
+const singleBarChartTestSuiteFactory = (props) =>
+  new BaseTestSuite(SingleBarChart, props);
 
 describe('lume-single-bar-chart.vue', () => {
   test('mounts component and sets prop values', () => {
@@ -53,35 +53,37 @@ describe('lume-single-bar-chart.vue', () => {
 
     // check +ve bars
     expect(
-      el.findAll('[data-j-lume-bar]').at(0).props('isNegative')
+      el.findAllComponents('[data-j-lume-bar]')[0].props('isNegative')
     ).toBeFalsy();
     expect(
-      el.findAll('[data-j-lume-bar]').at(2).props('isNegative')
+      el.findAllComponents('[data-j-lume-bar]')[2].props('isNegative')
     ).toBeFalsy();
     expect(
-      el.findAll('[data-j-lume-bar]').at(3).props('isNegative')
+      el.findAllComponents('[data-j-lume-bar]')[3].props('isNegative')
     ).toBeFalsy();
     expect(
-      el.findAll('[data-j-lume-bar]').at(6).props('isNegative')
+      el.findAllComponents('[data-j-lume-bar]')[6].props('isNegative')
     ).toBeFalsy();
     expect(
       el
-        .findAll('[data-j-lume-bar]')
+        .findAllComponents('[data-j-lume-bar]')
         .filter((item) => !item.props('isNegative'))
     ).toHaveLength(numberOfPositiveBars);
     // check -ve bars
     expect(
-      el.findAll('[data-j-lume-bar]').at(1).props('isNegative')
+      el.findAllComponents('[data-j-lume-bar]')[1].props('isNegative')
     ).toBeTruthy();
     expect(
-      el.findAll('[data-j-lume-bar]').at(4).props('isNegative')
+      el.findAllComponents('[data-j-lume-bar]')[4].props('isNegative')
     ).toBeTruthy();
     expect(
-      el.findAll('[data-j-lume-bar]').filter((item) => item.props('isNegative'))
+      el
+        .findAllComponents('[data-j-lume-bar]')
+        .filter((item) => item.props('isNegative'))
     ).toHaveLength(numberOfNegativeBars);
     // check null bars
     expect(
-      el.findAll('[data-j-lume-bar]').at(5).props('isNegative')
+      el.findAllComponents('[data-j-lume-bar]')[5].props('isNegative')
     ).toBeFalsy();
   });
 
