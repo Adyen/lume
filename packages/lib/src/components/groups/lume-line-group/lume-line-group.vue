@@ -37,7 +37,7 @@
           v-for="(value, index) in dataset.values"
           v-bind="getPointPosition(index, datasetIndex)"
           :key="`point-${index}`"
-          :value="value"
+          :value="value.value"
           :active="isPointActive(index)"
           :color="dataset.color"
           :index="index"

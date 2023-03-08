@@ -57,13 +57,11 @@ const root = ref<SVGCircleElement>(null);
 
 const strokeWidth = computed(() => props.radius / 2);
 
-const ariaLabelledby = computed(() => {
-  /*
-   * This only is relevant for the a11y of a line chart, where the orientation is always horizontal.
-   * Therefore we can assume the label axis is always the x-axis
-   * */
-  return `x-${props.index} point-${props.index}`;
-});
+/*
+ * This only is relevant for the a11y of a line chart, where the orientation is always horizontal.
+ * Therefore we can assume the label axis is always the x-axis
+ * */
+const ariaLabelledby = computed(() => `x-${props.index} point-${props.index}`);
 onMounted(() => svgCheck(root.value));
 </script>
 

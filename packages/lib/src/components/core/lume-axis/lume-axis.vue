@@ -4,8 +4,7 @@
     ref="root"
     class="axis"
     tabindex="0"
-    aria-valuemin="computedMax"
-    aria-valuemax="computedMin"
+    v-bind="a11yAttributes"
     :role="`${computedType}axis`"
     :transform="axisTransform"
     data-j-axis
@@ -187,12 +186,6 @@ const shouldHover = computed(
       orientation.value === ORIENTATIONS.HORIZONTAL)
 );
 
-const computedMin = computed(() => scale.value.domain()[0]);
-const computedMax = computed(() => {
-  const domain = scale.value.domain();
-  return domain[domain.length - 1];
-});
-
 const { allOptions } = useOptions<AxisOptions>(
   options,
   computedType.value === 'x' ? xOptions : yOptions
@@ -223,6 +216,15 @@ const tickFormatter = computed(() => {
   const { tickFormat } = allOptions.value;
   return useFormat(tickFormat);
 });
+
+const a11yAttributes = computed(() =>
+  isBandScale(scale.value)
+    ? {}
+    : {
+      'aria-valuemin': Math.min(...scale.value.domain()),
+      'aria-valuemax': Math.max(...scale.value.domain()),
+    }
+);
 
 function formatTick(tick: number | string) {
   const { showTicks } = allOptions.value;
@@ -268,9 +270,7 @@ function setTicks() {
 }
 
 function init() {
-  const scaleType = (scale.value as ScaleBand<string | number>).step
-    ? 'bandScale'
-    : 'linearScale';
+  const scaleType = isBandScale(scale.value) ? 'bandScale' : 'linearScale';
 
   // Get mixin generator based on the scale type
   const mixin: AxisMixin =

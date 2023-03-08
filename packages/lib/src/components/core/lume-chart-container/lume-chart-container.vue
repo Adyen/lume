@@ -13,6 +13,7 @@
       ref="root"
       class="lume-chart-container__svg"
       role="graphics-document"
+      :alt="title"
       :class="{
         'lume-chart-container__svg--transparent': transparentBackground,
       }"
@@ -29,8 +30,13 @@
         :aria-charttype="chartType"
         aria-labelledby="title desc"
       >
-        <title role="heading">{{ title }}</title>
-        <desc>{{ description }}</desc>
+        <title
+          id="title"
+          role="header"
+        >
+          {{ title }}
+        </title>
+        <desc id="desc">{{ description }}</desc>
         <slot />
       </g>
     </svg>

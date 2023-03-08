@@ -10,7 +10,10 @@
       <lume-bar
         v-for="(barValue, index) in barGroup"
         v-bind="getBarAttributes(barValue, index, groupIndex, barGroup)"
-        :key="`bar-${index}`"
+        :key="`bar-${groupIndex}-${index}`"
+        :value="barValue.value"
+        :group-index="groupIndex"
+        :index="index"
         :transition="computedTransition"
         :orientation="orientation"
         data-j-lume-bar

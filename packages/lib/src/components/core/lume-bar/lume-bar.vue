@@ -20,8 +20,8 @@
     data-j-bar
   >
     <title
-      v-if="value !== null"
-      :id="`point-${index}`"
+      v-if="groupIndex !== null"
+      :id="`point-${groupIndex}-${index}`"
       role="datavalue"
       :aria-labelledby="ariaLabelledby"
     >
@@ -53,6 +53,14 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
+  index: {
+    type: Number,
+    default: null,
+  },
+  groupIndex: {
+    type: Number,
+    default: null,
+  },
   value: {
     type: Number,
     default: null,
@@ -61,10 +69,6 @@ const props = defineProps({
     type: String as PropType<Orientation>,
     default: ORIENTATIONS.VERTICAL,
     validator: orientationValidator,
-  },
-  index: {
-    type: Number,
-    default: null,
   },
   width: {
     type: Number,
@@ -127,7 +131,7 @@ const computedHeight = computed(() => {
  * For example, negative value indication bars and hover bars serve no meaning.
  * */
 const a11yProperties = computed(() => ({
-  ...(props.value === null
+  ...(props.groupIndex === null
     ? {}
     : {
       role: 'datapoint',
@@ -137,9 +141,9 @@ const a11yProperties = computed(() => ({
 
 const ariaLabelledby = computed(
   () =>
-    `${props.orientation === ORIENTATIONS.VERTICAL ? 'y' : 'x'}-${
-      props.index
-    } point-${props.index}`
+    `${props.orientation === ORIENTATIONS.HORIZONTAL ? 'y' : 'x'}-${
+      props.groupIndex
+    } point-${props.groupIndex}-${props.index}`
 );
 
 const transformOrigin =
