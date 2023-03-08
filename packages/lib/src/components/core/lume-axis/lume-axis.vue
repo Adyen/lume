@@ -3,6 +3,10 @@
     v-if="scale"
     ref="root"
     class="axis"
+    tabindex="0"
+    aria-valuemin="computedMax"
+    aria-valuemax="computedMin"
+    :role="`${computedType}axis`"
     :transform="axisTransform"
     data-j-axis
   >
@@ -54,8 +58,10 @@
           />
           <text
             v-bind="tick.label"
+            :id="`${computedType}-${index}`"
             ref="tickRefs"
             class="axis__label"
+            role="axislabel"
             :data-index="index"
           >
             {{ formatTick(tick.value) }}
@@ -180,6 +186,12 @@ const shouldHover = computed(
     (computedType.value === 'y' &&
       orientation.value === ORIENTATIONS.HORIZONTAL)
 );
+
+const computedMin = computed(() => scale.value.domain()[0]);
+const computedMax = computed(() => {
+  const domain = scale.value.domain();
+  return domain[domain.length - 1];
+});
 
 const { allOptions } = useOptions<AxisOptions>(
   options,

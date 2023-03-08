@@ -12,6 +12,7 @@
     <svg
       ref="root"
       class="lume-chart-container__svg"
+      role="graphics-document"
       :class="{
         'lume-chart-container__svg--transparent': transparentBackground,
       }"
@@ -23,7 +24,13 @@
         :transform="`translate(${computedMargins.left}, ${computedMargins.top})`"
         class="lume-chart-container__group"
         data-j-chart-container__group
+        role="chart"
+        tabindex="0"
+        :aria-charttype="chartType"
+        aria-labelledby="title desc"
       >
+        <title role="heading">{{ title }}</title>
+        <desc>{{ description }}</desc>
         <slot />
       </g>
     </svg>
@@ -40,6 +47,7 @@ import { computed, ComputedRef, PropType, ref, toRefs, watchEffect } from 'vue';
 import { useResizeObserver } from '@/composables/resize';
 import { Margins } from '@/utils/constants';
 import { ContainerSize } from '@/types/size';
+import { ChartType } from '@/types/dataset';
 
 const BASE_MARGINS = {
   left: 0,
@@ -64,6 +72,18 @@ const props = defineProps({
   noMinSize: {
     type: Boolean,
     default: false,
+  },
+  chartType: {
+    type: String as PropType<ChartType>,
+    default: null,
+  },
+  title: {
+    type: String,
+    default: null,
+  },
+  description: {
+    type: String,
+    default: null,
   },
 });
 

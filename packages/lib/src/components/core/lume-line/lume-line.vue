@@ -2,6 +2,7 @@
   <path
     ref="root"
     class="lume-line"
+    role="line"
     :class="{
       [`lume-stroke--${color}`]: true,
       'lume-line--dashed': dashed,

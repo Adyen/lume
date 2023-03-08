@@ -6,6 +6,9 @@
     :container-size="containerSize"
     :no-min-size="allOptions.noMinSize"
     :transparent-background="allOptions.transparentBackground"
+    :chart-type="chartType"
+    :title="title"
+    :description="description"
     data-j-lume-chart
     @resize="updateSize"
     @mouseleave="handleMouseleave"

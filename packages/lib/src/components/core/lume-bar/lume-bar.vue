@@ -2,6 +2,7 @@
   <rect
     ref="root"
     class="lume-bar"
+    v-bind="a11yProperties"
     :class="[
       {
         'lume-fill--faded': isFaded,
@@ -17,7 +18,16 @@
     :width="computedWidth"
     :height="computedHeight"
     data-j-bar
-  />
+  >
+    <title
+      v-if="value !== null"
+      :id="`point-${index}`"
+      role="datavalue"
+      :aria-labelledby="ariaLabelledby"
+    >
+      {{ value }}
+    </title>
+  </rect>
 </template>
 
 <script lang="ts">
@@ -31,6 +41,8 @@ import { useBarSizing } from './composables/bar-sizing';
 import { useBarTransition } from './composables/bar-transition';
 
 import { svgCheck } from '@/utils/svg-check';
+import { Orientation, ORIENTATIONS } from '@/utils/constants';
+import { orientationValidator } from '@/composables';
 
 const props = defineProps({
   x: {
@@ -40,6 +52,19 @@ const props = defineProps({
   y: {
     type: Number,
     default: 0,
+  },
+  value: {
+    type: Number,
+    default: null,
+  },
+  orientation: {
+    type: String as PropType<Orientation>,
+    default: ORIENTATIONS.VERTICAL,
+    validator: orientationValidator,
+  },
+  index: {
+    type: Number,
+    default: null,
   },
   width: {
     type: Number,
@@ -96,6 +121,26 @@ const computedHeight = computed(() => {
     shouldTransitionHeight.value ? transitionProps.computedHeight : height
   ).value;
 });
+
+/*
+ * Note that not all bars will represent a value that ought to be read.
+ * For example, negative value indication bars and hover bars serve no meaning.
+ * */
+const a11yProperties = computed(() => ({
+  ...(props.value === null
+    ? {}
+    : {
+      role: 'datapoint',
+      tabindex: 0,
+    }),
+}));
+
+const ariaLabelledby = computed(
+  () =>
+    `${props.orientation === ORIENTATIONS.VERTICAL ? 'y' : 'x'}-${
+      props.index
+    } point-${props.index}`
+);
 
 const transformOrigin =
   shouldTransitionWidth.value || shouldTransitionHeight.value

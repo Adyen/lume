@@ -12,6 +12,7 @@
         v-bind="getBarAttributes(barValue, index, groupIndex, barGroup)"
         :key="`bar-${index}`"
         :transition="computedTransition"
+        :orientation="orientation"
         data-j-lume-bar
       />
     </g>

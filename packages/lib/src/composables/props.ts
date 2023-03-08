@@ -22,6 +22,10 @@ export const withChartProps = <T extends Options = ChartOptions>(
       type: String,
       default: null,
     },
+    description: {
+      type: String,
+      default: null,
+    },
     ...(withOrientation
       ? {
         orientation: {
