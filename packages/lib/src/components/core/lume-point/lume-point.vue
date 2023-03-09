@@ -14,7 +14,7 @@
       data-j-point
     >
       <title
-        :id="`point-${index}`"
+        :id="`point-${index}-${chartID}`"
         role="datavalue"
         :aria-labelledby="ariaLabelledby"
       >
@@ -29,7 +29,7 @@ const DEFAULT_RADIUS = 4; // 4px; If together with a `lume-line`, should double 
 </script>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, inject, onMounted, ref } from 'vue';
 
 import { Colors } from '@/utils/constants';
 import { svgCheck } from '@/utils/svg-check';
@@ -57,11 +57,15 @@ const root = ref<SVGCircleElement>(null);
 
 const strokeWidth = computed(() => props.radius / 2);
 
+const chartID = inject('chartID');
+
 /*
  * This only is relevant for the a11y of a line chart, where the orientation is always horizontal.
  * Therefore we can assume the label axis is always the x-axis
  * */
-const ariaLabelledby = computed(() => `x-${props.index} point-${props.index}`);
+const ariaLabelledby = computed(
+  () => `x-${props.index}-${chartID} point-${props.index}-${chartID}`
+);
 onMounted(() => svgCheck(root.value));
 </script>
 

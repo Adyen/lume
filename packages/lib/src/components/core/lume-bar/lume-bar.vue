@@ -21,7 +21,7 @@
   >
     <title
       v-if="groupIndex !== null"
-      :id="`point-${groupIndex}-${index}`"
+      :id="`point-${groupIndex}-${index}-${chartID}`"
       role="datavalue"
       :aria-labelledby="ariaLabelledby"
     >
@@ -35,7 +35,7 @@ type BarTransitionProperty = 'width' | 'height';
 </script>
 
 <script setup lang="ts">
-import { computed, onMounted, PropType, ref, toRefs } from 'vue';
+import { computed, inject, onMounted, PropType, ref, toRefs } from 'vue';
 
 import { useBarSizing } from './composables/bar-sizing';
 import { useBarTransition } from './composables/bar-transition';
@@ -108,6 +108,8 @@ const shouldTransitionHeight = computed(() => transition.value === 'height');
 
 const transitionProps = useBarTransition(x, y, width, height);
 
+const chartID = inject('chartID');
+
 const { computedX, computedY, shouldHaveMinWidth, shouldHaveMinHeight } =
   useBarSizing(x, y, width, height);
 
@@ -143,7 +145,7 @@ const ariaLabelledby = computed(
   () =>
     `${props.orientation === ORIENTATIONS.HORIZONTAL ? 'y' : 'x'}-${
       props.groupIndex
-    } point-${props.groupIndex}-${props.index}`
+    }-${chartID} point-${props.groupIndex}-${props.index}-${chartID}`
 );
 
 const transformOrigin =

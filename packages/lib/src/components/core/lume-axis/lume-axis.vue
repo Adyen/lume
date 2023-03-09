@@ -57,7 +57,7 @@
           />
           <text
             v-bind="tick.label"
-            :id="`${computedType}-${index}`"
+            :id="`${computedType}-${index}-${chartID}`"
             ref="tickRefs"
             class="axis__label"
             role="axislabel"

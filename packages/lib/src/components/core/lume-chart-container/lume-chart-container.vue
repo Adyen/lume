@@ -28,15 +28,15 @@
         role="chart"
         tabindex="0"
         :aria-charttype="chartType"
-        aria-labelledby="title desc"
+        :aria-labelledby="`title-${chartID} desc-${chartID}`"
       >
         <title
-          id="title"
+          :id="`title-${chartID}`"
           role="header"
         >
           {{ title }}
         </title>
-        <desc id="desc">{{ description }}</desc>
+        <desc :id="`desc-${chartID}`">{{ description }}</desc>
         <slot />
       </g>
     </svg>
@@ -48,7 +48,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ComputedRef, PropType, ref, toRefs, watchEffect } from 'vue';
+import {
+  computed,
+  ComputedRef,
+  inject,
+  PropType,
+  ref,
+  toRefs,
+  watchEffect,
+} from 'vue';
 
 import { useResizeObserver } from '@/composables/resize';
 import { Margins } from '@/utils/constants';
@@ -102,6 +110,7 @@ const { margins, containerSize } = toRefs(props);
 
 const root = ref<SVGElement>(null);
 const { resizeRef, resizeState } = useResizeObserver();
+const chartID = inject('chartID');
 
 const computedMargins: ComputedRef<Margins> = computed(() => ({
   ...BASE_MARGINS, // Default values
