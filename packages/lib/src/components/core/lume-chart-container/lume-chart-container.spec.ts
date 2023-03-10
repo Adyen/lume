@@ -31,7 +31,7 @@ describe('chart-container.vue', () => {
       props: { margins },
     });
 
-    const el = wrapper.find('[data-j-chart-container__group]');
+    const el = wrapper.find('[role="chart"]');
     expect(el.attributes()['transform']).toEqual(
       `translate(${margins.left}, ${margins.top})`
     );

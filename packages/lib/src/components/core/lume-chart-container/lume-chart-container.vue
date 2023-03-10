@@ -24,7 +24,6 @@
       <g
         :transform="`translate(${computedMargins.left}, ${computedMargins.top})`"
         class="lume-chart-container__group"
-        data-j-chart-container__group
         role="chart"
         tabindex="0"
         :aria-charttype="chartType"
