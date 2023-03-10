@@ -2,6 +2,7 @@
   <g
     tabindex="0"
     role="datapoint"
+    :aria-labelledby="ariaLabelledby"
   >
     <circle
       ref="root"
@@ -16,7 +17,6 @@
       <title
         :id="`point-${index}-${chartID}`"
         role="datavalue"
-        :aria-labelledby="ariaLabelledby"
       >
         {{ value }}
       </title>
