@@ -7,7 +7,6 @@
     :no-min-size="allOptions.noMinSize"
     :transparent-background="allOptions.transparentBackground"
     :chart-type="chartType"
-    :title="title"
     :description="description"
     data-j-lume-chart
     @resize="updateSize"
@@ -19,6 +18,7 @@
           <!-- chart title -->
           <h1
             v-if="title"
+            :id="`title-${chartID}`"
             class="lume-chart__title lume-chart-title lume-typography--display"
           >
             {{ title }}

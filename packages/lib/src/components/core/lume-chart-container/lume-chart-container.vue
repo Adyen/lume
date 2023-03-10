@@ -30,12 +30,6 @@
         :aria-charttype="chartType"
         :aria-labelledby="`title-${chartID} desc-${chartID}`"
       >
-        <title
-          :id="`title-${chartID}`"
-          role="header"
-        >
-          {{ title }}
-        </title>
         <desc :id="`desc-${chartID}`">{{ description }}</desc>
         <slot />
       </g>
@@ -89,10 +83,6 @@ const props = defineProps({
   },
   chartType: {
     type: String as PropType<ChartType>,
-    default: null,
-  },
-  title: {
-    type: String,
     default: null,
   },
   description: {
