@@ -23,7 +23,6 @@
       v-if="groupIndex !== null"
       :id="`point-${groupIndex}-${index}-${chartID}`"
       role="datavalue"
-      :aria-labelledby="ariaLabelledby"
     >
       {{ value }}
     </title>
@@ -128,6 +127,13 @@ const computedHeight = computed(() => {
   ).value;
 });
 
+const ariaLabelledby = computed(
+  () =>
+    `${props.orientation === ORIENTATIONS.HORIZONTAL ? 'y' : 'x'}-${
+      props.groupIndex
+    }-${chartID} point-${props.groupIndex}-${props.index}-${chartID}`
+);
+
 /*
  * Note that not all bars will represent a value that ought to be read.
  * For example, negative value indication bars and hover bars serve no meaning.
@@ -138,15 +144,9 @@ const a11yProperties = computed(() => ({
     : {
       role: 'datapoint',
       tabindex: 0,
+      'aria-labelledby': ariaLabelledby.value,
     }),
 }));
-
-const ariaLabelledby = computed(
-  () =>
-    `${props.orientation === ORIENTATIONS.HORIZONTAL ? 'y' : 'x'}-${
-      props.groupIndex
-    }-${chartID} point-${props.groupIndex}-${props.index}-${chartID}`
-);
 
 const transformOrigin =
   shouldTransitionWidth.value || shouldTransitionHeight.value
