@@ -7,4 +7,5 @@ export const options: ChartOptions = {
   withTooltip: true,
   xAxisOptions: {},
   yAxisOptions: { gridLines: true },
+  withPoints: true,
 };

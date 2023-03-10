@@ -29,7 +29,6 @@
         />
       </g>
       <g
-        v-if="withPoints"
         class="lume-line-group__points"
         data-j-lume-line-group__points
       >
@@ -75,10 +74,6 @@ import {
 
 const props = defineProps({
   ...withGroupProps<LineChartOptions>(),
-  withPoints: {
-    type: Boolean,
-    default: true,
-  },
   transition: {
     type: Boolean,
     default: true,
@@ -136,7 +131,9 @@ const animationDuration = computed(
 );
 
 const pointRadius = computed(
-  () => options.value?.lineWidth * 2 || undefined // If no `lineWidth`, returns NaN which needs to be undefined
+  // If no `lineWidth`, returns NaN which needs to be undefined
+  () =>
+    options.value?.withPoints ? options.value?.lineWidth * 2 || undefined : 0
 );
 
 const xAxisOffset = computed(() => getScaleStep(xScale.value) / 2);

@@ -17,10 +17,7 @@
         data-j-sparkline__area
       />
 
-      <lume-line-group
-        v-bind="groupProps"
-        :with-points="false"
-      />
+      <lume-line-group v-bind="groupProps" />
     </template>
     <template
       v-for="(_, name) in slots"
@@ -80,6 +77,7 @@ const areaColor = computed(
 function getSparklineOptions(options: Options) {
   return {
     ...options,
+    withPoints: false,
     noMinSize: true,
   };
 }
