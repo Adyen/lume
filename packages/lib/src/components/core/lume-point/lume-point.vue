@@ -1,9 +1,5 @@
 <template>
-  <g
-    tabindex="0"
-    role="datapoint"
-    :aria-labelledby="ariaLabelledby"
-  >
+  <g v-bind="a11yProperties">
     <circle
       ref="root"
       class="lume-point"
@@ -14,12 +10,7 @@
       :stroke-width="strokeWidth"
       data-j-point
     >
-      <title
-        :id="`point-${index}-${chartID}`"
-        role="datavalue"
-      >
-        {{ value }}
-      </title>
+      <slot />
     </circle>
   </g>
 </template>
@@ -37,8 +28,10 @@ import { svgCheck } from '@/utils/svg-check';
 const props = defineProps({
   x: { type: Number, required: true },
   y: { type: Number, required: true },
-  value: { type: Number, required: true },
-  index: { type: Number, required: true },
+  a11yProperties: {
+    type: Object,
+    default: () => ({}),
+  },
   color: {
     type: String,
     default: Colors.Skyblue,
@@ -57,15 +50,6 @@ const root = ref<SVGCircleElement>(null);
 
 const strokeWidth = computed(() => props.radius / 2);
 
-const chartID = inject('chartID');
-
-/*
- * This only is relevant for the a11y of a line chart, where the orientation is always horizontal.
- * Therefore we can assume the label axis is always the x-axis
- * */
-const ariaLabelledby = computed(
-  () => `x-${props.index}-${chartID} point-${props.index}-${chartID}`
-);
 onMounted(() => svgCheck(root.value));
 </script>
 

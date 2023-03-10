@@ -36,12 +36,18 @@
           v-for="(value, index) in dataset.values"
           v-bind="getPointPosition(index, datasetIndex)"
           :key="`point-${index}`"
-          :value="value.value"
+          :a11y-properties="getA11yProperties(index)"
           :active="isPointActive(index)"
           :color="dataset.color"
-          :index="index"
           :radius="pointRadius"
-        />
+        >
+          <title
+            :id="`point-${index}-${chartID}`"
+            role="datavalue"
+          >
+            {{ value.value }}
+          </title>
+        </lume-point>
       </g>
     </g>
   </g>
@@ -184,6 +190,24 @@ function getPointPosition(pointIndex: number, datasetIndex: number) {
 
 function isPointActive(index: number) {
   return props.hoveredIndex === index;
+}
+
+const chartID = inject('chartID');
+
+/*
+ * This only is relevant for the a11y of a line chart, where the orientation is always horizontal.
+ * Therefore we can assume the label axis is always the x-axis
+ * */
+function getAriaLabelledby(index) {
+  return `x-${index}-${chartID} point-${index}-${chartID}`;
+}
+
+function getA11yProperties(index) {
+  return {
+    tabindex: 0,
+    role: 'datapoint',
+    'aria-labelledby': getAriaLabelledby(index),
+  };
 }
 </script>
 

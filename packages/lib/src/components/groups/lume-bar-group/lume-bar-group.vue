@@ -11,13 +11,19 @@
         v-for="(barValue, index) in barGroup"
         v-bind="getBarAttributes(barValue, index, groupIndex, barGroup)"
         :key="`bar-${groupIndex}-${index}`"
-        :value="barValue.value"
-        :group-index="groupIndex"
-        :index="index"
+        :a11y-properties="getA11yProperties(groupIndex, index)"
         :transition="computedTransition"
         :orientation="orientation"
         data-j-lume-bar
-      />
+      >
+        <title
+          v-if="groupIndex !== null"
+          :id="`point-${groupIndex}-${index}-${chartID}`"
+          role="datavalue"
+        >
+          {{ barValue.value }}
+        </title>
+      </lume-bar>
     </g>
   </g>
 </template>
@@ -31,7 +37,7 @@ const MIXIN_MAP = {
 </script>
 
 <script setup lang="ts">
-import { computed, PropType, toRefs } from 'vue';
+import { computed, inject, PropType, toRefs } from 'vue';
 
 import LumeBar from '@/components/core/lume-bar';
 
@@ -61,6 +67,8 @@ const props = defineProps({
     default: true,
   },
 });
+
+const chartID = inject('chartID');
 
 const {
   data,
@@ -106,4 +114,26 @@ const computedTransition = computed(() => {
   if (!transition.value) return;
   return orientation.value === ORIENTATIONS.HORIZONTAL ? 'width' : 'height';
 });
+
+function getAriaLabelledby(groupIndex, index) {
+  const axisId = `${
+    props.orientation === ORIENTATIONS.HORIZONTAL ? 'y' : 'x'
+  }-${groupIndex}-${chartID}`;
+  const valueId = `point-${groupIndex}-${index}-${chartID}`;
+  return `${axisId} ${valueId}`;
+}
+
+/*
+ * Note that not all bars will represent a value that ought to be read.
+ * For example, negative value indication bars and hover bars serve no meaning.
+ * */
+function getA11yProperties(groupIndex, index) {
+  return groupIndex === null
+    ? {}
+    : {
+      role: 'datapoint',
+      tabindex: 0,
+      'aria-labelledby': getAriaLabelledby(groupIndex, index),
+    };
+}
 </script>

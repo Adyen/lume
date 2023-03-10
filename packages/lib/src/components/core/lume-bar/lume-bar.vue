@@ -19,13 +19,7 @@
     :height="computedHeight"
     data-j-bar
   >
-    <title
-      v-if="groupIndex !== null"
-      :id="`point-${groupIndex}-${index}-${chartID}`"
-      role="datavalue"
-    >
-      {{ value }}
-    </title>
+    <slot />
   </rect>
 </template>
 
@@ -34,7 +28,7 @@ type BarTransitionProperty = 'width' | 'height';
 </script>
 
 <script setup lang="ts">
-import { computed, inject, onMounted, PropType, ref, toRefs } from 'vue';
+import { computed, onMounted, PropType, ref, toRefs } from 'vue';
 
 import { useBarSizing } from './composables/bar-sizing';
 import { useBarTransition } from './composables/bar-transition';
@@ -52,22 +46,9 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
-  index: {
-    type: Number,
-    default: null,
-  },
-  groupIndex: {
-    type: Number,
-    default: null,
-  },
-  value: {
-    type: Number,
-    default: null,
-  },
-  orientation: {
-    type: String as PropType<Orientation>,
-    default: ORIENTATIONS.VERTICAL,
-    validator: orientationValidator,
+  a11yProperties: {
+    type: Object,
+    default: () => ({}),
   },
   width: {
     type: Number,
@@ -107,8 +88,6 @@ const shouldTransitionHeight = computed(() => transition.value === 'height');
 
 const transitionProps = useBarTransition(x, y, width, height);
 
-const chartID = inject('chartID');
-
 const { computedX, computedY, shouldHaveMinWidth, shouldHaveMinHeight } =
   useBarSizing(x, y, width, height);
 
@@ -126,27 +105,6 @@ const computedHeight = computed(() => {
     shouldTransitionHeight.value ? transitionProps.computedHeight : height
   ).value;
 });
-
-const ariaLabelledby = computed(
-  () =>
-    `${props.orientation === ORIENTATIONS.HORIZONTAL ? 'y' : 'x'}-${
-      props.groupIndex
-    }-${chartID} point-${props.groupIndex}-${props.index}-${chartID}`
-);
-
-/*
- * Note that not all bars will represent a value that ought to be read.
- * For example, negative value indication bars and hover bars serve no meaning.
- * */
-const a11yProperties = computed(() => ({
-  ...(props.groupIndex === null
-    ? {}
-    : {
-      role: 'datapoint',
-      tabindex: 0,
-      'aria-labelledby': ariaLabelledby.value,
-    }),
-}));
 
 const transformOrigin =
   shouldTransitionWidth.value || shouldTransitionHeight.value
