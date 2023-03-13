@@ -11,7 +11,6 @@
         v-for="(barValue, index) in barGroup"
         v-bind="getBarAttributes(barValue, index, groupIndex, barGroup)"
         :key="`bar-${groupIndex}-${index}`"
-        :a11y-properties="getA11yProperties(groupIndex, index)"
         :transition="computedTransition"
         :orientation="orientation"
         data-j-lume-bar
@@ -96,25 +95,6 @@ const computedClasses = computed(() => {
   return classList.value;
 });
 
-const getBarAttributes = computed(() => {
-  const chartType = getBarChartType(data, type);
-
-  const { barAttributeGenerator } = MIXIN_MAP[chartType](
-    data,
-    barXScale,
-    barYScale,
-    orientation,
-    hoveredIndex,
-    computedClasses.value
-  );
-  return barAttributeGenerator;
-});
-
-const computedTransition = computed(() => {
-  if (!transition.value) return;
-  return orientation.value === ORIENTATIONS.HORIZONTAL ? 'width' : 'height';
-});
-
 function getAriaLabelledby(groupIndex, index) {
   const axisId = `${
     props.orientation === ORIENTATIONS.HORIZONTAL ? 'y' : 'x'
@@ -136,4 +116,27 @@ function getA11yProperties(groupIndex, index) {
       'aria-labelledby': getAriaLabelledby(groupIndex, index),
     };
 }
+
+const getBarAttributes = computed(() => {
+  const chartType = getBarChartType(data, type);
+
+  const { barAttributeGenerator } = MIXIN_MAP[chartType](
+    data,
+    barXScale,
+    barYScale,
+    orientation,
+    hoveredIndex,
+    computedClasses.value
+  );
+
+  return (barValue, index, groupIndex, barGroup) => ({
+    ...barAttributeGenerator(barValue, index, groupIndex, barGroup),
+    a11yProperties: getA11yProperties(groupIndex, index),
+  });
+});
+
+const computedTransition = computed(() => {
+  if (!transition.value) return;
+  return orientation.value === ORIENTATIONS.HORIZONTAL ? 'width' : 'height';
+});
 </script>

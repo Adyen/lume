@@ -33,10 +33,9 @@
         data-j-lume-line-group__points
       >
         <lume-point
-          v-for="(value, index) in dataset.values"
-          v-bind="getPointPosition(index, datasetIndex)"
+          v-for="(_, index) in dataset.values"
+          v-bind="getPointProperties(index, datasetIndex)"
           :key="`point-${index}`"
-          :a11y-properties="getA11yProperties(index)"
           :active="isPointActive(index)"
           :color="dataset.color"
           :radius="pointRadius"
@@ -177,7 +176,7 @@ function getLineTransitionParams(lineIndex: number) {
   };
 }
 
-function getPointPosition(pointIndex: number, datasetIndex: number) {
+function getPointProperties(pointIndex: number, datasetIndex: number) {
   const value = getValuesFromDataset(datasetIndex)[pointIndex]?.value;
 
   return {
@@ -185,6 +184,11 @@ function getPointPosition(pointIndex: number, datasetIndex: number) {
       ? props.xScale(domain.value[pointIndex]) + xAxisOffset.value
       : props.xScale(pointIndex),
     y: yScale.value(value),
+    a11yProperties: {
+      tabindex: 0,
+      role: 'datapoint',
+      'aria-labelledby': getAriaLabelledby(pointIndex),
+    },
   };
 }
 
@@ -200,14 +204,6 @@ const chartID = inject('chartID');
  * */
 function getAriaLabelledby(index) {
   return `x-${index}-${chartID} point-${index}-${chartID}`;
-}
-
-function getA11yProperties(index) {
-  return {
-    tabindex: 0,
-    role: 'datapoint',
-    'aria-labelledby': getAriaLabelledby(index),
-  };
 }
 </script>
 
