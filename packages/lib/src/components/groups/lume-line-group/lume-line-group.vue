@@ -33,7 +33,7 @@
         data-j-lume-line-group__points
       >
         <lume-point
-          v-for="(_, index) in dataset.values"
+          v-for="(value, index) in dataset.values"
           v-bind="getPointProperties(index, datasetIndex)"
           :key="`point-${index}`"
           :active="isPointActive(index)"
