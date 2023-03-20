@@ -72,13 +72,21 @@ export function useBaseScales(
         orientation.value,
         options.value.startOnZero
       );
-      yScale.value = generateBandScale(labels.value, height);
+      yScale.value = generateBandScale(
+        labels.value,
+        height,
+        options.value.padding || options.value.paddingOuter || null
+      );
     } else {
       // vertical
       // x = scaleBand : labels : width
       // y = scaleLinear : data : height
 
-      xScale.value = generateBandScale(labels.value, width);
+      xScale.value = generateBandScale(
+        labels.value,
+        width,
+        options.value.padding || options.value.paddingOuter || null
+      );
       yScale.value = generateLinearScale(
         data.value,
         height,
@@ -93,14 +101,21 @@ export function useBaseScales(
   return { xScale, yScale };
 }
 
-function generateBandScale(domain: Array<string | number>, size: number) {
+function generateBandScale(
+  domain: Array<string | number>,
+  size: number,
+  paddingOuter = null
+) {
   const range = [0, size];
-  return Object.assign(
-    scaleBand<string | number>()
-      .range(range)
-      .domain(domain.map((_, i) => i)),
-    { labels: domain }
-  ) as ComputedScaleBand;
+  const scale = scaleBand<string | number>()
+    .range(range)
+    .domain(domain.map((_, i) => i));
+
+  if (paddingOuter !== null) {
+    scale.paddingOuter(paddingOuter);
+  }
+
+  return Object.assign(scale, { labels: domain }) as ComputedScaleBand;
 }
 
 function generateLinearScale(
