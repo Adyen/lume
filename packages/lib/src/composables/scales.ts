@@ -104,14 +104,14 @@ export function useBaseScales(
 function generateBandScale(
   domain: Array<string | number>,
   size: number,
-  paddingOuter = null
+  paddingOuter: number = null
 ) {
   const range = [0, size];
   const scale = scaleBand<string | number>()
     .range(range)
     .domain(domain.map((_, i) => i));
 
-  if (paddingOuter !== null) {
+  if (paddingOuter || paddingOuter === 0) {
     scale.paddingOuter(paddingOuter);
   }
 
