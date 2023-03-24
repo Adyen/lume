@@ -58,6 +58,10 @@ export function useBaseScales(
 
   function generateScales() {
     const { width, height } = size;
+    const paddingOuter: number = (options.value.padding ||
+      options.value.paddingOuter ||
+      0) as number;
+
     if (!width && !height) return;
     if (!labels.value || !data.value) return;
 
@@ -72,21 +76,21 @@ export function useBaseScales(
         orientation.value,
         options.value.startOnZero
       );
-      yScale.value = generateBandScale(
-        labels.value,
-        height,
-        options.value.padding || options.value.paddingOuter || null
-      );
+      yScale.value = generateBandScale({
+        domain: labels.value,
+        size: height,
+        paddingOuter,
+      });
     } else {
       // vertical
       // x = scaleBand : labels : width
       // y = scaleLinear : data : height
 
-      xScale.value = generateBandScale(
-        labels.value,
-        width,
-        options.value.padding || options.value.paddingOuter || null
-      );
+      xScale.value = generateBandScale({
+        domain: labels.value,
+        size: width,
+        paddingOuter,
+      });
       yScale.value = generateLinearScale(
         data.value,
         height,
@@ -101,19 +105,23 @@ export function useBaseScales(
   return { xScale, yScale };
 }
 
-function generateBandScale(
-  domain: Array<string | number>,
-  size: number,
-  paddingOuter: number = null
-) {
+interface GenerateBandScaleArguments {
+  domain: Array<string | number>;
+  size: number;
+  paddingOuter?: number;
+}
+
+function generateBandScale({
+  domain,
+  size,
+  paddingOuter = 0,
+}: GenerateBandScaleArguments) {
   const range = [0, size];
   const scale = scaleBand<string | number>()
     .range(range)
     .domain(domain.map((_, i) => i));
 
-  if (paddingOuter || paddingOuter === 0) {
-    scale.paddingOuter(paddingOuter);
-  }
+  scale.paddingOuter(paddingOuter);
 
   return Object.assign(scale, { labels: domain }) as ComputedScaleBand;
 }
