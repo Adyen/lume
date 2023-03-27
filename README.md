@@ -6,6 +6,8 @@
 
 Lume is a library for graphical representations of information and data. By using visual elements like charts, graphs, and maps, this repository provide an accessible way to see and understand trends, outliers, and patterns in data. We use Vue to all graphic elements and rely on d3.js for the calculations.
 
+> **Note:** Lume ships **two** packages - one that is compatible with Vue 2.7, and another, with Vue 3. The second is published as **`@adyen/lume-vue3`**. Our examples import the Vue 2.7-compatible version, but if you're using Vue 3, just update the import name.
+
 **[Design guidelines (Figma)](https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library)**
 
 - [Stack](#stack)
@@ -18,9 +20,8 @@ Lume is a library for graphical representations of information and data. By usin
 ### Dependencies
 
 - [D3.js](https://d3js.org/) for calculations
-- [Vue _(v2.7)_](https://v2.vuejs.org/) for rendering
+- [Vue](https://vuejs.org/) for rendering
 - [Popper.js](https://popper.js.org/) for tooltip functionality
-- [Portal Vue](https://portal-vue.linusb.org/) for portalling (not available in Vue 2)
 
 ### Dev stack
 
@@ -29,7 +30,7 @@ Lume is a library for graphical representations of information and data. By usin
 - [TypeScript](https://www.typescriptlang.org/) for type checking
 - [TypeScript ESLint](https://typescript-eslint.io/) for linting _(with the help of [eslint-plugin-vue](https://eslint.vuejs.org/))_
 - [Storybook](https://storybook.js.org/) for developing/showcasing components
-- [Jest](https://jestjs.io/) for unit testing
+- [Vitest](https://vitest.dev/) for unit testing
 
 ## Getting started
 
@@ -37,8 +38,16 @@ Lume is a library for graphical representations of information and data. By usin
 
 To install Lume, run the following command:
 
+#### Vue 2.7+
+
 ```shell
 $ npm install @adyen/lume
+```
+
+#### Vue 3
+
+```shell
+$ npm install @adyen/lume-vue3
 ```
 
 ### Components
@@ -55,6 +64,12 @@ export default defineComponent({
   components: { LumeBarChart },
   ...
 });
+```
+
+```ts
+// Composition <script setup type="ts">
+
+import { LumeBarChart } from '@adyen/lume';
 ```
 
 ### Plugin
