@@ -5,7 +5,8 @@
     "requireCleanWorkingDir": false
   },
   "npm": {
-    "publish": false
+    "publish": false,
+    "allowSameVersion": true
   },
   "github": {
     "release": true,
@@ -15,5 +16,12 @@
   },
   "hooks": {
     "after:bump": "auto-changelog -p --hide-credit"
+  },
+  "plugins": {
+    "@release-it-plugins/workspaces": {
+      "publish": false,
+      "skipChecks": true,
+      "workspaces": ["packages/vue2", "packages/vue3"]
+    }
   }
 }

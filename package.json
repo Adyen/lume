@@ -49,6 +49,7 @@
     "d3-sankey": "0.12.3"
   },
   "devDependencies": {
+    "@release-it-plugins/workspaces": "^3.2.0",
     "@storybook/addon-a11y": "^6.5.12",
     "@storybook/addon-essentials": "^6.5.12",
     "@storybook/addon-storysource": "^6.5.12",
