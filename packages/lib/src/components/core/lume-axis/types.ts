@@ -14,3 +14,11 @@ export type AxisMixin = (
   containerSize: Ref<ContainerSize>,
   options: Ref<AxisOptions>
 ) => Record<string, AxisMixinFunction>;
+
+export interface TickAttributes {
+  value: string | number;
+  group: ReturnType<AxisMixinFunction>;
+  ghost: ReturnType<AxisMixinFunction>;
+  label: ReturnType<AxisMixinFunction>;
+  gridline: ReturnType<AxisMixinFunction>;
+}

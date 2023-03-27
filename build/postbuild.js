@@ -3,8 +3,6 @@ import { appendFile, mkdir, readFile, rm, writeFile } from 'fs/promises';
 import glob from 'glob';
 import sass from 'sass';
 
-import { resolve } from './util.js';
-
 const COMPONENT_STYLE_COMMENT = '\n/** Lume component styles */\n';
 
 const FILE_NAME_REGEX = /(charts|core|groups)\/|\/styles/g;
@@ -27,11 +25,9 @@ async function run() {
   try {
     // Compile main.scss to CSS
     const mainCompileResult = sass.compile(
-      // resolve('src/styles/main.scss'),
       '../lib/src/styles/main.scss',
       sassCompilerOptions
     );
-    // await writeFile(resolve('dist/styles/main.css'), mainCompileResult.css);
     await writeFile('dist/styles/main.css', mainCompileResult.css);
 
     // Append component styles to main.css

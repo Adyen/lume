@@ -89,17 +89,9 @@ import { isBandScale } from '@/utils/helpers';
 import { svgCheck } from '@/utils/svg-check';
 import { ContainerSize } from '@/types/size';
 import { xOptions, yOptions } from './defaults';
-import { AxisMixin, AxisMixinFunction } from './types';
+import { AxisMixin, AxisMixinFunction, TickAttributes } from './types';
 
 import mixinTypes from './composables/';
-
-interface TickAttributes {
-  value: string | number;
-  group: ReturnType<AxisMixinFunction>;
-  ghost: ReturnType<AxisMixinFunction>;
-  label: ReturnType<AxisMixinFunction>;
-  gridline: ReturnType<AxisMixinFunction>;
-}
 
 const props = defineProps({
   scale: {
@@ -209,7 +201,7 @@ function onTickMouseover(index: number) {
 }
 
 function getTextNode(index: number) {
-  if (!tickRefs.value) return;
+  if (!tickRefs.value || !tickRefs.value.length) return;
   return tickRefs.value[index].ref;
 }
 
