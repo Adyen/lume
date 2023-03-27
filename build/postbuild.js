@@ -5,8 +5,6 @@ import sass from 'sass';
 
 const COMPONENT_STYLE_COMMENT = '\n/** Lume component styles */\n';
 
-const FILE_NAME_REGEX = /(charts|core|groups)\/|\/styles/g;
-
 const VARIABLES_IMPORT_REGEX = /@use '@\/styles\/variables'/g;
 const VARIABLES_RELATIVE_IMPORT = `@use '../variables'`;
 
@@ -18,6 +16,11 @@ const getComponentSassFiles = () =>
   glob.sync('**/*.scss', {
     cwd: '../lib/src/components',
   });
+
+const getFilename = (path) => {
+  const splitPath = path.split('/');
+  return splitPath.at(-1).replace(/styles/g, splitPath.at(-2));
+};
 
 async function run() {
   console.log('[lume] Running postbuild script...');
@@ -44,7 +47,7 @@ async function run() {
 
     getComponentSassFiles().forEach(async (file) => {
       // Get new filename. Example: core/lume-axis/styles.scss -> lume-axis.scss
-      const filename = file.replace(FILE_NAME_REGEX, '');
+      const filename = getFilename(file);
 
       // Read data and replace @use rules with relative path
       const data = await readFile(`../lib/src/components/${file}`, 'utf8');
