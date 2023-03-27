@@ -13,7 +13,7 @@ const SAFETY_MARGIN = 0.15; // 15% of the average width
  */
 export function useSkip(
   scale: Ref<Scale>,
-  tickRefs: Ref<Array<SVGTextElement>>,
+  tickRefs: Ref<Array<{ ref: SVGTextElement }>>,
   skipNumber?: true | number
 ) {
   const avgLabelWidth = ref<number>();
@@ -24,7 +24,7 @@ export function useSkip(
   function setAvgLabelWidth() {
     if (!tickRefs.value) return;
     const labelWidthSum = tickRefs.value.reduce(
-      (sum, label) => sum + label.getBoundingClientRect().width,
+      (sum, label) => sum + label.ref.getBoundingClientRect().width,
       0
     );
     const averageValue = Math.ceil(labelWidthSum / tickCount.value);

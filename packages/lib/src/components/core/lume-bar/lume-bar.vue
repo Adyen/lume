@@ -17,6 +17,7 @@
     :width="computedWidth"
     :height="computedHeight"
     data-j-bar
+    @mouseover="emit('mouseover', $event)"
   />
 </template>
 
@@ -66,6 +67,8 @@ const props = defineProps({
     default: false,
   },
 });
+
+const emit = defineEmits<{ (e: 'mouseover', value: MouseEvent): void }>(); // Needs to be emitted for Vue 2
 
 const { x, y, width, height, transition, classList } = toRefs(props);
 const root = ref<SVGRectElement>(null);
