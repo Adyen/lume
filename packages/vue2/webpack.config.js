@@ -1,6 +1,5 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
-// import { resolve } from './build/util.js';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 

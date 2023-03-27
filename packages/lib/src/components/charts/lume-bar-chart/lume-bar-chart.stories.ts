@@ -1,4 +1,4 @@
-import { computed, watch } from 'vue';
+import { computed } from 'vue';
 
 import { withSizeArgs, withSizeArgTypes } from '@/docs/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/base-data';
@@ -7,10 +7,10 @@ import LumeBarChart from './index';
 
 import { Colors, ORIENTATIONS } from '@/utils/constants';
 
-const tickFormat = {
-  'charts-bar-chart--maximum-datasets': '.2s',
-  'charts-bar-chart--real-data': '~s',
-};
+// const tickFormat = {
+//   'charts-bar-chart--maximum-datasets': '.2s',
+//   'charts-bar-chart--real-data': '~s',
+// };
 
 export default {
   title: 'Charts/Bar chart',
