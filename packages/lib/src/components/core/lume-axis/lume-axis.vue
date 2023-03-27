@@ -27,54 +27,25 @@
       </linearGradient>
     </defs>
 
-    <template
+    <lume-tick
       v-for="(tick, index) in ticksWithAttributes"
       :key="`${tick.value}_${index}`"
-    >
-      <g
-        v-bind="tick.group"
-        :id="getTickId(index)"
-        class="axis__tick"
-        :class="{
-          'axis__tick--hovered': isHovering(index),
-          'axis__tick--hidden': allOptions.skip && !showTick(index),
-        }"
-        data-j-axis__tick
-      >
-        <g
-          class="axis__tick-label lume-typography--axis"
-          pointer-events="all"
-          data-j-axis__tick-label
-          @mouseover="onTickMouseover(index)"
-        >
-          <rect
-            v-bind="tick.ghost"
-            class="axis__ghost"
-            fill="url(#lume-tick-gradient)"
-          />
-          <text
-            v-bind="tick.label"
-            ref="tickRefs"
-            class="axis__label"
-            :data-index="index"
-          >
-            {{ formatTick(tick.value) }}
-          </text>
-        </g>
-
-        <line
-          v-if="allOptions.gridLines"
-          v-bind="tick.gridLine"
-          class="axis__grid-line"
-        />
-      </g>
-    </template>
+      ref="tickRefs"
+      v-bind="tick"
+      :is-hidden="allOptions.skip && !showTick(index)"
+      :with-gridlines="allOptions.gridLines"
+      @mouseover="onTickMouseover(index)"
+    />
 
     <!-- Hovered tick -->
-    <!-- <vue-portal-target
-      :name="`${chartID}-${computedType}-hovered-portal`"
-      slim
-    /> -->
+    <!-- Has to be copied over to after all other ticks so that it shows on top. (z-index doesn't work for SVG) -->
+    <lume-tick
+      v-if="isHovering"
+      v-bind="ticksWithAttributes[hoveredIndex]"
+      :with-gridlines="false"
+      is-hovered
+      pointer-events="none"
+    />
   </g>
 </template>
 
@@ -96,7 +67,6 @@ enum TYPES {
 <script setup lang="ts">
 import {
   computed,
-  inject,
   onMounted,
   PropType,
   reactive,
@@ -106,6 +76,8 @@ import {
 } from 'vue';
 import { ticks as d3TickGenerator } from 'd3';
 import { ScaleBand } from 'd3';
+
+import LumeTick from './components/lume-tick';
 
 import { useFormat } from '@/composables/format';
 import { AxisOptions, useOptions, withOptions } from '@/composables/options';
@@ -120,6 +92,14 @@ import { xOptions, yOptions } from './defaults';
 import { AxisMixin, AxisMixinFunction } from './types';
 
 import mixinTypes from './composables/';
+
+interface TickAttributes {
+  value: string | number;
+  group: ReturnType<AxisMixinFunction>;
+  ghost: ReturnType<AxisMixinFunction>;
+  label: ReturnType<AxisMixinFunction>;
+  gridline: ReturnType<AxisMixinFunction>;
+}
 
 const props = defineProps({
   scale: {
@@ -159,11 +139,9 @@ const { scale, containerSize, hoveredIndex, options, orientation } =
   toRefs(props); // Needs to be cast as any to avoid it being cast to never by default
 
 const mixins = reactive<Record<string, AxisMixinFunction>>({});
-const tickRefs = ref<Array<SVGTextElement>>(null);
+const tickRefs = ref<Array<{ ref: SVGTextElement }>>(null);
 const root = ref<SVGGElement>(null);
-const ticksWithAttributes = ref(null);
-
-const chartID = inject('chartID');
+const ticksWithAttributes = ref<Array<TickAttributes>>(null);
 
 const computedPosition = computed(() =>
   props.type ? TYPES[props.type] : props.position
@@ -212,6 +190,11 @@ const tickFormatter = computed(() => {
   return useFormat(tickFormat);
 });
 
+const isHovering = computed(
+  () =>
+    allOptions.value.withHover && shouldHover.value && hoveredIndex.value > -1
+);
+
 function formatTick(tick: number | string) {
   const { showTicks } = allOptions.value;
 
@@ -225,34 +208,23 @@ function onTickMouseover(index: number) {
   shouldHover.value && emit('tick-mouseover', index);
 }
 
-function isHovering(index: number) {
-  return (
-    allOptions.value.withHover &&
-    shouldHover.value &&
-    hoveredIndex.value === index
-  );
-}
-
-function getTickId(index: number) {
-  return `${chartID}-${computedType.value}-tick--${index}`;
-}
-
-// Needed because tick element index changes in the `tickRefs` array
 function getTextNode(index: number) {
   if (!tickRefs.value) return;
-  return tickRefs.value.find((tick) => +tick.dataset.index === index);
+  return tickRefs.value[index].ref;
 }
 
 function setTicks() {
-  ticksWithAttributes.value = ticks.value.map((tick, index) => {
-    return {
-      value: tick,
-      group: mixins.getTickGroupAttributes(tick, index),
-      ghost: mixins.getTickGhostAttributes(getTextNode(index)),
-      label: mixins.getTickLabelAttributes(),
-      gridLine: mixins.getGridLinesAttributes(),
-    };
-  });
+  ticksWithAttributes.value = ticks.value.map(
+    (tick: string | number, index: number) => {
+      return {
+        value: formatTick(tick),
+        group: mixins.getTickGroupAttributes(tick, index),
+        ghost: mixins.getTickGhostAttributes(getTextNode(index)),
+        label: mixins.getTickLabelAttributes(),
+        gridline: mixins.getGridLinesAttributes(),
+      };
+    }
+  );
 }
 
 function init() {
@@ -290,7 +262,3 @@ watch(
 
 onMounted(() => svgCheck(root.value));
 </script>
-
-<style lang="scss" scoped>
-@use './styles';
-</style>
