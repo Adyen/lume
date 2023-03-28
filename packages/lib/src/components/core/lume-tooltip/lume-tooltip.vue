@@ -1,5 +1,6 @@
 <template>
   <div
+    v-show="targetElement"
     ref="root"
     class="lume-tooltip lume-typography--caption"
     data-j-tooltip
@@ -92,7 +93,7 @@ import { TOOLTIP_POSITIONS } from '@/utils/constants';
 const props = defineProps({
   targetElement: {
     type: Element,
-    required: true,
+    default: null,
   },
   items: {
     type: Array as PropType<Array<TooltipItem>>,
@@ -198,7 +199,13 @@ function updatePopper() {
 }
 
 // Watchers
-watch(() => props.targetElement, updatePopper);
+watch(
+  () => props.targetElement,
+  (newValue, oldValue) => {
+    if (!oldValue && newValue) initPopper();
+    else updatePopper();
+  }
+);
 
 // Lifecycle
 onMounted(initPopper);
