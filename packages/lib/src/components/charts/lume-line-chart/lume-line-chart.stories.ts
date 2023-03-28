@@ -2,6 +2,7 @@ import { withSizeArgs, withSizeArgTypes } from '@/docs/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/base-data';
 
 import LumeLineChart from './lume-line-chart.vue';
+import LumeTooltip from '../../core/lume-tooltip/index';
 import { options as defaultOptions } from './defaults';
 
 export default {
@@ -70,4 +71,38 @@ RealData.args = {
       ...defaultOptions.yAxisOptions,
     },
   },
+};
+
+const CustomTemplate = ({ args }) => ({
+  components: { LumeLineChart, LumeTooltip },
+  setup() {
+    const customItemsFunction = (data, hoveredIndex) => {
+      if (hoveredIndex > -1) {
+        const { color, label, values } = data[0];
+        return [
+          {
+            color,
+            label,
+            value: values[hoveredIndex].value ?? 0,
+          },
+        ];
+      }
+      return [];
+    };
+    return { args, customItemsFunction };
+  },
+  template: `
+  <div :style="{ width: args.width + 'px', height: args.orientation !== 'horizontal' ? args.height + 'px' : undefined }">
+  <lume-line-chart v-bind="args" :color="computedColor">
+    <template #tooltip = "{ data, hoveredIndex, targetElement }">
+      <lume-tooltip :items="customItemsFunction(data, hoveredIndex)" :target-element="targetElement" position="top"/>
+    </template>
+  </lume-line-chart>
+</div>
+  `,
+});
+
+export const CustomTooltip = CustomTemplate.bind({});
+CustomTooltip.args = {
+  ...DATASETS.Single,
 };

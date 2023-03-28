@@ -4,6 +4,7 @@ import { withSizeArgs, withSizeArgTypes } from '@/docs/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/base-data';
 
 import LumeBarChart from './index';
+import LumeTooltip from '../../core/lume-tooltip/index';
 
 import { Colors, ORIENTATIONS } from '@/utils/constants';
 
@@ -58,6 +59,36 @@ const Template = ({ args }) => ({
   template: `
   <div :style="{ width: args.width + 'px', height: args.orientation !== 'horizontal' ? args.height + 'px' : undefined }">
       <lume-bar-chart v-bind="args" :color="computedColor"/>
+  </div>
+  `,
+});
+
+const CustomTemplate = ({ args }) => ({
+  components: { LumeBarChart, LumeTooltip },
+  setup() {
+    const computedColor = computed(() => Colors[args.color]);
+    const customItemsFunction = (data, hoveredIndex) => {
+      if (hoveredIndex > -1) {
+        const { color, label, values } = data[0];
+        return [
+          {
+            color,
+            label,
+            value: values[hoveredIndex].value ?? 0,
+          },
+        ];
+      }
+      return [];
+    };
+    return { args, computedColor, customItemsFunction };
+  },
+  template: `
+  <div :style="{ width: args.width + 'px', height: args.orientation !== 'horizontal' ? args.height + 'px' : undefined }">
+      <lume-bar-chart v-bind="args" :color="computedColor">
+        <template #tooltip = "{ data, hoveredIndex, targetElement }">
+          <lume-tooltip :items="customItemsFunction(data, hoveredIndex)" :target-element="targetElement" position="top"/>
+        </template>
+      </lume-bar-chart>
   </div>
   `,
 });
@@ -128,5 +159,21 @@ RealData.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A7280',
+  },
+};
+
+export const CustomTooltip = CustomTemplate.bind({});
+CustomTooltip.args = {
+  ...DATASETS.Single,
+  orientation: ORIENTATIONS.VERTICAL,
+  options: {
+    xAxisOptions: {},
+    yAxisOptions: {},
+  },
+};
+CustomTooltip.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A3148',
   },
 };
