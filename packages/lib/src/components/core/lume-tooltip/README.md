@@ -38,8 +38,11 @@ Here's an example of overriding the default tooltip in a `lume-line-chart`:
   :data="myData"
   :labels="myLabels"
 >
-  <template #tooltip="{ data, hoveredIndex }">
-    <lume-tooltip :items="myCustomItemsFunction(data, hoveredIndex)" />
+  <template #tooltip="{ data, hoveredIndex, targetElement }">
+    <lume-tooltip
+      :items="myCustomItemsFunction(data, hoveredIndex)"
+      :target-element="targetElement"
+    />
   </template>
 </lume-line-chart>
 ```
@@ -50,8 +53,8 @@ Here's an example of overriding the default tooltip in a `lume-line-chart`:
 
 | Name               | Type                 | Default  | Description                                                    |
 | ------------------ | -------------------- | -------- | -------------------------------------------------------------- |
-| `targetElement`    | `Element`            | Required | A DOM element to attach to.                                    |
 | `items`            | `Array<TooltipItem>` | Required | An array of items to display.                                  |
+| `targetElement`    | `Element`            | `null`   | A DOM element to attach to.                                    |
 | `position`         | `string`             | `"auto"` | Where the tooltip should be positioned relative to its target. |
 | `fixedPositioning` | `boolean`            | `false`  | If true, it will use fixed positioning instead of absolute.    |
 | `modifiers`        | `Array<Modifier>`    | `null`   | A list of modifiers for Popper.                                |
