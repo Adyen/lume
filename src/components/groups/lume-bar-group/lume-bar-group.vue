@@ -46,8 +46,16 @@ import { useStackedBarMixin } from './composables/stacked-mixin';
 import { ORIENTATIONS } from '@/utils/constants';
 
 const props = defineProps({
-  ...withGroupProps(false, false),
-  ...withBarProps(false),
+  ...withGroupProps(),
+  classList: {
+    type: [String, Array] as PropType<string | Array<string>>,
+    default: () => [],
+  },
+  ...withBarProps(true),
+  transition: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 const {

@@ -11,16 +11,15 @@ import { ContainerSize } from '@/types/size';
 export const withGroupProps = <
   T extends Options = Options,
   K extends DatasetValueObject = DatasetValueObject
->(
-    useLabels = true,
-    useContainerSize = true
-  ) => ({
-  /* Required */
+>() => ({
     data: {
       type: Array as PropType<InternalData<K>>,
       required: true,
     },
-    /* With defaults */
+    labels: {
+      type: Array as PropType<Array<string | number>>,
+      default: () => [],
+    },
     options: {
       type: Object as PropType<T>,
       default: () => ({}),
@@ -42,6 +41,10 @@ export const withGroupProps = <
       type: Number,
       default: -1,
     },
+    containerSize: {
+      type: Object as PropType<ContainerSize>,
+      default: () => ({ width: 0, height: 0 }),
+    },
     transition: {
       type: Boolean,
       default: true,
@@ -50,21 +53,4 @@ export const withGroupProps = <
       type: [String, Array] as PropType<string | Array<string>>,
       default: () => [],
     },
-    /* Optional */
-    ...(useLabels
-      ? {
-        labels: {
-          type: Array as PropType<Array<string | number>>,
-          default: () => [],
-        },
-      }
-      : {}),
-    ...(useContainerSize
-      ? {
-        containerSize: {
-          type: Object as PropType<ContainerSize>,
-          default: () => ({ width: 0, height: 0 }),
-        },
-      }
-      : {}),
   });
