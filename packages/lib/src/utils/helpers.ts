@@ -1,7 +1,12 @@
 import { isRef, Ref } from 'vue';
 import { ScaleBand } from 'd3';
 
-import { Data, DatasetValueObject, InternalData } from '@/types/dataset';
+import {
+  Data,
+  DatasetValueObject,
+  InternalData,
+  InternalDataset,
+} from '@/types/dataset';
 import { Scale } from '@/composables/scales';
 import { Slots } from 'vue/types/v3-setup-context';
 
@@ -31,6 +36,20 @@ export function flatValues(data: InternalData): Array<number> {
  */
 export function singleDatasetValidator(data: Data): boolean {
   return data.length === 1;
+}
+
+/**
+ * Checks if provided data is valid for a chart legend.
+ * @param {InternalData} data The data prop.
+ * @returns {boolean} True if valid data.
+ */
+export function dataValidator(data: InternalData): boolean {
+  return (
+    !!data &&
+    data.every(
+      (dataset: InternalDataset<DatasetValueObject>) => 'color' in dataset
+    )
+  );
 }
 
 /**
