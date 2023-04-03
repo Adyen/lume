@@ -14,6 +14,7 @@
       animationDuration: transition && animationDuration + 's',
     }"
     data-j-line
+    @click="emit('click', $event)"
   />
 </template>
 
@@ -59,7 +60,10 @@ defineProps({
   },
 });
 
+const emit = defineEmits<{ (e: 'click', p: MouseEvent): void }>();
+
 const root = ref<SVGPathElement>(null);
+
 onMounted(() => svgCheck(root.value));
 </script>
 

@@ -8,6 +8,8 @@
     :transparent-background="allOptions.transparentBackground"
     data-j-lume-chart
     @resize="updateSize"
+    @click="emit('chart-click', $event)"
+    @mouseenter="emit('chart-mouseenter', $event)"
     @mouseleave="handleMouseleave"
   >
     <template #header>
@@ -49,7 +51,9 @@
               :data="internalData"
               class="lume-chart__legend"
               data-j-lume-chart__legend
-              @click="emit('click', $event)"
+              @click="emit('legend-click', $event)"
+              @mouseenter="emit('legend-mouseenter', $event)"
+              @mouseleave="emit('legend-mouseleave')"
             />
           </slot>
         </div>
@@ -84,7 +88,9 @@
           :hovered-index="hoveredIndex"
           :orientation="orientation"
           data-j-lume-chart__x-axis
-          @tick-mouseover="mouseOverHandler($event)"
+          @click="handleAxisClick"
+          @mouseenter="handleAxisMouseenter"
+          @mouseleave="emit('axis-mouseleave')"
         />
         <lume-axis
           type="y"
@@ -94,9 +100,34 @@
           :hovered-index="hoveredIndex"
           :orientation="orientation"
           data-j-lume-chart__y-axis
-          @tick-mouseover="mouseOverHandler($event)"
+          @click="handleAxisClick"
+          @mouseenter="handleAxisMouseenter"
+          @mouseleave="emit('axis-mouseleave')"
         />
       </slot>
+
+      <!-- Overlay bars -->
+      <lume-overlay-group
+        v-if="allOptions.withHover !== false"
+        :data="internalData"
+        :orientation="orientation"
+        :x-scale="computedXScale"
+        :y-scale="computedYScale"
+        data-j-lume-chart__overlay-group
+        @lume__internal--hover="handleInternalHover"
+      />
+
+      <!-- Tooltip anchors -->
+      <g v-if="shouldGenerateTooltipAnchors">
+        <circle
+          v-for="(attrs, index) in tooltipAnchorAttributes"
+          v-bind="attrs"
+          ref="tooltipAnchor"
+          :key="`anchor_${index}`"
+          :r="tooltipAnchorRadius"
+          class="lume-fill--transparent"
+        />
+      </g>
 
       <!-- Data groups -->
       <slot
@@ -111,30 +142,11 @@
         :container-size="containerSize"
         :transition="allOptions.withTransition !== false"
         :class-list="classList"
+        @bar-click="emit('bar-click', $event)"
+        @line-click="emit('line-click', $event)"
+        @point-click="emit('point-click', $event)"
+        @lume__internal--hover="handleInternalHover"
       />
-
-      <!-- Overlay bars -->
-      <lume-overlay-group
-        v-if="allOptions.withHover !== false"
-        :data="internalData"
-        :orientation="orientation"
-        :x-scale="computedXScale"
-        :y-scale="computedYScale"
-        data-j-lume-chart__overlay-group
-        @mouseover="mouseOverHandler"
-      />
-
-      <!-- Tooltip anchors -->
-      <g v-if="shouldGenerateTooltipAnchors">
-        <circle
-          v-for="(attrs, index) in tooltipAnchorAttributes"
-          v-bind="attrs"
-          ref="tooltipAnchor"
-          :key="`anchor_${index}`"
-          :r="tooltipAnchorRadius"
-          class="lume-fill--transparent"
-        />
-      </g>
     </template>
 
     <template #footer>
@@ -155,7 +167,9 @@
         :data="internalData"
         class="lume-chart__legend lume-chart__legend--bottom"
         data-j-lume-chart__legend
-        @click="emit('click', $event)"
+        @click="emit('legend-click', $event)"
+        @mouseenter="emit('legend-mouseenter', $event)"
+        @mouseleave="emit('legend-mouseleave')"
       />
     </template>
 
@@ -170,13 +184,26 @@
         :options="allOptions.tooltipOptions"
       >
         <lume-tooltip
-          v-if="allOptions.withTooltip !== false && tooltipConfig.opened"
+          v-if="isTooltipOpened"
           v-bind="tooltipConfig"
           :position="tooltipPosition"
           :title="computedLabels[hoveredIndex]"
           :items="getTooltipItems(hoveredIndex)"
           :options="allOptions.tooltipOptions"
           data-j-lume-chart__tooltip
+          @opened="
+            emit('tooltip-opened', {
+              index: hoveredIndex,
+              targetElement: $event,
+            })
+          "
+          @moved="
+            emit('tooltip-moved', {
+              index: hoveredIndex,
+              targetElement: $event,
+            })
+          "
+          @closed="emit('tooltip-closed')"
         >
           <slot
             name="tooltip-content"
@@ -199,6 +226,7 @@ import {
   ref,
   toRefs,
   useSlots,
+  watch,
 } from 'vue';
 
 import LumeAxis from '@/components/core/lume-axis';
@@ -224,7 +252,8 @@ import {
 } from '@/composables/tooltip';
 
 import { ORIENTATIONS, TOOLTIP_ANCHOR_RADIUS } from '@/utils/constants';
-import { ChartType } from '@/types/dataset';
+import { ChartType, Data } from '@/types/dataset';
+import { ChartEmits } from '@/types/events';
 
 const props = defineProps({
   ...withChartProps(),
@@ -236,9 +265,10 @@ const props = defineProps({
 
 const slots = useSlots();
 
-const emit = defineEmits<{
-  (e: 'click', value: number): void;
-}>();
+// https://github.com/vuejs/core/issues/4294#issuecomment-1480392140
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface Emits extends ChartEmits {}
+const emit = defineEmits<Emits>();
 
 const tooltipAnchorRadius = TOOLTIP_ANCHOR_RADIUS;
 
@@ -303,7 +333,7 @@ const showYAxisTitle = computed(() => {
 });
 
 const isReady = computed(() => {
-  const conditions = [];
+  const conditions: Array<() => boolean> = [];
 
   const { noBaseScales } = allOptions.value;
 
@@ -336,11 +366,18 @@ const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();
 
 const { getTooltipItems } = useTooltipItems(internalData);
 
+const isTooltipOpened = computed(
+  () => allOptions.value.withTooltip !== false && tooltipConfig.opened
+);
+
 const tooltipPosition = computed(
   () => allOptions.value.tooltipOptions?.position || 'top'
 );
 
-function mouseOverHandler(index: number) {
+function handleInternalHover(index: number) {
+  // Skip the rest if the index didn't change
+  if (index === hoveredIndex.value) return;
+
   // Update hoveredIndex
   allOptions.value.withHover !== false && (hoveredIndex.value = index);
 
@@ -359,16 +396,35 @@ function mouseOverHandler(index: number) {
 function handleMouseleave() {
   hideTooltip();
   hoveredIndex.value = -1;
+  emit('chart-mouseleave');
 }
 
-provide('chartID', chartID);
-provide('tooltipAnchorAttributes', tooltipAnchorAttributes); // provide anchors to re-compute in some cases
+function handleAxisMouseenter({ index, value, event }) {
+  if (index !== null) handleInternalHover(index);
+  emit('axis-mouseenter', { index, value, event });
+}
+
+function handleAxisClick({ index, value, event }) {
+  emit('axis-click', { index, value, event });
+}
+
+watch(data, (newValue: Data, oldValue: Data | null) =>
+  emit('data-changed', { newValue, oldValue })
+);
+
+watch(labels, (newValue: string[], oldValue: string[] | null) =>
+  emit('labels-changed', { newValue, oldValue })
+);
 
 onMounted(() => {
+  emit('rendered');
   if (!slots.groups) {
     console.error('"groups" `<slot>` must have content.');
   }
 });
+
+provide('chartID', chartID);
+provide('tooltipAnchorAttributes', tooltipAnchorAttributes); // provide anchors to re-compute in some cases
 </script>
 
 <style lang="scss" scoped>

@@ -5,6 +5,7 @@
     class="axis"
     :transform="axisTransform"
     data-j-axis
+    @mouseleave="emit('mouseleave', $event)"
   >
     <defs v-if="computedType === 'x'">
       <linearGradient id="lume-tick-gradient">
@@ -34,7 +35,8 @@
       v-bind="tick"
       :is-hidden="allOptions.skip && !showTick(index)"
       :with-gridlines="allOptions.gridLines"
-      @mouseover="onTickMouseover(index)"
+      @mouseenter="handleTickMouseenter(index, tick.value, $event)"
+      @click="handleTickClick(index, tick.value, $event)"
     />
 
     <!-- Hovered tick -->
@@ -44,7 +46,13 @@
       v-bind="ticksWithAttributes[hoveredIndex]"
       :with-gridlines="false"
       is-hovered
-      pointer-events="none"
+      @click="
+        handleTickClick(
+          hoveredIndex,
+          ticksWithAttributes[hoveredIndex].value,
+          $event
+        )
+      "
     />
   </g>
 </template>
@@ -124,7 +132,11 @@ const props = defineProps({
 });
 
 const emit = defineEmits<{
-  (e: 'tick-mouseover', value: number): void;
+  (
+    e: 'mouseenter' | 'click',
+    p: { index?: number; value: string | number; event: MouseEvent }
+  ): void;
+  (e: 'mouseleave', p: MouseEvent): void;
 }>();
 
 const { scale, containerSize, hoveredIndex, options, orientation } =
@@ -196,8 +208,20 @@ function formatTick(tick: number | string) {
   return tickFormatter.value(tick);
 }
 
-function onTickMouseover(index: number) {
-  shouldHover.value && emit('tick-mouseover', index);
+function handleTickMouseenter(
+  index: number,
+  value: string | number,
+  event: MouseEvent
+) {
+  emit('mouseenter', { index: shouldHover.value ? index : null, value, event });
+}
+
+function handleTickClick(
+  index: number | null,
+  value: string | number,
+  event: MouseEvent
+) {
+  emit('click', { index, value, event });
 }
 
 function getTextNode(index: number) {
@@ -239,18 +263,10 @@ function init() {
 // Setup watcher to get new mixins if scale changes (i.e. vertical to horizontal)
 watch(scale, init, { flush: 'sync', immediate: true });
 
+// Re-render after scale changes (new containerSize, new balebs, scale override, etc.)
+watch(scale, setTicks, { immediate: true });
 // Re-render after `tickRefs` is defined (to grab text width)
-// and only when `ticks` change (if scale changes)
-watch(
-  [
-    ticks,
-    tickRefs,
-    () => containerSize.value.width, //  also re-render
-    () => containerSize.value.height, // when containerSize changes
-  ],
-  setTicks,
-  { immediate: true }
-);
+watch(tickRefs, setTicks);
 
 onMounted(() => svgCheck(root.value));
 </script>

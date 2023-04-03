@@ -7,7 +7,8 @@
       :data-j-lume-overlay-group="index"
       :transition="false"
       class-list="lume-fill--transparent"
-      @mouseover="emit('mouseover', index)"
+      @mouseenter="emit('lume__internal--hover', index)"
+      @click="emit('click', { index, event: $event })"
     />
   </g>
 </template>
@@ -35,7 +36,9 @@ const props = defineProps({
 });
 
 const emit = defineEmits<{
-  (e: 'mouseover', value: number);
+  (e: 'click', p: { index: number; event: MouseEvent });
+  (e: 'lume__internal--hover', p: number);
+  (e: 'mouseover', p: number);
 }>();
 
 const { data, orientation, xScale, yScale } = toRefs(props);

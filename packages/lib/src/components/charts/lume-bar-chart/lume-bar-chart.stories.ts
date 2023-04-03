@@ -1,6 +1,11 @@
 import { computed } from 'vue';
 
-import { withSizeArgs, withSizeArgTypes } from '@/docs/storybook-helpers';
+import {
+  actionEventHandlerTemplate,
+  captureAction,
+  withSizeArgs,
+  withSizeArgTypes,
+} from '@/docs/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/base-data';
 
 import LumeBarChart from './index';
@@ -56,9 +61,10 @@ const Template = ({ args }) => ({
     const computedColor = computed(() => Colors[args.color]);
     return { args, computedColor };
   },
+  methods: { captureAction },
   template: `
   <div :style="{ width: args.width + 'px', height: args.orientation !== 'horizontal' ? args.height + 'px' : undefined }">
-      <lume-bar-chart v-bind="args" :color="computedColor"/>
+      <lume-bar-chart v-bind="args" :color="computedColor" ${actionEventHandlerTemplate} />
   </div>
   `,
 });

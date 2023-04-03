@@ -8,6 +8,7 @@
     :r="active ? radius : 0"
     :stroke-width="strokeWidth"
     data-j-point
+    @click="emit('click', $event)"
   />
 </template>
 
@@ -37,6 +38,8 @@ const props = defineProps({
     default: false,
   },
 });
+
+const emit = defineEmits<{ (e: 'click', p: MouseEvent): void }>();
 
 const root = ref<SVGCircleElement>(null);
 

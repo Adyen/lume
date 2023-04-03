@@ -7,7 +7,8 @@
       'axis__tick--hidden': isHidden,
     }"
     data-j-axis__tick
-    @mouseover="emit('mouseover')"
+    @mouseenter="emit('mouseenter', $event)"
+    @click="emit('click', $event)"
   >
     <g
       class="axis__tick-label lume-typography--axis"
@@ -76,7 +77,10 @@ defineProps({
   },
 });
 
-const emit = defineEmits<{ (e: 'mouseover'): void }>(); // Needs to be emitted for Vue 2
+const emit = defineEmits<{
+  (e: 'click', p: MouseEvent): void;
+  (e: 'mouseenter', p: MouseEvent): void;
+}>();
 
 const labelRef = ref<SVGTextElement>(null);
 
