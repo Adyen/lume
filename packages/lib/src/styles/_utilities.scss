@@ -78,6 +78,7 @@
 
   &--negative {
     fill: $lume-color-grey-10;
+    pointer-events: none;
   }
 
   &--none {

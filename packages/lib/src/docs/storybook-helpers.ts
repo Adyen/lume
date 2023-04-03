@@ -1,3 +1,33 @@
+import { action } from '@storybook/addon-actions';
+
+const CHART_EVENTS = [
+  'axis-click',
+  'axis-mouseenter',
+  'axis-mouseleave',
+
+  'rendered',
+  'resize',
+
+  'data-changed',
+  'labels-changed',
+
+  'chart-click',
+  'chart-mouseenter',
+  'chart-mouseleave',
+
+  'legend-click',
+  'legend-mouseenter',
+  'legend-mouseleave',
+
+  'bar-click',
+  'line-click',
+  'point-click',
+
+  'tooltip-opened',
+  'tooltip-moved',
+  'tooltip-closed',
+];
+
 export const COLOR_CLASS_MAP = {
   Yellow: '01',
   Green: '02',
@@ -32,3 +62,13 @@ export const withSizeArgs = (
   width: defaultWidth || 540,
   height: defaultHeight || 360,
 });
+
+export const captureAction =
+  (key: string) =>
+    (...args) =>
+      action(key)(...args);
+
+export const actionEventHandlerTemplate = CHART_EVENTS.map(
+  (key) =>
+    `@${key}="(...args) => captureAction('${key.replace(/-/g, ' ')}')(...args)"`
+).join(' ');

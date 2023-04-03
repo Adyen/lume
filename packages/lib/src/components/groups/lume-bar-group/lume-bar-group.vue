@@ -6,6 +6,7 @@
     <g
       v-for="(barGroup, groupIndex) in groupedData"
       :key="groupIndex"
+      @mouseenter="emit('lume__internal--hover', groupIndex)"
     >
       <lume-bar
         v-for="(barValue, index) in barGroup"
@@ -13,6 +14,13 @@
         :key="`bar-${index}`"
         :transition="computedTransition"
         data-j-lume-bar
+        @click="
+          emit('bar-click', {
+            index: groupIndex,
+            datasetIndex: index,
+            event: $event,
+          })
+        "
       />
     </g>
   </g>
@@ -57,6 +65,14 @@ const props = defineProps({
     default: true,
   },
 });
+
+const emit = defineEmits<{
+  (
+    e: 'bar-click',
+    p: { index: number; datasetIndex: number; event: MouseEvent }
+  );
+  (e: 'lume__internal--hover', p: number);
+}>();
 
 const {
   data,

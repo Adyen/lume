@@ -1,4 +1,9 @@
-import { withSizeArgs, withSizeArgTypes } from '@/docs/storybook-helpers';
+import {
+  actionEventHandlerTemplate,
+  captureAction,
+  withSizeArgs,
+  withSizeArgTypes,
+} from '@/docs/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/base-data';
 
 import LumeLineChart from './lume-line-chart.vue';
@@ -45,9 +50,10 @@ const Template = ({ args }) => ({
   setup() {
     return { args };
   },
+  methods: { captureAction },
   template: `
     <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
-        <lume-line-chart v-bind="args" />
+        <lume-line-chart v-bind="args" ${actionEventHandlerTemplate} />
     </div>
   `,
 });

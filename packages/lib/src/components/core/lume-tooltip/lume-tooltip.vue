@@ -103,7 +103,7 @@ const props = defineProps({
     type: String as PropType<Placement>,
     default: 'auto',
     validator: (value: string) =>
-      TOOLTIP_POSITIONS.includes(value as typeof TOOLTIP_POSITIONS[number]),
+      TOOLTIP_POSITIONS.includes(value as (typeof TOOLTIP_POSITIONS)[number]),
   },
   fixedPositioning: {
     type: Boolean,
@@ -123,6 +123,12 @@ const props = defineProps({
   },
   ...withOptions<TooltipOptions>(),
 });
+
+const emit = defineEmits<{
+  (e: 'opened', p: Element);
+  (e: 'moved', p: Element);
+  (e: 'closed');
+}>();
 
 // Refs
 const root = ref<HTMLDivElement>(null);
@@ -176,12 +182,14 @@ function initPopper() {
       strategy: strategy.value,
       modifiers: allModifiers.value,
     });
+    emit('opened', props.targetElement);
   }
 }
 
 function destroyPopper() {
   if (popper.value) {
     popper.value.destroy();
+    emit('closed');
   }
 }
 
@@ -194,6 +202,7 @@ function updatePopper() {
     ? (function () {
       popper.value.state.elements.reference = props.targetElement;
       popper.value.update();
+      emit('moved', props.targetElement);
     })()
     : destroyPopper();
 }

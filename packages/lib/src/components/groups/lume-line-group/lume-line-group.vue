@@ -26,6 +26,7 @@
           :path-definition="getPathDefinition(index, datasetIndex)"
           :transition="transition"
           :width="options.lineWidth"
+          @click="emit('line-click', { index, datasetIndex, event: $event })"
         />
       </g>
       <g
@@ -41,6 +42,7 @@
           :color="dataset.color"
           :index="index"
           :radius="pointRadius"
+          @click="emit('point-click', { index, datasetIndex, event: $event })"
         />
       </g>
     </g>
@@ -83,6 +85,14 @@ const props = defineProps({
     default: true,
   },
 });
+
+const emit = defineEmits<{
+  (
+    e: 'line-click' | 'point-click',
+    p: { index: number; datasetIndex: number; event: MouseEvent }
+  ): void;
+  (e: 'lume__internal--hover', p: number);
+}>();
 
 const { data, options, xScale, yScale } = toRefs(props);
 

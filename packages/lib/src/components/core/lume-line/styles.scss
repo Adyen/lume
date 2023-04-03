@@ -5,7 +5,7 @@
   stroke-linecap: round;
   fill: none;
 
-  pointer-events: none;
+  pointer-events: visibleStroke;
 
   &--dashed {
     stroke-dasharray: 2%;

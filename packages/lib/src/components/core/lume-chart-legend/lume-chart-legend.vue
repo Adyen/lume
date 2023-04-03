@@ -2,6 +2,7 @@
   <div
     class="lume-chart-legend"
     data-j-chart-legend
+    @mouseleave="emit('mouseleave')"
   >
     <div
       v-for="(dataset, index) in data"
@@ -9,6 +10,7 @@
       class="lume-chart-legend__item lume-typography--body"
       tabindex="0"
       data-j-chart-legend__symbol-wrapper
+      @mouseenter="emit('mouseenter', index)"
       @click="emit('click', index)"
     >
       <span
@@ -16,7 +18,7 @@
         :class="`lume-background-color--${dataset.color}`"
         data-j-chart-legend__symbol
       />
-      {{ dataset.label }}
+      {{ dataset.label || index }}
     </div>
   </div>
 </template>
@@ -29,14 +31,15 @@ defineProps({
   data: {
     type: Array as PropType<Array<Pick<DatasetValueObject, 'color' | 'label'>>>,
     validator: (datasets: Data) =>
-      !!datasets &&
-      datasets.every((dataset) => 'color' in dataset && 'label' in dataset),
+      !!datasets && datasets.every((dataset) => 'color' in dataset),
     required: true,
   },
 });
 
 const emit = defineEmits<{
   (e: 'click', value: number): void;
+  (e: 'mouseenter', value: number): void;
+  (e: 'mouseleave'): void;
 }>();
 </script>
 

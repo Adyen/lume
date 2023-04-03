@@ -2,6 +2,7 @@
 
 .lume-bar {
   $b: &;
+  pointer-events: visible;
 
   &--transition-width {
     transition: width $lume-transition-time-medium ease,

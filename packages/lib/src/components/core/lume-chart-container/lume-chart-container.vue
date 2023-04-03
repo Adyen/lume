@@ -17,6 +17,8 @@
       }"
       :height="svgHeight"
       data-j-chart-container__root
+      @click="emit('click', $event)"
+      @mouseenter="emit('mouseenter', $event)"
       @mouseleave="emit('mouseleave', $event)"
     >
       <g
@@ -68,8 +70,9 @@ const props = defineProps({
 });
 
 const emit = defineEmits<{
+  (e: 'click', p: PointerEvent): void;
+  (e: 'mouseenter' | 'mouseleave', p: MouseEvent): void;
   (e: 'resize', value: ContainerSize): void;
-  (e: 'mouseleave', value: MouseEvent): void;
 }>();
 
 const { margins, containerSize } = toRefs(props);
