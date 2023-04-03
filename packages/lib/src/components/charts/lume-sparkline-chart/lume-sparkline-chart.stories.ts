@@ -1,18 +1,20 @@
 import { computed } from 'vue';
 import {
+  actionEventHandlerTemplate,
+  captureAction,
   COLOR_CLASS_MAP,
   withSizeArgs,
   withSizeArgTypes,
 } from '@/docs/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/sparkline-data';
 
-import LumeSparkline from './lume-sparkline-chart.vue';
+import LumeSparklineChart from './lume-sparkline-chart.vue';
 
 import { options as defaultOptions } from './defaults';
 
 export default {
   title: 'Charts/Sparkline chart',
-  component: LumeSparkline,
+  component: LumeSparklineChart,
   argTypes: {
     ...withSizeArgTypes(),
     data: {
@@ -56,7 +58,7 @@ export default {
 
 const Template = ({ args }) => {
   return {
-    components: { LumeSparkline },
+    components: { LumeSparklineChart },
     setup() {
       const computedData = computed(() => {
         // eslint-disable-next-line no-undef
@@ -69,9 +71,10 @@ const Template = ({ args }) => {
 
       return { args, computedData };
     },
+    methods: { captureAction },
     template: `
         <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
-            <lume-sparkline v-bind="args" :data="computedData" />
+            <lume-sparkline-chart v-bind="args" :data="computedData" ${actionEventHandlerTemplate} />
         </div>
     `,
   };
