@@ -1,4 +1,4 @@
-import { Data } from './dataset';
+import { Data, DatasetValueObject, InternalDataset } from './dataset';
 import { ContainerSize } from './size';
 
 export interface DataChangedEventPayload<T> {
@@ -11,6 +11,12 @@ export interface InteractionEventPayload {
   value?: number | string;
   datasetIndex?: number;
   event?: MouseEvent | PointerEvent;
+}
+
+export interface LegendEventPayload {
+  index: number;
+  dataset: InternalDataset<DatasetValueObject>;
+  event: MouseEvent | PointerEvent;
 }
 
 export interface TooltipEventPayload {
@@ -41,8 +47,8 @@ export interface ChartEvents {
 }
 
 export interface LegendEvents {
-  (e: 'legend-click', p: { index: number }): void;
-  (e: 'legend-mouseenter', p: { index: number }): void;
+  (e: 'legend-click', p: LegendEventPayload): void;
+  (e: 'legend-mouseenter', p: LegendEventPayload): void;
   (e: 'legend-mouseleave'): void;
 }
 

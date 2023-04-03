@@ -10,8 +10,8 @@
       class="lume-chart-legend__item lume-typography--body"
       tabindex="0"
       data-j-chart-legend__symbol-wrapper
-      @mouseenter="emit('mouseenter', index)"
-      @click="emit('click', index)"
+      @mouseenter="emit('mouseenter', { index, dataset, event: $event })"
+      @click="emit('click', { index, dataset, event: $event })"
     >
       <span
         class="lume-chart-legend__symbol"
@@ -25,20 +25,20 @@
 
 <script setup lang="ts">
 import { PropType } from 'vue';
-import { Data, DatasetValueObject } from '@/types/dataset';
+import { InternalData } from '@/types/dataset';
+import { LegendEventPayload } from '@/types/events';
+import { dataValidator } from '@/utils/helpers';
 
 defineProps({
   data: {
-    type: Array as PropType<Array<Pick<DatasetValueObject, 'color' | 'label'>>>,
-    validator: (datasets: Data) =>
-      !!datasets && datasets.every((dataset) => 'color' in dataset),
+    type: Array as PropType<InternalData>,
+    validator: dataValidator,
     required: true,
   },
 });
 
 const emit = defineEmits<{
-  (e: 'click', value: number): void;
-  (e: 'mouseenter', value: number): void;
+  (e: 'click' | 'mouseenter', p: LegendEventPayload): void;
   (e: 'mouseleave'): void;
 }>();
 </script>
