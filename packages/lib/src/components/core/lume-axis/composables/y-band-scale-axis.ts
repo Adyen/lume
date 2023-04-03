@@ -21,10 +21,14 @@ const useBandScaleAxis: AxisMixin = function (
     };
   }
 
-  function getTickGhostAttributes() {
+  function getTickGhostAttributes(textRef: SVGTextElement) {
+    // If label element not yet rendered, assume one scale step, otherwise get its width.
+    const width =
+      (textRef ? textRef.getComputedTextLength?.() : 42) +
+      options.value.tickPadding * 2;
     return {
-      x: -43,
-      width: 42, // hardcoded for now
+      x: -width,
+      width,
       height: scale.value.step(),
     };
   }
