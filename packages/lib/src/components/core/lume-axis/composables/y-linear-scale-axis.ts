@@ -1,4 +1,4 @@
-import { Ref } from 'vue';
+import { computed, Ref } from 'vue';
 import { ScaleLinear } from 'd3';
 
 import { AxisOptions } from '@/composables/options';
@@ -9,14 +9,26 @@ const useLinearScaleAxis: AxisMixin = function (
   containerSize: Ref<{ width: number; height: number }>,
   options: Ref<AxisOptions>
 ) {
+  const tickHeight = computed(() => {
+    const ticks = scale.value.ticks();
+    return scale.value(ticks[1]) - scale.value(ticks[0]);
+  });
+
   function getTickGroupAttributes(value: number) {
     return {
       transform: `translate(0, ${scale.value(value)})`,
     };
   }
 
-  function getTickGhostAttributes() {
-    return {};
+  function getTickGhostAttributes(textRef: SVGTextElement) {
+    const width =
+      (textRef?.getComputedTextLength?.() || 0) + options.value.tickPadding * 2;
+    return {
+      width,
+      height: tickHeight.value,
+      x: -width,
+      y: -(tickHeight.value / 2),
+    };
   }
 
   function getGridLinesAttributes() {

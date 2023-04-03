@@ -2,10 +2,8 @@ import { computed, Ref } from 'vue';
 import { ScaleBand } from 'd3';
 
 import { AxisOptions } from '@/composables/options';
+import { AXIS_BOTTOM_PADDING, AXIS_TEXT_HEIGHT } from '@/utils/constants';
 import { AxisMixin } from '../types';
-
-const TEXT_HEIGHT = 12;
-const BOTTOM_PADDING = 8;
 
 const useBandScaleAxis: AxisMixin = function (
   scale: Ref<ScaleBand<number | string>>,
@@ -26,12 +24,15 @@ const useBandScaleAxis: AxisMixin = function (
 
   function getTickGhostAttributes(textRef: SVGTextElement) {
     // If label element not yet rendered, assume one scale step, otherwise get its width.
-    const width =
-      (textRef ? textRef.getComputedTextLength?.() : scale.value.step()) + 20;
+    const width = Math.max(
+      scale.value.step(),
+      (textRef ? textRef.getComputedTextLength?.() : scale.value.step()) + 20
+    );
     return {
       x: -(width - scale.value.step()) / 2,
       width,
-      height: options.value.tickPadding + TEXT_HEIGHT + BOTTOM_PADDING,
+      height:
+        options.value.tickPadding + AXIS_TEXT_HEIGHT + AXIS_BOTTOM_PADDING,
     };
   }
 

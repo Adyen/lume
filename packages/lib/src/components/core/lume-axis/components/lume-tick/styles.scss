@@ -10,6 +10,7 @@ $axis-line-color: $lume-color-grey-20;
     fill: none;
     stroke: $axis-line-color;
     shape-rendering: crispEdges;
+    pointer-events: none;
   }
 
   &__label {
