@@ -1,0 +1,5 @@
+{
+  "name": "vue2",
+  "root": "packages/vue2",
+  "projectType": "library"
+}

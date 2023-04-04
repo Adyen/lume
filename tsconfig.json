@@ -12,8 +12,7 @@
     "moduleResolution": "node",
     "outDir": "./dist/",
     "paths": {
-      "@/*": ["./src/*"],
-      "@test/*": ["./test/*"]
+      "@adyen/lume-core": ["node_modules/@adyen/lume-core/src"]
     },
     "sourceMap": true,
     "target": "esnext",

@@ -1,0 +1,32 @@
+{
+    "extends": "nx/presets/npm.json",
+    "npmScope": "adyen",
+    "implicitDependencies": {
+        "package.json": {
+            "dependencies": "*",
+            "peerDependencies": "*",
+            "devDependencies": "*"
+        },
+        ".eslintrc.js": "*"
+    },
+    "taskRunnerOptions": {
+        "default": {
+            "runner": "nx/tasks-runners/default",
+            "options": {
+                "cacheableOperations": ["build", "lint", "test"]
+            }
+        }
+    },
+    "targetDefaults": {
+        "watch": {
+            "dependsOn": ["^watch"]
+        },
+        "build": {
+            "dependsOn": ["^build"]
+        }
+    },
+    "workspaceLayout": {
+        "appsDir": "packages",
+        "libsDir": "packages"
+    }
+}

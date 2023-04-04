@@ -1,0 +1,41 @@
+{
+  "name": "@adyen/lume",
+  "version": "0.3.3",
+  "description": "",
+  "type": "module",
+  "module": "dist/index.js",
+  "files": [
+    "dist/"
+  ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./plugin": "./dist/plugin.js",
+    "./styles": "./dist/styles/main.css",
+    "./font": "./dist/styles/font.css",
+    "./scss": "./dist/scss/main.scss",
+    "./package.json": "./package.json"
+  },
+  "types": "./dist/types/index.d.ts",
+  "scripts": {
+    "build": "NODE_ENV=production npm run build:vite && npm run build:font",
+    "build:vite": "vite build",
+    "build:font": "webpack",
+    "postbuild": "node ../../build/postbuild.js",
+    "test": "vitest --config=vitest.config.ts"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.4",
+    "d3": "7.8.0",
+    "d3-sankey": "0.12.3"
+  },
+  "peerDependencies": {
+    "vue": "^2.7.10"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue2": "^2.0.1",
+    "vue": "^2.7.10"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

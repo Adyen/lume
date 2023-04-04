@@ -16,11 +16,11 @@ const config = {
     '@storybook/addon-a11y',
     'storybook-addon-designs',
   ],
-  framework: '@storybook/vue',
+  framework: '@storybook/vue3',
   stories: [
-    '../src/components/charts/**/*.stories.@(ts)',
-    '../src/components/core/**/*.stories.@(ts)',
-    '../src/playground/**/*.stories.@(ts)',
+    '../packages/lib/src/components/charts/**/*.stories.@(ts)',
+    '../packages/lib/src/components/core/**/*.stories.@(ts)',
+    '../packages/lib/src/playground/**/*.stories.@(ts)',
   ],
   staticDirs: ['./static'],
   webpackFinal: async (config) => {
@@ -34,7 +34,7 @@ const config = {
       use: ['vue-style-loader', 'css-loader', 'sass-loader'],
     });
 
-    config.resolve.alias['@'] = path.resolve(__dirname, '../src/');
+    config.resolve.alias['@'] = path.resolve(__dirname, '../packages/lib/src/');
 
     return config;
   },

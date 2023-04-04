@@ -1,0 +1,5 @@
+{
+  "name": "lib",
+  "root": "packages/lib",
+  "projectType": "library"
+}
