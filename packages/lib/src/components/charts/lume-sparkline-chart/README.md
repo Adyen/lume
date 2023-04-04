@@ -47,3 +47,7 @@ To generate a simple sparkline chart with default settings, simply pass the `dat
 | --------- | --------- | ----------- | ----------------------- |
 | `data`    | `Data`    | Required    | The data to plot.       |
 | `options` | `Options` | `undefined` | A set of chart options. |
+
+### Events
+
+This chart extends the Events API from the `LumeChart` core component.

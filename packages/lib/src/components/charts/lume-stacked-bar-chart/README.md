@@ -58,3 +58,7 @@ To generate a simple bar chart with default settings, simply pass the `data` and
 | `yScale`     | `ScaleGenerator \| ScaleLinear<number, number>` | `undefined`  | A d3 scale or a scale generator function to override the default Y scale. |
 | `options`    | `Options`                                       | `undefined`  | A set of chart options.                                                   |
 | `title`      | `String`                                        | `undefined`  | The chart title.                                                          |
+
+### Events
+
+This chart extends the Events API from the `LumeChart` core component.
