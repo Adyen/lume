@@ -26,7 +26,7 @@ describe('lume-axis.vue', () => {
     const ticks = wrapper.findAll('[data-j-axis__tick]');
     expect(el.exists()).toBeTruthy();
     expect(ticks).toHaveLength(7);
-    expect(wrapper.emitted('tick-mouseover')).toBeFalsy();
+    expect(wrapper.emitted('mouseover')).toBeFalsy();
   });
 
   test('mounts component and sets custom value for skip option to false', () => {
@@ -62,20 +62,38 @@ describe('lume-axis.vue', () => {
     ).toHaveLength(Math.ceil(labels.length / skip));
   });
 
-  test('should emit event on mouseover on data-j-axis__tick-label', () => {
-    const wrapper = mount(LumeAxis, {
-      props: {
-        scale,
-      },
+  describe('Events API', () => {
+    it('should dispatch `click` if user clicks an axis tick', async () => {
+      const wrapper = mount(LumeAxis, { props: { scale } });
+
+      const ticks = wrapper.findAll('[data-j-axis__tick=""]');
+
+      await ticks[0].trigger('click');
+      await ticks[3].trigger('click');
+
+      expect(wrapper.emitted()).toHaveProperty('click');
+      expect(wrapper.emitted().click).toHaveLength(2);
     });
 
-    const el = wrapper.findAll('[data-j-axis__tick-label]');
-    el[0].trigger('mouseover');
-    el[3].trigger('mouseover');
+    it('should dispatch `mouseenter` if user mouses over an axis tick', async () => {
+      const wrapper = mount(LumeAxis, { props: { scale } });
 
-    const mouseoverEvent = wrapper.emitted('tick-mouseover');
+      const ticks = wrapper.findAll('[data-j-axis__tick=""]');
 
-    expect(mouseoverEvent[0]).toEqual([0]); // first trigger
-    expect(mouseoverEvent[1]).toEqual([3]); // second trigger
+      await ticks[0].trigger('mouseenter');
+      await ticks[3].trigger('mouseenter');
+
+      expect(wrapper.emitted()).toHaveProperty('mouseenter');
+      expect(wrapper.emitted().mouseenter).toHaveLength(2);
+    });
+
+    it('should dispatch `mouseleave` if user moves mouse away from an axis', async () => {
+      const wrapper = mount(LumeAxis, { props: { scale } });
+
+      await wrapper.trigger('mouseleave');
+
+      expect(wrapper.emitted()).toHaveProperty('mouseleave');
+      expect(wrapper.emitted().mouseleave).toHaveLength(1);
+    });
   });
 });

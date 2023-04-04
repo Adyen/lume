@@ -1,4 +1,3 @@
-import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
 
 import LumeChartContainer from './lume-chart-container.vue';
@@ -37,19 +36,47 @@ describe('chart-container.vue', () => {
     );
   });
 
-  test('should emit on mouseleave on root', () => {
-    const wrapper = mount(LumeChartContainer);
+  describe('Events API', () => {
+    it('should dispatch `click` if user clicks the <svg> container', async () => {
+      const wrapper = mount(LumeChartContainer);
 
-    const el = wrapper.find('[data-j-chart-container__root]');
-    el.trigger('mouseleave');
-    expect(wrapper.emitted('mouseleave')).toBeTruthy();
-  });
+      const svgContainer = wrapper.find('[data-j-chart-container__root=""]');
 
-  test('should emit "resize" on new dimensions', async () => {
-    const wrapper = mount(LumeChartContainer);
+      await svgContainer.trigger('click');
 
-    wrapper.find('[data-j-chart-container]').trigger('resize');
-    await nextTick();
-    expect(wrapper.emitted('resize')).toBeTruthy();
+      expect(wrapper.emitted()).toHaveProperty('click');
+      expect(wrapper.emitted().click).toHaveLength(1);
+    });
+
+    it('should dispatch `mouseenter` if user mouses over the <svg> container', async () => {
+      const wrapper = mount(LumeChartContainer);
+
+      const svgContainer = wrapper.find('[data-j-chart-container__root=""]');
+
+      await svgContainer.trigger('mouseenter');
+
+      expect(wrapper.emitted()).toHaveProperty('mouseenter');
+      expect(wrapper.emitted().mouseenter).toHaveLength(1);
+    });
+
+    it('should dispatch `mouseleave` if user moves mouse away from the <svg> container', async () => {
+      const wrapper = mount(LumeChartContainer);
+
+      const svgContainer = wrapper.find('[data-j-chart-container__root=""]');
+
+      await svgContainer.trigger('mouseleave');
+
+      expect(wrapper.emitted()).toHaveProperty('mouseleave');
+      expect(wrapper.emitted().mouseleave).toHaveLength(1);
+    });
+
+    it('should dispatch `resize` if <svg> container changes dimensions', async () => {
+      const wrapper = mount(LumeChartContainer);
+
+      await wrapper.trigger('resize');
+
+      expect(wrapper.emitted()).toHaveProperty('resize');
+      expect(wrapper.emitted().resize).toHaveLength(1);
+    });
   });
 });

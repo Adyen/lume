@@ -4,31 +4,60 @@ import LumeOverlayGroup from './lume-overlay-group.vue';
 
 import { data, xScale, yScale } from '@test/unit/mock-data';
 
-const defaultprops = { data, xScale, yScale };
+const defaultProps = { data, xScale, yScale };
 
-describe('lume-line-group.vue', () => {
+document.body.innerHTML = `<svg id="root"></svg>`; // prevent no SVG parent console.warn
+
+describe('lume-overlay-group.vue', () => {
+  const svg = document.getElementById('root');
+
   test('mounts component and sets prop values', () => {
     const wrapper = mount(LumeOverlayGroup, {
-      props: defaultprops,
+      attachTo: svg,
+      props: defaultProps,
     });
 
     const el = wrapper.find('[data-j-lume-overlay-group]');
     expect(el.exists()).toBeTruthy();
   });
 
-  test('emits mouseover event with hovered index', () => {
+  test('emits internal hover event with index', async () => {
     const wrapper = mount(LumeOverlayGroup, {
-      props: {
-        ...defaultprops,
-      },
+      attachTo: svg,
+      props: defaultProps,
     });
 
-    wrapper.findAll('rect')[0].trigger('mouseover');
-    wrapper.findAll('rect')[3].trigger('mouseover');
+    const bars = wrapper.findAll('.lume-bar');
 
-    const mouseoverEvent = wrapper.emitted('mouseover');
+    await bars[0].trigger('mouseenter');
+    await bars[2].trigger('mouseenter');
 
-    expect(mouseoverEvent[0]).toEqual([0]); // first trigger
-    expect(mouseoverEvent[1]).toEqual([3]); // second trigger
+    expect(wrapper.emitted()).toHaveProperty('lume__internal--hover');
+
+    expect(wrapper.emitted()['lume__internal--hover']).toHaveLength(2);
+
+    expect(wrapper.emitted()['lume__internal--hover'][0][0]).toBe(0);
+    expect(wrapper.emitted()['lume__internal--hover'][1][0]).toBe(2);
+  });
+
+  describe('Events API', () => {
+    it('should dispatch `click` if user clicks a bar', async () => {
+      const wrapper = mount(LumeOverlayGroup, {
+        attachTo: svg,
+        props: defaultProps,
+      });
+
+      const bars = wrapper.findAll('.lume-bar');
+
+      await bars[0].trigger('click');
+      await bars[2].trigger('click');
+
+      expect(wrapper.emitted()).toHaveProperty('click');
+
+      expect(wrapper.emitted()['click']).toHaveLength(2);
+
+      expect(wrapper.emitted()['click'][0][0].index).toBe(0);
+      expect(wrapper.emitted()['click'][1][0].index).toBe(2);
+    });
   });
 });
