@@ -34,3 +34,15 @@ To show a point, provide `x`, `y`, `color` and `active` properties
 | `color`  | `string`  | `01`     | Indicating what color to use, representing an index to one of the available Lume colors.    |
 | `radius` | `number`  | `4`      | The radius (in pixels) of the point. If accompanying a line, should double its width value. |
 | `active` | `boolean` | `false`  | Indicating whether or not this point is active or not.                                      |
+
+### Events
+
+#### `click`
+
+Fired upon point circle click.
+
+##### Payload
+
+```ts
+p: PointerEvent;
+```

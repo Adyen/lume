@@ -35,3 +35,35 @@ This component essentially renders an SVG `<rect>` element. To do so, it require
 | `isFaded`    | `boolean`                      | `false`  | Controls the opacity of the bar.                      |
 | `isNegative` | `boolean`                      | `false`  | True if the bar is representing a negative value.     |
 | `transition` | `"width" \| "height" \| false` | `false`  | Indicates which property is going to be transitioned. |
+
+### Events
+
+#### `click`
+
+Fired upon bar rectangle click.
+
+##### Payload
+
+```ts
+p: PointerEvent;
+```
+
+#### `mouseover`
+
+Fired upon bar rectangle [mouseover](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseover_event).
+
+##### Payload
+
+```ts
+p: MouseEvent;
+```
+
+#### `mouseleave`
+
+Fired upon bar rectangle [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event).
+
+##### Payload
+
+```ts
+p: MouseEvent; // Native `mouseleave` event data.
+```

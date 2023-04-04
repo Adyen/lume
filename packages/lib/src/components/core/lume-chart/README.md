@@ -19,6 +19,45 @@ It is used internally to build all Lume charts but it can also be used to create
       - [`groups`](#groups)
       - [`tooltip`](#tooltip)
       - [`tooltip-content`](#tooltip-content)
+    - [Events](#events)
+      - [`axis-click`](#axis-click)
+        - [Payload](#payload)
+      - [`axis-mouseenter`](#axis-mouseenter)
+        - [Payload](#payload-1)
+      - [`axis-mouseleave`](#axis-mouseleave)
+        - [Payload](#payload-2)
+      - [`bar-click`](#bar-click)
+        - [Payload](#payload-3)
+      - [`chart-click`](#chart-click)
+        - [Payload](#payload-4)
+      - [`chart-mouseenter`](#chart-mouseenter)
+        - [Payload](#payload-5)
+      - [`chart-mouseleave`](#chart-mouseleave)
+        - [Payload](#payload-6)
+      - [`data-changed`](#data-changed)
+        - [Payload](#payload-7)
+      - [`labels-changed`](#labels-changed)
+        - [Payload](#payload-8)
+      - [`legend-click`](#legend-click)
+        - [Payload](#payload-9)
+      - [`legend-mouseenter`](#legend-mouseenter)
+        - [Payload](#payload-10)
+      - [`mouseleave`](#mouseleave)
+        - [Payload](#payload-11)
+      - [`line-click`](#line-click)
+        - [Payload](#payload-12)
+      - [`point-click`](#point-click)
+        - [Payload](#payload-13)
+      - [`rendered`](#rendered)
+        - [Payload](#payload-14)
+      - [`resize`](#resize)
+        - [Payload](#payload-15)
+      - [`tooltip-opened`](#tooltip-opened)
+        - [Payload](#payload-16)
+      - [`tooltip-moved`](#tooltip-moved)
+        - [Payload](#payload-17)
+      - [`tooltip-closed`](#tooltip-closed)
+        - [Payload](#payload-18)
   - [Examples](#examples)
     - [Custom data group](#custom-data-group)
     - [Custom tooltip element](#custom-tooltip-element)
@@ -172,6 +211,233 @@ No props.
 | `data`         | `Data`                    | The chart data.                        |
 | `labels`       | `Array<string \| number>` | The chart labels.                      |
 | `hoveredIndex` | `number`                  | Index of the data point being hovered. |
+
+### Events
+
+#### `axis-click`
+
+Fired upon clicking a chart axis.
+
+##### Payload
+
+```ts
+p: {
+  index: number | null; // Index of the axis tick that was clicked.
+  value?: number | string; // Value of the tick label that was clicked.
+  event?: PointerEvent; // Native `click` event data.
+}
+```
+
+#### `axis-mouseenter`
+
+Fired upon a chart axis tick [mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event).
+
+##### Payload
+
+```ts
+p: {
+  index: number | null; // Index of the axis tick that was moused over.
+  value?: number | string; // Value of the tick label that was moused over.
+  event?: MouseEvent; // Native `mouseenter` event data.
+}
+```
+
+#### `axis-mouseleave`
+
+Fired upon a chart axis tick [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event).
+
+##### Payload
+
+None.
+
+#### `bar-click`
+
+Fired upon clicking a bar in a Bar chart.
+
+##### Payload
+
+```ts
+p: {
+  index: number; // Index of the bar that was clicked.
+  datasetIndex: number; // Index of the dataset of which the bar that was clicked belongs.
+  event: PointerEvent; // Native `click` event data.
+}
+```
+
+#### `chart-click`
+
+Fired upon clicking the chart.
+
+##### Payload
+
+```ts
+p: PointerEvent; // Native `click` event data.
+```
+
+#### `chart-mouseenter`
+
+Fired upon a chart [mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event).
+
+##### Payload
+
+```ts
+p: PointerEvent; // Native `mouseenter` event data.
+```
+
+#### `chart-mouseleave`
+
+Fired upon a chart [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event).
+
+##### Payload
+
+None.
+
+#### `data-changed`
+
+Fired upon a chart receiving new data.
+
+##### Payload
+
+```ts
+p: {
+  newValue: Data; // The new chart data.
+  oldValue: Data | null; // The previous chart data.
+}
+```
+
+#### `labels-changed`
+
+Fired upon a chart receiving new labels.
+
+##### Payload
+
+```ts
+p: {
+  newValue: Array<string>; // The new chart labels.
+  oldValue: Array<string> | null; // The previous chart labels.
+}
+```
+
+#### `legend-click`
+
+Fired upon a chart legend item click.
+
+##### Payload
+
+```ts
+p: {
+  index: number; // Index of the clicked item dataset.
+  dataset: InternalDataset<DatasetValueObject>; // The dataset of the item clicked.
+  event: PointerEvent; // Native `click` event data.
+}
+```
+
+#### `legend-mouseenter`
+
+Fired upon a chart legend item [mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event).
+
+##### Payload
+
+```ts
+p: {
+  index: number; // Index of the clicked item dataset.
+  dataset: InternalDataset<DatasetValueObject>; // The dataset of the item clicked.
+  event: MouseEvent; // Native `mouseenter` event data.
+}
+```
+
+#### `mouseleave`
+
+Fired upon a chart legend group [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event).
+
+##### Payload
+
+None.
+
+#### `line-click`
+
+Fired upon clicking a line in a Line chart.
+
+##### Payload
+
+```ts
+p: {
+  index: number; // Index of the line that was clicked.
+  datasetIndex: number; // Index of the dataset of which the line that was clicked belongs.
+  event: PointerEvent; // Native `click` event data.
+}
+```
+
+#### `point-click`
+
+Fired upon clicking a point in a Line chart.
+
+##### Payload
+
+```ts
+p: {
+  index: number; // Index of the point that was clicked.
+  datasetIndex: number; // Index of the dataset of which the point that was clicked belongs.
+  event: PointerEvent; // Native `click` event data.
+}
+```
+
+#### `rendered`
+
+Fired upon chart initial render.
+
+##### Payload
+
+None.
+
+#### `resize`
+
+Fired when the chart container receives new dimensions.
+
+##### Payload
+
+```ts
+p: {
+  width: number;        // The SVG container's width.
+  height: number;       // The SVG container's height.
+  outerWidth?: number;  // The chart element's width.
+  outerHeight?: number; // The chart element's height.
+} // ContainerSize
+```
+
+#### `tooltip-opened`
+
+Fired upon a chart tooltip's initial render.
+
+##### Payload
+
+```ts
+p: {
+  index: number; // Index of the data the tooltip is attached to.
+  targetElement: Element; // The tooltip's `targetElement` prop value.
+}
+```
+
+#### `tooltip-moved`
+
+Fired upon a chart tooltip;s `targetElement` change.
+
+##### Payload
+
+```ts
+p: {
+  index: number; // Index of the data the tooltip is attached to.
+  targetElement: Element; // The tooltip's new `targetElement` prop value.
+}
+```
+
+#### `tooltip-closed`
+
+Fired upon a chart tooltip's unmount.
+
+##### Payload
+
+None.
 
 ## Examples
 

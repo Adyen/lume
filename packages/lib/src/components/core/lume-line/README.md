@@ -33,3 +33,15 @@ To show a line, provide a `pathDefinition` property.
 | `animationDuration` | `number`           | `0.2`    | A value in seconds for the transition duration.                                                     |
 
 NOTE: A composable `useLineValues` exists to convert indices and values along with their scales to path definitions. For an example of how to use this, see `LumeLineGroup`.
+
+### Events
+
+#### `click`
+
+Fired upon line path click.
+
+##### Payload
+
+```ts
+p: PointerEvent;
+```

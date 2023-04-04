@@ -12,6 +12,15 @@ By detecting resizes, it alerts all other components so that the chart can smoot
     - [Basic use](#basic-use)
   - [API](#api)
     - [Props](#props)
+    - [Events](#events)
+      - [`click`](#click)
+        - [Payload](#payload)
+      - [`mouseenter`](#mouseenter)
+        - [Payload](#payload-1)
+      - [`mouseleave`](#mouseleave)
+        - [Payload](#payload-2)
+      - [`resize`](#resize)
+        - [Payload](#payload-3)
 
 ## Usage
 
@@ -69,3 +78,50 @@ You can set up your chart with `lume-chart-container` like so:
 | `containerSize`         | `ContainerSize` | `{}`    | The calculated container size.                              |
 | `transparentBackground` | `boolean`       | `false` | Controls if the chart should have a transparent background. |
 | `noMinSize`             | `boolean`       | `false` | Controls if the chart shouldn't have minimum width/height.  |
+
+### Events
+
+#### `click`
+
+Fired upon clicking on the SVG container.
+
+##### Payload
+
+```ts
+p: PointerEvent;
+```
+
+#### `mouseenter`
+
+Fired upon the SVG container [mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event).
+
+##### Payload
+
+```ts
+p: MouseEvent;
+```
+
+#### `mouseleave`
+
+Fired upon the SVG container [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event).
+
+##### Payload
+
+```ts
+p: MouseEvent; // Native `mouseleave` event data.
+```
+
+#### `resize`
+
+Fired when the SVG container receives new dimensions.
+
+##### Payload
+
+```ts
+p: {
+  width: number;        // The SVG container's width.
+  height: number;       // The SVG container's height.
+  outerWidth?: number;  // The chart element's width.
+  outerHeight?: number; // The chart element's height.
+} // ContainerSize
+```
