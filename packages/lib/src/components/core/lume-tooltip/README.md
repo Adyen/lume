@@ -78,3 +78,33 @@ Interface: `TooltipOptions`
 | summary          | `string`                                                 | Descriptive text shown above the tooltip items. If a tooltip item is marked with `isSummary`, it will have precedence over this option. |
 
 **Note**: Component properties have precedence over options. For instance, if you set the `targetElement` prop and the `targetElement` tooltip option, the first will be used. They're both there to cover different use cases.
+
+### Events
+
+#### `opened`
+
+Fired upon tooltip initial render.
+
+##### Payload
+
+```ts
+p: Element; // The tooltip's `targetElement` prop value.
+```
+
+#### `moved`
+
+Fired upon tooltip `targetElement` change.
+
+##### Payload
+
+```ts
+p: Element; // The tooltip's new `targetElement` prop value.
+```
+
+#### `closed`
+
+Fired upon tooltip unmount.
+
+##### Payload
+
+None.

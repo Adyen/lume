@@ -36,3 +36,43 @@ To show a the legend, provide a `data` property.
   },
 ];
 ```
+
+### Events
+
+#### `click`
+
+Fired upon clicking on a legend item.
+
+##### Payload
+
+```ts
+p: {
+  index: number; // Index of the clicked item dataset.
+  dataset: InternalDataset<DatasetValueObject>; // The dataset of the item clicked.
+  event: PointerEvent; // Native `click` event data.
+}
+```
+
+#### `mouseenter`
+
+Fired upon a legend item [mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event).
+
+##### Payload
+
+```ts
+p: {
+  index: number; // Index of the clicked item dataset.
+  dataset: InternalDataset<DatasetValueObject>; // The dataset of the item clicked.
+  event: MouseEvent; // Native `mouseenter` event data.
+}
+```
+
+#### `mouseleave`
+
+Fired upon the legend group [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event).
+
+##### Payload
+
+```ts
+p: MouseEvent; // Native `mouseleave` event data.
+```

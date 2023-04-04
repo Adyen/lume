@@ -79,3 +79,43 @@ Interface: `AxisOptions`
   tickPadding: 8,
 }
 ```
+
+### Events
+
+#### `click`
+
+Fired upon axis click.
+
+##### Payload
+
+```ts
+p: {
+  index: number | null; // Index of the axis tick that was moused over.
+  value: number | string; // Value of the tick label that was moused over.
+  event: PointerEvent; // Native `click` event data.
+}
+```
+
+#### `mouseenter`
+
+Fired upon axis tick [mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event).
+
+##### Payload
+
+```ts
+p: {
+  index: number | null; // Index of the axis tick that was moused over.
+  value: number | string; // Value of the tick label that was moused over.
+  event: MouseEvent; // Native `mouseenter` event data.
+}
+```
+
+#### `mouseleave`
+
+Fired upon axis tick [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event).
+
+##### Payload
+
+```ts
+p: MouseEvent; // Native `mouseleave` event data.
+```
