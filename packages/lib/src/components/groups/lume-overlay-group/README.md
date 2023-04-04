@@ -44,3 +44,18 @@ To generate a simple overlay group with default settings, simply pass the `data`
 | `orientation` | `String`                                                       | `'vertical'` | Must be either `'horizontal'` or `'vertical'`                             |
 | `xScale`      | `ScaleGenerator` or `ScaleBand<string>` or `ScaleBand<number>` | `null`       | A d3 scale or a scale generator function to override the default X scale. |
 | `yScale`      | `ScaleGenerator` or `ScaleLinear<number, number>`              | `null`       | A d3 scale or a scale generator function to override the default Y scale. |
+
+### Events
+
+#### `click`
+
+Fired upon clicking an overlay bar.
+
+##### Payload
+
+```ts
+p: {
+  index: number; // Index of the bar that was clicked.
+  event: PointerEvent; // Native `click` event data.
+}
+```
