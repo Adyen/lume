@@ -12,7 +12,7 @@
         class="lume-tooltip__title"
         data-j-tooltip__title
       >
-        {{ title }}
+        {{ formatTitle(title) }}
       </div>
       <ul class="lume-tooltip__items">
         <template v-if="summaryItem.label">
@@ -166,6 +166,8 @@ const showTitle = computed(
 );
 
 const formatValue = computed(() => useFormat(allOptions.value.valueFormat));
+
+const formatTitle = computed(() => useFormat(allOptions.value.titleFormat));
 
 const summaryItem = computed(
   () =>

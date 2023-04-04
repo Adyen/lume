@@ -84,6 +84,37 @@ describe('tooltip.vue', () => {
       const el = wrapper.find('[data-j-tooltip__summary-item]');
       expect(el.exists()).toBeTruthy();
     });
+
+    describe('should format title according to options', () => {
+      it('should format title with format string', () => {
+        const wrapper = mount(LumeTooltip, {
+          props: {
+            title: 1234,
+            items: [item],
+            targetElement: mockElement,
+            options: { titleFormat: '~s' },
+          },
+        });
+
+        const titleEl = wrapper.find('[data-j-tooltip__title=""]');
+
+        expect(titleEl.text()).toBe('1.234k');
+      });
+      it('should format title with to function', () => {
+        const wrapper = mount(LumeTooltip, {
+          props: {
+            title,
+            items: [item],
+            targetElement: mockElement,
+            options: { titleFormat: (title) => title + '!' },
+          },
+        });
+
+        const titleEl = wrapper.find('[data-j-tooltip__title=""]');
+
+        expect(titleEl.text()).toBe('My title!');
+      });
+    });
   });
 
   describe('Events API', () => {
