@@ -15,9 +15,13 @@ const pathDefinition = getLinePathDefinition(
 
 const props = { pathDefinition: pathDefinition.value, xScale };
 
-describe('chart-container.vue', () => {
+document.body.innerHTML = `<svg id="root"></svg>`; // prevent no SVG parent console.warn
+
+describe('lume-line.vue', () => {
+  const svg = document.getElementById('root');
+
   test('mounts component', () => {
-    const wrapper = mount(LumeLine, { props });
+    const wrapper = mount(LumeLine, { attachTo: svg, props });
 
     const el = wrapper.find('[data-j-line]');
     expect(el.exists()).toBeTruthy();
@@ -26,6 +30,7 @@ describe('chart-container.vue', () => {
 
   test('mounts component and sets dashed line to true', () => {
     const wrapper = mount(LumeLine, {
+      attachTo: svg,
       props: { ...props, dashed: true },
     });
 
@@ -36,9 +41,25 @@ describe('chart-container.vue', () => {
 
   test('mounts component with custom color', () => {
     const color = '02';
-    const wrapper = mount(LumeLine, { props: { ...props, color } });
+    const wrapper = mount(LumeLine, {
+      attachTo: svg,
+      props: { ...props, color },
+    });
 
     const el = wrapper.find('[data-j-line]');
     expect(el.classes().includes(`lume-stroke--${color}`)).toBe(true);
+  });
+
+  describe('Events API', () => {
+    it('should dispatch `click` if user clicks a line', async () => {
+      const wrapper = mount(LumeLine, { attachTo: svg, props });
+
+      const line = wrapper.find('path.lume-line');
+
+      await line.trigger('click');
+
+      expect(wrapper.emitted()).toHaveProperty('click');
+      expect(wrapper.emitted().click).toHaveLength(1);
+    });
   });
 });

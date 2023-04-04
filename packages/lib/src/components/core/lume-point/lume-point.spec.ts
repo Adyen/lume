@@ -2,13 +2,15 @@ import { mount } from '@vue/test-utils';
 
 import LumePoint from '@/components/core/lume-point';
 
-import { data, xScale, yScale } from '@test/unit/mock-data';
+const props = { x: 50, y: 50 };
 
-const props = { index: 0, value: data[0].values[0].value, xScale, yScale };
+document.body.innerHTML = `<svg id="root"></svg>`; // prevent no SVG parent console.warn
 
 describe('chart-container.vue', () => {
+  const svg = document.getElementById('root');
+
   test('mounts component', () => {
-    const wrapper = mount(LumePoint, { props });
+    const wrapper = mount(LumePoint, { attachTo: svg, props });
 
     const el = wrapper.find('[data-j-point]');
     expect(el.exists()).toBeTruthy();
@@ -17,7 +19,10 @@ describe('chart-container.vue', () => {
   test('mounts component with active set to true', () => {
     const defaultRadius = '4';
     const active = true;
-    const wrapper = mount(LumePoint, { props: { ...props, active } });
+    const wrapper = mount(LumePoint, {
+      attachTo: svg,
+      props: { ...props, active },
+    });
 
     const el = wrapper.find('[data-j-point]');
     expect(el.attributes()['r']).toEqual(defaultRadius);
@@ -27,6 +32,7 @@ describe('chart-container.vue', () => {
     const radius = 10;
     const active = true;
     const wrapper = mount(LumePoint, {
+      attachTo: svg,
       props: { ...props, radius, active },
     });
 
@@ -36,9 +42,25 @@ describe('chart-container.vue', () => {
 
   test('mounts component with custom color', () => {
     const color = '02';
-    const wrapper = mount(LumePoint, { props: { ...props, color } });
+    const wrapper = mount(LumePoint, {
+      attachTo: svg,
+      props: { ...props, color },
+    });
 
     const el = wrapper.find('[data-j-point]');
     expect(el.classes().includes(`lume-stroke--${color}`)).toBe(true);
+  });
+
+  describe('Events API', () => {
+    it('should dispatch `click` if user clicks the point circle', async () => {
+      const wrapper = mount(LumePoint, { attachTo: svg, props });
+
+      const circle = wrapper.find('circle.lume-point');
+
+      await circle.trigger('click');
+
+      expect(wrapper.emitted()).toHaveProperty('click');
+      expect(wrapper.emitted().click).toHaveLength(1);
+    });
   });
 });

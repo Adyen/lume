@@ -7,12 +7,17 @@ import { data, xScale, yScale } from '@test/unit/mock-data';
 
 import { getXByIndex } from '@/composables/scales';
 
-const defaultprops = { data, xScale, yScale };
+const defaultProps = { data, xScale, yScale };
+
+document.body.innerHTML = `<svg id="root"></svg>`; // prevent no SVG parent console.warn
 
 describe('lume-line-group.vue', () => {
+  const svg = document.getElementById('root');
+
   test('mounts component and sets prop values', () => {
     const wrapper = mount(LumeLineGroup, {
-      props: defaultprops,
+      attachTo: svg,
+      props: defaultProps,
       provide: {
         tooltipAnchorAttributes() {
           return ref([]);
@@ -35,8 +40,9 @@ describe('lume-line-group.vue', () => {
         V ${yScale(peak)}`;
 
     const wrapper = mount(LumeLineGroup, {
+      attachTo: svg,
       props: {
-        ...defaultprops,
+        ...defaultProps,
         hoveredIndex,
       },
       provide: {
@@ -52,8 +58,9 @@ describe('lume-line-group.vue', () => {
 
   test('mounts without points', () => {
     const wrapper = mount(LumeLineGroup, {
+      attachTo: svg,
       props: {
-        ...defaultprops,
+        ...defaultProps,
         withPoints: false,
       },
       provide: {
@@ -65,5 +72,45 @@ describe('lume-line-group.vue', () => {
 
     const el = wrapper.find('[data-j-lume-line-group__points]');
     expect(el.exists()).toBeFalsy();
+  });
+
+  describe('Events API', () => {
+    it('should dispatch `line-click` if user clicks a line', async () => {
+      const wrapper = mount(LumeLineGroup, {
+        attachTo: svg,
+        props: defaultProps,
+      });
+
+      const lines = wrapper.findAll('.lume-line');
+
+      await lines[0].trigger('click');
+      await lines[2].trigger('click');
+
+      expect(wrapper.emitted()).toHaveProperty('line-click');
+
+      expect(wrapper.emitted()['line-click']).toHaveLength(2);
+
+      expect(wrapper.emitted()['line-click'][0][0].index).toBe(0);
+      expect(wrapper.emitted()['line-click'][1][0].index).toBe(2);
+    });
+
+    it('should dispatch `point-click` if user clicks a point', async () => {
+      const wrapper = mount(LumeLineGroup, {
+        attachTo: svg,
+        props: defaultProps,
+      });
+
+      const points = wrapper.findAll('.lume-point');
+
+      await points[0].trigger('click');
+      await points[2].trigger('click');
+
+      expect(wrapper.emitted()).toHaveProperty('point-click');
+
+      expect(wrapper.emitted()['point-click']).toHaveLength(2);
+
+      expect(wrapper.emitted()['point-click'][0][0].index).toBe(0);
+      expect(wrapper.emitted()['point-click'][1][0].index).toBe(2);
+    });
   });
 });
