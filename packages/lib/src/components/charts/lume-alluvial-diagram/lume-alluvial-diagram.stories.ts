@@ -1,4 +1,9 @@
-import { withSizeArgs, withSizeArgTypes } from '@/docs/storybook-helpers';
+import {
+  actionEventHandlerTemplate,
+  captureAction,
+  withSizeArgs,
+  withSizeArgTypes,
+} from '@/docs/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/alluvial-data';
 
 import LumeAlluvialDiagram from './lume-alluvial-diagram.vue';
@@ -45,9 +50,10 @@ const Template = ({ args }) => {
     setup() {
       return { args };
     },
+    methods: { captureAction },
     template: `
       <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
-        <lume-alluvial-diagram v-bind="args" />
+        <lume-alluvial-diagram v-bind="args" ${actionEventHandlerTemplate} />
       </div>
   `,
   };

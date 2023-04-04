@@ -15,6 +15,13 @@
     >
       <!-- Wrapper for catching mouse events when hovering both the block and text -->
       <g
+        @click="emit('node-click', { node: nodeBlock.node, event: $event })"
+        @mouseenter="
+          emit('node-mouseenter', { node: nodeBlock.node, event: $event })
+        "
+        @mouseleave="
+          emit('node-mouseleave', { node: nodeBlock.node, event: $event })
+        "
         @mouseover="hoveredElement = nodeBlock.node"
         @mouseout="hoveredElement = null"
       >
@@ -57,7 +64,7 @@
     <!-- Links -->
     <g
       class="lume-alluvial-link-group"
-      @mouseleave="hoveredElement = null"
+      @mouseleave="handleLinkMouseleave"
     >
       <!-- Ghost paths -->
       <path
@@ -71,7 +78,8 @@
         :d="linkPath.d"
         :stroke-width="linkPath.strokeWidth + GHOST_STROKE_WIDTH_OFFSET"
         data-j-alluvial-ghost
-        @mouseover="hoveredElement = linkPath.link"
+        @click="emit('link-click', { link: linkPath.link, event: $event })"
+        @mouseover="handleLinkMouseover(linkPath.link, $event)"
       />
 
       <!-- Link paths -->
@@ -88,7 +96,8 @@
         :stroke-dashoffset="containerSize.width"
         :stroke-width="linkPath.strokeWidth"
         data-j-alluvial-path
-        @mouseover="hoveredElement = linkPath.link"
+        @click="emit('link-click', { link: linkPath.link, event: $event })"
+        @mouseover="handleLinkMouseover(linkPath.link, $event)"
       />
     </g>
   </g>
@@ -113,11 +122,31 @@ import {
   getNodeBlockAttributes,
 } from './helpers';
 
-import { AlluvialNode } from '@/types/alluvial';
+import {
+  AlluvialNode,
+  SankeyLink,
+  SankeyLinkProps,
+  SankeyNodeProps,
+} from '@/types/alluvial';
+import {
+  AlluvialLinkEventPayload,
+  AlluvialNodeEventPayload,
+} from '@/types/events';
 
 const props = defineProps({
   ...withGroupProps<AlluvialDiagramOptions, AlluvialNode>(),
 });
+
+const emit = defineEmits<{
+  (
+    e: 'node-click' | 'node-mouseenter' | 'node-mouseleave',
+    p: AlluvialNodeEventPayload
+  ): void;
+  (
+    e: 'link-click' | 'link-mouseenter' | 'link-mouseleave',
+    p: AlluvialLinkEventPayload
+  ): void;
+}>();
 
 const { data, options } = toRefs(props);
 
@@ -152,6 +181,25 @@ function isLinkFaded(id: string) {
     highlightedElements.value.links.length > 0 &&
     !highlightedElements.value.links.includes(id)
   );
+}
+
+function handleLinkMouseover(
+  link: SankeyLink<SankeyNodeProps, SankeyLinkProps>,
+  event: MouseEvent
+) {
+  if (link === hoveredElement.value) return;
+
+  hoveredElement.value = link;
+  emit('link-mouseenter', { link, event });
+}
+
+function handleLinkMouseleave(event: MouseEvent) {
+  const link = hoveredElement.value as SankeyLink<
+    SankeyNodeProps,
+    SankeyLinkProps
+  >;
+  hoveredElement.value = null;
+  emit('link-mouseleave', { link, event });
 }
 
 // Render nodes/paths whenever the SankeyGraph changes
