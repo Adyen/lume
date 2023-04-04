@@ -20,6 +20,7 @@ export const data: Data<DatasetValueObject<number>> = [
       { value: 60 },
       { value: 50 },
     ],
+    label: 'mock data',
   },
 ];
 
