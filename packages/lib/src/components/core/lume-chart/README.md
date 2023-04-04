@@ -58,6 +58,18 @@ It is used internally to build all Lume charts but it can also be used to create
         - [Payload](#payload-17)
       - [`tooltip-closed`](#tooltip-closed)
         - [Payload](#payload-18)
+      - [`node-click`](#node-click)
+        - [Payload](#payload-19)
+      - [`node-mouseenter`](#node-mouseenter)
+        - [Payload](#payload-20)
+      - [`node-mouseleave`](#node-mouseleave)
+        - [Payload](#payload-21)
+      - [`link-click`](#link-click)
+        - [Payload](#payload-22)
+      - [`link-mouseenter`](#link-mouseenter)
+        - [Payload](#payload-23)
+      - [`link-mouseleave`](#link-mouseleave)
+        - [Payload](#payload-24)
   - [Examples](#examples)
     - [Custom data group](#custom-data-group)
     - [Custom tooltip element](#custom-tooltip-element)
@@ -438,6 +450,84 @@ Fired upon a chart tooltip's unmount.
 ##### Payload
 
 None.
+
+#### `node-click`
+
+Fired upon clicking a node in an Alluvial diagram.
+
+##### Payload
+
+```ts
+p: {
+  node: SankeyNode<SankeyNodeProps, SankeyLinkProps>; // The clicked node.
+  event: PointerEvent; // Native `click` event data.
+}
+```
+
+#### `node-mouseenter`
+
+Fired upon an Alluvial diagram node [mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event).
+
+##### Payload
+
+```ts
+p: {
+  node: SankeyNode<SankeyNodeProps, SankeyLinkProps>; // The node moused over.
+  event: MouseEvent; // Native `mouseenter` event data.
+}
+```
+
+#### `node-mouseleave`
+
+Fired upon an Alluvial diagram node [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event).
+
+##### Payload
+
+```ts
+p: {
+  node: SankeyNode<SankeyNodeProps, SankeyLinkProps>; // The node previously hovered.
+  event: MouseEvent; // Native `mouseleave` event data.
+}
+```
+
+#### `link-click`
+
+Fired upon clicking a link in an Alluvial diagram.
+
+##### Payload
+
+```ts
+p: {
+  link: SankeyLink<SankeyNodeProps, SankeyLinkProps>; // The clicked link.
+  event: PointerEvent; // Native `click` event data.
+}
+```
+
+#### `link-mouseenter`
+
+Fired upon an Alluvial diagram link [mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event).
+
+##### Payload
+
+```ts
+p: {
+  link: SankeyLink<SankeyNodeProps, SankeyLinkProps>; // The link moused over.
+  event: MouseEvent; // Native `mouseenter` event data.
+}
+```
+
+#### `link-mouseleave`
+
+Fired upon an Alluvial diagram link [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event).
+
+##### Payload
+
+```ts
+p: {
+  link: SankeyLink<SankeyNodeProps, SankeyLinkProps>; // The link previously hovered.
+  event: MouseEvent; // Native `mouseleave` event data.
+}
+```
 
 ## Examples
 

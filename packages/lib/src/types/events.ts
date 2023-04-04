@@ -1,5 +1,17 @@
+import { SankeyNode } from 'd3-sankey';
+
+import { SankeyLink, SankeyLinkProps, SankeyNodeProps } from './alluvial';
 import { Data, DatasetValueObject, InternalDataset } from './dataset';
 import { ContainerSize } from './size';
+
+export interface AlluvialNodeEventPayload {
+  node: SankeyNode<SankeyNodeProps, SankeyLinkProps>;
+  event: MouseEvent | PointerEvent;
+}
+export interface AlluvialLinkEventPayload {
+  link: SankeyLink<SankeyNodeProps, SankeyLinkProps>;
+  event: MouseEvent | PointerEvent;
+}
 
 export interface DataChangedEventPayload<T> {
   newValue: T;
@@ -28,6 +40,16 @@ export interface AxisEvents {
   (e: 'axis-click', p: InteractionEventPayload): void;
   (e: 'axis-mouseenter', p: InteractionEventPayload): void;
   (e: 'axis-mouseleave'): void;
+}
+
+export interface AlluvialDiagramEvents {
+  (e: 'node-click', p: AlluvialNodeEventPayload): void;
+  (e: 'node-mouseenter', p: AlluvialNodeEventPayload): void;
+  (e: 'node-mouseleave', p: AlluvialNodeEventPayload): void;
+
+  (e: 'link-click', p: AlluvialLinkEventPayload): void;
+  (e: 'link-mouseenter', p: AlluvialLinkEventPayload): void;
+  (e: 'link-mouseleave', p: AlluvialLinkEventPayload): void;
 }
 
 export interface BarChartEvents {
@@ -64,6 +86,7 @@ export interface TooltipEvents {
 }
 
 export type ChartEmits = AxisEvents &
+  AlluvialDiagramEvents &
   BarChartEvents &
   ChartEvents &
   LegendEvents &

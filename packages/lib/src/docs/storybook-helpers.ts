@@ -22,6 +22,12 @@ const CHART_EVENTS = [
   'bar-click',
   'line-click',
   'point-click',
+  'node-click',
+  'node-mouseenter',
+  'node-mouseleave',
+  'link-click',
+  'link-mouseenter',
+  'link-mouseleave',
 
   'tooltip-opened',
   'tooltip-moved',
