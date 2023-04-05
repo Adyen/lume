@@ -56,13 +56,25 @@ describe('lume-line-group.vue', () => {
     expect(el.attributes()['d']).toEqual(d);
   });
 
-  test('mounts without points', () => {
+  test('mounts without points (via prop)', () => {
     const wrapper = mount(LumeLineGroup, {
       attachTo: svg,
-      props: {
-        ...defaultProps,
-        withPoints: false,
+      props: { ...defaultProps, withPoints: false },
+      provide: {
+        tooltipAnchorAttributes() {
+          return ref([]);
+        },
       },
+    });
+
+    const el = wrapper.find('[data-j-lume-line-group__points]');
+    expect(el.exists()).toBeFalsy();
+  });
+
+  test('mounts without points (via options)', () => {
+    const wrapper = mount(LumeLineGroup, {
+      attachTo: svg,
+      props: { ...defaultProps, options: { withPoints: false } },
       provide: {
         tooltipAnchorAttributes() {
           return ref([]);

@@ -21,7 +21,7 @@ export interface AxisOptions extends Options {
 
 export interface TooltipOptions extends Options {
   offset?: number;
-  position?: typeof TOOLTIP_POSITIONS[number];
+  position?: (typeof TOOLTIP_POSITIONS)[number];
   showTitle?: boolean;
   targetElement?: Element | 'self';
   fixedPositioning?: boolean;
@@ -57,6 +57,7 @@ export interface BarChartOptions extends ChartOptions {
 
 export interface LineChartOptions extends ChartOptions {
   lineWidth?: number;
+  withPoints?: boolean;
 }
 
 export interface AlluvialDiagramOptions extends ChartOptions {
