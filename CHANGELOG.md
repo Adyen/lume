@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.4.0](https://github.com/Adyen/lume/compare/v0.3.3...v0.4.0)
+
+- ✅ Update & add tests for Events API [`73b5e9c`](https://github.com/Adyen/lume/commit/73b5e9c56fe497a26c9e0cb16a537e19eba27490)
+- 🚧 Monorepo structure work in progress [`d000c0a`](https://github.com/Adyen/lume/commit/d000c0a790837ce93a1590ebe65472fa6ed74ef6)
+- 📝 Update core components' documentation with Events API [`ec34035`](https://github.com/Adyen/lume/commit/ec34035e18070f89e8dc7d4147c729a7b1eaf705)
+
 #### [v0.3.3](https://github.com/Adyen/lume/compare/v0.3.2...v0.3.3)
+
+> 28 February 2023
 
 - 🐛 Fix chart ID not being unique + tooltip anchor issues [`8391edf`](https://github.com/Adyen/lume/commit/8391edf224c2adf4ae72044e111bbc288d427b54)
 - ✅ Update & fix unit tests [`9fdc431`](https://github.com/Adyen/lume/commit/9fdc431f3e686d280b07b4bdb8c24ad599d09705)
@@ -29,6 +37,7 @@ All notable changes to this project will be documented in this file. Dates are d
 > 15 February 2023
 
 - 🔨 Authenticate with NPM only when needed [`#144`](https://github.com/Adyen/lume/pull/144)
+- 🔖 Release v0.2.1 [`#150`](https://github.com/Adyen/lume/pull/150)
 - ✨ Add full path highlighting to Alluvial [`991ccd5`](https://github.com/Adyen/lume/commit/991ccd5b868b0bcac060fdefa2a8bf19fa7e4382)
 - ♻️ Refactor tooltip anchor logic [`64e2fa0`](https://github.com/Adyen/lume/commit/64e2fa09c709dcf8b2ad384d4dc1adaa429c6f49)
 - 📝 Update alluvial diagram documentation [`3a704e9`](https://github.com/Adyen/lume/commit/3a704e99bfc5bb352ccb2fe13ce6d61c742d5f19)
@@ -37,7 +46,6 @@ All notable changes to this project will be documented in this file. Dates are d
 
 > 1 February 2023
 
-- 🔖 Release v0.2.1 [`#150`](https://github.com/Adyen/lume/pull/150)
 - 🐛 Fix repeated label scaleBand issue [`#149`](https://github.com/Adyen/lume/pull/149)
 - 🩹 Fix wrong import path in component stories [`#148`](https://github.com/Adyen/lume/pull/148)
 - 🎨 Code clean-up [`#139`](https://github.com/Adyen/lume/pull/139)
@@ -107,16 +115,14 @@ All notable changes to this project will be documented in this file. Dates are d
 
 > 23 November 2022
 
-- 🐛 Add chart ID to fix portal names issue [`#100`](https://github.com/Adyen/lume/pull/100)
-- ✨ Add option to control line width [`#98`](https://github.com/Adyen/lume/pull/98)
-- ♻️ Use computed properties; Sort properties [`b2c6d29`](https://github.com/Adyen/lume/commit/b2c6d2969def464c88e61050b52bda043839a5b5)
-- ♻️ Refactor showAxes option to withAxes [`3d4f5a8`](https://github.com/Adyen/lume/commit/3d4f5a883581d7653400a1210a9888b706118b22)
-- 📝 Update legacy color references to new colors [`0319e04`](https://github.com/Adyen/lume/commit/0319e04c36a2b79749c80bacf07737b8fca3b068)
+- 🔖 0.1.5 [`b617827`](https://github.com/Adyen/lume/commit/b61782724a55593eaae0c51f082d19bb9883a558)
 
 #### [v0.1.5](https://github.com/Adyen/lume/compare/v0.1.4...v0.1.5)
 
-> 22 November 2022
+> 23 November 2022
 
+- 🐛 Add chart ID to fix portal names issue [`#100`](https://github.com/Adyen/lume/pull/100)
+- ✨ Add option to control line width [`#98`](https://github.com/Adyen/lume/pull/98)
 - Configure Renovate [`#83`](https://github.com/Adyen/lume/pull/83)
 - 🐛 Fix axis ticks not displaying [`#91`](https://github.com/Adyen/lume/pull/91)
 - Mr/main/lucasv/changing the case for consts in lume bar chart [`#89`](https://github.com/Adyen/lume/pull/89)
