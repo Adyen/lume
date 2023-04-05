@@ -44,14 +44,16 @@ To generate a simple line chart with default settings, simply pass the `data` an
 
 ### Props
 
-| Name      | Type                                            | Default     | Description                                                               |
-| --------- | ----------------------------------------------- | ----------- | ------------------------------------------------------------------------- |
-| `data`    | `Data`                                          | Required    | The data to plot.                                                         |
-| `labels`  | `Array<string \| number>`                       | Required    | The group of labels to plot the data to.                                  |
-| `xScale`  | `ScaleGenerator \| ScaleBand<string \| number>` | `undefined` | A d3 scale or a scale generator function to override the default X scale. |
-| `yScale`  | `ScaleGenerator \| ScaleLinear<number, number>` | `undefined` | A d3 scale or a scale generator function to override the default Y scale. |
-| `options` | `Options`                                       | `undefined` | A set of chart options.                                                   |
-| `title`   | `String`                                        | `undefined` | The chart title.                                                          |
+| Name         | Type                                            | Default     | Description                                                               |
+| ------------ | ----------------------------------------------- | ----------- | ------------------------------------------------------------------------- |
+| `data`       | `Data`                                          | Required    | The data to plot.                                                         |
+| `labels`     | `Array<string \| number>`                       | Required    | The group of labels to plot the data to.                                  |
+| `xScale`     | `ScaleGenerator \| ScaleBand<string \| number>` | `undefined` | A d3 scale or a scale generator function to override the default X scale. |
+| `yScale`     | `ScaleGenerator \| ScaleLinear<number, number>` | `undefined` | A d3 scale or a scale generator function to override the default Y scale. |
+| `options`    | `Options`                                       | `undefined` | A set of chart options.                                                   |
+| `title`      | `String`                                        | `undefined` | The chart title.                                                          |
+| `lineWidth`  | `Number`                                        | `undefined` | The width of lines drawn.                                                 |
+| `withPoints` | `Boolean`                                       | `true`      | Indicator if the chart should render point circles or just lines.         |
 
 ### Events
 

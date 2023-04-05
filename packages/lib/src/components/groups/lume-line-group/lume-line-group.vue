@@ -30,7 +30,7 @@
         />
       </g>
       <g
-        v-if="withPoints"
+        v-if="computedWithPoints"
         class="lume-line-group__points"
         data-j-lume-line-group__points
       >
@@ -150,6 +150,10 @@ const pointRadius = computed(
 
 const xAxisOffset = computed(() => getScaleStep(xScale.value) / 2);
 const domain = computed(() => xScale.value.domain() as Array<number>);
+
+const computedWithPoints = computed(
+  () => options.value.withPoints ?? props.withPoints
+);
 
 function getValuesFromDataset(datasetIndex: number) {
   return computedGroupData.value[datasetIndex].values;
