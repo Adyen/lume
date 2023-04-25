@@ -1,5 +1,5 @@
 import { computed, Ref, ref, watch } from 'vue';
-import { SankeyGraph, SankeyNode } from 'd3-sankey';
+import { SankeyNode } from 'd3-sankey';
 
 import { AlluvialDiagramOptions } from '@/composables/options';
 
@@ -14,6 +14,7 @@ import {
   GetHighlightedElementsFunction,
   HighlightedElements,
   NodeBlock,
+  SankeyGraph,
   SankeyLink,
   SankeyLinkProps,
   SankeyNodeProps,
@@ -56,11 +57,7 @@ function getLinkIdsFromNodes(
   graph: SankeyGraph<SankeyNodeProps, SankeyLinkProps>
 ): Array<string> {
   return graph.links.reduce((array, link) => {
-    if (
-      (link as SankeyLink<SankeyNodeProps, SankeyLinkProps>).source.id in
-        nodes &&
-      (link as SankeyLink<SankeyNodeProps, SankeyLinkProps>).target.id in nodes
-    ) {
+    if (link.source.id in nodes && link.target.id in nodes) {
       array.push(generateLinkId(link));
     }
     return array;
@@ -166,7 +163,9 @@ export function useAlluvialHover(
           updateNode(
             block,
             lastElements.nodes[block.node.id] as number,
-            block.node.value
+            block.node.value,
+            options.value.withTransition,
+            true
           );
         }
       });
@@ -180,7 +179,8 @@ export function useAlluvialHover(
         updateNode(
           block,
           block.node.value,
-          elements.nodes[block.node.id] as number
+          elements.nodes[block.node.id] as number,
+          options.value.withTransition
         );
       }
     });

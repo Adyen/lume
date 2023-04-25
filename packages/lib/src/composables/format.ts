@@ -2,7 +2,10 @@ import { format as d3Format } from 'd3';
 
 import { warn, Warnings } from '@/utils/warnings';
 
-type FormatFunction = (arg0: number | string) => number | string;
+type FormatFunctionArgs = [number | string, ...Array<number | string>];
+
+type FormatFunction = (...args: FormatFunctionArgs) => number | string;
+
 export type Format = string | FormatFunction;
 
 export const useFormat = (format: Format) => {
@@ -24,8 +27,8 @@ export const useFormat = (format: Format) => {
     formatter = null;
   }
 
-  function formatValue(value: number | string) {
-    return formatter ? formatter(value) : value;
+  function formatValue(...args: FormatFunctionArgs) {
+    return formatter ? formatter(...args) : args[0];
   }
 
   return formatValue;

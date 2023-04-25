@@ -1,5 +1,5 @@
 import { computed, ComputedRef, ref, Ref, watch } from 'vue';
-import { sankey, SankeyGraph, SankeyLink, SankeyNode } from 'd3-sankey';
+import { SankeyLink as D3SankeyLink, sankey, SankeyNode } from 'd3-sankey';
 
 import { AlluvialDiagramOptions } from '@/composables/options';
 
@@ -9,6 +9,7 @@ import { getAlluvialNodeId } from '../helpers';
 import {
   AlluvialExtents,
   AlluvialNode,
+  SankeyGraph,
   SankeyLinkProps,
   SankeyNodeProps,
 } from '@/types/alluvial';
@@ -17,14 +18,14 @@ import { InternalData } from '@/types/dataset';
 const EMPTY_GRAPH = {
   nodes: [],
   links: [],
-} as SankeyGraph<SankeyNodeProps, SankeyLinkProps>;
+} as SankeyGraph;
 
 export function useAlluvialGraph(
   data: Ref<InternalData<AlluvialNode>>,
   options: Ref<AlluvialDiagramOptions>,
   extents: Ref<AlluvialExtents>
 ) {
-  const graph = ref<SankeyGraph<SankeyNodeProps, SankeyLinkProps>>(null);
+  const graph = ref<SankeyGraph>(null);
 
   const nodes: ComputedRef<
     Array<SankeyNode<SankeyNodeProps, SankeyLinkProps>>
@@ -37,7 +38,7 @@ export function useAlluvialGraph(
   });
 
   const links: ComputedRef<
-    Array<SankeyLink<SankeyNodeProps, SankeyLinkProps>>
+    Array<D3SankeyLink<SankeyNodeProps, SankeyLinkProps>>
   > = computed(() => {
     return data.value?.[0].values
       .map((source) =>
@@ -67,7 +68,7 @@ export function useAlluvialGraph(
       graph.value = layout.value.extent([
         [x0, y0],
         [x1, y1],
-      ])({ nodes: nodes.value, links: links.value });
+      ])({ nodes: nodes.value, links: links.value }) as SankeyGraph;
     } catch (error) {
       logError(Errors.GraphProblem, error);
       graph.value = EMPTY_GRAPH;

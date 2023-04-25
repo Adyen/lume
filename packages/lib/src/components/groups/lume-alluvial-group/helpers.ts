@@ -1,9 +1,4 @@
-import {
-  SankeyGraph,
-  SankeyLink,
-  sankeyLinkHorizontal,
-  SankeyNode,
-} from 'd3-sankey';
+import { sankeyLinkHorizontal, SankeyNode } from 'd3-sankey';
 
 import { DEFAULT_COLOR } from '@/utils/colors';
 import { interpolateRound } from '@/utils/helpers';
@@ -13,6 +8,8 @@ import { NODE_LABEL_PADDING } from './constants';
 import {
   LinkPath,
   NodeBlock,
+  SankeyGraph,
+  SankeyLink,
   SankeyLinkProps,
   SankeyNodeProps,
 } from '@/types/alluvial';
@@ -34,16 +31,14 @@ export function getAlluvialNodeId(
 export function generateLinkId(
   link: SankeyLink<SankeyNodeProps, SankeyLinkProps>
 ) {
-  return (
-    (link.source as SankeyNode<SankeyNodeProps, SankeyLinkProps>).id +
-    ':' +
-    (link.target as SankeyNode<SankeyNodeProps, SankeyLinkProps>).id
-  );
+  return link.source.id + ':' + link.target.id;
 }
 
 export function isSankeyNode(
-  element: SankeyNode<unknown, unknown> | SankeyLink<unknown, unknown>
-): element is SankeyNode<unknown, unknown> {
+  element:
+    | SankeyNode<SankeyNodeProps, unknown>
+    | SankeyLink<SankeyNodeProps, unknown>
+): element is SankeyNode<SankeyNodeProps, unknown> {
   return Boolean(
     (element as SankeyNode<unknown, unknown>).sourceLinks &&
       (element as SankeyNode<unknown, unknown>).targetLinks
@@ -119,30 +114,47 @@ export function getLinkPathAttributes(
   }));
 }
 
+/**
+ * Updates the display value of a node.
+ *
+ * @param nodeBlock A NodeBlock object of the node to update.
+ * @param fromValue The initial node value.
+ * @param toValue The target node value.
+ * @param withTransition Whether to have an animated value transition or not.
+ * @param reset Whether the update is for a granular value or if it's resetting to the base value.
+ */
 export function updateNode(
   nodeBlock: NodeBlock,
-  currentNumber: number,
-  targetNumber: number
+  fromValue: number,
+  toValue: number,
+  withTransition?: boolean,
+  reset?: true
 ) {
+  if (withTransition === false) {
+    nodeBlock.node = {
+      ...nodeBlock.node,
+      transitionValue: reset ? undefined : toValue,
+    };
+    return;
+  }
+
   const startTime = Date.now();
-  const interpolator = interpolateRound(currentNumber, targetNumber);
+  const interpolator = interpolateRound(fromValue, toValue);
 
   const performNextUpdate = () => {
     const now = Date.now();
     let iteration = (now - startTime) / TRANSITION_DURATION;
-    if (iteration > 1) {
-      iteration = 1;
-    }
+
+    if (iteration > 1) iteration = 1;
 
     // Needs reassign so that the value updates in Vue 2
     nodeBlock.node = {
       ...nodeBlock.node,
-      transitionValue: interpolator(iteration),
+      transitionValue:
+        reset && iteration === 1 ? undefined : interpolator(iteration),
     };
 
-    if (iteration < 1) {
-      requestAnimationFrame(performNextUpdate);
-    }
+    if (iteration < 1) requestAnimationFrame(performNextUpdate);
   };
   requestAnimationFrame(performNextUpdate);
 }
