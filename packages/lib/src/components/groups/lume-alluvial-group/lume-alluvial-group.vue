@@ -5,47 +5,47 @@
   >
     <!-- Nodes -->
     <g
-      v-for="(nodeBlock, index) in nodeBlocks"
+      v-for="(block, index) in nodeBlocks"
       :key="`node-block_${index}`"
       class="lume-alluvial-group__node"
       :class="{
-        'lume-alluvial-group__node--faded': isNodeFaded(nodeBlock.node.id),
+        'lume-alluvial-group__node--faded': isNodeFaded(block.node.id),
       }"
       data-j-alluvial-group__node-block
     >
       <!-- Wrapper for catching mouse events when hovering both the block and text -->
       <g
-        @click="emit('node-click', { node: nodeBlock.node, event: $event })"
+        @click="emit('node-click', { node: block.node, event: $event })"
         @mouseenter="
-          emit('node-mouseenter', { node: nodeBlock.node, event: $event })
+          emit('node-mouseenter', { node: block.node, event: $event })
         "
         @mouseleave="
-          emit('node-mouseleave', { node: nodeBlock.node, event: $event })
+          emit('node-mouseleave', { node: block.node, event: $event })
         "
-        @mouseover="hoveredElement = nodeBlock.node"
+        @mouseover="hoveredElement = block.node"
         @mouseout="hoveredElement = null"
       >
         <rect
           :class="`lume-alluvial-group__node-block--${
-            nodeBlock.node.color || DEFAULT_COLOR
+            block.node.color || DEFAULT_COLOR
           }`"
-          :x="nodeBlock.x"
-          :y="nodeBlock.y"
-          :height="nodeBlock.height"
-          :width="nodeBlock.width"
+          :x="block.x"
+          :y="block.y"
+          :height="block.height"
+          :width="block.width"
         />
         <text
           ref="nodeTextRefs"
           class="lume-alluvial-group__node-text lume-typography--caption"
           :class="{
-            'lume-alluvial-group__node-text--right': nodeBlock.node.depth === 0,
+            'lume-alluvial-group__node-text--right': block.node.depth === 0,
           }"
-          :transform="`translate(${nodeBlock.textTransform.x},${nodeBlock.textTransform.y})`"
-          :data-id="nodeBlock.node.id"
+          :transform="`translate(${block.textTransform.x},${block.textTransform.y})`"
+          :data-id="block.node.id"
         >
           <tspan
             class="lume-alluvial-group__node-title"
-            v-text="nodeBlock.node.label"
+            v-text="block.node.label"
           />
           <tspan
             class="lume-alluvial-group__node-value"
@@ -53,7 +53,8 @@
             dy="1.2em"
             v-text="
               formatValue(
-                nodeBlock.node.transitionValue || nodeBlock.node.value
+                block.node.transitionValue || block.node.value,
+                block.node.value
               )
             "
           />

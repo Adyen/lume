@@ -1,7 +1,7 @@
 import {
+  SankeyGraph as D3SankeyGraph,
   SankeyLink as D3SankeyLink,
   SankeyExtraProperties,
-  SankeyGraph,
   SankeyNode,
 } from 'd3-sankey';
 
@@ -36,6 +36,13 @@ export interface SankeyLink<
 > extends D3SankeyLink<SankeyNodeProps, SankeyLinkProps> {
   source: SankeyNode<N, L>;
   target: SankeyNode<N, L>;
+}
+
+export interface SankeyGraph<
+  N extends SankeyNodeProps = SankeyNodeProps,
+  L extends SankeyLinkProps = SankeyLinkProps
+> extends D3SankeyGraph<SankeyNodeProps, SankeyLinkProps> {
+  links: Array<SankeyLink<N, L>>;
 }
 
 export interface HighlightedElements {
