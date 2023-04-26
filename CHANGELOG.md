@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.5.0](https://github.com/Adyen/lume/compare/v0.4.0...v0.5.0)
+
+- ✨ Add nodeHeaders option to Alluvial [`2423d51`](https://github.com/Adyen/lume/commit/2423d51bdb080ccba26a364c148107d35ec5efb0)
+- ✨ Provide part/total values for Alluvial valueFormat [`13c0c01`](https://github.com/Adyen/lume/commit/13c0c016beb7d549f72d93fe13c3a5d2b87d2926)
+- 🐛 Fix unable to set withPoints through options [`c915a41`](https://github.com/Adyen/lume/commit/c915a411af09c013c69f3333069de03d5c6f8429)
+
 #### [v0.4.0](https://github.com/Adyen/lume/compare/v0.3.3...v0.4.0)
+
+> 5 April 2023
 
 - ✅ Update & add tests for Events API [`73b5e9c`](https://github.com/Adyen/lume/commit/73b5e9c56fe497a26c9e0cb16a537e19eba27490)
 - 🚧 Monorepo structure work in progress [`d000c0a`](https://github.com/Adyen/lume/commit/d000c0a790837ce93a1590ebe65472fa6ed74ef6)
