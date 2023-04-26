@@ -2,7 +2,14 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.5.1](https://github.com/Adyen/lume/compare/v0.5.0...v0.5.1)
+
+- 📝 Add missing fields in vue2/vue3 package.json [`c471177`](https://github.com/Adyen/lume/commit/c471177f25d843bf8659f160bca5aa028d00f720)
+- 🔖 Release v0.5.0 [`c8045e6`](https://github.com/Adyen/lume/commit/c8045e6975096385eb13f3c263d89b279561351f)
+
 #### [v0.5.0](https://github.com/Adyen/lume/compare/v0.4.0...v0.5.0)
+
+> 26 April 2023
 
 - ✨ Add nodeHeaders option to Alluvial [`2423d51`](https://github.com/Adyen/lume/commit/2423d51bdb080ccba26a364c148107d35ec5efb0)
 - ✨ Provide part/total values for Alluvial valueFormat [`13c0c01`](https://github.com/Adyen/lume/commit/13c0c016beb7d549f72d93fe13c3a5d2b87d2926)
