@@ -3,6 +3,60 @@
     class="lume-alluvial-group"
     data-j-alluvial-group
   >
+    <!-- Level titles -->
+    <g v-if="nodeHeaders">
+      <text
+        v-for="header in nodeHeaders"
+        :key="`header_${header.x}`"
+        :x="header.x"
+        :y="-computedNodeHeaderPadding"
+        class="lume-alluvial-group__node-header lume-typography--caption"
+      >
+        {{ header.label }}
+      </text>
+    </g>
+
+    <!-- Links -->
+    <g
+      class="lume-alluvial-link-group"
+      @mouseleave="handleLinkMouseleave"
+    >
+      <!-- Ghost paths -->
+      <path
+        v-for="linkPath in linkPaths"
+        :key="`link-ghost_${linkPath.id}`"
+        class="lume-alluvial-group__link"
+        :class="[
+          'lume-stroke--transparent',
+          'lume-alluvial-group__link--ghost',
+        ]"
+        :d="linkPath.d"
+        :stroke-width="linkPath.strokeWidth + GHOST_STROKE_WIDTH_OFFSET"
+        data-j-alluvial-ghost
+        @click="emit('link-click', { link: linkPath.link, event: $event })"
+        @mouseover="handleLinkMouseover(linkPath.link, $event)"
+      />
+
+      <!-- Link paths -->
+      <path
+        v-for="linkPath in linkPaths"
+        :key="`link_${linkPath.id}`"
+        class="lume-alluvial-group__link"
+        :class="{
+          [`lume-stroke--${linkPath.color}`]: linkPath.color,
+          'lume-alluvial-group__link--faded': isLinkFaded(linkPath.id),
+        }"
+        :d="linkPath.d"
+        :stroke-dasharray="containerSize.width"
+        :stroke-dashoffset="containerSize.width"
+        :stroke-width="linkPath.strokeWidth"
+        data-j-alluvial-path
+        :data-id="linkPath.id"
+        @click="emit('link-click', { link: linkPath.link, event: $event })"
+        @mouseover="handleLinkMouseover(linkPath.link, $event)"
+      />
+    </g>
+
     <!-- Nodes -->
     <g
       v-for="(block, index) in nodeBlocks"
@@ -61,46 +115,6 @@
         </text>
       </g>
     </g>
-
-    <!-- Links -->
-    <g
-      class="lume-alluvial-link-group"
-      @mouseleave="handleLinkMouseleave"
-    >
-      <!-- Ghost paths -->
-      <path
-        v-for="linkPath in linkPaths"
-        :key="`link-ghost_${linkPath.id}`"
-        class="lume-alluvial-group__link"
-        :class="[
-          'lume-stroke--transparent',
-          'lume-alluvial-group__link--ghost',
-        ]"
-        :d="linkPath.d"
-        :stroke-width="linkPath.strokeWidth + GHOST_STROKE_WIDTH_OFFSET"
-        data-j-alluvial-ghost
-        @click="emit('link-click', { link: linkPath.link, event: $event })"
-        @mouseover="handleLinkMouseover(linkPath.link, $event)"
-      />
-
-      <!-- Link paths -->
-      <path
-        v-for="linkPath in linkPaths"
-        :key="`link_${linkPath.id}`"
-        class="lume-alluvial-group__link"
-        :class="{
-          [`lume-stroke--${linkPath.color}`]: linkPath.color,
-          'lume-alluvial-group__link--faded': isLinkFaded(linkPath.id),
-        }"
-        :d="linkPath.d"
-        :stroke-dasharray="containerSize.width"
-        :stroke-dashoffset="containerSize.width"
-        :stroke-width="linkPath.strokeWidth"
-        data-j-alluvial-path
-        @click="emit('link-click', { link: linkPath.link, event: $event })"
-        @mouseover="handleLinkMouseover(linkPath.link, $event)"
-      />
-    </g>
   </g>
 </template>
 
@@ -115,7 +129,7 @@ import { useAlluvialExtents } from './composables/alluvial-extents';
 import { useAlluvialGraph } from './composables/alluvial-graph';
 import { useAlluvialHover } from './composables/alluvial-hover';
 
-import { GHOST_STROKE_WIDTH_OFFSET } from './constants';
+import { GHOST_STROKE_WIDTH_OFFSET, NODE_HEADER_PADDING } from './constants';
 import { DEFAULT_COLOR } from '@/utils/colors';
 import {
   getLabelSizes,
@@ -125,6 +139,8 @@ import {
 
 import {
   AlluvialNode,
+  LinkPath,
+  NodeBlock,
   SankeyLink,
   SankeyLinkProps,
   SankeyNodeProps,
@@ -151,8 +167,8 @@ const emit = defineEmits<{
 
 const { data, options } = toRefs(props);
 
-const nodeBlocks = ref([]);
-const linkPaths = ref([]);
+const nodeBlocks = ref<Array<NodeBlock>>([]);
+const linkPaths = ref<Array<LinkPath>>([]);
 
 const nodeTextRefs = ref<Array<SVGTextElement>>(null);
 
@@ -168,6 +184,29 @@ const formatValue = computed(() => useFormat(options.value.valueFormat));
 
 const hoveredNodeIds = computed(() =>
   Object.keys(highlightedElements.value.nodes)
+);
+
+const nodeColumnPositions = computed<Array<number>>(() =>
+  nodeBlocks.value.reduce((acc, curr) => {
+    const columnX = curr.x + options.value.nodeWidth / 2;
+
+    return acc.includes(columnX) ? acc : [...acc, columnX];
+  }, [])
+);
+
+const nodeHeaders = computed(() => {
+  if (!options.value.nodeHeaders || !options.value.nodeHeaders.length) return;
+
+  return options.value.nodeHeaders
+    .slice(0, nodeColumnPositions.value.length) // Match column/header array lengths
+    .map((header, index) => ({
+      label: header,
+      x: nodeColumnPositions.value[index],
+    }));
+});
+
+const computedNodeHeaderPadding = computed(
+  () => options.value.nodeHeaderPadding ?? NODE_HEADER_PADDING
 );
 
 function isNodeFaded(id: string | number) {
@@ -206,7 +245,7 @@ function handleLinkMouseleave(event: MouseEvent) {
 // Render nodes/paths whenever the SankeyGraph changes
 watch(graph, (newGraph) => {
   nodeBlocks.value = getNodeBlockAttributes(newGraph.nodes);
-  linkPaths.value = getLinkPathAttributes(newGraph.links);
+  linkPaths.value = getLinkPathAttributes(newGraph.links).reverse(); // Reverse order of link rendering so that the furthermost links are renderd on top
 });
 
 // Update extents whenever 1. container size changes or 2. node labels are rendered (hence defining new margins)
