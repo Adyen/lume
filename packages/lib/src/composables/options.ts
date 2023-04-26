@@ -5,7 +5,11 @@ import { Format } from '@/composables/format';
 import { Margins, TOOLTIP_POSITIONS } from '@/utils/constants';
 import { mergeDeep } from '@/utils/helpers';
 
-import { GetHighlightedElementsFunction } from '@/types/alluvial';
+import {
+  GetHighlightedElementsFunction,
+  SankeyLink,
+  SankeyNodeProps,
+} from '@/types/alluvial';
 import { ColorPalette } from '@/types/dataset';
 
 export interface AxisOptions extends Options {
@@ -64,12 +68,18 @@ export interface LineChartOptions extends ChartOptions {
 export interface AlluvialDiagramOptions extends ChartOptions {
   highlightedElements?: 'full' | 'closest' | GetHighlightedElementsFunction;
   nodeAlign?: (node: SankeyNode<unknown, unknown>, n: number) => number;
+  nodeHeaders?: Array<string>;
+  nodeHeaderPadding?: number;
   nodePadding?: number;
   nodeSort?: (
     a: SankeyNode<unknown, unknown>,
     b: SankeyNode<unknown, unknown>
   ) => number | undefined | null;
   nodeWidth?: number;
+  linkSort?: (
+    a: SankeyLink<SankeyNodeProps, unknown>,
+    b: SankeyLink<SankeyNodeProps, unknown>
+  ) => number | undefined | null;
   valueFormat?: Format;
 }
 

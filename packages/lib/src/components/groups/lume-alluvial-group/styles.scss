@@ -72,6 +72,13 @@ $lume-alluvial-link-opacity-faded: 0.2 !default;
       transition: unset;
     }
   }
+
+  &__node-header {
+    font-weight: $lume-font-weight-medium;
+    text-anchor: middle;
+    text-align: center;
+    cursor: default;
+  }
 }
 
 @keyframes strokeReset {
