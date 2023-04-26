@@ -92,14 +92,17 @@ To generate a simple alluvial diagram with default settings, simply pass the `da
 
 Interface: `AlluvialDiagramOptions`
 
-| Name                | Type                                                     | Description                                                                                          |
-| ------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| highlightedElements | `'full' \| 'closest' \| GetHighlightedElementsFunction`  | Defines the diagram's hover behavior. More info below.                                               |
-| nodeAlign           | `(node: SankeyNode, n: number) => number`                | Defines the node alignment method. [Read more](https://github.com/d3/d3-sankey#sankey_nodeAlign)     |
-| nodePadding         | `number`                                                 | Sets the vertical space between nodes at each column.                                                |
-| nodeSort            | `(a: SankeyNode, b: SankeyNode) => number`               | Defines the node sort method. [Read more](https://github.com/d3/d3-sankey#sankey_nodeSort)           |
-| nodeWidth           | `number`                                                 | Sets the node block width.                                                                           |
-| valueFormat         | `string \| (tick: number \| string) => number \| string` | A format specifier string for [d3-format](https://github.com/d3/d3-format) or a formatting function. |
+| Name                | Type                                                                      | Description                                                                                                                                                                   |
+| ------------------- | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| highlightedElements | `'full' \| 'closest' \| GetHighlightedElementsFunction`                   | Defines the diagram's hover behavior. More info below.                                                                                                                        |
+| nodeAlign           | `(node: SankeyNode, n: number) => number`                                 | Defines the node alignment method. [Read more](https://github.com/d3/d3-sankey#sankey_nodeAlign)                                                                              |
+| nodeHeaders         | `Array<string>`                                                           | If present, renders the provided headers on top of each node column.                                                                                                          |
+| nodeHeaderPadding   | `number`                                                                  | Sets the space between the node headers and the top-most node(s).                                                                                                             |
+| nodePadding         | `number`                                                                  | Sets the vertical space between nodes at each column.                                                                                                                         |
+| nodeSort            | `(a: SankeyNode, b: SankeyNode) => number`                                | Defines the node sort method. [Read more](https://github.com/d3/d3-sankey#sankey_nodeSort)                                                                                    |
+| nodeWidth           | `number`                                                                  | Sets the node block width.                                                                                                                                                    |
+| linkSort            | `(a: SankeyLink, b: SankeyLink) => number`                                | Defines the link sort method. [Read more](https://github.com/d3/d3-sankey#sankey_linkSort)                                                                                    |
+| valueFormat         | `string \| (currentValue: number, baseValue: number) => number \| string` | A format specifier string for [d3-format](https://github.com/d3/d3-format) or a formatting function. The function receives the contextual node value and the base node value. |
 
 #### Highlighted elements
 
