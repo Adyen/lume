@@ -7,7 +7,7 @@
       :data-j-lume-overlay-group="index"
       :transition="false"
       class-list="lume-fill--transparent"
-      @mouseenter="emit('lume__internal--hover', index)"
+      @mouseover="emit('lume__internal--hover', index)"
       @click="emit('click', { index, event: $event })"
     />
   </g>
