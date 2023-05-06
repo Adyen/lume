@@ -29,8 +29,8 @@ describe('lume-overlay-group.vue', () => {
 
     const bars = wrapper.findAll('.lume-bar');
 
-    await bars[0].trigger('mouseenter');
-    await bars[2].trigger('mouseenter');
+    await bars[0].trigger('mouseover');
+    await bars[2].trigger('mouseover');
 
     expect(wrapper.emitted()).toHaveProperty('lume__internal--hover');
 
