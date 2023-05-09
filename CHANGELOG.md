@@ -2,16 +2,11 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [v0.5.3](https://github.com/Adyen/lume/compare/v0.5.3...v0.5.3)
-
-- 🐛 Fix node headers wrong order [`c4fb75e`](https://github.com/Adyen/lume/commit/c4fb75e5592ed52a6f1bfed27e7500dc98546c32)
-
 #### [v0.5.3](https://github.com/Adyen/lume/compare/v0.5.2...v0.5.3)
 
-> 9 May 2023
-
 - 🔖 Release v0.5.2 [`a2ed659`](https://github.com/Adyen/lume/commit/a2ed6597f165de0167e387acafb2441fae44b934)
-- 🔖 Release v0.5.3 [`5bca411`](https://github.com/Adyen/lume/commit/5bca41107fc50f8bbfcc95b8e459e530efde6d1a)
+- 🔖 Release v0.5.3 [`c74e834`](https://github.com/Adyen/lume/commit/c74e834cada8cde34f1f7e5afc30ef317537423f)
+- 🐛 Fix node headers wrong order [`c4fb75e`](https://github.com/Adyen/lume/commit/c4fb75e5592ed52a6f1bfed27e7500dc98546c32)
 
 #### [v0.5.2](https://github.com/Adyen/lume/compare/v0.5.1...v0.5.2)
 
