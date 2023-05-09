@@ -186,12 +186,15 @@ const hoveredNodeIds = computed(() =>
   Object.keys(highlightedElements.value.nodes)
 );
 
-const nodeColumnPositions = computed<Array<number>>(() =>
-  nodeBlocks.value.reduce((acc, curr) => {
-    const columnX = curr.x + options.value.nodeWidth / 2;
+const nodeColumnPositions = computed<Array<number>>(
+  () =>
+    nodeBlocks.value
+      .reduce((acc, curr) => {
+        const columnX = curr.x + options.value.nodeWidth / 2;
 
-    return acc.includes(columnX) ? acc : [...acc, columnX];
-  }, [])
+        return acc.includes(columnX) ? acc : [...acc, columnX];
+      }, [])
+      .sort((a, b) => a - b) // Make sure positions are sorted in ascending order
 );
 
 const nodeHeaders = computed(() => {
