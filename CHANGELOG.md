@@ -2,8 +2,22 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.5.3](https://github.com/Adyen/lume/compare/v0.5.3...v0.5.3)
+
+- 🐛 Fix node headers wrong order [`c4fb75e`](https://github.com/Adyen/lume/commit/c4fb75e5592ed52a6f1bfed27e7500dc98546c32)
+
+#### [v0.5.3](https://github.com/Adyen/lume/compare/v0.5.2...v0.5.3)
+
+> 9 May 2023
+
+- 🔖 Release v0.5.2 [`a2ed659`](https://github.com/Adyen/lume/commit/a2ed6597f165de0167e387acafb2441fae44b934)
+- 🔖 Release v0.5.3 [`5bca411`](https://github.com/Adyen/lume/commit/5bca41107fc50f8bbfcc95b8e459e530efde6d1a)
+
 #### [v0.5.2](https://github.com/Adyen/lume/compare/v0.5.1...v0.5.2)
 
+> 8 May 2023
+
+- 🔖 Release v0.5.2 [`a297d77`](https://github.com/Adyen/lume/commit/a297d77ad012dc08677398d67c12767daad2e4dd)
 - 🔖 Release v0.5.1 [`0dc9bb7`](https://github.com/Adyen/lume/commit/0dc9bb7286e1e80fdeaab546296156931413350f)
 - 🐛 Hover on the chart is not showing the popover [`5051ff3`](https://github.com/Adyen/lume/commit/5051ff33342c9a24158ab8b71ee5d87a5f00571b)
 
