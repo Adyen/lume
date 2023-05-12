@@ -75,12 +75,12 @@ enum TYPES {
 <script setup lang="ts">
 import {
   computed,
-  ComputedRef,
   inject,
   onMounted,
   PropType,
   reactive,
   ref,
+  Ref,
   toRefs,
   watch,
 } from 'vue';
@@ -144,7 +144,7 @@ const emit = defineEmits<{
 const { scale, containerSize, hoveredIndex, options, orientation } =
   toRefs(props); // Needs to be cast as any to avoid it being cast to never by default
 
-const isEmpty = inject<ComputedRef<boolean>>('isEmpty');
+const isEmpty = inject<Ref<boolean>>('isEmpty', ref(false));
 
 const mixins = reactive<Record<string, AxisMixinFunction>>({});
 const tickRefs = ref<Array<{ ref: SVGTextElement }>>(null);
