@@ -20,7 +20,8 @@
     "build": "NODE_ENV=production npm run build:vite && npm run build:font",
     "build:vite": "vite build",
     "build:font": "webpack",
-    "postbuild": "node ../../build/postbuild.js"
+    "postbuild": "node ../../build/postbuild.js",
+    "storybook": "sb dev -p 9003 -c .storybook"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.4",
@@ -31,6 +32,8 @@
     "vue": "^3.2.36"
   },
   "devDependencies": {
+    "@storybook/vue3": "^7.0.11",
+    "@storybook/vue3-vite": "^7.0.11",
     "@vitejs/plugin-vue": "^4.0.0",
     "vue": "^3.2.36"
   },

@@ -62,7 +62,7 @@ const Template = ({ args }) => {
     setup() {
       const computedData = computed(() => {
         // eslint-disable-next-line no-undef
-        const dataset = structuredClone(args.data); // Deep copy dataset array
+        const dataset = args.data;
         if (args.color) dataset[0].color = COLOR_CLASS_MAP[args.color];
         if (args.areaColor)
           dataset[0].areaColor = COLOR_CLASS_MAP[args.areaColor];

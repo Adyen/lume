@@ -1,7 +1,8 @@
-import { useArgs } from '@storybook/client-api';
+import { useArgs } from '@storybook/preview-api';
 
-import '@/styles/font.scss';
-import '@/styles/main.scss';
+import '../../lib/src/styles/font.scss';
+import '../../lib/src/styles/main.scss';
+
 import './preview-styles.scss';
 
 export const parameters = {

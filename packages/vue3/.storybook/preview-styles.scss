@@ -1,0 +1,14 @@
+.preview {
+  display: flex;
+  justify-content: center;
+
+  .card {
+    display: inline-flex;
+    flex-direction: column;
+
+    padding: 1.5rem;
+
+    background-color: white;
+    border-radius: 1rem;
+  }
+}

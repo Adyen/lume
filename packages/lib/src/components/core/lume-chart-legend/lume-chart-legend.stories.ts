@@ -32,10 +32,10 @@ const Template = ({ args }) => ({
 
 export const Basic = Template.bind({});
 Basic.args = {
-  data: DATASETS.Single.data,
+  ...DATASETS.Single,
 };
 
 export const MultipleDatasets = Template.bind({});
 MultipleDatasets.args = {
-  data: DATASETS.Multiple.data,
+  ...DATASETS.Multiple,
 };
