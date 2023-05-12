@@ -75,3 +75,9 @@ MultipleLevels.args = {
   ...withSizeArgs(),
   ...DATASETS.MultipleLevels,
 };
+
+export const Empty = Template.bind({});
+Empty.args = {
+  ...withSizeArgs(),
+  ...DATASETS.Empty,
+};

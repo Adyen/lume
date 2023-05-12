@@ -133,6 +133,10 @@ const DATASETS = {
       'May 4',
     ],
   },
+  Empty: {
+    data: [{ values: [] }],
+    labels: [],
+  },
 };
 
 export default DATASETS;

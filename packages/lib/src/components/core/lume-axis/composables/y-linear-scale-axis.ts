@@ -11,7 +11,7 @@ const useLinearScaleAxis: AxisMixin = function (
 ) {
   const tickHeight = computed(() => {
     const ticks = scale.value.ticks();
-    return scale.value(ticks[1]) - scale.value(ticks[0]);
+    return ticks.length > 1 ? scale.value(ticks[1]) - scale.value(ticks[0]) : 0;
   });
 
   function getTickGroupAttributes(value: number) {

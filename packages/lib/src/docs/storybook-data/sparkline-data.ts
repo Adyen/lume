@@ -25,6 +25,10 @@ const DATASETS = {
       },
     ],
   },
+  Empty: {
+    data: [{ values: [] }],
+    labels: [],
+  },
 };
 
 export default DATASETS;

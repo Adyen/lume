@@ -112,3 +112,8 @@ export const CustomTooltip = CustomTemplate.bind({});
 CustomTooltip.args = {
   ...DATASETS.Single,
 };
+
+export const Empty = Template.bind({});
+Empty.args = {
+  ...DATASETS.Empty,
+};
