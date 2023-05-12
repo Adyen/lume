@@ -183,3 +183,14 @@ CustomTooltip.parameters = {
     url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A3148',
   },
 };
+
+export const Empty = Template.bind({});
+Empty.args = {
+  ...DATASETS.Empty,
+};
+Empty.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A3148',
+  },
+};

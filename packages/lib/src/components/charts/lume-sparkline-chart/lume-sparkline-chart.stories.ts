@@ -94,3 +94,8 @@ export const NullValues = Template.bind({});
 NullValues.args = {
   ...DATASETS.NullValues,
 };
+
+export const Empty = Template.bind({});
+Empty.args = {
+  ...DATASETS.Empty,
+};

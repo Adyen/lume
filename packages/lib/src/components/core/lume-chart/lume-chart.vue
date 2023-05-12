@@ -258,6 +258,7 @@ import {
 } from '@/composables/tooltip';
 
 import { ORIENTATIONS, TOOLTIP_ANCHOR_RADIUS } from '@/utils/constants';
+import { warn, Warnings } from '@/utils/warnings';
 import { ChartType, Data } from '@/types/dataset';
 import { ChartEmits } from '@/types/events';
 
@@ -337,6 +338,10 @@ const showXAxisTitle = computed(() => {
 const showYAxisTitle = computed(() => {
   return allOptions.value.yAxisOptions?.withTitle !== false && yAxisTitle.value;
 });
+
+const isEmpty = computed(() =>
+  data.value.every((dataset) => !dataset.values.length)
+);
 
 const isReady = computed(() => {
   const conditions: Array<() => boolean> = [];
@@ -422,6 +427,8 @@ watch(labels, (newValue: string[], oldValue: string[] | null) =>
   emit('labels-changed', { newValue, oldValue })
 );
 
+watch(isEmpty, (value) => value && warn(Warnings.Empty), { immediate: true });
+
 onMounted(() => {
   emit('rendered');
   if (!slots.groups) {
@@ -430,6 +437,7 @@ onMounted(() => {
 });
 
 provide('chartID', chartID);
+provide('isEmpty', isEmpty);
 provide('tooltipAnchorAttributes', tooltipAnchorAttributes); // provide anchors to re-compute in some cases
 </script>
 

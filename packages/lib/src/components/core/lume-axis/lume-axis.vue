@@ -75,6 +75,8 @@ enum TYPES {
 <script setup lang="ts">
 import {
   computed,
+  ComputedRef,
+  inject,
   onMounted,
   PropType,
   reactive,
@@ -142,6 +144,8 @@ const emit = defineEmits<{
 const { scale, containerSize, hoveredIndex, options, orientation } =
   toRefs(props); // Needs to be cast as any to avoid it being cast to never by default
 
+const isEmpty = inject<ComputedRef<boolean>>('isEmpty');
+
 const mixins = reactive<Record<string, AxisMixinFunction>>({});
 const tickRefs = ref<Array<{ ref: SVGTextElement }>>(null);
 const root = ref<SVGGElement>(null);
@@ -170,12 +174,23 @@ const { allOptions } = useOptions<AxisOptions>(
 
 const { showTick } = useSkip(scale, tickRefs, allOptions.value.skip);
 
-const axisTransform = computed(
-  () =>
-    `translate(0, ${
-      computedType.value === 'x' ? containerSize.value?.height : 0
-    })`
-);
+const axisTransform = computed(() => {
+  // if empty, aligns baseline to the bottom
+  if (computedType.value === 'y' && isEmpty.value) {
+    return `translate(0, ${containerSize.value?.height / 2})`;
+  }
+
+  // if empty, aligns baseline to the left
+  if (computedType.value === 'x' && isEmpty.value) {
+    return `translate(-${containerSize.value?.width / 2}, ${
+      containerSize.value?.height
+    })`;
+  }
+
+  return `translate(0, ${
+    computedType.value === 'x' ? containerSize.value?.height : 0
+  })`;
+});
 
 const ticks = computed(() => {
   // For band scales, return the full labels array (domain)

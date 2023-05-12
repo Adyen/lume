@@ -113,7 +113,7 @@ export function useBase(
   function updateSize(size: ContainerSize) {
     const height =
       orientation?.value === ORIENTATIONS.HORIZONTAL
-        ? getEmptyArrayFromData(data).length * (BAR_HEIGHT * 2)
+        ? getEmptyArrayFromData(data).length * (BAR_HEIGHT * 2) || size.height
         : size.height;
 
     containerSize.width = size.width;
