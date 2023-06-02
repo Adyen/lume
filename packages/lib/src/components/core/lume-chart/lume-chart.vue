@@ -78,14 +78,14 @@
         :y-scale="computedYScale"
         :container-size="containerSize"
         :options="allOptions"
-        :hovered-index="hoveredIndex"
+        :hovered-index="internalHoveredIndex"
       >
         <lume-axis
           type="x"
           :scale="computedXScale"
           :container-size="containerSize"
           :options="computedXAxisOptions"
-          :hovered-index="hoveredIndex"
+          :hovered-index="internalHoveredIndex"
           :orientation="orientation"
           data-j-lume-chart__x-axis
           @click="handleAxisClick"
@@ -97,7 +97,7 @@
           :scale="computedYScale"
           :container-size="containerSize"
           :options="computedYAxisOptions"
-          :hovered-index="hoveredIndex"
+          :hovered-index="internalHoveredIndex"
           :orientation="orientation"
           data-j-lume-chart__y-axis
           @click="handleAxisClick"
@@ -124,7 +124,7 @@
           v-bind="attrs"
           ref="tooltipAnchor"
           :key="`anchor_${index}`"
-          :r="tooltipAnchorRadius"
+          :r="TOOLTIP_ANCHOR_RADIUS"
           class="lume-fill--transparent"
         />
       </g>
@@ -138,7 +138,7 @@
         :orientation="orientation"
         :x-scale="computedXScale"
         :y-scale="computedYScale"
-        :hovered-index="hoveredIndex"
+        :hovered-index="internalHoveredIndex"
         :container-size="containerSize"
         :transition="allOptions.withTransition !== false"
         :class-list="classList"
@@ -186,26 +186,26 @@
         :data="internalData"
         :labels="computedLabels"
         :with-tooltip="allOptions.withTooltip !== false"
-        :hovered-index="hoveredIndex"
+        :hovered-index="internalHoveredIndex"
         :options="allOptions.tooltipOptions"
       >
         <lume-tooltip
           v-if="isTooltipOpened"
           v-bind="tooltipConfig"
           :position="tooltipPosition"
-          :title="computedLabels[hoveredIndex]"
-          :items="getTooltipItems(hoveredIndex)"
+          :title="computedLabels[internalHoveredIndex]"
+          :items="getTooltipItems(internalHoveredIndex)"
           :options="allOptions.tooltipOptions"
           data-j-lume-chart__tooltip
           @opened="
             emit('tooltip-opened', {
-              index: hoveredIndex,
+              index: internalHoveredIndex,
               targetElement: $event,
             })
           "
           @moved="
             emit('tooltip-moved', {
-              index: hoveredIndex,
+              index: internalHoveredIndex,
               targetElement: $event,
             })
           "
@@ -215,7 +215,7 @@
             name="tooltip-content"
             :data="internalData"
             :labels="computedLabels"
-            :hovered-index="hoveredIndex"
+            :hovered-index="internalHoveredIndex"
           />
         </lume-tooltip>
       </slot>
@@ -277,12 +277,10 @@ const slots = useSlots();
 interface Emits extends ChartEmits {}
 const emit = defineEmits<Emits>();
 
-const tooltipAnchorRadius = TOOLTIP_ANCHOR_RADIUS;
-
 const { data, labels, color, options, orientation, chartType } = toRefs(props);
 
-const hoveredIndex = ref<number>(-1);
-const tooltipAnchor = ref<SVGCircleElement>(null);
+const internalHoveredIndex = ref<number>(-1);
+const tooltipAnchor = ref<Array<SVGCircleElement>>(null);
 const chartContainer = ref<InstanceType<typeof LumeChartContainer>>(null);
 const tooltipAnchorAttributes = ref<Array<AnchorAttributes>>([]);
 
@@ -387,10 +385,10 @@ const tooltipPosition = computed(
 
 function handleInternalHover(index: number) {
   // Skip the rest if the index didn't change
-  if (index === hoveredIndex.value) return;
+  if (index === internalHoveredIndex.value) return;
 
   // Update hoveredIndex
-  allOptions.value.withHover !== false && (hoveredIndex.value = index);
+  allOptions.value.withHover !== false && (internalHoveredIndex.value = index);
 
   if (allOptions.value.withTooltip !== false) {
     // Show/update tooltip
@@ -404,9 +402,18 @@ function handleInternalHover(index: number) {
   }
 }
 
+function handleExternalHover(index: number) {
+  if (index > data.value[0].values.length - 1) {
+    warn(Warnings.InvalidHoveredIndex);
+    return;
+  }
+
+  handleInternalHover(index);
+}
+
 function handleMouseleave() {
   hideTooltip();
-  hoveredIndex.value = -1;
+  internalHoveredIndex.value = -1;
   emit('chart-mouseleave');
 }
 
@@ -428,6 +435,23 @@ watch(labels, (newValue: string[], oldValue: string[] | null) =>
 );
 
 watch(isEmpty, (value) => value && warn(Warnings.Empty), { immediate: true });
+
+watch(() => props.hoveredIndex, handleExternalHover);
+
+// Covers initial prop value - needs to wait for tooltipAnchorAttributes (and hence tooltipAnchor ref) to be set to show tooltip
+watch(
+  tooltipAnchorAttributes,
+  (value) => {
+    if (
+      value &&
+      props.hoveredIndex != null &&
+      internalHoveredIndex.value === -1
+    ) {
+      handleExternalHover(props.hoveredIndex);
+    }
+  },
+  { flush: 'post' }
+);
 
 onMounted(() => {
   emit('rendered');

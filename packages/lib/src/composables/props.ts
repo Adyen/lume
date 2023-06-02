@@ -12,14 +12,17 @@ export function orientationValidator(orientation: string): boolean {
 
 export const withChartProps = <T extends Options = ChartOptions>(
   dataValidator?: DataValidator,
-  withOrientation = true,
-  withScalesFlag = true
+  withOrientation = true
 ) => ({
     ...withBase(dataValidator),
-    ...(withScalesFlag ? withScales() : {}),
+    ...withScales(),
     ...withOptions<T>(),
-    title: {
-      type: String,
+    classList: {
+      type: [String, Array] as PropType<string | Array<string>>,
+      default: () => [],
+    },
+    hoveredIndex: {
+      type: Number,
       default: null,
     },
     ...(withOrientation
@@ -31,8 +34,15 @@ export const withChartProps = <T extends Options = ChartOptions>(
         },
       }
       : {}),
-    classList: {
-      type: [String, Array] as PropType<string | Array<string>>,
-      default: () => [],
+  });
+
+export const withDiagramProps = <T extends Options = ChartOptions>(
+  dataValidator?: DataValidator
+) => ({
+    ...withBase(dataValidator),
+    ...withOptions<T>(),
+    hoveredElement: {
+      type: [Number, String] as PropType<number | string>,
+      default: null,
     },
   });

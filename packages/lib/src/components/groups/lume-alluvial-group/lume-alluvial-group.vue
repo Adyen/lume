@@ -119,7 +119,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, toRefs, watch } from 'vue';
+import { computed, PropType, ref, toRefs, watch } from 'vue';
 
 import { useFormat } from '@/composables/format';
 import { withGroupProps } from '@/composables/group-props';
@@ -129,12 +129,15 @@ import { useAlluvialExtents } from './composables/alluvial-extents';
 import { useAlluvialGraph } from './composables/alluvial-graph';
 import { useAlluvialHover } from './composables/alluvial-hover';
 
-import { GHOST_STROKE_WIDTH_OFFSET, NODE_HEADER_PADDING } from './constants';
 import { DEFAULT_COLOR } from '@/utils/colors';
+import { warn, Warnings } from '@/utils/warnings';
+import { GHOST_STROKE_WIDTH_OFFSET, NODE_HEADER_PADDING } from './constants';
 import {
   getLabelSizes,
+  getLinkById,
   getLinkPathAttributes,
   getNodeBlockAttributes,
+  getNodeById,
 } from './helpers';
 
 import {
@@ -152,6 +155,10 @@ import {
 
 const props = defineProps({
   ...withGroupProps<AlluvialDiagramOptions, AlluvialNode>(),
+  hoveredElementId: {
+    type: [Number, String] as PropType<number | string>,
+    default: null,
+  },
 });
 
 const emit = defineEmits<{
@@ -245,10 +252,32 @@ function handleLinkMouseleave(event: MouseEvent) {
   emit('link-mouseleave', { link, event });
 }
 
+function handleExternalHover(id: number | string) {
+  if (id == null) {
+    hoveredElement.value = null;
+    return;
+  }
+
+  const element =
+    getNodeById(id, graph.value) || getLinkById(id as string, graph.value);
+
+  if (!element) {
+    warn(Warnings.InvalidHoveredElement);
+    return;
+  }
+
+  hoveredElement.value = element;
+}
+
 // Render nodes/paths whenever the SankeyGraph changes
 watch(graph, (newGraph) => {
   nodeBlocks.value = getNodeBlockAttributes(newGraph.nodes);
   linkPaths.value = getLinkPathAttributes(newGraph.links).reverse(); // Reverse order of link rendering so that the furthermost links are renderd on top
+
+  // Handle initial hoveredElement from props
+  if (hoveredElement.value == null && props.hoveredElementId != null) {
+    handleExternalHover(props.hoveredElementId);
+  }
 });
 
 // Update extents whenever 1. container size changes or 2. node labels are rendered (hence defining new margins)
@@ -258,6 +287,8 @@ watch([props.containerSize, nodeTextRefs], () => {
     updateExtents(labelSizes);
   }
 });
+
+watch(() => props.hoveredElementId, handleExternalHover);
 </script>
 
 <style lang="scss" scoped>
