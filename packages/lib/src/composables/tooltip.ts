@@ -29,9 +29,14 @@ function getHighestValues(data: InternalData) {
 
 function getStackedHighestValue(data: InternalData) {
   return data.reduce((acc, curr) => {
-    return curr.values.map((value, index) => {
-      if (!acc[index]) return value.value ?? 0;
-      return value.value + acc[index]; // Instead of returning the highest value, sums them
+    return curr.values.map((datasetValue, index) => {
+      // Ignore null and negative values
+      const value =
+        datasetValue.value == null || datasetValue.value < 0
+          ? 0
+          : datasetValue.value;
+      if (!acc[index]) return value;
+      return acc[index] + value; // Instead of returning the highest value, sums them.
     });
   }, [] as Array<number>);
 }

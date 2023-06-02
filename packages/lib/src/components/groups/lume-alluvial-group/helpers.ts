@@ -34,6 +34,14 @@ export function generateLinkId(
   return link.source.id + ':' + link.target.id;
 }
 
+export function getNodeById(id: number | string, graph: SankeyGraph) {
+  return graph.nodes.find((node) => node.id === id);
+}
+
+export function getLinkById(id: string, graph: SankeyGraph) {
+  return graph.links.find((link) => generateLinkId(link) === id);
+}
+
 export function isSankeyNode(
   element:
     | SankeyNode<SankeyNodeProps, unknown>

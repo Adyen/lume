@@ -60,6 +60,10 @@ export const withBase = (dataValidator: DataValidator = null) => ({
     type: String as PropType<Colors | DivergentColors>,
     default: Colors.Skyblue,
   },
+  title: {
+    type: String,
+    default: null,
+  },
 });
 
 export function useBase(

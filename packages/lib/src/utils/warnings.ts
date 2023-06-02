@@ -11,6 +11,10 @@ export enum Warnings {
 
   // SVG rules
   NotContainedInSvg = 'This component is an `SVGElement`, thus it is required to be inside an `<svg>` container.',
+
+  // Hovered index
+  InvalidHoveredIndex = 'The provided hovered index is not valid for the data of this chart.',
+  InvalidHoveredElement = 'The provided hovered element is not valid for the data of this diagram.',
 }
 
 const PREFIX = '[lume] ';

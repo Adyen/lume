@@ -84,8 +84,7 @@ import {
   toRefs,
   watch,
 } from 'vue';
-import { ticks as d3TickGenerator } from 'd3';
-import { ScaleBand } from 'd3';
+import { ticks as d3TickGenerator, ScaleBand } from 'd3';
 
 import LumeTick from './components/lume-tick';
 

@@ -5,7 +5,10 @@
     data-j-alluvial-diagram
   >
     <template #groups="groupProps">
-      <lume-alluvial-group v-bind="groupProps" />
+      <lume-alluvial-group
+        v-bind="groupProps"
+        :hovered-element-id="hoveredElement"
+      />
     </template>
     <template
       v-for="(_, name) in slots"
@@ -25,18 +28,14 @@ import { toRefs, useSlots } from 'vue';
 import LumeChart from '@/components/core/lume-chart';
 import LumeAlluvialGroup from '@/components/groups/lume-alluvial-group';
 
-import { withChartProps } from '@/composables/props';
+import { withDiagramProps } from '@/composables/props';
 import { AlluvialDiagramOptions, useOptions } from '@/composables/options';
 
 import { excludeGroups, singleDatasetValidator } from '@/utils/helpers';
 import { options as defaultOptions } from './defaults';
 
 const props = defineProps({
-  ...withChartProps<AlluvialDiagramOptions>(
-    singleDatasetValidator,
-    false,
-    false
-  ),
+  ...withDiagramProps<AlluvialDiagramOptions>(singleDatasetValidator),
 });
 
 const slots = excludeGroups(useSlots());

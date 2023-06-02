@@ -31,6 +31,10 @@ export default {
       control: 'text',
       description: 'Chart title.',
     },
+    hoveredIndex: {
+      control: 'number',
+      description: 'Chart hovered index',
+    },
   },
   args: {
     ...withSizeArgs(),

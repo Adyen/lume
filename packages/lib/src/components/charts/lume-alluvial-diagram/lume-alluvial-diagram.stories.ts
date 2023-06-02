@@ -26,6 +26,10 @@ export default {
       control: 'text',
       description: 'Chart title.',
     },
+    hoveredElement: {
+      control: 'text',
+      description: 'Hovered node or link (ID)',
+    },
   },
   args: {
     ...withSizeArgs(),
