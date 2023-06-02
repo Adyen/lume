@@ -44,15 +44,16 @@ To generate a simple bar chart with default settings, simply pass the `data` and
 
 ### Props
 
-| Name         | Type                                            | Default      | Description                                                               |
-| ------------ | ----------------------------------------------- | ------------ | ------------------------------------------------------------------------- |
-| `data`       | `Data`                                          | Required     | The data to plot. Must contain only one dataset                           |
-| `labels`     | `Array<string \| number>`                       | Required     | The group of labels to plot the data to.                                  |
-| `orientation | `String`                                        | `'vertical'` | Must be either 'horizontal' or 'vertical'                                 |
-| `xScale`     | `ScaleGenerator \| ScaleBand<string \| number>` | `undefined`  | A d3 scale or a scale generator function to override the default X scale. |
-| `yScale`     | `ScaleGenerator \| ScaleLinear<number, number>` | `undefined`  | A d3 scale or a scale generator function to override the default Y scale. |
-| `options`    | `Options`                                       | `undefined`  | A set of chart options.                                                   |
-| `title`      | `String`                                        | `undefined`  | The chart title.                                                          |
+| Name           | Type                                            | Default      | Description                                                                                            |
+| -------------- | ----------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------ |
+| `data`         | `Data`                                          | Required     | The data to plot. Must contain only one dataset                                                        |
+| `labels`       | `Array<string \| number>`                       | Required     | The group of labels to plot the data to.                                                               |
+| `orientation   | `String`                                        | `'vertical'` | Must be either 'horizontal' or 'vertical'                                                              |
+| `xScale`       | `ScaleGenerator \| ScaleBand<string \| number>` | `undefined`  | A d3 scale or a scale generator function to override the default X scale.                              |
+| `yScale`       | `ScaleGenerator \| ScaleLinear<number, number>` | `undefined`  | A d3 scale or a scale generator function to override the default Y scale.                              |
+| `options`      | `Options`                                       | `undefined`  | A set of chart options.                                                                                |
+| `title`        | `String`                                        | `undefined`  | The chart title.                                                                                       |
+| `hoveredIndex` | `number`                                        | `undefined`  | The hovered data point index. Can be used to hover programmatically. Set to `-1` to reset hover state. |
 
 ### Events
 

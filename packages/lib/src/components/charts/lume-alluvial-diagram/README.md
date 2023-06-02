@@ -81,12 +81,13 @@ To generate a simple alluvial diagram with default settings, simply pass the `da
 
 ### Props
 
-| Name      | Type                               | Default     | Description                              |
-| --------- | ---------------------------------- | ----------- | ---------------------------------------- |
-| `data`    | `Data`                             | Required    | The data to plot.                        |
-| `labels`  | `Array<string>` or `Array<number>` | Required    | The group of labels to plot the data to. |
-| `title`   | `String`                           | `undefined` | The chart title.                         |
-| `options` | `Options`                          | `undefined` | A set of chart options.                  |
+| Name             | Type                               | Default     | Description                                                                                                       |
+| ---------------- | ---------------------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------- |
+| `data`           | `Data`                             | Required    | The data to plot.                                                                                                 |
+| `labels`         | `Array<string>` or `Array<number>` | Required    | The group of labels to plot the data to.                                                                          |
+| `title`          | `String`                           | `undefined` | The chart title.                                                                                                  |
+| `options`        | `Options`                          | `undefined` | A set of chart options.                                                                                           |
+| `hoveredElement` | `number \| string`                 | `undefined` | The index of the hovered node or link. Can be used to hover programmatically. Set to `null` to reset hover state. |
 
 ### Alluvial options
 

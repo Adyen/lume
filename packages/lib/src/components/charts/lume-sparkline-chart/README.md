@@ -43,10 +43,11 @@ To generate a simple sparkline chart with default settings, simply pass the `dat
 
 ### Props
 
-| Name      | Type      | Default     | Description             |
-| --------- | --------- | ----------- | ----------------------- |
-| `data`    | `Data`    | Required    | The data to plot.       |
-| `options` | `Options` | `undefined` | A set of chart options. |
+| Name           | Type      | Default     | Description                                                                                            |
+| -------------- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ |
+| `data`         | `Data`    | Required    | The data to plot.                                                                                      |
+| `options`      | `Options` | `undefined` | A set of chart options.                                                                                |
+| `hoveredIndex` | `number`  | `undefined` | The hovered data point index. Can be used to hover programmatically. Set to `-1` to reset hover state. |
 
 ### Events
 
