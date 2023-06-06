@@ -17,13 +17,14 @@
   },
   "types": "./dist/types/index.d.ts",
   "scripts": {
-    "build": "NODE_ENV=production npm run build:vite && npm run build:font",
+    "build": "NODE_ENV=production pnpm run build:vite && pnpm run build:font",
     "build:vite": "vite build",
     "build:font": "webpack",
     "postbuild": "node ../../build/postbuild.js",
     "storybook": "sb dev -p 9003 -c .storybook"
   },
   "dependencies": {
+    "@adyen/lume-core": "workspace:@adyen/lume-core@*",
     "@popperjs/core": "^2.11.4",
     "d3": "7.8.0",
     "d3-sankey": "0.12.3"
@@ -32,8 +33,9 @@
     "vue": "^3.2.36"
   },
   "devDependencies": {
-    "@storybook/vue3": "^7.0.11",
-    "@storybook/vue3-vite": "^7.0.11",
+    "storybook-utils": "workspace:storybook-utils@*",
+    "@storybook/vue3": "^7.0.18",
+    "@storybook/vue3-vite": "^7.0.18",
     "@vitejs/plugin-vue": "^4.0.0",
     "vue": "^3.2.36"
   },

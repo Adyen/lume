@@ -1,11 +1,9 @@
 {
   "name": "@adyen/lume-core",
-  "version": "*",
+  "version": "0.5.3",
   "description": "",
+  "private": true,
   "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
   "exports": {
     ".": "./src/index.ts",
     "./plugin": "./src/plugin.ts",
@@ -19,6 +17,9 @@
     "test:watch": "vitest --config=vitest.config.ts",
     "test:update:snapshot": "vitest --config=vitest.config.ts -u",
     "test:coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "7.0.18"
   },
   "keywords": [],
   "author": "",

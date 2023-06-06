@@ -3,7 +3,6 @@ import { create } from '@storybook/theming';
 export default create({
   base: 'light',
   brandTitle: 'Lume Storybook',
-  brandImage: './adyen-storybook.svg',
 
   // Storybook-specific color palette
   colorPrimary: '#a9d6ff',

@@ -1,0 +1,11 @@
+{
+  "name": "storybook-utils",
+  "version": "0.5.3",
+  "description": "A set of utilities for Storybook",
+  "private": true,
+  "devDependencies": {
+    "@storybook/manager-api": "^7.0.18",
+    "@storybook/preview-api": "^7.0.18",
+    "@storybook/theming": "^7.0.18"
+  }
+}

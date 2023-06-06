@@ -28,7 +28,7 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
-          src: '../lib/src/styles/',
+          src: './node_modules/@adyen/lume-core/src/styles/',
           dest: './',
           rename: 'scss',
         },
@@ -37,7 +37,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': join(__dirname, '../../node_modules/@adyen/lume-core/src'),
+      '@': join(__dirname, './node_modules/@adyen/lume-core/src'),
     },
   },
 });
