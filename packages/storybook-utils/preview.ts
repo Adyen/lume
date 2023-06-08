@@ -26,18 +26,21 @@ export const parameters = {
   },
 };
 
-export const decorators = [
-  (story, context) => {
-    const [_, updateArgs] = useArgs();
-    return story({ ...context, updateArgs });
-  },
-  () => ({
-    template: `
+export function getDecorators(version: 2 | 3) {
+  return [
+    (story, context) => {
+      const [_, updateArgs] = useArgs();
+      return story({ ...context, updateArgs });
+    },
+    () => ({
+      template: `
       <div class="preview">
         <div class="card">
+          <span class="version-tag">Vue ${version}</span>
           <story />
         </div>
       </div>
       `,
-  }),
-];
+    }),
+  ];
+}

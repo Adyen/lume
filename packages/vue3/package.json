@@ -24,7 +24,6 @@
     "storybook": "sb dev -p 9003 -c .storybook"
   },
   "dependencies": {
-    "@adyen/lume-core": "workspace:@adyen/lume-core@*",
     "@popperjs/core": "^2.11.4",
     "d3": "7.8.0",
     "d3-sankey": "0.12.3"
@@ -33,6 +32,7 @@
     "vue": "^3.2.36"
   },
   "devDependencies": {
+    "@adyen/lume-core": "workspace:@adyen/lume-core@*",
     "storybook-utils": "workspace:storybook-utils@*",
     "@storybook/vue3": "^7.0.18",
     "@storybook/vue3-vite": "^7.0.18",

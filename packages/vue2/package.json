@@ -25,7 +25,6 @@
     "test": "vitest --config=vitest.config.ts"
   },
   "dependencies": {
-    "@adyen/lume-core": "workspace:@adyen/lume-core@*",
     "@popperjs/core": "^2.11.4",
     "d3": "7.8.0",
     "d3-sankey": "0.12.3"
@@ -34,6 +33,7 @@
     "vue": "^2.7.10"
   },
   "devDependencies": {
+    "@adyen/lume-core": "workspace:@adyen/lume-core@*",
     "storybook-utils": "workspace:storybook-utils@*",
     "@storybook/vue": "^7.0.18",
     "@storybook/vue-vite": "^7.0.18",
