@@ -30,15 +30,21 @@
     "d3-sankey": "0.12.3"
   },
   "peerDependencies": {
-    "vue": "^2.7.10"
+    "vue": "^2.7.14"
   },
   "devDependencies": {
     "@adyen/lume-core": "workspace:@adyen/lume-core@*",
-    "storybook-utils": "workspace:storybook-utils@*",
     "@storybook/vue": "^7.0.18",
     "@storybook/vue-vite": "^7.0.18",
     "@vitejs/plugin-vue2": "^2.0.1",
-    "vue": "^2.7.10"
+    "@vitest/coverage-istanbul": "^0.27.0",
+    "@vue/test-utils": "^1.3.6",
+    "jsdom": "^22.1.0",
+    "storybook-utils": "workspace:storybook-utils@*",
+    "vite": "^4.3.9",
+    "vitest": "^0.32.0",
+    "vue": "^2.7.14",
+    "vue-template-compiler": "2.7.14"
   },
   "keywords": [
     "Lume",

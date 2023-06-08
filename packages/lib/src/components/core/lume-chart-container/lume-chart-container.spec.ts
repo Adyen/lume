@@ -16,8 +16,8 @@ describe('chart-container.vue', () => {
 
     const el = wrapper.find('[data-j-chart-container]');
     expect(el.exists()).toBeTruthy();
-    expect(wrapper.emitted('mouseleave')).toBeFalsy();
-    expect(wrapper.emitted('resize')).toBeFalsy();
+    expect(wrapper.emitted().mouseleave).toBeFalsy();
+    expect(wrapper.emitted().resize).toBeFalsy();
   });
 
   test('mounts component and set custom margin values', () => {
@@ -28,6 +28,7 @@ describe('chart-container.vue', () => {
 
     const wrapper = mount(LumeChartContainer, {
       props: { margins },
+      propsData: { margins },
     });
 
     const el = wrapper.find('[data-j-chart-container__group]');

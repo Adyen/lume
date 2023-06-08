@@ -64,7 +64,7 @@ describe('lume-sparkline.vue', () => {
       data: mutatedData,
       labels,
       xScale,
-      options: { ...defaultOptions, showArea: true },
+      options: { showArea: true },
     }).run().wrapper;
 
     const el = wrapper.findComponent(LumeSparkline);

@@ -12,12 +12,11 @@ const defaultProps = { data, xScale, yScale };
 document.body.innerHTML = `<svg id="root"></svg>`; // prevent no SVG parent console.warn
 
 describe('lume-line-group.vue', () => {
-  const svg = document.getElementById('root');
-
   test('mounts component and sets prop values', () => {
     const wrapper = mount(LumeLineGroup, {
-      attachTo: svg,
+      attachTo: '#root',
       props: defaultProps,
+      propsData: defaultProps,
       provide: {
         tooltipAnchorAttributes() {
           return ref([]);
@@ -40,8 +39,12 @@ describe('lume-line-group.vue', () => {
         V ${yScale(peak)}`;
 
     const wrapper = mount(LumeLineGroup, {
-      attachTo: svg,
+      attachTo: '#root',
       props: {
+        ...defaultProps,
+        hoveredIndex,
+      },
+      propsData: {
         ...defaultProps,
         hoveredIndex,
       },
@@ -58,8 +61,9 @@ describe('lume-line-group.vue', () => {
 
   test('mounts without points (via prop)', () => {
     const wrapper = mount(LumeLineGroup, {
-      attachTo: svg,
+      attachTo: '#root',
       props: { ...defaultProps, withPoints: false },
+      propsData: { ...defaultProps, withPoints: false },
       provide: {
         tooltipAnchorAttributes() {
           return ref([]);
@@ -73,8 +77,9 @@ describe('lume-line-group.vue', () => {
 
   test('mounts without points (via options)', () => {
     const wrapper = mount(LumeLineGroup, {
-      attachTo: svg,
+      attachTo: '#root',
       props: { ...defaultProps, options: { withPoints: false } },
+      propsData: { ...defaultProps, options: { withPoints: false } },
       provide: {
         tooltipAnchorAttributes() {
           return ref([]);
@@ -89,14 +94,15 @@ describe('lume-line-group.vue', () => {
   describe('Events API', () => {
     it('should dispatch `line-click` if user clicks a line', async () => {
       const wrapper = mount(LumeLineGroup, {
-        attachTo: svg,
+        attachTo: '#root',
         props: defaultProps,
+        propsData: defaultProps,
       });
 
       const lines = wrapper.findAll('.lume-line');
 
-      await lines[0].trigger('click');
-      await lines[2].trigger('click');
+      await lines.at(0).trigger('click');
+      await lines.at(2).trigger('click');
 
       expect(wrapper.emitted()).toHaveProperty('line-click');
 
@@ -108,14 +114,15 @@ describe('lume-line-group.vue', () => {
 
     it('should dispatch `point-click` if user clicks a point', async () => {
       const wrapper = mount(LumeLineGroup, {
-        attachTo: svg,
+        attachTo: '#root',
         props: defaultProps,
+        propsData: defaultProps,
       });
 
       const points = wrapper.findAll('.lume-point');
 
-      await points[0].trigger('click');
-      await points[2].trigger('click');
+      await points.at(0).trigger('click');
+      await points.at(2).trigger('click');
 
       expect(wrapper.emitted()).toHaveProperty('point-click');
 

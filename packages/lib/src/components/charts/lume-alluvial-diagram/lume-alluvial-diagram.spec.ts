@@ -83,7 +83,7 @@ describe('lume-alluvial-diagram.vue', () => {
 
     const data = [{ values }];
 
-    mount(LumeAlluvialDiagram, { props: { data } });
+    mount(LumeAlluvialDiagram, { props: { data }, propsData: { data } });
 
     await nextTick();
 
@@ -101,7 +101,7 @@ describe('lume-alluvial-diagram.vue', () => {
       },
     ];
 
-    mount(LumeAlluvialDiagram, { props: { data } });
+    mount(LumeAlluvialDiagram, { props: { data }, propsData: { data } });
 
     await nextTick();
 
@@ -139,7 +139,7 @@ describe('lume-alluvial-diagram.vue', () => {
       },
     ];
 
-    mount(LumeAlluvialDiagram, { props: { data } });
+    mount(LumeAlluvialDiagram, { props: { data }, propsData: { data } });
 
     await nextTick();
 

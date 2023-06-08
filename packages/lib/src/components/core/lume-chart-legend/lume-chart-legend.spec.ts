@@ -8,7 +8,7 @@ describe('lume-chart-legend.vue', () => {
   test('mounts component', () => {
     const numberOfSets = 3;
     const data = generateData(numberOfSets, 7, 1000, false, false, true);
-    const wrapper = mount(LumeLegend, { props: { data } });
+    const wrapper = mount(LumeLegend, { props: { data }, propsData: { data } });
 
     expect(wrapper.exists()).toBeTruthy();
     expect(wrapper.findAll('[data-j-chart-legend__symbol]')).toHaveLength(
@@ -25,12 +25,15 @@ describe('lume-chart-legend.vue', () => {
   describe('Events API', () => {
     it('should dispatch `click` if user clicks a legend item', async () => {
       const data = generateData(3, 7, 1000, false, false, true);
-      const wrapper = mount(LumeLegend, { props: { data } });
+      const wrapper = mount(LumeLegend, {
+        props: { data },
+        propsData: { data },
+      });
 
       const items = wrapper.findAll('[data-j-chart-legend__symbol-wrapper=""]');
 
-      await items[0].trigger('click');
-      await items[2].trigger('click');
+      await items.at(0).trigger('click');
+      await items.at(2).trigger('click');
 
       expect(wrapper.emitted()).toHaveProperty('click');
       expect(wrapper.emitted().click).toHaveLength(2);
@@ -44,12 +47,15 @@ describe('lume-chart-legend.vue', () => {
 
     it('should dispatch `mouseenter` if user mouses over a legend item', async () => {
       const data = generateData(3, 7, 1000, false, false, true);
-      const wrapper = mount(LumeLegend, { props: { data } });
+      const wrapper = mount(LumeLegend, {
+        props: { data },
+        propsData: { data },
+      });
 
       const items = wrapper.findAll('[data-j-chart-legend__symbol-wrapper=""]');
 
-      await items[0].trigger('mouseenter');
-      await items[2].trigger('mouseenter');
+      await items.at(0).trigger('mouseenter');
+      await items.at(2).trigger('mouseenter');
 
       expect(wrapper.emitted()).toHaveProperty('mouseenter');
       expect(wrapper.emitted().mouseenter).toHaveLength(2);
@@ -63,7 +69,10 @@ describe('lume-chart-legend.vue', () => {
 
     it('should dispatch `mouseleave` if user mouses away from the legend', async () => {
       const data = generateData(3, 7, 1000, false, false, true);
-      const wrapper = mount(LumeLegend, { props: { data } });
+      const wrapper = mount(LumeLegend, {
+        props: { data },
+        propsData: { data },
+      });
 
       await wrapper.trigger('mouseleave');
 

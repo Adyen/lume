@@ -20,10 +20,12 @@ const defaultProps = {
 document.body.innerHTML = `<svg id="root"></svg>`; // prevent no SVG parent console.warn
 
 describe('lume-bar.vue', () => {
-  const svg = document.getElementById('root');
-
   test('mounts component and sets prop values', () => {
-    const wrapper = mount(LumeBar, { attachTo: svg, props: defaultProps });
+    const wrapper = mount(LumeBar, {
+      attachTo: '#root',
+      props: defaultProps,
+      propsData: defaultProps,
+    });
 
     const el = wrapper.find('[data-j-bar]');
     expect(el.exists()).toBeTruthy();
@@ -41,8 +43,9 @@ describe('lume-bar.vue', () => {
     const y = 52;
 
     const wrapper = mount(LumeBar, {
-      attachTo: svg,
+      attachTo: '#root',
       props: { ...defaultProps, x, y },
+      propsData: { ...defaultProps, x, y },
     });
 
     const el = wrapper.find('[data-j-bar]');
@@ -55,8 +58,9 @@ describe('lume-bar.vue', () => {
     const height = 0.7;
 
     const wrapper = mount(LumeBar, {
-      attachTo: svg,
+      attachTo: '#root',
       props: { ...defaultProps, width, height },
+      propsData: { ...defaultProps, width, height },
     });
 
     const el = wrapper.find('[data-j-bar]');
@@ -66,8 +70,9 @@ describe('lume-bar.vue', () => {
 
   test('mounts component and sets custom isFaded and animate prop values', () => {
     const wrapper = mount(LumeBar, {
-      attachTo: svg,
+      attachTo: '#root',
       props: { ...defaultProps, isFaded: true, transition: false },
+      propsData: { ...defaultProps, isFaded: true, transition: false },
     });
 
     const el = wrapper.find('[data-j-bar]');
@@ -77,8 +82,9 @@ describe('lume-bar.vue', () => {
 
   test('mounts with negative class when isNegative prop is true', () => {
     const wrapper = mount(LumeBar, {
-      attachTo: svg,
+      attachTo: '#root',
       props: { ...defaultProps, isNegative: true },
+      propsData: { ...defaultProps, isNegative: true },
     });
 
     const el = wrapper.find('[data-j-bar]');
@@ -87,8 +93,9 @@ describe('lume-bar.vue', () => {
 
   test('mounts with transition class when transition prop is valid', async () => {
     const wrapper = mount(LumeBar, {
-      attachTo: svg,
+      attachTo: '#root',
       props: { ...defaultProps, transition: 'height' },
+      propsData: { ...defaultProps, transition: 'height' },
     });
 
     const el = wrapper.find('[data-j-bar]');
@@ -104,7 +111,11 @@ describe('lume-bar.vue', () => {
 
   describe('Events API', () => {
     it('should dispatch `click` if user clicks the bar rectangle', async () => {
-      const wrapper = mount(LumeBar, { attachTo: svg, props: defaultProps });
+      const wrapper = mount(LumeBar, {
+        attachTo: '#root',
+        props: defaultProps,
+        propsData: defaultProps,
+      });
 
       const rect = wrapper.find('rect.lume-bar');
 
@@ -115,7 +126,11 @@ describe('lume-bar.vue', () => {
     });
 
     it('should dispatch `mouseover` if user mouses over the bar rectangle', async () => {
-      const wrapper = mount(LumeBar, { attachTo: svg, props: defaultProps });
+      const wrapper = mount(LumeBar, {
+        attachTo: '#root',
+        props: defaultProps,
+        propsData: defaultProps,
+      });
 
       const rect = wrapper.find('rect.lume-bar');
 
@@ -126,7 +141,11 @@ describe('lume-bar.vue', () => {
     });
 
     it('should dispatch `mouseleave` if user moves mouse away from the bar rectangle', async () => {
-      const wrapper = mount(LumeBar, { attachTo: svg, props: defaultProps });
+      const wrapper = mount(LumeBar, {
+        attachTo: '#root',
+        props: defaultProps,
+        propsData: defaultProps,
+      });
 
       const rect = wrapper.find('rect.lume-bar');
 

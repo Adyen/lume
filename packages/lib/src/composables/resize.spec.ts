@@ -49,7 +49,9 @@ describe('resize.ts', () => {
       '<div ref="resizeRef" data-j-resize-root></div>'
     );
 
-    wrapper.unmount();
+    wrapper.unmount?.();
+    wrapper.destroy?.(); // Vue 2
+
     expect(spy).toHaveBeenCalledWith('unobserve');
   });
 
