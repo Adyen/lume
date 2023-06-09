@@ -6,21 +6,15 @@ import { Scale } from '@/composables/scales';
 
 import { Orientation, ORIENTATIONS } from '@/utils/constants';
 import { DatasetValueObject, InternalData } from '@/types/dataset';
-import { ContainerSize } from '@/types/size';
 
 export const withGroupProps = <
   T extends Options = Options,
   K extends DatasetValueObject = DatasetValueObject
->(
-    useLabels = true,
-    useContainerSize = true
-  ) => ({
-  /* Required */
+>() => ({
     data: {
       type: Array as PropType<InternalData<K>>,
       required: true,
     },
-    /* With defaults */
     options: {
       type: Object as PropType<T>,
       default: () => ({}),
@@ -50,21 +44,4 @@ export const withGroupProps = <
       type: [String, Array] as PropType<string | Array<string>>,
       default: () => [],
     },
-    /* Optional */
-    ...(useLabels
-      ? {
-        labels: {
-          type: Array as PropType<Array<string | number>>,
-          default: () => [],
-        },
-      }
-      : {}),
-    ...(useContainerSize
-      ? {
-        containerSize: {
-          type: Object as PropType<ContainerSize>,
-          default: () => ({ width: 0, height: 0 }),
-        },
-      }
-      : {}),
   });
