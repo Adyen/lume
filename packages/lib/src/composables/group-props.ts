@@ -6,6 +6,7 @@ import { Scale } from '@/composables/scales';
 
 import { Orientation, ORIENTATIONS } from '@/utils/constants';
 import { DatasetValueObject, InternalData } from '@/types/dataset';
+import { ContainerSize } from '@/types/size';
 
 export const withGroupProps = <
   T extends Options = Options,
@@ -14,6 +15,10 @@ export const withGroupProps = <
     data: {
       type: Array as PropType<InternalData<K>>,
       required: true,
+    },
+    labels: {
+      type: Array as PropType<Array<string | number>>,
+      default: () => [],
     },
     options: {
       type: Object as PropType<T>,
@@ -35,6 +40,10 @@ export const withGroupProps = <
     hoveredIndex: {
       type: Number,
       default: -1,
+    },
+    containerSize: {
+      type: Object as PropType<ContainerSize>,
+      default: () => ({ width: 0, height: 0 }),
     },
     transition: {
       type: Boolean,
