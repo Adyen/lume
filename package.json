@@ -81,7 +81,7 @@
     "prettier": "^2.7.1",
     "release-it": "^15.6.0",
     "resize-observer-polyfill": "^1.5.1",
-    "sass": "^1.43.4",
+    "sass": "^1.63.3",
     "sass-loader": "^13.2.0",
     "storybook-addon-designs": "^6.2.1",
     "ts-jest": "^29.0.3",
