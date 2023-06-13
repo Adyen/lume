@@ -1,0 +1,25 @@
+@use '@/styles/variables' as *;
+
+$lume-tooltip-item-color: $lume-color-grey-90 !default;
+$lume-tooltip-value-color: $lume-color-grey-100 !default;
+
+$lume-tooltip-item-min-width: 112px !default;
+
+.lume-tooltip__item {
+  display: flex;
+  min-width: $lume-tooltip-item-min-width;
+  margin-bottom: $lume-spacing-4;
+  color: $lume-tooltip-item-color;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.lume-tooltip__value {
+  flex-shrink: 0;
+  font-weight: $lume-font-weight-medium;
+  margin-left: auto;
+  padding-left: $lume-spacing-8;
+  color: $lume-tooltip-value-color;
+}

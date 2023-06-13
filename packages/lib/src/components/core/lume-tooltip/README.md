@@ -79,6 +79,26 @@ Interface: `TooltipOptions`
 
 **Note**: Component properties have precedence over options. For instance, if you set the `targetElement` prop and the `targetElement` tooltip option, the first will be used. They're both there to cover different use cases.
 
+### Slot props
+
+#### `title`
+
+Slot for the tooltip header section.
+
+No props.
+
+#### `summary`
+
+Slot for the tooltip summary item. Content of this slot should have a `<li>` element at its root.
+
+No props.
+
+#### `items`
+
+Slot for the tooltip items. Content of this slot should be one or more `<li>` elements.
+
+No props.
+
 ### Events
 
 #### `opened`
