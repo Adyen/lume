@@ -7,52 +7,43 @@
   >
     <slot>
       <!-- Default chart tooltip content -->
-      <div
-        v-if="showTitle"
-        class="lume-tooltip__title"
-        data-j-tooltip__title
-      >
-        {{ formatTitle(title) }}
-      </div>
+      <slot name="title">
+        <lume-tooltip-title v-if="showTitle">
+          {{ formatTitle(title) }}
+        </lume-tooltip-title>
+      </slot>
       <ul class="lume-tooltip__items">
-        <template v-if="summaryItem.label">
-          <li
-            class="lume-tooltip__item"
-            data-j-tooltip__summary-item
-          >
-            <span> {{ summaryItem.label }} </span>
-            <strong
+        <slot name="summary">
+          <lume-tooltip-summary v-if="hasSummary">
+            {{ summaryItem.label }}
+            <template
               v-if="summaryItem.value"
-              class="lume-tooltip__value"
+              #value
             >
               {{ formatValue(summaryItem.value) }}
-            </strong>
-          </li>
-          <li class="lume-tooltip__break">
-            <hr>
-          </li>
-        </template>
+            </template>
+          </lume-tooltip-summary>
+        </slot>
         <li
-          v-for="item in items"
-          :key="item.label"
-          class="lume-tooltip__item"
-          data-j-tooltip__item
+          v-if="hasSummary"
+          class="lume-tooltip__break"
         >
-          <span
-            :class="[`lume-background-color--${item.color}`]"
-            class="lume-tooltip__symbol"
-            data-j-tooltip__item__symbol
-          />
-          <span data-j-tooltip__item__label>
-            {{ item.label }}
-          </span>
-          <strong
-            class="lume-tooltip__value"
-            data-j-tooltip__item__value
-          >
-            {{ formatValue(item.value) }}
-          </strong>
+          <hr>
         </li>
+        <slot name="items">
+          <lume-tooltip-item
+            v-for="item in items"
+            :key="item.label"
+            :color="item.color"
+          >
+            <template #label>
+              {{ item.label }}
+            </template>
+            <template #value>
+              {{ formatValue(item.value) }}
+            </template>
+          </lume-tooltip-item>
+        </slot>
       </ul>
     </slot>
   </div>
@@ -76,6 +67,7 @@ import {
   ref,
   Ref,
   toRefs,
+  useSlots,
   watch,
 } from 'vue';
 import {
@@ -84,6 +76,10 @@ import {
   Instance as PopperInstance,
   PositioningStrategy,
 } from '@popperjs/core';
+
+import LumeTooltipTitle from './components/lume-tooltip-title';
+import LumeTooltipSummary from './components/lume-tooltip-summary';
+import LumeTooltipItem from './components/lume-tooltip-item';
 
 import { useFormat } from '@/composables/format';
 import { TooltipOptions, useOptions, withOptions } from '@/composables/options';
@@ -134,6 +130,8 @@ const emit = defineEmits<{
 const root = ref<HTMLDivElement>(null);
 const { items, options } = toRefs(props);
 
+const slots = useSlots();
+
 // Data
 const popper: Ref<PopperInstance | null> = ref(null);
 const { allOptions } = useOptions<TooltipOptions>(options);
@@ -175,6 +173,8 @@ const summaryItem = computed(
       label: allOptions.value.summary ?? props.summary,
     }
 );
+
+const hasSummary = computed(() => slots.summary || summaryItem.value.label);
 
 // Methods
 function initPopper() {

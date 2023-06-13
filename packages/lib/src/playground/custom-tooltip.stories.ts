@@ -1,5 +1,9 @@
 import LumeChart from '@/components/core/lume-chart';
 import LumeLineGroup from '@/components/groups/lume-line-group';
+import LumeTooltip from '@/components/core/lume-tooltip';
+import LumeTooltipTitle from '@/components/core/lume-tooltip/components/lume-tooltip-title';
+import LumeTooltipSummary from '@/components/core/lume-tooltip/components/lume-tooltip-summary';
+import LumeTooltipItem from '@/components/core/lume-tooltip/components/lume-tooltip-item';
 
 import CustomTooltip from './custom-tooltip.vue';
 
@@ -18,9 +22,8 @@ export default {
     data: [
       {
         values: [20, 50, 30, 35, 10, 50, 30],
-        color: '02',
-        label: 'Emojis',
-        type: 'line',
+        color: 'violet',
+        label: 'Purchases',
       },
     ],
     labels: [
@@ -76,5 +79,60 @@ CustomTooltipContent.args = {
   options: {
     ...defaultOptions,
     tooltipOptions: { position: 'right-end' },
+  },
+};
+
+export const CustomTooltipContentWithSlots = ({ args }) => ({
+  components: {
+    LumeChart,
+    LumeLineGroup,
+    LumeTooltip,
+    LumeTooltipTitle,
+    LumeTooltipSummary,
+    LumeTooltipItem,
+  },
+  setup() {
+    const isPositive = (value: number) => value > 25;
+    const getPercentage = (value: number) =>
+      `${Math.round((25 / value + Number.EPSILON) * 100) / 100} %`;
+    return { args, getPercentage, isPositive };
+  },
+  template: `
+  <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    <lume-chart v-bind="args">
+      <template #groups="props">
+        <lume-line-group v-bind="props" />
+      </template>
+      <template #tooltip="props">
+        <lume-tooltip v-if="props.opened" v-bind="props">
+          <template #title>
+            <lume-tooltip-title>Purchases of items in 2022</lume-tooltip-title>
+          </template>
+          <template #summary>
+            <lume-tooltip-summary>These amounts are subject to change.</lume-tooltip-summary>
+          </template>
+          <template #items>
+            <lume-tooltip-item color="violet">
+              <template #label>Purchase #</template>
+              <template #value>{{ props.items[0].value }}</template>
+            </lume-tooltip-item>
+            <lume-tooltip-item>
+              <template #label>Growth</template>
+              <template #value>
+                <span :style="{ color: isPositive(props.items[0].value) ? '#0abf53' : '#f33030' }">
+                  {{ isPositive(props.items[0].value) ? '↑' : '↓' }} {{ getPercentage(props.items[0].value) }}
+                </span>
+              </template>
+            </lume-tooltip-item>
+          </template>
+        </lume-tooltip>
+      </template>
+    </lume-chart>
+  </div>
+  `,
+});
+CustomTooltipContentWithSlots.args = {
+  options: {
+    ...defaultOptions,
   },
 };

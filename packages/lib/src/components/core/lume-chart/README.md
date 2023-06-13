@@ -206,15 +206,18 @@ No props.
 
 #### `tooltip`
 
-| Name            | Type                      | Description                                    |
-| --------------- | ------------------------- | ---------------------------------------------- |
-| `opened`        | `boolean`                 | If the tooltip is displayed.                   |
-| `targetElement` | `Element`                 | The element that the tooltip will latch on to. |
-| `data`          | `Data`                    | The chart data.                                |
-| `labels`        | `Array<string \| number>` | The chart labels.                              |
-| `withTooltip`   | `boolean`                 | Displays the chart tooltip.                    |
-| `hoveredIndex`  | `number`                  | Index of the data point being hovered.         |
-| `options`       | `TooltipOptions`          | Set of options for the tooltip component.      |
+| Name            | Type                      | Description                                                                                                                        |
+| --------------- | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `opened`        | `boolean`                 | If the tooltip is displayed.                                                                                                       |
+| `targetElement` | `Element`                 | The element that the tooltip will latch on to.                                                                                     |
+| `data`          | `Data`                    | The chart data.                                                                                                                    |
+| `labels`        | `Array<string \| number>` | The chart labels.                                                                                                                  |
+| `title`         | `string`                  | The tooltip title.                                                                                                                 |
+| `items`         | `Array<TooltipItem>`      | List of items to render in the tooltip.                                                                                            |
+| `position`      | `string`                  | The tooltip placement relative to the data point. Full list of options [here](https://popper.js.org/docs/v2/constructors/#options) |
+| `withTooltip`   | `boolean`                 | Displays the chart tooltip.                                                                                                        |
+| `hoveredIndex`  | `number`                  | Index of the data point being hovered.                                                                                             |
+| `options`       | `TooltipOptions`          | Set of options for the tooltip component.                                                                                          |
 
 #### `tooltip-content`
 
