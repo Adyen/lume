@@ -55,7 +55,7 @@ const LUME_TRANSITION_TIME_FULL = 1; // 1s
 
 <script setup lang="ts">
 import { computed, inject, Ref, toRefs } from 'vue';
-import { ScaleLinear } from 'd3';
+import { ScaleBand, ScaleLinear } from 'd3';
 
 import LumeLine from '@/components/core/lume-line';
 import LumePoint from '@/components/core/lume-point';
@@ -67,12 +67,7 @@ import { withGroupProps } from '@/composables/group-props';
 import { LineChartOptions } from '@/composables/options';
 import { AnchorAttributes, useTooltipAnchors } from '@/composables/tooltip';
 
-import {
-  getDomainLength,
-  getHighestValue,
-  getScaleStep,
-  isBandScale,
-} from '@/utils/helpers';
+import { getDomainLength, getHighestValue, isBandScale } from '@/utils/helpers';
 
 const props = defineProps({
   ...withGroupProps<LineChartOptions>(),
@@ -148,7 +143,9 @@ const pointRadius = computed(
   () => options.value?.lineWidth * 2 || undefined // If no `lineWidth`, returns NaN which needs to be undefined
 );
 
-const xAxisOffset = computed(() => getScaleStep(xScale.value) / 2);
+const xAxisOffset = computed(
+  () => (xScale.value as ScaleBand<string | number>).bandwidth() / 2
+);
 const domain = computed(() => xScale.value.domain() as Array<number>);
 
 const computedWithPoints = computed(

@@ -26,13 +26,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, toRefs, useSlots } from 'vue';
+import { computed, ComputedRef, toRefs, useSlots } from 'vue';
 
 import LumeChart from '@/components/core/lume-chart';
 import LumeBarGroup from '@/components/groups/lume-bar-group';
 
 import { useBase } from '@/composables/base';
-import { BarChartOptions, useOptions } from '@/composables/options';
+import { ChartOptions, useOptions } from '@/composables/options';
 import { withChartProps } from '@/composables/props';
 import { useBarMixin } from '@/components/groups/lume-bar-group/composables/bar-mixin';
 import { useStackedAxes } from '@/components/groups/lume-bar-group/composables/stacked-mixin';
@@ -43,7 +43,7 @@ import { options as defaultOptions } from './defaults';
 import { excludeGroups } from '@/utils/helpers';
 
 const props = defineProps({
-  ...withChartProps<BarChartOptions>(),
+  ...withChartProps<ChartOptions>(),
 });
 
 const slots = excludeGroups(useSlots());
@@ -54,7 +54,10 @@ const baseOptions = computed(
   () => defaultOptions[orientation.value || ORIENTATIONS.VERTICAL] // needs to be computed so that default options are reactive
 );
 
-const { allOptions } = useOptions(options, baseOptions);
+const { allOptions } = useOptions(
+  options,
+  baseOptions as ComputedRef<ChartOptions>
+);
 
 const { internalData } = useBase(data);
 

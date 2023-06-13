@@ -1,6 +1,6 @@
 import { line, ScaleBand, ScaleLinear } from 'd3';
 
-import { getScaleStep, isBandScale } from '@/utils/helpers';
+import { isBandScale } from '@/utils/helpers';
 import { Scale } from './scales';
 
 /**
@@ -11,7 +11,7 @@ import { Scale } from './scales';
  * @returns The X acessor function to provide to d3 `line` method.
  */
 function getFindBandX(scale: ScaleBand<string | number>, lineIndex: number) {
-  const xAxisOffset = getScaleStep(scale) / 2;
+  const xAxisOffset = scale.bandwidth() / 2;
   return (_: unknown, index: number) =>
     scale(scale.domain()[lineIndex + (index - 1)]) + xAxisOffset;
 }

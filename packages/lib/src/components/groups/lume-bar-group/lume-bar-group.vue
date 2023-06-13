@@ -77,7 +77,6 @@ const emit = defineEmits<{
 const {
   data,
   hoveredIndex,
-  options,
   orientation,
   transition,
   type,
@@ -88,12 +87,7 @@ const {
 
 const { groupedData } = useBarMixin(data);
 
-const { barXScale, barYScale } = useBarScales(
-  xScale,
-  yScale,
-  options,
-  orientation
-);
+const { barXScale, barYScale } = useBarScales(xScale, yScale, orientation);
 
 const computedClasses = computed(() => {
   if (typeof classList.value === 'string') return [classList.value];
