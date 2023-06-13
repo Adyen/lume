@@ -26,6 +26,7 @@ import {
   isBandScale,
 } from '@/utils/helpers';
 import { Orientation, ORIENTATIONS } from '@/utils/constants';
+import { ScaleBand } from 'd3';
 
 const props = defineProps({
   ...withGroupProps(),
@@ -51,8 +52,12 @@ function getOverlayBarAttributes(index: number) {
   const domain = referenceScale.domain();
   const step = getScaleStep(referenceScale);
 
+  const paddingInner =
+    (referenceScale as ScaleBand<string | number>).paddingInner?.() ?? 0;
+  const correction = step * paddingInner;
+
   const translate = isBandScale(referenceScale)
-    ? referenceScale(domain[index])
+    ? referenceScale(domain[index]) - correction / 2
     : referenceScale(index) - step / 2;
 
   return orientation.value === ORIENTATIONS.HORIZONTAL

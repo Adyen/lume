@@ -104,7 +104,7 @@ export function isBandScale(scale: Scale): scale is ScaleBand<string | number> {
 }
 
 export function getScaleStep(scale: Scale) {
-  if (isBandScale(scale)) return scale.bandwidth();
+  if (isBandScale(scale)) return scale.step();
   return Math.max(...scale.range()) / Math.max(...scale.domain());
 }
 

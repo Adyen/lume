@@ -29,7 +29,7 @@ import { computed, toRefs, useSlots } from 'vue';
 import LumeChart from '@/components/core/lume-chart';
 import LumeBarGroup from '@/components/groups/lume-bar-group';
 
-import { BarChartOptions, useOptions } from '@/composables/options';
+import { ChartOptions, useOptions } from '@/composables/options';
 import { withChartProps } from '@/composables/props';
 
 import { excludeGroups, singleDatasetValidator } from '@/utils/helpers';
@@ -38,7 +38,7 @@ import { ORIENTATIONS } from '@/utils/constants';
 import { options as defaultOptions } from './defaults';
 
 const props = defineProps({
-  ...withChartProps<BarChartOptions>(singleDatasetValidator),
+  ...withChartProps<ChartOptions>(singleDatasetValidator),
 });
 
 const slots = excludeGroups(useSlots());

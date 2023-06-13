@@ -58,9 +58,6 @@ export function useBaseScales(
 
   function generateScales() {
     const { width, height } = size;
-    const paddingOuter: number = (options.value.padding ||
-      options.value.paddingOuter ||
-      0) as number;
 
     if (!width && !height) return;
     if (!labels.value || !data.value) return;
@@ -76,21 +73,23 @@ export function useBaseScales(
         orientation.value,
         options.value.startOnZero
       );
-      yScale.value = generateBandScale({
-        domain: labels.value,
-        size: height,
-        paddingOuter,
-      });
+      yScale.value = generateBandScale(
+        labels.value,
+        height,
+        orientation.value,
+        options.value
+      );
     } else {
       // vertical
       // x = scaleBand : labels : width
       // y = scaleLinear : data : height
 
-      xScale.value = generateBandScale({
-        domain: labels.value,
-        size: width,
-        paddingOuter,
-      });
+      xScale.value = generateBandScale(
+        labels.value,
+        width,
+        orientation.value,
+        options.value
+      );
       yScale.value = generateLinearScale(
         data.value,
         height,
@@ -105,22 +104,25 @@ export function useBaseScales(
   return { xScale, yScale };
 }
 
-interface BandScaleGenerator {
-  domain: Array<string | number>;
-  size: number;
-  paddingOuter: number;
-}
-
-function generateBandScale({
-  domain,
-  size,
-  paddingOuter = 0,
-}: BandScaleGenerator): ComputedScaleBand {
+function generateBandScale(
+  domain: Array<string | number>,
+  size: number,
+  orientation: Orientation,
+  options: ChartOptions
+): ComputedScaleBand {
   const range = [0, size];
+  const { padding, paddingInner, paddingOuter } = options;
+  const defaultPadding =
+    padding ??
+    (orientation === ORIENTATIONS.HORIZONTAL
+      ? PADDING_HORIZONTAL
+      : PADDING_VERTICAL);
+
   return Object.assign(
     scaleBand<string | number>()
       .range(range)
-      .paddingOuter(paddingOuter)
+      .paddingInner(paddingInner ?? defaultPadding)
+      .paddingOuter(paddingOuter ?? defaultPadding)
       .domain(domain.map((_, i) => i)),
     { labels: domain }
   ) as ComputedScaleBand;

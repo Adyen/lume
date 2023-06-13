@@ -1,7 +1,7 @@
 import { computed, ComputedRef, PropType, Ref } from 'vue';
-import { ScaleBand, ScaleLinear } from 'd3';
+import { ScaleLinear } from 'd3';
 
-import { getPaddedScale, Scale } from '@/composables/scales';
+import { Scale } from '@/composables/scales';
 
 import {
   BAR_TYPES,
@@ -10,7 +10,6 @@ import {
   ORIENTATIONS,
 } from '@/utils/constants';
 import { DatasetValueObject, InternalData } from '@/types/dataset';
-import { BarChartOptions } from '@/composables/options';
 
 function typeValidator(type: string): boolean {
   return Object.values(BAR_TYPES).includes(type as BarType) || type == null;
@@ -74,7 +73,6 @@ export function getBarChartType(data: Ref<InternalData>, type: Ref<string>) {
 export function useBarScales(
   xScale: Ref<Scale>,
   yScale: Ref<Scale>,
-  options?: Ref<BarChartOptions>,
   orientation?: Ref<Orientation>
 ) {
   const isHorizontal = computed(
@@ -88,29 +86,19 @@ export function useBarScales(
   }
 
   const barXScale = computed(() => {
-    const { padding, paddingInner, paddingOuter } = options.value;
     const scale = isHorizontal.value
       ? (() => {
         checkValidDomain(xScale.value as ScaleLinear<number, number>);
         return xScale.value;
       })()
-      : getPaddedScale(
-          xScale.value as ScaleBand<string | number>,
-          orientation.value,
-          { padding, paddingInner, paddingOuter }
-      );
+      : xScale.value;
 
     return scale;
   });
 
   const barYScale = computed(() => {
-    const { padding, paddingInner, paddingOuter } = options.value;
     const scale = isHorizontal.value
-      ? getPaddedScale(
-          yScale.value as ScaleBand<string | number>,
-          orientation.value,
-          { padding, paddingInner, paddingOuter }
-      )
+      ? yScale.value
       : (() => {
         checkValidDomain(yScale.value as ScaleLinear<number, number>);
         return yScale.value;
