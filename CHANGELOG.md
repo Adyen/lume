@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.6.1](https://github.com/Adyen/lume/compare/v0.6.0...v0.6.1)
+
+- 🐛 Fix padding handling for all band scales [`8b89cfa`](https://github.com/Adyen/lume/commit/8b89cfa574c53a65cbdd56ce3b74457e181d054a)
+- 🐛 Fix tooltip styles and components exports [`6953100`](https://github.com/Adyen/lume/commit/695310038a66f4a893e20d3c34534d07c6b1897e)
+- 🔖 Release v0.6.0 [`7d24594`](https://github.com/Adyen/lume/commit/7d2459442ada4ae44de45a28f4e626eaddcb3002)
+
 #### [v0.6.0](https://github.com/Adyen/lume/compare/v0.5.3...v0.6.0)
+
+> 20 June 2023
 
 - ✨ Add granular tooltip elements & slot support [`ee46749`](https://github.com/Adyen/lume/commit/ee46749dddca6391de55f49374b2a3cbee1c6dd7)
 - ✨ Introduce hoveredIndex/Element props [`4d227ff`](https://github.com/Adyen/lume/commit/4d227ffb1cdbeeec7db0ec41d6407403d1ddc86d)
