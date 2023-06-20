@@ -1,9 +1,0 @@
-@use '@/styles/variables' as *;
-
-$lume-tooltip-title-color: $lume-color-grey-100 !default;
-
-.lume-tooltip__title {
-  margin-bottom: $lume-spacing-4;
-  font-weight: $lume-font-weight-medium;
-  color: $lume-tooltip-title-color;
-}

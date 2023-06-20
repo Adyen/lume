@@ -13,5 +13,5 @@
 </template>
 
 <style lang="scss" scoped>
-@use './styles';
+@use '../../styles';
 </style>

@@ -17,7 +17,11 @@ export { default as LumeAxis } from './core/lume-axis/lume-axis.vue';
 export { default as LumeChart } from './core/lume-chart/lume-chart.vue';
 export { default as LumeChartContainer } from './core/lume-chart-container/lume-chart-container.vue';
 export { default as LumeChartLegend } from './core/lume-chart-legend/lume-chart-legend.vue';
+
 export { default as LumeTooltip } from './core/lume-tooltip/lume-tooltip.vue';
+export { default as LumeTooltipItem } from './core/lume-tooltip/components/lume-tooltip-item/lume-tooltip-item.vue';
+export { default as LumeTooltipSummary } from './core/lume-tooltip/components/lume-tooltip-summary/lume-tooltip-summary.vue';
+export { default as LumeTooltipTitle } from './core/lume-tooltip/components/lume-tooltip-title/lume-tooltip-title.vue';
 
 export { default as LumeBar } from './core/lume-bar/lume-bar.vue';
 export { default as LumeLine } from './core/lume-line/lume-line.vue';
