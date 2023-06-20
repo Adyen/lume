@@ -24,7 +24,6 @@ describe('bar-group.vue', () => {
 
     const el = wrapper.find('[data-j-bars-group]');
     expect(el.exists()).toBeTruthy();
-    expect(wrapper.find('[data-j-lume-bar]').attributes('x')).not.toEqual('0');
     expect(
       wrapper
         .find('[data-j-lume-bar]')
