@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.6.0](https://github.com/Adyen/lume/compare/v0.5.3...v0.6.0)
+
+- ✨ Add granular tooltip elements & slot support [`ee46749`](https://github.com/Adyen/lume/commit/ee46749dddca6391de55f49374b2a3cbee1c6dd7)
+- ✨ Introduce hoveredIndex/Element props [`4d227ff`](https://github.com/Adyen/lume/commit/4d227ffb1cdbeeec7db0ec41d6407403d1ddc86d)
+- 📝 Update documentation to reflect hover props [`26b958a`](https://github.com/Adyen/lume/commit/26b958a0fc8dfb0dba556c854eb02f073407327b)
+
 #### [v0.5.3](https://github.com/Adyen/lume/compare/v0.5.2...v0.5.3)
+
+> 9 May 2023
 
 - 🔖 Release v0.5.2 [`a2ed659`](https://github.com/Adyen/lume/commit/a2ed6597f165de0167e387acafb2441fae44b934)
 - 🔖 Release v0.5.3 [`c74e834`](https://github.com/Adyen/lume/commit/c74e834cada8cde34f1f7e5afc30ef317537423f)
