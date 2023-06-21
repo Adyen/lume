@@ -1,6 +1,7 @@
 {
   "name": "@adyen/lume-vue3",
   "version": "0.5.3",
+  "private": true,
   "description": "",
   "type": "module",
   "module": "dist/index.js",
@@ -17,7 +18,7 @@
   },
   "types": "./dist/types/index.d.ts",
   "scripts": {
-    "build": "NODE_ENV=production npm run build:vite && npm run build:font",
+    "build": "NODE_ENV=production yarn run build:vite && yarn run build:font",
     "build:vite": "vite build",
     "build:font": "webpack",
     "postbuild": "node ../../build/postbuild.js",
@@ -32,8 +33,15 @@
     "vue": "^3.2.36"
   },
   "devDependencies": {
-    "@storybook/vue3": "^7.0.11",
-    "@storybook/vue3-vite": "^7.0.11",
+    "@storybook/addon-actions": "^7.0.18",
+    "@storybook/preview-api": "^7.0.18",
+    "@storybook/manager-api": "^7.0.18",
+    "@storybook/theming": "^7.0.18",
+    "@storybook/cli": "^7.0.18",
+    "@storybook/addon-essentials": "^7.0.18",
+    "@storybook/addon-a11y": "^7.0.18",
+    "@storybook/vue3": "^7.0.18",
+    "@storybook/vue3-vite": "^7.0.18",
     "@vitejs/plugin-vue": "^4.0.0",
     "vue": "^3.2.36"
   },
