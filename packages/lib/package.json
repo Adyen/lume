@@ -22,7 +22,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^7.0.18"
+    "@storybook/addon-actions": "^7.0.22"
   },
   "keywords": [],
   "author": "",
