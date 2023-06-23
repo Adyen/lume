@@ -1,4 +1,4 @@
-name: npm publish
+name: Publish Lume for Vue 2
 
 on: workflow_dispatch
 
