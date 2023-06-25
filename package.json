@@ -36,7 +36,7 @@
     "url": "https://github.com/Adyen/lume.git"
   },
   "scripts": {
-    "build": "nx run-many --target=build",
+    "build": "yarn workspace @adyen/lume run build & yarn workspace @adyen/lume-vue3 run build",
     "build:storybook": "NODE_ENV=production build-storybook -c .storybook -o storybook",
     "confighooks": "git config core.hooksPath ./git-hooks",
     "prepare": "yarn run confighooks && echo \" ✔ Git hooks path configured to ./git-hooks\"",
@@ -44,10 +44,11 @@
     "storybook:vue2": "yarn workspace @adyen/lume run storybook",
     "storybook:vue3": "yarn workspace @adyen/lume-vue3 run storybook",
     "storybook": "yarn workspace @adyen/lume run storybook & yarn workspace @adyen/lume-vue3 run storybook",
-    "test": "nx test lib",
-    "test:watch": "nx test:watch lib",
-    "test:update:snapshot": "nx test:update:snapshot lib",
-    "test:coverage": "nx test:coverage lib"
+    "test": "yarn workspace @adyen/lume-core run test",
+    "test:watch": "yarn workspace @adyen/lume-core run test:watch",
+    "test:update:snapshot": "yarn workspace @adyen/lume-core run test:update:snapshot",
+    "test:coverage": "yarn workspace @adyen/lume-core run test:coverage",
+    "pack": "yarn workspace @adyen/lume-vue3 pack & yarn workspace @adyen/lume pack"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.4",
@@ -64,6 +65,7 @@
     "@typescript-eslint/parser": "^5.43.0",
     "@vitest/coverage-istanbul": "^0.27.0",
     "@vue/test-utils": "^2.3.0",
+    "@yarnpkg/plugin-workspace-tools": "4.0.0-rc.45",
     "auto-changelog": "^2.4.0",
     "css-loader": "^6.7.2",
     "eslint": "^8.27.0",
@@ -75,7 +77,6 @@
     "jest-environment-jsdom": "^29.3.1",
     "jsdom": "^20.0.3",
     "mini-css-extract-plugin": "^2.7.0",
-    "nx": "14.8.2",
     "prettier": "^2.7.1",
     "release-it": "^15.6.0",
     "resize-observer-polyfill": "^1.5.1",

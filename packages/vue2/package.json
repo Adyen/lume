@@ -34,7 +34,6 @@
     "vue": "^2.7.10"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^7.0.22",
     "@storybook/preview-api": "^7.0.22",
     "@storybook/manager-api": "^7.0.22",
     "@storybook/theming": "^7.0.22",

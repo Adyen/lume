@@ -33,7 +33,6 @@
     "vue": "^3.2.36"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^7.0.22",
     "@storybook/preview-api": "^7.0.22",
     "@storybook/manager-api": "^7.0.22",
     "@storybook/theming": "^7.0.22",
