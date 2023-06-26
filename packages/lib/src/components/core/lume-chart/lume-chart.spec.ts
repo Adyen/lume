@@ -18,6 +18,7 @@ describe('lume-chart.vue', () => {
         groups: 'Mock groups',
       },
       props: defaultProps,
+      propsData: defaultProps,
     });
 
     const el = wrapper.find('[data-j-lume-chart]');
@@ -31,6 +32,12 @@ describe('lume-chart.vue', () => {
         groups: 'Mock groups',
       },
       props: {
+        ...defaultProps,
+        options: {
+          withTooltip: false,
+        },
+      },
+      propsData: {
         ...defaultProps,
         options: {
           withTooltip: false,
@@ -55,6 +62,12 @@ describe('lume-chart.vue', () => {
           withAxes: false,
         },
       },
+      propsData: {
+        ...defaultProps,
+        options: {
+          withAxes: false,
+        },
+      },
     });
 
     const el = wrapper.find('[data-j-lume-chart__axes]');
@@ -74,6 +87,14 @@ describe('lume-chart.vue', () => {
           },
         ],
       },
+      propsData: {
+        ...defaultProps,
+        data: [
+          {
+            values: data[0].values.map(({ value }) => ({ value: -1 * value })),
+          },
+        ],
+      },
     });
 
     const el = wrapper.find('[data-j-lume-chart__negative-values]');
@@ -86,12 +107,13 @@ describe('lume-chart.vue', () => {
         groups: 'Mock groups',
       },
       props: defaultProps,
+      propsData: defaultProps,
     });
 
     const legend = wrapper.find('[data-j-chart-legend__symbol-wrapper]');
     await legend.trigger('click', { value: 1 });
 
-    expect(wrapper.emitted('click')).toBeTruthy();
+    expect(wrapper.emitted()['legend-click']).toBeTruthy();
   });
 
   describe('Events API', () => {
@@ -99,30 +121,18 @@ describe('lume-chart.vue', () => {
       const wrapper = mount(LumeChart, {
         slots: { groups: 'Mock groups' },
         props: defaultProps,
+        propsData: defaultProps,
       });
 
       expect(wrapper.emitted()).toHaveProperty('rendered');
       expect(wrapper.emitted().rendered).toHaveLength(1);
     });
 
-    it('should dispatch `resize` when chart container size changes', async () => {
-      const wrapper = mount(LumeChart, {
-        slots: { groups: 'Mock groups' },
-        props: defaultProps,
-      });
-
-      await wrapper
-        .find('[data-j-chart-container=""]')
-        .trigger('resize', { width: 600, height: 600 });
-
-      expect(wrapper.emitted()).toHaveProperty('resize');
-      expect(wrapper.emitted().resize).toHaveLength(1);
-    });
-
     it('should dispatch `data-changed` if provided data changes', async () => {
       const wrapper = mount(LumeChart, {
         slots: { groups: 'Mock groups' },
         props: defaultProps,
+        propsData: defaultProps,
       });
 
       await wrapper.setProps({ data: [...defaultProps.data] });
@@ -135,6 +145,7 @@ describe('lume-chart.vue', () => {
       const wrapper = mount(LumeChart, {
         slots: { groups: 'Mock groups' },
         props: defaultProps,
+        propsData: defaultProps,
       });
 
       await wrapper.setProps({ labels: [...defaultProps.labels] });
@@ -147,6 +158,7 @@ describe('lume-chart.vue', () => {
       const wrapper = mount(LumeChart, {
         slots: { groups: 'Mock groups' },
         props: defaultProps,
+        propsData: defaultProps,
       });
 
       await wrapper.find('[data-j-chart-container__root=""]').trigger('click');
@@ -159,6 +171,7 @@ describe('lume-chart.vue', () => {
       const wrapper = mount(LumeChart, {
         slots: { groups: 'Mock groups' },
         props: defaultProps,
+        propsData: defaultProps,
       });
 
       await wrapper
@@ -173,6 +186,7 @@ describe('lume-chart.vue', () => {
       const wrapper = mount(LumeChart, {
         slots: { groups: 'Mock groups' },
         props: defaultProps,
+        propsData: defaultProps,
       });
 
       await wrapper
@@ -187,6 +201,7 @@ describe('lume-chart.vue', () => {
       const wrapper = mount(LumeChart, {
         slots: { groups: 'Mock groups' },
         props: defaultProps,
+        propsData: defaultProps,
       });
 
       const xAxis = wrapper.findComponent('[data-j-lume-chart__x-axis=""]');

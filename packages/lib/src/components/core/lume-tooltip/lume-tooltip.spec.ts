@@ -18,7 +18,10 @@ const defaultProps = {
 
 describe('tooltip.vue', () => {
   test('mounts component and sets prop values', () => {
-    const wrapper = mount(LumeTooltip, { props: defaultProps });
+    const wrapper = mount(LumeTooltip, {
+      props: defaultProps,
+      propsData: defaultProps,
+    });
 
     const el = wrapper.find('[data-j-tooltip]');
     expect(el.exists()).toBeTruthy();
@@ -26,7 +29,10 @@ describe('tooltip.vue', () => {
   });
 
   test('mounts component and sets custom title prop', () => {
-    const wrapper = mount(LumeTooltip, { props: { title, ...defaultProps } });
+    const wrapper = mount(LumeTooltip, {
+      props: { title, ...defaultProps },
+      propsData: { title, ...defaultProps },
+    });
 
     const el = wrapper.find('[data-j-tooltip__title]');
     expect(el.exists()).toBeTruthy();
@@ -34,7 +40,10 @@ describe('tooltip.vue', () => {
   });
 
   test('mounts component and shows list of items', () => {
-    const wrapper = mount(LumeTooltip, { props: defaultProps });
+    const wrapper = mount(LumeTooltip, {
+      props: defaultProps,
+      propsData: defaultProps,
+    });
 
     const el = wrapper.find('[data-j-tooltip__item]');
     expect(el.exists()).toBeTruthy();
@@ -55,6 +64,10 @@ describe('tooltip.vue', () => {
           ...defaultProps,
           items: [{ ...item, isSummary: true }, item],
         },
+        propsData: {
+          ...defaultProps,
+          items: [{ ...item, isSummary: true }, item],
+        },
       });
 
       const el = wrapper.find('[data-j-tooltip__summary-item]');
@@ -64,6 +77,10 @@ describe('tooltip.vue', () => {
     test('mount component with summary item from options', () => {
       const wrapper = mount(LumeTooltip, {
         props: {
+          ...defaultProps,
+          options: { summary: 'test summary' },
+        },
+        propsData: {
           ...defaultProps,
           options: { summary: 'test summary' },
         },
@@ -79,6 +96,10 @@ describe('tooltip.vue', () => {
           ...defaultProps,
           summary: 'test summary',
         },
+        propsData: {
+          ...defaultProps,
+          summary: 'test summary',
+        },
       });
 
       const el = wrapper.find('[data-j-tooltip__summary-item]');
@@ -89,6 +110,12 @@ describe('tooltip.vue', () => {
       it('should format title with format string', () => {
         const wrapper = mount(LumeTooltip, {
           props: {
+            title: 1234,
+            items: [item],
+            targetElement: mockElement,
+            options: { titleFormat: '~s' },
+          },
+          propsData: {
             title: 1234,
             items: [item],
             targetElement: mockElement,
@@ -108,6 +135,12 @@ describe('tooltip.vue', () => {
             targetElement: mockElement,
             options: { titleFormat: (title) => title + '!' },
           },
+          propsData: {
+            title,
+            items: [item],
+            targetElement: mockElement,
+            options: { titleFormat: (title) => title + '!' },
+          },
         });
 
         const titleEl = wrapper.find('[data-j-tooltip__title=""]');
@@ -119,14 +152,20 @@ describe('tooltip.vue', () => {
 
   describe('Events API', () => {
     it('should dispatch `opened` when tooltip is initially displayed', () => {
-      const wrapper = mount(LumeTooltip, { props: defaultProps });
+      const wrapper = mount(LumeTooltip, {
+        props: defaultProps,
+        propsData: defaultProps,
+      });
 
       expect(wrapper.emitted()).toHaveProperty('opened');
       expect(wrapper.emitted().opened).toHaveLength(1);
     });
 
     it('should dispatch `moved` when tooltip `targetElement` changes', async () => {
-      const wrapper = mount(LumeTooltip, { props: defaultProps });
+      const wrapper = mount(LumeTooltip, {
+        props: defaultProps,
+        propsData: defaultProps,
+      });
 
       await wrapper.setProps({ targetElement: document.createElement('div') });
 
@@ -135,9 +174,13 @@ describe('tooltip.vue', () => {
     });
 
     it('should dispatch `closed` when tooltip is destroyed', () => {
-      const wrapper = mount(LumeTooltip, { props: defaultProps });
+      const wrapper = mount(LumeTooltip, {
+        props: defaultProps,
+        propsData: defaultProps,
+      });
 
-      wrapper.unmount();
+      wrapper.unmount?.();
+      wrapper.destroy?.(); // Vue 2
 
       expect(wrapper.emitted()).toHaveProperty('closed');
       expect(wrapper.emitted().closed).toHaveLength(1);

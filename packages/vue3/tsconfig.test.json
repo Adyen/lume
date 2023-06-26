@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "../lib/",
+    "types": ["vitest/globals"],
+    "module": "esnext",
+    "paths": {
+      "@/*": ["src/*"],
+      "@test/*": ["test/*"]
+    },
+    "isolatedModules": true,
+    "noImplicitThis": true
+  }
+}

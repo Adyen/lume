@@ -16,9 +16,8 @@ const scale: Scale = scaleBand<number>()
 describe('lume-axis.vue', () => {
   test('mounts component and sets prop values', () => {
     const wrapper = mount(LumeAxis, {
-      props: {
-        scale,
-      },
+      props: { scale },
+      propsData: { scale },
     });
 
     const el = wrapper.find('[data-j-axis]');
@@ -32,6 +31,10 @@ describe('lume-axis.vue', () => {
   test('mounts component and sets custom value for skip option to false', () => {
     const wrapper = mount(LumeAxis, {
       props: {
+        scale,
+        options: { skip: false },
+      },
+      propsData: {
         scale,
         options: { skip: false },
       },
@@ -51,6 +54,10 @@ describe('lume-axis.vue', () => {
         scale,
         options: { skip },
       },
+      propsData: {
+        scale,
+        options: { skip },
+      },
     });
 
     await nextTick();
@@ -64,31 +71,40 @@ describe('lume-axis.vue', () => {
 
   describe('Events API', () => {
     it('should dispatch `click` if user clicks an axis tick', async () => {
-      const wrapper = mount(LumeAxis, { props: { scale } });
+      const wrapper = mount(LumeAxis, {
+        props: { scale },
+        propsData: { scale },
+      });
 
       const ticks = wrapper.findAll('[data-j-axis__tick=""]');
 
-      await ticks[0].trigger('click');
-      await ticks[3].trigger('click');
+      await ticks.at(0).trigger('click');
+      await ticks.at(3).trigger('click');
 
       expect(wrapper.emitted()).toHaveProperty('click');
       expect(wrapper.emitted().click).toHaveLength(2);
     });
 
     it('should dispatch `mouseenter` if user mouses over an axis tick', async () => {
-      const wrapper = mount(LumeAxis, { props: { scale } });
+      const wrapper = mount(LumeAxis, {
+        props: { scale },
+        propsData: { scale },
+      });
 
       const ticks = wrapper.findAll('[data-j-axis__tick=""]');
 
-      await ticks[0].trigger('mouseenter');
-      await ticks[3].trigger('mouseenter');
+      await ticks.at(0).trigger('mouseenter');
+      await ticks.at(3).trigger('mouseenter');
 
       expect(wrapper.emitted()).toHaveProperty('mouseenter');
       expect(wrapper.emitted().mouseenter).toHaveLength(2);
     });
 
     it('should dispatch `mouseleave` if user moves mouse away from an axis', async () => {
-      const wrapper = mount(LumeAxis, { props: { scale } });
+      const wrapper = mount(LumeAxis, {
+        props: { scale },
+        propsData: { scale },
+      });
 
       await wrapper.trigger('mouseleave');
 

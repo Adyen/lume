@@ -53,16 +53,16 @@ describe('lume-single-bar-chart.vue', () => {
 
     // check +ve bars
     expect(
-      el.findAllComponents('[data-j-lume-bar]')[0].props('isNegative')
+      el.findAllComponents('[data-j-lume-bar]').at(0).props('isNegative')
     ).toBeFalsy();
     expect(
-      el.findAllComponents('[data-j-lume-bar]')[2].props('isNegative')
+      el.findAllComponents('[data-j-lume-bar]').at(2).props('isNegative')
     ).toBeFalsy();
     expect(
-      el.findAllComponents('[data-j-lume-bar]')[3].props('isNegative')
+      el.findAllComponents('[data-j-lume-bar]').at(3).props('isNegative')
     ).toBeFalsy();
     expect(
-      el.findAllComponents('[data-j-lume-bar]')[6].props('isNegative')
+      el.findAllComponents('[data-j-lume-bar]').at(6).props('isNegative')
     ).toBeFalsy();
     expect(
       el
@@ -71,10 +71,10 @@ describe('lume-single-bar-chart.vue', () => {
     ).toHaveLength(numberOfPositiveBars);
     // check -ve bars
     expect(
-      el.findAllComponents('[data-j-lume-bar]')[1].props('isNegative')
+      el.findAllComponents('[data-j-lume-bar]').at(1).props('isNegative')
     ).toBeTruthy();
     expect(
-      el.findAllComponents('[data-j-lume-bar]')[4].props('isNegative')
+      el.findAllComponents('[data-j-lume-bar]').at(4).props('isNegative')
     ).toBeTruthy();
     expect(
       el
@@ -83,7 +83,7 @@ describe('lume-single-bar-chart.vue', () => {
     ).toHaveLength(numberOfNegativeBars);
     // check null bars
     expect(
-      el.findAllComponents('[data-j-lume-bar]')[5].props('isNegative')
+      el.findAllComponents('[data-j-lume-bar]').at(5).props('isNegative')
     ).toBeFalsy();
   });
 

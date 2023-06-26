@@ -4,9 +4,6 @@
   "private": true,
   "description": "",
   "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
   "exports": {
     ".": "./src/index.ts",
     "./plugin": "./src/plugin.ts",
@@ -15,14 +12,12 @@
   "scripts": {
     "lint:fix": "yarn run lint -- --fix",
     "lint:pretty": "prettier --write --ignore-unknown .",
-    "lint": "eslint ./src ./test --ext .js,.ts,.vue",
-    "test": "vitest run --config=vitest.config.ts --silent",
-    "test:watch": "vitest --config=vitest.config.ts",
-    "test:update:snapshot": "vitest --config=vitest.config.ts -u",
-    "test:coverage": "vitest run --coverage"
+    "lint": "eslint ./src ./test --ext .js,.ts,.vue"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^7.0.22"
+    "@storybook/addon-actions": "^7.0.22",
+    "@vue/test-utils": "^2.3.2",
+    "vitest": "^0.32.0"
   },
   "keywords": [],
   "author": "",

@@ -32,7 +32,7 @@ export class BaseTestSuite {
   ) {
     this._wrapper = mount(
       this.component,
-      this.props ? { props: this.props } : {}
+      this.props ? { props: this.props, propsData: this.props } : {}
     );
   }
 

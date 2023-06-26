@@ -22,7 +22,8 @@
     "build:vite": "vite build",
     "build:font": "webpack",
     "postbuild": "node ../../build/postbuild.js",
-    "storybook": "sb dev -p 9003 -c .storybook"
+    "storybook": "sb dev -p 9003 -c .storybook",
+    "test": "vitest --config=vitest.config.ts"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.4",
@@ -42,7 +43,13 @@
     "@storybook/vue3": "^7.0.22",
     "@storybook/vue3-vite": "^7.0.22",
     "@vitejs/plugin-vue": "^4.0.0",
-    "vue": "^3.2.36"
+    "@vue/test-utils": "^2.3.2",
+    "vitest": "^0.32.0",
+    "@vitest/coverage-istanbul": "^0.27.0",
+    "vue": "^3.2.36",
+    "jsdom": "^22.1.0",
+    "vite": "^4.3.9",
+    "vite-plugin-external": "1.2.8"
   },
   "keywords": [
     "Lume",
