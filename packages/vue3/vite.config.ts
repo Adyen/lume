@@ -1,7 +1,7 @@
 import { join } from 'path';
 import { defineConfig } from 'vite';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
 import vue from '@vitejs/plugin-vue';
+import createExternal from 'vite-plugin-external';
 
 export default defineConfig({
   build: {
@@ -24,16 +24,13 @@ export default defineConfig({
     },
   },
   plugins: [
-    vue(),
-    viteStaticCopy({
-      targets: [
-        {
-          src: '../lib/src/styles/',
-          dest: './',
-          rename: 'scss',
-        },
-      ],
+    createExternal({
+      externals: {
+        react: 'React',
+        'react-dom': 'ReactDOM',
+      },
     }),
+    vue(),
   ],
   resolve: {
     alias: {

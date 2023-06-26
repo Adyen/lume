@@ -1,7 +1,7 @@
 import { existsSync } from 'fs';
 import { appendFile, mkdir, readFile, rm, writeFile } from 'fs/promises';
 import glob from 'glob';
-import sass from 'sass';
+import * as sass from 'sass';
 
 const COMPONENT_STYLE_COMMENT = '\n/** Lume component styles */\n';
 

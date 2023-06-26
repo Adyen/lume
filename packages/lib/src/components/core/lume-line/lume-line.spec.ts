@@ -18,10 +18,12 @@ const props = { pathDefinition: pathDefinition.value, xScale };
 document.body.innerHTML = `<svg id="root"></svg>`; // prevent no SVG parent console.warn
 
 describe('lume-line.vue', () => {
-  const svg = document.getElementById('root');
-
   test('mounts component', () => {
-    const wrapper = mount(LumeLine, { attachTo: svg, props });
+    const wrapper = mount(LumeLine, {
+      attachTo: '#root',
+      props,
+      propsData: props,
+    });
 
     const el = wrapper.find('[data-j-line]');
     expect(el.exists()).toBeTruthy();
@@ -30,8 +32,9 @@ describe('lume-line.vue', () => {
 
   test('mounts component and sets dashed line to true', () => {
     const wrapper = mount(LumeLine, {
-      attachTo: svg,
+      attachTo: '#root',
       props: { ...props, dashed: true },
+      propsData: { ...props, dashed: true },
     });
 
     const el = wrapper.find('[data-j-line]');
@@ -42,8 +45,9 @@ describe('lume-line.vue', () => {
   test('mounts component with custom color', () => {
     const color = '02';
     const wrapper = mount(LumeLine, {
-      attachTo: svg,
+      attachTo: '#root',
       props: { ...props, color },
+      propsData: { ...props, color },
     });
 
     const el = wrapper.find('[data-j-line]');
@@ -52,7 +56,11 @@ describe('lume-line.vue', () => {
 
   describe('Events API', () => {
     it('should dispatch `click` if user clicks a line', async () => {
-      const wrapper = mount(LumeLine, { attachTo: svg, props });
+      const wrapper = mount(LumeLine, {
+        attachTo: '#root',
+        props,
+        propsData: props,
+      });
 
       const line = wrapper.find('path.lume-line');
 
