@@ -41,9 +41,9 @@
     }
   }
 
-  @each $color, $map in $lume-legacy-colors {
+  @each $color, $value in $lume-legacy-colors {
     &--#{$color} {
-      background-color: nth($map, 1);
+      background-color: $value;
     }
   }
 }
@@ -58,9 +58,9 @@
     opacity: 0;
   }
 
-  @each $color, $map in $lume-legacy-colors {
+  @each $color, $value in $lume-legacy-colors {
     &--#{$color} {
-      stroke: nth($map, 1);
+      stroke: $value;
     }
   }
 }
@@ -96,12 +96,12 @@
     }
   }
 
-  @each $color, $map in $lume-legacy-colors {
+  @each $color, $value in $lume-legacy-colors {
     &--#{$color} {
-      fill: nth($map, 1);
+      fill: $value;
 
       &#{$b}--faded {
-        fill: fade-color(nth($map, 1));
+        fill: fade-color($value);
       }
     }
   }

@@ -2,45 +2,41 @@
 
 $lume-alluvial-text-color: $lume-color-grey-80;
 
-$lume-alluvial-link-opacity: 0.5 !default;
-$lume-alluvial-link-opacity-faded: 0.2 !default;
+$lume-alluvial-node-opacity: 0.7 !default;
+$lume-alluvial-node-opacity-faded: 0.3 !default;
+$lume-alluvial-node-opacity-focused: 1 !default;
+
+$lume-alluvial-link-opacity: 0.3 !default;
+$lume-alluvial-link-opacity-faded: 0.1 !default;
+$lume-alluvial-link-opacity-focused: 0.5 !default;
 
 .lume-alluvial-group {
-  &__node {
-    opacity: 1;
-    transition: opacity $lume-transition-time-long;
+  $b: &;
 
+  &__node {
     &--faded {
-      opacity: 0.5;
+      #{$b}__node-block,
+      #{$b}__node-text {
+        opacity: $lume-alluvial-node-opacity-faded;
+      }
+    }
+
+    &--focused {
+      #{$b}__node-block {
+        opacity: $lume-alluvial-node-opacity-focused;
+      }
     }
   }
 
   &__node-block {
-    @each $color, $map in $lume-categorical-colors {
-      &--#{$color} {
-        $fill: nth($map, 1);
-        fill: $fill;
-      }
-    }
-
-    @each $color, $map in $lume-other-colors {
-      &--#{$color} {
-        $fill: nth($map, 1);
-        fill: $fill;
-      }
-    }
-
-    @each $color, $map in $lume-legacy-colors {
-      &--#{$color} {
-        $fill: nth($map, 1);
-        fill: $fill;
-      }
-    }
+    transition: opacity $lume-transition-time-long;
+    opacity: $lume-alluvial-node-opacity;
   }
 
   &__node-text {
     cursor: default;
     fill: $lume-alluvial-text-color;
+    transition: opacity $lume-transition-time-long;
 
     &--right {
       text-anchor: end;
@@ -64,6 +60,10 @@ $lume-alluvial-link-opacity-faded: 0.2 !default;
 
     &--faded {
       stroke-opacity: $lume-alluvial-link-opacity-faded;
+    }
+
+    &--focused {
+      stroke-opacity: $lume-alluvial-link-opacity-focused;
     }
 
     &--ghost {

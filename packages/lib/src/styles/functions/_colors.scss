@@ -81,3 +81,12 @@
     }
   }
 }
+
+//
+//// Generates CSS variables from a $map of colors.
+//
+@mixin generate-color-variables($map) {
+  @each $name, $value in $map {
+    --lume-color--#{$name}: #{$value};
+  }
+}
