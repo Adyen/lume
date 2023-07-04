@@ -21,6 +21,27 @@
       class="lume-alluvial-link-group"
       @mouseleave="handleLinkMouseleave"
     >
+      <!-- Gradient defs -->
+      <defs v-if="options.gradient">
+        <linearGradient
+          v-for="gradient in gradients"
+          :id="`${chartID}_${gradient.source}:${gradient.target}`"
+          :key="`${gradient.source}:${gradient.target}`"
+          gradientUnits="userSpaceOnUse"
+          :x1="gradient.x1"
+          :x2="gradient.x2"
+        >
+          <stop
+            offset="0%"
+            :stop-color="`var(--lume-color--${gradient.source})`"
+          />
+          <stop
+            offset="100%"
+            :stop-color="`var(--lume-color--${gradient.target})`"
+          />
+        </linearGradient>
+      </defs>
+
       <!-- Ghost paths -->
       <path
         v-for="linkPath in linkPaths"
@@ -43,10 +64,13 @@
         :key="`link_${linkPath.id}`"
         class="lume-alluvial-group__link"
         :class="{
-          [`lume-stroke--${linkPath.color}`]: linkPath.color,
+          [`lume-stroke--${linkPath.color}`]:
+            !options.gradient && linkPath.color,
           'lume-alluvial-group__link--faded': isLinkFaded(linkPath.id),
+          'lume-alluvial-group__link--focused': isLinkFocused(linkPath.id),
         }"
         :d="linkPath.d"
+        :stroke="getLinkStroke(linkPath.link)"
         :stroke-dasharray="containerSize.width"
         :stroke-dashoffset="containerSize.width"
         :stroke-width="linkPath.strokeWidth"
@@ -64,6 +88,7 @@
       class="lume-alluvial-group__node"
       :class="{
         'lume-alluvial-group__node--faded': isNodeFaded(block.node.id),
+        'lume-alluvial-group__node--focused': isNodeFocused(block.node.id),
       }"
       data-j-alluvial-group__node-block
     >
@@ -80,9 +105,8 @@
         @mouseout="hoveredElement = null"
       >
         <rect
-          :class="`lume-alluvial-group__node-block--${
-            block.node.color || DEFAULT_COLOR
-          }`"
+          class="lume-alluvial-group__node-block"
+          :class="`lume-fill--${block.node.color || DEFAULT_COLOR}`"
           :x="block.x"
           :y="block.y"
           :height="block.height"
@@ -119,7 +143,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, PropType, ref, toRefs, watch } from 'vue';
+import { computed, inject, PropType, ref, toRefs, watch } from 'vue';
 
 import { useFormat } from '@/composables/format';
 import { withGroupProps } from '@/composables/group-props';
@@ -172,6 +196,8 @@ const emit = defineEmits<{
   ): void;
 }>();
 
+const chartID = inject<string>('chartID');
+
 const { data, options } = toRefs(props);
 
 const nodeBlocks = ref<Array<NodeBlock>>([]);
@@ -219,6 +245,34 @@ const computedNodeHeaderPadding = computed(
   () => options.value.nodeHeaderPadding ?? NODE_HEADER_PADDING
 );
 
+const gradients = computed(() => {
+  if (!options.value.gradient || !graph.value) return;
+
+  return graph.value.links.reduce((gradientArray, { source, target }) => {
+    if (
+      !gradientArray.find(
+        (gradient) =>
+          gradient.source === source.color && gradient.target === target.color
+      )
+    ) {
+      gradientArray.push({
+        source: source.color,
+        target: target.color,
+        x1: source.x1,
+        x2: target.x0,
+      });
+    }
+    return gradientArray;
+  }, []);
+});
+
+function getLinkStroke(link: SankeyLink<SankeyNodeProps, SankeyLinkProps>) {
+  return (
+    options.value.gradient &&
+    `url('#${chartID}_${link.source.color}:${link.target.color}')`
+  );
+}
+
 function isNodeFaded(id: string | number) {
   return (
     hoveredNodeIds.value.length > 0 &&
@@ -226,10 +280,24 @@ function isNodeFaded(id: string | number) {
   );
 }
 
+function isNodeFocused(id: string | number) {
+  return (
+    hoveredNodeIds.value.length > 0 &&
+    hoveredNodeIds.value.includes(id.toString())
+  );
+}
+
 function isLinkFaded(id: string) {
   return (
     highlightedElements.value.links.length > 0 &&
     !highlightedElements.value.links.includes(id)
+  );
+}
+
+function isLinkFocused(id: string) {
+  return (
+    highlightedElements.value.links.length > 0 &&
+    highlightedElements.value.links.includes(id)
   );
 }
 

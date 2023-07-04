@@ -1,25 +1,5 @@
 @use '../functions/colors' as *;
 
-// Neutrals
-
-$lume-color-white: #ffffff !default;
-$lume-color-black: #00112c !default;
-
-// Greys
-
-$lume-color-grey-10: #f7f8f9 !default;
-$lume-color-grey-20: #eef0f3 !default;
-$lume-color-grey-30: #dee1e6 !default;
-$lume-color-grey-40: #bfc4ca !default;
-$lume-color-grey-50: #9fa6b0 !default;
-$lume-color-grey-60: #818890 !default;
-$lume-color-grey-70: #6f7988 !default;
-$lume-color-grey-80: #404d61 !default;
-$lume-color-grey-90: #202f46 !default;
-$lume-color-grey-100: #00112c !default;
-
-$lume-color-grey-transparent: rgba(210, 218, 225, 0.7) !default;
-
 // Sky blue
 
 $lume-color-skyblue-10: #f6fbff !default;
@@ -167,12 +147,46 @@ $lume-color-gold-map: (
 
 // Other
 
+// Neutrals
+
+$lume-color-white: #ffffff !default;
+$lume-color-black: #00112c !default;
+
+// Greys
+
+$lume-color-grey-10: #f7f8f9 !default;
+$lume-color-grey-20: #eef0f3 !default;
+$lume-color-grey-30: #dee1e6 !default;
+$lume-color-grey-40: #bfc4ca !default;
+$lume-color-grey-50: #9fa6b0 !default;
+$lume-color-grey-60: #818890 !default;
+$lume-color-grey-70: #6f7988 !default;
+$lume-color-grey-80: #404d61 !default;
+$lume-color-grey-90: #202f46 !default;
+$lume-color-grey-100: #00112c !default;
+
+$lume-color-grey-transparent: rgba(210, 218, 225, 0.7) !default;
+
 $lume-color-green: #0abf53 !default;
 $lume-color-orange: #ff9000 !default;
 $lume-color-red: #f33030 !default;
 
 $lume-other-colors: (
+  'white': $lume-color-white,
+  'black': $lume-color-black,
+
+  'grey-10': $lume-color-grey-10,
+  'grey-20': $lume-color-grey-20,
+  'grey-30': $lume-color-grey-30,
+  'grey-40': $lume-color-grey-40,
+  'grey-50': $lume-color-grey-50,
+  'grey-60': $lume-color-grey-60,
+  'grey-70': $lume-color-grey-70,
+  'grey-80': $lume-color-grey-80,
+  'grey-90': $lume-color-grey-90,
+  'grey-100': $lume-color-grey-100,
   'grey': $lume-color-grey-50,
+
   'green': $lume-color-green,
   'orange': $lume-color-orange,
   'red': $lume-color-red,
@@ -231,72 +245,37 @@ $lume-divergent-colors: (
 // Legacy colors
 
 $lume-legacy-color-yellow: #ffda00 !default;
-$lume-legacy-color-yellow-darker: #cbb009 !default;
-
 $lume-legacy-color-green: #99e487 !default;
-$lume-legacy-color-green-darker: #79b874 !default;
-
 $lume-legacy-color-turquoise: #04c9ca !default;
-$lume-legacy-color-turquoise-darker: #03a3a9 !default;
-
 $lume-legacy-color-blue: #025f89 !default;
-$lume-legacy-color-blue-darker: #014e76 !default;
-
 $lume-legacy-color-navy: #00112c !default;
-$lume-legacy-color-navy-darker: #00112c !default;
-
 $lume-legacy-color-grey: #90a2bd !default;
-$lume-legacy-color-grey-darker: #183057 !default;
-
 $lume-legacy-color-orange: #ff9501 !default;
-$lume-legacy-color-orange-darker: #b36900 !default;
-
 $lume-legacy-color-teal: #5bc6c8 !default;
-$lume-legacy-color-teal-darker: #204546 !default;
 
 // Chart
 
 $lume-legacy-colors: (
-  '01': (
-    $lume-legacy-color-yellow,
-    $lume-legacy-color-yellow-darker,
-  ),
-  '02': (
-    $lume-legacy-color-green,
-    $lume-legacy-color-green-darker,
-  ),
-  '03': (
-    $lume-legacy-color-turquoise,
-    $lume-legacy-color-turquoise-darker,
-  ),
-  '04': (
-    $lume-legacy-color-blue,
-    $lume-legacy-color-blue-darker,
-  ),
-  '05': (
-    $lume-legacy-color-navy,
-    $lume-legacy-color-navy-darker,
-  ),
-  '06': (
-    $lume-legacy-color-grey,
-    $lume-legacy-color-grey-darker,
-  ),
-  '07': (
-    $lume-legacy-color-orange,
-    $lume-legacy-color-orange-darker,
-  ),
-  '08': (
-    $lume-legacy-color-teal,
-    $lume-legacy-color-teal-darker,
-  ),
-  '09': (
-    $lume-color-red,
-    $lume-color-red,
-  ),
+  '01': $lume-legacy-color-yellow,
+  '02': $lume-legacy-color-green,
+  '03': $lume-legacy-color-turquoise,
+  '04': $lume-legacy-color-blue,
+  '05': $lume-legacy-color-navy,
+  '06': $lume-legacy-color-grey,
+  '07': $lume-legacy-color-orange,
+  '08': $lume-legacy-color-teal,
+  '09': $lume-color-red,
 ) !default;
 
 $lume-chart-background-color: $lume-color-white !default;
 
 :root {
+  @include generate-color-variables($lume-categorical-colors);
+  @each $map in $lume-sequential-colors {
+    @include generate-color-variables($map);
+  }
+  @include generate-color-variables($lume-other-colors);
+  @include generate-color-variables($lume-legacy-colors);
+
   --lume-chart-background-color: #{$lume-chart-background-color};
 }
