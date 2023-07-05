@@ -64,6 +64,17 @@ describe('lume-alluvial-diagram.vue', () => {
     expect(el.exists()).toBeTruthy();
   });
 
+  test('mounts with gradient definitions', async () => {
+    const wrapper = mount(LumeAlluvialDiagram, {
+      props: {
+        data: DATASETS.Basic.data,
+        options: { gradient: true },
+      },
+    });
+
+    expect(wrapper.find('defs').exists()).toBe(true);
+  });
+
   // should be tested in the scope of alluvial-graph
   test.skip('should throw error in case of a dataset with circular links', async () => {
     const values = [
