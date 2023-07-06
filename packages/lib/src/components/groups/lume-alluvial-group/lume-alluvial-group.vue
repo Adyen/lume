@@ -104,7 +104,17 @@
         @mouseover="hoveredElement = block.node"
         @mouseout="hoveredElement = null"
       >
+        <template v-if="shouldDeriveNodeColorFromIncomingLinks(block)">
+          <rect
+            v-for="nodeBlock in getSubNodesDerivingColorFromIncomingLinks(
+              block.node.id
+            )"
+            v-bind="nodeBlock"
+            :key="nodeBlock.key"
+          />
+        </template>
         <rect
+          v-else
           class="lume-alluvial-group__node-block"
           :class="`lume-fill--${block.node.color || DEFAULT_COLOR}`"
           :x="block.x"
@@ -266,6 +276,49 @@ const gradients = computed(() => {
   }, []);
 });
 
+const nodesDerivingColorFromIncomingLinks = computed(() => {
+  const nodeBlocksExpectingColorDerivation = nodeBlocks.value.filter((block) =>
+    shouldDeriveNodeColorFromIncomingLinks(block)
+  );
+  const subNodeDetails = [];
+
+  nodeBlocksExpectingColorDerivation.forEach((nodeBlock) => {
+    const nodesBasedOnIncomingLinks = [];
+    // Link ordering was reversed so that furthermost links are rendered on the top. Have to reverse it back to compute heights of node segments for appropriate links
+    linkPaths.value
+      .filter(({ link }) => link.target.id === nodeBlock.node.id)
+      .reverse()
+      .reduce((accumulatedHeight, currentLinkPath) => {
+        const targetNodeHeight =
+          currentLinkPath.link.target.y1 - currentLinkPath.link.target.y0;
+        const linkRatioOfSourceInTarget =
+          currentLinkPath.link.value / nodeBlock.node.value;
+        const linkHeightOfSourceInTarget =
+          linkRatioOfSourceInTarget * targetNodeHeight;
+
+        nodesBasedOnIncomingLinks.push({
+          x: nodeBlock.x,
+          y: nodeBlock.y + accumulatedHeight,
+          height: linkHeightOfSourceInTarget,
+          width: nodeBlock.width,
+          key: `node-block-${nodeBlock.node.id}-source-link-${currentLinkPath.link.source.id}`,
+          class: `lume-alluvial-group__node-block lume-fill--${
+            currentLinkPath.link.source.color || DEFAULT_COLOR
+          }`,
+        });
+
+        return accumulatedHeight + linkHeightOfSourceInTarget;
+      }, 0);
+
+    subNodeDetails.push({
+      id: nodeBlock.node.id,
+      subNodes: nodesBasedOnIncomingLinks,
+    });
+  });
+
+  return subNodeDetails;
+});
+
 function getLinkStroke(link: SankeyLink<SankeyNodeProps, SankeyLinkProps>) {
   return (
     options.value.gradient &&
@@ -299,6 +352,10 @@ function isLinkFocused(id: string) {
     highlightedElements.value.links.length > 0 &&
     highlightedElements.value.links.includes(id)
   );
+}
+
+function shouldDeriveNodeColorFromIncomingLinks(block: NodeBlock) {
+  return !block.node.color && block.node.deriveColorFromIncomingLinks;
 }
 
 function handleLinkMouseover(
@@ -335,6 +392,13 @@ function handleExternalHover(id: number | string) {
   }
 
   hoveredElement.value = element;
+}
+
+function getSubNodesDerivingColorFromIncomingLinks(nodeId: number | string) {
+  return (
+    nodesDerivingColorFromIncomingLinks.value.find(({ id }) => nodeId === id)
+      ?.subNodes ?? []
+  );
 }
 
 // Render nodes/paths whenever the SankeyGraph changes
