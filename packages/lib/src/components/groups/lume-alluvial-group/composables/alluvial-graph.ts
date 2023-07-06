@@ -30,11 +30,14 @@ export function useAlluvialGraph(
   const nodes: ComputedRef<
     Array<SankeyNode<SankeyNodeProps, SankeyLinkProps>>
   > = computed(() => {
-    return data.value?.[0].values.map(({ label, color, value }) => ({
-      label: label || value.toString(),
-      color,
-      id: value,
-    }));
+    return data.value?.[0].values.map(
+      ({ label, color, value, deriveColorFromIncomingLinks }) => ({
+        label: label || value.toString(),
+        color,
+        id: value,
+        deriveColorFromIncomingLinks,
+      })
+    );
   });
 
   const links: ComputedRef<

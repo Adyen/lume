@@ -16,12 +16,14 @@ interface AlluvialNodeTarget {
 
 export interface AlluvialNode extends DatasetValueObject {
   targets?: Array<AlluvialNodeTarget>;
+  deriveColorFromIncomingLinks?: boolean;
 }
 export interface SankeyNodeProps extends SankeyExtraProperties {
   id: number | string;
   label: string;
   color: Color;
   transitionValue?: number;
+  deriveColorFromIncomingLinks?: boolean;
 }
 
 export interface SankeyLinkProps extends SankeyExtraProperties {

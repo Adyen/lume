@@ -193,12 +193,13 @@ const DATASETS = {
           {
             label: 'G',
             value: 'G',
-            color: '05',
+            deriveColorFromIncomingLinks: true,
           },
           {
             label: 'H',
             value: 'H',
             color: 'royalblue',
+            deriveColorFromIncomingLinks: true,
           },
         ],
       },
