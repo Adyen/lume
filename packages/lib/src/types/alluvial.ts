@@ -1,3 +1,4 @@
+import { CurveFactory } from 'd3';
 import {
   SankeyGraph as D3SankeyGraph,
   SankeyLink as D3SankeyLink,
@@ -12,6 +13,7 @@ interface AlluvialNodeTarget {
   node: string;
   value: number;
   color?: Color;
+  curveFunction?: CurveFactory;
 }
 
 export interface AlluvialNode extends DatasetValueObject {
@@ -28,11 +30,12 @@ export interface SankeyLinkProps extends SankeyExtraProperties {
   color?: Color;
   x0?: number | undefined;
   x1?: number | undefined;
+  curveFunction?: CurveFactory;
 }
 
 export interface SankeyLink<
-  N extends SankeyNodeProps,
-  L extends SankeyLinkProps
+  N extends SankeyNodeProps = SankeyNodeProps,
+  L extends SankeyLinkProps = SankeyLinkProps
 > extends D3SankeyLink<SankeyNodeProps, SankeyLinkProps> {
   source: SankeyNode<N, L>;
   target: SankeyNode<N, L>;
