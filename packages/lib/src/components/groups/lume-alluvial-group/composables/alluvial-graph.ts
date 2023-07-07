@@ -45,12 +45,15 @@ export function useAlluvialGraph(
   > = computed(() => {
     return data.value?.[0].values
       .map((source) =>
-        source.targets?.map(({ node: target, value, color }) => ({
-          color,
-          source: source.value ?? source.label,
-          target,
-          value,
-        }))
+        source.targets?.map(
+          ({ node: target, value, color, curveFunction }) => ({
+            color,
+            curveFunction,
+            source: source.value ?? source.label,
+            target,
+            value,
+          })
+        )
       )
       .filter(Boolean)
       .flat();

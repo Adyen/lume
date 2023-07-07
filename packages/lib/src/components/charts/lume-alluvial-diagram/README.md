@@ -89,6 +89,37 @@ To generate a simple alluvial diagram with default settings, simply pass the `da
 | `options`        | `Options`                          | `undefined` | A set of chart options.                                                                                           |
 | `hoveredElement` | `number \| string`                 | `undefined` | The index of the hovered node or link. Can be used to hover programmatically. Set to `null` to reset hover state. |
 
+### Alluvial dataset
+
+The data provided to an Alluvial should be a single item array, and the values should be the alluvial nodes, and have a `targets` array, e.g.:
+
+```ts
+[
+  {
+    values: [
+      {
+        label: 'Dogs',
+        color: 'skyblue',
+        value: 'dogs', // value is treated as the Node
+        targets: [
+          { node: 'Lisbon shelter', value: 15 },
+          { node: 'Porto shelter', value: 42 },
+        ],
+      } as AlluvialNodeTarget,
+    ],
+  },
+];
+```
+
+Interface: `AlluvialNodeTarget`
+
+| Name            | Type           | Default     | Description                                                                                                                 |
+| --------------- | -------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `node`          | `string`       | Required    | The node ID (`value`) that this node is targetting.                                                                         |
+| `value`         | `number`       | Required    | The value coming from this node to its target.                                                                              |
+| `color`         | `Color`        | `undefined` | Color of the link to this target node.                                                                                      |
+| `curveFunction` | `CurveFactory` | `undefined` | A custom curve function for the link to this node. More information [here](https://github.com/d3/d3-shape/tree/main#curves) |
+
 ### Alluvial options
 
 Interface: `AlluvialDiagramOptions`

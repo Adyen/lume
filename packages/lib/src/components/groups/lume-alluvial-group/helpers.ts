@@ -1,3 +1,4 @@
+import { link as d3Link } from 'd3';
 import { sankeyLinkHorizontal, SankeyNode } from 'd3-sankey';
 
 import { DEFAULT_COLOR } from '@/utils/colors';
@@ -106,17 +107,31 @@ export function getNodeBlockAttributes(
   }));
 }
 
+function horizontalSource(link: SankeyLink): [number, number] {
+  return [link.source.x1, link.y0];
+}
+
+function horizontalTarget(link: SankeyLink): [number, number] {
+  return [link.target.x0, link.y1];
+}
+
+function getCurveFunction(link: SankeyLink) {
+  if (!link.curveFunction) return sankeyLinkHorizontal();
+  return d3Link<SankeyLink, [number, number]>(link.curveFunction)
+    .source(horizontalSource)
+    .target(horizontalTarget);
+}
+
 export function getLinkPathAttributes(
-  links: Array<SankeyLink<SankeyNodeProps, SankeyLinkProps>>
+  links: Array<SankeyLink>
 ): Array<LinkPath> {
-  const pathDirection = sankeyLinkHorizontal();
   return links.map((link) => ({
     id: generateLinkId(link),
     color:
       link.color ||
       (link.source as SankeyNode<SankeyNodeProps, SankeyLinkProps>)?.color ||
       DEFAULT_COLOR,
-    d: pathDirection(link),
+    d: getCurveFunction(link)(link),
     strokeWidth: Math.max(1, link.width),
     link,
   }));

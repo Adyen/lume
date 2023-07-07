@@ -1,3 +1,5 @@
+import { curveStep } from 'd3';
+
 const DATASETS = {
   Basic: {
     data: [
@@ -269,6 +271,36 @@ const DATASETS = {
   Empty: {
     data: [{ values: [] }],
     labels: [],
+  },
+  CustomCurveFunction: {
+    data: [
+      {
+        values: [
+          {
+            label: 'C',
+            color: 'darkteal',
+            value: 'C',
+            targets: [{ node: 'D', value: 6, curveFunction: curveStep }],
+          },
+          {
+            label: 'A',
+            color: 'violet',
+            value: 'A',
+            targets: [{ node: 'D', value: 15 }],
+          },
+          {
+            label: 'B',
+            color: 'royalblue',
+            value: 'B',
+            targets: [{ node: 'D', value: 20 }],
+          },
+          {
+            label: 'D',
+            value: 'D',
+          },
+        ],
+      },
+    ],
   },
 };
 

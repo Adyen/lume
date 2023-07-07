@@ -93,3 +93,9 @@ Empty.args = {
   ...withSizeArgs(),
   ...DATASETS.Empty,
 };
+
+export const CustomCurveFunction = Template.bind({});
+CustomCurveFunction.args = {
+  ...withSizeArgs(540, 220),
+  ...DATASETS.CustomCurveFunction,
+};
