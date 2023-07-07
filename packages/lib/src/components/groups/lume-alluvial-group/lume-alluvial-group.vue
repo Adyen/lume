@@ -111,6 +111,7 @@
             )"
             v-bind="nodeBlock"
             :key="nodeBlock.key"
+            data-j-alluvial-sub-nodes
           />
         </template>
         <rect
