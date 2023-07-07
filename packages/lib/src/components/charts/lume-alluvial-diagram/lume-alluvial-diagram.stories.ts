@@ -80,6 +80,14 @@ MultipleLevels.args = {
   ...DATASETS.MultipleLevels,
 };
 
+export const MultipleLevelsWithColorDerivationFromIncomingLinks = Template.bind(
+  {}
+);
+MultipleLevelsWithColorDerivationFromIncomingLinks.args = {
+  ...withSizeArgs(),
+  ...DATASETS.MultipleLevelsWithColorDerivationFromIncomingLinks,
+};
+
 export const Empty = Template.bind({});
 Empty.args = {
   ...withSizeArgs(),

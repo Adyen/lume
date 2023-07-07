@@ -75,6 +75,25 @@ describe('lume-alluvial-diagram.vue', () => {
     expect(wrapper.find('defs').exists()).toBe(true);
   });
 
+  test('mounts with color derivation from incoming links', async () => {
+    const wrapper = mount(LumeAlluvialDiagram, {
+      props: {
+        data: DATASETS.MultipleLevelsWithColorDerivationFromIncomingLinks.data,
+        options: {
+          nodePadding: 100,
+        },
+      },
+    });
+
+    await wrapper.setProps({
+      options: {
+        nodePadding: 200,
+      },
+    });
+
+    expect(wrapper.findAll('[data-j-alluvial-sub-nodes]')).toHaveLength(4);
+  });
+
   // should be tested in the scope of alluvial-graph
   test.skip('should throw error in case of a dataset with circular links', async () => {
     const values = [
