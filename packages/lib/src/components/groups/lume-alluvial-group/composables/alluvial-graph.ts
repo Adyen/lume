@@ -3,6 +3,7 @@ import { SankeyLink as D3SankeyLink, sankey, SankeyNode } from 'd3-sankey';
 
 import { AlluvialDiagramOptions } from '@/composables/options';
 
+import { DEFAULT_COLOR } from '@/utils/colors';
 import { Errors, error as logError } from '@/utils/errors';
 import { getAlluvialNodeId } from '../helpers';
 
@@ -34,6 +35,7 @@ export function useAlluvialGraph(
       ({ label, color, value, deriveColorFromIncomingLinks }) => ({
         label: label || value.toString(),
         color,
+        fallbackColor: color || DEFAULT_COLOR,
         id: value,
         deriveColorFromIncomingLinks,
       })

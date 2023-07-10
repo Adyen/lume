@@ -24,9 +24,9 @@
       <!-- Gradient defs -->
       <defs v-if="options.gradient">
         <linearGradient
-          v-for="gradient in gradients"
-          :id="`${chartID}_${gradient.source}:${gradient.target}`"
-          :key="`${gradient.source}:${gradient.target}`"
+          v-for="(gradient, id) in gradients"
+          :id="`${chartID}_${id}`"
+          :key="id"
           gradientUnits="userSpaceOnUse"
           :x1="gradient.x1"
           :x2="gradient.x2"
@@ -117,7 +117,7 @@
         <rect
           v-else
           class="lume-alluvial-group__node-block"
-          :class="`lume-fill--${block.node.color || DEFAULT_COLOR}`"
+          :class="`lume-fill--${block.node.color || block.node.fallbackColor}`"
           :x="block.x"
           :y="block.y"
           :height="block.height"
@@ -165,9 +165,11 @@ import { useAlluvialGraph } from './composables/alluvial-graph';
 import { useAlluvialHover } from './composables/alluvial-hover';
 
 import { DEFAULT_COLOR } from '@/utils/colors';
+import { Color } from '@/utils/constants';
 import { warn, Warnings } from '@/utils/warnings';
 import { GHOST_STROKE_WIDTH_OFFSET, NODE_HEADER_PADDING } from './constants';
 import {
+  generateLinkId,
   getLabelSizes,
   getLinkById,
   getLinkPathAttributes,
@@ -259,22 +261,18 @@ const computedNodeHeaderPadding = computed(
 const gradients = computed(() => {
   if (!options.value.gradient || !graph.value) return;
 
-  return graph.value.links.reduce((gradientArray, { source, target }) => {
-    if (
-      !gradientArray.find(
-        (gradient) =>
-          gradient.source === source.color && gradient.target === target.color
-      )
-    ) {
-      gradientArray.push({
-        source: source.color,
-        target: target.color,
-        x1: source.x1,
-        x2: target.x0,
-      });
-    }
-    return gradientArray;
-  }, []);
+  return graph.value.links.reduce((acc, link) => {
+    acc[generateLinkId(link)] = {
+      source: link.source.color || link.source.fallbackColor,
+      target: link.target.color || link.target.fallbackColor,
+      x1: link.source.x1,
+      x2: link.target.x0,
+    };
+    return acc;
+  }, {}) as Record<
+    string,
+    { source: Color; target: Color; x1: number; x2: number }
+  >;
 });
 
 const nodesDerivingColorFromIncomingLinks = computed(() => {
@@ -321,10 +319,7 @@ const nodesDerivingColorFromIncomingLinks = computed(() => {
 });
 
 function getLinkStroke(link: SankeyLink<SankeyNodeProps, SankeyLinkProps>) {
-  return (
-    options.value.gradient &&
-    `url('#${chartID}_${link.source.color}:${link.target.color}')`
-  );
+  return options.value.gradient && `url('#${chartID}_${generateLinkId(link)}')`;
 }
 
 function isNodeFaded(id: string | number) {
