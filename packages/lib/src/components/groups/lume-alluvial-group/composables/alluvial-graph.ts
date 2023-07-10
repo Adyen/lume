@@ -44,11 +44,12 @@ export function useAlluvialGraph(
 
   const links: ComputedRef<
     Array<D3SankeyLink<SankeyNodeProps, SankeyLinkProps>>
-  > = computed(() => {
-    return data.value?.[0].values
+  > = computed(() =>
+    data.value?.[0].values
       .map((source) =>
         source.targets?.map(
           ({ node: target, value, color, curveFunction }) => ({
+            id: `${source.value}:${target}`,
             color,
             curveFunction,
             source: source.value ?? source.label,
@@ -58,8 +59,8 @@ export function useAlluvialGraph(
         )
       )
       .filter(Boolean)
-      .flat();
-  });
+      .flat()
+  );
 
   const layout = computed(() => {
     return sankey<SankeyNodeProps, SankeyLinkProps>()

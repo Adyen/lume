@@ -29,24 +29,16 @@ export function getAlluvialNodeId(
   return node.id ?? node.label;
 }
 
-export function generateLinkId(
-  link: SankeyLink<SankeyNodeProps, SankeyLinkProps>
-) {
-  return link.source.id + ':' + link.target.id;
-}
-
 export function getNodeById(id: number | string, graph: SankeyGraph) {
   return graph.nodes.find((node) => node.id === id);
 }
 
 export function getLinkById(id: string, graph: SankeyGraph) {
-  return graph.links.find((link) => generateLinkId(link) === id);
+  return graph.links.find((link) => link.id === id);
 }
 
 export function isSankeyNode(
-  element:
-    | SankeyNode<SankeyNodeProps, unknown>
-    | SankeyLink<SankeyNodeProps, unknown>
+  element: SankeyNode<SankeyNodeProps, unknown> | SankeyLink
 ): element is SankeyNode<SankeyNodeProps, unknown> {
   return Boolean(
     (element as SankeyNode<unknown, unknown>).sourceLinks &&
@@ -126,7 +118,7 @@ export function getLinkPathAttributes(
   links: Array<SankeyLink>
 ): Array<LinkPath> {
   return links.map((link) => ({
-    id: generateLinkId(link),
+    id: link.id,
     color:
       link.color ||
       (link.source as SankeyNode<SankeyNodeProps, SankeyLinkProps>)?.color ||

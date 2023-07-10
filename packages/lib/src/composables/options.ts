@@ -8,6 +8,7 @@ import { mergeDeep } from '@/utils/helpers';
 import {
   GetHighlightedElementsFunction,
   SankeyLink,
+  SankeyLinkProps,
   SankeyNodeProps,
 } from '@/types/alluvial';
 import { ColorPalette } from '@/types/dataset';
@@ -79,8 +80,8 @@ export interface AlluvialDiagramOptions extends ChartOptions {
   ) => number | undefined | null;
   nodeWidth?: number;
   linkSort?: (
-    a: SankeyLink<SankeyNodeProps, unknown>,
-    b: SankeyLink<SankeyNodeProps, unknown>
+    a: SankeyLink<SankeyNodeProps, SankeyLinkProps>,
+    b: SankeyLink<SankeyNodeProps, SankeyLinkProps>
   ) => number | undefined | null;
   switchText?: boolean;
   valueFormat?: Format;
