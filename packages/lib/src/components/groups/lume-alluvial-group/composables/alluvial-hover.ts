@@ -3,12 +3,7 @@ import { SankeyNode } from 'd3-sankey';
 
 import { AlluvialDiagramOptions } from '@/composables/options';
 
-import {
-  generateLinkId,
-  getAlluvialNodeId,
-  isSankeyNode,
-  updateNode,
-} from '../helpers';
+import { getAlluvialNodeId, isSankeyNode, updateNode } from '../helpers';
 
 import {
   GetHighlightedElementsFunction,
@@ -29,7 +24,10 @@ function getSourceNodes(
   if (node.targetLinks) {
     node.targetLinks.forEach(({ source, value }) => {
       group[(source as SankeyNode<SankeyNodeProps, unknown>).id] = value;
-      getSourceNodes(source as SankeyNode<SankeyNodeProps, unknown>, group);
+      getSourceNodes(
+        source as SankeyNode<SankeyNodeProps, SankeyLinkProps>,
+        group
+      );
     });
   }
 
@@ -45,7 +43,10 @@ function getTargetNodes(
   if (node.sourceLinks) {
     node.sourceLinks.forEach(({ target, value }) => {
       group[(target as SankeyNode<SankeyNodeProps, unknown>).id] = value;
-      getTargetNodes(target as SankeyNode<SankeyNodeProps, unknown>, group);
+      getTargetNodes(
+        target as SankeyNode<SankeyNodeProps, SankeyLinkProps>,
+        group
+      );
     });
   }
 
@@ -58,7 +59,7 @@ function getLinkIdsFromNodes(
 ): Array<string> {
   return graph.links.reduce((array, link) => {
     if (link.source.id in nodes && link.target.id in nodes) {
-      array.push(generateLinkId(link));
+      array.push(link.id);
     }
     return array;
   }, []);
@@ -106,7 +107,7 @@ const getClosestHighlightedElements: GetHighlightedElementsFunction = (
         },
         { [getAlluvialNodeId(element)]: element.value }
       ),
-      links: links.map((l) => generateLinkId(l)),
+      links: links.map(({ id }) => id),
     };
   }
 
@@ -118,7 +119,7 @@ const getClosestHighlightedElements: GetHighlightedElementsFunction = (
         element.source as SankeyNode<SankeyNodeProps, SankeyLinkProps>
       ).value,
     },
-    links: [generateLinkId(element)],
+    links: [element.id],
   };
 };
 

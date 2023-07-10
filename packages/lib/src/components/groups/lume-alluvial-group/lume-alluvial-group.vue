@@ -179,7 +179,6 @@ import { Color } from '@/utils/constants';
 import { warn, Warnings } from '@/utils/warnings';
 import { GHOST_STROKE_WIDTH_OFFSET, NODE_HEADER_PADDING } from './constants';
 import {
-  generateLinkId,
   getLabelSizes,
   getLinkById,
   getLinkPathAttributes,
@@ -272,7 +271,7 @@ const gradients = computed(() => {
   if (!options.value.gradient || !graph.value) return;
 
   return graph.value.links.reduce((acc, link) => {
-    acc[generateLinkId(link)] = {
+    acc[link.id] = {
       source: link.source.color || link.source.fallbackColor,
       target: link.target.color || link.target.fallbackColor,
       x1: link.source.x1,
@@ -329,7 +328,7 @@ const nodesDerivingColorFromIncomingLinks = computed(() => {
 });
 
 function getLinkStroke(link: SankeyLink<SankeyNodeProps, SankeyLinkProps>) {
-  return options.value.gradient && `url('#${chartID}_${generateLinkId(link)}')`;
+  return options.value.gradient && `url('#${chartID}_${link.id}')`;
 }
 
 function isNodeFaded(id: string | number) {

@@ -31,6 +31,7 @@ export interface SankeyNodeProps extends SankeyExtraProperties {
 
 export interface SankeyLinkProps extends SankeyExtraProperties {
   color?: Color;
+  id: string;
   x0?: number | undefined;
   x1?: number | undefined;
   curveFunction?: CurveFactory;
