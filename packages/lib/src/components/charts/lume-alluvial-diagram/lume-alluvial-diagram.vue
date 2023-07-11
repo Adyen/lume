@@ -8,7 +8,17 @@
       <lume-alluvial-group
         v-bind="groupProps"
         :hovered-element-id="hoveredElement"
-      />
+      >
+        <template
+          v-for="(_, name) in groupSlots"
+          #[name]="slotData"
+        >
+          <slot
+            :name="name"
+            v-bind="slotData || {}"
+          />
+        </template>
+      </lume-alluvial-group>
     </template>
     <template
       v-for="(_, name) in slots"
@@ -31,7 +41,11 @@ import LumeAlluvialGroup from '@/components/groups/lume-alluvial-group';
 import { withDiagramProps } from '@/composables/props';
 import { AlluvialDiagramOptions, useOptions } from '@/composables/options';
 
-import { excludeGroups, singleDatasetValidator } from '@/utils/helpers';
+import {
+  excludeChartSlots,
+  excludeGroups,
+  singleDatasetValidator,
+} from '@/utils/helpers';
 import { options as defaultOptions } from './defaults';
 
 const props = defineProps({
@@ -39,6 +53,7 @@ const props = defineProps({
 });
 
 const slots = excludeGroups(useSlots());
+const groupSlots = excludeChartSlots(useSlots());
 
 const { options } = toRefs(props);
 

@@ -10,6 +10,16 @@ import {
 import { Scale } from '@/composables/scales';
 import { Slots } from 'vue/types/v3-setup-context';
 
+// Slots from <lume-chart>
+const CHART_SLOTS = [
+  'controls',
+  'legend',
+  'axes',
+  'groups',
+  'tooltip',
+  'tooltip-content',
+];
+
 export function isProd() {
   return process.env.NODE_ENV === 'production';
 }
@@ -222,6 +232,19 @@ export function excludeGroups(slots: Slots) {
     );
   }
   return slots;
+}
+
+/**
+ * @param slots
+ * @returns all slots except the ones present in LumeChart
+ */
+export function excludeChartSlots(slots: Slots) {
+  return Object.assign(
+    {},
+    ...Object.keys(slots).map((key) =>
+      CHART_SLOTS.includes(key) ? {} : { [key]: slots[key] }
+    )
+  );
 }
 
 /**

@@ -175,3 +175,13 @@ interface HighlightedElements {
 ```
 
 **Note:** Link IDs follow this structure: `{SOURCE_NODE_ID} + ':' + {TARGET_NODE_ID}`
+
+### Slot props
+
+#### `node-text-{NODE_ID}`
+
+Available for every node in the diagram. `NODE_ID` is the `value` provided in the dataset.
+
+| Name   | Type                                           | Description    |
+| ------ | ---------------------------------------------- | -------------- |
+| `node` | `SankeyNode<SankeyNodeProps, SankeyLinkProps>` | The node data. |
