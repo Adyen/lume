@@ -38,7 +38,7 @@ $lume-alluvial-link-opacity-focused: 0.5 !default;
     fill: $lume-alluvial-text-color;
     transition: opacity $lume-transition-time-long;
 
-    &--right {
+    &--left {
       text-anchor: end;
     }
   }

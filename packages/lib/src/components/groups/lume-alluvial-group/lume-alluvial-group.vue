@@ -127,26 +127,27 @@
           ref="nodeTextRefs"
           class="lume-alluvial-group__node-text lume-typography--caption"
           :class="{
-            'lume-alluvial-group__node-text--right': block.node.depth === 0,
+            'lume-alluvial-group__node-text--left': block.node.depth === 0,
           }"
           :transform="`translate(${block.textTransform.x},${block.textTransform.y})`"
           :data-id="block.node.id"
         >
-          <tspan
-            class="lume-alluvial-group__node-title"
-            v-text="block.node.label"
-          />
-          <tspan
-            class="lume-alluvial-group__node-value"
-            x="0"
-            dy="1.2em"
-            v-text="
-              formatValue(
-                block.node.transitionValue || block.node.value,
-                block.node.value
-              )
-            "
-          />
+          <slot
+            :name="`node-text-${block.node.id}`"
+            :node="block.node"
+          >
+            <lume-alluvial-node-label>
+              {{ block.node.label }}
+            </lume-alluvial-node-label>
+            <lume-alluvial-node-value>
+              {{
+                formatValue(
+                  block.node.transitionValue || block.node.value,
+                  block.node.value
+                )
+              }}
+            </lume-alluvial-node-value>
+          </slot>
         </text>
       </g>
     </g>
@@ -155,6 +156,9 @@
 
 <script setup lang="ts">
 import { computed, inject, PropType, ref, toRefs, watch } from 'vue';
+
+import LumeAlluvialNodeLabel from './components/lume-alluvial-node-label';
+import LumeAlluvialNodeValue from './components/lume-alluvial-node-value';
 
 import { useFormat } from '@/composables/format';
 import { withGroupProps } from '@/composables/group-props';
