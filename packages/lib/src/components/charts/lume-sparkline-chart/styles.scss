@@ -6,6 +6,8 @@ $lume-sparkline-area-opacity: 0.3333 !default;
   &__area {
     pointer-events: none;
     opacity: $lume-sparkline-area-opacity;
-    transition: all $lume-transition-time-long ease;
+    &--transition {
+      transition: all $lume-transition-time-long ease;
+    }
   }
 }
