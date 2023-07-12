@@ -10,6 +10,9 @@
         v-if="allOptions.showArea"
         :class="[
           'sparkline-chart__area',
+          options.withTransition !== false
+            ? 'sparkline-chart__area--transition'
+            : '',
           `lume-fill--${areaColor || computedColor}`,
           'lume-fill--faded',
         ]"

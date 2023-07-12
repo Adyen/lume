@@ -51,6 +51,9 @@ describe('lume-sparkline.vue', () => {
     expect(areaPath.exists()).toBe(true);
     expect(areaPath.classes().includes('lume-fill--faded')).toBe(true);
     expect(areaPath.classes().includes('lume-fill--skyblue')).toBe(true);
+    expect(
+      areaPath.classes().includes('sparkline-chart__area--transition')
+    ).toBe(true);
 
     expect(wrapper.vm.$data).not.toHaveProperty('areaPathDefinition');
   });
@@ -90,5 +93,29 @@ describe('lume-sparkline.vue', () => {
     expect(areaPathDefinition).toBeTruthy();
     expect(areaPathDefinition(xScale, null)).toBeFalsy();
     expect(areaPathDefinition(xScale, yScale)).toBeTruthy();
+  });
+
+  test('transition to be disabled when the withTransition option is set to false', async () => {
+    const wrapper = sparklineChartTestSuiteFactory({
+      data,
+      labels,
+      options: { ...defaultOptions, withTransition: false },
+      xScale,
+    }).run().wrapper;
+
+    const el = wrapper.findComponent(LumeSparkline);
+
+    // We need to trigger a resize for the computed properties to fall into shape
+    const triggerElement = wrapper.find('[data-j-chart-container]');
+    expect(triggerElement.exists()).toBe(true);
+    wrapper.find('[data-j-chart-container]').trigger('resize');
+    await nextTick();
+
+    expect(el.exists()).toBe(true);
+
+    const areaPath = el.find('[data-j-sparkline__area]');
+    expect(
+      areaPath.classes().includes('sparkline-chart__area--transition')
+    ).toBe(false);
   });
 });
