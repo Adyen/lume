@@ -182,6 +182,7 @@ interface HighlightedElements {
 
 Available for every node in the diagram. `NODE_ID` is the `value` provided in the dataset.
 
-| Name   | Type                                           | Description    |
-| ------ | ---------------------------------------------- | -------------- |
-| `node` | `SankeyNode<SankeyNodeProps, SankeyLinkProps>` | The node data. |
+| Name    | Type                                           | Description                 |
+| ------- | ---------------------------------------------- | --------------------------- |
+| `node`  | `SankeyNode<SankeyNodeProps, SankeyLinkProps>` | The node data.              |
+| `value` | `number \| string`                             | The node's formatted value. |
