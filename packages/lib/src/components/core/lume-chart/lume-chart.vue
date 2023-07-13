@@ -159,7 +159,7 @@
       <!-- x axis title -->
       <h3
         v-if="showXAxisTitle"
-        class="lume-chart__axis-title lume-chart__axis-title--centered lume-axis-title"
+        class="lume-chart__axis-title lume-chart__axis-title--centered lume-axis-title lume-typography--body"
       >
         {{ xAxisTitle }}
       </h3>
