@@ -135,6 +135,12 @@
           <slot
             :name="`node-text-${block.node.id}`"
             :node="block.node"
+            :value="
+              formatValue(
+                block.node.transitionValue || block.node.value,
+                block.node.value
+              )
+            "
           >
             <lume-alluvial-node-label>
               {{ block.node.label }}
