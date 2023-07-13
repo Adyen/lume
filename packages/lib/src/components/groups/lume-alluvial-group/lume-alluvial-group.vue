@@ -123,7 +123,7 @@
           :height="block.height"
           :width="block.width"
         />
-        <text
+        <g
           ref="nodeTextRefs"
           class="lume-alluvial-group__node-text lume-typography--caption"
           :class="{
@@ -154,7 +154,7 @@
               }}
             </lume-alluvial-node-value>
           </slot>
-        </text>
+        </g>
       </g>
     </g>
   </g>

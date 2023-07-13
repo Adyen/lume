@@ -1,7 +1,7 @@
 <template>
-  <tspan class="lume-alluvial-group__node-label">
+  <text class="lume-alluvial-group__node-label">
     <slot />
-  </tspan>
+  </text>
 </template>
 
 <style lang="scss" scoped>
