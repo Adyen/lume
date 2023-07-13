@@ -1,6 +1,6 @@
 {
   "name": "@adyen/lume-vue3",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "",
   "type": "module",
   "module": "dist/index.js",
