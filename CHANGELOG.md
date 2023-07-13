@@ -2,11 +2,19 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.7.0](https://github.com/Adyen/lume/compare/v0.6.1...v0.7.0)
+
+- ✨ Add support for Alluvial gradient; Add focused state [`b5216da`](https://github.com/Adyen/lume/commit/b5216da755e118e72350f74ef91a5d75049ce7e4)
+- ✨ Include node text slots in Alluvial [`1747e71`](https://github.com/Adyen/lume/commit/1747e7180b27ccdecfc461e2284ad5ff9832af8d)
+- ✨ Allow for custom curve functions in Alluvial links [`3cc5de1`](https://github.com/Adyen/lume/commit/3cc5de16a3412ff9d7717415f6376a5a2546c8c1)
+
 #### [v0.6.1](https://github.com/Adyen/lume/compare/v0.6.0...v0.6.1)
+
+> 20 June 2023
 
 - 🐛 Fix padding handling for all band scales [`8b89cfa`](https://github.com/Adyen/lume/commit/8b89cfa574c53a65cbdd56ce3b74457e181d054a)
 - 🐛 Fix tooltip styles and components exports [`6953100`](https://github.com/Adyen/lume/commit/695310038a66f4a893e20d3c34534d07c6b1897e)
-- 🔖 Release v0.6.0 [`7d24594`](https://github.com/Adyen/lume/commit/7d2459442ada4ae44de45a28f4e626eaddcb3002)
+- 🔖 Release v0.6.1 [`dcba97f`](https://github.com/Adyen/lume/commit/dcba97f7e8b4d8086e703359bd5f0e2f951ccc40)
 
 #### [v0.6.0](https://github.com/Adyen/lume/compare/v0.5.3...v0.6.0)
 
