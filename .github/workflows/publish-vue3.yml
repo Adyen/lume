@@ -28,5 +28,5 @@ jobs:
 
       - name: Publish to npm registry
         run: |
-          npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_ADYEN_LUME_TOKEN }}
+          npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_ADYEN_LUME_VUE3_TOKEN }}
           npm publish --access=restricted --workspace=packages/vue3

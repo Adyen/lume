@@ -29,7 +29,12 @@ jobs:
       - name: Build the package
         run: npm run build
 
-      - name: Publish to npm registry
+      - name: Publish Vue 2 package to npm registry
         run: |
           npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_ADYEN_LUME_TOKEN }}
-          npm publish --access=restricted --workspace=packages/vue2 --workspace=packages/vue3
+          npm publish --access=restricted --workspace=packages/vue2
+
+      - name: Publish Vue 3 package to npm registry
+        run: |
+          npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_ADYEN_LUME_VUE3_TOKEN }}
+          npm publish --access=restricted --workspace=packages/vue3
