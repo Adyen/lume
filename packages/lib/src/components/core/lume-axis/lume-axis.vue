@@ -138,6 +138,7 @@ const emit = defineEmits<{
     p: { index?: number; value: string | number; event: MouseEvent }
   ): void;
   (e: 'mouseleave', p: MouseEvent): void;
+  (e: 'lume__internal--axis-size', p: number);
 }>();
 
 const { scale, containerSize, hoveredIndex, options, orientation } =
@@ -213,6 +214,18 @@ const isHovering = computed(
     allOptions.value.withHover && shouldHover.value && hoveredIndex.value > -1
 );
 
+const axisSize = computed(() =>
+  computedType.value === 'x'
+    ? // If x axis, get the tick height
+    Math.max(
+      ...(tickRefs.value || []).map((tick) => tick.ref.getBBox().height + 16)
+    )
+    : // If y axis, get the tick width
+    Math.max(
+      ...(tickRefs.value || []).map((tick) => tick.ref.getBBox().width + 16)
+    )
+);
+
 function formatTick(tick: number | string) {
   const { showTicks } = allOptions.value;
 
@@ -281,6 +294,8 @@ watch(scale, init, { flush: 'sync', immediate: true });
 watch(scale, setTicks, { immediate: true });
 // Re-render after `tickRefs` is defined (to grab text width)
 watch(tickRefs, setTicks);
+
+watch(axisSize, (size) => emit('lume__internal--axis-size', size));
 
 onMounted(() => svgCheck(root.value));
 </script>

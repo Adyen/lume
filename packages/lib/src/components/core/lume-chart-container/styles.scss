@@ -26,10 +26,4 @@ $container-min-height: 224px;
       background-color: transparent;
     }
   }
-
-  &__group {
-    transition-property: transform;
-    transition-timing-function: ease-in-out;
-    transition-duration: $lume-transition-time-long;
-  }
 }

@@ -92,7 +92,16 @@ export enum LegacyColors {
 
 export type Color = Colors | DivergentColors | LegacyColors;
 
-export type Margins = {
+export type Margins =
+  | 'auto'
+  | {
+      top: number | 'auto';
+      right: number | 'auto';
+      bottom: number | 'auto';
+      left: number | 'auto';
+    };
+
+export type InternalMargins = {
   top: number;
   right: number;
   bottom: number;
@@ -112,21 +121,6 @@ export const BAR_TYPES: Record<string, BarType> = {
   SINGLE: 'single',
   GROUPED: 'grouped',
   STACKED: 'stacked',
-};
-
-export const DEFAULT_MARGINS = {
-  VERTICAL: {
-    top: 16,
-    right: 0,
-    bottom: 28,
-    left: 24,
-  } as Margins,
-  HORIZONTAL: {
-    top: 16,
-    right: 0,
-    bottom: 28,
-    left: 24,
-  } as Margins,
 };
 
 export const NO_DATA = 'No data';

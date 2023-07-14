@@ -2,7 +2,7 @@
   <lume-chart-container
     :id="`lume-chart_${chartID}`"
     ref="chartContainer"
-    :margins="allOptions.margins"
+    :margins="computedMargins"
     :container-size="containerSize"
     :no-min-size="allOptions.noMinSize"
     :transparent-background="allOptions.transparentBackground"
@@ -91,6 +91,7 @@
           @click="handleAxisClick"
           @mouseenter="handleAxisMouseenter"
           @mouseleave="emit('axis-mouseleave')"
+          @lume__internal--axis-size="xAxisHeight = $event"
         />
         <lume-axis
           type="y"
@@ -103,6 +104,7 @@
           @click="handleAxisClick"
           @mouseenter="handleAxisMouseenter"
           @mouseleave="emit('axis-mouseleave')"
+          @lume__internal--axis-size="yAxisWidth = $event"
         />
       </slot>
 
@@ -261,6 +263,12 @@ import {
 } from '@/composables/tooltip';
 
 import { ORIENTATIONS, TOOLTIP_ANCHOR_RADIUS } from '@/utils/constants';
+import {
+  calculateMarginBottom,
+  calculateMarginLeft,
+  calculateMarginRight,
+  calculateMarginTop,
+} from '@/utils/margins';
 import { warn, Warnings } from '@/utils/warnings';
 import { ChartType, Data } from '@/types/dataset';
 import { ChartEmits } from '@/types/events';
@@ -287,6 +295,9 @@ const tooltipAnchor = ref<Array<SVGCircleElement>>(null);
 const chartContainer = ref<InstanceType<typeof LumeChartContainer>>(null);
 const tooltipAnchorAttributes = ref<Array<AnchorAttributes>>([]);
 
+const xAxisHeight = ref<number>(0);
+const yAxisWidth = ref<number>(0);
+
 const { allOptions } = useOptions<ChartOptions>(options);
 
 const { internalData, computedLabels, containerSize, updateSize, chartID } =
@@ -299,6 +310,13 @@ const { xScale, yScale } = useBaseScales(
   orientation,
   allOptions
 );
+
+const computedMargins = computed(() => ({
+  top: calculateMarginTop(allOptions.value.margins),
+  right: calculateMarginRight(allOptions.value.margins),
+  bottom: calculateMarginBottom(allOptions.value.margins, xAxisHeight.value),
+  left: calculateMarginLeft(allOptions.value.margins, yAxisWidth.value),
+}));
 
 const computedXScale = computed<Scale>(() => {
   if (!props.xScale) return xScale.value;

@@ -1,4 +1,4 @@
-import { DEFAULT_MARGINS } from '@/utils/constants';
+import { DEFAULT_MARGINS } from '@/utils/margins';
 
 export const options = {
   xAxisOptions: {},
