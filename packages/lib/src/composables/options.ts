@@ -78,6 +78,7 @@ export interface AlluvialDiagramOptions extends ChartOptions {
     a: SankeyLink<SankeyNodeProps, unknown>,
     b: SankeyLink<SankeyNodeProps, unknown>
   ) => number | undefined | null;
+  switchText?: boolean;
   valueFormat?: Format;
 }
 

@@ -135,6 +135,7 @@ Interface: `AlluvialDiagramOptions`
 | nodeSort            | `(a: SankeyNode, b: SankeyNode) => number`                                | Defines the node sort method. [Read more](https://github.com/d3/d3-sankey#sankey_nodeSort)                                                                                    |
 | nodeWidth           | `number`                                                                  | Sets the node block width.                                                                                                                                                    |
 | linkSort            | `(a: SankeyLink, b: SankeyLink) => number`                                | Defines the link sort method. [Read more](https://github.com/d3/d3-sankey#sankey_linkSort)                                                                                    |
+| switchText          | `boolean`                                                                 | Controls whether the node label/value order should be switched (`true` makes the value be displayed first.)                                                                   |
 | valueFormat         | `string \| (currentValue: number, baseValue: number) => number \| string` | A format specifier string for [d3-format](https://github.com/d3/d3-format) or a formatting function. The function receives the contextual node value and the base node value. |
 
 #### Highlighted elements
