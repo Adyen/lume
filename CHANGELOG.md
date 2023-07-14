@@ -2,11 +2,18 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.8.0](https://github.com/Adyen/lume/compare/v0.7.1...v0.8.0)
+
+- ✨ Add option to switch order of Alluvial labels/values [`3322cf2`](https://github.com/Adyen/lume/commit/3322cf21ce2681f5c8d172af1b42eab34c8b09e7)
+- 🔖 Release v0.7.1 [`a2d400c`](https://github.com/Adyen/lume/commit/a2d400c3762d83f66f05e36c75fdeb3cb0206cc3)
+
 #### [v0.7.1](https://github.com/Adyen/lume/compare/v0.7.0...v0.7.1)
 
+> 13 July 2023
+
 - 🔖 Release v0.7.0 [`a8d1193`](https://github.com/Adyen/lume/commit/a8d11934a85f8c6f7fef91d8fb0452b70adb6487)
+- 🔖 Release v0.7.1 [`252342a`](https://github.com/Adyen/lume/commit/252342af55ea24b961afb45c33eb72fda9fbd4d3)
 - 🐛 Add formatted value to Alluvial node slot [`f164c8b`](https://github.com/Adyen/lume/commit/f164c8b996cc07e61adca28800bfbbe9a49e316b)
-- 🐛 Change &lt;tex&gt;t tag to &lt;g&gt; to allow better customization [`57783a5`](https://github.com/Adyen/lume/commit/57783a5bcad448907db3ab4a65d1259926750bbd)
 
 #### [v0.7.0](https://github.com/Adyen/lume/compare/v0.6.1...v0.7.0)
 
