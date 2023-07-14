@@ -1,5 +1,5 @@
 import LineBarChart from './line-bar-chart.vue';
-import { DEFAULT_MARGINS } from '@/utils/constants';
+import { DEFAULT_MARGINS } from '@/utils/margins';
 
 export default {
   title: 'Playground/Line+bar chart',

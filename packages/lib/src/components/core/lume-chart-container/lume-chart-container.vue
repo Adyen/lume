@@ -22,7 +22,7 @@
       @mouseleave="emit('mouseleave', $event)"
     >
       <g
-        :transform="`translate(${computedMargins.left}, ${computedMargins.top})`"
+        :transform="`translate(${margins.left}, ${margins.top})`"
         class="lume-chart-container__group"
         data-j-chart-container__group
       >
@@ -37,23 +37,16 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ComputedRef, PropType, ref, toRefs, watchEffect } from 'vue';
+import { computed, PropType, ref, toRefs, watchEffect } from 'vue';
 
 import { useResizeObserver } from '@/composables/resize';
-import { Margins } from '@/utils/constants';
+import { InternalMargins } from '@/utils/constants';
 import { ContainerSize } from '@/types/size';
-
-const BASE_MARGINS = {
-  left: 0,
-  right: 0,
-  top: 0,
-  bottom: 0,
-};
 
 const props = defineProps({
   margins: {
-    type: Object as PropType<Margins>,
-    default: () => ({}),
+    type: Object as PropType<InternalMargins>,
+    required: true,
   },
   containerSize: {
     type: Object as PropType<ContainerSize>,
@@ -80,17 +73,9 @@ const { margins, containerSize } = toRefs(props);
 const root = ref<SVGElement>(null);
 const { resizeRef, resizeState } = useResizeObserver();
 
-const computedMargins: ComputedRef<Margins> = computed(() => ({
-  ...BASE_MARGINS, // Default values
-  ...margins.value, // Prop overrides
-}));
-
 // Required for horizontal charts
 const svgHeight = computed(
-  () =>
-    containerSize.value.height +
-    computedMargins.value.top +
-    computedMargins.value.bottom
+  () => containerSize.value.height + margins.value.top + margins.value.bottom
 );
 
 watchEffect(() => {
@@ -101,10 +86,8 @@ watchEffect(() => {
 
   if (!width || !height) return;
 
-  const contentWidth =
-    width - computedMargins.value.left - computedMargins.value.right;
-  const contentHeight =
-    height - computedMargins.value.top - computedMargins.value.bottom;
+  const contentWidth = width - margins.value.left - margins.value.right;
+  const contentHeight = height - margins.value.top - margins.value.bottom;
 
   const _containerSize = {
     width: contentWidth > 0 ? contentWidth : 0,
