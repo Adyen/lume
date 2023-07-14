@@ -142,10 +142,10 @@
               )
             "
           >
-            <lume-alluvial-node-label>
+            <lume-alluvial-node-label :bottom="options.switchText">
               {{ block.node.label }}
             </lume-alluvial-node-label>
-            <lume-alluvial-node-value>
+            <lume-alluvial-node-value :bottom="!options.switchText">
               {{
                 formatValue(
                   block.node.transitionValue || block.node.value,
