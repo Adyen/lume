@@ -1,5 +1,7 @@
 import { useArgs } from '@storybook/client-api';
 
+import iFrameResizer from './decorators/iframe-resizer';
+
 import '@/styles/font.scss';
 import '@/styles/main.scss';
 import './preview-styles.scss';
@@ -30,6 +32,7 @@ export const decorators = [
     const [_, updateArgs] = useArgs();
     return story({ ...context, updateArgs });
   },
+  iFrameResizer(),
   () => ({
     template: `
       <div class="preview">
