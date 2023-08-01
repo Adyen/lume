@@ -29,7 +29,7 @@ import { computed, ComputedRef, toRefs, useSlots } from 'vue';
 import LumeChart from '@/components/core/lume-chart';
 import LumeBarGroup from '@/components/groups/lume-bar-group';
 
-import { ChartOptions, useOptions } from '@/composables/options';
+import { BarChartOptions, useOptions } from '@/composables/options';
 import { withChartProps } from '@/composables/props';
 
 import { ORIENTATIONS } from '@/utils/constants';
@@ -38,7 +38,7 @@ import { options as defaultOptions } from './defaults';
 import { excludeGroups } from '@/utils/helpers';
 
 const props = defineProps({
-  ...withChartProps<ChartOptions>(),
+  ...withChartProps<BarChartOptions>(),
 });
 
 const slots = excludeGroups(useSlots());
@@ -51,6 +51,6 @@ const baseOptions = computed(
 
 const { allOptions } = useOptions(
   options,
-  baseOptions as ComputedRef<ChartOptions>
+  baseOptions as ComputedRef<BarChartOptions>
 );
 </script>

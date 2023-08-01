@@ -28,7 +28,11 @@ import { computed, defineAsyncComponent, PropType, useSlots } from 'vue';
 
 import { excludeGroups, singleDatasetValidator } from '@/utils/helpers';
 import { withChartProps } from '@/composables/props';
-import { ChartOptions, Options, TooltipOptions } from '@/composables/options';
+import {
+  BarChartOptions,
+  Options,
+  TooltipOptions,
+} from '@/composables/options';
 
 import { ORIENTATIONS } from '@/utils/constants';
 
@@ -48,7 +52,7 @@ const COMPONENT_MAP = new Map([
 ]);
 
 const props = defineProps({
-  ...withChartProps<ChartOptions>(),
+  ...withChartProps<BarChartOptions>(),
   type: {
     type: String as PropType<TYPES>,
     default: null,

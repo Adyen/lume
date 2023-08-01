@@ -32,7 +32,7 @@ import LumeChart from '@/components/core/lume-chart';
 import LumeBarGroup from '@/components/groups/lume-bar-group';
 
 import { useBase } from '@/composables/base';
-import { ChartOptions, useOptions } from '@/composables/options';
+import { BarChartOptions, useOptions } from '@/composables/options';
 import { withChartProps } from '@/composables/props';
 import { useBarMixin } from '@/components/groups/lume-bar-group/composables/bar-mixin';
 import { useStackedAxes } from '@/components/groups/lume-bar-group/composables/stacked-mixin';
@@ -43,7 +43,7 @@ import { options as defaultOptions } from './defaults';
 import { excludeGroups } from '@/utils/helpers';
 
 const props = defineProps({
-  ...withChartProps<ChartOptions>(),
+  ...withChartProps<BarChartOptions>(),
 });
 
 const slots = excludeGroups(useSlots());
@@ -56,7 +56,7 @@ const baseOptions = computed(
 
 const { allOptions } = useOptions(
   options,
-  baseOptions as ComputedRef<ChartOptions>
+  baseOptions as ComputedRef<BarChartOptions>
 );
 
 const { internalData } = useBase(data);

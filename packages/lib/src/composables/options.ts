@@ -52,6 +52,10 @@ export interface ChartOptions extends Options {
   noBaseScales?: boolean;
   noMinSize?: boolean;
   transparentBackground?: boolean;
+}
+
+export interface BarChartOptions extends ChartOptions {
+  barHeight?: number;
   padding?: number;
   paddingInner?: number;
   paddingOuter?: number;
