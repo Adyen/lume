@@ -1,7 +1,7 @@
 import { DEFAULT_MARGINS } from '@/utils/margins';
-import { ChartOptions } from '@/composables/options';
+import { LineChartOptions } from '@/composables/options';
 
-export const options: ChartOptions = {
+export const options: LineChartOptions = {
   margins: DEFAULT_MARGINS.VERTICAL,
   startOnZero: true,
   withTooltip: true,

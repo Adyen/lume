@@ -1,6 +1,6 @@
-import { ChartOptions } from '@/composables/options';
+import { LineChartOptions } from '@/composables/options';
 
-export const options: ChartOptions = {
+export const options: LineChartOptions = {
   margins: {
     top: 0,
     right: 0,
