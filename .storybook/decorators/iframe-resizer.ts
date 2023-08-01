@@ -44,7 +44,6 @@ function IframeResizer() {
       message,
     };
 
-    console.log('msg', data);
     window.top?.postMessage(data, '*');
   }
 
