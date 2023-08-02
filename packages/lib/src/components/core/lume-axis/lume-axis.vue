@@ -102,6 +102,8 @@ import { AxisMixin, AxisMixinFunction, TickAttributes } from './types';
 
 import mixinTypes from './composables/';
 
+const AXIS_LABEL_OFFSET = 16; // 8px + 8px on each side
+
 const props = defineProps({
   scale: {
     type: Function as PropType<Scale>,
@@ -214,15 +216,23 @@ const isHovering = computed(
     allOptions.value.withHover && shouldHover.value && hoveredIndex.value > -1
 );
 
+const axisLabelOffset = computed(
+  () => allOptions.value.tickPadding * 2 || AXIS_LABEL_OFFSET
+);
+
 const axisSize = computed(() =>
   computedType.value === 'x'
     ? // If x axis, get the tick height
     Math.max(
-      ...(tickRefs.value || []).map((tick) => tick.ref.getBBox().height + 16)
+      ...(tickRefs.value || []).map(
+        (tick) => tick.ref.getBBox().height + axisLabelOffset.value
+      )
     )
     : // If y axis, get the tick width
     Math.max(
-      ...(tickRefs.value || []).map((tick) => tick.ref.getBBox().width + 16)
+      ...(tickRefs.value || []).map(
+        (tick) => tick.ref.getBBox().width + axisLabelOffset.value
+      )
     )
 );
 
