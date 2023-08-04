@@ -118,8 +118,8 @@ export function useBase(
     const height =
       orientation?.value === ORIENTATIONS.HORIZONTAL
         ? getEmptyArrayFromData(data).length *
-            (((options.value.barHeight as number) || BAR_HEIGHT) * 2) +
-            ((options.value.barHeight as number) || BAR_HEIGHT) || size.height
+            (((options?.value.barHeight as number) || BAR_HEIGHT) * 2) +
+            ((options?.value.barHeight as number) || BAR_HEIGHT) || size.height
         : size.height;
 
     containerSize.width = size.width;
