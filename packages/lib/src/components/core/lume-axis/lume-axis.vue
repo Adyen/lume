@@ -220,21 +220,21 @@ const axisLabelOffset = computed(
   () => allOptions.value.tickPadding * 2 || AXIS_LABEL_OFFSET
 );
 
-const axisSize = computed(() =>
-  computedType.value === 'x'
+const axisSize = computed(() => {
+  return computedType.value === 'x'
     ? // If x axis, get the tick height
     Math.max(
       ...(tickRefs.value || []).map(
-        (tick) => tick.ref.getBBox().height + axisLabelOffset.value
+        (tick) => tick.ref.getBBox?.().height + axisLabelOffset.value
       )
     )
     : // If y axis, get the tick width
     Math.max(
       ...(tickRefs.value || []).map(
-        (tick) => tick.ref.getBBox().width + axisLabelOffset.value
+        (tick) => tick.ref.getBBox?.().width + axisLabelOffset.value
       )
-    )
-);
+    );
+});
 
 function formatTick(tick: number | string) {
   const { showTicks } = allOptions.value;
