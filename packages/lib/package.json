@@ -22,7 +22,7 @@
   "devDependencies": {
     "@storybook/addon-actions": "7.2.1",
     "@vue/test-utils": "^2.3.2",
-    "vitest": "^0.32.0"
+    "vitest": "^0.33.0"
   },
   "keywords": [],
   "author": "",
