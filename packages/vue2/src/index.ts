@@ -1,1 +1,1 @@
-export * from '@adyen/lume-core'
+export * from '@adyen/lume-core';

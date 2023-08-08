@@ -1,1 +1,1 @@
-export * from '@adyen/lume-core/plugin';
+export { default } from '@adyen/lume-core/plugin';

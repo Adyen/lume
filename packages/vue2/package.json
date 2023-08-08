@@ -17,11 +17,11 @@
   },
   "types": "./dist/types/index.d.ts",
   "scripts": {
-    "build": "NODE_ENV=production npm run build:vite && npm run build:font",
+    "build": "NODE_ENV=production pnpm run build:vite && pnpm run build:font",
     "build:vite": "vite build",
     "build:font": "webpack",
     "postbuild": "node ../../build/postbuild.js",
-    "test": "vitest --config=vitest.config.ts"
+    "storybook": "sb dev -p 9002 -c .storybook"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.4",
@@ -29,11 +29,23 @@
     "d3-sankey": "0.12.3"
   },
   "peerDependencies": {
-    "vue": "^2.7.10"
+    "vue": "^2.7.14"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue2": "^2.0.1",
-    "vue": "^2.7.10"
+    "@adyen/lume-core": "workspace:@adyen/lume-core@*",
+    "@storybook/addon-a11y": "^7.2.1",
+    "@storybook/addon-essentials": "^7.2.1",
+    "@storybook/cli": "^7.2.1",
+    "@storybook/manager-api": "^7.2.1",
+    "@storybook/theming": "^7.2.1",
+    "@storybook/vue": "^7.2.1",
+    "@storybook/vue-vite": "^7.2.1",
+    "@vitejs/plugin-vue2": "^2.2.0",
+    "storybook-utils": "workspace:storybook-utils@*",
+    "vite": "^4.3.9",
+    "vite-plugin-static-copy": "^0.17.0",
+    "vue": "^2.7.14",
+    "vue-template-compiler": "2.7.14"
   },
   "keywords": [
     "Lume",
