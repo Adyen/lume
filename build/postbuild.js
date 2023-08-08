@@ -1,7 +1,7 @@
 import { existsSync } from 'fs';
 import { appendFile, mkdir, readFile, rm, writeFile } from 'fs/promises';
 import glob from 'glob';
-import { compile } from 'sass';
+import sass from 'sass';
 
 const COMPONENT_STYLE_COMMENT = '\n/** Lume component styles */\n';
 
@@ -27,7 +27,7 @@ async function run() {
 
   try {
     // Compile main.scss to CSS
-    const mainCompileResult = compile(
+    const mainCompileResult = sass.compile(
       '../lib/src/styles/main.scss',
       sassCompilerOptions
     );
