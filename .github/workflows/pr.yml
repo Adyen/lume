@@ -30,10 +30,13 @@ jobs:
           node-version: ${{ steps.nvm.outputs.NVMRC }}
 
       - name: Install dependencies
-        run: npm install
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: true
 
       - name: Build the package
-        run: npm run build
+        run: pnpm run build
 
   run-unit-tests:
     name: Test on Node ${{ matrix.node_version }}
@@ -49,10 +52,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        run: npm install
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: true
 
       - name: Run unit tests (with experimental VM modules)
-        run: npm test
+        run: pnpm run test
 
   trufflehog:
     name: TruffleHog

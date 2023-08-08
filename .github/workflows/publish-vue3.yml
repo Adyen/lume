@@ -21,10 +21,13 @@ jobs:
           node-version: ${{ steps.nvm.outputs.NVMRC }}
 
       - name: Install dependencies
-        run: npm install
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: true
 
       - name: Build the package
-        run: npm run build
+        run: pnpm run build
 
       - name: Publish to npm registry
         run: |
