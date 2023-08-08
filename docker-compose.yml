@@ -9,5 +9,8 @@ services:
       context: .
       args:
         docker_image: $DOCKER_IMAGE
+    ports:
+      - '9002:9002' # Vue 2 Storybook
+      - '9003:9003' # Vue 3 Storybook
     volumes:
       - ./:/home/node/lume

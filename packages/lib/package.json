@@ -1,11 +1,9 @@
 {
   "name": "@adyen/lume-core",
-  "version": "*",
+  "version": "0.8.0",
   "description": "",
+  "private": true,
   "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
   "exports": {
     ".": "./src/index.ts",
     "./plugin": "./src/plugin.ts",
@@ -14,11 +12,17 @@
   "scripts": {
     "lint:fix": "npm run lint -- --fix",
     "lint:pretty": "prettier --write --ignore-unknown .",
-    "lint": "eslint ./src ./test --ext .js,.ts,.vue",
-    "test": "vitest run --config=vitest.config.ts --silent",
-    "test:watch": "vitest --config=vitest.config.ts",
-    "test:update:snapshot": "vitest --config=vitest.config.ts -u",
-    "test:coverage": "vitest run --coverage"
+    "lint": "eslint ./src ./test --ext .js,.ts,.vue"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.4",
+    "d3": "7.8.0",
+    "d3-sankey": "0.12.3"
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "7.2.1",
+    "@vue/test-utils": "^2.3.2",
+    "vitest": "^0.32.0"
   },
   "keywords": [],
   "author": "",
