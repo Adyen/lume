@@ -1,7 +1,7 @@
 # Lume
 
 [![PR workflow](https://github.com/Adyen/lume/actions/workflows/pr.yml/badge.svg)](https://github.com/Adyen/lume/actions/workflows/pr.yml)
-[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/Adyen/lume/blob/main/LICENSE)
+[![MIT License](https://img.shields.io/badge/license-MIT)](https://github.com/Adyen/lume/blob/main/LICENSE)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a6c48bc7-b4d2-4be4-ad36-cbd353ab4f07/deploy-status)](https://app.netlify.com/sites/adyen-lume/deploys)
 
 Lume is a library for graphical representations of information and data. By using visual elements like charts, graphs, and maps, this repository provide an accessible way to see and understand trends, outliers, and patterns in data. We use Vue to all graphic elements and rely on d3.js for the calculations.
@@ -121,6 +121,14 @@ To run the app inside a Docker container:
 3. Attach to it in your terminal:
    ```shell
      $ docker attach lume
+   ```
+4. Install `pnpm`:
+   ```shell
+     $ npm i -g pnpm
+   ```
+5. Add the npm global directory to the `PATH` variable:
+   ```shell
+     $ export PATH="${PATH}:/root/local/bin"
    ```
 
 #### Storybook
