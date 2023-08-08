@@ -20,6 +20,7 @@
     "build": "NODE_ENV=production pnpm run build:vite && pnpm run build:font",
     "build:vite": "vite build",
     "build:font": "webpack",
+    "pack": "pnpm pack --pack-destination ../../",
     "postbuild": "node ../../build/postbuild.js",
     "storybook": "sb dev -p 9002 -c .storybook"
   },
@@ -29,7 +30,7 @@
     "d3-sankey": "0.12.3"
   },
   "peerDependencies": {
-    "vue": "^2.7.14"
+    "vue": "^2.7.10"
   },
   "devDependencies": {
     "@adyen/lume-core": "workspace:@adyen/lume-core@*",
@@ -44,8 +45,8 @@
     "storybook-utils": "workspace:storybook-utils@*",
     "vite": "^4.3.9",
     "vite-plugin-static-copy": "^0.17.0",
-    "vue": "^2.7.14",
-    "vue-template-compiler": "2.7.14"
+    "vue": "^2.7.10",
+    "vue-template-compiler": "2.7.10"
   },
   "keywords": [
     "Lume",
