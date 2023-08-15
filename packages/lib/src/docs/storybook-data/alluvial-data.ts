@@ -6,137 +6,32 @@ const DATASETS = {
       {
         values: [
           {
-            label: 'A',
-            color: '01',
-            value: 'A',
-            targets: [
-              { node: 'D', value: 15 },
-              { node: 'E', value: 42 },
-              { node: 'G', value: 1 },
-            ],
-          },
-          {
-            label: 'B',
-            color: '02',
-            value: 'B',
-            targets: [
-              { node: 'D', value: 45 },
-              { node: 'E', value: 102 },
-            ],
-          },
-          {
-            label: 'C',
-            color: '03',
-            value: 'C',
-            targets: [{ node: 'D', value: 20 }],
-          },
-          {
-            label: 'D',
-            value: 'D',
-            color: '07',
-          },
-          {
-            label: 'E',
-            value: 'E',
-            color: '06',
-          },
-          { label: 'G', value: 'G', color: '08' },
-        ],
-      },
-    ],
-  },
-  RealData: {
-    data: [
-      {
-        values: [
-          {
-            label: 'Admin',
-            value: 0,
-            targets: [
-              { node: 2, value: 70128 },
-              { node: 5, value: 194612 },
-              { node: 8, value: 111472 },
-              { node: 9, value: 152798 },
-            ],
+            label: 'Students',
             color: 'skyblue',
-          },
-          {
-            label: 'Technician',
-            value: 1,
+            value: 'students',
             targets: [
-              { node: 2, value: 70391 },
-              { node: 5, value: 184143 },
-              { node: 8, value: 108191 },
-              { node: 9, value: 146027 },
+              { node: 'passed', value: 60 },
+              { node: 'retriedExam', value: 50 },
             ],
-            color: 'skyblue',
           },
           {
-            label: 'Basic education',
-            value: 2,
+            label: 'Retried exam',
+            color: 'skyblue',
+            value: 'retriedExam',
             targets: [
-              { node: 6, value: 182659, color: 'red' },
-              { node: 7, value: 65013 },
+              { node: 'failed', value: 10, color: 'red' },
+              { node: 'passed', value: 40 },
             ],
-            color: 'skyblue',
           },
           {
-            label: 'University degree',
-            value: 5,
-            targets: [
-              { node: 6, value: 209822, color: 'red' },
-              { node: 7, value: 453189 },
-            ],
+            label: 'Passed',
             color: 'skyblue',
+            value: 'passed',
           },
           {
-            label: "Doesn't pay tax",
-            value: 6,
-            targets: [],
+            label: 'Failed',
             color: 'red',
-          },
-          {
-            label: 'Pays tax',
-            value: 7,
-            targets: [],
-            color: 'skyblue',
-          },
-          {
-            label: 'High school',
-            value: 8,
-            targets: [{ node: 7, value: 385543 }],
-            color: 'skyblue',
-          },
-          {
-            label: 'Professional course',
-            value: 9,
-            targets: [
-              { node: 6, value: 55553, color: 'red' },
-              { node: 7, value: 467895 },
-            ],
-            color: 'skyblue',
-          },
-          {
-            label: 'Management',
-            value: 10,
-            targets: [
-              { node: 2, value: 61907 },
-              { node: 5, value: 163145 },
-              { node: 8, value: 95489 },
-              { node: 9, value: 129134 },
-            ],
-            color: 'skyblue',
-          },
-          {
-            label: 'Services',
-            value: 11,
-            targets: [
-              { node: 2, value: 45246 },
-              { node: 5, value: 121111 },
-              { node: 8, value: 70391 },
-              { node: 9, value: 95489 },
-            ],
-            color: 'skyblue',
+            value: 'failed',
           },
         ],
       },
@@ -147,59 +42,75 @@ const DATASETS = {
       {
         values: [
           {
-            color: '01',
-            value: 'A',
+            label: 'Pets',
+            color: 'skyblue',
+            value: 'pets',
             targets: [
-              { node: 'C', value: 20 },
-              { node: 'D', value: 15 },
+              { node: 'dogs', value: 400 },
+              { node: 'cats', value: 300 },
+              { node: 'otherPets', value: 200 },
             ],
           },
           {
-            color: '02',
-            value: 'B',
-            targets: [{ node: 'D', value: 10 }],
-          },
-          {
-            label: 'C',
-            color: '03',
-            value: 'C',
+            label: 'Cats',
+            color: 'skyblue',
+            value: 'cats',
             targets: [
-              { node: 'E', value: 15 },
-              { node: 'F', value: 5 },
+              { node: 'medicalCare', value: 50 },
+              { node: 'foodAndTreats', value: 120 },
+              { node: 'litter', value: 30 },
+              { node: 'toys', value: 50 },
+              { node: 'misc', value: 50 },
             ],
           },
           {
-            label: 'D',
-            value: 'D',
-            color: '07',
-            targets: [{ node: 'F', value: 25 }],
-          },
-          {
-            label: 'E',
-            value: 'E',
-            color: '06',
+            label: 'Dogs',
+            color: 'skyblue',
+            value: 'dogs',
             targets: [
-              { node: 'G', value: 10 },
-              { node: 'H', value: 5 },
+              { node: 'medicalCare', value: 100 },
+              { node: 'foodAndTreats', value: 140 },
+              { node: 'litter', value: 40 },
+              { node: 'toys', value: 60 },
+              { node: 'misc', value: 60 },
             ],
           },
           {
-            label: 'F',
-            value: 'F',
+            label: 'Other pets',
+            value: 'otherPets',
+            color: 'skyblue',
             targets: [
-              { node: 'G', value: 10 },
-              { node: 'H', value: 20 },
+              { node: 'medicalCare', value: 50 },
+              { node: 'foodAndTreats', value: 40 },
+              { node: 'litter', value: 10 },
+              { node: 'toys', value: 60 },
+              { node: 'misc', value: 40 },
             ],
           },
           {
-            label: 'G',
-            value: 'G',
-            color: '05',
+            label: 'Medical care',
+            value: 'medicalCare',
+            color: 'skyblue',
           },
           {
-            label: 'H',
-            value: 'H',
-            color: 'royalblue',
+            label: 'Food and treats',
+            value: 'foodAndTreats',
+            color: 'skyblue',
+          },
+          {
+            label: 'Litter',
+            value: 'litter',
+            color: 'skyblue',
+          },
+          {
+            label: 'Toys',
+            value: 'toys',
+            color: 'skyblue',
+          },
+          {
+            label: 'Misc',
+            value: 'misc',
+            color: 'skyblue',
           },
         ],
       },
@@ -210,7 +121,6 @@ const DATASETS = {
       {
         values: [
           {
-            color: '01',
             value: 'A',
             targets: [
               { node: 'C', value: 20 },
@@ -218,13 +128,11 @@ const DATASETS = {
             ],
           },
           {
-            color: '02',
             value: 'B',
             targets: [{ node: 'D', value: 10 }],
           },
           {
             label: 'C',
-            color: '03',
             value: 'C',
             targets: [
               { node: 'E', value: 15 },
@@ -234,24 +142,23 @@ const DATASETS = {
           {
             label: 'D',
             value: 'D',
-            color: '07',
             targets: [{ node: 'F', value: 25 }],
           },
           {
             label: 'E',
             value: 'E',
-            color: '06',
             targets: [
               { node: 'G', value: 10 },
-              { node: 'H', value: 5 },
+              { node: 'H', value: 5, color: 'darkteal' },
             ],
           },
           {
             label: 'F',
             value: 'F',
+            color: 'red',
             targets: [
               { node: 'G', value: 10 },
-              { node: 'H', value: 20 },
+              { node: 'H', value: 20, color: 'darkteal' },
             ],
           },
           {
@@ -262,7 +169,7 @@ const DATASETS = {
           {
             label: 'H',
             value: 'H',
-            deriveColorFromIncomingLinks: true,
+            color: 'darkteal',
           },
         ],
       },
@@ -277,26 +184,34 @@ const DATASETS = {
       {
         values: [
           {
-            label: 'C',
+            label: 'Darcy',
+            value: 'darcy',
             color: 'darkteal',
-            value: 'C',
-            targets: [{ node: 'D', value: 6, curveFunction: curveStep }],
+            targets: [
+              { node: 'litter', value: 47, curveFunction: curveStep },
+              { node: 'foodAndTreats', value: 30 },
+            ],
           },
           {
-            label: 'A',
-            color: 'violet',
-            value: 'A',
-            targets: [{ node: 'D', value: 15 }],
+            label: 'Max',
+            value: 'max',
+            targets: [
+              { node: 'foodAndTreats', value: 31 },
+              { node: 'litter', value: 34 },
+              { node: 'toys', value: 34 },
+            ],
           },
           {
-            label: 'B',
-            color: 'royalblue',
-            value: 'B',
-            targets: [{ node: 'D', value: 20 }],
+            label: 'Food and treats',
+            value: 'foodAndTreats',
           },
           {
-            label: 'D',
-            value: 'D',
+            label: 'Litter',
+            value: 'litter',
+          },
+          {
+            label: 'Toys',
+            value: 'toys',
           },
         ],
       },

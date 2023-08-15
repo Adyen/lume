@@ -16,7 +16,7 @@ export const options: AlluvialDiagramOptions = {
 
   // Alluvial options
   gradient: false,
-  highlightedElements: 'full',
+  highlightedElements: 'closest',
   nodePadding: 16,
   nodeWidth: 16,
   nodeAlign: sankeyJustify,

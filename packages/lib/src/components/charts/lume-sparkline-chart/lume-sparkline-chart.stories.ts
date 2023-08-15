@@ -1,4 +1,4 @@
-import { computed } from 'vue';
+import { computed, toRaw } from 'vue';
 import {
   actionEventHandlerTemplate,
   captureAction,
@@ -65,8 +65,7 @@ const Template = ({ args }) => {
     components: { LumeSparklineChart },
     setup() {
       const computedData = computed(() => {
-        // eslint-disable-next-line no-undef
-        const dataset = structuredClone(args.data); // Deep copy dataset array
+        const dataset = structuredClone(toRaw(args.data)); // Deep copy dataset array
         if (args.color) dataset[0].color = COLOR_CLASS_MAP[args.color];
         if (args.areaColor)
           dataset[0].areaColor = COLOR_CLASS_MAP[args.areaColor];
