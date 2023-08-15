@@ -64,23 +64,12 @@ const Template = ({ args }) => ({
 
 export const Basic = Template.bind({});
 Basic.args = {
-  ...DATASETS.Single,
+  ...DATASETS.CatsMetIn2023,
 };
 
 export const MultipleDatasets = Template.bind({});
 MultipleDatasets.args = {
-  ...DATASETS.Multiple,
-};
-
-export const RealData = Template.bind({});
-RealData.args = {
-  ...DATASETS['Adoption rate overview 28 days'],
-  options: {
-    ...defaultOptions,
-    yAxisOptions: {
-      ...defaultOptions.yAxisOptions,
-    },
-  },
+  ...DATASETS.AnimalsMetIn2023,
 };
 
 const CustomTemplate = ({ args }) => ({
@@ -115,6 +104,14 @@ const CustomTemplate = ({ args }) => ({
 export const CustomTooltip = CustomTemplate.bind({});
 CustomTooltip.args = {
   ...DATASETS.Single,
+  options: {
+    yAxisOptions: {
+      skip: 2,
+    },
+    xAxisOptions: {
+      skip: 2,
+    },
+  },
 };
 
 export const Empty = Template.bind({});

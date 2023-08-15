@@ -1,85 +1,86 @@
-function randomValues(length: number, min: number, max: number) {
-  return [...Array(length)].map(
-    () => Math.floor(Math.random() * (max - min + 1)) + min
-  );
-}
-
 const DATASETS = {
   Single: {
     data: [
       {
-        values: [30, -10, 0.1, 70, 50, null, 40],
-        label: 'Hot dogs',
+        values: [
+          60, 80, 70, 30, 60, 90, 120, 220, 170, 190, 150, 80, 100, 125, 70,
+        ],
+        label: 'Dogs',
       },
     ],
     labels: [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday',
+      'Jan 1',
+      'Jan 2',
+      'Jan 3',
+      'Jan 4',
+      'Jan 5',
+      'Jan 6',
+      'Jan 7',
+      'Jan 8',
+      'Jan 9',
+      'Jan 10',
+      'Jan 11',
+      'Jan 12',
+      'Jan 13',
+      'Jan 14',
+      'Jan 15',
     ],
+    title: 'Dogs petted over time',
   },
-  Multiple: {
+  LifeExpectancy: {
+    data: [
+      {
+        values: [18, 15, 9, 25, 8],
+        label: 'Life expectancy',
+      },
+    ],
+    labels: ['Cats', 'Dogs', 'Birds', 'Snakes', 'Frogs'],
+    title: 'Life expectancy',
+  },
+  AdoptedAnimals: {
     data: [
       {
         label: 'Cats',
-        values: [10, 30, 50, null, 70, 40],
+        values: [11000, 12000, 4000, 15000],
       },
       {
         label: 'Dogs',
-        values: [15, 40, 20, -10, 40, 30],
+        values: [5000, 8000, 2000, 4000],
       },
       {
-        label: 'Fish',
-        values: [8, 20, 10, 45, 50, 55],
+        label: 'Horses',
+        values: [500, 11000, 1000, 3000],
       },
     ],
-    labels: [
-      'Jan 2022',
-      'Feb 2022',
-      'Mar 2022',
-      'Apr 2022',
-      'May 2022',
-      'Jun 2022',
-    ],
+    labels: ['Jan', 'Feb', 'Mar', 'Apr'],
+    title: 'Adopted animals',
   },
-  Maximum: {
+  MissingDataPoints: {
+    data: [
+      {
+        label: 'Spent on cats',
+        values: [10000, 2000, 15000, 0.5, null, 18000],
+      },
+    ],
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+  },
+  WeeklyAnimalEncounter: {
     data: [
       {
         label: 'Cats',
-        values: randomValues(10, 1000, 10000),
+        values: [10, 70, 25, 35],
       },
       {
         label: 'Dogs',
-        values: randomValues(10, 1000, 10000),
+        values: [30, 20, 10, 25],
       },
       {
-        label: 'Ferrets',
-        values: randomValues(10, 1000, 10000),
-      },
-      {
-        label: 'Rabbits',
-        values: randomValues(10, 1000, 10000),
-      },
-      {
-        label: 'Hamsters',
-        values: randomValues(10, 1000, 10000),
-      },
-      {
-        label: 'Other',
-        values: randomValues(10, 1000, 10000),
-        color: '07',
+        label: 'Birds',
+        values: [60, 70, 25, 90],
       },
     ],
-    labels: [...Array(10)].map((_, i) => {
-      const date = new Date();
-      date.setDate(1);
-      date.setMonth(date.getMonth() + i);
-      return date.toLocaleString('en', { month: 'short', year: 'numeric' });
-    }),
+    labels: ['NL', 'India', 'UK', 'France'],
+    title: 'Weekly animal encounter',
   },
   'Adoption rate overview 28 days': {
     data: [
@@ -136,6 +137,58 @@ const DATASETS = {
   Empty: {
     data: [{ values: [] }],
     labels: [],
+  },
+  CatsMetIn2023: {
+    data: [
+      {
+        values: [15, 25, 30, null, 40, 50, 60, 12, 30, 12, 344, 400],
+        label: 'Cats',
+      },
+    ],
+    labels: [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ],
+  },
+  AnimalsMetIn2023: {
+    data: [
+      {
+        values: [15, 25, 30, null, 40, 50, 60, 12, 30, 12, 344, 400],
+        label: 'Cats',
+      },
+      {
+        values: [5, 15, 20, 30, 51, 70, 180, 28, 150, 172, 200, 340],
+        label: 'Dogs',
+      },
+      {
+        values: [35, 10, 18, 50, 71, null, 100, 128, 140, 162, 180, 170],
+        label: 'Birds',
+      },
+    ],
+    labels: [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ],
   },
 };
 

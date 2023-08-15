@@ -37,5 +37,5 @@ Basic.args = {
 
 export const MultipleDatasets = Template.bind({});
 MultipleDatasets.args = {
-  data: DATASETS.Multiple.data,
+  data: DATASETS.AdoptedAnimals.data,
 };

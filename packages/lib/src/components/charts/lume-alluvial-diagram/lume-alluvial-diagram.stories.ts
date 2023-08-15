@@ -70,18 +70,18 @@ const Template = ({ args }) => {
 export const Basic = Template.bind({});
 Basic.args = {
   ...DATASETS.Basic,
-};
-
-export const RealData = Template.bind({});
-RealData.args = {
-  ...withSizeArgs(920, 460),
-  ...DATASETS.RealData,
+  title: 'Students performance in science exam',
 };
 
 export const MultipleLevels = Template.bind({});
 MultipleLevels.args = {
   ...withSizeArgs(),
   ...DATASETS.MultipleLevels,
+  options: {
+    ...defaultOptions,
+    valueFormat: (part, _) => `USD ${part}`,
+  },
+  title: 'Yearly average pet expenses in USA',
 };
 
 export const MultipleLevelsWithColorDerivationFromIncomingLinks = Template.bind(
@@ -90,18 +90,18 @@ export const MultipleLevelsWithColorDerivationFromIncomingLinks = Template.bind(
 MultipleLevelsWithColorDerivationFromIncomingLinks.args = {
   ...withSizeArgs(),
   ...DATASETS.MultipleLevelsWithColorDerivationFromIncomingLinks,
-};
-
-export const Empty = Template.bind({});
-Empty.args = {
-  ...withSizeArgs(),
-  ...DATASETS.Empty,
+  title: 'Color derivation from incoming links',
 };
 
 export const CustomCurveFunction = Template.bind({});
 CustomCurveFunction.args = {
   ...withSizeArgs(540, 220),
   ...DATASETS.CustomCurveFunction,
+  options: {
+    ...defaultOptions,
+    valueFormat: (part, _) => `USD ${part}`,
+  },
+  title: 'November expenses on my cats',
 };
 
 const CustomNodeSlotsTemplate = ({ args }) => {
@@ -120,7 +120,7 @@ const CustomNodeSlotsTemplate = ({ args }) => {
     template: `
       <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
         <lume-alluvial-diagram v-bind="args">
-          <template #node-text-B="{ node }">
+          <template #node-text-students="{ node }">
             <tspan
               style="cursor: pointer;"
               @mouseenter.native="targetElement = $event.target"
@@ -128,7 +128,7 @@ const CustomNodeSlotsTemplate = ({ args }) => {
             >ℹ️</tspan>
             <lume-alluvial-node-label dx="4">Custom label</lume-alluvial-node-label>
             <lume-alluvial-node-value>
-              <tspan style="font-style: italic; fill: green">+{{ (node.transitionValue || node.value) * 0.12 * 1e5 / 1e5 }}%</tspan>
+              <tspan style="font-style: italic; fill: green">+{{ node.value * 0.12 * 1e5 / 1e5 }}%</tspan>
               {{ node.transitionValue || node.value }}
             </lume-alluvial-node-value>
           </template>
@@ -147,4 +147,11 @@ export const CustomNodeSlots = CustomNodeSlotsTemplate.bind({});
 CustomNodeSlots.args = {
   ...withSizeArgs(),
   ...DATASETS.Basic,
+  title: 'Students performance in science exam',
+};
+
+export const Empty = Template.bind({});
+Empty.args = {
+  ...withSizeArgs(),
+  ...DATASETS.Empty,
 };

@@ -103,28 +103,65 @@ const CustomTemplate = ({ args }) => ({
   `,
 });
 
-export const Basic = Template.bind({});
-Basic.args = {
+export const VerticalBarChart = Template.bind({});
+VerticalBarChart.args = {
   ...DATASETS.Single,
   orientation: ORIENTATIONS.VERTICAL,
   options: {
-    xAxisOptions: {},
+    xAxisOptions: {
+      skip: 2,
+    },
     yAxisOptions: {},
   },
 };
-Basic.parameters = {
+VerticalBarChart.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A3148',
   },
 };
 
-export const MultipleDatasets = Template.bind({});
-MultipleDatasets.argTypes = {
-  type: { control: 'radio', options: ['grouped', 'stacked'] },
+export const HorizontalBarChart = Template.bind({});
+HorizontalBarChart.args = {
+  ...DATASETS.LifeExpectancy,
+  orientation: ORIENTATIONS.HORIZONTAL,
+  options: {
+    xAxisOptions: {},
+    yAxisOptions: {},
+  },
 };
-MultipleDatasets.args = {
-  ...DATASETS.Multiple,
+HorizontalBarChart.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A3148',
+  },
+};
+
+export const MissingDataPoints = Template.bind({});
+MissingDataPoints.args = {
+  ...DATASETS.MissingDataPoints,
+  orientation: ORIENTATIONS.VERTICAL,
+  options: {
+    xAxisOptions: {},
+    yAxisOptions: {},
+    tooltipOptions: {
+      valueFormat: (value) => (value !== 'No data' ? `EUR ${value}` : value),
+    },
+    withLegend: false,
+  },
+  title: 'Money spent on cats',
+};
+
+MissingDataPoints.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A3148',
+  },
+};
+
+export const GroupedBarChart = Template.bind({});
+GroupedBarChart.args = {
+  ...DATASETS.AdoptedAnimals,
   type: 'grouped',
   orientation: ORIENTATIONS.VERTICAL,
   options: {
@@ -132,49 +169,29 @@ MultipleDatasets.args = {
     yAxisOptions: {},
   },
 };
-MultipleDatasets.parameters = {
+GroupedBarChart.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A5994',
   },
 };
 
-export const MaximumDatasets = Template.bind({});
-MaximumDatasets.argTypes = {
-  type: { control: 'radio', options: ['grouped', 'stacked'] },
-};
-MaximumDatasets.args = {
-  ...withSizeArgs(720),
-  ...DATASETS.Maximum,
-  type: 'grouped',
-  orientation: ORIENTATIONS.VERTICAL,
-};
-MaximumDatasets.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A5994',
-  },
-};
-
-export const RealData = Template.bind({});
-RealData.args = {
-  ...DATASETS['Adoption rate overview 28 days'],
+export const StackedBarChart = Template.bind({});
+StackedBarChart.args = {
+  ...DATASETS.WeeklyAnimalEncounter,
   type: 'stacked',
   orientation: ORIENTATIONS.VERTICAL,
-  options: {
-    yAxisOptions: {},
-  },
 };
-RealData.parameters = {
+StackedBarChart.parameters = {
   design: {
     type: 'figma',
-    url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A7280',
+    url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A5994',
   },
 };
 
 export const CustomTooltip = CustomTemplate.bind({});
 CustomTooltip.args = {
-  ...DATASETS.Single,
+  ...DATASETS.LifeExpectancy,
   orientation: ORIENTATIONS.VERTICAL,
   options: {
     xAxisOptions: {},
