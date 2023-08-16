@@ -114,12 +114,6 @@ VerticalBarChart.args = {
     yAxisOptions: {},
   },
 };
-VerticalBarChart.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A3148',
-  },
-};
 
 export const HorizontalBarChart = Template.bind({});
 HorizontalBarChart.args = {
@@ -128,12 +122,6 @@ HorizontalBarChart.args = {
   options: {
     xAxisOptions: {},
     yAxisOptions: {},
-  },
-};
-HorizontalBarChart.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A3148',
   },
 };
 
@@ -152,13 +140,6 @@ MissingDataPoints.args = {
   title: 'Money spent on cats',
 };
 
-MissingDataPoints.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A3148',
-  },
-};
-
 export const GroupedBarChart = Template.bind({});
 GroupedBarChart.args = {
   ...DATASETS.AdoptedAnimals,
@@ -169,24 +150,12 @@ GroupedBarChart.args = {
     yAxisOptions: {},
   },
 };
-GroupedBarChart.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A5994',
-  },
-};
 
 export const StackedBarChart = Template.bind({});
 StackedBarChart.args = {
   ...DATASETS.WeeklyAnimalEncounter,
   type: 'stacked',
   orientation: ORIENTATIONS.VERTICAL,
-};
-StackedBarChart.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A5994',
-  },
 };
 
 export const CustomTooltip = CustomTemplate.bind({});
@@ -198,20 +167,8 @@ CustomTooltip.args = {
     yAxisOptions: {},
   },
 };
-CustomTooltip.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A3148',
-  },
-};
 
 export const Empty = Template.bind({});
 Empty.args = {
   ...DATASETS.Empty,
-};
-Empty.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A3148',
-  },
 };

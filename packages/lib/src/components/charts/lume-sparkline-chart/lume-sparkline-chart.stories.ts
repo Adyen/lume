@@ -52,12 +52,6 @@ export default {
     ...withSizeArgs(300, 80),
     options: defaultOptions,
   },
-  parameters: {
-    design: {
-      type: 'figma',
-      url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A8141',
-    },
-  },
 };
 
 const Template = ({ args }) => {
