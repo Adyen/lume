@@ -91,7 +91,7 @@ describe('lume-alluvial-diagram.vue', () => {
       },
     });
 
-    expect(wrapper.findAll('[data-j-alluvial-sub-nodes]')).toHaveLength(4);
+    expect(wrapper.findAll('[data-j-alluvial-sub-nodes]')).toHaveLength(2);
   });
 
   // should be tested in the scope of alluvial-graph
