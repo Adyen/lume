@@ -9,6 +9,8 @@ import DATASETS from '@/docs/storybook-data/base-data';
 import LumeLineChart from './lume-line-chart.vue';
 import LumeTooltip from '../../core/lume-tooltip/index';
 import { options as defaultOptions } from './defaults';
+import { computed } from 'vue';
+import { Colors } from '@/utils/constants';
 
 export default {
   title: 'Charts/Line chart',
@@ -41,12 +43,6 @@ export default {
     options: defaultOptions,
     title: 'Line chart',
   },
-  parameters: {
-    design: {
-      type: 'figma',
-      url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A6671',
-    },
-  },
 };
 
 const Template = ({ args }) => ({
@@ -75,6 +71,7 @@ MultipleDatasets.args = {
 const CustomTemplate = ({ args }) => ({
   components: { LumeLineChart, LumeTooltip },
   setup() {
+    const computedColor = computed(() => Colors[args.color]);
     const customItemsFunction = (data, hoveredIndex) => {
       if (hoveredIndex > -1) {
         const { color, label, values } = data[0];
@@ -88,7 +85,7 @@ const CustomTemplate = ({ args }) => ({
       }
       return [];
     };
-    return { args, customItemsFunction };
+    return { args, customItemsFunction, computedColor };
   },
   template: `
   <div :style="{ width: args.width + 'px', height: args.orientation !== 'horizontal' ? args.height + 'px' : undefined }">

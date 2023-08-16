@@ -44,12 +44,6 @@ export default {
     ),
     title: 'Alluvial diagram',
   },
-  parameters: {
-    design: {
-      type: 'figma',
-      url: 'https://www.figma.com/file/r9fPqTXA4dlP6SIyfmGlDC/%F0%9F%8C%9D-Lume---Data-Visualization-Library?node-id=15%3A8105',
-    },
-  },
 };
 
 const Template = ({ args }) => {
@@ -128,7 +122,7 @@ const CustomNodeSlotsTemplate = ({ args }) => {
             >ℹ️</tspan>
             <lume-alluvial-node-label dx="4">Custom label</lume-alluvial-node-label>
             <lume-alluvial-node-value>
-              <tspan style="font-style: italic; fill: green">+{{ node.value * 0.12 * 1e5 / 1e5 }}%</tspan>
+              <tspan style="font-style: italic; fill: green">+{{ Math.round((node.transitionValue || node.value) * 0.12 * 100) / 100 }}%</tspan>
               {{ node.transitionValue || node.value }}
             </lume-alluvial-node-value>
           </template>
