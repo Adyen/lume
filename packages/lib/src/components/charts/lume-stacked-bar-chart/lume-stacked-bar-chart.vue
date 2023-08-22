@@ -65,6 +65,7 @@ const { groupedData } = useBarMixin(internalData);
 
 const { stackedXScaleGenerator, stackedYScaleGenerator } = useStackedAxes(
   groupedData,
-  orientation
+  orientation,
+  options
 );
 </script>
