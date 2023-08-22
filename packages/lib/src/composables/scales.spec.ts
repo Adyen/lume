@@ -155,7 +155,7 @@ describe('scales.ts', () => {
 
       const paddedScale = getPaddedScale(yScale.value, 'horizontal');
       expect(paddedScale.paddingInner()).toEqual(PADDING_HORIZONTAL);
-      expect(paddedScale.paddingOuter()).toEqual(PADDING_HORIZONTAL / 2);
+      expect(paddedScale.paddingOuter()).toEqual(PADDING_HORIZONTAL);
     });
 
     test('should return scale with vertical padding as padding if so indicated', () => {
@@ -163,7 +163,7 @@ describe('scales.ts', () => {
 
       const paddedScale = getPaddedScale(yScale.value, 'vertical');
       expect(paddedScale.paddingInner()).toEqual(PADDING_VERTICAL);
-      expect(paddedScale.paddingOuter()).toEqual(PADDING_VERTICAL / 2);
+      expect(paddedScale.paddingOuter()).toEqual(PADDING_VERTICAL);
     });
 
     test('should return scale with custom padding', () => {
@@ -174,7 +174,7 @@ describe('scales.ts', () => {
       });
 
       expect(paddedScale.paddingInner()).toEqual(1);
-      expect(paddedScale.paddingOuter()).toEqual(0.5);
+      expect(paddedScale.paddingOuter()).toEqual(1);
     });
 
     test('should return scale with custom paddingInner', () => {
@@ -185,7 +185,7 @@ describe('scales.ts', () => {
       });
 
       expect(paddedScale.paddingInner()).toEqual(1);
-      expect(paddedScale.paddingOuter()).toEqual(PADDING_VERTICAL / 2);
+      expect(paddedScale.paddingOuter()).toEqual(PADDING_VERTICAL);
     });
 
     test('should return scale with custom paddingOuter', () => {
