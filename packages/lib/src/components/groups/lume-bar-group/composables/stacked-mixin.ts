@@ -1,6 +1,7 @@
 import { computed, ComputedRef, Ref } from 'vue';
 import { scaleBand, ScaleBand, scaleLinear } from 'd3';
 
+import { BarChartOptions } from '@/composables/options';
 import { getPaddedScale, Scale } from '@/composables/scales';
 
 import { Colors, Orientation, ORIENTATIONS } from '@/utils/constants';
@@ -9,7 +10,8 @@ import { ContainerSize } from '@/types/size';
 
 export function useStackedAxes(
   groupedData: ComputedRef<DatasetValueObject[][]>,
-  orientation: Ref<Orientation>
+  orientation: Ref<Orientation>,
+  options: Ref<BarChartOptions>
 ) {
   const isHorizontal = computed(
     () => orientation.value === ORIENTATIONS.HORIZONTAL
@@ -53,7 +55,9 @@ export function useStackedAxes(
         getPaddedScale(
           scaleBand<number>()
             .domain(labels.map((_, i) => i))
-            .range([0, size.width])
+            .range([0, size.width]),
+          orientation.value,
+          options.value
         ),
         { labels }
       );
@@ -69,7 +73,9 @@ export function useStackedAxes(
         getPaddedScale(
           scaleBand<number>()
             .domain(labels.map((_, i) => i))
-            .range([0, size.height])
+            .range([0, size.height]),
+          orientation.value,
+          options.value
         ),
         { labels }
       )

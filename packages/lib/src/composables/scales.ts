@@ -195,5 +195,5 @@ export function getPaddedScale(
   return scale
     .copy()
     .paddingInner(paddingInner ?? defaultPadding)
-    .paddingOuter(paddingOuter ?? defaultPadding / 2);
+    .paddingOuter(paddingOuter ?? defaultPadding);
 }
