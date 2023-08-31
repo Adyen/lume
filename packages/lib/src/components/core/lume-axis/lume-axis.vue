@@ -93,7 +93,11 @@ import { AxisOptions, useOptions, withOptions } from '@/composables/options';
 import { ComputedScaleBand, Scale } from '@/composables/scales';
 import { useSkip } from './composables/lume-skip';
 
-import { Orientation, ORIENTATIONS } from '@/utils/constants';
+import {
+  AXIS_GHOST_PADDING,
+  Orientation,
+  ORIENTATIONS,
+} from '@/utils/constants';
 import { isBandScale } from '@/utils/helpers';
 import { svgCheck } from '@/utils/svg-check';
 import { ContainerSize } from '@/types/size';
@@ -217,7 +221,7 @@ const isHovering = computed(
 );
 
 const axisLabelOffset = computed(
-  () => allOptions.value.tickPadding * 2 || AXIS_LABEL_OFFSET
+  () => allOptions.value.tickPadding + AXIS_GHOST_PADDING || AXIS_LABEL_OFFSET
 );
 
 const axisSize = computed(() => {

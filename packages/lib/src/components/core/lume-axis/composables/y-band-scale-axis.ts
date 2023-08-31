@@ -2,6 +2,7 @@ import { computed, Ref } from 'vue';
 import { ScaleBand } from 'd3';
 
 import { AxisOptions } from '@/composables/options';
+import { AXIS_GHOST_PADDING } from '@/utils/constants';
 import { AxisMixin } from '../types';
 
 const useBandScaleAxis: AxisMixin = function (
@@ -25,7 +26,8 @@ const useBandScaleAxis: AxisMixin = function (
     // If label element not yet rendered, assume one scale step, otherwise get its width.
     const width =
       (textRef ? textRef.getComputedTextLength?.() : 42) +
-      options.value.tickPadding * 2;
+      options.value.tickPadding +
+      AXIS_GHOST_PADDING;
     return {
       x: -width,
       width,
