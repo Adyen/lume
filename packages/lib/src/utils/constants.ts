@@ -131,7 +131,7 @@ export const PADDING_VERTICAL = 0.33; // space between bars is 1/2 of a bar's wi
 export const PADDING_HORIZONTAL = 0.5; // space between bars is a bar's width
 
 export const AXIS_TEXT_HEIGHT = 12;
-export const AXIS_BOTTOM_PADDING = 8;
+export const AXIS_GHOST_PADDING = 8;
 
 // Default radius for the tooltip anchor circle.
 // Adding a negligible radius for tooltip anchor, as firefox doesn't respect tooltip element positioning without the circle having actual radius.

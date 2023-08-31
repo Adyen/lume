@@ -2,7 +2,7 @@ import { computed, Ref } from 'vue';
 import { ScaleLinear } from 'd3';
 
 import { AxisOptions } from '@/composables/options';
-import { AXIS_BOTTOM_PADDING, AXIS_TEXT_HEIGHT } from '@/utils/constants';
+import { AXIS_GHOST_PADDING, AXIS_TEXT_HEIGHT } from '@/utils/constants';
 import { AxisMixin } from '../types';
 
 const useLinearScaleAxis: AxisMixin = function (
@@ -23,7 +23,7 @@ const useLinearScaleAxis: AxisMixin = function (
 
   function getTickGhostAttributes() {
     const height =
-      options.value.tickPadding + AXIS_TEXT_HEIGHT + AXIS_BOTTOM_PADDING;
+      options.value.tickPadding + AXIS_TEXT_HEIGHT + AXIS_GHOST_PADDING;
     return {
       height,
       width: tickWidth.value,

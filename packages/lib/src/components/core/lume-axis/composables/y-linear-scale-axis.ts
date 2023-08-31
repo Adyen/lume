@@ -3,6 +3,7 @@ import { ScaleLinear } from 'd3';
 
 import { AxisOptions } from '@/composables/options';
 import { AxisMixin } from '../types';
+import { AXIS_GHOST_PADDING } from '@/utils/constants';
 
 const useLinearScaleAxis: AxisMixin = function (
   scale: Ref<ScaleLinear<number, number>>,
@@ -22,7 +23,9 @@ const useLinearScaleAxis: AxisMixin = function (
 
   function getTickGhostAttributes(textRef: SVGTextElement) {
     const width =
-      (textRef?.getComputedTextLength?.() || 0) + options.value.tickPadding * 2;
+      (textRef?.getComputedTextLength?.() || 0) +
+      options.value.tickPadding +
+      AXIS_GHOST_PADDING;
     return {
       width,
       height: tickHeight.value,

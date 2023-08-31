@@ -2,7 +2,7 @@ import { computed, Ref } from 'vue';
 import { ScaleBand } from 'd3';
 
 import { AxisOptions } from '@/composables/options';
-import { AXIS_BOTTOM_PADDING, AXIS_TEXT_HEIGHT } from '@/utils/constants';
+import { AXIS_GHOST_PADDING, AXIS_TEXT_HEIGHT } from '@/utils/constants';
 import { AxisMixin } from '../types';
 
 const useBandScaleAxis: AxisMixin = function (
@@ -31,8 +31,7 @@ const useBandScaleAxis: AxisMixin = function (
     return {
       x: -(width - scale.value.step()) / 2,
       width,
-      height:
-        options.value.tickPadding + AXIS_TEXT_HEIGHT + AXIS_BOTTOM_PADDING,
+      height: options.value.tickPadding + AXIS_TEXT_HEIGHT + AXIS_GHOST_PADDING,
     };
   }
 
