@@ -2,28 +2,19 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.9.1](https://github.com/Adyen/lume/compare/v0.9.0...v0.9.1)
+
+- ♻️ Refactor Bar chart stories; Fix related issues [`7bc63f8`](https://github.com/Adyen/lume/commit/7bc63f8e8a22dceeb7911aac66498e7d505e8546)
+- ♻️ Refactor all other stories to CSF3 [`08b1196`](https://github.com/Adyen/lume/commit/08b1196d55ea7ce68fe639cbce74efe57ec0edec)
+- 🎨 Improve Alluvial link ID code [`1ad631d`](https://github.com/Adyen/lume/commit/1ad631dfe589ea1114ac1e9de0c91b3917e7c081)
+
 #### [v0.9.0](https://github.com/Adyen/lume/compare/v0.8.0...v0.9.0)
+
+> 23 August 2023
 
 - 🔧 Move from npm to pnpm [`bcb724d`](https://github.com/Adyen/lume/commit/bcb724d9f78408ab51ba4e2ebec25bde782b20f4)
 - ⬆️ Update vitest monorepo to ^0.33.0 [`898b1fe`](https://github.com/Adyen/lume/commit/898b1fe8a9665448979d13725afb7148277967c5)
 - 📝 Refined stories for all lume charts [`30692f3`](https://github.com/Adyen/lume/commit/30692f34037429e6f98c57a07cf3f68989bf99ca)
-- 🔧 Fix package versions & scripts [`69efca3`](https://github.com/Adyen/lume/commit/69efca3f3b3c795438ecc48dcca75b581bc99c30)
-- ✨ Add auto margins calculation [`ecfae2d`](https://github.com/Adyen/lume/commit/ecfae2d51e59fd46c65404516e33ac7ee28797fc)
-- 📝 Added documentation for alluvial-group [`fa4ac95`](https://github.com/Adyen/lume/commit/fa4ac9506abc5b8d0405e169aa85219d76928cfc)
-- 🔧 Add iframe resize decorator for Storybook [`df8c5c4`](https://github.com/Adyen/lume/commit/df8c5c42be7917983c47a3375e8b226d4eb1dcc3)
-- 📝 Removed figma links from all stories [`3fea7ac`](https://github.com/Adyen/lume/commit/3fea7acb39cd7154e49b319e3c20893dc9e51a32)
-- 📝 Update documentation [`60bfea5`](https://github.com/Adyen/lume/commit/60bfea57c8c06a7ed4582f081aa0a90b0b5efb61)
-- ✨ Add barHeight option for horizontal bar charts [`ef02286`](https://github.com/Adyen/lume/commit/ef022863f08a85d3e013b36322d80a6a9f6c985c)
-- ✅ Update unit tests [`2a5cbda`](https://github.com/Adyen/lume/commit/2a5cbda956edba4d4793741839684bdecd091c53)
-- 🔧 Update GH actions with pnpm [`1270153`](https://github.com/Adyen/lume/commit/127015343f39c419bab518d165f72023182618e4)
-- 🐛 Fix stacked bar chart not applying padding values [`5dd1f8b`](https://github.com/Adyen/lume/commit/5dd1f8b98ccceca4aebe10ac7b584864567824b8)
-- 🩹 Add offset constant; Use tickPadding to calculate size [`28e0fcd`](https://github.com/Adyen/lume/commit/28e0fcd12ba3803370364896f01f2b139685c5a3)
-- 🔧 Update NPM publish tokens [`4c1e726`](https://github.com/Adyen/lume/commit/4c1e726452160e8797216d1186962cd45553e285)
-- 📝 Update README [`2c2d4a6`](https://github.com/Adyen/lume/commit/2c2d4a673d3e15be0639c163d3d2547719c55fc6)
-- ✅ Update unit tests [`2f1f9e9`](https://github.com/Adyen/lume/commit/2f1f9e9fbde195cb2c1ae13694bf412c358ce7b8)
-- ✅ Fix error from unit test [`f6f7d81`](https://github.com/Adyen/lume/commit/f6f7d813f948fe1d382ce394bfb5eb3fa980ede0)
-- ✅ Updated test to accomodate changes in alluvial data [`f90581d`](https://github.com/Adyen/lume/commit/f90581d9b93af51e3e918fc7bfabed45447d7e0a)
-- 🔇 Remove console.log in iframe-resizer [`5478f37`](https://github.com/Adyen/lume/commit/5478f374c71cdcd5256939ab1cf50e373517219e)
 
 #### [v0.8.0](https://github.com/Adyen/lume/compare/v0.7.1...v0.8.0)
 
