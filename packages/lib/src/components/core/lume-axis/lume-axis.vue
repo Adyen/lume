@@ -263,7 +263,7 @@ function handleTickClick(
 
 function getTextNode(index: number) {
   if (!tickRefs.value || !tickRefs.value.length) return;
-  return tickRefs.value[index].ref;
+  return tickRefs.value[index]?.ref;
 }
 
 function setTicks() {

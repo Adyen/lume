@@ -131,6 +131,12 @@ To run the app inside a Docker container:
      $ export PATH="${PATH}:/root/local/bin"
    ```
 
+### About Vue versions
+
+Lume ships two packages, one for each Vue version (2 and 3).
+
+Development is done in Vue 3, keeping in mind that the same source code must work the same way on both Vue versions, so some of the new Vue 3 APIs are restricted, unless provided with a fallback.
+
 #### Storybook
 
 Storybook is available by running the following command:
