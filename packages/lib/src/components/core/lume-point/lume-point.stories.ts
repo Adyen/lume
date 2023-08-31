@@ -1,10 +1,11 @@
 import { computed } from 'vue';
+import type { Meta, StoryObj } from '@storybook/vue3';
 
 import { Colors } from '@/utils/constants';
 
 import LumePoint from './lume-point.vue';
 
-export default {
+const meta: Meta<typeof LumePoint> = {
   title: 'Core/Point',
   component: LumePoint,
   argTypes: {
@@ -17,6 +18,24 @@ export default {
     },
     radius: { control: 'number' },
   },
+};
+
+export default meta;
+
+type Story = StoryObj<typeof LumePoint>;
+
+export const Basic: Story = {
+  render: ({ args }) => ({
+    components: { LumePoint },
+    setup() {
+      const computedColor = computed(() => Colors[args.color]);
+      return { args, computedColor };
+    },
+    template: `<svg width="300" height="300">
+    <lume-point v-bind="args" :color="computedColor" active />
+  </svg>`,
+  }),
+
   args: {
     x: 150,
     y: 150,
@@ -24,19 +43,3 @@ export default {
     radius: 4,
   },
 };
-
-const Template = ({ args }) => ({
-  components: { LumePoint },
-  setup() {
-    const computedColor = computed(() => Colors[args.color]);
-
-    return { args, computedColor };
-  },
-  template: `
-    <svg width="300" height="300">
-      <lume-point v-bind="args" :color="computedColor" active />
-    </svg>
-  `,
-});
-
-export const Basic = Template.bind({});
