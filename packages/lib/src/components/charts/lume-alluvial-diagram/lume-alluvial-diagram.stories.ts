@@ -101,6 +101,7 @@ export const MultipleLevelsWithColorDerivationFromIncomingLinks: Story = {
   }),
   args: {
     ...DATASETS.MultipleLevelsWithColorDerivationFromIncomingLinks,
+    options: { gradient: true },
     title: 'Color derivation from incoming links',
   },
 };
