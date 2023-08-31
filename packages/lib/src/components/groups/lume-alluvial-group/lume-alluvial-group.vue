@@ -271,11 +271,20 @@ const gradients = computed(() => {
   if (!options.value.gradient || !graph.value) return;
 
   return graph.value.links.reduce((acc, link) => {
+    const { source, target } = link;
+
+    const sourceColor = source.color || source.fallbackColor;
+
+    // If `deriveColorFromIncomingLinks`, use the source's color for the gradient
+    const targetColor = target.deriveColorFromIncomingLinks
+      ? sourceColor
+      : target.color || target.fallbackColor;
+
     acc[link.id] = {
-      source: link.source.color || link.source.fallbackColor,
-      target: link.target.color || link.target.fallbackColor,
-      x1: link.source.x1,
-      x2: link.target.x0,
+      source: sourceColor,
+      target: targetColor,
+      x1: source.x1,
+      x2: target.x0,
     };
     return acc;
   }, {}) as Record<
@@ -327,7 +336,7 @@ const nodesDerivingColorFromIncomingLinks = computed(() => {
   return subNodeDetails;
 });
 
-function getLinkStroke(link: SankeyLink<SankeyNodeProps, SankeyLinkProps>) {
+function getLinkStroke(link: SankeyLink) {
   return options.value.gradient && `url('#${chartID}_${link.id}')`;
 }
 

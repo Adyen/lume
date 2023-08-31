@@ -147,6 +147,7 @@ const DATASETS = {
           {
             label: 'E',
             value: 'E',
+            color: 'royalblue',
             targets: [
               { node: 'G', value: 10 },
               { node: 'H', value: 5, color: 'darkteal' },
