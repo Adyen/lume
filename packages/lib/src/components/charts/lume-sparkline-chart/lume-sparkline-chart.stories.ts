@@ -1,4 +1,6 @@
 import { computed, toRaw } from 'vue';
+import type { Meta, StoryObj } from '@storybook/vue3';
+
 import {
   actionEventHandlerTemplate,
   captureAction,
@@ -10,9 +12,7 @@ import DATASETS from '@/docs/storybook-data/sparkline-data';
 
 import LumeSparklineChart from './lume-sparkline-chart.vue';
 
-import { options as defaultOptions } from './defaults';
-
-export default {
+const meta: Meta<typeof LumeSparklineChart> = {
   title: 'Charts/Sparkline chart',
   component: LumeSparklineChart,
   argTypes: {
@@ -50,12 +50,15 @@ export default {
   },
   args: {
     ...withSizeArgs(300, 80),
-    options: defaultOptions,
   },
 };
 
-const Template = ({ args }) => {
-  return {
+export default meta;
+
+type Story = StoryObj<typeof LumeSparklineChart>;
+
+export const Basic: Story = {
+  render: ({ args }) => ({
     components: { LumeSparklineChart },
     setup() {
       const computedData = computed(() => {
@@ -66,33 +69,74 @@ const Template = ({ args }) => {
         return dataset;
       });
 
-      return { args, computedData };
+      return { args, computedData, captureAction };
     },
-    methods: { captureAction },
-    template: `
-        <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
-            <lume-sparkline-chart v-bind="args" :data="computedData" ${actionEventHandlerTemplate} />
-        </div>
-    `,
-  };
+    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+        <lume-sparkline-chart v-bind="args" :data="computedData" ${actionEventHandlerTemplate} />
+    </div>`,
+  }),
+  args: {
+    ...DATASETS.Basic,
+  },
 };
 
-export const Basic = Template.bind({});
-Basic.args = {
-  ...DATASETS.Basic,
+export const NegativeValues: Story = {
+  render: ({ args }) => ({
+    components: { LumeSparklineChart },
+    setup() {
+      const computedData = computed(() => {
+        const dataset = structuredClone(toRaw(args.data)); // Deep copy dataset array
+        if (args.color) dataset[0].color = COLOR_CLASS_MAP[args.color];
+        if (args.areaColor)
+          dataset[0].areaColor = COLOR_CLASS_MAP[args.areaColor];
+        return dataset;
+      });
+
+      return { args, computedData, captureAction };
+    },
+    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+        <lume-sparkline-chart v-bind="args" :data="computedData" ${actionEventHandlerTemplate} />
+    </div>`,
+  }),
+  args: {
+    ...DATASETS.NegativeValue,
+  },
 };
 
-export const NegativeValues = Template.bind({});
-NegativeValues.args = {
-  ...DATASETS.NegativeValue,
+export const NullValues: Story = {
+  render: ({ args }) => ({
+    components: { LumeSparklineChart },
+    setup() {
+      const computedData = computed(() => {
+        const dataset = structuredClone(toRaw(args.data)); // Deep copy dataset array
+        if (args.color) dataset[0].color = COLOR_CLASS_MAP[args.color];
+        if (args.areaColor)
+          dataset[0].areaColor = COLOR_CLASS_MAP[args.areaColor];
+        return dataset;
+      });
+
+      return { args, computedData, captureAction };
+    },
+    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+        <lume-sparkline-chart v-bind="args" :data="computedData" ${actionEventHandlerTemplate} />
+    </div>`,
+  }),
+  args: {
+    ...DATASETS.NullValues,
+  },
 };
 
-export const NullValues = Template.bind({});
-NullValues.args = {
-  ...DATASETS.NullValues,
-};
-
-export const Empty = Template.bind({});
-Empty.args = {
-  ...DATASETS.Empty,
+export const Empty: Story = {
+  render: ({ args }) => ({
+    components: { LumeSparklineChart },
+    setup() {
+      return { args, captureAction };
+    },
+    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+        <lume-sparkline-chart v-bind="args"  ${actionEventHandlerTemplate} />
+    </div>`,
+  }),
+  args: {
+    ...DATASETS.Empty,
+  },
 };

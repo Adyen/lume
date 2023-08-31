@@ -1,4 +1,6 @@
 import { ref } from 'vue';
+import type { Meta, StoryObj } from '@storybook/vue3';
+
 import {
   actionEventHandlerTemplate,
   captureAction,
@@ -13,7 +15,7 @@ import LumeAlluvialNodeValue from '../../groups/lume-alluvial-group/components/l
 import LumeTooltip from '../../core/lume-tooltip';
 import { options as defaultOptions } from './defaults';
 
-export default {
+const meta: Meta<typeof LumeAlluvialDiagram> = {
   title: 'Charts/Alluvial diagram',
   component: LumeAlluvialDiagram,
   argTypes: {
@@ -46,60 +48,85 @@ export default {
   },
 };
 
-const Template = ({ args }) => {
-  return {
+export default meta;
+
+type Story = StoryObj<typeof LumeAlluvialDiagram>;
+
+export const Basic: Story = {
+  render: ({ args }) => ({
     components: { LumeAlluvialDiagram },
     setup() {
-      return { args };
+      return { args, captureAction };
     },
-    methods: { captureAction },
-    template: `
-      <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
-        <lume-alluvial-diagram v-bind="args" ${actionEventHandlerTemplate} />
-      </div>
-  `,
-  };
-};
-
-export const Basic = Template.bind({});
-Basic.args = {
-  ...DATASETS.Basic,
-  title: 'Students performance in science exam',
-};
-
-export const MultipleLevels = Template.bind({});
-MultipleLevels.args = {
-  ...withSizeArgs(),
-  ...DATASETS.MultipleLevels,
-  options: {
-    ...defaultOptions,
-    valueFormat: (part, _) => `USD ${part}`,
+    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    <lume-alluvial-diagram v-bind="args" ${actionEventHandlerTemplate} />
+  </div>`,
+  }),
+  args: {
+    ...DATASETS.Basic,
+    title: 'Students performance in science exam',
   },
-  title: 'Yearly average pet expenses in USA',
 };
 
-export const MultipleLevelsWithColorDerivationFromIncomingLinks = Template.bind(
-  {}
-);
-MultipleLevelsWithColorDerivationFromIncomingLinks.args = {
-  ...withSizeArgs(),
-  ...DATASETS.MultipleLevelsWithColorDerivationFromIncomingLinks,
-  title: 'Color derivation from incoming links',
-};
-
-export const CustomCurveFunction = Template.bind({});
-CustomCurveFunction.args = {
-  ...withSizeArgs(540, 220),
-  ...DATASETS.CustomCurveFunction,
-  options: {
-    ...defaultOptions,
-    valueFormat: (part, _) => `USD ${part}`,
+export const MultipleLevels: Story = {
+  render: ({ args }) => ({
+    components: { LumeAlluvialDiagram },
+    setup() {
+      return { args, captureAction };
+    },
+    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    <lume-alluvial-diagram v-bind="args" ${actionEventHandlerTemplate} />
+  </div>`,
+  }),
+  args: {
+    ...withSizeArgs(720),
+    ...DATASETS.MultipleLevels,
+    options: {
+      valueFormat: (part, _) => `USD ${part}`,
+      gradient: true,
+    },
+    title: 'Yearly average pet expenses in USA',
   },
-  title: 'November expenses on my cats',
 };
 
-const CustomNodeSlotsTemplate = ({ args }) => {
-  return {
+export const MultipleLevelsWithColorDerivationFromIncomingLinks: Story = {
+  render: ({ args }) => ({
+    components: { LumeAlluvialDiagram },
+    setup() {
+      return { args, captureAction };
+    },
+    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    <lume-alluvial-diagram v-bind="args" ${actionEventHandlerTemplate} />
+  </div>`,
+  }),
+  args: {
+    ...DATASETS.MultipleLevelsWithColorDerivationFromIncomingLinks,
+    title: 'Color derivation from incoming links',
+  },
+};
+
+export const CustomCurveFunction: Story = {
+  render: ({ args }) => ({
+    components: { LumeAlluvialDiagram },
+    setup() {
+      return { args, captureAction };
+    },
+    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    <lume-alluvial-diagram v-bind="args" ${actionEventHandlerTemplate} />
+  </div>`,
+  }),
+  args: {
+    ...withSizeArgs(540, 220),
+    ...DATASETS.CustomCurveFunction,
+    options: {
+      valueFormat: (part, _) => `USD ${part}`,
+    },
+    title: 'November expenses on my cats',
+  },
+};
+
+export const CustomNodeSlots: Story = {
+  render: ({ args }) => ({
     components: {
       LumeTooltip,
       LumeAlluvialDiagram,
@@ -110,42 +137,45 @@ const CustomNodeSlotsTemplate = ({ args }) => {
       const targetElement = ref(null);
       return { args, targetElement };
     },
-    methods: { captureAction },
-    template: `
-      <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
-        <lume-alluvial-diagram v-bind="args">
-          <template #node-text-students="{ node }">
-            <tspan
-              style="cursor: pointer;"
-              @mouseenter.native="targetElement = $event.target"
-              @mouseleave.native="targetElement = null"
-            >ℹ️</tspan>
-            <lume-alluvial-node-label dx="4">Custom label</lume-alluvial-node-label>
-            <lume-alluvial-node-value>
-              <tspan style="font-style: italic; fill: green">+{{ Math.round((node.transitionValue || node.value) * 0.12 * 100) / 100 }}%</tspan>
-              {{ node.transitionValue || node.value }}
-            </lume-alluvial-node-value>
-          </template>
-          <template #tooltip="props">
-            <lume-tooltip v-bind="props" v-if="!!targetElement" :opened="!!targetElement" :target-element="targetElement">
-              Some additional info about the node.
-            </lume-tooltip>
-          </template>
-        </lume-alluvial-diagram>
-      </div>
-      `,
-  };
+    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    <lume-alluvial-diagram v-bind="args">
+      <template #node-text-students="{ node }">
+        <tspan
+          style="cursor: pointer;"
+          @mouseenter.native="targetElement = $event.target"
+          @mouseleave.native="targetElement = null"
+        >ℹ️</tspan>
+        <lume-alluvial-node-label dx="4">Custom label</lume-alluvial-node-label>
+        <lume-alluvial-node-value>
+          <tspan style="font-style: italic; fill: green">+{{ Math.round((node.transitionValue || node.value) * 0.12 * 100) / 100 }}%</tspan>
+          {{ node.transitionValue || node.value }}
+        </lume-alluvial-node-value>
+      </template>
+      <template #tooltip="props">
+        <lume-tooltip v-bind="props" v-if="!!targetElement" :opened="!!targetElement" :target-element="targetElement">
+          Some additional info about the node.
+        </lume-tooltip>
+      </template>
+    </lume-alluvial-diagram>
+  </div>`,
+  }),
+  args: {
+    ...DATASETS.Basic,
+    title: 'Students performance in science exam',
+  },
 };
 
-export const CustomNodeSlots = CustomNodeSlotsTemplate.bind({});
-CustomNodeSlots.args = {
-  ...withSizeArgs(),
-  ...DATASETS.Basic,
-  title: 'Students performance in science exam',
-};
-
-export const Empty = Template.bind({});
-Empty.args = {
-  ...withSizeArgs(),
-  ...DATASETS.Empty,
+export const Empty: Story = {
+  render: ({ args }) => ({
+    components: { LumeAlluvialDiagram },
+    setup() {
+      return { args, captureAction };
+    },
+    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    <lume-alluvial-diagram v-bind="args" ${actionEventHandlerTemplate} />
+  </div>`,
+  }),
+  args: {
+    ...DATASETS.Empty,
+  },
 };

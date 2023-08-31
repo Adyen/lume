@@ -53,7 +53,7 @@ const DATASETS = {
           },
           {
             label: 'Cats',
-            color: 'skyblue',
+            color: 'royalblue',
             value: 'cats',
             targets: [
               { node: 'medicalCare', value: 50 },
@@ -65,7 +65,7 @@ const DATASETS = {
           },
           {
             label: 'Dogs',
-            color: 'skyblue',
+            color: 'royalblue',
             value: 'dogs',
             targets: [
               { node: 'medicalCare', value: 100 },
@@ -78,7 +78,7 @@ const DATASETS = {
           {
             label: 'Other pets',
             value: 'otherPets',
-            color: 'skyblue',
+            color: 'grey',
             targets: [
               { node: 'medicalCare', value: 50 },
               { node: 'foodAndTreats', value: 40 },
@@ -90,27 +90,27 @@ const DATASETS = {
           {
             label: 'Medical care',
             value: 'medicalCare',
-            color: 'skyblue',
+            color: 'red',
           },
           {
             label: 'Food and treats',
             value: 'foodAndTreats',
-            color: 'skyblue',
+            color: 'violet',
           },
           {
             label: 'Litter',
             value: 'litter',
-            color: 'skyblue',
+            color: 'darkteal',
           },
           {
             label: 'Toys',
             value: 'toys',
-            color: 'skyblue',
+            color: 'gold',
           },
           {
             label: 'Misc',
             value: 'misc',
-            color: 'skyblue',
+            color: 'grey',
           },
         ],
       },

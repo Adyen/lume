@@ -1,3 +1,6 @@
+import { computed } from 'vue';
+import type { Meta, StoryObj } from '@storybook/vue3';
+
 import {
   actionEventHandlerTemplate,
   captureAction,
@@ -8,11 +11,9 @@ import DATASETS from '@/docs/storybook-data/base-data';
 
 import LumeLineChart from './lume-line-chart.vue';
 import LumeTooltip from '../../core/lume-tooltip/index';
-import { options as defaultOptions } from './defaults';
-import { computed } from 'vue';
 import { Colors } from '@/utils/constants';
 
-export default {
+const meta: Meta<typeof LumeLineChart> = {
   title: 'Charts/Line chart',
   component: LumeLineChart,
   argTypes: {
@@ -31,7 +32,7 @@ export default {
     },
     title: {
       control: 'text',
-      description: 'Chart title.',
+      description: 'Chart title',
     },
     hoveredIndex: {
       control: 'number',
@@ -40,78 +41,98 @@ export default {
   },
   args: {
     ...withSizeArgs(),
-    options: defaultOptions,
     title: 'Line chart',
   },
 };
 
-const Template = ({ args }) => ({
-  components: { LumeLineChart },
-  setup() {
-    return { args };
-  },
-  methods: { captureAction },
-  template: `
-    <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
-        <lume-line-chart v-bind="args" ${actionEventHandlerTemplate} />
-    </div>
-  `,
-});
+export default meta;
 
-export const Basic = Template.bind({});
-Basic.args = {
-  ...DATASETS.CatsMetIn2023,
-};
+type Story = StoryObj<typeof LumeLineChart>;
 
-export const MultipleDatasets = Template.bind({});
-MultipleDatasets.args = {
-  ...DATASETS.AnimalsMetIn2023,
-};
-
-const CustomTemplate = ({ args }) => ({
-  components: { LumeLineChart, LumeTooltip },
-  setup() {
-    const computedColor = computed(() => Colors[args.color]);
-    const customItemsFunction = (data, hoveredIndex) => {
-      if (hoveredIndex > -1) {
-        const { color, label, values } = data[0];
-        return [
-          {
-            color,
-            label,
-            value: values[hoveredIndex].value ?? 0,
-          },
-        ];
-      }
-      return [];
-    };
-    return { args, customItemsFunction, computedColor };
-  },
-  template: `
-  <div :style="{ width: args.width + 'px', height: args.orientation !== 'horizontal' ? args.height + 'px' : undefined }">
-  <lume-line-chart v-bind="args" :color="computedColor">
-    <template #tooltip = "{ data, hoveredIndex, targetElement }">
-      <lume-tooltip :items="customItemsFunction(data, hoveredIndex)" :target-element="targetElement" position="top"/>
-    </template>
-  </lume-line-chart>
-</div>
-  `,
-});
-
-export const CustomTooltip = CustomTemplate.bind({});
-CustomTooltip.args = {
-  ...DATASETS.Single,
-  options: {
-    yAxisOptions: {
-      skip: 2,
+export const Basic: Story = {
+  render: ({ args }) => ({
+    components: { LumeLineChart },
+    setup() {
+      return { args, captureAction };
     },
-    xAxisOptions: {
-      skip: 2,
+    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    <lume-line-chart v-bind="args" ${actionEventHandlerTemplate} />
+</div>`,
+  }),
+  args: {
+    ...DATASETS.CatsMetIn2023,
+    title: 'Cats met in 2023',
+  },
+};
+
+export const MultipleDatasets: Story = {
+  render: ({ args }) => ({
+    components: { LumeLineChart },
+    setup() {
+      return { args, captureAction };
+    },
+    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    <lume-line-chart v-bind="args" ${actionEventHandlerTemplate} />
+</div>`,
+  }),
+  args: {
+    ...DATASETS.AnimalsMetIn2023,
+    title: 'Pets met in 2023',
+  },
+};
+
+export const CustomTooltip: Story = {
+  render: ({ args }) => ({
+    components: { LumeLineChart, LumeTooltip },
+    setup() {
+      const computedColor = computed(() => Colors[args.color]);
+      const customItemsFunction = (data, hoveredIndex) => {
+        if (hoveredIndex > -1) {
+          const { color, label, values } = data[0];
+          return [
+            {
+              color,
+              label,
+              value: `${values[hoveredIndex].value ?? 0} dogs`,
+            },
+          ];
+        }
+        return [];
+      };
+      return { args, customItemsFunction, computedColor };
+    },
+    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    <lume-line-chart v-bind="args">
+      <template #tooltip = "{ data, hoveredIndex, targetElement }">
+        <lume-tooltip :items="customItemsFunction(data, hoveredIndex)" :target-element="targetElement" position="top"/>
+      </template>
+    </lume-line-chart>
+  </div>`,
+  }),
+  args: {
+    ...DATASETS.Single,
+    options: {
+      yAxisOptions: {
+        skip: 2,
+      },
+      xAxisOptions: {
+        skip: 2,
+      },
     },
   },
 };
 
-export const Empty = Template.bind({});
-Empty.args = {
-  ...DATASETS.Empty,
+export const Empty: Story = {
+  render: ({ args }) => ({
+    components: { LumeLineChart },
+    setup() {
+      return { args, captureAction };
+    },
+    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    <lume-line-chart v-bind="args" ${actionEventHandlerTemplate} />
+</div>`,
+  }),
+  args: {
+    ...DATASETS.Empty,
+  },
 };
