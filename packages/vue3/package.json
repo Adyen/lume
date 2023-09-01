@@ -27,31 +27,31 @@
     "test": "vitest --config=vitest.config.ts"
   },
   "dependencies": {
-    "@popperjs/core": "^2.11.4",
-    "d3": "7.8.4",
+    "@popperjs/core": "2.11.4",
+    "d3": "7.8.5",
     "d3-sankey": "0.12.3"
   },
   "peerDependencies": {
-    "vue": "^3.2.47"
+    "vue": "3.2.47"
   },
   "devDependencies": {
     "@adyen/lume-core": "workspace:@adyen/lume-core@*",
-    "@storybook/addon-a11y": "^7.2.1",
-    "@storybook/addon-essentials": "^7.2.1",
-    "@storybook/cli": "^7.2.1",
-    "@storybook/manager-api": "^7.2.1",
-    "@storybook/theming": "^7.2.1",
-    "@storybook/vue3": "^7.2.1",
-    "@storybook/vue3-vite": "^7.2.1",
-    "@vitejs/plugin-vue": "^4.2.3",
-    "@vitest/coverage-istanbul": "^0.33.0",
-    "@vue/test-utils": "^2.3.2",
-    "jsdom": "^22.1.0",
+    "@storybook/addon-a11y": "7.2.2",
+    "@storybook/addon-essentials": "7.2.2",
+    "@storybook/cli": "7.2.2",
+    "@storybook/manager-api": "7.2.2",
+    "@storybook/theming": "7.2.2",
+    "@storybook/vue3": "7.2.2",
+    "@storybook/vue3-vite": "7.2.2",
+    "@vitejs/plugin-vue": "4.2.3",
+    "@vitest/coverage-istanbul": "0.34.0",
+    "@vue/test-utils": "2.3.2",
+    "jsdom": "22.1.0",
     "storybook-utils": "workspace:storybook-utils@*",
-    "vite": "^4.3.9",
-    "vite-plugin-static-copy": "^0.17.0",
-    "vitest": "^0.33.0",
-    "vue": "^3.2.47"
+    "vite": "4.3.9",
+    "vite-plugin-static-copy": "0.17.0",
+    "vitest": "0.34.0",
+    "vue": "3.2.47"
   },
   "keywords": [
     "Lume",
