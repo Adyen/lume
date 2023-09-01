@@ -6,11 +6,13 @@
     :x-scale="stackedXScaleGenerator"
     :y-scale="stackedYScaleGenerator"
     data-j-stacked-bar-chart
+    v-on="componentEventPropagator"
   >
     <template #groups="groupProps">
       <lume-bar-group
         v-bind="groupProps"
         type="stacked"
+        v-on="componentEventPropagator"
       />
     </template>
     <template
@@ -32,19 +34,28 @@ import LumeChart from '@/components/core/lume-chart';
 import LumeBarGroup from '@/components/groups/lume-bar-group';
 
 import { useBase } from '@/composables/base';
+import { useEvents } from '@/composables/events';
 import { BarChartOptions, useOptions } from '@/composables/options';
 import { withChartProps } from '@/composables/props';
 import { useBarMixin } from '@/components/groups/lume-bar-group/composables/bar-mixin';
 import { useStackedAxes } from '@/components/groups/lume-bar-group/composables/stacked-mixin';
 
+import { ChartEmits } from '@/types/events';
 import { ORIENTATIONS } from '@/utils/constants';
+import { excludeGroups } from '@/utils/helpers';
 
 import { options as defaultOptions } from './defaults';
-import { excludeGroups } from '@/utils/helpers';
 
 const props = defineProps({
   ...withChartProps<BarChartOptions>(),
 });
+
+// https://github.com/vuejs/core/issues/4294#issuecomment-1480392140
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface Emits extends ChartEmits {}
+const emit = defineEmits<Emits>();
+
+const { componentEventPropagator } = useEvents(emit);
 
 const slots = excludeGroups(useSlots());
 

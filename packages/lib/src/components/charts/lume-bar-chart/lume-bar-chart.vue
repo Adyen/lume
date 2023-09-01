@@ -3,6 +3,7 @@
     :is="component"
     v-bind="{ ...props, ...$attrs }"
     :options="getBarChartOptions(options)"
+    v-on="componentEventPropagator"
   >
     <template
       v-for="(_, name) in slots"
@@ -26,7 +27,7 @@ enum TYPES {
 <script setup lang="ts">
 import { computed, defineAsyncComponent, PropType, useSlots } from 'vue';
 
-import { excludeGroups, singleDatasetValidator } from '@/utils/helpers';
+import { useEvents } from '@/composables/events';
 import { withChartProps } from '@/composables/props';
 import {
   BarChartOptions,
@@ -34,7 +35,9 @@ import {
   TooltipOptions,
 } from '@/composables/options';
 
+import { ChartEmits } from '@/types/events';
 import { ORIENTATIONS } from '@/utils/constants';
+import { excludeGroups, singleDatasetValidator } from '@/utils/helpers';
 
 const LumeSingleBarChart = defineAsyncComponent(
   () => import('@/components/charts/lume-single-bar-chart')
@@ -59,6 +62,13 @@ const props = defineProps({
     validator: (type: string): boolean => type in TYPES || type == null,
   },
 });
+
+// https://github.com/vuejs/core/issues/4294#issuecomment-1480392140
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface Emits extends ChartEmits {}
+const emit = defineEmits<Emits>();
+
+const { componentEventPropagator } = useEvents(emit);
 
 const slots = excludeGroups(useSlots());
 
