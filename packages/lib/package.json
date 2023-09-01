@@ -23,7 +23,7 @@
     "@storybook/addon-actions": "7.2.1",
     "@storybook/vue3": "7.2.1",
     "@vue/test-utils": "2.3.2",
-    "vitest": "0.34.0",
+    "vitest": "0.34.1",
     "vue": "3.2.47"
   },
   "keywords": [],
