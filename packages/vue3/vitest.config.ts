@@ -5,6 +5,9 @@ import { resolve } from 'path';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
+  define: {
+    __VUE_VERSION__: 3,
+  },
   test: {
     globals: true,
     threads: false,
