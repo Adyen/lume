@@ -4,6 +4,9 @@ import { viteStaticCopy } from 'vite-plugin-static-copy';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
+  define: {
+    __VUE_VERSION__: 3,
+  },
   build: {
     lib: {
       entry: {

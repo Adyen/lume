@@ -4,6 +4,7 @@
     chart-type="line"
     :options="getSparklineOptions(allOptions)"
     :x-scale="xScaleGenerator"
+    v-on="componentEventPropagator"
   >
     <template #groups="groupProps">
       <path
@@ -23,6 +24,7 @@
       <lume-line-group
         v-bind="groupProps"
         :with-points="false"
+        v-on="componentEventPropagator"
       />
     </template>
     <template
@@ -45,6 +47,7 @@ import LumeChart from '@/components/core/lume-chart';
 import LumeLineGroup from '@/components/groups/lume-line-group';
 
 import { useBase, withBase } from '@/composables/base';
+import { useEvents } from '@/composables/events';
 import {
   LineChartOptions,
   Options,
@@ -55,6 +58,7 @@ import { useLineNullValues } from '@/composables/line-null-values';
 import { useSparklineArea } from './composables/sparkline-area';
 
 import { Data } from '@/types/dataset';
+import { ChartEmits } from '@/types/events';
 import { ContainerSize } from '@/types/size';
 
 import { options as defaultOptions } from './defaults';
@@ -64,6 +68,13 @@ const props = defineProps({
   ...withBase(null),
   ...withOptions<LineChartOptions>(),
 });
+
+// https://github.com/vuejs/core/issues/4294#issuecomment-1480392140
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface Emits extends ChartEmits {}
+const emit = defineEmits<Emits>();
+
+const { componentEventPropagator } = useEvents(emit);
 
 const slots = excludeGroups(useSlots());
 

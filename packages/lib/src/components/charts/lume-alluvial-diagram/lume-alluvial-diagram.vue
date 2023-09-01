@@ -3,11 +3,13 @@
     v-bind="props"
     :options="getAlluvialDiagramOptions(allOptions)"
     data-j-alluvial-diagram
+    v-on="componentEventPropagator"
   >
     <template #groups="groupProps">
       <lume-alluvial-group
         v-bind="groupProps"
         :hovered-element-id="hoveredElement"
+        v-on="componentEventPropagator"
       >
         <template
           v-for="(_, name) in groupSlots"
@@ -38,6 +40,7 @@ import { toRefs, useSlots } from 'vue';
 import LumeChart from '@/components/core/lume-chart';
 import LumeAlluvialGroup from '@/components/groups/lume-alluvial-group';
 
+import { useEvents } from '@/composables/events';
 import { withDiagramProps } from '@/composables/props';
 import { AlluvialDiagramOptions, useOptions } from '@/composables/options';
 
@@ -46,11 +49,19 @@ import {
   excludeGroups,
   singleDatasetValidator,
 } from '@/utils/helpers';
+import { ChartEmits } from '@/types/events';
 import { options as defaultOptions } from './defaults';
 
 const props = defineProps({
   ...withDiagramProps<AlluvialDiagramOptions>(singleDatasetValidator),
 });
+
+// https://github.com/vuejs/core/issues/4294#issuecomment-1480392140
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface Emits extends ChartEmits {}
+const emit = defineEmits<Emits>();
+
+const { componentEventPropagator } = useEvents(emit);
 
 const slots = excludeGroups(useSlots());
 const groupSlots = excludeChartSlots(useSlots());
