@@ -45,7 +45,7 @@
     "css-loader": "6.7.2",
     "eslint": "8.27.0",
     "eslint-plugin-vue": "9.9.0",
-    "glob": "8.0.3",
+    "glob": "8.1.0",
     "mini-css-extract-plugin": "2.7.6",
     "prettier": "2.7.1",
     "release-it": "15.6.0",
