@@ -34,10 +34,10 @@ jobs:
 
       - name: Publish Vue 2 package to npm registry
         run: |
-          npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_ADYEN_LUME_TOKEN }}
-          pnpm publish --access=restricted --filter='./packages/vue2'
+          pnpm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_ADYEN_LUME_TOKEN }}
+          pnpm publish --access=restricted --filter='./packages/vue2' --no-git-checks
 
       - name: Publish Vue 3 package to npm registry
         run: |
-          npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_ADYEN_LUME_VUE3_TOKEN }}
-          pnpm publish --access=restricted --filter='./packages/vue3'
+          pnpm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_ADYEN_LUME_VUE3_TOKEN }}
+          pnpm publish --access=restricted --filter='./packages/vue3' --no-git-checks

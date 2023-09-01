@@ -32,4 +32,4 @@ jobs:
       - name: Publish to npm registry
         run: |
           npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_ADYEN_LUME_VUE3_TOKEN }}
-          pnpm publish --access=restricted --filter='./packages/vue3'
+          pnpm publish --access=restricted --filter='./packages/vue3' --no-git-checks
