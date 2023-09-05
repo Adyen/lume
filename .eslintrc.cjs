@@ -31,4 +31,7 @@ module.exports = {
   env: {
     es6: true,
   },
+  globals: {
+    __VUE_VERSION__: 'readonly',
+  },
 };

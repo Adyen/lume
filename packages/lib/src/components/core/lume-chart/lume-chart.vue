@@ -248,6 +248,7 @@ import LumeTooltip from '@/components/core/lume-tooltip';
 import LumeOverlayGroup from '@/components/groups/lume-overlay-group';
 
 import { useBase } from '@/composables/base';
+import { useEvents } from '@/composables/events';
 import { withChartProps } from '@/composables/props';
 import { isScale, Scale, useBaseScales } from '@/composables/scales';
 import { ChartOptions, useOptions } from '@/composables/options';
@@ -302,6 +303,8 @@ const { allOptions } = useOptions<ChartOptions>(options);
 
 const { internalData, computedLabels, containerSize, updateSize, chartID } =
   useBase(data, labels, color, allOptions, orientation);
+
+const { busListen } = useEvents(emit, chartID);
 
 const { xScale, yScale } = useBaseScales(
   internalData,
@@ -474,10 +477,14 @@ watch(
   { flush: 'post' }
 );
 
-onMounted(() => {
+onMounted(async () => {
   emit('rendered');
   if (!slots.groups) {
     console.error('"groups" `<slot>` must have content.');
+  }
+
+  if (__VUE_VERSION__ === 2) {
+    await busListen('lume__internal--hover', handleInternalHover);
   }
 });
 
