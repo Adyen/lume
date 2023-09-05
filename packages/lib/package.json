@@ -24,7 +24,7 @@
     "@storybook/vue3": "7.3.0",
     "@vue/test-utils": "2.3.2",
     "vitest": "0.34.0",
-    "vue": "3.2.47"
+    "vue": "3.3.4"
   },
   "keywords": [],
   "author": "",
