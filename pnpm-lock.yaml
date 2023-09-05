@@ -24,8 +24,8 @@ importers:
         specifier: 2.4.0
         version: 2.4.0
       css-loader:
-        specifier: 6.7.2
-        version: 6.7.2(webpack@5.76.0)
+        specifier: 6.8.1
+        version: 6.8.1(webpack@5.76.0)
       eslint:
         specifier: 8.27.0
         version: 8.27.0
@@ -135,10 +135,10 @@ importers:
         version: 7.3.0(react-dom@18.2.0)(react@18.2.0)
       '@storybook/vue':
         specifier: 7.3.0
-        version: 7.3.0(@babel/core@7.22.11)(css-loader@6.7.2)(vue@2.7.13)
+        version: 7.3.0(@babel/core@7.22.11)(css-loader@6.8.1)(vue@2.7.13)
       '@storybook/vue-vite':
         specifier: 7.3.0
-        version: 7.3.0(@babel/core@7.22.11)(css-loader@6.7.2)(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.5)(vite@4.3.9)(vue@2.7.13)
+        version: 7.3.0(@babel/core@7.22.11)(css-loader@6.8.1)(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.5)(vite@4.3.9)(vue@2.7.13)
       '@vitejs/plugin-vue2':
         specifier: 2.2.0
         version: 2.2.0(vite@4.3.9)(vue@2.7.13)
@@ -3665,7 +3665,7 @@ packages:
       file-system-cache: 2.3.0
     dev: true
 
-  /@storybook/vue-vite@7.3.0(@babel/core@7.22.11)(css-loader@6.7.2)(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.5)(vite@4.3.9)(vue@2.7.13):
+  /@storybook/vue-vite@7.3.0(@babel/core@7.22.11)(css-loader@6.8.1)(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.5)(vite@4.3.9)(vue@2.7.13):
     resolution: {integrity: sha512-s8Dpf1xfcUrihGWTwQPjo9E6StU3W6hST38YB4V+/meFG2cT2g4pelKc6qI6p4eDAwN2YQSWxozyQMUiZ21g8A==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
@@ -3677,7 +3677,7 @@ packages:
       '@storybook/builder-vite': 7.3.0(typescript@4.9.5)(vite@4.3.9)
       '@storybook/core-common': 7.3.0
       '@storybook/core-server': 7.3.0
-      '@storybook/vue': 7.3.0(@babel/core@7.22.11)(css-loader@6.7.2)(vue@2.7.13)
+      '@storybook/vue': 7.3.0(@babel/core@7.22.11)(css-loader@6.8.1)(vue@2.7.13)
       magic-string: 0.30.3
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -3749,7 +3749,7 @@ packages:
       - supports-color
     dev: true
 
-  /@storybook/vue@7.3.0(@babel/core@7.22.11)(css-loader@6.7.2)(vue@2.7.13):
+  /@storybook/vue@7.3.0(@babel/core@7.22.11)(css-loader@6.8.1)(vue@2.7.13):
     resolution: {integrity: sha512-v0A6WKDleFDW1t0eu8ZxU91CycvMbMfGg6MGTO1N2TQtCufuV8croUoqWlrVt7Ry+4vYy1jj4Q+DiA58+bDO6A==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
@@ -3768,7 +3768,7 @@ packages:
       '@storybook/global': 5.0.0
       '@storybook/preview-api': 7.3.0
       '@storybook/types': 7.3.0
-      css-loader: 6.7.2(webpack@5.76.0)
+      css-loader: 6.8.1(webpack@5.76.0)
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 2.7.13
@@ -5570,8 +5570,8 @@ packages:
       type-fest: 1.4.0
     dev: true
 
-  /css-loader@6.7.2(webpack@5.76.0):
-    resolution: {integrity: sha512-oqGbbVcBJkm8QwmnNzrFrWTnudnRZC+1eXikLJl0n4ljcfotgRifpg2a1lKy8jTrc4/d9A/ap1GFq1jDKG7J+Q==}
+  /css-loader@6.8.1(webpack@5.76.0):
+    resolution: {integrity: sha512-xDAXtEVGlD0gJ07iclwWVkLoZOpEvAWaSyf6W18S2pOC//K8+qUDIx8IIT3D+HjnmkJPQeesOPv5aiUaJsCM2g==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
       webpack: ^5.0.0
