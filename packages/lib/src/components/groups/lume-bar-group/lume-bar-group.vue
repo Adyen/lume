@@ -6,7 +6,7 @@
     <g
       v-for="(barGroup, groupIndex) in groupedData"
       :key="groupIndex"
-      @mouseenter="emit('lume__internal--hover', groupIndex)"
+      @mouseenter="handleInternalHover(groupIndex)"
     >
       <lume-bar
         v-for="(barValue, index) in barGroup"
@@ -35,10 +35,11 @@ const MIXIN_MAP = {
 </script>
 
 <script setup lang="ts">
-import { computed, PropType, toRefs } from 'vue';
+import { computed, inject, PropType, toRefs } from 'vue';
 
 import LumeBar from '@/components/core/lume-bar';
 
+import { useEvents } from '@/composables/events';
 import { withGroupProps } from '@/composables/group-props';
 import {
   getBarChartType,
@@ -85,6 +86,10 @@ const {
   classList,
 } = toRefs(props);
 
+const chartID = inject<string>('chartID');
+
+const { busEmit } = useEvents(emit, chartID);
+
 const { groupedData } = useBarMixin(data);
 
 const { barXScale, barYScale } = useBarScales(xScale, yScale, orientation);
@@ -112,4 +117,12 @@ const computedTransition = computed(() => {
   if (!transition.value) return;
   return orientation.value === ORIENTATIONS.HORIZONTAL ? 'width' : 'height';
 });
+
+async function handleInternalHover(groupIndex: number) {
+  emit('lume__internal--hover', groupIndex);
+
+  if (__VUE_VERSION__ === 2) {
+    await busEmit('lume__internal--hover', groupIndex);
+  }
+}
 </script>
