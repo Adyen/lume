@@ -20,8 +20,8 @@
     "d3-sankey": "0.12.3"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "7.2.1",
-    "@storybook/vue3": "7.2.1",
+    "@storybook/addon-actions": "7.3.0",
+    "@storybook/vue3": "7.3.0",
     "@vue/test-utils": "2.3.2",
     "vitest": "0.34.0",
     "vue": "3.2.47"
