@@ -69,7 +69,8 @@ export function useAlluvialGraph(
       .nodePadding(options.value.nodePadding)
       .nodeSort(options.value.nodeSort)
       .nodeWidth(options.value.nodeWidth)
-      .linkSort(options.value.linkSort);
+      .linkSort(options.value.linkSort)
+      .iterations(options.value.iterations);
   });
 
   watch([layout, extents], () => {
