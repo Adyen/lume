@@ -27,7 +27,7 @@ export interface AxisOptions extends Options {
 export interface TooltipOptions extends Options {
   fixedPositioning?: boolean;
   offset?: number;
-  position?: (typeof TOOLTIP_POSITIONS)[number];
+  position?: typeof TOOLTIP_POSITIONS[number];
   showTitle?: boolean;
   summary?: string;
   targetElement?: Element | 'self';
@@ -83,6 +83,7 @@ export interface AlluvialDiagramOptions extends ChartOptions {
     a: SankeyLink<SankeyNodeProps, SankeyLinkProps>,
     b: SankeyLink<SankeyNodeProps, SankeyLinkProps>
   ) => number | undefined | null;
+  iterations?: number;
   switchText?: boolean;
   valueFormat?: Format;
 }
