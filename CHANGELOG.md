@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v0.10.0](https://github.com/Adyen/lume/compare/v0.9.1...v0.10.0)
+
+- ⬆️ Update dependency prettier to v2.8.8 [`dbf2de8`](https://github.com/Adyen/lume/commit/dbf2de8ae6409e31e780f9c92c50213812dd6ccb)
+- ⬆️ Upgrade package versions & fix them [`f0d5037`](https://github.com/Adyen/lume/commit/f0d5037633dd82ccdb9b146722e2662f5cb718d4)
+- ⬆️ Update storybook monorepo to v7.3.0 [`f405c71`](https://github.com/Adyen/lume/commit/f405c71dda96c45f17771be3571f7c517e329c1e)
+
 #### [v0.9.1](https://github.com/Adyen/lume/compare/v0.9.0...v0.9.1)
+
+> 31 August 2023
 
 - ♻️ Refactor Bar chart stories; Fix related issues [`7bc63f8`](https://github.com/Adyen/lume/commit/7bc63f8e8a22dceeb7911aac66498e7d505e8546)
 - ♻️ Refactor all other stories to CSF3 [`08b1196`](https://github.com/Adyen/lume/commit/08b1196d55ea7ce68fe639cbce74efe57ec0edec)
