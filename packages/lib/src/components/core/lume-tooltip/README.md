@@ -125,6 +125,14 @@ p: Element; // The tooltip's new `targetElement` prop value.
 
 Fired upon tooltip unmount.
 
+### `tooltip-mouseenter`
+
+Fired upon mouse entering the lume tooltip.
+
+### `tooltip-mouseleave`
+
+Fired upon mouse leaving the lume tooltip.
+
 ##### Payload
 
 None.
