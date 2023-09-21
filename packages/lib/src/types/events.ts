@@ -83,6 +83,8 @@ export interface TooltipEvents {
   (e: 'tooltip-opened', p: TooltipEventPayload): void;
   (e: 'tooltip-moved', p: TooltipEventPayload): void;
   (e: 'tooltip-closed'): void;
+  (e: 'tooltip-mouseenter'): void;
+  (e: 'tooltip-mouseleave'): void;
 }
 
 export type ChartEmits = AxisEvents &
