@@ -192,6 +192,8 @@
         :position="tooltipPosition"
         :with-tooltip="allOptions.withTooltip !== false"
         :hovered-index="internalHoveredIndex"
+        :handle-mouse-enter="() => (hoveredTooltip = true)"
+        :handle-mouse-leave="() => (hoveredTooltip = false)"
         :options="allOptions.tooltipOptions"
       >
         <lume-tooltip
@@ -215,6 +217,8 @@
             })
           "
           @closed="emit('tooltip-closed')"
+          @tooltip-mouseenter="hoveredTooltip = true"
+          @tooltip-mouseleave="hoveredTooltip = false"
         >
           <slot
             name="tooltip-content"
@@ -294,6 +298,7 @@ const internalHoveredIndex = ref<number>(-1);
 const tooltipAnchor = ref<Array<SVGCircleElement>>(null);
 const chartContainer = ref<InstanceType<typeof LumeChartContainer>>(null);
 const tooltipAnchorAttributes = ref<Array<AnchorAttributes>>([]);
+const hoveredTooltip = ref<boolean>(false);
 
 const xAxisHeight = ref<number>(0);
 const yAxisWidth = ref<number>(0);
@@ -404,6 +409,16 @@ const tooltipPosition = computed(
   () => allOptions.value.tooltipOptions?.position || 'top'
 );
 
+const shouldHideTooltip = computed(() => {
+  const arePointerEventsEnabled =
+    allOptions.value.tooltipOptions?.enablePointerEvents;
+  return (
+    tooltipConfig.opened &&
+    (!arePointerEventsEnabled ||
+      (arePointerEventsEnabled && !hoveredTooltip.value))
+  );
+});
+
 function handleInternalHover(index: number) {
   // Skip the rest if the index didn't change
   if (index === internalHoveredIndex.value) return;
@@ -418,7 +433,6 @@ function handleInternalHover(index: number) {
       : allOptions.value.tooltipOptions.targetElement === 'self'
         ? chartContainer.value.$el
         : allOptions.value.tooltipOptions.targetElement;
-
     showTooltip(targetElement);
   }
 }
@@ -433,9 +447,11 @@ function handleExternalHover(index: number) {
 }
 
 function handleMouseleave() {
-  hideTooltip();
-  internalHoveredIndex.value = -1;
-  emit('chart-mouseleave');
+  if (shouldHideTooltip.value) {
+    hideTooltip();
+    internalHoveredIndex.value = -1;
+    emit('chart-mouseleave');
+  }
 }
 
 function handleAxisMouseenter({ index, value, event }) {
