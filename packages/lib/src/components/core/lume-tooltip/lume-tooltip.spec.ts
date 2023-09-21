@@ -142,5 +142,20 @@ describe('tooltip.vue', () => {
       expect(wrapper.emitted()).toHaveProperty('closed');
       expect(wrapper.emitted().closed).toHaveLength(1);
     });
+
+    it('should dispatch `tooltip-mouseenter` when cursor enters nd `tooltip-mouseleave` when cursor leaves the tooltip', async () => {
+      const wrapper = mount(LumeTooltip, { props: defaultProps });
+
+      await wrapper.setProps({ targetElement: document.createElement('div') });
+
+      const el = wrapper.find('[data-j-tooltip]');
+      expect(el.exists()).toBeTruthy();
+
+      await el.trigger('mouseenter');
+      expect(wrapper.emitted()).toHaveProperty('tooltip-mouseenter');
+
+      await el.trigger('mouseleave');
+      expect(wrapper.emitted()).toHaveProperty('tooltip-mouseleave');
+    });
   });
 });

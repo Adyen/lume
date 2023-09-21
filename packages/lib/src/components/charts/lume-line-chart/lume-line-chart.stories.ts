@@ -1,4 +1,4 @@
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import {
@@ -11,6 +11,7 @@ import DATASETS from '@/docs/storybook-data/base-data';
 
 import LumeLineChart from './lume-line-chart.vue';
 import LumeTooltip from '../../core/lume-tooltip/index';
+import LumeTooltipSummary from '../../core/lume-tooltip/components/lume-tooltip-summary/index';
 import { Colors } from '@/utils/constants';
 
 const meta: Meta<typeof LumeLineChart> = {
@@ -78,6 +79,74 @@ export const MultipleDatasets: Story = {
   args: {
     ...DATASETS.AnimalsMetIn2023,
     title: 'Pets met in 2023',
+  },
+};
+
+export const MultipleDatasetsWithCustomTooltip: Story = {
+  render: ({ args }) => ({
+    components: { LumeLineChart, LumeTooltip, LumeTooltipSummary },
+    setup() {
+      const showSummary = ref(false);
+      const customItemsFunction = (data, hoveredIndex) => {
+        if (hoveredIndex > -1) {
+          return data.map((item) => ({
+            ...item,
+            value: item.values[hoveredIndex].value,
+          }));
+        }
+        return [];
+      };
+      const computeTotal = (data, hoveredIndex) => {
+        if (hoveredIndex > -1) {
+          return data.reduce(
+            (acc, current) => acc + current.values[hoveredIndex].value,
+            0
+          );
+        }
+        return 0;
+      };
+      return {
+        args,
+        captureAction,
+        showSummary,
+        customItemsFunction,
+        computeTotal,
+      };
+    },
+    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    <lume-line-chart v-bind="args" ${actionEventHandlerTemplate}>
+      <template #tooltip = "{ data, hoveredIndex, targetElement, handleMouseEnter, handleMouseLeave }">
+        <lume-tooltip
+          :items="customItemsFunction(data, hoveredIndex)"
+          :target-element="targetElement"
+          :options="args.options.tooltipOptions"
+          position="top"
+          @tooltip-mouseenter="handleMouseEnter"
+          @tooltip-mouseleave="handleMouseLeave"
+        >
+          <template #title>
+            <button @click="showSummary = !showSummary">
+              <template v-if="showSummary">Hide</template>
+              <template v-else>Show</template> additional information
+            </button>
+          </template>
+          <template #summary>
+            <lume-tooltip-summary v-show="showSummary">Total number of pets: {{ computeTotal(data, hoveredIndex) }}</lume-tooltip-summary>
+          </template>
+        </lume-tooltip>
+       </template>
+    </lume-line-chart>
+</div>`,
+  }),
+  args: {
+    ...DATASETS.AnimalsMetIn2023,
+    title: 'Pets met in 2023',
+    options: {
+      tooltipOptions: {
+        enablePointerEvents: true,
+        withAnimation: false,
+      },
+    },
   },
 };
 
