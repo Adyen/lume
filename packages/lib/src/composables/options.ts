@@ -27,12 +27,14 @@ export interface AxisOptions extends Options {
 export interface TooltipOptions extends Options {
   fixedPositioning?: boolean;
   offset?: number;
-  position?: typeof TOOLTIP_POSITIONS[number];
+  position?: (typeof TOOLTIP_POSITIONS)[number];
   showTitle?: boolean;
   summary?: string;
   targetElement?: Element | 'self';
   titleFormat?: Format;
   valueFormat?: Format;
+  enablePointerEvents?: boolean;
+  withAnimation?: boolean;
 }
 
 type LegendPosition = 'top' | 'bottom';

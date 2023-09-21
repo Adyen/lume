@@ -36,6 +36,10 @@ $lume-tooltip-symbol-size: $lume-spacing-10 !default;
     transition: transform $lume-transition-time-long ease-out;
   }
 
+  &--pointer-events {
+    pointer-events: auto;
+  }
+
   &__break {
     hr {
       margin-top: $lume-spacing-4;

@@ -3,7 +3,12 @@
     v-show="targetElement"
     ref="root"
     class="lume-tooltip lume-typography--caption"
+    :class="{
+      'lume-tooltip--pointer-events': options.enablePointerEvents,
+    }"
     data-j-tooltip
+    @mouseenter="emit('tooltip-mouseenter')"
+    @mouseleave="emit('tooltip-mouseleave')"
   >
     <slot>
       <!-- Default chart tooltip content -->
@@ -124,6 +129,8 @@ const emit = defineEmits<{
   (e: 'opened', p: Element);
   (e: 'moved', p: Element);
   (e: 'closed');
+  (e: 'tooltip-mouseenter');
+  (e: 'tooltip-mouseleave');
 }>();
 
 // Refs
@@ -198,7 +205,8 @@ function destroyPopper() {
 function updatePopper() {
   if (!popper.value) return;
 
-  root.value.classList.add('lume-tooltip--animated'); // Add transition class
+  if (allOptions.value.withAnimation !== false)
+    root.value.classList.add('lume-tooltip--animated'); // Add transition class
 
   props.targetElement
     ? (function () {
