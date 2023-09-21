@@ -33,6 +33,8 @@ export interface TooltipOptions extends Options {
   targetElement?: Element | 'self';
   titleFormat?: Format;
   valueFormat?: Format;
+  enablePointerEvents?: boolean;
+  withAnimation?: boolean;
 }
 
 type LegendPosition = 'top' | 'bottom';
