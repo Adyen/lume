@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@release-it-plugins/workspaces": "3.2.0",
-    "@types/node": "18.11.5",
+    "@types/node": "18.17.14",
     "@typescript-eslint/eslint-plugin": "5.17.0",
     "@typescript-eslint/parser": "5.43.0",
     "auto-changelog": "2.4.0",
