@@ -1,0 +1,37 @@
+@use '@/styles/variables' as *;
+
+$axis-label-color: $lume-color-grey-50;
+$axis-label-hover-color: $lume-color-grey-70;
+
+$axis-line-color: $lume-color-grey-20;
+
+.axis {
+  &__grid-line {
+    fill: none;
+    stroke: $axis-line-color;
+    shape-rendering: crispEdges;
+    pointer-events: none;
+  }
+
+  &__label {
+    fill: $axis-label-color;
+    cursor: default;
+    transition: all $lume-transition-time-short ease-in-out;
+  }
+
+  &__tick {
+    transition: opacity $lume-transition-time-short ease-in-out;
+
+    &--hidden {
+      opacity: 0;
+    }
+
+    &--hovered {
+      opacity: 1;
+
+      .axis__label {
+        fill: $axis-label-hover-color;
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+.DS_Store
+.idea/
+.cache/
+.pnpm-store/
+
+.env
+
+dist/
+node_modules/
+storybook/
+test/coverage
+
+package-lock.json

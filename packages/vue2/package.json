@@ -1,0 +1,77 @@
+{
+  "name": "@adyen/lume",
+  "version": "0.10.0",
+  "description": "",
+  "type": "module",
+  "module": "dist/index.js",
+  "files": [
+    "dist/"
+  ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./plugin": "./dist/plugin.js",
+    "./styles": "./dist/styles/main.css",
+    "./font": "./dist/styles/font.css",
+    "./scss": "./dist/scss/main.scss",
+    "./package.json": "./package.json"
+  },
+  "types": "./dist/types/index.d.ts",
+  "scripts": {
+    "build": "NODE_ENV=production pnpm run build:vite && pnpm run build:font",
+    "build:vite": "vite build",
+    "build:font": "webpack",
+    "pack": "pnpm pack --pack-destination ../../",
+    "postbuild": "node ../../build/postbuild.js",
+    "storybook": "sb dev -p 9002 -c .storybook"
+  },
+  "dependencies": {
+    "@popperjs/core": "2.11.8",
+    "d3": "7.8.5",
+    "d3-sankey": "0.12.3"
+  },
+  "peerDependencies": {
+    "vue": "2.7.13"
+  },
+  "devDependencies": {
+    "@adyen/lume-core": "workspace:@adyen/lume-core@*",
+    "@storybook/addon-a11y": "7.3.0",
+    "@storybook/addon-essentials": "7.3.0",
+    "@storybook/cli": "7.3.0",
+    "@storybook/manager-api": "7.3.0",
+    "@storybook/theming": "7.3.0",
+    "@storybook/vue": "7.3.0",
+    "@storybook/vue-vite": "7.3.0",
+    "@vitejs/plugin-vue2": "2.2.0",
+    "storybook-utils": "workspace:storybook-utils@*",
+    "vite": "4.3.9",
+    "vite-plugin-static-copy": "0.17.0",
+    "vue": "2.7.13",
+    "vue-template-compiler": "2.7.13"
+  },
+  "keywords": [
+    "Lume",
+    "LumeJS",
+    "Lume Design System",
+    "Data Visualization",
+    "Charts",
+    "d3.js",
+    "SVG charts",
+    "Bar charts",
+    "Single bar chart",
+    "Grouped bar chart",
+    "Stacked bar chart",
+    "Sparkline chart",
+    "Line chart",
+    "Alluvial charts",
+    "Sankey diagrams",
+    "Vue chart library",
+    "Vue",
+    "Vue 2.7"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Adyen/lume.git",
+    "directory": "packages/vue2"
+  }
+}

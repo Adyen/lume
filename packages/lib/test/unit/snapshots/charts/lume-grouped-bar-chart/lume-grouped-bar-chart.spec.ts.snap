@@ -1,0 +1,718 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+<div
+  class="lume-chart-container lume-chart-container--minimum"
+  data-j-chart-container=""
+  data-j-grouped-bar-chart=""
+  data-j-lume-chart=""
+>
+  <div
+    class="lume-chart__header"
+  >
+    <div
+      class="lume-chart__header-section"
+    >
+      <!---->
+       
+      <div
+        class="lume-chart__controls"
+      />
+    </div>
+     
+    <div
+      class="lume-chart__header-section"
+    >
+      <!---->
+       
+      <div
+        class="lume-chart-legend lume-chart__legend"
+        data-j-chart-legend=""
+      >
+        <div
+          class="lume-chart-legend__item"
+          tabindex="0"
+        >
+          <span
+            class="lume-chart-legend__symbol lume-background-color--skyblue"
+            data-j-chart-legend__symbol=""
+          />
+          
+    
+  
+        </div>
+      </div>
+    </div>
+  </div>
+   
+  <svg
+    class="lume-chart-container__svg"
+    data-j-chart-container__root=""
+    height="44"
+  >
+    <g
+      class="lume-chart-container__group"
+      data-j-chart-container__group=""
+      transform="translate(24, 16)"
+    >
+       
+      <!---->
+       
+      <g
+        class="axis"
+        data-j-axis=""
+        data-j-lume-chart__x-axis=""
+        transform="translate(0, 0)"
+      >
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        0
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(91.42857142857143, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        1
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(182.85714285714286, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        2
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(274.2857142857143, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        3
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(365.7142857142857, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        4
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(457.14285714285717, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        5
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(548.5714285714286, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+              height="28"
+              width="91.42857142857143"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.8em"
+              text-anchor="middle"
+              x="45.714285714285715"
+              y="8"
+            >
+              
+        6
+      
+            </text>
+          </g>
+           
+          <!---->
+        </g>
+      </g>
+       
+      <g
+        class="axis"
+        data-j-axis=""
+        data-j-lume-chart__y-axis=""
+        transform="translate(0, 0)"
+      >
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 0)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        0
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 40)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        5
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 80)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        10
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 120)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        15
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 160)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        20
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 200)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        25
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 240)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        30
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 280)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        35
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 320)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        40
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 360)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        45
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 400)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        50
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 440)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        55
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+        <g
+          class="axis__tick"
+          data-j-axis__tick=""
+          transform="translate(0, 480)"
+        >
+          <g
+            class="axis__tick-label"
+            data-j-axis__tick-label=""
+            pointer-events="all"
+          >
+            <rect
+              class="axis__ghost"
+            />
+             
+            <text
+              class="axis__label"
+              dy="0.4em"
+              text-anchor="end"
+              x="-8"
+            >
+              
+        60
+      
+            </text>
+          </g>
+           
+          <line
+            class="axis__grid-line"
+            x1="0"
+          />
+        </g>
+      </g>
+       
+      <g
+        class="lume-bar-group"
+        containerSize="[object Object]"
+        data-j-bars-group=""
+        labels="Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday"
+      />
+       
+      <g
+        class="lume-overlay-group"
+        data-j-lume-chart__overlay-group=""
+      />
+       
+      <g />
+    </g>
+  </svg>
+   
+  <!---->
+   
+  <!---->
+   
+</div>
+`;

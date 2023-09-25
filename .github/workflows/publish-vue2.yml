@@ -1,0 +1,35 @@
+name: Publish Lume for Vue 2
+
+on: workflow_dispatch
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    environment: release
+
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v3
+
+      - name: Read .nvmrc
+        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        id: nvm
+
+      - name: Use Node version from .nvmrc
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ steps.nvm.outputs.NVMRC }}
+
+      - name: Install dependencies
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: true
+
+      - name: Build the package
+        run: pnpm run build
+
+      - name: Publish to npm registry
+        run: |
+          npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_ADYEN_LUME_TOKEN }}
+          pnpm publish --filter='./packages/vue2' --no-git-checks

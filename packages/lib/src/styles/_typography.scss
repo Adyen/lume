@@ -1,0 +1,29 @@
+@use 'variables/typography' as *;
+
+.lume-typography--display {
+  font-family: $lume-font-family;
+  font-size: $lume-font-size-lg;
+  font-weight: $lume-font-weight-medium;
+  line-height: $lume-line-height-lg;
+}
+
+.lume-typography--body {
+  font-family: $lume-font-family;
+  font-size: $lume-font-size-md;
+  font-weight: $lume-font-weight-regular;
+  line-height: $lume-line-height-md;
+}
+
+.lume-typography--caption {
+  font-family: $lume-font-family;
+  font-size: $lume-font-size-sm;
+  font-weight: $lume-font-weight-regular;
+  line-height: $lume-line-height-sm;
+}
+
+.lume-typography--axis {
+  font-family: $lume-font-family;
+  font-size: $lume-font-size-xs;
+  font-weight: $lume-font-weight-medium;
+  line-height: $lume-line-height-xs;
+}

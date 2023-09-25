@@ -1,0 +1,8 @@
+@use '@/styles/variables' as *;
+
+.lume-point {
+  fill: $lume-color-white;
+
+  transition: all $lume-transition-time-long ease;
+  pointer-events: visible;
+}

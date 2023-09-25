@@ -1,0 +1,11 @@
+@use '@/styles/variables' as *;
+
+.lume-line-group {
+  &__overlay-line {
+    stroke: $lume-color-grey-30;
+    stroke-width: 1px;
+    stroke-dasharray: 2 2;
+
+    transition: all $lume-transition-time-long ease-out;
+  }
+}

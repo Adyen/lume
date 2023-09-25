@@ -1,0 +1,28 @@
+@use '@/styles/variables' as *;
+
+.lume-line {
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  fill: none;
+
+  pointer-events: visibleStroke;
+
+  &--dashed {
+    stroke-dasharray: 2%;
+  }
+
+  &--transition {
+    transition: all $lume-transition-time-long ease;
+    clip-path: polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%);
+    animation: clipPathTransition ease-out forwards;
+  }
+}
+
+@keyframes clipPathTransition {
+  99% {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+  100% {
+    clip-path: unset; /* Required for not having chipped lines */
+  }
+}

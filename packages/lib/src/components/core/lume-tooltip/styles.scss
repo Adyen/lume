@@ -1,0 +1,90 @@
+@use 'sass:math';
+
+@use '@/styles/variables' as *;
+
+// Tooltip box -----------------------------------------------------------------
+$lume-tooltip-background-color: $lume-color-white !default;
+$lume-tooltip-border-radius: $lume-border-radius-8 !default;
+$lume-tooltip-box-shadow: $lume-box-shadow !default;
+$lume-tooltip-max-width: 288px !default;
+
+$lume-tooltip-content-padding: $lume-spacing-10 !default;
+$lume-tooltip-z-index: 500 !default;
+
+$lume-tooltip-title-color: $lume-color-grey-100 !default;
+
+$lume-tooltip-item-color: $lume-color-grey-90 !default;
+$lume-tooltip-value-color: $lume-color-grey-100 !default;
+
+$lume-tooltip-item-line-height: $lume-line-height-sm !default;
+$lume-tooltip-item-min-width: 112px !default;
+$lume-tooltip-symbol-size: $lume-spacing-10 !default;
+
+.lume-tooltip {
+  position: absolute;
+  max-width: $lume-tooltip-max-width;
+  padding: $lume-tooltip-content-padding;
+
+  background: $lume-tooltip-background-color;
+  border: $lume-border;
+  border-radius: $lume-tooltip-border-radius;
+  box-shadow: $lume-tooltip-box-shadow;
+  z-index: $lume-tooltip-z-index;
+  pointer-events: none; /* prevent jitter when tooltip gets in the way of the cursor during transitions */
+
+  &--animated {
+    transition: transform $lume-transition-time-long ease-out;
+  }
+
+  &__break {
+    hr {
+      margin-top: $lume-spacing-4;
+      margin-bottom: $lume-spacing-4;
+      border: 0;
+      border-top: 1px solid $lume-color-grey-30;
+    }
+  }
+
+  &__title {
+    margin-bottom: $lume-spacing-4;
+    font-weight: $lume-font-weight-medium;
+    color: $lume-tooltip-title-color;
+  }
+
+  &__items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    display: flex;
+    min-width: $lume-tooltip-item-min-width;
+    margin-bottom: $lume-spacing-4;
+    color: $lume-tooltip-item-color;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__symbol {
+    margin-top: math.div(
+      $lume-tooltip-item-line-height - $lume-tooltip-symbol-size,
+      2
+    ); // default: 3px
+    margin-right: $lume-spacing-8;
+    width: $lume-tooltip-symbol-size;
+    height: $lume-tooltip-symbol-size;
+    flex-shrink: 0;
+    border-radius: 50%;
+  }
+
+  &__value {
+    flex-shrink: 0;
+    font-weight: $lume-font-weight-medium;
+    margin-left: auto;
+    padding-left: $lume-spacing-8;
+    color: $lume-tooltip-value-color;
+  }
+}

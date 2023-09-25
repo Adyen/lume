@@ -1,0 +1,124 @@
+@use 'sass:color';
+@use 'sass:list';
+
+@use 'variables' as *;
+@use 'functions/colors' as *;
+
+// Colors
+
+//
+//// Generates util classes for all color values (regular colors, color pairs):
+//// .lume-background-color--{color}-{value}
+//// .lume-fill--{color}-{value}
+//// .lume-stroke--{color}-{value}
+//
+@each $property in (background-color, fill, stroke) {
+  // categorical colors
+  @include generate-color-classes($property, $lume-categorical-colors);
+
+  // sequential colors
+  @each $map in $lume-sequential-colors {
+    @include generate-color-classes($property, $map);
+  }
+
+  // divergent pairs
+  @each $map in $lume-divergent-colors {
+    @include generate-color-classes($property, $map);
+  }
+
+  // other colors
+  @include generate-color-classes($property, $lume-other-colors);
+}
+
+//
+//// Covers primary colors & legacy colors
+//// (e.g. .lume-background-color--skyblue, .lume-background-color--02)
+//
+.lume-background-color {
+  @each $name, $map in $lume-categorical-colors {
+    &--#{$name} {
+      background-color: nth($map, 1);
+    }
+  }
+
+  @each $color, $value in $lume-legacy-colors {
+    &--#{$color} {
+      background-color: $value;
+    }
+  }
+}
+
+//
+//// Covers primary colors & legacy colors
+//// (e.g. .lume-stroke--skyblue, .lume-stroke--02)
+//
+.lume-stroke {
+  &--transparent {
+    stroke: $lume-color-grey-transparent;
+    opacity: 0;
+  }
+
+  @each $color, $value in $lume-legacy-colors {
+    &--#{$color} {
+      stroke: $value;
+    }
+  }
+}
+
+//
+//// Covers primary colors, variants & legacy colors
+//// (e.g. .lume-fill--skyblue, .lume-fill--02)
+//
+.lume-fill {
+  $b: &;
+
+  &--overlay {
+    fill: $lume-color-grey-transparent;
+  }
+
+  &--negative {
+    fill: $lume-color-grey-10;
+    pointer-events: none;
+  }
+
+  &--none {
+    fill: none;
+  }
+
+  &--transparent {
+    fill: $lume-color-grey-transparent;
+    opacity: 0;
+  }
+
+  @each $name, $map in $lume-categorical-colors {
+    &--#{$name} {
+      fill: nth($map, 1);
+    }
+  }
+
+  @each $color, $value in $lume-legacy-colors {
+    &--#{$color} {
+      fill: $value;
+
+      &#{$b}--faded {
+        fill: fade-color($value);
+      }
+    }
+  }
+}
+
+// Display
+
+.u-display-flex {
+  display: flex !important;
+}
+
+// Size
+
+.u-width-full {
+  width: 100% !important;
+}
+
+.u-height-full {
+  height: 100% !important;
+}

@@ -1,0 +1,27 @@
+{
+  "git": {
+    "commitMessage": "🔖 Release v${version}",
+    "changelog": "auto-changelog --stdout --commit-limit false --unreleased --template release-log-template.hbs",
+    "requireCleanWorkingDir": false
+  },
+  "npm": {
+    "publish": false,
+    "allowSameVersion": true
+  },
+  "github": {
+    "release": true,
+    "draft": true,
+    "skipChecks": true,
+    "web": true
+  },
+  "hooks": {
+    "after:bump": "auto-changelog -p --hide-credit"
+  },
+  "plugins": {
+    "@release-it-plugins/workspaces": {
+      "publish": false,
+      "skipChecks": true,
+      "workspaces": ["packages/vue2", "packages/vue3"]
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "@adyen/lume-core",
+  "version": "0.8.0",
+  "description": "",
+  "private": true,
+  "main": "index.js",
+  "exports": {
+    ".": "./src/index.ts",
+    "./plugin": "./src/plugin.ts",
+    "./font": "./src/styles/font.scss"
+  },
+  "scripts": {
+    "lint:fix": "npm run lint -- --fix",
+    "lint:pretty": "prettier --write --ignore-unknown .",
+    "lint": "eslint ./src ./test --ext .js,.ts,.vue"
+  },
+  "dependencies": {
+    "@popperjs/core": "2.11.8",
+    "d3": "7.8.0",
+    "d3-sankey": "0.12.3"
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "7.3.0",
+    "@storybook/vue3": "7.3.0",
+    "@vue/test-utils": "2.3.2",
+    "vitest": "0.34.0",
+    "vue": "3.2.47"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

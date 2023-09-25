@@ -1,0 +1,79 @@
+{
+  "name": "@adyen/lume",
+  "version": "0.10.0",
+  "description": "Lume is a component library for visual representations of data, built for Vue with D3.",
+  "type": "module",
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "Govind Srinidhi",
+      "email": "govind.srinidhi@adyen.com"
+    },
+    {
+      "name": "Joao Santos",
+      "email": "joao.dossantos@adyen.com"
+    },
+    {
+      "name": "Lucas van Heerikhuizen",
+      "email": "lucas.vanheerikhuizen@adyen.com"
+    },
+    {
+      "name": "Vivian Joseph",
+      "email": "vivian.joseph@adyen.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Adyen/lume.git"
+  },
+  "scripts": {
+    "build": "pnpm --parallel -r --filter='./packages/*' run build",
+    "build:storybook": "NODE_ENV=production pnpm --filter='./packages/vue3' run build:storybook -o ../../storybook",
+    "confighooks": "git config core.hooksPath ./git-hooks",
+    "pack": "pnpm -r --filter='./packages/vue*' run pack",
+    "prepare": "pnpm run confighooks && echo \" ✔ Git hooks path configured to ./git-hooks\"",
+    "release": "release-it",
+    "storybook": "pnpm --parallel -r --filter='./packages/*' run storybook",
+    "test": "pnpm --filter='./packages/vue3' run test"
+  },
+  "devDependencies": {
+    "@release-it-plugins/workspaces": "3.2.0",
+    "@types/node": "18.11.5",
+    "@typescript-eslint/eslint-plugin": "5.17.0",
+    "@typescript-eslint/parser": "5.43.0",
+    "auto-changelog": "2.4.0",
+    "css-loader": "6.7.2",
+    "eslint": "8.27.0",
+    "eslint-plugin-vue": "9.9.0",
+    "glob": "8.0.3",
+    "mini-css-extract-plugin": "2.7.6",
+    "prettier": "2.8.8",
+    "release-it": "15.6.0",
+    "resize-observer-polyfill": "1.5.1",
+    "sass": "1.66.1",
+    "sass-loader": "13.2.0",
+    "typescript": "4.9.5",
+    "webpack": "5.76.0",
+    "webpack-cli": "5.0.0"
+  },
+  "keywords": [
+    "Lume",
+    "LumeJS",
+    "Lume Design System",
+    "Data Visualization",
+    "Charts",
+    "d3.js",
+    "SVG charts",
+    "Bar charts",
+    "Single bar chart",
+    "Grouped bar chart",
+    "Stacked bar chart",
+    "Sparkline chart",
+    "Line chart",
+    "Alluvial charts",
+    "Sankey diagrams",
+    "Vue chart library",
+    "Vue",
+    "Vue 2.7"
+  ]
+}

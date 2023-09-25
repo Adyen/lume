@@ -1,0 +1,44 @@
+#!/bin/sh
+
+. ./git-hooks/utils.sh
+
+echo "\n Checking commit structure: \n"
+
+input_file=$1
+
+index=0
+
+while IFS= read -r line
+do
+  if ! [[ $line =~ ^(\#|\;|\+|\-).* ]]; then
+    
+    # Commit subject
+    if [ $index == 0 ]; then
+
+      # TODO: check for gitmoji
+
+      # Commit subject should have < 60 characters
+      if [ ${#line} -gt 60 ]; then
+        echo "\n${RED} ❌ Commit subject line should have less than 60 characters${COLOR_RESET} (This commit has ${#line})\n"
+        exit 1
+      fi
+
+    else
+
+      # Commit message
+
+      # Commit message should have < 100 characters
+      if [ ${#line} -gt 100 ]; then
+        echo "\n${RED} ❌ Commit message lines should have less than 100 characters${COLOR_RESET}\n"
+        exit 1
+      fi
+    fi
+  fi
+
+  index=$((index+1))
+
+done < "$input_file"
+
+echo "\n${GREEN} ✔ Commit message structure is compliant :)${COLOR_RESET}\n"
+
+exit 0
