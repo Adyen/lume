@@ -450,8 +450,8 @@ function handleMouseleave() {
   if (shouldHideTooltip.value) {
     hideTooltip();
     internalHoveredIndex.value = -1;
-    emit('chart-mouseleave');
   }
+  emit('chart-mouseleave');
 }
 
 function handleAxisMouseenter({ index, value, event }) {
