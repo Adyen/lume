@@ -176,5 +176,49 @@ describe('lume-alluvial-diagram.vue', () => {
     expect(console.error).toHaveBeenCalled();
   });
 
-  // Test interaction with elements
+  test('should calculate node offset based on provided value', async () => {
+    const data = [
+      {
+        values: [
+          {
+            label: 'Students',
+            color: 'skyblue',
+            value: 'students',
+            targets: [
+              { node: 'passed', value: 60 },
+              { node: 'retriedExam', value: 50 },
+            ],
+            offset: 40,
+          },
+          {
+            label: 'Retried exam',
+            color: 'skyblue',
+            value: 'retriedExam',
+            targets: [
+              { node: 'failed', value: 10, color: 'red' },
+              { node: 'passed', value: 40 },
+            ],
+          },
+          {
+            label: 'Passed',
+            color: 'skyblue',
+            value: 'passed',
+          },
+          {
+            label: 'Failed',
+            color: 'red',
+            value: 'failed',
+          },
+        ],
+      },
+    ];
+
+    const diagram = mount(LumeAlluvialDiagram, { props: { data } });
+
+    await diagram.setProps({ containerSize: { width: 720, height: 480 } }); // Trigger graph calculation
+
+    expect(
+      diagram.find('.lume-alluvial-group__node-block').attributes().y
+    ).toBe('40');
+  });
 });
