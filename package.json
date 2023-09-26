@@ -4,24 +4,7 @@
   "description": "Lume is a component library for visual representations of data, built for Vue with D3.",
   "type": "module",
   "license": "MIT",
-  "contributors": [
-    {
-      "name": "Govind Srinidhi",
-      "email": "govind.srinidhi@adyen.com"
-    },
-    {
-      "name": "Joao Santos",
-      "email": "joao.dossantos@adyen.com"
-    },
-    {
-      "name": "Lucas van Heerikhuizen",
-      "email": "lucas.vanheerikhuizen@adyen.com"
-    },
-    {
-      "name": "Vivian Joseph",
-      "email": "vivian.joseph@adyen.com"
-    }
-  ],
+  "homepage": "https://github.com/Adyen/lume",
   "repository": {
     "type": "git",
     "url": "https://github.com/Adyen/lume.git"
@@ -75,5 +58,13 @@
     "Vue chart library",
     "Vue",
     "Vue 2.7"
+  ],
+  "maintainers": [
+    "Govind Srinidhi <govind.srinidhi@adyen.com>",
+    "Joao Santos <joao.dossantos@adyen.com>"
+  ],
+  "contributors": [
+    "Lucas van Heerikhuizen <lucas.vanheerikhuizen@adyen.com>",
+    "Vivian Joseph <vivian.joseph@adyen.com>"
   ]
 }

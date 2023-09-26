@@ -74,6 +74,7 @@
     "Vue 2.7"
   ],
   "license": "MIT",
+  "homepage": "https://github.com/Adyen/lume/tree/main/packages/vue3#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/Adyen/lume.git",
