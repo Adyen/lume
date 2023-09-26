@@ -19,6 +19,7 @@ interface AlluvialNodeTarget {
 export interface AlluvialNode extends DatasetValueObject {
   targets?: Array<AlluvialNodeTarget>;
   deriveColorFromIncomingLinks?: boolean;
+  offset?: number;
 }
 export interface SankeyNodeProps extends SankeyExtraProperties {
   id: number | string;
@@ -27,6 +28,7 @@ export interface SankeyNodeProps extends SankeyExtraProperties {
   fallbackColor: Color;
   transitionValue?: number;
   deriveColorFromIncomingLinks?: boolean;
+  offset?: number;
 }
 
 export interface SankeyLinkProps extends SankeyExtraProperties {
