@@ -166,6 +166,27 @@ export const CustomNodeSlots: Story = {
   },
 };
 
+export const NodeOffset: Story = {
+  render: ({ args }) => ({
+    components: { LumeAlluvialDiagram },
+    setup() {
+      return { args, captureAction };
+    },
+    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    <lume-alluvial-diagram v-bind="args" ${actionEventHandlerTemplate} />
+  </div>`,
+  }),
+  args: {
+    ...withSizeArgs(720),
+    ...DATASETS.Offset,
+    options: {
+      valueFormat: (part, _) => `USD ${part}`,
+      gradient: true,
+    },
+    title: 'Yearly average pet expenses in USA',
+  },
+};
+
 export const Empty: Story = {
   render: ({ args }) => ({
     components: { LumeAlluvialDiagram },

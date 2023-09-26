@@ -100,16 +100,27 @@ The data provided to an Alluvial should be a single item array, and the values s
       {
         label: 'Dogs',
         color: 'skyblue',
-        value: 'dogs', // value is treated as the Node
+        value: 'dogs', // value is treated as the node ID
         targets: [
           { node: 'Lisbon shelter', value: 15 },
           { node: 'Porto shelter', value: 42 },
         ],
-      } as AlluvialNodeTarget,
+      } as AlluvialNode,
     ],
   },
 ];
 ```
+
+Interface: `AlluvialNode`
+
+| Name                           | Type                        | Default     | Description                                                                                                         |
+| ------------------------------ | --------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------- |
+| `value`                        | `string`                    | Required    | The node ID.                                                                                                        |
+| `color`                        | `Color`                     | `skyblue`   | Color of node.                                                                                                      |
+| `label`                        | `string`                    | `undefined` | The node display label.                                                                                             |
+| `targets`                      | `Array<AlluvialNodeTarget>` | `undefined` | The targets of this node - a link will be formed between them. If not specified, it will be treated as an end node. |
+| `deriveColorFromIncomingLinks` | `boolean`                   | `false`     | If `true`, the color(s) of this node will be defined by the incoming links' colors.                                 |
+| `offset`                       | `number`                    | `undefined` | Defines a static node position relative to the previous node (from the same column).                                |
 
 Interface: `AlluvialNodeTarget`
 

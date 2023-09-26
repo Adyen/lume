@@ -228,7 +228,7 @@ const linkPaths = ref<Array<LinkPath>>([]);
 const nodeTextRefs = ref<Array<SVGTextElement>>(null);
 
 const { extents, updateExtents } = useAlluvialExtents(props.containerSize);
-const { graph } = useAlluvialGraph(data, options, extents);
+const { columns, graph } = useAlluvialGraph(data, options, extents);
 const { hoveredElement, highlightedElements } = useAlluvialHover(
   nodeBlocks,
   options,
@@ -241,16 +241,12 @@ const hoveredNodeIds = computed(() =>
   Object.keys(highlightedElements.value.nodes)
 );
 
-const nodeColumnPositions = computed<Array<number>>(
-  () =>
-    nodeBlocks.value
-      .reduce((acc, curr) => {
-        const columnX = curr.x + options.value.nodeWidth / 2;
-
-        return acc.includes(columnX) ? acc : [...acc, columnX];
-      }, [])
-      .sort((a, b) => a - b) // Make sure positions are sorted in ascending order
-);
+const nodeColumnPositions = computed<Array<number>>(() => {
+  if (!columns.value) return [];
+  return columns.value.map(
+    (column) => column[0].x0 + options.value.nodeWidth / 2
+  );
+});
 
 const nodeHeaders = computed(() => {
   if (!options.value.nodeHeaders || !options.value.nodeHeaders.length) return;
