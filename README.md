@@ -96,6 +96,87 @@ Vue.use(LumePlugin);
 const app = new Vue(App).$mount('#root');
 ```
 
+### Styles
+
+For Lume to render as intended, you also need to import its styles.
+
+#### CSS (global)
+
+```ts
+// app/index/main.ts
+import Vue from 'vue';
+import App from './my-app.vue';
+
+// Main styles
+import '@adyen/lume/styles';
+// (Optional) Lume font
+import '@adyen/lume/font';
+
+const app = new Vue(App).$mount('#root');
+```
+
+#### Sass (global)
+
+```ts
+// app/index/main.ts
+import Vue from 'vue';
+import App from './my-app.vue';
+
+// Main styles
+import '@adyen/lume/scss';
+// (Optional) Lume font
+import '@adyen/lume/font';
+
+const app = new Vue(App).$mount('#root');
+```
+
+#### CSS (SFC)
+
+```vue
+<template>...</template>
+
+<script>
+...
+</script>
+
+<!-- Main styles -->
+<style src="@adyen/lume/styles"></style>
+<!-- (Optional) Lume font -->
+<style src="@adyen/lume/font"></style>
+```
+
+#### Sass (SFC)
+
+```vue
+<template>...</template>
+
+<script>
+...
+</script>
+
+<!-- Main styles -->
+<style lang="scss" src="@adyen/lume/scss"></style>
+<!-- (Optional) Lume font -->
+<style src="@adyen/lume/font"></style>
+```
+
+#### Sass (with overrides)
+
+```vue
+<template>...</template>
+
+<script>
+...
+</script>
+
+<!-- Main styles -->
+<style lang="scss">
+@use '@adyen/lume/scss' with (
+  $lume-font-family: 'Times New Roman'
+);
+</style>
+```
+
 ## Development
 
 You can clone this repo and use `pnpm` to install dependencies. We use Storybook to develop our features.
