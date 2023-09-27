@@ -298,7 +298,7 @@ const internalHoveredIndex = ref<number>(-1);
 const tooltipAnchor = ref<Array<SVGCircleElement>>(null);
 const chartContainer = ref<InstanceType<typeof LumeChartContainer>>(null);
 const tooltipAnchorAttributes = ref<Array<AnchorAttributes>>([]);
-const hoveredTooltip = ref<boolean>(false);
+const hoveredTooltip = ref<boolean | null>(null);
 
 const xAxisHeight = ref<number>(0);
 const yAxisWidth = ref<number>(0);
@@ -415,7 +415,7 @@ const shouldHideTooltip = computed(() => {
   return (
     tooltipConfig.opened &&
     (!arePointerEventsEnabled ||
-      (arePointerEventsEnabled && !hoveredTooltip.value))
+      (arePointerEventsEnabled && hoveredTooltip.value === false))
   );
 });
 
@@ -437,6 +437,11 @@ function handleInternalHover(index: number) {
   }
 }
 
+function handleHideTooltip() {
+  hideTooltip();
+  internalHoveredIndex.value = -1;
+}
+
 function handleExternalHover(index: number) {
   if (index > data.value[0].values.length - 1) {
     warn(Warnings.InvalidHoveredIndex);
@@ -449,8 +454,7 @@ function handleExternalHover(index: number) {
 function handleMouseleave() {
   setTimeout(() => {
     if (shouldHideTooltip.value) {
-      hideTooltip();
-      internalHoveredIndex.value = -1;
+      handleHideTooltip();
     }
     emit('chart-mouseleave');
   }, 0);
@@ -491,6 +495,14 @@ watch(
   },
   { flush: 'post' }
 );
+
+// Handles the scenario when the cursor is already outside of the chart container but in a tooltip and the user
+// tries to leave the tooltip.
+watch(hoveredTooltip, (value) => {
+  if (value === false && tooltipConfig.opened) {
+    handleHideTooltip();
+  }
+});
 
 onMounted(() => {
   emit('rendered');
