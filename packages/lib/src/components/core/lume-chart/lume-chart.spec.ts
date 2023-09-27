@@ -1,5 +1,4 @@
 import { mount } from '@vue/test-utils';
-
 import LumeChart from './lume-chart.vue';
 
 import { data, labels, xScale, yScale } from '@test/unit/mock-data';
@@ -179,8 +178,10 @@ describe('lume-chart.vue', () => {
         .find('[data-j-chart-container__root=""]')
         .trigger('mouseleave');
 
-      expect(wrapper.emitted()).toHaveProperty('chart-mouseleave');
-      expect(wrapper.emitted()['chart-mouseleave']).toHaveLength(1);
+      await retry(() => {
+        expect(wrapper.emitted()).toHaveProperty('chart-mouseleave');
+        expect(wrapper.emitted()['chart-mouseleave']).toHaveLength(1);
+      });
     });
 
     describe('Events API - Axes, Legend', () => {

@@ -447,11 +447,13 @@ function handleExternalHover(index: number) {
 }
 
 function handleMouseleave() {
-  if (shouldHideTooltip.value) {
-    hideTooltip();
-    internalHoveredIndex.value = -1;
-  }
-  emit('chart-mouseleave');
+  setTimeout(() => {
+    if (shouldHideTooltip.value) {
+      hideTooltip();
+      internalHoveredIndex.value = -1;
+    }
+    emit('chart-mouseleave');
+  }, 0);
 }
 
 function handleAxisMouseenter({ index, value, event }) {
