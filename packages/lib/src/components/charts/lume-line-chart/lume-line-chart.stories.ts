@@ -115,8 +115,9 @@ export const MultipleDatasetsWithCustomTooltip: Story = {
     },
     template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
     <lume-line-chart v-bind="args" ${actionEventHandlerTemplate}>
-      <template #tooltip = "{ data, hoveredIndex, targetElement, handleMouseEnter, handleMouseLeave }">
+      <template #tooltip = "{ opened, data, hoveredIndex, targetElement, handleMouseEnter, handleMouseLeave }">
         <lume-tooltip
+          v-if="opened"
           :items="customItemsFunction(data, hoveredIndex)"
           :target-element="targetElement"
           :options="args.options.tooltipOptions"
@@ -144,7 +145,6 @@ export const MultipleDatasetsWithCustomTooltip: Story = {
     options: {
       tooltipOptions: {
         enablePointerEvents: true,
-        withAnimation: false,
       },
     },
   },
@@ -172,8 +172,8 @@ export const CustomTooltip: Story = {
     },
     template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
     <lume-line-chart v-bind="args">
-      <template #tooltip = "{ data, hoveredIndex, targetElement }">
-        <lume-tooltip :items="customItemsFunction(data, hoveredIndex)" :target-element="targetElement" position="top"/>
+      <template #tooltip = "{ opened, data, hoveredIndex, targetElement }">
+        <lume-tooltip v-if="opened" :items="customItemsFunction(data, hoveredIndex)" :target-element="targetElement" position="top"/>
       </template>
     </lume-line-chart>
   </div>`,
