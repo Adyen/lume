@@ -1,7 +1,7 @@
 // Jest cannot find these functionalities natively, so we pad them in as best we need to
 global.ResizeObserver = require('resize-observer-polyfill');
 global.structuredClone = (object) => JSON.parse(JSON.stringify(object));
-global.retry = (assertion, { interval = 20, timeout = 1000 } = {}) => {
+global.waitFor = (assertion, { interval = 20, timeout = 1000 } = {}) => {
   return new Promise((resolve, reject) => {
     const startTime = Date.now();
 

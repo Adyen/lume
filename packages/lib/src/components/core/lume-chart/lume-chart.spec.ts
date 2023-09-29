@@ -178,7 +178,7 @@ describe('lume-chart.vue', () => {
         .find('[data-j-chart-container__root=""]')
         .trigger('mouseleave');
 
-      await retry(() => {
+      await waitFor(() => {
         expect(wrapper.emitted()).toHaveProperty('chart-mouseleave');
         expect(wrapper.emitted()['chart-mouseleave']).toHaveLength(1);
       });

@@ -144,7 +144,7 @@ export const MultipleDatasetsWithCustomTooltip: Story = {
     title: 'Pets met in 2023',
     options: {
       tooltipOptions: {
-        enablePointerEvents: true,
+        withPointerEvents: true,
       },
     },
   },

@@ -4,7 +4,7 @@
     ref="root"
     class="lume-tooltip lume-typography--caption"
     :class="{
-      'lume-tooltip--pointer-events': options.enablePointerEvents,
+      'lume-tooltip--pointer-events': options.withPointerEvents,
     }"
     data-j-tooltip
     @mouseenter="emit('tooltip-mouseenter')"
