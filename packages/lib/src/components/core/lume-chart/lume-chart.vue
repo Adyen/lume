@@ -192,8 +192,8 @@
         :position="tooltipPosition"
         :with-tooltip="allOptions.withTooltip !== false"
         :hovered-index="internalHoveredIndex"
-        :handle-mouse-enter="() => (hoveredTooltip = true)"
-        :handle-mouse-leave="() => (hoveredTooltip = false)"
+        :handle-mouse-enter="() => (isHoveringTooltip = true)"
+        :handle-mouse-leave="() => (isHoveringTooltip = false)"
         :options="allOptions.tooltipOptions"
       >
         <lume-tooltip
@@ -217,8 +217,8 @@
             })
           "
           @closed="emit('tooltip-closed')"
-          @tooltip-mouseenter="hoveredTooltip = true"
-          @tooltip-mouseleave="hoveredTooltip = false"
+          @tooltip-mouseenter="isHoveringTooltip = true"
+          @tooltip-mouseleave="isHoveringTooltip = false"
         >
           <slot
             name="tooltip-content"
@@ -298,7 +298,7 @@ const internalHoveredIndex = ref<number>(-1);
 const tooltipAnchor = ref<Array<SVGCircleElement>>(null);
 const chartContainer = ref<InstanceType<typeof LumeChartContainer>>(null);
 const tooltipAnchorAttributes = ref<Array<AnchorAttributes>>([]);
-const hoveredTooltip = ref<boolean | null>(null);
+const isHoveringTooltip = ref<boolean | null>(null);
 
 const xAxisHeight = ref<number>(0);
 const yAxisWidth = ref<number>(0);
@@ -411,11 +411,11 @@ const tooltipPosition = computed(
 
 const shouldHideTooltip = computed(() => {
   const arePointerEventsEnabled =
-    allOptions.value.tooltipOptions?.enablePointerEvents;
+    allOptions.value.tooltipOptions?.withPointerEvents;
   return (
     tooltipConfig.opened &&
     (!arePointerEventsEnabled ||
-      (arePointerEventsEnabled && hoveredTooltip.value === false))
+      (arePointerEventsEnabled && isHoveringTooltip.value === false))
   );
 });
 
@@ -498,7 +498,7 @@ watch(
 
 // Handles the scenario when the cursor is already outside of the chart container but in a tooltip and the user
 // tries to leave the tooltip.
-watch(hoveredTooltip, (value) => {
+watch(isHoveringTooltip, (value) => {
   if (value === false && tooltipConfig.opened) {
     handleHideTooltip();
   }
