@@ -2,11 +2,19 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.2.0](https://github.com/Adyen/lume/compare/1.1.0...1.2.0)
+
+- 🔖 Release v1.1.0 [`027b727`](https://github.com/Adyen/lume/commit/027b7275411a1e80f23234da6abcc5ab384c5662)
+- ✅ Updated stories/tests to depict tooltip behavior [`98d348e`](https://github.com/Adyen/lume/commit/98d348e178a662064a389c313947f98855a5bbf0)
+- 📝 updated doc on tooltip event behavior [`aad1416`](https://github.com/Adyen/lume/commit/aad141670b382fd28fe67dafbd73e54c98a29383)
+
 #### [1.1.0](https://github.com/Adyen/lume/compare/1.0.0...1.1.0)
 
+> 27 September 2023
+
+- 🔖 Release v1.1.0 [`a6f75f7`](https://github.com/Adyen/lume/commit/a6f75f73ee467fe20448e7dfadcf7752ec2aa0bc)
 - 🔖 Release v1.0.0 [`941668c`](https://github.com/Adyen/lume/commit/941668c6496f4650c93ec61e7d823cbf2bb6c351)
 - ✨ Add node offset property [`23788da`](https://github.com/Adyen/lume/commit/23788da580e00435eb7d59d5c92ead23ece90a84)
-- 📝 Update README [`d7cbdca`](https://github.com/Adyen/lume/commit/d7cbdcaec1b7377d3b06fb7d5194aaa6eba0c1a1)
 
 ### [1.0.0](https://github.com/Adyen/lume/compare/v0.10.0...1.0.0)
 
