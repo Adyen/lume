@@ -67,15 +67,16 @@ Here's an example of overriding the default tooltip in a `lume-line-chart`:
 
 Interface: `TooltipOptions`
 
-| Name             | Type                                                     | Description                                                                                                                             |
-| ---------------- | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| offset           | `number`                                                 | Distance between the tooltip and its target element.                                                                                    |
-| position         | `string`                                                 | Where the tooltip should be positioned relative to its target.                                                                          |
-| showTitle        | `boolean`                                                | Controls if the tooltip title should be displayed.                                                                                      |
-| targetElement    | `Element`                                                | A DOM element to attach to.                                                                                                             |
-| fixedPositioning | `boolean`                                                | If true, it will use fixed positioning instead of absolute.                                                                             |
-| valueFormat      | `string \| (tick: number \| string) => number \| string` | A format specifier string for [d3-format](https://github.com/d3/d3-format) or a formatting function.                                    |
-| summary          | `string`                                                 | Descriptive text shown above the tooltip items. If a tooltip item is marked with `isSummary`, it will have precedence over this option. |
+| Name              | Type                                                     | Description                                                                                                                             |
+| ----------------- | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| offset            | `number`                                                 | Distance between the tooltip and its target element.                                                                                    |
+| position          | `string`                                                 | Where the tooltip should be positioned relative to its target.                                                                          |
+| showTitle         | `boolean`                                                | Controls if the tooltip title should be displayed.                                                                                      |
+| targetElement     | `Element`                                                | A DOM element to attach to.                                                                                                             |
+| fixedPositioning  | `boolean`                                                | If true, it will use fixed positioning instead of absolute.                                                                             |
+| valueFormat       | `string \| (tick: number \| string) => number \| string` | A format specifier string for [d3-format](https://github.com/d3/d3-format) or a formatting function.                                    |
+| summary           | `string`                                                 | Descriptive text shown above the tooltip items. If a tooltip item is marked with `isSummary`, it will have precedence over this option. |
+| withPointerEvents | `boolean`                                                | If true, it will listen to the attached events on elements in the tooltip content.                                                      |
 
 **Note**: Component properties have precedence over options. For instance, if you set the `targetElement` prop and the `targetElement` tooltip option, the first will be used. They're both there to cover different use cases.
 
