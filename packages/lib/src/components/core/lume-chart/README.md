@@ -233,6 +233,32 @@ No props.
 | `hoveredIndex`  | `number`                  | Index of the data point being hovered.                                                                                             |
 | `options`       | `TooltipOptions`          | Set of options for the tooltip component.                                                                                          |
 
+**Note**: Whenever a consumer overrides the `tooltip` slot in the chart and renders tooltip by themselves - then they have to intimate us when the tooltip is hovered in/out. This has to be done only when the consumer has enabled the pointer events in the tooltip.
+
+This is necessary so that the lume chart is aware when the user has moved inside the tooltip and when was it exited.
+
+`tooltip` slot exposes the props - `handleMouseEnter` and `handleMouseLeave`.
+
+`handleMouseLeave` to be called when the tooltip is hovered in
+`handleMouseLeave` to be called when the tooltip is hovered out
+
+```html
+<lume-line-chart v-bind="args">
+  <template
+    #tooltip="{ opened, data, hoveredIndex, targetElement, handleMouseEnter, handleMouseLeave }"
+  >
+    <lume-tooltip
+      v-if="opened"
+      ...
+      :options="{ withPointerEvents: true }"
+      @tooltip-mouseenter="handleMouseEnter"
+      @tooltip-mouseleave="handleMouseLeave"
+    />
+  </template>
+  ...
+</lume-line-chart>
+```
+
 #### `tooltip-content`
 
 | Name           | Type                      | Description                            |
