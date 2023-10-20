@@ -2,7 +2,7 @@ import { computed, ref, Ref, watch } from 'vue';
 
 import { Scale } from '@/composables/scales';
 
-const SAFETY_MARGIN = 0.15; // 15% of the average width
+const SAFETY_MARGIN = 0.2; // 20% of the average width
 
 /**
  * Composable for axis label skipping logic.
