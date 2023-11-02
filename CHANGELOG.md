@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.2.1](https://github.com/Adyen/lume/compare/1.2.0...1.2.1)
+
+- 📝 Fix Readmes in packages [`b14b74e`](https://github.com/Adyen/lume/commit/b14b74ecefc160f9a52a0c13f519d834083e6523)
+- 🐛 Fix event emission for Vue 2 [`a590ad2`](https://github.com/Adyen/lume/commit/a590ad224af602bf8f45e672388f528870a5d248)
+- ✨ Add event bus to events composable (for Vue 2 internal events) [`681a1cc`](https://github.com/Adyen/lume/commit/681a1cc017bcde9b293ac0eeceb5e1b6cf069a82)
+
 #### [1.2.0](https://github.com/Adyen/lume/compare/1.1.0...1.2.0)
+
+> 2 October 2023
 
 - 🔖 Release v1.1.0 [`027b727`](https://github.com/Adyen/lume/commit/027b7275411a1e80f23234da6abcc5ab384c5662)
 - ✅ Updated stories/tests to depict tooltip behavior [`98d348e`](https://github.com/Adyen/lume/commit/98d348e178a662064a389c313947f98855a5bbf0)
