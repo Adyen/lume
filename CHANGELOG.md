@@ -2,7 +2,14 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.3.0](https://github.com/Adyen/lume/compare/1.2.1...1.3.0)
+
+- 🐛 Added support for grouped charts with varied data points. [`7a2d90c`](https://github.com/Adyen/lume/commit/7a2d90c7819acc68c98f53e505b8a5b7a0ec9ae4)
+- 🔖 Release v1.2.1 [`aa7b51f`](https://github.com/Adyen/lume/commit/aa7b51f909e91375332720cd1d7f0202e95c6119)
+
 #### [1.2.1](https://github.com/Adyen/lume/compare/1.2.0...1.2.1)
+
+> 2 November 2023
 
 - 📝 Fix Readmes in packages [`b14b74e`](https://github.com/Adyen/lume/commit/b14b74ecefc160f9a52a0c13f519d834083e6523)
 - 🐛 Fix event emission for Vue 2 [`a590ad2`](https://github.com/Adyen/lume/commit/a590ad224af602bf8f45e672388f528870a5d248)
