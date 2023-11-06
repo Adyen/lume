@@ -130,11 +130,12 @@ const validateGetHighestValueArguments = (
     throw new Error('Cannot get highest value from empty array');
   }
 
-  data.forEach(({ values }) => {
-    if (values.length - 1 < index) {
-      throw new Error('Index exceeds length of at least one of the datasets');
-    }
-  });
+  const isIndexPresentInGroup = data.some(
+    ({ values }) => values.length - 1 >= index
+  );
+  if (!isIndexPresentInGroup) {
+    throw new Error('Index exceeds length of all of the datasets');
+  }
 };
 
 /**

@@ -91,7 +91,7 @@ export const MultipleDatasetsWithCustomTooltip: Story = {
         if (hoveredIndex > -1) {
           return data.map((item) => ({
             ...item,
-            value: item.values[hoveredIndex].value,
+            value: item.values[hoveredIndex]?.value ?? 0,
           }));
         }
         return [];
@@ -99,7 +99,7 @@ export const MultipleDatasetsWithCustomTooltip: Story = {
       const computeTotal = (data, hoveredIndex) => {
         if (hoveredIndex > -1) {
           return data.reduce(
-            (acc, current) => acc + current.values[hoveredIndex].value,
+            (acc, current) => acc + (current.values[hoveredIndex]?.value ?? 0),
             0
           );
         }
