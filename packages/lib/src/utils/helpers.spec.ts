@@ -112,14 +112,14 @@ describe('helpers.ts', () => {
       expect(t).toThrow('Cannot get highest value from empty array');
     });
 
-    test('should throw an error when index is higher than the length of the datasets', () => {
+    test('should throw an error when index is higher than the length of all the datasets', () => {
       const dataset = [
         { values: [{ value: 1 }, { value: 2 }] },
         { values: [{ value: 3 }, { value: 4 }] },
       ];
       const t = () => getHighestValue(dataset as InternalData, 2);
 
-      expect(t).toThrow('Index exceeds length of at least one of the datasets');
+      expect(t).toThrow('Index exceeds length of all of the datasets');
     });
 
     test('should return 20 as highest found value', () => {
