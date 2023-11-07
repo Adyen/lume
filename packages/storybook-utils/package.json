@@ -4,8 +4,8 @@
   "description": "A set of utilities for Storybook",
   "private": true,
   "devDependencies": {
-    "@storybook/manager-api": "7.3.0",
-    "@storybook/preview-api": "7.3.0",
-    "@storybook/theming": "7.3.0"
+    "@storybook/manager-api": "7.5.0",
+    "@storybook/preview-api": "7.5.0",
+    "@storybook/theming": "7.5.0"
   }
 }
