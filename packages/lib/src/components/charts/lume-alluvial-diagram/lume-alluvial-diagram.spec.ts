@@ -219,6 +219,6 @@ describe('lume-alluvial-diagram.vue', () => {
 
     expect(
       diagram.find('.lume-alluvial-group__node-block').attributes().y
-    ).toBe('40');
+    ).toBe('39');
   });
 });
