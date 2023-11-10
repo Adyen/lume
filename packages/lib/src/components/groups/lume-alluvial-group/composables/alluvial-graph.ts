@@ -4,6 +4,7 @@ import { SankeyLink as D3SankeyLink, sankey, SankeyNode } from 'd3-sankey';
 import { AlluvialDiagramOptions } from '@/composables/options';
 
 import { DEFAULT_COLOR } from '@/utils/colors';
+import { OtherColors } from '@/utils/constants';
 import { Errors, error as logError } from '@/utils/errors';
 import { getAlluvialNodeId } from '../helpers';
 
@@ -132,6 +133,10 @@ export function useAlluvialGraph(
   const graph = computed<SankeyGraph>(() => {
     if (sankeyGraph.value) {
       nodes.value.forEach((node) => {
+        if (node.value === 0) {
+          node.fallbackColor = OtherColors.Grey;
+        }
+
         if (typeof node.offset === 'number') {
           computeStaticNodePosition(node);
           computeLinksPositionForStaticNode(node, sankeyGraph.value);

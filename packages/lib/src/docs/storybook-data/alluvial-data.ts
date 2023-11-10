@@ -12,6 +12,7 @@ const DATASETS = {
             targets: [
               { node: 'passed', value: 60 },
               { node: 'retriedExam', value: 50 },
+              { node: 'skipped', value: 0 },
             ],
           },
           {
@@ -32,6 +33,10 @@ const DATASETS = {
             label: 'Failed',
             color: 'red',
             value: 'failed',
+          },
+          {
+            label: 'Skipped',
+            value: 'skipped',
           },
         ],
       },

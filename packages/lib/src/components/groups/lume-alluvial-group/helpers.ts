@@ -4,7 +4,7 @@ import { sankeyLinkHorizontal, SankeyNode } from 'd3-sankey';
 import { DEFAULT_COLOR } from '@/utils/colors';
 import { interpolateRound } from '@/utils/helpers';
 
-import { NODE_LABEL_PADDING } from './constants';
+import { NODE_LABEL_PADDING, NODE_MINIMUM_HEIGHT } from './constants';
 
 import {
   LinkPath,
@@ -83,20 +83,23 @@ export function getLabelSizes(
 export function getNodeBlockAttributes(
   nodes: Array<SankeyNode<SankeyNodeProps, SankeyLinkProps>>
 ): Array<NodeBlock> {
-  return nodes.map((node) => ({
-    x: node.x0,
-    y: node.y0,
-    width: node.x1 - node.x0,
-    height: node.y1 - node.y0,
-    textTransform: {
-      x:
-        node.depth > 0
-          ? node.x1 + NODE_LABEL_PADDING
-          : node.x0 - NODE_LABEL_PADDING,
-      y: (node.y1 + node.y0) / 2,
-    },
-    node,
-  }));
+  return nodes.map((node) => {
+    const isMinimumHeight = node.y1 - node.y0 < NODE_MINIMUM_HEIGHT;
+    return {
+      x: node.x0,
+      y: node.y0 - (isMinimumHeight ? NODE_MINIMUM_HEIGHT / 2 : 0), // Negative offset to account for the min. height
+      width: node.x1 - node.x0,
+      height: isMinimumHeight ? NODE_MINIMUM_HEIGHT : node.y1 - node.y0,
+      textTransform: {
+        x:
+          node.depth > 0
+            ? node.x1 + NODE_LABEL_PADDING
+            : node.x0 - NODE_LABEL_PADDING,
+        y: (node.y1 + node.y0) / 2,
+      },
+      node,
+    };
+  });
 }
 
 function horizontalSource(link: SankeyLink): [number, number] {
