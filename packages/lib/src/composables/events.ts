@@ -30,47 +30,36 @@ const CHART_EVENTS = [
   'tooltip-opened',
   'tooltip-moved',
   'tooltip-closed',
+
+  'group-mouseenter',
+  'group-mouseleave',
 ];
-
-interface EventBusInstance {
-  $on: (
-    event: string | Array<string>,
-    fn: (...args: Array<unknown>) => void
-  ) => void;
-  $emit: (event: string, ...args: Array<unknown>) => void;
-}
-
-interface EventBusInstanceConstructor {
-  new (): EventBusInstance;
-}
-
-let eventBus: EventBusInstance | null = null;
 
 // Used to propagate events from the top-most component (needed for Vue 2)
 export const useEvents = (
   emit: (e: string, p: unknown) => void,
   chartID: string
 ) => {
-  async function initEventBus() {
-    if (__VUE_VERSION__ === 3) return null;
-
-    const Vue = (await import('vue')).default;
-    eventBus = new (Vue as unknown as EventBusInstanceConstructor)();
+  function emitInternalEvent(eventName: string, ...args: Array<unknown>) {
+    if (__VUE_VERSION__ === 2) {
+      document.dispatchEvent(
+        new CustomEvent(`${chartID}_${eventName}`, {
+          detail: [...args],
+        })
+      );
+    }
   }
 
-  async function busEmit(eventName: string, ...args: Array<unknown>) {
-    if (!eventBus) await initEventBus();
-
-    eventBus.$emit(`${chartID}_${eventName}`, ...args);
-  }
-
-  async function busListen(
+  function listenInternalEvent(
     eventName: string,
     listener: (...args: Array<unknown>) => void
   ) {
-    if (!eventBus) await initEventBus();
-
-    eventBus.$on(`${chartID}_${eventName}`, listener);
+    if (__VUE_VERSION__ === 2) {
+      document.addEventListener(
+        `${chartID}_${eventName}`,
+        (e: CustomEventInit) => listener(e.detail[0])
+      );
+    }
   }
 
   const componentEventPropagator =
@@ -81,5 +70,5 @@ export const useEvents = (
       }, {})
       : {};
 
-  return { componentEventPropagator, busEmit, busListen };
+  return { componentEventPropagator, emitInternalEvent, listenInternalEvent };
 };
