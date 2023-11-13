@@ -168,10 +168,10 @@ export const CustomTooltip: Story = {
         }
         return [];
       };
-      return { args, customItemsFunction, computedColor };
+      return { args, customItemsFunction, computedColor, captureAction };
     },
     template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
-    <lume-line-chart v-bind="args">
+    <lume-line-chart v-bind="args" ${actionEventHandlerTemplate}>
       <template #tooltip = "{ opened, data, hoveredIndex, targetElement }">
         <lume-tooltip v-if="opened" :items="customItemsFunction(data, hoveredIndex)" :target-element="targetElement" position="top"/>
       </template>

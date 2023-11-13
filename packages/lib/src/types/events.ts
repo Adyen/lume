@@ -87,10 +87,16 @@ export interface TooltipEvents {
   (e: 'tooltip-mouseleave'): void;
 }
 
+export interface GroupEvents {
+  (e: 'group-mouseenter', index: number): void;
+  (e: 'group-mouseleave', index: number): void;
+}
+
 export type ChartEmits = AxisEvents &
   AlluvialDiagramEvents &
   BarChartEvents &
   ChartEvents &
   LegendEvents &
   LineChartEvents &
-  TooltipEvents;
+  TooltipEvents &
+  GroupEvents;

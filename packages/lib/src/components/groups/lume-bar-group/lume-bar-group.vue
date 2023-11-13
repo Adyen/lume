@@ -88,7 +88,7 @@ const {
 
 const chartID = inject<string>('chartID');
 
-const { busEmit } = useEvents(emit, chartID);
+const { emitInternalEvent } = useEvents(emit, chartID);
 
 const { groupedData } = useBarMixin(data);
 
@@ -120,9 +120,6 @@ const computedTransition = computed(() => {
 
 async function handleInternalHover(groupIndex: number) {
   emit('lume__internal--hover', groupIndex);
-
-  if (__VUE_VERSION__ === 2) {
-    await busEmit('lume__internal--hover', groupIndex);
-  }
+  emitInternalEvent('lume__internal--hover', groupIndex);
 }
 </script>

@@ -309,7 +309,7 @@ const { allOptions } = useOptions<ChartOptions>(options);
 const { internalData, computedLabels, containerSize, updateSize, chartID } =
   useBase(data, labels, color, allOptions, orientation);
 
-const { busListen } = useEvents(emit, chartID);
+const { listenInternalEvent } = useEvents(emit, chartID);
 
 const { xScale, yScale } = useBaseScales(
   internalData,
@@ -427,6 +427,7 @@ function handleInternalHover(index: number) {
   if (index === internalHoveredIndex.value) return;
 
   // Update hoveredIndex
+  emit('group-mouseleave', internalHoveredIndex.value);
   allOptions.value.withHover !== false && (internalHoveredIndex.value = index);
 
   if (allOptions.value.withTooltip !== false) {
@@ -438,6 +439,7 @@ function handleInternalHover(index: number) {
         : allOptions.value.tooltipOptions.targetElement;
     showTooltip(targetElement);
   }
+  emit('group-mouseenter', index);
 }
 
 function handleHideTooltip() {
@@ -514,7 +516,7 @@ onMounted(async () => {
   }
 
   if (__VUE_VERSION__ === 2) {
-    await busListen('lume__internal--hover', handleInternalHover);
+    listenInternalEvent('lume__internal--hover', handleInternalHover);
   }
 });
 
