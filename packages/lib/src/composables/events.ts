@@ -31,8 +31,7 @@ const CHART_EVENTS = [
   'tooltip-moved',
   'tooltip-closed',
 
-  'group-mouseenter',
-  'group-mouseleave',
+  'hovered-index-changed',
 ];
 
 // Used to propagate events from the top-most component (needed for Vue 2)
@@ -57,7 +56,7 @@ export const useEvents = (
     if (__VUE_VERSION__ === 2) {
       document.addEventListener(
         `${chartID}_${eventName}`,
-        (e: CustomEventInit) => listener(e.detail[0])
+        (e: CustomEventInit) => listener(...e.detail)
       );
     }
   }
