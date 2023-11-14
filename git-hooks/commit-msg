@@ -18,7 +18,7 @@ do
       # TODO: check for gitmoji
 
       # Commit subject should have < 60 characters
-      if [ ${#line} -gt 600 ]; then
+      if [ ${#line} -gt 60 ]; then
         echo "\n${RED} ❌ Commit subject line should have less than 60 characters${COLOR_RESET} (This commit has ${#line})\n"
         exit 1
       fi
@@ -28,7 +28,7 @@ do
       # Commit message
 
       # Commit message should have < 100 characters
-      if [ ${#line} -gt 10000 ]; then
+      if [ ${#line} -gt 100 ]; then
         echo "\n${RED} ❌ Commit message lines should have less than 100 characters${COLOR_RESET}\n"
         exit 1
       fi
