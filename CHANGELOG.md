@@ -2,10 +2,19 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.4.0](https://github.com/Adyen/lume/compare/1.3.0...1.4.0)
+
+- ✨ Event propagation updates Vue 2 internal events [`ef6ab54`](https://github.com/Adyen/lume/commit/ef6ab5443c8f90d77b2504796a35ca46cc10b59a)
+- ⬆️ Update storybook monorepo to v7.5.0 [`f46fa11`](https://github.com/Adyen/lume/commit/f46fa1145752e5e5d9527733826b9a34413fedfd)
+- 🔥 Remove old issue templates [`ea5d81f`](https://github.com/Adyen/lume/commit/ea5d81f290b76f0c1ae9aad439dfc4129eae0d64)
+
 #### [1.3.0](https://github.com/Adyen/lume/compare/1.2.1...1.3.0)
+
+> 6 November 2023
 
 - 🐛 Added support for grouped charts with varied data points. [`7a2d90c`](https://github.com/Adyen/lume/commit/7a2d90c7819acc68c98f53e505b8a5b7a0ec9ae4)
 - 🔖 Release v1.2.1 [`aa7b51f`](https://github.com/Adyen/lume/commit/aa7b51f909e91375332720cd1d7f0202e95c6119)
+- 🔖 Release v1.3.0 [`e379782`](https://github.com/Adyen/lume/commit/e379782fb4d19c43e7d6ffa280ae1ed1a45dcd7e)
 
 #### [1.2.1](https://github.com/Adyen/lume/compare/1.2.0...1.2.1)
 
