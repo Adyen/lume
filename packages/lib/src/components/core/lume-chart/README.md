@@ -71,10 +71,8 @@ It is used internally to build all Lume charts but it can also be used to create
         - [Payload](#payload-23)
       - [`link-mouseleave`](#link-mouseleave)
         - [Payload](#payload-24)
-      - [`group-mouseenter`](#group-mouseenter)
+      - [`hovered-index-changed`](#hovered-index-changed)
         - [Payload](#payload-25)
-      - [`group-mouseleave`](#group-mouseleave)
-        - [Payload](#payload-26)
   - [Examples](#examples)
     - [Custom data group](#custom-data-group)
     - [Custom tooltip element](#custom-tooltip-element)
@@ -576,24 +574,17 @@ p: {
 }
 ```
 
-#### `group-mouseenter`
+#### `hovered-index-changed`
 
-Fired upon [mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event) to a chart group.
-
-##### Payload
-
-```ts
-index: number; // The group index user moused over.
-```
-
-#### `group-mouseleave`
-
-Fired upon a chart group's [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event).
+Fired whenever the hovered index changes. This occurs when the cursor is moved between the groups or as the user moves the cursor over the ticks on the line of chart axis.
 
 ##### Payload
 
 ```ts
-index: number; // The group index user mouse left.
+p: {
+  oldIndex: number; // The index of the previously hovered.
+  newIndex: number; // The index of the currently hovered.
+}
 ```
 
 ## Examples

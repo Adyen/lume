@@ -18,6 +18,11 @@ export interface DataChangedEventPayload<T> {
   oldValue: T | null;
 }
 
+export interface HoverIndexChangedEventPayload {
+  oldIndex: number;
+  newIndex: number;
+}
+
 export interface InteractionEventPayload {
   index: number | null;
   value?: number | string;
@@ -60,6 +65,8 @@ export interface ChartEvents {
   (e: 'rendered'): void;
   (e: 'resize', p: ContainerSize): void;
 
+  (e: 'hovered-index-changed', p: HoverIndexChangedEventPayload): void;
+
   (e: 'data-changed', p: DataChangedEventPayload<Data>): void;
   (e: 'labels-changed', p: DataChangedEventPayload<Array<string>>): void;
 
@@ -87,16 +94,10 @@ export interface TooltipEvents {
   (e: 'tooltip-mouseleave'): void;
 }
 
-export interface GroupEvents {
-  (e: 'group-mouseenter', index: number): void;
-  (e: 'group-mouseleave', index: number): void;
-}
-
 export type ChartEmits = AxisEvents &
   AlluvialDiagramEvents &
   BarChartEvents &
   ChartEvents &
   LegendEvents &
   LineChartEvents &
-  TooltipEvents &
-  GroupEvents;
+  TooltipEvents;

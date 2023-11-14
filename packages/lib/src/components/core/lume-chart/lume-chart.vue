@@ -427,7 +427,7 @@ function handleInternalHover(index: number) {
   if (index === internalHoveredIndex.value) return;
 
   // Update hoveredIndex
-  emit('group-mouseleave', internalHoveredIndex.value);
+  const oldIndex = internalHoveredIndex.value;
   allOptions.value.withHover !== false && (internalHoveredIndex.value = index);
 
   if (allOptions.value.withTooltip !== false) {
@@ -439,7 +439,7 @@ function handleInternalHover(index: number) {
         : allOptions.value.tooltipOptions.targetElement;
     showTooltip(targetElement);
   }
-  emit('group-mouseenter', index);
+  emit('hovered-index-changed', { newIndex: index, oldIndex });
 }
 
 function handleHideTooltip() {
