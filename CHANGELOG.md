@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.5.0](https://github.com/Adyen/lume/compare/1.4.0...1.5.0)
+
+- ⬆️ Update storybook monorepo to v7.5.2 [`6337521`](https://github.com/Adyen/lume/commit/6337521401e1999303c5d48a3aa539f529252265)
+- ⬆️ Update vue monorepo [`473c633`](https://github.com/Adyen/lume/commit/473c633b0e410cb999bc36330148b83902166fb0)
+- ⬆️ Update dependency webpack to v5.89.0 [`006f790`](https://github.com/Adyen/lume/commit/006f790315bc163e9e0cf5348599c5c835f0757e)
+
 #### [1.4.0](https://github.com/Adyen/lume/compare/1.3.0...1.4.0)
+
+> 14 November 2023
 
 - ✨ Event propagation updates Vue 2 internal events [`ef6ab54`](https://github.com/Adyen/lume/commit/ef6ab5443c8f90d77b2504796a35ca46cc10b59a)
 - ⬆️ Update storybook monorepo to v7.5.0 [`f46fa11`](https://github.com/Adyen/lume/commit/f46fa1145752e5e5d9527733826b9a34413fedfd)
