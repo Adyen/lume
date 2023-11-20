@@ -30,7 +30,7 @@
     "d3-sankey": "0.12.3"
   },
   "peerDependencies": {
-    "vue": "2.7.13"
+    "vue": "2.7.15"
   },
   "devDependencies": {
     "@adyen/lume-core": "workspace:@adyen/lume-core@*",
@@ -45,8 +45,8 @@
     "storybook-utils": "workspace:storybook-utils@*",
     "vite": "4.3.9",
     "vite-plugin-static-copy": "0.17.0",
-    "vue": "2.7.13",
-    "vue-template-compiler": "2.7.13"
+    "vue": "2.7.15",
+    "vue-template-compiler": "2.7.15"
   },
   "keywords": [
     "Lume",
