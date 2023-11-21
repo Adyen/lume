@@ -449,7 +449,10 @@ function handleHideTooltip() {
 }
 
 function handleExternalHover(index: number) {
-  if (index > data.value[0].values.length - 1) {
+  const isValidHoveredIndex = data.value.some(
+    ({ values }) => index <= values.length - 1
+  );
+  if (!isValidHoveredIndex) {
     warn(Warnings.InvalidHoveredIndex);
     return;
   }
