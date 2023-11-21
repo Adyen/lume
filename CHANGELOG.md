@@ -2,10 +2,18 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.5.2](https://github.com/Adyen/lume/compare/1.5.1...1.5.2)
+
+- 🔖 Release v1.5.1 [`3e1d8c2`](https://github.com/Adyen/lume/commit/3e1d8c2eb108c49eb26bc0e94115733d45b0197b)
+- 📌 Change vue peerDependencies versions [`5e4cc70`](https://github.com/Adyen/lume/commit/5e4cc700c1f30b6f0396c9817c6e6a3ddc214401)
+
 #### [1.5.1](https://github.com/Adyen/lume/compare/1.5.0...1.5.1)
+
+> 21 November 2023
 
 - 🔖 Release v1.5.0 [`75feab3`](https://github.com/Adyen/lume/commit/75feab308c6bf2631a46e432a123bade3ba3aaf8)
 - 🐛 Creating tooltip anchors equal to chart labels [`0848177`](https://github.com/Adyen/lume/commit/08481778b73420a035139e4968bc2897231f8ebd)
+- 🔖 Release v1.5.1 [`ee8a839`](https://github.com/Adyen/lume/commit/ee8a839aa929772a13084d54ef2aa91fd18d2040)
 
 #### [1.5.0](https://github.com/Adyen/lume/compare/1.4.0...1.5.0)
 
