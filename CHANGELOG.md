@@ -2,11 +2,18 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.5.1](https://github.com/Adyen/lume/compare/1.5.0...1.5.1)
+
+- 🔖 Release v1.5.0 [`75feab3`](https://github.com/Adyen/lume/commit/75feab308c6bf2631a46e432a123bade3ba3aaf8)
+- 🐛 Creating tooltip anchors equal to chart labels [`0848177`](https://github.com/Adyen/lume/commit/08481778b73420a035139e4968bc2897231f8ebd)
+
 #### [1.5.0](https://github.com/Adyen/lume/compare/1.4.0...1.5.0)
 
+> 20 November 2023
+
 - ⬆️ Update storybook monorepo to v7.5.2 [`6337521`](https://github.com/Adyen/lume/commit/6337521401e1999303c5d48a3aa539f529252265)
+- 🔖 Release v1.5.0 [`a73838a`](https://github.com/Adyen/lume/commit/a73838ad95180866585802dd5428a6182262d496)
 - ⬆️ Update vue monorepo [`473c633`](https://github.com/Adyen/lume/commit/473c633b0e410cb999bc36330148b83902166fb0)
-- ⬆️ Update dependency webpack to v5.89.0 [`006f790`](https://github.com/Adyen/lume/commit/006f790315bc163e9e0cf5348599c5c835f0757e)
 
 #### [1.4.0](https://github.com/Adyen/lume/compare/1.3.0...1.4.0)
 
