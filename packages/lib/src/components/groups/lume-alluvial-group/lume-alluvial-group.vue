@@ -131,6 +131,7 @@
           }"
           :transform="`translate(${block.textTransform.x},${block.textTransform.y})`"
           :data-id="block.node.id"
+          :width="options.nodeLabelMaxWidth"
         >
           <slot
             :name="`node-text-${block.node.id}`"
@@ -142,7 +143,12 @@
               )
             "
           >
-            <lume-alluvial-node-label :bottom="options.switchText">
+            <lume-alluvial-node-label
+              :bottom="options.switchText"
+              :left="block.node.depth === 0"
+              :max-width="options.nodeLabelMaxWidth"
+              @lume__internal--node-resize="updateMargins"
+            >
               {{ block.node.label }}
             </lume-alluvial-node-label>
             <lume-alluvial-node-value :bottom="!options.switchText">
@@ -411,6 +417,11 @@ function getSubNodesDerivingColorFromIncomingLinks(nodeId: number | string) {
   );
 }
 
+function updateMargins() {
+  const labelSizes = getLabelSizes(graph.value, nodeTextRefs.value);
+  updateExtents(labelSizes);
+}
+
 // Render nodes/paths whenever the SankeyGraph changes
 watch(graph, (newGraph) => {
   nodeBlocks.value = getNodeBlockAttributes(newGraph.nodes);
@@ -425,8 +436,7 @@ watch(graph, (newGraph) => {
 // Update extents whenever 1. container size changes or 2. node labels are rendered (hence defining new margins)
 watch([props.containerSize, nodeTextRefs], () => {
   if (props.containerSize.width && props.containerSize.height) {
-    const labelSizes = getLabelSizes(graph.value, nodeTextRefs.value);
-    updateExtents(labelSizes);
+    updateMargins();
   }
 });
 

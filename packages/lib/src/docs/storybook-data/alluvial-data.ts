@@ -6,7 +6,7 @@ const DATASETS = {
       {
         values: [
           {
-            label: 'Students',
+            label: 'Students from the University of Amsterdam',
             color: 'skyblue',
             value: 'students',
             targets: [
