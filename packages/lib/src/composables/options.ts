@@ -75,6 +75,7 @@ export interface AlluvialDiagramOptions extends ChartOptions {
   nodeAlign?: (node: SankeyNode<unknown, unknown>, n: number) => number;
   nodeHeaders?: Array<string>;
   nodeHeaderPadding?: number;
+  nodeLabelMaxWidth?: number;
   nodePadding?: number;
   nodeSort?: (
     a: SankeyNode<unknown, unknown>,

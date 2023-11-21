@@ -37,10 +37,26 @@ $lume-alluvial-link-opacity-focused: 0.5 !default;
     cursor: default;
     fill: $lume-alluvial-text-color;
     transition: opacity $lume-transition-time-long;
+    line-height: $lume-line-height-xs;
 
     &--left {
       text-anchor: end;
+
+      #{$b}__node-foreign {
+        text-align: right;
+      }
     }
+  }
+
+  &__label-wrapper {
+    display: flex;
+    align-self: flex-start;
+  }
+
+  &__node-label {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    color: $lume-alluvial-text-color;
   }
 
   &__node-value {

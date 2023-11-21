@@ -1,7 +1,8 @@
 <template>
   <text
     class="lume-alluvial-group__node-value"
-    :dy="bottom ? '1.2em' : ''"
+    :y="bottom ? '.2em' : '-.2em'"
+    :dominant-baseline="bottom ? 'hanging' : 'auto'"
   >
     <slot />
   </text>
