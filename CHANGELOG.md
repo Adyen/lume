@@ -2,9 +2,18 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.5.3](https://github.com/Adyen/lume/compare/1.5.2...1.5.3)
+
+- 🔖 Release v1.5.2 [`89414e8`](https://github.com/Adyen/lume/commit/89414e8d08fa834c3ab5350b9d69b09384e07fea)
+- 📝 Update homepage in pkg.jsons [`07edbcb`](https://github.com/Adyen/lume/commit/07edbcb7fb0d8504b8193053e44b79e028281db4)
+- 📝 Add description to pkg.jsons [`2448430`](https://github.com/Adyen/lume/commit/2448430da8c11e5a441bc230ef1d0739d356d3a6)
+
 #### [1.5.2](https://github.com/Adyen/lume/compare/1.5.1...1.5.2)
 
+> 21 November 2023
+
 - 🔖 Release v1.5.1 [`3e1d8c2`](https://github.com/Adyen/lume/commit/3e1d8c2eb108c49eb26bc0e94115733d45b0197b)
+- 🔖 Release v1.5.2 [`40c4f4b`](https://github.com/Adyen/lume/commit/40c4f4b200377c424b2c6d3d7ff4336c9195afed)
 - 📌 Change vue peerDependencies versions [`5e4cc70`](https://github.com/Adyen/lume/commit/5e4cc700c1f30b6f0396c9817c6e6a3ddc214401)
 
 #### [1.5.1](https://github.com/Adyen/lume/compare/1.5.0...1.5.1)
