@@ -49,7 +49,7 @@ const DATASETS = {
       },
       {
         label: 'Horses',
-        values: [500, 11000, 1000, 3000],
+        values: [500, 11000, 1000],
       },
     ],
     labels: ['Jan', 'Feb', 'Mar', 'Apr'],
@@ -76,7 +76,7 @@ const DATASETS = {
       },
       {
         label: 'Birds',
-        values: [60, 70, 25, 90],
+        values: [60, 70, 25],
       },
     ],
     labels: ['NL', 'India', 'UK', 'France'],
