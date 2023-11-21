@@ -30,7 +30,7 @@
     "d3-sankey": "0.12.3"
   },
   "peerDependencies": {
-    "vue": "2.7.15"
+    "vue": "2.7.x"
   },
   "devDependencies": {
     "@adyen/lume-core": "workspace:@adyen/lume-core@*",
