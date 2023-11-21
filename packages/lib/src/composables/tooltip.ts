@@ -3,7 +3,7 @@ import { computed, reactive, Ref, watch } from 'vue';
 import { getXByIndex, Scale } from './scales';
 
 import { NO_DATA, Orientation, ORIENTATIONS } from '@/utils/constants';
-import { InternalData } from '@/types/dataset';
+import { DatasetValueObject, InternalData } from '@/types/dataset';
 import { ChartOptions } from './options';
 
 export interface AnchorAttributes {
@@ -11,33 +11,48 @@ export interface AnchorAttributes {
   cy: number;
 }
 
-type GetHighestValuesFunction = (data: InternalData) => Array<number>;
+type GetHighestValuesFunction = (
+  data: InternalData,
+  numberOfLabels: number
+) => Array<number>;
 
 export interface TooltipConfig {
   opened: boolean;
   targetElement: Element | null;
 }
 
-function getHighestValues(data: InternalData) {
+function getFilledArray(
+  originalArray: Array<number | DatasetValueObject>,
+  numberOfLabels: number
+) {
+  const difference = numberOfLabels - originalArray.length;
+  return difference > 0
+    ? [...originalArray, ...Array(difference).fill({ value: null })]
+    : originalArray;
+}
+
+function getHighestValues(data: InternalData, numberOfLabels: number) {
   return data.reduce((acc, curr) => {
-    return curr.values.map((value, index) => {
+    return getFilledArray(curr.values, numberOfLabels).map((value, index) => {
       if (!acc[index]) return value.value ?? 0;
       return value.value > acc[index] ? value.value : acc[index];
     });
   }, [] as Array<number>);
 }
 
-function getStackedHighestValue(data: InternalData) {
+function getStackedHighestValue(data: InternalData, numberOfLabels: number) {
   return data.reduce((acc, curr) => {
-    return curr.values.map((datasetValue, index) => {
-      // Ignore null and negative values
-      const value =
-        datasetValue.value == null || datasetValue.value < 0
-          ? 0
-          : datasetValue.value;
-      if (!acc[index]) return value;
-      return acc[index] + value; // Instead of returning the highest value, sums them.
-    });
+    return getFilledArray(curr.values, numberOfLabels).map(
+      (datasetValue, index) => {
+        // Ignore null and negative values
+        const value =
+          datasetValue.value == null || datasetValue.value < 0
+            ? 0
+            : datasetValue.value;
+        if (!acc[index]) return value;
+        return acc[index] + value; // Instead of returning the highest value, sums them.
+      }
+    );
   }, [] as Array<number>);
 }
 
@@ -54,7 +69,8 @@ export function useTooltipAnchors(
   yScale: Ref<Scale>,
   orientation?: Ref<Orientation>,
   data?: Ref<InternalData>,
-  chartType?: Ref<string>
+  chartType?: Ref<string>,
+  labels?: Ref<Array<string>>
 ) {
   const shouldGenerateTooltipAnchors = computed(
     () =>
@@ -63,10 +79,14 @@ export function useTooltipAnchors(
   );
 
   function updateTooltipAnchorAttributes(renderedData: InternalData) {
+    const numberOfLabels = labels?.value?.length ?? 0;
     const highestValues =
       chartType?.value && ANCHOR_CALCULATION_METHOD_MAP[chartType.value]
-        ? ANCHOR_CALCULATION_METHOD_MAP[chartType.value](renderedData)
-        : getHighestValues(renderedData);
+        ? ANCHOR_CALCULATION_METHOD_MAP[chartType.value](
+          renderedData,
+          numberOfLabels
+        )
+        : getHighestValues(renderedData, numberOfLabels);
 
     anchorAttributeArray.value = highestValues.map((value, index) => ({
       cx:
