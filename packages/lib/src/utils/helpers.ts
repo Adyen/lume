@@ -9,6 +9,7 @@ import {
 } from '@/types/dataset';
 import { Scale } from '@/composables/scales';
 import { Slots } from 'vue/types/v3-setup-context';
+import { warn, Warnings } from '@/utils/warnings';
 
 // Slots from <lume-chart>
 const CHART_SLOTS = [
@@ -134,7 +135,7 @@ const validateGetHighestValueArguments = (
     ({ values }) => values.length - 1 >= index
   );
   if (!isIndexPresentInGroup) {
-    throw new Error('Index exceeds length of all of the datasets');
+    warn(Warnings.IndexExceedsLengthOfDataSets);
   }
 };
 
