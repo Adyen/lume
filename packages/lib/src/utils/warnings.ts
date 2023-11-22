@@ -15,6 +15,7 @@ export enum Warnings {
   // Hovered index
   InvalidHoveredIndex = 'The provided hovered index is not valid for the data of this chart.',
   InvalidHoveredElement = 'The provided hovered element is not valid for the data of this diagram.',
+  IndexExceedsLengthOfDataSets = 'Index exceeds length of all of the datasets',
 }
 
 const PREFIX = '[lume] ';
