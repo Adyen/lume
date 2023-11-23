@@ -2,11 +2,19 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.6.0](https://github.com/Adyen/lume/compare/1.5.3...1.6.0)
+
+- 🏷️ Reintroduce type declarations; Fix TS errors [`439e336`](https://github.com/Adyen/lume/commit/439e3368f5b507d1921fc4112794bed0777f4801)
+- ✨ Add nodeLabelMaxWidth option to alluvial [`ea40c45`](https://github.com/Adyen/lume/commit/ea40c45cb3730786914adf85e4deaa89f9ac59ae)
+- 🚸 Replacing the error with warning if index is not present in group. [`4667c03`](https://github.com/Adyen/lume/commit/4667c03a613db09062ee839adef45d56af9f20f9)
+
 #### [1.5.3](https://github.com/Adyen/lume/compare/1.5.2...1.5.3)
 
+> 21 November 2023
+
+- 🔖 Release v1.5.3 [`9862a38`](https://github.com/Adyen/lume/commit/9862a38f44555fb771522e49b880f5ce52d4e7c3)
 - 🔖 Release v1.5.2 [`89414e8`](https://github.com/Adyen/lume/commit/89414e8d08fa834c3ab5350b9d69b09384e07fea)
 - 📝 Update homepage in pkg.jsons [`07edbcb`](https://github.com/Adyen/lume/commit/07edbcb7fb0d8504b8193053e44b79e028281db4)
-- 📝 Add description to pkg.jsons [`2448430`](https://github.com/Adyen/lume/commit/2448430da8c11e5a441bc230ef1d0739d356d3a6)
 
 #### [1.5.2](https://github.com/Adyen/lume/compare/1.5.1...1.5.2)
 
