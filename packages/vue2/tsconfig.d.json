@@ -1,0 +1,10 @@
+{
+  "extends": "../lib/tsconfig.d.json",
+  "compilerOptions": {
+    "rootDir": "../lib/src",
+    "declarationDir": "dist/@types",
+    "emitDeclarationOnly": true,
+    "pretty": true,
+    "declaration": true
+  }
+}

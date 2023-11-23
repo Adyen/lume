@@ -63,7 +63,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits<{
-  (e: 'click', p: PointerEvent): void;
+  (e: 'click', p: MouseEvent): void;
   (e: 'mouseenter' | 'mouseleave', p: MouseEvent): void;
   (e: 'resize', value: ContainerSize): void;
 }>();

@@ -46,7 +46,7 @@ export function useStackedAxes(
     _data: Data,
     labels: Array<string>,
     size: ContainerSize
-  ) {
+  ): Scale {
     return isHorizontal.value
       ? scaleLinear()
         .domain([stackedMinValue.value, stackedMaxValue.value])
@@ -67,7 +67,7 @@ export function useStackedAxes(
     _data: Data,
     labels: Array<string>,
     size: ContainerSize
-  ) {
+  ): Scale {
     return isHorizontal.value
       ? Object.assign(
         getPaddedScale(

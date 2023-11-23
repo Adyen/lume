@@ -2,7 +2,7 @@ import { PropType, ref, Ref, watchEffect } from 'vue';
 import { ScaleBand, scaleBand, ScaleLinear, scaleLinear } from 'd3';
 
 import { flatValues, isBandScale } from '@/utils/helpers';
-import { ChartOptions } from '@/composables/options';
+import { BarChartOptions, ChartOptions } from '@/composables/options';
 
 import {
   Orientation,
@@ -27,13 +27,11 @@ export type ScaleGenerator<T extends Scale = Scale> = (
 
 export const withScales = () => ({
   xScale: {
-    type: Function as PropType<ScaleGenerator | ScaleBand<string | number>>,
+    type: Function as PropType<ScaleGenerator | Scale>,
     default: null,
   },
   yScale: {
-    type: Function as PropType<
-      ScaleGenerator<ScaleLinear<number, number>> | ScaleLinear<number, number>
-    >,
+    type: Function as PropType<ScaleGenerator | Scale>,
     default: null,
   },
 });
@@ -111,7 +109,7 @@ function generateBandScale(
   options: ChartOptions
 ): ComputedScaleBand {
   const range = [0, size];
-  const { padding, paddingInner, paddingOuter } = options;
+  const { padding, paddingInner, paddingOuter } = options as BarChartOptions;
   const defaultPadding =
     padding ??
     (orientation === ORIENTATIONS.HORIZONTAL

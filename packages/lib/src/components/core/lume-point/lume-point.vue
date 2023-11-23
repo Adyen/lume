@@ -39,7 +39,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits<{ (e: 'click', p: PointerEvent): void }>();
+const emit = defineEmits<{ (e: 'click', p: MouseEvent): void }>();
 
 const root = ref<SVGCircleElement>(null);
 

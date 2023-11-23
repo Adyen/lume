@@ -191,8 +191,6 @@ import {
   LinkPath,
   NodeBlock,
   SankeyLink,
-  SankeyLinkProps,
-  SankeyNodeProps,
 } from '@/types/alluvial';
 import {
   AlluvialLinkEventPayload,
@@ -368,10 +366,7 @@ function shouldDeriveNodeColorFromIncomingLinks(block: NodeBlock) {
   return !block.node.color && block.node.deriveColorFromIncomingLinks;
 }
 
-function handleLinkMouseover(
-  link: SankeyLink<SankeyNodeProps, SankeyLinkProps>,
-  event: MouseEvent
-) {
+function handleLinkMouseover(link: SankeyLink, event: MouseEvent) {
   if (link === hoveredElement.value) return;
 
   hoveredElement.value = link;
@@ -379,10 +374,7 @@ function handleLinkMouseover(
 }
 
 function handleLinkMouseleave(event: MouseEvent) {
-  const link = hoveredElement.value as SankeyLink<
-    SankeyNodeProps,
-    SankeyLinkProps
-  >;
+  const link = hoveredElement.value as SankeyLink;
   hoveredElement.value = null;
   emit('link-mouseleave', { link, event });
 }

@@ -37,7 +37,7 @@ const CHART_EVENTS = [
 // Used to propagate events from the top-most component (needed for Vue 2)
 export const useEvents = (
   emit: (e: string, p: unknown) => void,
-  chartID: string
+  chartID?: string
 ) => {
   function emitInternalEvent(eventName: string, ...args: Array<unknown>) {
     if (__VUE_VERSION__ === 2) {

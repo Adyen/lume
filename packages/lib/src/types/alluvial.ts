@@ -2,8 +2,8 @@ import { CurveFactory } from 'd3';
 import {
   SankeyGraph as D3SankeyGraph,
   SankeyLink as D3SankeyLink,
+  SankeyNode as D3SankeyNode,
   SankeyExtraProperties,
-  SankeyNode,
 } from 'd3-sankey';
 
 import { Color } from '@/utils/constants';
@@ -38,6 +38,11 @@ export interface SankeyLinkProps extends SankeyExtraProperties {
   x1?: number | undefined;
   curveFunction?: CurveFactory;
 }
+
+export type SankeyNode<
+  N extends SankeyNodeProps = SankeyNodeProps,
+  L extends SankeyLinkProps = SankeyLinkProps
+> = D3SankeyNode<N, L>;
 
 export interface SankeyLink<
   N extends SankeyNodeProps = SankeyNodeProps,
