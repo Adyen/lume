@@ -33,7 +33,7 @@ import { NODE_LABEL_SAFETY_MARGIN } from '../../constants';
 const props = defineProps({
   bottom: { type: Boolean, default: false },
   left: { type: Boolean, default: false },
-  maxWidth: { type: Number, default: null },
+  maxWidth: { type: Number, default: 0 },
 });
 
 const emit = defineEmits<{

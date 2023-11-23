@@ -65,6 +65,9 @@ export const Basic: Story = {
   args: {
     ...DATASETS.Basic,
     title: 'Students performance in science exam',
+    options: {
+      nodeLabelMaxWidth: 100,
+    },
   },
 };
 
