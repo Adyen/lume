@@ -1,12 +1,14 @@
-import { PluginFunction, PluginObject } from 'vue';
+import { App, Plugin } from 'vue';
 
 import * as components from './components';
 
-interface LumePluginFunction extends PluginFunction<null> {
+type PluginFunction = (app: App) => any;
+
+interface LumePluginFunction extends PluginFunction {
   installed?: boolean;
 }
 
-const install: LumePluginFunction = (Vue) => {
+const install: LumePluginFunction = (app: App) => {
   if (install.installed) return;
   install.installed = true;
 
@@ -14,17 +16,17 @@ const install: LumePluginFunction = (Vue) => {
   for (const prop in components) {
     if (Object.prototype.hasOwnProperty.call(components, prop)) {
       const component = components[prop];
-      Vue.component(prop, component);
+      app.component(prop, component);
     }
   }
 };
 
-const plugin: PluginObject<null> = { install };
+const plugin: Plugin = { install };
 
 // Auto-install when vue is found (eg. in browser via <script> tag)
 let GlobalVue = null;
 if (typeof window !== 'undefined') {
-  GlobalVue = window.Vue;
+  GlobalVue = (window as any).Vue;
 } else if (typeof global !== 'undefined') {
   GlobalVue = global.Vue;
 }

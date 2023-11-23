@@ -1,4 +1,4 @@
-import { isRef, Ref } from 'vue';
+import { isRef, Ref, Slots } from 'vue';
 import { ScaleBand } from 'd3';
 
 import {
@@ -8,7 +8,6 @@ import {
   InternalDataset,
 } from '@/types/dataset';
 import { Scale } from '@/composables/scales';
-import { Slots } from 'vue/types/v3-setup-context';
 import { warn, Warnings } from '@/utils/warnings';
 
 // Slots from <lume-chart>

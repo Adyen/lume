@@ -70,7 +70,7 @@ export interface ChartEvents {
   (e: 'data-changed', p: DataChangedEventPayload<Data>): void;
   (e: 'labels-changed', p: DataChangedEventPayload<Array<string>>): void;
 
-  (e: 'chart-click', p: PointerEvent): void;
+  (e: 'chart-click', p: MouseEvent): void;
   (e: 'chart-mouseenter', p: MouseEvent): void;
   (e: 'chart-mouseleave'): void;
 }

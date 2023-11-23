@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "pretty": true,
+    "skipLibCheck": true
+  },
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/*.stories.ts",
+    "node_modules/*",
+    "test",
+    "src/next",
+    "src/playground"
+  ],
+  "include": ["typings/vue-shims.d.ts", "src"]
+}

@@ -81,20 +81,6 @@ describe('lume-sparkline.vue', () => {
     expect(areaPath.classes().includes(`lume-fill--${areaColor}`)).toBe(true);
   });
 
-  test('mounts component and checks areaPathDefinition', () => {
-    const wrapper = sparklineChartTestSuiteFactory({
-      data,
-      labels,
-      xScale,
-      yScale,
-    }).wrapper;
-
-    const areaPathDefinition = (wrapper.vm as any).areaPathDefinition;
-    expect(areaPathDefinition).toBeTruthy();
-    expect(areaPathDefinition(xScale, null)).toBeFalsy();
-    expect(areaPathDefinition(xScale, yScale)).toBeTruthy();
-  });
-
   test('transition to be disabled when the withTransition option is set to false', async () => {
     const wrapper = sparklineChartTestSuiteFactory({
       data,

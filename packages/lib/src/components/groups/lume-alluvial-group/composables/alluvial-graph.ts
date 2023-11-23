@@ -1,5 +1,5 @@
 import { computed, ComputedRef, ref, Ref, watch } from 'vue';
-import { SankeyLink as D3SankeyLink, sankey, SankeyNode } from 'd3-sankey';
+import { SankeyLink as D3SankeyLink, sankey } from 'd3-sankey';
 
 import { AlluvialDiagramOptions } from '@/composables/options';
 
@@ -13,6 +13,7 @@ import {
   AlluvialNode,
   SankeyGraph,
   SankeyLinkProps,
+  SankeyNode,
   SankeyNodeProps,
 } from '@/types/alluvial';
 import { InternalData } from '@/types/dataset';
@@ -33,9 +34,7 @@ export function useAlluvialGraph(
 ) {
   const sankeyGraph = ref<SankeyGraph>(null);
 
-  const nodes: ComputedRef<
-    Array<SankeyNode<SankeyNodeProps, SankeyLinkProps>>
-  > = computed(() => {
+  const nodes: ComputedRef<Array<SankeyNode>> = computed(() => {
     return data.value?.[0].values.map(
       ({ label, color, value, deriveColorFromIncomingLinks, offset }) => ({
         label: label || value.toString(),
@@ -95,7 +94,7 @@ export function useAlluvialGraph(
     );
   });
 
-  function computeStaticNodePosition(node: SankeyNode<SankeyNodeProps>) {
+  function computeStaticNodePosition(node: SankeyNode) {
     const { offset } = node;
     const column = getColumnByNode(node, columns.value);
 
@@ -114,7 +113,7 @@ export function useAlluvialGraph(
   }
 
   function computeLinksPositionForStaticNode(
-    node: SankeyNode<SankeyNodeProps>,
+    node: SankeyNode,
     graphObject: SankeyGraph
   ) {
     const { id, _y0, y0 } = node;

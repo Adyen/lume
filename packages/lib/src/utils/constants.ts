@@ -90,7 +90,7 @@ export enum LegacyColors {
   '09' = '09',
 }
 
-export type Color = Colors | DivergentColors | LegacyColors;
+export type Color = Colors | DivergentColors | LegacyColors | OtherColors;
 
 export type Margins =
   | 'auto'

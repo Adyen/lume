@@ -72,13 +72,14 @@ const { componentEventPropagator } = useEvents(emit);
 
 const slots = excludeGroups(useSlots());
 
-function getBarChartOptions(options: Options) {
+function getBarChartOptions(options: Options): BarChartOptions {
   return {
     ...options,
     startOnZero: true, // Bar chart always starts on zero,
     tooltipOptions: {
       ...((options?.tooltipOptions as TooltipOptions) || {}),
-      position: props.orientation === ORIENTATIONS.HORIZONTAL && 'right',
+      position:
+        props.orientation === ORIENTATIONS.HORIZONTAL ? 'right' : undefined,
     },
   };
 }

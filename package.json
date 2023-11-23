@@ -10,8 +10,9 @@
     "url": "https://github.com/Adyen/lume.git"
   },
   "scripts": {
-    "build": "pnpm --parallel -r --filter='./packages/*' run build",
+    "build": "pnpm --parallel -r --filter='./packages/*' run build && pnpm run build:types",
     "build:storybook": "NODE_ENV=production pnpm --filter='./packages/vue3' run build:storybook -o ../../storybook",
+    "build:types": "pnpm --filter='./packages/*' run build:types",
     "confighooks": "git config core.hooksPath ./git-hooks",
     "pack": "pnpm -r --filter='./packages/vue*' run pack",
     "prepare": "pnpm run confighooks && echo \" ✔ Git hooks path configured to ./git-hooks\"",

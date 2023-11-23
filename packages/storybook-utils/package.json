@@ -6,6 +6,7 @@
   "devDependencies": {
     "@storybook/manager-api": "7.5.2",
     "@storybook/preview-api": "7.5.2",
-    "@storybook/theming": "7.5.2"
+    "@storybook/theming": "7.5.2",
+    "vue-tsc": "^1.8.22"
   }
 }
