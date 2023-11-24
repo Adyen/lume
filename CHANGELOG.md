@@ -2,9 +2,12 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.6.1](https://github.com/Adyen/lume/compare/1.6.1...1.6.1)
+
 #### [1.6.1](https://github.com/Adyen/lume/compare/1.6.0...1.6.1)
 
-- 🔖 Release v1.6.0 [`3f15758`](https://github.com/Adyen/lume/commit/3f1575842d3d8b887267ce485dc9d107b7431df1)
+> 24 November 2023
+
 - 🐛 Fix wrong types file path [`9f152dc`](https://github.com/Adyen/lume/commit/9f152dc7e1a64f3503d07bdf0ae173d867becb7b)
 
 #### [1.6.0](https://github.com/Adyen/lume/compare/1.5.3...1.6.0)
@@ -13,39 +16,35 @@ All notable changes to this project will be documented in this file. Dates are d
 
 - 🏷️ Reintroduce type declarations; Fix TS errors [`439e336`](https://github.com/Adyen/lume/commit/439e3368f5b507d1921fc4112794bed0777f4801)
 - ✨ Add nodeLabelMaxWidth option to alluvial [`ea40c45`](https://github.com/Adyen/lume/commit/ea40c45cb3730786914adf85e4deaa89f9ac59ae)
-- 🔖 Release v1.6.0 [`9872ee9`](https://github.com/Adyen/lume/commit/9872ee96267861ed0187b9184bd5a2aeb92e2b8d)
+- 🚸 Replacing the error with warning if index is not present in group. [`4667c03`](https://github.com/Adyen/lume/commit/4667c03a613db09062ee839adef45d56af9f20f9)
 
 #### [1.5.3](https://github.com/Adyen/lume/compare/1.5.2...1.5.3)
 
 > 21 November 2023
 
-- 🔖 Release v1.5.3 [`9862a38`](https://github.com/Adyen/lume/commit/9862a38f44555fb771522e49b880f5ce52d4e7c3)
-- 🔖 Release v1.5.2 [`89414e8`](https://github.com/Adyen/lume/commit/89414e8d08fa834c3ab5350b9d69b09384e07fea)
 - 📝 Update homepage in pkg.jsons [`07edbcb`](https://github.com/Adyen/lume/commit/07edbcb7fb0d8504b8193053e44b79e028281db4)
+- 📝 Add description to pkg.jsons [`2448430`](https://github.com/Adyen/lume/commit/2448430da8c11e5a441bc230ef1d0739d356d3a6)
+- 🐛 External hover to check all items before marking index as invalid [`fe6ee75`](https://github.com/Adyen/lume/commit/fe6ee7529be3736ac3bf464b931ce4529dad3160)
 
 #### [1.5.2](https://github.com/Adyen/lume/compare/1.5.1...1.5.2)
 
 > 21 November 2023
 
-- 🔖 Release v1.5.1 [`3e1d8c2`](https://github.com/Adyen/lume/commit/3e1d8c2eb108c49eb26bc0e94115733d45b0197b)
-- 🔖 Release v1.5.2 [`40c4f4b`](https://github.com/Adyen/lume/commit/40c4f4b200377c424b2c6d3d7ff4336c9195afed)
 - 📌 Change vue peerDependencies versions [`5e4cc70`](https://github.com/Adyen/lume/commit/5e4cc700c1f30b6f0396c9817c6e6a3ddc214401)
 
 #### [1.5.1](https://github.com/Adyen/lume/compare/1.5.0...1.5.1)
 
 > 21 November 2023
 
-- 🔖 Release v1.5.0 [`75feab3`](https://github.com/Adyen/lume/commit/75feab308c6bf2631a46e432a123bade3ba3aaf8)
 - 🐛 Creating tooltip anchors equal to chart labels [`0848177`](https://github.com/Adyen/lume/commit/08481778b73420a035139e4968bc2897231f8ebd)
-- 🔖 Release v1.5.1 [`ee8a839`](https://github.com/Adyen/lume/commit/ee8a839aa929772a13084d54ef2aa91fd18d2040)
 
 #### [1.5.0](https://github.com/Adyen/lume/compare/1.4.0...1.5.0)
 
 > 20 November 2023
 
 - ⬆️ Update storybook monorepo to v7.5.2 [`6337521`](https://github.com/Adyen/lume/commit/6337521401e1999303c5d48a3aa539f529252265)
-- 🔖 Release v1.5.0 [`a73838a`](https://github.com/Adyen/lume/commit/a73838ad95180866585802dd5428a6182262d496)
 - ⬆️ Update vue monorepo [`473c633`](https://github.com/Adyen/lume/commit/473c633b0e410cb999bc36330148b83902166fb0)
+- ⬆️ Update dependency webpack to v5.89.0 [`006f790`](https://github.com/Adyen/lume/commit/006f790315bc163e9e0cf5348599c5c835f0757e)
 
 #### [1.4.0](https://github.com/Adyen/lume/compare/1.3.0...1.4.0)
 
@@ -60,8 +59,6 @@ All notable changes to this project will be documented in this file. Dates are d
 > 6 November 2023
 
 - 🐛 Added support for grouped charts with varied data points. [`7a2d90c`](https://github.com/Adyen/lume/commit/7a2d90c7819acc68c98f53e505b8a5b7a0ec9ae4)
-- 🔖 Release v1.2.1 [`aa7b51f`](https://github.com/Adyen/lume/commit/aa7b51f909e91375332720cd1d7f0202e95c6119)
-- 🔖 Release v1.3.0 [`e379782`](https://github.com/Adyen/lume/commit/e379782fb4d19c43e7d6ffa280ae1ed1a45dcd7e)
 
 #### [1.2.1](https://github.com/Adyen/lume/compare/1.2.0...1.2.1)
 
@@ -75,24 +72,23 @@ All notable changes to this project will be documented in this file. Dates are d
 
 > 2 October 2023
 
-- 🔖 Release v1.1.0 [`027b727`](https://github.com/Adyen/lume/commit/027b7275411a1e80f23234da6abcc5ab384c5662)
 - ✅ Updated stories/tests to depict tooltip behavior [`98d348e`](https://github.com/Adyen/lume/commit/98d348e178a662064a389c313947f98855a5bbf0)
 - 📝 updated doc on tooltip event behavior [`aad1416`](https://github.com/Adyen/lume/commit/aad141670b382fd28fe67dafbd73e54c98a29383)
+- ✨ Enabling pointer events in Lume tooltip [`5fe5be9`](https://github.com/Adyen/lume/commit/5fe5be9475ccc2c163428b1a481ac46c1dd918cb)
 
 #### [1.1.0](https://github.com/Adyen/lume/compare/1.0.0...1.1.0)
 
 > 27 September 2023
 
-- 🔖 Release v1.1.0 [`a6f75f7`](https://github.com/Adyen/lume/commit/a6f75f73ee467fe20448e7dfadcf7752ec2aa0bc)
-- 🔖 Release v1.0.0 [`941668c`](https://github.com/Adyen/lume/commit/941668c6496f4650c93ec61e7d823cbf2bb6c351)
 - ✨ Add node offset property [`23788da`](https://github.com/Adyen/lume/commit/23788da580e00435eb7d59d5c92ead23ece90a84)
+- 📝 Update README [`d7cbdca`](https://github.com/Adyen/lume/commit/d7cbdcaec1b7377d3b06fb7d5194aaa6eba0c1a1)
+- ✅ Add node offset unit test [`1e2e93d`](https://github.com/Adyen/lume/commit/1e2e93d4ca308dc6a91a22466eb5b78411124b0c)
 
 ### [1.0.0](https://github.com/Adyen/lume/compare/v0.10.0...1.0.0)
 
 > 25 September 2023
 
 - ✨ Initial commit [`2b2121e`](https://github.com/Adyen/lume/commit/2b2121e41cc25aa08c81382901627f5aba473ce5)
-- 🔖 Release v1.0.0 [`041332b`](https://github.com/Adyen/lume/commit/041332b9ecb413ab94edd865d70cfc8c1f9a1df2)
 - 🔥 Remove dead CSS classes [`e9bf290`](https://github.com/Adyen/lume/commit/e9bf2909327d0d0fc12b674fe1c378f157fdd466)
 
 #### [v0.10.0](https://github.com/Adyen/lume/compare/v0.9.1...v0.10.0)
@@ -124,16 +120,14 @@ All notable changes to this project will be documented in this file. Dates are d
 > 14 July 2023
 
 - ✨ Add option to switch order of Alluvial labels/values [`3322cf2`](https://github.com/Adyen/lume/commit/3322cf21ce2681f5c8d172af1b42eab34c8b09e7)
-- 🔖 Release v0.8.0 [`9c810a0`](https://github.com/Adyen/lume/commit/9c810a014754d54703377fb6619371844da94060)
-- 🔖 Release v0.7.1 [`a2d400c`](https://github.com/Adyen/lume/commit/a2d400c3762d83f66f05e36c75fdeb3cb0206cc3)
 
 #### [v0.7.1](https://github.com/Adyen/lume/compare/v0.7.0...v0.7.1)
 
 > 13 July 2023
 
-- 🔖 Release v0.7.0 [`a8d1193`](https://github.com/Adyen/lume/commit/a8d11934a85f8c6f7fef91d8fb0452b70adb6487)
-- 🔖 Release v0.7.1 [`252342a`](https://github.com/Adyen/lume/commit/252342af55ea24b961afb45c33eb72fda9fbd4d3)
 - 🐛 Add formatted value to Alluvial node slot [`f164c8b`](https://github.com/Adyen/lume/commit/f164c8b996cc07e61adca28800bfbbe9a49e316b)
+- 🐛 Change &lt;tex&gt;t tag to &lt;g&gt; to allow better customization [`57783a5`](https://github.com/Adyen/lume/commit/57783a5bcad448907db3ab4a65d1259926750bbd)
+- 🐛 Corrected missing CSS for x-axis title [`58fc466`](https://github.com/Adyen/lume/commit/58fc466f91d34e0a12cd47f09334928bbc12ecad)
 
 #### [v0.7.0](https://github.com/Adyen/lume/compare/v0.6.1...v0.7.0)
 
@@ -149,7 +143,7 @@ All notable changes to this project will be documented in this file. Dates are d
 
 - 🐛 Fix padding handling for all band scales [`8b89cfa`](https://github.com/Adyen/lume/commit/8b89cfa574c53a65cbdd56ce3b74457e181d054a)
 - 🐛 Fix tooltip styles and components exports [`6953100`](https://github.com/Adyen/lume/commit/695310038a66f4a893e20d3c34534d07c6b1897e)
-- 🔖 Release v0.6.1 [`dcba97f`](https://github.com/Adyen/lume/commit/dcba97f7e8b4d8086e703359bd5f0e2f951ccc40)
+- ✅ Remove unnecessary assertion [`41f6786`](https://github.com/Adyen/lume/commit/41f6786fd71e0b77a59784163aae7b89903162d0)
 
 #### [v0.6.0](https://github.com/Adyen/lume/compare/v0.5.3...v0.6.0)
 
@@ -163,16 +157,12 @@ All notable changes to this project will be documented in this file. Dates are d
 
 > 9 May 2023
 
-- 🔖 Release v0.5.2 [`a2ed659`](https://github.com/Adyen/lume/commit/a2ed6597f165de0167e387acafb2441fae44b934)
-- 🔖 Release v0.5.3 [`c74e834`](https://github.com/Adyen/lume/commit/c74e834cada8cde34f1f7e5afc30ef317537423f)
 - 🐛 Fix node headers wrong order [`c4fb75e`](https://github.com/Adyen/lume/commit/c4fb75e5592ed52a6f1bfed27e7500dc98546c32)
 
 #### [v0.5.2](https://github.com/Adyen/lume/compare/v0.5.1...v0.5.2)
 
 > 8 May 2023
 
-- 🔖 Release v0.5.2 [`a297d77`](https://github.com/Adyen/lume/commit/a297d77ad012dc08677398d67c12767daad2e4dd)
-- 🔖 Release v0.5.1 [`0dc9bb7`](https://github.com/Adyen/lume/commit/0dc9bb7286e1e80fdeaab546296156931413350f)
 - 🐛 Hover on the chart is not showing the popover [`5051ff3`](https://github.com/Adyen/lume/commit/5051ff33342c9a24158ab8b71ee5d87a5f00571b)
 
 #### [v0.5.1](https://github.com/Adyen/lume/compare/v0.5.0...v0.5.1)
@@ -180,8 +170,6 @@ All notable changes to this project will be documented in this file. Dates are d
 > 26 April 2023
 
 - 📝 Add missing fields in vue2/vue3 package.json [`c471177`](https://github.com/Adyen/lume/commit/c471177f25d843bf8659f160bca5aa028d00f720)
-- 🔖 Release v0.5.0 [`c8045e6`](https://github.com/Adyen/lume/commit/c8045e6975096385eb13f3c263d89b279561351f)
-- 🔖 Release v0.5.1 [`7762e80`](https://github.com/Adyen/lume/commit/7762e80c41bdcb940d9ea2e125b1910a7dce23ac)
 
 #### [v0.5.0](https://github.com/Adyen/lume/compare/v0.4.0...v0.5.0)
 
@@ -205,7 +193,7 @@ All notable changes to this project will be documented in this file. Dates are d
 
 - 🐛 Fix chart ID not being unique + tooltip anchor issues [`8391edf`](https://github.com/Adyen/lume/commit/8391edf224c2adf4ae72044e111bbc288d427b54)
 - ✅ Update & fix unit tests [`9fdc431`](https://github.com/Adyen/lume/commit/9fdc431f3e686d280b07b4bdb8c24ad599d09705)
-- 🔖 Release v0.3.2 [`e5f3259`](https://github.com/Adyen/lume/commit/e5f32595123daa9c7945035814c22ea941e4c7ef)
+- 🩹 Add fallback for tooltipAnchorAttributes provide/inject [`de06702`](https://github.com/Adyen/lume/commit/de06702c6ce67df328756ae6fabc70687bf17759)
 
 #### [v0.3.2](https://github.com/Adyen/lume/compare/v0.3.1...v0.3.2)
 
@@ -213,14 +201,11 @@ All notable changes to this project will be documented in this file. Dates are d
 
 - 🐛 Add missing sequential colors enum [`2325c36`](https://github.com/Adyen/lume/commit/2325c364d18d12784b2d9b8afb08e8d874510a65)
 - 🐛 Add missing header chart legend slot [`fbfa8cd`](https://github.com/Adyen/lume/commit/fbfa8cd491f03f6fdfe430d709cff8df9983c1ca)
-- 🔖 Release v0.3.2 [`86f23ea`](https://github.com/Adyen/lume/commit/86f23ea3c7eee4b16cf342d6be67fe739cdda664)
 
 #### [v0.3.1](https://github.com/Adyen/lume/compare/v0.3.0...v0.3.1)
 
 > 20 February 2023
 
-- 🔖 Release v0.3.0 [`233ba20`](https://github.com/Adyen/lume/commit/233ba20a07fdd5afcf70db2d00239d26c3e11354)
-- 🔖 Release v0.3.1 [`fc71cb7`](https://github.com/Adyen/lume/commit/fc71cb7c4ea5820728181f14894f343ffa4b5ef6)
 - 🐛 Fix duplicated keys in tooltip anchors [`df072c6`](https://github.com/Adyen/lume/commit/df072c6ccdb55b6846ada98ec970d50b0c5047f0)
 
 #### [v0.3.0](https://github.com/Adyen/lume/compare/v0.2.1...v0.3.0)
@@ -236,12 +221,10 @@ All notable changes to this project will be documented in this file. Dates are d
 
 > 1 February 2023
 
-- 🔖 Release v0.2.1 [`#150`](https://github.com/Adyen/lume/pull/150)
 - 🐛 Fix repeated label scaleBand issue [`#149`](https://github.com/Adyen/lume/pull/149)
 - 🩹 Fix wrong import path in component stories [`#148`](https://github.com/Adyen/lume/pull/148)
 - 🎨 Code clean-up [`#139`](https://github.com/Adyen/lume/pull/139)
 - 🚚 Move constants to @/utils/ [`#141`](https://github.com/Adyen/lume/pull/141)
-- 🔖 Release v0.2.0 [`#142`](https://github.com/Adyen/lume/pull/142)
 - ♻️ Refactor Alluvial diagram and its sub-elements [`b8f810a`](https://github.com/Adyen/lume/commit/b8f810ab478cb0d921699f7ac643f52a614a1e26)
 - ♻️ Refactor group components into script setup [`a4089b1`](https://github.com/Adyen/lume/commit/a4089b1286cd019a0bd0c96b1d07143201d9a333)
 - ♻️ Abstract lume-alluvial-path-group to lume-alluvial-group [`1afa447`](https://github.com/Adyen/lume/commit/1afa447eb83013d785458bac0bca2c1de44c3602)
@@ -259,7 +242,6 @@ All notable changes to this project will be documented in this file. Dates are d
 - ⬆️ Update dependency d3 to v7.8.0 [`#118`](https://github.com/Adyen/lume/pull/118)
 - ⬆️ Update dependency vite-plugin-static-copy to ^0.13.0 [`#117`](https://github.com/Adyen/lume/pull/117)
 - ⬆️ Update vitest monorepo to ^0.26.0 [`#126`](https://github.com/Adyen/lume/pull/126)
-- 🔖 Release v0.1.9 [`#131`](https://github.com/Adyen/lume/pull/131)
 - ✨ add script setup to core components [`3af8d6f`](https://github.com/Adyen/lume/commit/3af8d6f2d91f6d59192a428c415cb54a560cb621)
 - ✨ add script setup to chart components [`5abe8e7`](https://github.com/Adyen/lume/commit/5abe8e76fdf31470eebf55dcf9b14c0acab8bc0d)
 - ✅ fix failing tests [`b713d44`](https://github.com/Adyen/lume/commit/b713d446250071d2617b060b5930432601efcbc6)
@@ -272,7 +254,6 @@ All notable changes to this project will be documented in this file. Dates are d
 - 🧑‍💻 Remove issue reference commit requirement [`#129`](https://github.com/Adyen/lume/pull/129)
 - 🧑‍💻 Add commit message check for conventions [`#125`](https://github.com/Adyen/lume/pull/125)
 - 🔀 122 automate releases [`#123`](https://github.com/Adyen/lume/pull/123)
-- 🔖 0.1.8 [`#120`](https://github.com/Adyen/lume/pull/120)
 - 🐛 Fix skipped tick label hover logic [`#127`](https://github.com/Adyen/lume/issues/127)
 - 📝 Add CHANGELOG.md [`35b4bae`](https://github.com/Adyen/lume/commit/35b4baeaeb926b1e5398f89950c363f0dcaef3af)
 - 👷 Remove bump-version workflow; Update npm-publish workflow [`865ce66`](https://github.com/Adyen/lume/commit/865ce661a1231502b5541fbffc605b77d4f1db5e)
@@ -286,7 +267,6 @@ All notable changes to this project will be documented in this file. Dates are d
 - 🔧 Add commit prefix to renovate config [`#116`](https://github.com/Adyen/lume/pull/116)
 - ✨ Introduce summary item in LumeTooltip [`#113`](https://github.com/Adyen/lume/pull/113)
 - 🧑‍💻 Add Dockerfile, compose & guide [`#114`](https://github.com/Adyen/lume/pull/114)
-- 🔖 0.1.7 [`#111`](https://github.com/Adyen/lume/pull/111)
 
 #### [v0.1.7](https://github.com/Adyen/lume/compare/v0.1.6...v0.1.7)
 

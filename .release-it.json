@@ -1,7 +1,7 @@
 {
   "git": {
     "commitMessage": "🔖 Release v${version}",
-    "changelog": "auto-changelog --stdout --commit-limit false --unreleased --template release-log-template.hbs",
+    "changelog": "auto-changelog --stdout --commit-limit false --unreleased --template release-log-template.hbs --ignore-commit-pattern=\"🔖\"",
     "requireCleanWorkingDir": false
   },
   "npm": {
@@ -15,7 +15,7 @@
     "web": true
   },
   "hooks": {
-    "after:bump": "auto-changelog -p --hide-credit"
+    "after:bump": "auto-changelog -p --hide-credit --ignore-commit-pattern=\"🔖\""
   },
   "plugins": {
     "@release-it-plugins/workspaces": {
