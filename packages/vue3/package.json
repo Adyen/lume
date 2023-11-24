@@ -15,7 +15,7 @@
     "./scss": "./dist/scss/main.scss",
     "./package.json": "./package.json"
   },
-  "types": "./dist/types/index.d.ts",
+  "types": "./dist/@types/index.d.ts",
   "scripts": {
     "build": "NODE_ENV=production pnpm run build:vite && pnpm run build:font",
     "build:vite": "vite build",
