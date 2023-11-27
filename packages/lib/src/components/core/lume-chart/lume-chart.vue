@@ -395,10 +395,10 @@ const { shouldGenerateTooltipAnchors } = useTooltipAnchors(
   allOptions,
   computedXScale,
   computedYScale,
+  labels,
   orientation,
   internalData,
-  chartType,
-  labels
+  chartType
 );
 
 const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();

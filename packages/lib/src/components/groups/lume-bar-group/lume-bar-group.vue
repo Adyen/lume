@@ -84,13 +84,14 @@ const {
   xScale,
   yScale,
   classList,
+  labels,
 } = toRefs(props);
 
 const chartID = inject<string>('chartID');
 
 const { emitInternalEvent } = useEvents(emit, chartID);
 
-const { groupedData } = useBarMixin(data);
+const { groupedData } = useBarMixin(data, labels);
 
 const { barXScale, barYScale } = useBarScales(xScale, yScale, orientation);
 

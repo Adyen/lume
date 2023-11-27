@@ -89,7 +89,7 @@ const emit = defineEmits<{
   (e: 'lume__internal--hover', p: number);
 }>();
 
-const { data, options, xScale, yScale } = toRefs(props);
+const { data, options, xScale, yScale, labels } = toRefs(props);
 
 const tooltipAnchorAttributes = inject<Ref<AnchorAttributes[]> | null>(
   'tooltipAnchorAttributes',
@@ -99,7 +99,8 @@ const { updateTooltipAnchorAttributes } = useTooltipAnchors(
   tooltipAnchorAttributes,
   options,
   xScale,
-  yScale
+  yScale,
+  labels
 );
 
 const computedGroupData = computed(() => {

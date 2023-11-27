@@ -3,7 +3,8 @@ import { computed, reactive, Ref, watch } from 'vue';
 import { getXByIndex, Scale } from './scales';
 
 import { NO_DATA, Orientation, ORIENTATIONS } from '@/utils/constants';
-import { DatasetValueObject, InternalData } from '@/types/dataset';
+import { fillArrayWithNullValues } from '@/utils/helpers';
+import { InternalData } from '@/types/dataset';
 import { ChartOptions } from './options';
 
 export interface AnchorAttributes {
@@ -21,28 +22,20 @@ export interface TooltipConfig {
   targetElement: Element | null;
 }
 
-function getFilledArray(
-  originalArray: Array<number | DatasetValueObject>,
-  numberOfLabels: number
-) {
-  const difference = numberOfLabels - originalArray.length;
-  return difference > 0
-    ? [...originalArray, ...Array(difference).fill({ value: null })]
-    : originalArray;
-}
-
 function getHighestValues(data: InternalData, numberOfLabels: number) {
   return data.reduce((acc, curr) => {
-    return getFilledArray(curr.values, numberOfLabels).map((value, index) => {
-      if (!acc[index]) return value.value ?? 0;
-      return value.value > acc[index] ? value.value : acc[index];
-    });
+    return fillArrayWithNullValues(curr.values, numberOfLabels).map(
+      (value, index) => {
+        if (!acc[index]) return value.value ?? 0;
+        return value.value > acc[index] ? value.value : acc[index];
+      }
+    );
   }, [] as Array<number>);
 }
 
 function getStackedHighestValue(data: InternalData, numberOfLabels: number) {
   return data.reduce((acc, curr) => {
-    return getFilledArray(curr.values, numberOfLabels).map(
+    return fillArrayWithNullValues(curr.values, numberOfLabels).map(
       (datasetValue, index) => {
         // Ignore null and negative values
         const value =
@@ -67,10 +60,10 @@ export function useTooltipAnchors(
   options: Ref<ChartOptions>,
   xScale: Ref<Scale>,
   yScale: Ref<Scale>,
+  labels?: Ref<Array<string | number>>,
   orientation?: Ref<Orientation>,
   data?: Ref<InternalData>,
-  chartType?: Ref<string>,
-  labels?: Ref<Array<string>>
+  chartType?: Ref<string>
 ) {
   const shouldGenerateTooltipAnchors = computed(
     () =>
