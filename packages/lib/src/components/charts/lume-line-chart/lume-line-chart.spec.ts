@@ -9,8 +9,10 @@ import {
   xScale,
   yScale,
 } from '@test/unit/mock-data';
+import { CHART_TYPES, ChartType } from '@/utils/constants';
 
 const numberOfLines = data[0].values.length;
+const chartType: ChartType = CHART_TYPES.LINE;
 const lineChartTestSuiteFactory = (props) =>
   new BaseTestSuite(LumeLineChart, props);
 
@@ -21,6 +23,7 @@ describe('lume-line-chart.vue', () => {
       labels,
       xScale,
       yScale,
+      chartType,
     }).wrapper;
 
     const el = wrapper.find('[data-j-lume-line-chart]');
@@ -38,6 +41,7 @@ describe('lume-line-chart.vue', () => {
       labels,
       xScale,
       yScale: linearScale,
+      chartType,
     }).wrapper;
 
     const elements = wrapper.findAll('[data-j-line]');
@@ -49,6 +53,7 @@ describe('lume-line-chart.vue', () => {
     labels,
     xScale,
     yScale,
+    chartType,
   });
   testSuite.run({ selector: '[data-j-line]', multisetData: [3, 7, 4, 5] });
 });

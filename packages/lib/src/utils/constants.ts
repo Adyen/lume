@@ -123,6 +123,15 @@ export const BAR_TYPES: Record<string, BarType> = {
   STACKED: 'stacked',
 };
 
+export type ChartType = 'bar' | 'line' | 'alluvial' | 'sparkline';
+
+export const CHART_TYPES: Record<string, ChartType> = {
+  BAR: 'bar',
+  LINE: 'line',
+  ALLUVIAL: 'alluvial',
+  SPARKLINE: 'sparkline',
+};
+
 export const NO_DATA = 'No data';
 
 export const BAR_HEIGHT = 20;
