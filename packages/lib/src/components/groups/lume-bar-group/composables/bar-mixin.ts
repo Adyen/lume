@@ -9,6 +9,7 @@ import {
   Orientation,
   ORIENTATIONS,
 } from '@/utils/constants';
+import { fillArrayWithNullValues } from '@/utils/helpers';
 import { DatasetValueObject, InternalData } from '@/types/dataset';
 
 function typeValidator(type: string): boolean {
@@ -36,12 +37,18 @@ export const withBarProps = (useOrientation = false) => ({
     : {}),
 });
 
-export function useBarMixin(data: Ref<InternalData>) {
+export function useBarMixin(
+  data: Ref<InternalData>,
+  labels: Ref<Array<string | number>>
+) {
   /** Array of padded (null = 0) number values */
   const multiBarData: ComputedRef<InternalData> = computed(() => {
     return data.value.map((dataset) => ({
       ...dataset,
-      values: dataset.values.map((datasetValue) => ({
+      values: fillArrayWithNullValues(
+        dataset.values,
+        labels?.value?.length ?? 0
+      ).map((datasetValue) => ({
         ...datasetValue,
         value: datasetValue?.value || 0,
       })),

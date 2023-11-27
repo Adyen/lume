@@ -190,6 +190,32 @@ const DATASETS = {
       'Dec',
     ],
   },
+  AnimalsMetIn2023WithEmptyLabels: {
+    data: [
+      {
+        values: [35, 10, 18, 50, 71, null, 100, 128, 140, 162, 180, 170],
+        label: 'Birds',
+      },
+      {
+        values: [15, 25, 30, null, 40, 50, 60, 12, 30],
+        label: 'Cats',
+      },
+    ],
+    labels: [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      '',
+      '',
+      '',
+    ],
+  },
 };
 
 export default DATASETS;

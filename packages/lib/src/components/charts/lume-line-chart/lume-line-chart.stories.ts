@@ -82,6 +82,22 @@ export const MultipleDatasets: Story = {
   },
 };
 
+export const MultipleDatasetsWithEmptyLabels: Story = {
+  render: ({ args }) => ({
+    components: { LumeLineChart },
+    setup() {
+      return { args, captureAction };
+    },
+    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    <lume-line-chart v-bind="args" ${actionEventHandlerTemplate} />
+</div>`,
+  }),
+  args: {
+    ...DATASETS.AnimalsMetIn2023WithEmptyLabels,
+    title: 'Pets met in 2023',
+  },
+};
+
 export const MultipleDatasetsWithCustomTooltip: Story = {
   render: ({ args }) => ({
     components: { LumeLineChart, LumeTooltip, LumeTooltipSummary },

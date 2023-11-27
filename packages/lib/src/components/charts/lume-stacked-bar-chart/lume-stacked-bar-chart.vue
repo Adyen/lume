@@ -59,7 +59,7 @@ const { componentEventPropagator } = useEvents(emit);
 
 const slots = excludeGroups(useSlots());
 
-const { data, orientation, options } = toRefs(props);
+const { data, orientation, options, labels } = toRefs(props);
 
 const baseOptions = computed(
   () => defaultOptions[orientation.value || ORIENTATIONS.VERTICAL] // needs to be computed so that default options are reactive
@@ -72,7 +72,7 @@ const { allOptions } = useOptions(
 
 const { internalData } = useBase(data);
 
-const { groupedData } = useBarMixin(internalData);
+const { groupedData } = useBarMixin(internalData, labels);
 
 const { stackedXScaleGenerator, stackedYScaleGenerator } = useStackedAxes(
   groupedData,

@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils';
 
 import { useTooltip, useTooltipAnchors, useTooltipItems } from './tooltip';
 
-import { data, xScale, yScale } from '@test/unit/mock-data';
+import { data, labels, xScale, yScale } from '@test/unit/mock-data';
 
 import { Orientation } from '@/utils/constants';
 import { InternalData } from '@/types/dataset';
@@ -11,7 +11,13 @@ import { InternalData } from '@/types/dataset';
 const orientation: Orientation = 'vertical';
 const chartType = 'bar';
 
-const getTooltipAnchorsMixin = (anchors, xScale, yScale, orientation) => {
+const getTooltipAnchorsMixin = (
+  anchors,
+  xScale,
+  yScale,
+  labels,
+  orientation
+) => {
   let mixin = null;
   mount({
     template: '<div></div>',
@@ -21,6 +27,7 @@ const getTooltipAnchorsMixin = (anchors, xScale, yScale, orientation) => {
         ref({}),
         ref(xScale),
         ref(yScale),
+        ref(labels),
         ref(orientation),
         ref(data as InternalData),
         ref(chartType)
@@ -54,6 +61,7 @@ describe('tooltip.ts', () => {
         anchors,
         xScale,
         yScale,
+        labels,
         orientation
       );
       mixin.updateTooltipAnchorAttributes(data);
@@ -75,6 +83,7 @@ describe('tooltip.ts', () => {
         anchors,
         yScale,
         xScale,
+        labels,
         'horizontal'
       );
       mixin.updateTooltipAnchorAttributes(data);

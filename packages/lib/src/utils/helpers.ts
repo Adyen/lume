@@ -270,3 +270,19 @@ export const nanoid = (n = 21) =>
                 : '_'),
       ''
     );
+/**
+ * Fills the rest of the array with null values if the input array is less than the passed length
+ * @param inputArray The array to be processed
+ * @param minimumOutputArrayLength Minimum length of the returned array
+ * @returns If the input array length is lesser than the passed minimum length, then fills the reminder with null values
+ * Otherwise returns the input array as it is.
+ */
+export function fillArrayWithNullValues(
+  inputArray: Array<number | DatasetValueObject>,
+  minimumOutputArrayLength: number
+) {
+  const difference = minimumOutputArrayLength - inputArray.length;
+  return difference > 0
+    ? [...inputArray, ...Array(difference).fill({ value: null })]
+    : inputArray;
+}
