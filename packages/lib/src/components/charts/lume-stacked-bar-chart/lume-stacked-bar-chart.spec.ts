@@ -10,9 +10,10 @@ import {
   yScale,
 } from '@test/unit/mock-data';
 
-import { Orientation } from '@/utils/constants';
+import { CHART_TYPES, ChartType, Orientation } from '@/utils/constants';
 
 const orientation: Orientation = 'horizontal';
+const chartType: ChartType = CHART_TYPES.BAR;
 const numberOfBars = data[0].values.length;
 
 const stackedBarChartTestSuiteFactory = (props) =>
@@ -25,6 +26,7 @@ describe('lume-stacked-bar-chart.vue', () => {
       labels,
       xScale,
       yScale,
+      chartType,
     }).wrapper;
 
     const el = wrapper.find('[data-j-stacked-bar-chart]');
@@ -43,6 +45,7 @@ describe('lume-stacked-bar-chart.vue', () => {
       xScale,
       yScale,
       orientation,
+      chartType,
     }).wrapper;
 
     const el = wrapper.findComponent('[data-j-bars-group]');
@@ -59,6 +62,7 @@ describe('lume-stacked-bar-chart.vue', () => {
       labels,
       xScale,
       yScale: manipulatedDataLinearScale,
+      chartType,
     }).wrapper;
 
     const el = wrapper.find('[data-j-bars-group]');
@@ -78,6 +82,7 @@ describe('lume-stacked-bar-chart.vue', () => {
       yScale: xScale,
       xScale: manipulatedDataLinearScale,
       orientation,
+      chartType,
     }).wrapper;
 
     const el = wrapper.find('[data-j-bars-group]');
@@ -102,6 +107,7 @@ describe('lume-stacked-bar-chart.vue', () => {
       labels,
       xScale,
       yScale: manipulatedDataLinearScale,
+      chartType,
     }).wrapper;
 
     const el = wrapper.find('[data-j-bars-group]');
@@ -127,6 +133,7 @@ describe('lume-stacked-bar-chart.vue', () => {
       yScale: xScale,
       xScale: manipulatedDataLinearScale,
       orientation,
+      chartType,
     }).wrapper;
 
     const el = wrapper.find('[data-j-bars-group]');
@@ -140,6 +147,7 @@ describe('lume-stacked-bar-chart.vue', () => {
     labels,
     xScale,
     yScale,
+    chartType,
   });
   testSuite.run({ selector: '[data-j-lume-bar]', multisetData: [3, 7, 4, 5] });
 });

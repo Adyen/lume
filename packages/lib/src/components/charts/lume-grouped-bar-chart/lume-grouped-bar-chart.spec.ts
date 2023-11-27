@@ -10,9 +10,10 @@ import {
   yScale,
 } from '@test/unit/mock-data';
 
-import { Orientation } from '@/utils/constants';
+import { CHART_TYPES, ChartType, Orientation } from '@/utils/constants';
 
 const orientation: Orientation = 'horizontal';
+const chartType: ChartType = CHART_TYPES.BAR;
 const numberOfBars = data[0].values.length;
 
 const groupedBarChartTestSuiteFactory = (props) =>
@@ -25,6 +26,7 @@ describe('lume-grouped-bar-chart.vue', () => {
       labels,
       xScale,
       yScale,
+      chartType,
     }).wrapper;
 
     const el = wrapper.find('[data-j-grouped-bar-chart]');
@@ -43,6 +45,7 @@ describe('lume-grouped-bar-chart.vue', () => {
       yScale: xScale,
       xScale: yScale,
       orientation,
+      chartType,
     }).wrapper;
 
     const el = wrapper.findComponent('[data-j-bars-group]');
@@ -60,6 +63,7 @@ describe('lume-grouped-bar-chart.vue', () => {
       labels,
       xScale,
       yScale: linearScale,
+      chartType,
     }).wrapper;
 
     const el = wrapper.findComponent('[data-j-bars-group]');
@@ -79,6 +83,7 @@ describe('lume-grouped-bar-chart.vue', () => {
       yScale: xScale,
       xScale: linearScale,
       orientation,
+      chartType,
     }).wrapper;
 
     const el = wrapper.findComponent('[data-j-bars-group]');
@@ -103,6 +108,7 @@ describe('lume-grouped-bar-chart.vue', () => {
       labels,
       xScale,
       yScale: linearScale,
+      chartType,
     }).wrapper;
 
     const el = wrapper.findComponent('[data-j-bars-group]');
@@ -128,6 +134,7 @@ describe('lume-grouped-bar-chart.vue', () => {
       yScale: xScale,
       xScale: linearScale,
       orientation,
+      chartType,
     }).wrapper;
 
     const el = wrapper.findComponent('[data-j-bars-group]');
@@ -141,6 +148,7 @@ describe('lume-grouped-bar-chart.vue', () => {
     labels,
     xScale,
     yScale,
+    chartType,
   });
   testSuite.run({ selector: '[data-j-lume-bar]', multisetData: [3, 7, 4, 5] });
 });

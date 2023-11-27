@@ -9,10 +9,12 @@ import {
   yScale,
 } from '@test/unit/mock-data';
 import { flushPromises } from '@test/unit/flush-promises';
+import { CHART_TYPES, ChartType } from '@/utils/constants';
 
 const numberOfSets = 2;
 const numberOfBars = singleSetData[0].values.length;
 const multiSetData = generateData(numberOfSets, singleSetData[0].values.length);
+const chartType: ChartType = CHART_TYPES.BAR;
 
 const barChartTestSuiteFactory = (props) => new BaseTestSuite(BarChart, props);
 
@@ -23,6 +25,7 @@ describe('lume-bar-chart.vue', () => {
       labels,
       xScale,
       yScale,
+      chartType,
     }).run().wrapper;
 
     await flushPromises();
@@ -36,6 +39,7 @@ describe('lume-bar-chart.vue', () => {
       labels,
       xScale,
       yScale,
+      chartType,
     }).wrapper;
 
     await flushPromises();
@@ -55,6 +59,7 @@ describe('lume-bar-chart.vue', () => {
       labels,
       xScale,
       yScale,
+      chartType,
     }).wrapper;
 
     await flushPromises();
@@ -76,6 +81,7 @@ describe('lume-bar-chart.vue', () => {
       labels,
       xScale,
       yScale,
+      chartType,
     }).wrapper;
 
     await flushPromises();
@@ -91,7 +97,13 @@ describe('lume-bar-chart.vue', () => {
   test.skip('should throw an error when type is not applied for multiset', () => {
     const spy = vi.spyOn(console, 'error').mockImplementation(vi.fn);
     expect(() =>
-      barChartTestSuiteFactory({ data: multiSetData, labels, xScale, yScale })
+      barChartTestSuiteFactory({
+        data: multiSetData,
+        labels,
+        xScale,
+        yScale,
+        chartType,
+      })
     ).toThrowError("Bar chart needs a type when there's multiple datasets.");
     expect(spy).toHaveBeenCalled();
   });

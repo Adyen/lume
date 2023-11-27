@@ -2,10 +2,12 @@ import SingleBarChart from './lume-single-bar-chart.vue';
 
 import { BaseTestSuite } from '@test/unit/reusable.test';
 import { data, labels, xScale, yScale } from '@test/unit/mock-data';
+import { CHART_TYPES, ChartType } from '@/utils/constants';
 
 const numberOfPositiveBars = 5;
 const numberOfNegativeBars = 2;
 const totalNumberOfBars = data[0].values.length;
+const chartType: ChartType = CHART_TYPES.BAR;
 
 const singleBarChartTestSuiteFactory = (props) =>
   new BaseTestSuite(SingleBarChart, props);
@@ -17,6 +19,7 @@ describe('lume-single-bar-chart.vue', () => {
       labels,
       xScale,
       yScale,
+      chartType,
     }).wrapper;
 
     const el = wrapper.find('[data-j-single-bar-chart]');
@@ -47,6 +50,7 @@ describe('lume-single-bar-chart.vue', () => {
       labels,
       xScale,
       yScale,
+      chartType,
     }).wrapper;
 
     const el = wrapper.find('[data-j-single-bar-chart]');
@@ -101,6 +105,7 @@ describe('lume-single-bar-chart.vue', () => {
       labels,
       xScale,
       yScale,
+      chartType,
     }).wrapper;
 
     const el = wrapper.find('[data-j-single-bar-chart]');
@@ -113,6 +118,7 @@ describe('lume-single-bar-chart.vue', () => {
     labels,
     xScale,
     yScale,
+    chartType,
   });
   testSuite.run({ selector: '[data-j-lume-bar]', multisetData: [1, 7, 1, 5] });
 });

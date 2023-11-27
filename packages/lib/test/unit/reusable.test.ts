@@ -4,6 +4,7 @@ import { mount, Wrapper } from '@vue/test-utils';
 import { LumeChart } from '@/components/core';
 
 import { generateData } from './mock-data';
+import { CHART_TYPES } from '@/utils/constants';
 
 type ComponentInstance = VueConstructor;
 type props = Record<string, unknown>;
@@ -46,12 +47,25 @@ export class BaseTestSuite {
 
   public run({ selector, multisetData }: OptionsType = {}): this {
     this.snapShotTest();
-    if (selector) this.multiDataSetTest(selector, ...multisetData);
+    if (selector)
+      this.multiDataSetTest(
+        selector,
+        (this.props.labels as Array<string | number>)?.length ?? 0,
+        this.props.chartType,
+        ...multisetData
+      );
     return this;
+  }
+
+  private getNumberOfRecords(chartType, numberOfLabels, numberOfRecords) {
+    if (chartType === CHART_TYPES.BAR) return numberOfLabels;
+    return numberOfRecords;
   }
 
   private multiDataSetTest(
     targetIdentifier,
+    numberOfLabels,
+    chartType,
     firstNumberOfSets = defaultFirstNumberOfSets,
     firstNumberOfRecords = defaultFirstNumberOfRecords,
     secondNumberOfSets = defaultSecondNumberOfSets,
@@ -67,12 +81,27 @@ export class BaseTestSuite {
     const cases = [
       {
         dataset: firstDataSet,
-        expectedResult: firstNumberOfSets * firstNumberOfRecords,
+        expectedResult:
+          firstNumberOfSets *
+          this.getNumberOfRecords(
+            chartType,
+            numberOfLabels,
+            firstNumberOfRecords
+          ),
       },
-      { dataset: emptyDataSet, expectedResult: 0 },
+      {
+        dataset: emptyDataSet,
+        expectedResult: this.getNumberOfRecords(chartType, numberOfLabels, 0),
+      },
       {
         dataset: secondDataSet,
-        expectedResult: secondNumberOfSets * secondNumberOfRecords,
+        expectedResult:
+          secondNumberOfSets *
+          this.getNumberOfRecords(
+            chartType,
+            numberOfLabels,
+            secondNumberOfRecords
+          ),
       },
     ];
 
