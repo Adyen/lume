@@ -2,7 +2,11 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [1.6.1](https://github.com/Adyen/lume/compare/1.6.1...1.6.1)
+#### [1.6.2](https://github.com/Adyen/lume/compare/1.6.1...1.6.2)
+
+- 🐛 Handled missing data in lume charts [`11a4d1a`](https://github.com/Adyen/lume/commit/11a4d1a50f9cdd0140a36b15b4764cf423ae011a)
+- ✅ Fixed tests to check for the null bar values. [`52b777b`](https://github.com/Adyen/lume/commit/52b777be0e3b496d9e96ebaa0e2fe1b85681bba4)
+- 🔧 Ignore release commits in changelog [`3ca31bb`](https://github.com/Adyen/lume/commit/3ca31bbe1ccf47220ac824903dd68bb82a672972)
 
 #### [1.6.1](https://github.com/Adyen/lume/compare/1.6.0...1.6.1)
 
