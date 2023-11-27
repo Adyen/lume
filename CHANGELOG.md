@@ -2,7 +2,14 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.6.3](https://github.com/Adyen/lume/compare/1.6.2...1.6.3)
+
+- 🐛 Reverted wrongly checked-in lock file [`0d94181`](https://github.com/Adyen/lume/commit/0d94181eb8ac2a4bf36f676d9e5586796c220715)
+- 🐛 Fix add default value to isEmpty inject [`c35a3d9`](https://github.com/Adyen/lume/commit/c35a3d92837c15b87d6d41fd84eb6d41f9d5906e)
+
 #### [1.6.2](https://github.com/Adyen/lume/compare/1.6.1...1.6.2)
+
+> 27 November 2023
 
 - 🐛 Handled missing data in lume charts [`11a4d1a`](https://github.com/Adyen/lume/commit/11a4d1a50f9cdd0140a36b15b4764cf423ae011a)
 - ✅ Fixed tests to check for the null bar values. [`52b777b`](https://github.com/Adyen/lume/commit/52b777be0e3b496d9e96ebaa0e2fe1b85681bba4)
