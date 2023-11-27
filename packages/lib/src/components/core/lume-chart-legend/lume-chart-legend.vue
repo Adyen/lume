@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { ComputedRef, inject, PropType } from 'vue';
+import { inject, PropType, ref, Ref } from 'vue';
 import { InternalData } from '@/types/dataset';
 import { LegendEventPayload } from '@/types/events';
 import { dataValidator } from '@/utils/helpers';
@@ -43,7 +43,7 @@ const emit = defineEmits<{
   (e: 'mouseleave'): void;
 }>();
 
-const isEmpty = inject<ComputedRef<boolean>>('isEmpty');
+const isEmpty = inject<Ref<boolean>>('isEmpty', ref(false));
 </script>
 
 <style lang="scss" scoped>
