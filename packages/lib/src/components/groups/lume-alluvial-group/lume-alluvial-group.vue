@@ -183,7 +183,11 @@ import { useAlluvialHover } from './composables/alluvial-hover';
 import { DEFAULT_COLOR } from '@/utils/colors';
 import { Color } from '@/utils/constants';
 import { warn, Warnings } from '@/utils/warnings';
-import { GHOST_STROKE_WIDTH_OFFSET, NODE_HEADER_PADDING } from './constants';
+import {
+  GHOST_STROKE_WIDTH_OFFSET,
+  NODE_HEADER_PADDING,
+  NODE_MINIMUM_HEIGHT,
+} from './constants';
 import {
   getLabelSizes,
   getLinkById,
@@ -305,13 +309,26 @@ const nodesDerivingColorFromIncomingLinks = computed(() => {
     linkPaths.value
       .filter(({ link }) => link.target.id === nodeBlock.node.id)
       .reverse()
-      .reduce((accumulatedHeight, currentLinkPath) => {
-        const targetNodeHeight =
-          currentLinkPath.link.target.y1 - currentLinkPath.link.target.y0;
-        const linkRatioOfSourceInTarget =
-          currentLinkPath.link.value / nodeBlock.node.value;
-        const linkHeightOfSourceInTarget =
-          linkRatioOfSourceInTarget * targetNodeHeight;
+      .reduce((accumulatedHeight, currentLinkPath, _i, linksArray) => {
+        const isMinimumHeight =
+          currentLinkPath.link.target.y1 - currentLinkPath.link.target.y0 >
+          NODE_MINIMUM_HEIGHT;
+
+        let targetNodeHeight: number,
+          linkRatioOfSourceInTarget: number,
+          linkHeightOfSourceInTarget: number;
+
+        if (isMinimumHeight) {
+          targetNodeHeight =
+            currentLinkPath.link.target.y1 - currentLinkPath.link.target.y0;
+          linkRatioOfSourceInTarget =
+            currentLinkPath.link.value / nodeBlock.node.value;
+          linkHeightOfSourceInTarget =
+            linkRatioOfSourceInTarget * targetNodeHeight;
+        } else {
+          targetNodeHeight = NODE_MINIMUM_HEIGHT;
+          linkHeightOfSourceInTarget = NODE_MINIMUM_HEIGHT / linksArray.length; // Get ratio from # of links targetting this node
+        }
 
         nodesBasedOnIncomingLinks.push({
           x: nodeBlock.x,
