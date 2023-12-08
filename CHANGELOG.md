@@ -2,7 +2,14 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.6.4](https://github.com/Adyen/lume/compare/1.6.3...1.6.4)
+
+- 🐛 Fix alluvial node min. height in derived nodes [`d71b702`](https://github.com/Adyen/lume/commit/d71b702651a3b2ac1eee9cd581e148d1c1b961a4)
+- 💄 Update tooltip value spacing [`568ae4f`](https://github.com/Adyen/lume/commit/568ae4f6cd8ab3a426a4c7a30c70e13e38e3dca4)
+
 #### [1.6.3](https://github.com/Adyen/lume/compare/1.6.2...1.6.3)
+
+> 27 November 2023
 
 - 🐛 Reverted wrongly checked-in lock file [`0d94181`](https://github.com/Adyen/lume/commit/0d94181eb8ac2a4bf36f676d9e5586796c220715)
 - 🐛 Fix add default value to isEmpty inject [`c35a3d9`](https://github.com/Adyen/lume/commit/c35a3d92837c15b87d6d41fd84eb6d41f9d5906e)
