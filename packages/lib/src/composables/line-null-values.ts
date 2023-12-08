@@ -51,6 +51,8 @@ export function useLineNullValues(data: Ref<InternalData>) {
     const step = diff / (length + 1);
     const sum = step * (index + 1);
 
+    if (start == null && end == null) return null;
+
     if (start > end) return start - sum;
     else return start + sum;
   }

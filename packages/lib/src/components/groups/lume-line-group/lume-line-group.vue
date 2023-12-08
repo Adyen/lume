@@ -192,7 +192,10 @@ function getPointPosition(pointIndex: number, datasetIndex: number) {
     x: isBandScale(xScale.value)
       ? props.xScale(domain.value[pointIndex]) + xAxisOffset.value
       : props.xScale(pointIndex),
-    y: yScale.value(value),
+    y:
+      value === null
+        ? yScale.value(yScale.value.domain()[1] as number)
+        : yScale.value(value),
   };
 }
 

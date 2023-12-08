@@ -51,5 +51,8 @@ export function getLinePathDefinition(
     )
     .y((d) => yScale(d));
 
+  // Do not calculate path definition if all values are null
+  if (values.every((v) => v == null)) return null;
+
   return lineFn(values);
 }
