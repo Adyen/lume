@@ -1,5 +1,6 @@
 import { computed, ref, Ref, watch } from 'vue';
 
+import { AxisOptions } from '@/composables/options';
 import { Scale } from '@/composables/scales';
 
 const SAFETY_MARGIN = 0.2; // 20% of the average width
@@ -9,12 +10,12 @@ const SAFETY_MARGIN = 0.2; // 20% of the average width
  *
  * @param scale A d3 scale.
  * @param tickRefs Template reference to the tick text elements
- * @param skipNumber Optional amount of ticks to skip
+ * @param options The axis options.
  */
 export function useSkip(
   scale: Ref<Scale>,
   tickRefs: Ref<Array<{ ref: SVGTextElement }>>,
-  skipNumber?: true | number
+  options: Ref<AxisOptions>
 ) {
   const avgLabelWidth = ref<number>();
 
@@ -36,6 +37,7 @@ export function useSkip(
   function showTick(index: number) {
     if (!tickRefs.value) return true;
 
+    const skipNumber = options.value.skip;
     const tickCount = tickRefs.value.length;
 
     if (index === 0) return true;

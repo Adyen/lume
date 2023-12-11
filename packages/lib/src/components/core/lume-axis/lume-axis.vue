@@ -178,7 +178,7 @@ const { allOptions } = useOptions<AxisOptions>(
   computedType.value === 'x' ? xOptions : yOptions
 );
 
-const { showTick } = useSkip(scale, tickRefs, allOptions.value.skip);
+const { showTick } = useSkip(scale, tickRefs, allOptions);
 
 const axisTransform = computed(() => {
   // if empty, aligns baseline to the bottom
