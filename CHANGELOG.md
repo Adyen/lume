@@ -2,10 +2,11 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [1.6.4](https://github.com/Adyen/lume/compare/1.6.3...1.6.4)
+#### [1.6.5](https://github.com/Adyen/lume/compare/1.6.3...1.6.5)
 
 - 🐛 Fix alluvial node min. height in derived nodes [`d71b702`](https://github.com/Adyen/lume/commit/d71b702651a3b2ac1eee9cd581e148d1c1b961a4)
-- 💄 Update tooltip value spacing [`568ae4f`](https://github.com/Adyen/lume/commit/568ae4f6cd8ab3a426a4c7a30c70e13e38e3dca4)
+- 🐛 Fix unhandled line-group null value cases [`909b672`](https://github.com/Adyen/lume/commit/909b672addf3f11dd91769b2feb69512ef2f43e3)
+- 🐛 Make skip option reactive [`eefa96e`](https://github.com/Adyen/lume/commit/eefa96e033137ba350abbed8fcd3d472c24751ed)
 
 #### [1.6.3](https://github.com/Adyen/lume/compare/1.6.2...1.6.3)
 
