@@ -24,8 +24,6 @@ describe('lume-stacked-bar-chart.vue', () => {
     const wrapper = stackedBarChartTestSuiteFactory({
       data,
       labels,
-      xScale,
-      yScale,
       chartType,
     }).wrapper;
 
@@ -42,8 +40,6 @@ describe('lume-stacked-bar-chart.vue', () => {
     const wrapper = stackedBarChartTestSuiteFactory({
       data,
       labels,
-      xScale,
-      yScale,
       orientation,
       chartType,
     }).wrapper;
@@ -60,7 +56,6 @@ describe('lume-stacked-bar-chart.vue', () => {
     const wrapper = stackedBarChartTestSuiteFactory({
       data: manipulatedData,
       labels,
-      xScale,
       yScale: manipulatedDataLinearScale,
       chartType,
     }).wrapper;
@@ -105,7 +100,6 @@ describe('lume-stacked-bar-chart.vue', () => {
     const wrapper = stackedBarChartTestSuiteFactory({
       data: manipulatedData,
       labels,
-      xScale,
       yScale: manipulatedDataLinearScale,
       chartType,
     }).wrapper;
@@ -145,8 +139,6 @@ describe('lume-stacked-bar-chart.vue', () => {
   const testSuite = stackedBarChartTestSuiteFactory({
     data: [{ values: [] }],
     labels,
-    xScale,
-    yScale,
     chartType,
   });
   testSuite.run({ selector: '[data-j-lume-bar]', multisetData: [3, 7, 4, 5] });

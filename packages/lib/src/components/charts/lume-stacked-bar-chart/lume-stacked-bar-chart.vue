@@ -3,8 +3,8 @@
     v-bind="props"
     chart-type="stacked-bar"
     :options="allOptions"
-    :x-scale="stackedXScaleGenerator"
-    :y-scale="stackedYScaleGenerator"
+    :x-scale="xScale"
+    :y-scale="yScale"
     data-j-stacked-bar-chart
     v-on="componentEventPropagator"
   >
@@ -79,4 +79,8 @@ const { stackedXScaleGenerator, stackedYScaleGenerator } = useStackedAxes(
   orientation,
   options
 );
+
+// Allow for prop override
+const xScale = computed(() => props.xScale || stackedXScaleGenerator);
+const yScale = computed(() => props.yScale || stackedYScaleGenerator);
 </script>
