@@ -85,10 +85,10 @@ const { allOptions } = useOptions(options, defaultOptions);
 const { computedLineData } = useLineNullValues(internalData);
 const { areaPathDefinition } = useSparklineArea(computedLineData);
 
-const computedColor = computed(() => internalData.value[0].color);
+const computedColor = computed(() => internalData.value?.[0]?.color);
 
 const areaColor = computed(
-  () => data.value[0].areaColor || computedColor.value
+  () => data.value?.[0]?.areaColor || computedColor.value
 );
 
 function getSparklineOptions(options: Options) {
@@ -103,6 +103,7 @@ function xScaleGenerator(
   _labels: Array<string>,
   size: ContainerSize
 ) {
+  if (!data.length) return;
   return scaleLinear()
     .range([0, size.width])
     .domain([0, data[0].values.length - 1]);

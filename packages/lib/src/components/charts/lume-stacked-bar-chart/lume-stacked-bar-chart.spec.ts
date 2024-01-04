@@ -7,7 +7,6 @@ import {
   generateLinearScale,
   labels,
   xScale,
-  yScale,
 } from '@test/unit/mock-data';
 
 import { CHART_TYPES, ChartType, Orientation } from '@/utils/constants';
@@ -137,7 +136,7 @@ describe('lume-stacked-bar-chart.vue', () => {
   });
 
   const testSuite = stackedBarChartTestSuiteFactory({
-    data: [{ values: [] }],
+    data: [],
     labels,
     chartType,
   });

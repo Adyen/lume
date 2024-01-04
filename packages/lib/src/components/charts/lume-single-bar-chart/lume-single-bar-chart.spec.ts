@@ -114,7 +114,7 @@ describe('lume-single-bar-chart.vue', () => {
   });
 
   const testSuite = singleBarChartTestSuiteFactory({
-    data: [{ values: [] }],
+    data: [],
     labels,
     xScale,
     yScale,

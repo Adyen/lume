@@ -58,42 +58,49 @@ export function useBaseScales(
     const { width, height } = size;
 
     if (!width && !height) return;
-    if (!labels.value || !data.value) return;
 
     if (orientation.value === ORIENTATIONS.HORIZONTAL) {
       // horizontal
       // x = scaleLinear : data : width
       // y = scaleBand : labels : height
 
-      xScale.value = generateLinearScale(
-        data.value,
-        width,
-        orientation.value,
-        options.value.startOnZero
-      );
-      yScale.value = generateBandScale(
-        labels.value,
-        height,
-        orientation.value,
-        options.value
-      );
+      xScale.value = data.value?.length
+        ? generateLinearScale(
+          data.value,
+          width,
+          orientation.value,
+          options.value.startOnZero
+        )
+        : null;
+      yScale.value = labels.value?.length
+        ? generateBandScale(
+          labels.value,
+          height,
+          orientation.value,
+          options.value
+        )
+        : null;
     } else {
       // vertical
       // x = scaleBand : labels : width
       // y = scaleLinear : data : height
 
-      xScale.value = generateBandScale(
-        labels.value,
-        width,
-        orientation.value,
-        options.value
-      );
-      yScale.value = generateLinearScale(
-        data.value,
-        height,
-        orientation.value,
-        options.value.startOnZero
-      );
+      xScale.value = labels.value?.length
+        ? generateBandScale(
+          labels.value,
+          width,
+          orientation.value,
+          options.value
+        )
+        : null;
+      yScale.value = data.value?.length
+        ? generateLinearScale(
+          data.value,
+          height,
+          orientation.value,
+          options.value.startOnZero
+        )
+        : null;
     }
   }
 

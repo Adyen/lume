@@ -35,7 +35,7 @@ export function useAlluvialGraph(
   const sankeyGraph = ref<SankeyGraph>(null);
 
   const nodes: ComputedRef<Array<SankeyNode>> = computed(() => {
-    return data.value?.[0].values.map(
+    return data.value?.[0]?.values.map(
       ({ label, color, value, deriveColorFromIncomingLinks, offset }) => ({
         label: label || value.toString(),
         color,
@@ -50,7 +50,7 @@ export function useAlluvialGraph(
   const links: ComputedRef<
     Array<D3SankeyLink<SankeyNodeProps, SankeyLinkProps>>
   > = computed(() =>
-    data.value?.[0].values
+    data.value?.[0]?.values
       .map((source) =>
         source.targets?.map(
           ({ node: target, value, color, curveFunction }) => ({
@@ -131,7 +131,7 @@ export function useAlluvialGraph(
 
   const graph = computed<SankeyGraph>(() => {
     if (sankeyGraph.value) {
-      nodes.value.forEach((node) => {
+      nodes.value?.forEach((node) => {
         if (node.value === 0) {
           node.fallbackColor = OtherColors.Grey;
         }

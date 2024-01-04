@@ -375,7 +375,7 @@ const isReady = computed(() => {
 
   const { noBaseScales } = allOptions.value;
 
-  if (!noBaseScales) {
+  if (!noBaseScales && !isEmpty.value) {
     conditions.push(() => !!(computedXScale.value && computedYScale.value));
   }
 

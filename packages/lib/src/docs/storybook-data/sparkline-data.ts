@@ -26,7 +26,7 @@ const DATASETS = {
     ],
   },
   Empty: {
-    data: [{ values: [] }],
+    data: [],
     labels: [],
   },
 };
