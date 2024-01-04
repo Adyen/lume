@@ -1,6 +1,5 @@
 <template>
   <div
-    v-if="!isEmpty"
     class="lume-chart-legend"
     data-j-chart-legend
     @mouseleave="emit('mouseleave')"
@@ -25,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { inject, PropType, ref, Ref } from 'vue';
+import { PropType } from 'vue';
 import { InternalData } from '@/types/dataset';
 import { LegendEventPayload } from '@/types/events';
 import { dataValidator } from '@/utils/helpers';
@@ -42,8 +41,6 @@ const emit = defineEmits<{
   (e: 'click' | 'mouseenter', p: LegendEventPayload): void;
   (e: 'mouseleave'): void;
 }>();
-
-const isEmpty = inject<Ref<boolean>>('isEmpty', ref(false));
 </script>
 
 <style lang="scss" scoped>
