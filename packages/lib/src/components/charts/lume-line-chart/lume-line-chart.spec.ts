@@ -49,7 +49,7 @@ describe('lume-line-chart.vue', () => {
   });
 
   const testSuite = lineChartTestSuiteFactory({
-    data: [{ values: [] }],
+    data: [],
     labels,
     xScale,
     yScale,

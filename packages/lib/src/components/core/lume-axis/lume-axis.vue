@@ -111,7 +111,7 @@ const AXIS_LABEL_OFFSET = 16; // 8px + 8px on each side
 const props = defineProps({
   scale: {
     type: Function as PropType<Scale>,
-    required: true,
+    default: null,
   },
   type: {
     type: String,
@@ -181,13 +181,17 @@ const { allOptions } = useOptions<AxisOptions>(
 const { showTick } = useSkip(scale, tickRefs, allOptions);
 
 const axisTransform = computed(() => {
+  if (computedType.value === 'y') {
+    console.log(isEmpty.value, scale.value);
+  }
+
   // if empty, aligns baseline to the bottom
-  if (computedType.value === 'y' && isEmpty.value) {
+  if (computedType.value === 'y' && isEmpty.value && !scale.value) {
     return `translate(0, ${containerSize.value?.height / 2})`;
   }
 
   // if empty, aligns baseline to the left
-  if (computedType.value === 'x' && isEmpty.value) {
+  if (computedType.value === 'x' && isEmpty.value && !scale.value) {
     return `translate(-${containerSize.value?.width / 2}, ${
       containerSize.value?.height
     })`;
@@ -199,6 +203,8 @@ const axisTransform = computed(() => {
 });
 
 const ticks = computed(() => {
+  if (!scale.value) return [];
+
   // For band scales, return the full labels array (domain)
   if (isBandScale(scale.value)) {
     return (scale.value as ComputedScaleBand).labels || scale.value.domain();
@@ -285,6 +291,8 @@ function setTicks() {
 }
 
 function init() {
+  if (!scale.value) return;
+
   const scaleType = (scale.value as ScaleBand<string | number>).step
     ? 'bandScale'
     : 'linearScale';

@@ -85,7 +85,7 @@ function getBarChartOptions(options: Options): BarChartOptions {
 }
 
 const component = computed(() => {
-  if (!props.data) return;
+  if (!props.data?.length) return;
 
   // Single bar chart
   if (singleDatasetValidator(props.data)) return COMPONENT_MAP.get('single');

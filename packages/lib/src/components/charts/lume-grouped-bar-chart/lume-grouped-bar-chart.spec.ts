@@ -144,7 +144,7 @@ describe('lume-grouped-bar-chart.vue', () => {
   });
 
   const testSuite = groupedBarChartTestSuiteFactory({
-    data: [{ values: [] }],
+    data: [],
     labels,
     xScale,
     yScale,
