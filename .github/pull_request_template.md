@@ -11,7 +11,7 @@ Relates to # <!-- [Relates to / Closes / Fixes] + Github issue # here -->
 
 ## 📝 Description
 
-> Add a brief description
+Add a brief description
 
 ## 💥 Is this a breaking change (Yes/No):
 
@@ -20,7 +20,7 @@ Relates to # <!-- [Relates to / Closes / Fixes] + Github issue # here -->
 
 ## 📝 Additional Information
 
->
+- (optional) Add additional information
 
 ### Before submitting the PR, please make sure you do the following
 
