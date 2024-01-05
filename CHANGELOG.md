@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.6.6](https://github.com/Adyen/lume/compare/1.6.5...1.6.6)
+
+- 🐛 Fix empty data/labels handling [`d5dca98`](https://github.com/Adyen/lume/commit/d5dca9899ea03a433672df32537bc107ccc23492)
+- 🐛 Fix wrong assumption on external hover [`ca3f936`](https://github.com/Adyen/lume/commit/ca3f936e238467c7583a66242cf59fa3b714ed79)
+- 🐛 Fix scale override in stacked bar chart [`a6ba301`](https://github.com/Adyen/lume/commit/a6ba3018e9299484f7349fcd0e384e85676c73df)
+
 #### [1.6.5](https://github.com/Adyen/lume/compare/1.6.3...1.6.5)
+
+> 11 December 2023
 
 - 🐛 Fix alluvial node min. height in derived nodes [`d71b702`](https://github.com/Adyen/lume/commit/d71b702651a3b2ac1eee9cd581e148d1c1b961a4)
 - 🐛 Fix unhandled line-group null value cases [`909b672`](https://github.com/Adyen/lume/commit/909b672addf3f11dd91769b2feb69512ef2f43e3)
