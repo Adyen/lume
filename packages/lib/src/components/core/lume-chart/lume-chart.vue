@@ -457,7 +457,12 @@ function handleExternalHover(index: number) {
     return;
   }
 
-  handleInternalHover(index);
+  // If external index is null/undefined or -1, should hide
+  if (index == null || index === -1) {
+    handleHideTooltip();
+  } else {
+    handleInternalHover(index);
+  }
 }
 
 function handleMouseleave() {
