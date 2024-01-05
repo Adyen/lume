@@ -181,10 +181,6 @@ const { allOptions } = useOptions<AxisOptions>(
 const { showTick } = useSkip(scale, tickRefs, allOptions);
 
 const axisTransform = computed(() => {
-  if (computedType.value === 'y') {
-    console.log(isEmpty.value, scale.value);
-  }
-
   // if empty, aligns baseline to the bottom
   if (computedType.value === 'y' && isEmpty.value && !scale.value) {
     return `translate(0, ${containerSize.value?.height / 2})`;
