@@ -101,12 +101,12 @@ describe('scales.ts', () => {
       expect(mixin.xScale.value.domain()[0]).toEqual(0);
     });
 
-    test('should return a range of [0, 0] for the linear scale when no values are specified', () => {
+    test('should return null when no values are specified', () => {
       const { xScale } = getMixin([], 'horizontal', {
         startOnZero: false,
       });
 
-      expect(xScale.value.domain()).toEqual([0, 0]);
+      expect(xScale.value).toEqual(null);
     });
   });
 
