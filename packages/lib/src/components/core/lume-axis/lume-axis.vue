@@ -274,16 +274,23 @@ function getTextNode(index: number) {
 
 function setTicks() {
   ticksWithAttributes.value = ticks.value.map(
-    (tick: string | number, index: number) => {
-      return {
-        value: formatTick(tick),
-        group: mixins.getTickGroupAttributes(tick, index),
-        ghost: mixins.getTickGhostAttributes(getTextNode(index)),
-        label: mixins.getTickLabelAttributes(),
-        gridline: mixins.getGridLinesAttributes(),
-      };
-    }
+    (tick: string | number, index: number) => ({
+      value: formatTick(tick),
+      group: mixins.getTickGroupAttributes(tick, index),
+      ghost: mixins.getTickGhostAttributes(getTextNode(index)),
+      label: mixins.getTickLabelAttributes(),
+      gridline: mixins.getGridLinesAttributes(),
+    })
   );
+}
+
+function updateGridlines() {
+  if (ticksWithAttributes.value) {
+    ticksWithAttributes.value.map((tick) => {
+      tick.gridline = mixins.getGridLinesAttributes();
+      return tick;
+    });
+  }
 }
 
 function init() {
@@ -308,12 +315,17 @@ function init() {
 // Setup watcher to get new mixins if scale changes (i.e. vertical to horizontal)
 watch(scale, init, { flush: 'sync', immediate: true });
 
-// Re-render after scale changes (new containerSize, new balebs, scale override, etc.)
+// Re-render after scale changes (new containerSize, new values, scale override, etc.)
 watch(scale, setTicks, { immediate: true });
 // Re-render after `tickRefs` is defined (to grab text width)
 watch(tickRefs, setTicks);
 
 watch(axisSize, (size) => emit('lume__internal--axis-size', size));
+
+// Re-calculate gridlines when container size changes
+// This is needed for cases where the container width changes, so the Y gridlines need to update,
+// but the Y scale doesn't change since the height is the same
+watch(props.containerSize, updateGridlines);
 
 onMounted(() => svgCheck(root.value));
 </script>
