@@ -29,8 +29,20 @@ import { ContainerSize } from '@/types/size';
 import { Options } from './options';
 import { warn, Warnings } from '@/utils/warnings';
 
-function computeValues(values: Array<DatasetValue<number>>) {
-  return values.map((value) => {
+function skipNonRenderableDataItems(
+  dataItems: Array<DatasetValue<number>>,
+  numberOfLabels: number
+) {
+  return numberOfLabels > 0 && dataItems.length > numberOfLabels
+    ? dataItems.slice(0, numberOfLabels)
+    : dataItems;
+}
+
+function computeValues(
+  values: Array<DatasetValue<number>>,
+  numberOfLabels: number
+) {
+  return skipNonRenderableDataItems(values, numberOfLabels).map((value) => {
     // If value is not a DatasetValueObject, convert it into one
     return isDatasetValueObject(value)
       ? value
@@ -91,7 +103,10 @@ export function useBase(
         // Prevent re-computing internal datasets
         if (isInternalDataset(dataset)) return dataset;
 
-        const _values = computeValues(dataset.values);
+        const _values = computeValues(
+          dataset.values,
+          labels?.value?.length ?? 0
+        );
         const _color = computeColor(
           dataset.color,
           color?.value,
