@@ -6,6 +6,13 @@ import { Scale } from '@/composables/scales';
 import { Colors, Orientation, ORIENTATIONS } from '@/utils/constants';
 import { Data, DatasetValueObject } from '@/types/dataset';
 
+const NULL_BAR = {
+  x: 0,
+  y: 0,
+  width: 0,
+  height: 0,
+};
+
 export function useGroupedBarMixin(
   data: ComputedRef<Data<DatasetValueObject<number>>>,
   xScale: Ref<Scale>,
@@ -77,6 +84,9 @@ export function useGroupedBarMixin(
     index: number,
     groupIndex: number
   ) {
+    const validScales = xScale.value && yScale.value;
+    if (!validScales) return NULL_BAR;
+
     const { value, color: barColor } = barValue;
     const color =
       barColor ?? data.value[index].color ?? Object.values(Colors)[index];

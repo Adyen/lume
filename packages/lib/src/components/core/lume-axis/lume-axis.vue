@@ -98,7 +98,7 @@ import {
   Orientation,
   ORIENTATIONS,
 } from '@/utils/constants';
-import { isBandScale } from '@/utils/helpers';
+import { isBandScale, isScaleEmpty } from '@/utils/helpers';
 import { svgCheck } from '@/utils/svg-check';
 import { ContainerSize } from '@/types/size';
 import { xOptions, yOptions } from './defaults';
@@ -182,12 +182,20 @@ const { showTick } = useSkip(scale, tickRefs, allOptions);
 
 const axisTransform = computed(() => {
   // if empty, aligns baseline to the bottom
-  if (computedType.value === 'y' && isEmpty.value && !scale.value) {
+  if (
+    computedType.value === 'y' &&
+    isEmpty.value &&
+    (!scale.value || isScaleEmpty(scale.value))
+  ) {
     return `translate(0, ${containerSize.value?.height / 2})`;
   }
 
   // if empty, aligns baseline to the left
-  if (computedType.value === 'x' && isEmpty.value && !scale.value) {
+  if (
+    computedType.value === 'x' &&
+    isEmpty.value &&
+    (!scale.value || isScaleEmpty(scale.value))
+  ) {
     return `translate(-${containerSize.value?.width / 2}, ${
       containerSize.value?.height
     })`;

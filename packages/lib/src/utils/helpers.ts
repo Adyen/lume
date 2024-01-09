@@ -118,6 +118,11 @@ export function getScaleStep(scale: Scale) {
   return Math.max(...scale.range()) / Math.max(...scale.domain());
 }
 
+export function isScaleEmpty(scale: Scale) {
+  const [min, max] = scale.domain();
+  return min == null || max == null || (min === 0 && max === 0);
+}
+
 const validateGetHighestValueArguments = (
   data: InternalData,
   index: number

@@ -9,6 +9,7 @@ import {
   Orientation,
   ORIENTATIONS,
 } from '@/utils/constants';
+import { error, Errors } from '@/utils/errors';
 import { fillArrayWithNullValues } from '@/utils/helpers';
 import { DatasetValueObject, InternalData } from '@/types/dataset';
 
@@ -87,8 +88,12 @@ export function useBarScales(
   );
 
   function checkValidDomain(scale: ScaleLinear<number, number>) {
+    if (!scale) {
+      error(Errors.BarScaleNull);
+    }
+
     if (Math.min(...scale.domain()) > 0) {
-      console.error(`Bar linear scale domain cannot start above 0!`);
+      error(Errors.BarScaleDomainAbove0);
     }
   }
 
@@ -96,6 +101,7 @@ export function useBarScales(
     const scale = isHorizontal.value
       ? (() => {
         checkValidDomain(xScale.value as ScaleLinear<number, number>);
+
         return xScale.value;
       })()
       : xScale.value;
@@ -108,6 +114,7 @@ export function useBarScales(
       ? yScale.value
       : (() => {
         checkValidDomain(yScale.value as ScaleLinear<number, number>);
+
         return yScale.value;
       })();
 

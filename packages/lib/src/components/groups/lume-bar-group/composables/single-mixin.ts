@@ -7,6 +7,13 @@ import { Orientation, ORIENTATIONS } from '@/utils/constants';
 import { DEFAULT_COLOR } from '@/utils/colors';
 import { Data, DatasetValueObject } from '@/types/dataset';
 
+const NULL_BAR = {
+  x: 0,
+  y: 0,
+  width: 0,
+  height: 0,
+};
+
 export function useSingleBarMixin(
   data: ComputedRef<Data<DatasetValueObject<number>>>,
   xScale: Ref<Scale>,
@@ -56,6 +63,9 @@ export function useSingleBarMixin(
     index: number,
     groupIndex: number
   ) {
+    const validScales = xScale.value && yScale.value;
+    if (!validScales) return NULL_BAR;
+
     const { value, color: barColor } = barValue;
     const color = barColor ?? data.value[index].color ?? DEFAULT_COLOR;
     const { x, y } = getBarTransform(value, groupIndex);
