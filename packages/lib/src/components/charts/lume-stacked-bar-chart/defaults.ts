@@ -7,12 +7,13 @@ export const options = {
     xAxisOptions: {},
     yAxisOptions: { gridLines: true },
     margins: DEFAULT_MARGINS.VERTICAL,
+    tooltipOptions: { inverse: true },
   },
   [ORIENTATIONS.HORIZONTAL]: {
     withTooltip: true,
     xAxisOptions: { gridLines: true },
     yAxisOptions: { gridLines: false },
     margins: DEFAULT_MARGINS.HORIZONTAL,
-    tooltipOptions: { position: 'right' },
+    tooltipOptions: { position: 'right', inverse: true },
   },
 };

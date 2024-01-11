@@ -4,16 +4,22 @@ import LumeTooltip from './lume-tooltip.vue';
 
 const title = 'My title';
 const mockElement = document.createElement('div');
-const item = {
+const item1 = {
   type: 'my-type',
   color: '02',
   label: 'my-label',
   value: 'my-value',
 };
+const item2 = {
+  type: 'my-type-2',
+  color: '03',
+  label: 'my-label-2',
+  value: 'my-value-2',
+};
 
 const defaultProps = {
   targetElement: mockElement,
-  items: [item],
+  items: [item1, item2],
 };
 
 describe('tooltip.vue', () => {
@@ -42,10 +48,14 @@ describe('tooltip.vue', () => {
       el
         .find('[data-j-tooltip__item__symbol]')
         .classes()
-        .includes(`lume-background-color--${item.color}`)
+        .includes(`lume-background-color--${item1.color}`)
     ).toBeTruthy();
-    expect(el.find('[data-j-tooltip__item__label]').text()).toEqual(item.label);
-    expect(el.find('[data-j-tooltip__item__value]').text()).toEqual(item.value);
+    expect(el.find('[data-j-tooltip__item__label]').text()).toEqual(
+      item1.label
+    );
+    expect(el.find('[data-j-tooltip__item__value]').text()).toEqual(
+      item1.value
+    );
   });
 
   describe('summary item', () => {
@@ -53,7 +63,7 @@ describe('tooltip.vue', () => {
       const wrapper = mount(LumeTooltip, {
         props: {
           ...defaultProps,
-          items: [{ ...item, isSummary: true }, item],
+          items: [{ ...item1, isSummary: true }, item1],
         },
       });
 
@@ -85,12 +95,22 @@ describe('tooltip.vue', () => {
       expect(el.exists()).toBeTruthy();
     });
 
+    test('mounts component with inverse tooltip items', () => {
+      const wrapper = mount(LumeTooltip, {
+        props: { ...defaultProps, inverse: true },
+      });
+
+      const items = wrapper.findAll('.lume-tooltip__item');
+
+      expect(items[0].text()).toBe(item2.label + item2.value);
+    });
+
     describe('should format title according to options', () => {
       it('should format title with format string', () => {
         const wrapper = mount(LumeTooltip, {
           props: {
             title: 1234,
-            items: [item],
+            items: [item1],
             targetElement: mockElement,
             options: { titleFormat: '~s' },
           },
@@ -104,7 +124,7 @@ describe('tooltip.vue', () => {
         const wrapper = mount(LumeTooltip, {
           props: {
             title,
-            items: [item],
+            items: [item1],
             targetElement: mockElement,
             options: { titleFormat: (title) => title + '!' },
           },
