@@ -19,7 +19,7 @@ body:
     attributes:
       label: Reproduction URL
       description: Please enter your GitHub URL to provide a reproduction of the issue
-      placeholder: ex. https://github.com/USERNAME/REPO-NAME
+      placeholder: e.g. https://github.com/USERNAME/REPO-NAME
     validations:
       required: false
   - type: textarea
@@ -72,6 +72,24 @@ body:
         - Safari
         - Microsoft Edge
         - Opera
+    validations:
+      required: false
+  - type: checkboxes
+    id: packages
+    attributes:
+      label: Packages
+      description: What packages are you seeing the problem in?
+      options:
+        - label: 'Vue 2 (@adyen/lume)'
+          required: false
+        - label: 'Vue 3 (@adyen/lume-vue3)'
+          required: false
+  - type: input
+    id: versions
+    attributes:
+      label: Version(s)
+      description: What version(s) does this problem occur in?
+      placeholder: e.g. 1.6.3
     validations:
       required: false
   - type: dropdown
