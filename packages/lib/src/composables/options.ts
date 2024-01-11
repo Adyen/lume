@@ -26,6 +26,7 @@ export interface AxisOptions extends Options {
 
 export interface TooltipOptions extends Options {
   fixedPositioning?: boolean;
+  inverse?: boolean;
   offset?: number;
   position?: (typeof TOOLTIP_POSITIONS)[number];
   showTitle?: boolean;
@@ -33,8 +34,8 @@ export interface TooltipOptions extends Options {
   targetElement?: Element | 'self';
   titleFormat?: Format;
   valueFormat?: Format;
-  withPointerEvents?: boolean;
   withAnimation?: boolean;
+  withPointerEvents?: boolean;
 }
 
 type LegendPosition = 'top' | 'bottom';

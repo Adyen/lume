@@ -37,7 +37,7 @@
         </li>
         <slot name="items">
           <lume-tooltip-item
-            v-for="item in items"
+            v-for="item in computedItems"
             :key="item.label"
             :color="item.color"
           >
@@ -107,6 +107,10 @@ const props = defineProps({
       TOOLTIP_POSITIONS.includes(value as (typeof TOOLTIP_POSITIONS)[number]),
   },
   fixedPositioning: {
+    type: Boolean,
+    default: false,
+  },
+  inverse: {
     type: Boolean,
     default: false,
   },
@@ -182,6 +186,13 @@ const summaryItem = computed(
 );
 
 const hasSummary = computed(() => slots.summary || summaryItem.value.label);
+
+const computedItems = computed(() => {
+  if (props.inverse || allOptions.value.inverse) {
+    return [...items.value].reverse();
+  }
+  return items.value;
+});
 
 // Methods
 function initPopper() {
