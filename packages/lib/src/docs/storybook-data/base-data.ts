@@ -141,7 +141,7 @@ const DATASETS = {
   CatsMetIn2023: {
     data: [
       {
-        values: [15, 25, 30, null, 40, 50, 60, 12, 30, 12, 344, 400],
+        values: [15, 25, 30, null, null, null, null, 12, 30, 12, 344, 400],
         label: 'Cats',
       },
     ],
