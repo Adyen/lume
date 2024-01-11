@@ -2,11 +2,11 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [1.6.6](https://github.com/Adyen/lume/compare/1.6.5...1.6.6)
+#### [1.7.0](https://github.com/Adyen/lume/compare/1.6.5...1.7.0)
 
 - 🐛 Fix empty data/labels handling [`d5dca98`](https://github.com/Adyen/lume/commit/d5dca9899ea03a433672df32537bc107ccc23492)
 - 🐛 Fix wrong assumption on external hover [`ca3f936`](https://github.com/Adyen/lume/commit/ca3f936e238467c7583a66242cf59fa3b714ed79)
-- 🐛 Fix scale override in stacked bar chart [`a6ba301`](https://github.com/Adyen/lume/commit/a6ba3018e9299484f7349fcd0e384e85676c73df)
+- ✨ Introduce inverse property/option in lume-tooltip [`f510005`](https://github.com/Adyen/lume/commit/f5100056a33808b30a6368f064901dda746a8a14)
 
 #### [1.6.5](https://github.com/Adyen/lume/compare/1.6.3...1.6.5)
 
