@@ -1,6 +1,6 @@
 name: 🐛 Problem report
 description: Create a report to help us improve
-labels: [problem report]
+labels: [problem report, triage]
 body:
   - type: markdown
     attributes:

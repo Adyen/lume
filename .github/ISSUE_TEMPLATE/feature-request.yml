@@ -1,6 +1,6 @@
 name: 🚀 Feature request
 description: Propose a new feature to be added to Lume
-labels: [feature request]
+labels: [feature request, triage]
 body:
   - type: markdown
     attributes:
