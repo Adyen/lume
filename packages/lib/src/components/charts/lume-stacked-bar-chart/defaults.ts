@@ -14,6 +14,6 @@ export const options = {
     xAxisOptions: { gridLines: true },
     yAxisOptions: { gridLines: false },
     margins: DEFAULT_MARGINS.HORIZONTAL,
-    tooltipOptions: { position: 'right', inverse: true },
+    tooltipOptions: { position: 'right' },
   },
 };
