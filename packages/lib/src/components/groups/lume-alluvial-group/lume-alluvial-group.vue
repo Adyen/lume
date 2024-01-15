@@ -5,15 +5,21 @@
   >
     <!-- Level titles -->
     <g v-if="nodeHeaders">
-      <text
-        v-for="header in nodeHeaders"
-        :key="`header_${header.x}`"
-        :x="header.x"
-        :y="-computedNodeHeaderPadding"
-        class="lume-alluvial-group__node-header lume-typography--caption"
-      >
-        {{ header.label }}
-      </text>
+      <template v-for="(header, index) in nodeHeaders">
+        <slot
+          :name="`node-header-${index}`"
+          :x="header.x"
+          :y="-computedNodeHeaderPadding"
+        >
+          <lume-alluvial-node-header
+            :key="`header_${header.x}`"
+            :x="header.x"
+            :y="-computedNodeHeaderPadding"
+          >
+            {{ header.label }}
+          </lume-alluvial-node-header>
+        </slot>
+      </template>
     </g>
 
     <!-- Links -->
@@ -171,6 +177,7 @@ import { computed, inject, PropType, ref, toRefs, watch } from 'vue';
 
 import LumeAlluvialNodeLabel from './components/lume-alluvial-node-label';
 import LumeAlluvialNodeValue from './components/lume-alluvial-node-value';
+import LumeAlluvialNodeHeader from './components/lume-alluvial-node-header';
 
 import { useFormat } from '@/composables/format';
 import { withGroupProps } from '@/composables/group-props';

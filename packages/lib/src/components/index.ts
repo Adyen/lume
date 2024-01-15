@@ -32,6 +32,7 @@ export { default as LumePoint } from './core/lume-point/lume-point.vue';
 export { default as LumeAlluvialGroup } from './groups/lume-alluvial-group/lume-alluvial-group.vue';
 export { default as LumeAlluvialNodeLabel } from './groups/lume-alluvial-group/components/lume-alluvial-node-label/lume-alluvial-node-label.vue';
 export { default as LumeAlluvialNodeValue } from './groups/lume-alluvial-group/components/lume-alluvial-node-value/lume-alluvial-node-value.vue';
+export { default as LumeAlluvialNodeHeader } from './groups/lume-alluvial-group/components/lume-alluvial-node-header/lume-alluvial-node-header.vue';
 
 export { default as LumeBarGroup } from './groups/lume-bar-group/lume-bar-group.vue';
 export { default as LumeLineGroup } from './groups/lume-line-group/lume-line-group.vue';
