@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.8.0](https://github.com/Adyen/lume/compare/1.7.0...1.8.0)
+
+- ✨ Add lume-alluvial-node-header component [`8cbfbf2`](https://github.com/Adyen/lume/commit/8cbfbf2eb2afd4ff18afaac731c0288a125940d8)
+- 🔧 Add triage label to issue templates [`c4e9771`](https://github.com/Adyen/lume/commit/c4e97713c57d43f17a88dec4783fb3a99f7b2342)
+- 🩹 Fix the horizontal stacked bar chart default options [`6f32ccf`](https://github.com/Adyen/lume/commit/6f32ccfb0a3434569897cccb31e3f8950de9fb87)
+
 #### [1.7.0](https://github.com/Adyen/lume/compare/1.6.5...1.7.0)
+
+> 11 January 2024
 
 - 🐛 Fix empty data/labels handling [`d5dca98`](https://github.com/Adyen/lume/commit/d5dca9899ea03a433672df32537bc107ccc23492)
 - 🐛 Fix wrong assumption on external hover [`ca3f936`](https://github.com/Adyen/lume/commit/ca3f936e238467c7583a66242cf59fa3b714ed79)
