@@ -250,7 +250,7 @@ This is necessary so that the lume chart is aware when the user has moved inside
     #tooltip="{ opened, data, hoveredIndex, targetElement, handleMouseEnter, handleMouseLeave }"
   >
     <lume-tooltip
-      v-if="opened"
+      :opened="opened"
       ...
       :options="{ withPointerEvents: true }"
       @tooltip-mouseenter="handleMouseEnter"

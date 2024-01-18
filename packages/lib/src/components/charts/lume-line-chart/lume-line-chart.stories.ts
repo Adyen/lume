@@ -133,7 +133,7 @@ export const MultipleDatasetsWithCustomTooltip: Story = {
     <lume-line-chart v-bind="args" ${actionEventHandlerTemplate}>
       <template #tooltip = "{ opened, data, hoveredIndex, targetElement, handleMouseEnter, handleMouseLeave }">
         <lume-tooltip
-          v-if="opened"
+          :opened="opened"
           :items="customItemsFunction(data, hoveredIndex)"
           :target-element="targetElement"
           :options="args.options.tooltipOptions"
