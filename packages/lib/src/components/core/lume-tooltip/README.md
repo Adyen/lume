@@ -18,10 +18,11 @@ import { LumeTooltip } from '@adyen/lume';
 
 ### Basic use
 
-To show a tooltip, provide a `targetElement` and an array of `items`.
+To show a tooltip, provide a `targetElement`, an `opened` boolean and an array of `items`.
 
 ```html
 <lume-tooltip
+  :opened="true"
   :targetElement="myElementRef"
   :items="myItems"
 />
@@ -38,8 +39,9 @@ Here's an example of overriding the default tooltip in a `lume-line-chart`:
   :data="myData"
   :labels="myLabels"
 >
-  <template #tooltip="{ data, hoveredIndex, targetElement }">
+  <template #tooltip="{ opened, data, hoveredIndex, targetElement }">
     <lume-tooltip
+      :opened="opened"
       :items="myCustomItemsFunction(data, hoveredIndex)"
       :target-element="targetElement"
     />
@@ -54,6 +56,7 @@ Here's an example of overriding the default tooltip in a `lume-line-chart`:
 | Name               | Type                 | Default  | Description                                                    |
 | ------------------ | -------------------- | -------- | -------------------------------------------------------------- |
 | `items`            | `Array<TooltipItem>` | Required | An array of items to display.                                  |
+| `opened`           | `boolean`            | `false`  | If the tooltip is visible or not.                              |
 | `targetElement`    | `Element`            | `null`   | A DOM element to attach to.                                    |
 | `position`         | `string`             | `"auto"` | Where the tooltip should be positioned relative to its target. |
 | `fixedPositioning` | `boolean`            | `false`  | If true, it will use fixed positioning instead of absolute.    |

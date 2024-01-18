@@ -156,7 +156,7 @@ export const CustomNodeSlots: Story = {
         </lume-alluvial-node-value>
       </template>
       <template #tooltip="props">
-        <lume-tooltip v-bind="props" v-if="!!targetElement" :opened="!!targetElement" :target-element="targetElement">
+        <lume-tooltip v-bind="props" :opened="!!targetElement" :target-element="targetElement">
           Some additional info about the node.
         </lume-tooltip>
       </template>

@@ -69,7 +69,7 @@ export const CustomTooltipContent = ({ args }) => ({
         <lume-line-group v-bind="props" />
       </template>
       <template #tooltip-content="{ data, labels, hoveredIndex }">
-        On {{ labels[hoveredIndex] }}, the value was <strong>{{ data[0].values[hoveredIndex].value }}</strong>
+        On {{ labels[hoveredIndex] }}, the value was <strong>{{ data[0].values[hoveredIndex]?.value }}</strong>
       </template>
     </lume-chart>
   </div>
@@ -104,7 +104,7 @@ export const CustomTooltipContentWithSlots = ({ args }) => ({
         <lume-line-group v-bind="props" />
       </template>
       <template #tooltip="props">
-        <lume-tooltip v-if="props.opened" v-bind="props">
+        <lume-tooltip v-bind="props">
           <template #title>
             <lume-tooltip-title>Purchases of items in 2022</lume-tooltip-title>
           </template>

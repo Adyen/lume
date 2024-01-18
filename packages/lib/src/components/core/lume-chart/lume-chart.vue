@@ -197,7 +197,7 @@
         :options="allOptions.tooltipOptions"
       >
         <lume-tooltip
-          v-if="isTooltipOpened"
+          v-if="allOptions.withTooltip !== false"
           v-bind="tooltipConfig"
           :position="tooltipPosition"
           :title="computedLabels[internalHoveredIndex]"
@@ -404,10 +404,6 @@ const { shouldGenerateTooltipAnchors } = useTooltipAnchors(
 const { tooltipConfig, showTooltip, hideTooltip } = useTooltip();
 
 const { getTooltipItems } = useTooltipItems(internalData);
-
-const isTooltipOpened = computed(
-  () => allOptions.value.withTooltip !== false && tooltipConfig.opened
-);
 
 const tooltipPosition = computed(
   () => allOptions.value.tooltipOptions?.position || 'top'

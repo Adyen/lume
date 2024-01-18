@@ -1,6 +1,6 @@
 <template>
   <div
-    v-show="targetElement"
+    v-show="opened && targetElement"
     ref="root"
     class="lume-tooltip lume-typography--caption"
     :class="{
@@ -92,6 +92,10 @@ import { TooltipOptions, useOptions, withOptions } from '@/composables/options';
 import { TOOLTIP_POSITIONS } from '@/utils/constants';
 
 const props = defineProps({
+  opened: {
+    type: Boolean,
+    default: false,
+  },
   targetElement: {
     type: Element,
     default: null,
@@ -210,14 +214,16 @@ function destroyPopper() {
   if (popper.value) {
     popper.value.destroy();
     emit('closed');
+    root.value.classList.remove('lume-tooltip--animated'); // Remove transition class
   }
 }
 
 function updatePopper() {
   if (!popper.value) return;
 
-  if (allOptions.value.withAnimation !== false)
+  if (allOptions.value.withAnimation !== false) {
     root.value.classList.add('lume-tooltip--animated'); // Add transition class
+  }
 
   props.targetElement
     ? (function () {

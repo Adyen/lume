@@ -180,7 +180,7 @@ export const CustomTooltip: Story = {
     <div :style="{ width: args.width + 'px', height: args.orientation !== 'horizontal' ? args.height + 'px' : undefined }">
         <lume-bar-chart v-bind="args" :color="computedColor" ${actionEventHandlerTemplate}>
           <template #tooltip = "{ opened, data, hoveredIndex, targetElement }">
-            <lume-tooltip v-if="opened" :items="customItemsFunction(data, hoveredIndex)" :target-element="targetElement" position="top"/>
+            <lume-tooltip :opened="opened" :items="customItemsFunction(data, hoveredIndex)" :target-element="targetElement" position="top"/>
           </template>
         </lume-bar-chart>
     </div>
