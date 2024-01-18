@@ -1,6 +1,6 @@
 <template>
   <lume-chart
-    v-bind="props"
+    v-bind="{ ...props, ...$attrs }"
     :options="getAlluvialDiagramOptions(allOptions)"
     data-j-alluvial-diagram
     v-on="componentEventPropagator"

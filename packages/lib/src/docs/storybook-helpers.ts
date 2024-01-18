@@ -36,6 +36,7 @@ const CHART_EVENTS = [
   'tooltip-mouseleave',
 
   'hovered-index-changed',
+  'update:hoveredIndex',
 ];
 
 export const COLOR_CLASS_MAP = {

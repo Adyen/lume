@@ -1,6 +1,6 @@
 <template>
   <lume-chart
-    v-bind="props"
+    v-bind="{ ...props, ...$attrs }"
     chart-type="single-bar"
     :options="allOptions"
     data-j-single-bar-chart
