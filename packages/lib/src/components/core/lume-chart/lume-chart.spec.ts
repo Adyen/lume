@@ -21,7 +21,8 @@ describe('lume-chart.vue', () => {
 
     const el = wrapper.find('[data-j-lume-chart]');
     expect(el.exists()).toBeTruthy();
-    expect(el.find('[data-j-lume-chart__tooltip]').exists()).toBe(false);
+    expect(el.find('[data-j-lume-chart__tooltip]').exists()).toBe(true);
+    expect(el.find('[data-j-lume-chart__tooltip]').isVisible()).toBe(false);
   });
 
   test('mounts component with tooltip disabled', () => {
