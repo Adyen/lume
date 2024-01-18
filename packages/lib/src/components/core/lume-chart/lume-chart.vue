@@ -441,11 +441,13 @@ function handleInternalHover(index: number) {
     showTooltip(targetElement);
   }
   emit('hovered-index-changed', { newIndex: index, oldIndex });
+  emit('update:hoveredIndex', index);
 }
 
 function handleHideTooltip() {
   hideTooltip();
   internalHoveredIndex.value = -1;
+  emit('update:hoveredIndex', -1);
 }
 
 function handleExternalHover(index: number) {

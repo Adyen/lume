@@ -32,6 +32,7 @@ const CHART_EVENTS = [
   'tooltip-closed',
 
   'hovered-index-changed',
+  'update:hoveredIndex',
 ];
 
 // Used to propagate events from the top-most component (needed for Vue 2)

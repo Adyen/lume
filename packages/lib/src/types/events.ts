@@ -66,6 +66,7 @@ export interface ChartEvents {
   (e: 'resize', p: ContainerSize): void;
 
   (e: 'hovered-index-changed', p: HoverIndexChangedEventPayload): void;
+  (e: 'update:hoveredIndex', p: number): void;
 
   (e: 'data-changed', p: DataChangedEventPayload<Data>): void;
   (e: 'labels-changed', p: DataChangedEventPayload<Array<string>>): void;

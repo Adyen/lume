@@ -1,6 +1,6 @@
 <template>
   <lume-chart
-    v-bind="props"
+    v-bind="{ ...props, ...$attrs }"
     chart-type="stacked-bar"
     :options="allOptions"
     :x-scale="xScale"

@@ -28,6 +28,7 @@ const meta: Meta<typeof LumeBarChart> = {
     ...withSizeArgs(),
     options: {
       margins: 'auto',
+      yAxisOptions: { tickCount: 5 },
     },
   },
 };
@@ -43,35 +44,33 @@ export const Basic: Story = {
       const containerStyle = {
         width: '480px',
         height: '320px',
-        padding: '8px',
-        border: '1px solid var(--lume-color--grey-50)',
-        borderRadius: '4px',
+        padding: '16px',
+        border: '1px solid var(--lume-color--grey-20)',
+        borderRadius: '8px',
         overflow: 'hidden',
       };
       const hoveredIndex = ref(-1);
       return { args, containerStyle, hoveredIndex };
     },
     template: `
-    <div :style="containerStyle" style="margin-bottom: 16px">
-        <lume-bar-chart
-            v-bind="args"
-            type="stacked"
-            :hovered-index="hoveredIndex"
-            @tooltip-opened="hoveredIndex = $event.index"
-            @tooltip-moved="hoveredIndex = $event.index"
-            @tooltip-closed="hoveredIndex = -1"
-        />
+    <div>
+      <div :style="containerStyle" style="margin-bottom: 16px">
+      <lume-bar-chart
+          v-bind="args"
+          type="stacked"
+          v-bind:hoveredIndex.sync="hoveredIndex"
+          v-model:hovered-index="hoveredIndex"
+      />
     </div>
     <div :style="containerStyle">
-        <lume-bar-chart
-            v-bind="args"
-            type="stacked"
-            :hovered-index="hoveredIndex"
-            @tooltip-opened="hoveredIndex = $event.index"
-            @tooltip-moved="hoveredIndex = $event.index"
-            @tooltip-closed="hoveredIndex = -1"
-        />
+      <lume-bar-chart
+          v-bind="args"
+          type="stacked"
+          v-bind:hoveredIndex.sync="hoveredIndex"
+          v-model:hovered-index="hoveredIndex"
+      />
     </div>
+  </div>
     `,
   }),
   args: {
