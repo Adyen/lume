@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.9.1](https://github.com/Adyen/lume/compare/1.9.0...1.9.1)
+
+- 🐛 Add missing color values in constants [`7bbf38b`](https://github.com/Adyen/lume/commit/7bbf38b5e026711281a3fcde9fe05c7c89b3f952)
+
 #### [1.9.0](https://github.com/Adyen/lume/compare/1.8.0...1.9.0)
+
+> 19 January 2024
 
 - ✨ Add update event for hoveredIndex [`ecfa912`](https://github.com/Adyen/lume/commit/ecfa912bb291f053b93754107447dedd76b9b956)
 - 🚸 Improve lume-tooltip usability by introducing opened prop [`e76fa5a`](https://github.com/Adyen/lume/commit/e76fa5a67de11185f93a12842a270d04a5d9b27d)
