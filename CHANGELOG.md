@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.9.0](https://github.com/Adyen/lume/compare/1.8.0...1.9.0)
+
+- ✨ Add update event for hoveredIndex [`ecfa912`](https://github.com/Adyen/lume/commit/ecfa912bb291f053b93754107447dedd76b9b956)
+- 🚸 Improve lume-tooltip usability by introducing opened prop [`e76fa5a`](https://github.com/Adyen/lume/commit/e76fa5a67de11185f93a12842a270d04a5d9b27d)
+- ✅ Update LumeChart unit tests [`f534a3b`](https://github.com/Adyen/lume/commit/f534a3b673d852c9e749140a51e119e1a9dd5164)
+
 #### [1.8.0](https://github.com/Adyen/lume/compare/1.7.0...1.8.0)
+
+> 16 January 2024
 
 - ✨ Add lume-alluvial-node-header component [`8cbfbf2`](https://github.com/Adyen/lume/commit/8cbfbf2eb2afd4ff18afaac731c0288a125940d8)
 - 🔧 Add triage label to issue templates [`c4e9771`](https://github.com/Adyen/lume/commit/c4e97713c57d43f17a88dec4783fb3a99f7b2342)
