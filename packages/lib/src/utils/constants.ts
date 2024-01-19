@@ -72,10 +72,22 @@ export enum DivergentColors {
 }
 
 export enum OtherColors {
-  Grey = 'grey',
+  White = 'white',
+  Black = 'black',
   Green = 'green',
   Orange = 'orange',
   Red = 'red',
+  Grey = 'grey',
+  Grey10 = 'grey-10',
+  Grey20 = 'grey-20',
+  Grey30 = 'grey-30',
+  Grey40 = 'grey-40',
+  Grey50 = 'grey-50',
+  Grey60 = 'grey-60',
+  Grey70 = 'grey-70',
+  Grey80 = 'grey-80',
+  Grey90 = 'grey-90',
+  Grey100 = 'grey-100',
 }
 
 export enum LegacyColors {
