@@ -191,19 +191,11 @@ To run the app inside a Docker container:
    ```
 2. Start your container:
    ```shell
-     $ docker compose up -d
+     $ docker build --build-arg DOCKER_IMAGE=$(cat .env | grep DOCKER_IMAGE | cut -d '=' -f2) -t lume .
    ```
 3. Attach to it in your terminal:
    ```shell
-     $ docker attach lume
-   ```
-4. Install `pnpm`:
-   ```shell
-     $ npm i -g pnpm
-   ```
-5. (Optional, depends on your Docker image) Add the npm global directory to the `PATH` variable:
-   ```shell
-     $ export PATH="${PATH}:/root/local/bin"
+     $ docker run -it -v ./:/home/node/lume -p 9002:9002 -p 9003:9003 lume
    ```
 
 ### About Vue versions
