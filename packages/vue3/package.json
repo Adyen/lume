@@ -46,7 +46,7 @@
     "@storybook/vue3-vite": "7.5.2",
     "@vitejs/plugin-vue": "4.6.2",
     "@vitest/coverage-istanbul": "0.34.6",
-    "@vue/test-utils": "2.3.2",
+    "@vue/test-utils": "2.4.4",
     "jsdom": "22.1.0",
     "storybook-utils": "workspace:storybook-utils@*",
     "vite": "4.5.2",
