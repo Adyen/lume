@@ -188,8 +188,8 @@ export const CustomTooltip: Story = {
     },
     template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
     <lume-line-chart v-bind="args" ${actionEventHandlerTemplate}>
-      <template #tooltip = "{ opened, data, hoveredIndex, targetElement }">
-        <lume-tooltip v-if="opened" :items="customItemsFunction(data, hoveredIndex)" :target-element="targetElement" position="top"/>
+      <template #tooltip="{ opened, data, hoveredIndex, targetElement }">
+        <lume-tooltip :opened="opened" :items="customItemsFunction(data, hoveredIndex)" :target-element="targetElement" position="top"/>
       </template>
     </lume-line-chart>
   </div>`,
