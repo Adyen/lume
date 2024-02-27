@@ -1,26 +1,23 @@
-# Chart Container
-
 This component is a wrapper for charts, providing sizing/dimension utilities and the bridge between HTML and SVG contexts.
 
 By detecting resizes, it alerts all other components so that the chart can smoothly re-render.
 
-- [Chart Container](#chart-container)
-  - [Usage](#usage)
-    - [Importing](#importing)
-    - [Structure](#structure)
-    - [Slots](#slots)
-    - [Basic use](#basic-use)
-  - [API](#api)
-    - [Props](#props)
-    - [Events](#events)
-      - [`click`](#click)
-        - [Payload](#payload)
-      - [`mouseenter`](#mouseenter)
-        - [Payload](#payload-1)
-      - [`mouseleave`](#mouseleave)
-        - [Payload](#payload-2)
-      - [`resize`](#resize)
-        - [Payload](#payload-3)
+- [Usage](#usage)
+  - [Importing](#importing)
+  - [Structure](#structure)
+  - [Slots](#slots)
+  - [Basic use](#basic-use)
+- [API](#api)
+  - [Props](#props)
+  - [Events](#events)
+    - [`click`](#click)
+      - [Payload](#payload)
+    - [`mouseenter`](#mouseenter)
+      - [Payload](#payload-1)
+    - [`mouseleave`](#mouseleave)
+      - [Payload](#payload-2)
+    - [`resize`](#resize)
+      - [Payload](#payload-3)
 
 ## Usage
 

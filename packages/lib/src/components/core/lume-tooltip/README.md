@@ -1,5 +1,3 @@
-# Tooltip
-
 A chart tooltip displays contextual extra information upon user interaction.
 
 This component provides an implementation of the chart tooltip guidelines, along with a set of options and `<slot>`s to customize it.

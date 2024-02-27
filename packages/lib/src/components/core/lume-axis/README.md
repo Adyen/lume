@@ -1,5 +1,3 @@
-# Axis
-
 An axis is a visual representation of a scale, usually a line with reference marks called ticks. Axes can be vertical or horizontal.
 
 This component provides an implementation of the axis guidelines, along with a set of options to customize it.

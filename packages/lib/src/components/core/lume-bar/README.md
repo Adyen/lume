@@ -1,5 +1,3 @@
-# Bar
-
 This component is meant to render bar-like elements. It is used mainly by Bar charts, but also to draw rectangle shapes, such as the gray area in a negative domain chart.
 
 ## Usage

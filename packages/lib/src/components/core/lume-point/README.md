@@ -1,5 +1,3 @@
-# Point
-
 A point draws a circle to highlight data, like when a user hover their mouse over a point on a line graph.
 
 ## Usage

@@ -1,5 +1,3 @@
-# Stacked bar chart
-
 Stacked bar chart shows one or more sets of data represented by discrete stacks of bars at regular intervals.
 
 ## Usage

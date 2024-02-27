@@ -1,5 +1,3 @@
-# Alluvial group
-
 The alluvial group component is in charge of transforming data into nodes and links representation. It's the component that renders nodes and links connecting those nodes.
 
 ## Usage

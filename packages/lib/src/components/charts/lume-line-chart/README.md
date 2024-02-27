@@ -1,5 +1,3 @@
-# Line chart
-
 Line charts plot data at regular intervals connected by lines from left to right to demonstrate changes in value.
 
 ## Usage

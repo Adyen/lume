@@ -1,5 +1,3 @@
-# Overlay group
-
 Overlay groups orchestrate all the overlay rectangles that a chart needs to show. These will be the hoverable surfaces that will highlight individual values or value sets in the chart.
 
 ## Usage
