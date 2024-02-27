@@ -1,5 +1,3 @@
-# Line group
-
 The Line group component is in charge of transforming data into a line/point representation. It's the component that actually renders each line of each data point.
 
 ## Usage

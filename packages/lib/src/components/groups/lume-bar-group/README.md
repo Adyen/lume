@@ -1,5 +1,3 @@
-# Bar group
-
 Bar groups orchestrate all the bars that a bar chart needs to show. This can vary from a list of single bars shown in a single bar chart, to a list of a group of charts, like with the stacked or grouped bar charts.
 
 ## Usage

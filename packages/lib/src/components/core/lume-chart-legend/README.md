@@ -1,8 +1,6 @@
-# Chart Legend
-
 Shows a legend corresponding to the values of the chart being used
 
-# Usage
+## Usage
 
 ### Importing
 

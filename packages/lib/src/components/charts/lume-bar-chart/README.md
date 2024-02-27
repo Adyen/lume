@@ -1,5 +1,3 @@
-# Bar chart
-
 Bar charts plot data at regular intervals represented by bars from either left to right or top to bottom to demonstrate changes in value. The `LumeBarChart` component can be regarded as a broker component for the different types of bar chart - single, stacked and grouped.
 
 ## Usage

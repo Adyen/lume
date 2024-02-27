@@ -1,5 +1,3 @@
-# Grouped bar chart
-
 Grouped bar chart shows one or more sets of data represented by discrete groups of bars at regular intervals.
 
 ## Usage

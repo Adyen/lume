@@ -1,5 +1,3 @@
-# Single bar chart
-
 Single bar chart show a single set of data represented by discrete bars at regular intervals.
 
 ## Usage

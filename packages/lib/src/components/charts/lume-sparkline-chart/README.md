@@ -1,5 +1,3 @@
-# Sparkline chart
-
 Sparkline charts plot data at regular intervals connected by lines from left to right to demonstrate changes in value.
 It is meant as an alternative to the regular line chart where it can be displayed in a smaller format without axes.
 

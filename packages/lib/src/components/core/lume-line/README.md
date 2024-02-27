@@ -1,5 +1,3 @@
-# Line
-
 Draws a line based on a provided SVG path definition. The component also provides properties to customize the line drawn.
 
 ## Usage

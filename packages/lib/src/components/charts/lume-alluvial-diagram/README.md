@@ -1,5 +1,3 @@
-# Alluvial diagram
-
 Alluvial diagram shows you the flow of aggregated units from one group to the next.
 
 ## Usage
