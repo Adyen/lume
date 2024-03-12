@@ -7,7 +7,7 @@
     :no-min-size="allOptions.noMinSize"
     :transparent-background="allOptions.transparentBackground"
     data-j-lume-chart
-    @resize="updateSize"
+    @resize="handleResize"
     @click="emit('chart-click', $event)"
     @mouseenter="emit('chart-mouseenter', $event)"
     @mouseleave="handleMouseleave"
@@ -277,6 +277,7 @@ import {
 import { warn, Warnings } from '@/utils/warnings';
 import { ChartType, Data } from '@/types/dataset';
 import { ChartEmits } from '@/types/events';
+import { ContainerSize } from '@/types/size';
 
 const props = defineProps({
   ...withChartProps(),
@@ -470,6 +471,11 @@ function handleMouseleave() {
     }
     emit('chart-mouseleave');
   }, 0);
+}
+
+function handleResize(size: ContainerSize) {
+  updateSize(size);
+  emit('resize', size);
 }
 
 function handleAxisMouseenter({ index, value, event }) {
