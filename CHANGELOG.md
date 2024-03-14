@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.9.2](https://github.com/Adyen/lume/compare/1.9.1...1.9.2)
+
+- ⬆️ Update dependency vite to v4.5.2 [`9eec45a`](https://github.com/Adyen/lume/commit/9eec45a8e8a1890dcaf59285de5221ce9e915350)
+- ⬆️ Bump dependency versions [`df201ce`](https://github.com/Adyen/lume/commit/df201ce9c7057eb82019081fb29d26edbf1fe235)
+- 📝 Remove h1 title from README to integrate in docs website [`09b56d4`](https://github.com/Adyen/lume/commit/09b56d4eecab0dae952bf5eb618a8489aa687cb8)
+
 #### [1.9.1](https://github.com/Adyen/lume/compare/1.9.0...1.9.1)
+
+> 19 January 2024
 
 - 🐛 Add missing color values in constants [`7bbf38b`](https://github.com/Adyen/lume/commit/7bbf38b5e026711281a3fcde9fe05c7c89b3f952)
 
@@ -22,21 +30,35 @@ All notable changes to this project will be documented in this file. Dates are d
 - 🔧 Add triage label to issue templates [`c4e9771`](https://github.com/Adyen/lume/commit/c4e97713c57d43f17a88dec4783fb3a99f7b2342)
 - 🩹 Fix the horizontal stacked bar chart default options [`6f32ccf`](https://github.com/Adyen/lume/commit/6f32ccfb0a3434569897cccb31e3f8950de9fb87)
 
-#### [1.7.0](https://github.com/Adyen/lume/compare/1.6.5...1.7.0)
+#### [1.7.0](https://github.com/Adyen/lume/compare/1.6.6...1.7.0)
 
 > 11 January 2024
 
+- ✨ Introduce inverse property/option in lume-tooltip [`f510005`](https://github.com/Adyen/lume/commit/f5100056a33808b30a6368f064901dda746a8a14)
+- 🐛 Fix handling datasets with empty values [`0a06efe`](https://github.com/Adyen/lume/commit/0a06efe33ff2e40ba38083dc5b5ccbc93bfbc7e8)
+- 🐛 Update gridlines on container size change [`294a473`](https://github.com/Adyen/lume/commit/294a4734d1dab4074fc6d2e26b273b3ecfbd4d1b)
+
+#### [1.6.6](https://github.com/Adyen/lume/compare/1.6.5...1.6.6)
+
+> 5 January 2024
+
 - 🐛 Fix empty data/labels handling [`d5dca98`](https://github.com/Adyen/lume/commit/d5dca9899ea03a433672df32537bc107ccc23492)
 - 🐛 Fix wrong assumption on external hover [`ca3f936`](https://github.com/Adyen/lume/commit/ca3f936e238467c7583a66242cf59fa3b714ed79)
-- ✨ Introduce inverse property/option in lume-tooltip [`f510005`](https://github.com/Adyen/lume/commit/f5100056a33808b30a6368f064901dda746a8a14)
+- 🐛 Fix scale override in stacked bar chart [`a6ba301`](https://github.com/Adyen/lume/commit/a6ba3018e9299484f7349fcd0e384e85676c73df)
 
-#### [1.6.5](https://github.com/Adyen/lume/compare/1.6.3...1.6.5)
+#### [1.6.5](https://github.com/Adyen/lume/compare/1.6.4...1.6.5)
 
 > 11 December 2023
 
-- 🐛 Fix alluvial node min. height in derived nodes [`d71b702`](https://github.com/Adyen/lume/commit/d71b702651a3b2ac1eee9cd581e148d1c1b961a4)
 - 🐛 Fix unhandled line-group null value cases [`909b672`](https://github.com/Adyen/lume/commit/909b672addf3f11dd91769b2feb69512ef2f43e3)
 - 🐛 Make skip option reactive [`eefa96e`](https://github.com/Adyen/lume/commit/eefa96e033137ba350abbed8fcd3d472c24751ed)
+
+#### [1.6.4](https://github.com/Adyen/lume/compare/1.6.3...1.6.4)
+
+> 8 December 2023
+
+- 🐛 Fix alluvial node min. height in derived nodes [`d71b702`](https://github.com/Adyen/lume/commit/d71b702651a3b2ac1eee9cd581e148d1c1b961a4)
+- 💄 Update tooltip value spacing [`568ae4f`](https://github.com/Adyen/lume/commit/568ae4f6cd8ab3a426a4c7a30c70e13e38e3dca4)
 
 #### [1.6.3](https://github.com/Adyen/lume/compare/1.6.2...1.6.3)
 
