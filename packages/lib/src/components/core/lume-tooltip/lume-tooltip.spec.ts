@@ -18,6 +18,7 @@ const item2 = {
 };
 
 const defaultProps = {
+  opened: true,
   targetElement: mockElement,
   items: [item1, item2],
 };
@@ -111,6 +112,7 @@ describe('tooltip.vue', () => {
           props: {
             title: 1234,
             items: [item1],
+            opened: true,
             targetElement: mockElement,
             options: { titleFormat: '~s' },
           },
@@ -125,6 +127,7 @@ describe('tooltip.vue', () => {
           props: {
             title,
             items: [item1],
+            opened: true,
             targetElement: mockElement,
             options: { titleFormat: (title) => title + '!' },
           },
