@@ -1,6 +1,6 @@
 <template>
   <div
-    v-show="opened && targetElement"
+    v-if="opened && targetElement"
     ref="root"
     class="lume-tooltip lume-typography--caption"
     :class="{
@@ -66,6 +66,7 @@ interface TooltipItem {
 <script setup lang="ts">
 import {
   computed,
+  nextTick,
   onBeforeUnmount,
   onMounted,
   PropType,
@@ -214,14 +215,15 @@ function destroyPopper() {
   if (popper.value) {
     popper.value.destroy();
     emit('closed');
-    root.value.classList.remove('lume-tooltip--animated'); // Remove transition class
+
+    root.value && root.value.classList.remove('lume-tooltip--animated'); // Remove transition class
   }
 }
 
 function updatePopper() {
   if (!popper.value) return;
 
-  if (allOptions.value.withAnimation !== false) {
+  if (allOptions.value.withAnimation !== false && root.value) {
     root.value.classList.add('lume-tooltip--animated'); // Add transition class
   }
 
@@ -237,9 +239,11 @@ function updatePopper() {
 // Watchers
 watch(
   () => props.targetElement,
-  (newValue, oldValue) => {
-    if (!oldValue && newValue) initPopper();
-    else updatePopper();
+  async (newValue, oldValue) => {
+    if (!oldValue && newValue) {
+      await nextTick(); // wait for `root` to be picked up
+      initPopper();
+    } else updatePopper();
   }
 );
 
