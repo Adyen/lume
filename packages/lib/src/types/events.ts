@@ -1,8 +1,8 @@
-import { SankeyNode } from 'd3-sankey';
+import type { SankeyNode } from 'd3-sankey';
 
-import { SankeyLink, SankeyLinkProps, SankeyNodeProps } from './alluvial';
-import { Data, DatasetValueObject, InternalDataset } from './dataset';
-import { ContainerSize } from './size';
+import type { SankeyLink, SankeyLinkProps, SankeyNodeProps } from './alluvial';
+import type { Data, DatasetValueObject, InternalDataset } from './dataset';
+import type { ContainerSize } from './size';
 
 export interface AlluvialNodeEventPayload {
   node: SankeyNode<SankeyNodeProps, SankeyLinkProps>;

@@ -1,13 +1,13 @@
-import {
+import type {
   GetHighlightedElementsFunction,
   SankeyLink,
   SankeyLinkProps,
   SankeyNodeProps,
 } from './alluvial';
-import { ColorPalette } from './dataset';
-import { SankeyNode } from 'd3-sankey';
+import type { ColorPalette } from './dataset';
+import type { SankeyNode } from 'd3-sankey';
 
-import { Format } from '../composables/format';
+import type { Format } from '../composables/format';
 import { Margins, TOOLTIP_POSITIONS } from '../utils/constants';
 
 export interface AxisOptions extends Options {
