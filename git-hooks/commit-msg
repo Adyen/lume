@@ -28,7 +28,7 @@ do
       # Commit message
 
       # Commit message should have < 100 characters
-      if [ ${#line} -gt 200 ]; then
+      if [ ${#line} -gt 100 ]; then
         echo "\n${RED} ❌ Commit message lines should have less than 100 characters${COLOR_RESET}\n"
         exit 1
       fi
