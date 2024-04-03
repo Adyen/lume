@@ -35,12 +35,13 @@ import LumeBarGroup from '@/components/groups/lume-bar-group';
 
 import { useBase } from '@/composables/base';
 import { useEvents } from '@/composables/events';
-import { BarChartOptions, useOptions } from '@/composables/options';
+import { useOptions } from '@/composables/options';
 import { withChartProps } from '@/composables/props';
 import { useBarMixin } from '@/components/groups/lume-bar-group/composables/bar-mixin';
 import { useStackedAxes } from '@/components/groups/lume-bar-group/composables/stacked-mixin';
 
-import { ChartEmits } from '@/types/events';
+import type { BarChartOptions } from '@/types/options';
+import type { ChartEmits } from '@/types/events';
 import { ORIENTATIONS } from '@/utils/constants';
 import { excludeGroups } from '@/utils/helpers';
 

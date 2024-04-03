@@ -16,7 +16,7 @@ import {
   PADDING_HORIZONTAL,
   PADDING_VERTICAL,
 } from '@/utils/constants';
-import { ChartOptions } from '@/composables/options';
+import type { ChartOptions } from '@/types/options';
 
 const aboveZeroDataSet = [
   { values: [{ value: 10 }, { value: 20 }, { value: 30 }, { value: 40 }] },

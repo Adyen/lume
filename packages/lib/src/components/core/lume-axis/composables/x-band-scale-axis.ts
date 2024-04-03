@@ -1,7 +1,7 @@
 import { computed, Ref } from 'vue';
 import { ScaleBand } from 'd3';
 
-import { AxisOptions } from '@/composables/options';
+import type { AxisOptions } from '@/types/options';
 import { AXIS_GHOST_PADDING, AXIS_TEXT_HEIGHT } from '@/utils/constants';
 import { AxisMixin } from '../types';
 

@@ -64,10 +64,10 @@ import { getXByIndex } from '@/composables/scales';
 import { useLineNullValues } from '@/composables/line-null-values';
 import { getLinePathDefinition } from '@/composables/line-values';
 import { withGroupProps } from '@/composables/group-props';
-import { LineChartOptions } from '@/composables/options';
 import { AnchorAttributes, useTooltipAnchors } from '@/composables/tooltip';
 
 import { getDomainLength, getHighestValue, isBandScale } from '@/utils/helpers';
+import type { LineChartOptions } from '@/types/options';
 
 const props = defineProps({
   ...withGroupProps<LineChartOptions>(),

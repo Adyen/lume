@@ -14,6 +14,7 @@ export { default as LumeSparklineChart } from './charts/lume-sparkline-chart/lum
 // Core
 
 export { default as LumeAxis } from './core/lume-axis/lume-axis.vue';
+export * from './core/lume-axis/types';
 export { default as LumeChart } from './core/lume-chart/lume-chart.vue';
 export { default as LumeChartContainer } from './core/lume-chart-container/lume-chart-container.vue';
 export { default as LumeChartLegend } from './core/lume-chart-legend/lume-chart-legend.vue';

@@ -17,7 +17,7 @@
   },
   "types": "./dist/@types/index.d.ts",
   "scripts": {
-    "build": "NODE_ENV=production pnpm run build:vite && pnpm run build:font",
+    "build": "NODE_ENV=production pnpm run build:vite && pnpm run build:font && pnpm run build:types",
     "build:vite": "vite build",
     "build:font": "webpack",
     "build:types": "vue-tsc -p ./tsconfig.d.json",

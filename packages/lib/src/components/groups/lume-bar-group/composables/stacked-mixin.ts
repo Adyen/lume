@@ -1,12 +1,12 @@
 import { computed, ComputedRef, Ref } from 'vue';
 import { scaleBand, ScaleBand, scaleLinear } from 'd3';
 
-import { BarChartOptions } from '@/composables/options';
 import { getPaddedScale, Scale } from '@/composables/scales';
 
 import { Colors, Orientation, ORIENTATIONS } from '@/utils/constants';
-import { Data, DatasetValueObject } from '@/types/dataset';
-import { ContainerSize } from '@/types/size';
+import type { Data, DatasetValueObject } from '@/types/dataset';
+import type { BarChartOptions } from '@/types/options';
+import type { ContainerSize } from '@/types/size';
 
 export function useStackedAxes(
   groupedData: ComputedRef<DatasetValueObject[][]>,

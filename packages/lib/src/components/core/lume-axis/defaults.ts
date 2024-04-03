@@ -1,4 +1,4 @@
-import { AxisOptions } from '@/composables/options';
+import type { AxisOptions } from '@/types/options';
 
 const options: AxisOptions = {
   /** Displays a line for each tick. */

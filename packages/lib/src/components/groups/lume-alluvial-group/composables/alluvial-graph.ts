@@ -1,14 +1,12 @@
 import { computed, ComputedRef, ref, Ref, watch } from 'vue';
 import { SankeyLink as D3SankeyLink, sankey } from 'd3-sankey';
 
-import { AlluvialDiagramOptions } from '@/composables/options';
-
 import { DEFAULT_COLOR } from '@/utils/colors';
 import { OtherColors } from '@/utils/constants';
 import { Errors, error as logError } from '@/utils/errors';
 import { getAlluvialNodeId } from '../helpers';
 
-import {
+import type {
   AlluvialExtents,
   AlluvialNode,
   SankeyGraph,
@@ -16,7 +14,8 @@ import {
   SankeyNode,
   SankeyNodeProps,
 } from '@/types/alluvial';
-import { InternalData } from '@/types/dataset';
+import type { InternalData } from '@/types/dataset';
+import type { AlluvialDiagramOptions } from '@/types/options';
 
 const EMPTY_GRAPH = {
   nodes: [],

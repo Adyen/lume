@@ -7,7 +7,7 @@ import {
 } from 'd3-sankey';
 
 import { Color } from '@/utils/constants';
-import { Dataset, DatasetValueObject } from '@/types/dataset';
+import type { Dataset, DatasetValueObject } from '@/types/dataset';
 
 interface AlluvialNodeTarget {
   node: string;

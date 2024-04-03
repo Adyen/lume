@@ -2,7 +2,6 @@ import { PropType, ref, Ref, watchEffect } from 'vue';
 import { ScaleBand, scaleBand, ScaleLinear, scaleLinear } from 'd3';
 
 import { flatValues, isBandScale } from '@/utils/helpers';
-import { BarChartOptions, ChartOptions } from '@/composables/options';
 
 import {
   Orientation,
@@ -10,8 +9,9 @@ import {
   PADDING_HORIZONTAL,
   PADDING_VERTICAL,
 } from '@/utils/constants';
-import { ContainerSize } from '@/types/size';
-import { InternalData } from '@/types/dataset';
+import type { ContainerSize } from '@/types/size';
+import type { InternalData } from '@/types/dataset';
+import type { BarChartOptions, ChartOptions } from '@/types/options';
 
 export interface ComputedScaleBand extends ScaleBand<string | number> {
   labels: Array<string | number>;

@@ -1,11 +1,11 @@
 import { computed, Ref, ref, watch } from 'vue';
 import { SankeyNode } from 'd3-sankey';
 
-import { AlluvialDiagramOptions } from '@/composables/options';
+import type { AlluvialDiagramOptions } from '@/types/options';
 
 import { getAlluvialNodeId, isSankeyNode, updateNode } from '../helpers';
 
-import {
+import type {
   GetHighlightedElementsFunction,
   HighlightedElements,
   NodeBlock,

@@ -1,4 +1,4 @@
-import { LineChartOptions } from '@/composables/options';
+import type { LineChartOptions } from '@/types/options';
 
 export const options: LineChartOptions = {
   margins: {

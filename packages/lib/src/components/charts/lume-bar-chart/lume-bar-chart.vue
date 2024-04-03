@@ -29,13 +29,10 @@ import { computed, defineAsyncComponent, PropType, useSlots } from 'vue';
 
 import { useEvents } from '@/composables/events';
 import { withChartProps } from '@/composables/props';
-import {
-  BarChartOptions,
-  Options,
-  TooltipOptions,
-} from '@/composables/options';
 
-import { ChartEmits } from '@/types/events';
+import type { BarChartOptions, Options, TooltipOptions } from '@/types/options';
+import type { ChartEmits } from '@/types/events';
+
 import { ORIENTATIONS } from '@/utils/constants';
 import { excludeGroups, singleDatasetValidator } from '@/utils/helpers';
 

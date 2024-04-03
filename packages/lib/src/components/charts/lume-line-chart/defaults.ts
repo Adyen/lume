@@ -1,5 +1,5 @@
+import type { LineChartOptions } from '@/types/options';
 import { DEFAULT_MARGINS } from '@/utils/margins';
-import { LineChartOptions } from '@/composables/options';
 
 export const options: LineChartOptions = {
   margins: DEFAULT_MARGINS.VERTICAL,

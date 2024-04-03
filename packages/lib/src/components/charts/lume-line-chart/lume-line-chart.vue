@@ -31,10 +31,12 @@ import LumeChart from '@/components/core/lume-chart';
 import LumeLineGroup from '@/components/groups/lume-line-group';
 
 import { useEvents } from '@/composables/events';
-import { LineChartOptions, useOptions } from '@/composables/options';
+import { useOptions } from '@/composables/options';
 import { withChartProps } from '@/composables/props';
 
-import { ChartEmits } from '@/types/events';
+import type { ChartEmits } from '@/types/events';
+import type { LineChartOptions } from '@/types/options';
+
 import { excludeGroups } from '@/utils/helpers';
 
 import { options as defaultOptions } from './defaults';

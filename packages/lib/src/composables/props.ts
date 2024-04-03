@@ -1,10 +1,11 @@
 import { PropType } from 'vue';
 
 import { DataValidator, withBase } from './base';
-import { ChartOptions, Options, withOptions } from './options';
+import { withOptions } from './options';
 import { withScales } from './scales';
 
 import { Orientation, ORIENTATIONS } from '@/utils/constants';
+import type { ChartOptions, Options } from '@/types/options';
 
 export function orientationValidator(orientation: string): boolean {
   return Object.values(ORIENTATIONS).includes(orientation as Orientation);

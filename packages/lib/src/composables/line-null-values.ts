@@ -1,6 +1,6 @@
 import { computed, Ref } from 'vue';
-import { DatasetValueObject, InternalData } from '@/types/dataset';
 import { NO_DATA } from '@/utils/constants';
+import type { DatasetValueObject, InternalData } from '@/types/dataset';
 
 export function useLineNullValues(data: Ref<InternalData>) {
   /**

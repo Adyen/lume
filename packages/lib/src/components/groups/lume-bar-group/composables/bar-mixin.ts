@@ -11,7 +11,7 @@ import {
 } from '@/utils/constants';
 import { error, Errors } from '@/utils/errors';
 import { fillArrayWithNullValues } from '@/utils/helpers';
-import { DatasetValueObject, InternalData } from '@/types/dataset';
+import type { DatasetValueObject, InternalData } from '@/types/dataset';
 
 function typeValidator(type: string): boolean {
   return Object.values(BAR_TYPES).includes(type as BarType) || type == null;

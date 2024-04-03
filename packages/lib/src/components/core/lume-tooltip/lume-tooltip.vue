@@ -88,7 +88,9 @@ import LumeTooltipSummary from './components/lume-tooltip-summary';
 import LumeTooltipItem from './components/lume-tooltip-item';
 
 import { useFormat } from '@/composables/format';
-import { TooltipOptions, useOptions, withOptions } from '@/composables/options';
+import { useOptions, withOptions } from '@/composables/options';
+
+import type { TooltipOptions } from '@/types/options';
 
 import { TOOLTIP_POSITIONS } from '@/utils/constants';
 

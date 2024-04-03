@@ -15,7 +15,7 @@ import {
   nanoid,
 } from '@/utils/helpers';
 
-import {
+import type {
   ColorPalette,
   Data,
   Dataset,
@@ -24,9 +24,9 @@ import {
   InternalData,
   InternalDataset,
 } from '@/types/dataset';
-import { ContainerSize } from '@/types/size';
+import type { ContainerSize } from '@/types/size';
+import type { Options } from '@/types/options';
 
-import { Options } from './options';
 import { warn, Warnings } from '@/utils/warnings';
 
 function computeValues(values: Array<DatasetValue<number>>) {
