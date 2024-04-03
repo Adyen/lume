@@ -2,7 +2,7 @@ import { computed, ComputedRef } from 'vue';
 import { area } from 'd3';
 
 import { Scale } from '@/composables/scales';
-import { DatasetValueObject, InternalData } from '@/types/dataset';
+import type { DatasetValueObject, InternalData } from '@/types/dataset';
 import { isBandScale } from '@/utils/helpers';
 
 export function useSparklineArea(data: ComputedRef<InternalData>) {

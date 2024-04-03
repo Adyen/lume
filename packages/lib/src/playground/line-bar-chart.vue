@@ -29,7 +29,7 @@ import LumeLineGroup from '@/components/groups/lume-line-group';
 import { useBase } from '@/composables/base';
 import { useOptions, withOptions } from '@/composables/options';
 
-import { Data } from '@/types/dataset';
+import type { Data } from '@/types/dataset';
 
 export default defineComponent({
   components: {

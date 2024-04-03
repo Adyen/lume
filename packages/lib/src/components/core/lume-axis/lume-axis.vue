@@ -89,7 +89,7 @@ import { ticks as d3TickGenerator, ScaleBand } from 'd3';
 import LumeTick from './components/lume-tick';
 
 import { useFormat } from '@/composables/format';
-import { AxisOptions, useOptions, withOptions } from '@/composables/options';
+import { useOptions, withOptions } from '@/composables/options';
 import { ComputedScaleBand, Scale } from '@/composables/scales';
 import { useSkip } from './composables/lume-skip';
 
@@ -100,9 +100,11 @@ import {
 } from '@/utils/constants';
 import { isBandScale, isScaleEmpty } from '@/utils/helpers';
 import { svgCheck } from '@/utils/svg-check';
-import { ContainerSize } from '@/types/size';
+import type { ContainerSize } from '@/types/size';
+import type { AxisOptions } from '@/types/options';
+import type { AxisMixin, AxisMixinFunction, TickAttributes } from './types';
+
 import { xOptions, yOptions } from './defaults';
-import { AxisMixin, AxisMixinFunction, TickAttributes } from './types';
 
 import mixinTypes from './composables/';
 

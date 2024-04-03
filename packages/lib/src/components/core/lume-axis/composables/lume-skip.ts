@@ -1,7 +1,7 @@
 import { computed, ref, Ref, watch } from 'vue';
 
-import { AxisOptions } from '@/composables/options';
 import { Scale } from '@/composables/scales';
+import type { AxisOptions } from '@/types/options';
 
 const SAFETY_MARGIN = 0.2; // 20% of the average width
 

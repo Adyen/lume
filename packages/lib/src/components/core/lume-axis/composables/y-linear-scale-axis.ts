@@ -1,7 +1,7 @@
 import { computed, Ref } from 'vue';
 import { ScaleLinear } from 'd3';
 
-import { AxisOptions } from '@/composables/options';
+import type { AxisOptions } from '@/types/options';
 import { AxisMixin } from '../types';
 import { AXIS_GHOST_PADDING } from '@/utils/constants';
 

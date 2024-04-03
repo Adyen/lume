@@ -60,8 +60,9 @@ import { scaleLinear } from 'd3';
 import LumeBar from '@/components/core/lume-bar';
 
 import { withGroupProps } from '@/composables/group-props';
-import { InternalDataset } from '@/types/dataset';
 import { flatValues } from '@/utils/helpers';
+
+import type { InternalDataset } from '@/types/dataset';
 
 const TEXT_HEIGHT = 18;
 const BAR_HEIGHT = 16;

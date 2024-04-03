@@ -18,7 +18,7 @@ import { ScaleBand, ScaleLinear } from 'd3';
 
 import { useBase } from '@/composables/base';
 
-import { Data } from '@/types/dataset';
+import type { Data } from '@/types/dataset';
 
 const EMOJIS = ['🚓', '🍟', '🍺', '🎱', '🐻', '🐶', '💈'];
 

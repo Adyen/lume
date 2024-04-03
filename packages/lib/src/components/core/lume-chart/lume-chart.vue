@@ -255,7 +255,7 @@ import { useBase } from '@/composables/base';
 import { useEvents } from '@/composables/events';
 import { withChartProps } from '@/composables/props';
 import { isScale, Scale, useBaseScales } from '@/composables/scales';
-import { ChartOptions, useOptions } from '@/composables/options';
+import { useOptions } from '@/composables/options';
 import {
   checkNegativeValues,
   useNegativeValues,
@@ -275,9 +275,10 @@ import {
   calculateMarginTop,
 } from '@/utils/margins';
 import { warn, Warnings } from '@/utils/warnings';
-import { ChartType, Data } from '@/types/dataset';
-import { ChartEmits } from '@/types/events';
-import { ContainerSize } from '@/types/size';
+import type { ChartType, Data } from '@/types/dataset';
+import type { ChartEmits } from '@/types/events';
+import type { ContainerSize } from '@/types/size';
+import type { ChartOptions } from '@/types/options';
 
 const props = defineProps({
   ...withChartProps(),

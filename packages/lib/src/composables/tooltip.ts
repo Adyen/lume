@@ -4,8 +4,8 @@ import { getXByIndex, Scale } from './scales';
 
 import { NO_DATA, Orientation, ORIENTATIONS } from '@/utils/constants';
 import { fillArrayWithNullValues } from '@/utils/helpers';
-import { InternalData } from '@/types/dataset';
-import { ChartOptions } from './options';
+import type { InternalData } from '@/types/dataset';
+import type { ChartOptions } from '@/types/options';
 
 export interface AnchorAttributes {
   cx: number;

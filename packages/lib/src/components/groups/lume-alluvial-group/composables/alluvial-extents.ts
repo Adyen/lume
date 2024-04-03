@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 
-import { AlluvialExtents, AlluvialLabelMargins } from '@/types/alluvial';
-import { ContainerSize } from '@/types/size';
+import type { AlluvialExtents, AlluvialLabelMargins } from '@/types/alluvial';
+import type { ContainerSize } from '@/types/size';
 
 function computeExtents(
   size: ContainerSize,

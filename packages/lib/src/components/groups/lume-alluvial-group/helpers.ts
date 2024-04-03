@@ -6,7 +6,7 @@ import { interpolateRound } from '@/utils/helpers';
 
 import { NODE_LABEL_PADDING, NODE_MINIMUM_HEIGHT } from './constants';
 
-import {
+import type {
   LinkPath,
   NodeBlock,
   SankeyGraph,

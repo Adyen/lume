@@ -1,8 +1,9 @@
 import type { Ref } from 'vue';
 
-import { AxisOptions } from '@/composables/options';
 import { Scale } from '@/composables/scales';
-import { ContainerSize } from '@/types/size';
+
+import type { AxisOptions } from '@/types/options';
+import type { ContainerSize } from '@/types/size';
 
 export type AxisMixinFunction = (
   value?: string | number | SVGTextElement,

@@ -6,7 +6,7 @@ import { useTooltip, useTooltipAnchors, useTooltipItems } from './tooltip';
 import { data, labels, xScale, yScale } from '@test/unit/mock-data';
 
 import { Orientation } from '@/utils/constants';
-import { InternalData } from '@/types/dataset';
+import type { InternalData } from '@/types/dataset';
 
 const orientation: Orientation = 'vertical';
 const chartType = 'bar';

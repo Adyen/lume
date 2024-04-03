@@ -5,7 +5,7 @@ import { Scale } from '@/composables/scales';
 
 import { Orientation, ORIENTATIONS } from '@/utils/constants';
 import { DEFAULT_COLOR } from '@/utils/colors';
-import { Data, DatasetValueObject } from '@/types/dataset';
+import type { Data, DatasetValueObject } from '@/types/dataset';
 
 const NULL_BAR = {
   x: 0,

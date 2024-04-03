@@ -25,8 +25,8 @@
 
 <script setup lang="ts">
 import { PropType } from 'vue';
-import { InternalData } from '@/types/dataset';
-import { LegendEventPayload } from '@/types/events';
+import type { InternalData } from '@/types/dataset';
+import type { LegendEventPayload } from '@/types/events';
 import { dataValidator } from '@/utils/helpers';
 
 defineProps({

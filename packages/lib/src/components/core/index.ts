@@ -1,5 +1,6 @@
 // Chart anatomy
 export { default as LumeAxis } from './lume-axis';
+export * from './lume-axis/types';
 export { default as LumeChart } from './lume-chart';
 export { default as LumeChartContainer } from './lume-chart-container';
 export { default as LumeChartLegend } from './lume-chart-legend';

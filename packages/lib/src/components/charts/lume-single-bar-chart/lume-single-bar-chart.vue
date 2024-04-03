@@ -32,10 +32,12 @@ import LumeChart from '@/components/core/lume-chart';
 import LumeBarGroup from '@/components/groups/lume-bar-group';
 
 import { useEvents } from '@/composables/events';
-import { BarChartOptions, useOptions } from '@/composables/options';
+import { useOptions } from '@/composables/options';
 import { withChartProps } from '@/composables/props';
 
-import { ChartEmits } from '@/types/events';
+import type { BarChartOptions } from '@/types/options';
+import type { ChartEmits } from '@/types/events';
+
 import { excludeGroups, singleDatasetValidator } from '@/utils/helpers';
 import { ORIENTATIONS } from '@/utils/constants';
 

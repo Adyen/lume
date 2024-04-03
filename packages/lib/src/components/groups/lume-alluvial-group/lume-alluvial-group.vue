@@ -181,7 +181,6 @@ import LumeAlluvialNodeHeader from './components/lume-alluvial-node-header';
 
 import { useFormat } from '@/composables/format';
 import { withGroupProps } from '@/composables/group-props';
-import { AlluvialDiagramOptions } from '@/composables/options';
 
 import { useAlluvialExtents } from './composables/alluvial-extents';
 import { useAlluvialGraph } from './composables/alluvial-graph';
@@ -203,13 +202,14 @@ import {
   getNodeById,
 } from './helpers';
 
-import {
+import type { AlluvialDiagramOptions } from '@/types/options';
+import type {
   AlluvialNode,
   LinkPath,
   NodeBlock,
   SankeyLink,
 } from '@/types/alluvial';
-import {
+import type {
   AlluvialLinkEventPayload,
   AlluvialNodeEventPayload,
 } from '@/types/events';

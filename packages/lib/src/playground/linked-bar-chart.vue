@@ -51,7 +51,7 @@ import LumeBarGroup from '@/components/groups/lume-bar-group';
 import { Scale } from '@/composables/scales';
 import { withChartProps } from '@/composables/props';
 
-import { Data } from '@/types/dataset';
+import type { Data } from '@/types/dataset';
 import { useBase } from '@/composables/base';
 
 const linkedDataValidator = (data: Data) => data.length === 2;

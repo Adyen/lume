@@ -1,6 +1,6 @@
 import { sankeyJustify } from 'd3-sankey';
 
-import { AlluvialDiagramOptions } from '@/composables/options';
+import type { AlluvialDiagramOptions } from '@/types/options';
 
 export const options: AlluvialDiagramOptions = {
   margins: {

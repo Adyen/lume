@@ -1,8 +1,8 @@
 import { computed, ComputedRef, PropType } from 'vue';
-import { Data } from '@/types/dataset';
+import type { Data } from '@/types/dataset';
 import { scaleBand, scaleLinear } from 'd3';
 import { ascending, quantile } from 'd3';
-import { Options } from '@/composables/options';
+import type { Options } from '@/types/options';
 import { PADDING_VERTICAL } from '@/utils/constants';
 
 export const withData = () => ({

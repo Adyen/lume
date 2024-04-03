@@ -41,7 +41,7 @@ import { computed, PropType, ref, toRefs, watchEffect } from 'vue';
 
 import { useResizeObserver } from '@/composables/resize';
 import { InternalMargins } from '@/utils/constants';
-import { ContainerSize } from '@/types/size';
+import type { ContainerSize } from '@/types/size';
 
 const props = defineProps({
   margins: {

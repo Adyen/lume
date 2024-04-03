@@ -42,14 +42,17 @@ import LumeAlluvialGroup from '@/components/groups/lume-alluvial-group';
 
 import { useEvents } from '@/composables/events';
 import { withDiagramProps } from '@/composables/props';
-import { AlluvialDiagramOptions, useOptions } from '@/composables/options';
+import { useOptions } from '@/composables/options';
+
+import type { ChartEmits } from '@/types/events';
+import type { AlluvialDiagramOptions } from '@/types/options';
 
 import {
   excludeChartSlots,
   excludeGroups,
   singleDatasetValidator,
 } from '@/utils/helpers';
-import { ChartEmits } from '@/types/events';
+
 import { options as defaultOptions } from './defaults';
 
 const props = defineProps({

@@ -8,7 +8,7 @@ import { containerSize, data, xScale, yScale } from '@test/unit/mock-data';
 
 import { Orientation } from '@/utils/constants';
 import { Scale } from '@/composables/scales';
-import { InternalData } from '@/types/dataset';
+import type { InternalData } from '@/types/dataset';
 
 export const yScaleWithNegativeValues: Scale = scaleLinear<number>()
   .domain([-100, 100])

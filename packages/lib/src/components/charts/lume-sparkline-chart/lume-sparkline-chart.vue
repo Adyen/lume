@@ -48,18 +48,14 @@ import LumeLineGroup from '@/components/groups/lume-line-group';
 
 import { useBase, withBase } from '@/composables/base';
 import { useEvents } from '@/composables/events';
-import {
-  LineChartOptions,
-  Options,
-  useOptions,
-  withOptions,
-} from '@/composables/options';
+import { useOptions, withOptions } from '@/composables/options';
 import { useLineNullValues } from '@/composables/line-null-values';
 import { useSparklineArea } from './composables/sparkline-area';
 
-import { Data } from '@/types/dataset';
-import { ChartEmits } from '@/types/events';
-import { ContainerSize } from '@/types/size';
+import type { Data } from '@/types/dataset';
+import type { ChartEmits } from '@/types/events';
+import type { ContainerSize } from '@/types/size';
+import type { LineChartOptions, Options } from '@/types/options';
 
 import { options as defaultOptions } from './defaults';
 import { excludeGroups } from '@/utils/helpers';

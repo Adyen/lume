@@ -4,7 +4,7 @@ import { scaleBand, ScaleBand } from 'd3';
 import { Scale } from '@/composables/scales';
 
 import { Colors, Orientation, ORIENTATIONS } from '@/utils/constants';
-import { Data, DatasetValueObject } from '@/types/dataset';
+import type { Data, DatasetValueObject } from '@/types/dataset';
 
 const NULL_BAR = {
   x: 0,
