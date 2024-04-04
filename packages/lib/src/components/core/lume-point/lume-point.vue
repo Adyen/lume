@@ -51,4 +51,3 @@ onMounted(() => svgCheck(root.value));
 <style lang="scss" scoped>
 @use './styles';
 </style>
-@/types/types
