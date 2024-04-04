@@ -10,10 +10,10 @@ import {
   yScale,
 } from '@test/unit/mock-data';
 
-import type { ChartType } from '@/types/utils';
+import type { ChartTypeWithoutVariant } from '@/types/utils';
 
 const numberOfLines = data[0].values.length;
-const chartType: ChartType = 'line';
+const chartType: ChartTypeWithoutVariant = 'line';
 const lineChartTestSuiteFactory = (props) =>
   new BaseTestSuite(LumeLineChart, props);
 

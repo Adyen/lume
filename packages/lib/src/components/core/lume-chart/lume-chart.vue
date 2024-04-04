@@ -275,10 +275,11 @@ import {
   calculateMarginTop,
 } from '@/utils/margins';
 import { warn, Warnings } from '@/utils/warnings';
-import type { BarLineChartType, Data } from '@/types/dataset';
+import type { Data } from '@/types/dataset';
 import type { ChartEmits } from '@/types/events';
 import type { ContainerSize } from '@/types/size';
 import type { ChartOptions } from '@/types/options';
+import type { BarLineChartType } from '@/types/utils';
 
 const props = defineProps({
   ...withChartProps(),
