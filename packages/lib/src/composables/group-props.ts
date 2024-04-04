@@ -3,10 +3,11 @@ import { PropType } from 'vue';
 import { orientationValidator } from '@/composables/props';
 import { Scale } from '@/composables/scales';
 
-import { Orientation, ORIENTATIONS } from '@/utils/constants';
+import { ORIENTATIONS } from '@/utils/constants';
 import type { DatasetValueObject, InternalData } from '@/types/dataset';
 import type { ContainerSize } from '@/types/size';
 import type { Options } from '@/types/options';
+import type { Orientation } from '@/types/utils';
 
 export const withGroupProps = <
   T extends Options = Options,

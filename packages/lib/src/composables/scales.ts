@@ -4,7 +4,6 @@ import { ScaleBand, scaleBand, ScaleLinear, scaleLinear } from 'd3';
 import { flatValues, isBandScale } from '@/utils/helpers';
 
 import {
-  Orientation,
   ORIENTATIONS,
   PADDING_HORIZONTAL,
   PADDING_VERTICAL,
@@ -12,6 +11,7 @@ import {
 import type { ContainerSize } from '@/types/size';
 import type { InternalData } from '@/types/dataset';
 import type { BarChartOptions, ChartOptions } from '@/types/options';
+import type { Orientation } from '@/types/utils';
 
 export interface ComputedScaleBand extends ScaleBand<string | number> {
   labels: Array<string | number>;

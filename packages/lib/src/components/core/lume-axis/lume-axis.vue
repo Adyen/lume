@@ -93,15 +93,12 @@ import { useOptions, withOptions } from '@/composables/options';
 import { ComputedScaleBand, Scale } from '@/composables/scales';
 import { useSkip } from './composables/lume-skip';
 
-import {
-  AXIS_GHOST_PADDING,
-  Orientation,
-  ORIENTATIONS,
-} from '@/utils/constants';
+import { AXIS_GHOST_PADDING, ORIENTATIONS } from '@/utils/constants';
 import { isBandScale, isScaleEmpty } from '@/utils/helpers';
 import { svgCheck } from '@/utils/svg-check';
 import type { ContainerSize } from '@/types/size';
 import type { AxisOptions } from '@/types/options';
+import type { Orientation } from '@/types/utils';
 import type { AxisMixin, AxisMixinFunction, TickAttributes } from './types';
 
 import { xOptions, yOptions } from './defaults';
@@ -339,3 +336,4 @@ watch(props.containerSize, updateGridlines);
 
 onMounted(() => svgCheck(root.value));
 </script>
+@/types/types

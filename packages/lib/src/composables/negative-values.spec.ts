@@ -6,8 +6,8 @@ import { checkNegativeValues, useNegativeValues } from './negative-values';
 
 import { containerSize, data, xScale, yScale } from '@test/unit/mock-data';
 
-import { Orientation } from '@/utils/constants';
 import { Scale } from '@/composables/scales';
+import type { Orientation } from '@/types/utils';
 import type { InternalData } from '@/types/dataset';
 
 export const yScaleWithNegativeValues: Scale = scaleLinear<number>()

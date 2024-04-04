@@ -40,7 +40,7 @@
 import { computed, PropType, ref, toRefs, watchEffect } from 'vue';
 
 import { useResizeObserver } from '@/composables/resize';
-import { InternalMargins } from '@/utils/constants';
+import type { InternalMargins } from '@/types/utils';
 import type { ContainerSize } from '@/types/size';
 
 const props = defineProps({
@@ -103,3 +103,4 @@ watchEffect(() => {
 <style lang="scss" scoped>
 @use './styles';
 </style>
+@/types/types

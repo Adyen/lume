@@ -25,7 +25,8 @@ import {
   getScaleStep,
   isBandScale,
 } from '@/utils/helpers';
-import { Orientation, ORIENTATIONS } from '@/utils/constants';
+import { ORIENTATIONS } from '@/utils/constants';
+import type { Orientation } from '@/types/utils';
 import { ScaleBand } from 'd3';
 
 const props = defineProps({
@@ -73,3 +74,4 @@ function getOverlayBarAttributes(index: number) {
     };
 }
 </script>
+@/types/types

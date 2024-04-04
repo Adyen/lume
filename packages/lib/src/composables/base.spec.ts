@@ -5,7 +5,7 @@ import { useBase, withBase } from './base';
 
 import { data, labels } from '@test/unit/mock-data';
 
-import { Orientation } from '@/utils/constants';
+import type { Orientation } from '@/types/utils';
 
 const getMixin = (orientation: Orientation = 'horizontal') => {
   let mixin = null;

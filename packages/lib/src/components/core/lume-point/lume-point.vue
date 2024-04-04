@@ -19,7 +19,7 @@ const DEFAULT_RADIUS = 4; // 4px; If together with a `lume-line`, should double 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 
-import { Colors } from '@/utils/constants';
+import { Colors } from '@/types/utils';
 import { svgCheck } from '@/utils/svg-check';
 
 const props = defineProps({
@@ -51,3 +51,4 @@ onMounted(() => svgCheck(root.value));
 <style lang="scss" scoped>
 @use './styles';
 </style>
+@/types/types
