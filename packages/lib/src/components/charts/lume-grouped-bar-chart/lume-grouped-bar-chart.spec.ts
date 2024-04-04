@@ -10,7 +10,8 @@ import {
   yScale,
 } from '@test/unit/mock-data';
 
-import { CHART_TYPES, ChartType, Orientation } from '@/utils/constants';
+import { CHART_TYPES } from '@/utils/constants';
+import type { ChartType, Orientation } from '@/types/utils';
 
 const orientation: Orientation = 'horizontal';
 const chartType: ChartType = CHART_TYPES.BAR;

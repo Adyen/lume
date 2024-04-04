@@ -12,7 +12,9 @@ import DATASETS from '@/docs/storybook-data/base-data';
 import LumeBarChart from './index';
 import LumeTooltip from '../../core/lume-tooltip/index';
 
-import { Colors, ORIENTATIONS } from '@/utils/constants';
+import { ORIENTATIONS } from '@/utils/constants';
+
+import { Colors } from '@/types/utils';
 
 const meta: Meta<typeof LumeBarChart> = {
   title: 'Charts/Bar chart',

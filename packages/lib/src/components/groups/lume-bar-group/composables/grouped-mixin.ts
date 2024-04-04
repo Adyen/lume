@@ -3,8 +3,10 @@ import { scaleBand, ScaleBand } from 'd3';
 
 import { Scale } from '@/composables/scales';
 
-import { Colors, Orientation, ORIENTATIONS } from '@/utils/constants';
+import { ORIENTATIONS } from '@/utils/constants';
+
 import type { Data, DatasetValueObject } from '@/types/dataset';
+import { Colors, type Orientation } from '@/types/utils';
 
 const NULL_BAR = {
   x: 0,

@@ -1,12 +1,12 @@
 import { ColorPalette } from '@/types/dataset';
 import {
-  Color,
+  type Color,
   Colors,
   DivergentColors,
   LegacyColors,
   OtherColors,
   SequentialColors,
-} from '@/utils/constants';
+} from '@/types/utils';
 import { shiftItems } from './helpers';
 import { warn, Warnings } from './warnings';
 

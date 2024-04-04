@@ -1,6 +1,10 @@
-import { Color } from '@/utils/constants';
+import type { Color } from '@/types/utils';
 
-export type ChartType = 'grouped-bar' | 'line' | 'single-bar' | 'stacked-bar';
+export type BarLineChartType =
+  | 'grouped-bar'
+  | 'line'
+  | 'single-bar'
+  | 'stacked-bar';
 
 type DatasetValueType = number | string | Array<number>;
 
@@ -21,7 +25,7 @@ export interface Dataset<T> {
   label?: string;
   areaColor?: Color;
   legend?: string;
-  type?: ChartType;
+  type?: BarLineChartType;
   isDashed?: (index: number) => boolean; // for line datasets
 }
 

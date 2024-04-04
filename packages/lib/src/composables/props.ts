@@ -4,8 +4,9 @@ import { DataValidator, withBase } from './base';
 import { withOptions } from './options';
 import { withScales } from './scales';
 
-import { Orientation, ORIENTATIONS } from '@/utils/constants';
+import { ORIENTATIONS } from '@/utils/constants';
 import type { ChartOptions, Options } from '@/types/options';
+import type { Orientation } from '@/types/utils';
 
 export function orientationValidator(orientation: string): boolean {
   return Object.values(ORIENTATIONS).includes(orientation as Orientation);

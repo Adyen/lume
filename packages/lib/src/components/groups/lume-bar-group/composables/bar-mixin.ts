@@ -3,15 +3,12 @@ import { ScaleLinear } from 'd3';
 
 import { Scale } from '@/composables/scales';
 
-import {
-  BAR_TYPES,
-  BarType,
-  Orientation,
-  ORIENTATIONS,
-} from '@/utils/constants';
+import { BAR_TYPES, ORIENTATIONS } from '@/utils/constants';
+
 import { error, Errors } from '@/utils/errors';
 import { fillArrayWithNullValues } from '@/utils/helpers';
 import type { DatasetValueObject, InternalData } from '@/types/dataset';
+import type { BarType, Orientation } from '@/types/utils';
 
 function typeValidator(type: string): boolean {
   return Object.values(BAR_TYPES).includes(type as BarType) || type == null;

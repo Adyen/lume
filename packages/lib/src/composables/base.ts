@@ -1,12 +1,6 @@
 import { computed, ComputedRef, PropType, reactive, Ref } from 'vue';
 
-import {
-  BAR_HEIGHT,
-  Colors,
-  DivergentColors,
-  Orientation,
-  ORIENTATIONS,
-} from '@/utils/constants';
+import { BAR_HEIGHT, ORIENTATIONS } from '@/utils/constants';
 
 import { computeColor } from '@/utils/colors';
 import {
@@ -15,6 +9,7 @@ import {
   nanoid,
 } from '@/utils/helpers';
 
+import { Colors, type DivergentColors, type Orientation } from '@/types/utils';
 import type {
   ColorPalette,
   Data,

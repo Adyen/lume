@@ -5,7 +5,7 @@ import { useTooltip, useTooltipAnchors, useTooltipItems } from './tooltip';
 
 import { data, labels, xScale, yScale } from '@test/unit/mock-data';
 
-import { Orientation } from '@/utils/constants';
+import type { Orientation } from '@/types/utils';
 import type { InternalData } from '@/types/dataset';
 
 const orientation: Orientation = 'vertical';

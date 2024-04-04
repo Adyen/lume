@@ -9,7 +9,8 @@ import {
   xScale,
   yScale,
 } from '@test/unit/mock-data';
-import { CHART_TYPES, ChartType } from '@/utils/constants';
+import { CHART_TYPES } from '@/utils/constants';
+import type { ChartType } from '@/types/utils';
 
 const numberOfLines = data[0].values.length;
 const chartType: ChartType = CHART_TYPES.LINE;

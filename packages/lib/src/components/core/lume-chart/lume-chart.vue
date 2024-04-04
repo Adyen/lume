@@ -275,7 +275,7 @@ import {
   calculateMarginTop,
 } from '@/utils/margins';
 import { warn, Warnings } from '@/utils/warnings';
-import type { ChartType, Data } from '@/types/dataset';
+import type { BarLineChartType, Data } from '@/types/dataset';
 import type { ChartEmits } from '@/types/events';
 import type { ContainerSize } from '@/types/size';
 import type { ChartOptions } from '@/types/options';
@@ -283,7 +283,7 @@ import type { ChartOptions } from '@/types/options';
 const props = defineProps({
   ...withChartProps(),
   chartType: {
-    type: String as PropType<ChartType>,
+    type: String as PropType<BarLineChartType>,
     default: null,
   },
 });

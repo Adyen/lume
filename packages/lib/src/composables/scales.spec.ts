@@ -11,12 +11,9 @@ import {
 
 import { containerSize, data, labels } from '@test/unit/mock-data';
 
-import {
-  Orientation,
-  PADDING_HORIZONTAL,
-  PADDING_VERTICAL,
-} from '@/utils/constants';
+import { PADDING_HORIZONTAL, PADDING_VERTICAL } from '@/utils/constants';
 import type { ChartOptions } from '@/types/options';
+import type { Orientation } from '@/types/utils';
 
 const aboveZeroDataSet = [
   { values: [{ value: 10 }, { value: 20 }, { value: 30 }, { value: 40 }] },

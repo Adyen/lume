@@ -8,7 +8,9 @@ import type { ColorPalette } from './dataset';
 import type { SankeyNode } from 'd3-sankey';
 
 import type { Format } from '../composables/format';
-import { Margins, TOOLTIP_POSITIONS } from '../utils/constants';
+import type { Margins } from './utils';
+
+import { TOOLTIP_POSITIONS } from '../utils/constants';
 
 export interface AxisOptions extends Options {
   gridLines?: boolean;

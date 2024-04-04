@@ -1,4 +1,4 @@
-import { InternalMargins, Margins } from './constants';
+import type { InternalMargins, Margins } from '../types/utils';
 
 const DEFAULT_MARGIN_TOP = 16;
 const DEFAULT_MARGIN_RIGHT = 8;

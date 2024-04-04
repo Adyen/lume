@@ -2,10 +2,11 @@ import { computed, reactive, Ref, watch } from 'vue';
 
 import { getXByIndex, Scale } from './scales';
 
-import { NO_DATA, Orientation, ORIENTATIONS } from '@/utils/constants';
+import { NO_DATA, ORIENTATIONS } from '@/utils/constants';
 import { fillArrayWithNullValues } from '@/utils/helpers';
 import type { InternalData } from '@/types/dataset';
 import type { ChartOptions } from '@/types/options';
+import type { Orientation } from '@/types/utils';
 
 export interface AnchorAttributes {
   cx: number;

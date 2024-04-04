@@ -12,7 +12,7 @@ import DATASETS from '@/docs/storybook-data/base-data';
 import LumeLineChart from './lume-line-chart.vue';
 import LumeTooltip from '../../core/lume-tooltip/index';
 import LumeTooltipSummary from '../../core/lume-tooltip/components/lume-tooltip-summary/index';
-import { Colors } from '@/utils/constants';
+import { Colors } from '@/types/utils';
 
 const meta: Meta<typeof LumeLineChart> = {
   title: 'Charts/Line chart',

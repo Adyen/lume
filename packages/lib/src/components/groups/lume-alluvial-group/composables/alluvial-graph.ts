@@ -2,7 +2,7 @@ import { computed, ComputedRef, ref, Ref, watch } from 'vue';
 import { SankeyLink as D3SankeyLink, sankey } from 'd3-sankey';
 
 import { DEFAULT_COLOR } from '@/utils/colors';
-import { OtherColors } from '@/utils/constants';
+import { OtherColors } from '@/types/utils';
 import { Errors, error as logError } from '@/utils/errors';
 import { getAlluvialNodeId } from '../helpers';
 

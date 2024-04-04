@@ -2,11 +2,12 @@ import { computed, Ref } from 'vue';
 
 import { flatValues } from '@/utils/helpers';
 
-import { Orientation, ORIENTATIONS } from '@/utils/constants';
+import { ORIENTATIONS } from '@/utils/constants';
 import { Scale } from './scales';
 
 import type { InternalData } from '@/types/dataset';
 import type { ContainerSize } from '@/types/size';
+import type { Orientation } from '@/types/utils';
 
 export function checkNegativeValues(data: Ref<InternalData>) {
   const hasNegativeValues = computed(() =>

@@ -187,7 +187,6 @@ import { useAlluvialGraph } from './composables/alluvial-graph';
 import { useAlluvialHover } from './composables/alluvial-hover';
 
 import { DEFAULT_COLOR } from '@/utils/colors';
-import { Color } from '@/utils/constants';
 import { warn, Warnings } from '@/utils/warnings';
 import {
   GHOST_STROKE_WIDTH_OFFSET,
@@ -213,6 +212,7 @@ import type {
   AlluvialLinkEventPayload,
   AlluvialNodeEventPayload,
 } from '@/types/events';
+import type { Color } from '@/types/utils';
 
 const props = defineProps({
   ...withGroupProps<AlluvialDiagramOptions, AlluvialNode>(),
@@ -462,3 +462,4 @@ watch(() => props.hoveredElementId, handleExternalHover);
 <style lang="scss" scoped>
 @use './styles';
 </style>
+@/types/types

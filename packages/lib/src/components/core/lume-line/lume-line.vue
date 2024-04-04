@@ -25,9 +25,9 @@ const DEFAULT_LINE_WIDTH = 2; // 2px
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 
-import { Colors } from '@/utils/constants';
-
 import { svgCheck } from '@/utils/svg-check';
+
+import { Colors } from '@/types/utils';
 
 defineProps({
   pathDefinition: {
@@ -70,3 +70,4 @@ onMounted(() => svgCheck(root.value));
 <style lang="scss" scoped>
 @use './styles';
 </style>
+@/types/types

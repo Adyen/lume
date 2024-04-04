@@ -5,7 +5,7 @@ import { withSizeArgs, withSizeArgTypes } from '@/docs/storybook-helpers';
 
 import LumeBar from './lume-bar.vue';
 
-import { Colors } from '@/utils/constants';
+import { Colors } from '@/types/utils';
 
 const meta: Meta<typeof LumeBar> = {
   title: 'Core/Bar',

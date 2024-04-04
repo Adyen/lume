@@ -3,7 +3,8 @@ import { scaleBand, ScaleBand, scaleLinear } from 'd3';
 
 import { getPaddedScale, Scale } from '@/composables/scales';
 
-import { Colors, Orientation, ORIENTATIONS } from '@/utils/constants';
+import { ORIENTATIONS } from '@/utils/constants';
+import { Colors, type Orientation } from '@/types/utils';
 import type { Data, DatasetValueObject } from '@/types/dataset';
 import type { BarChartOptions } from '@/types/options';
 import type { ContainerSize } from '@/types/size';

@@ -1,7 +1,7 @@
 import { computed } from 'vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import { Colors } from '@/utils/constants';
+import { Colors } from '@/types/utils';
 
 import LumeLine from './lume-line.vue';
 
