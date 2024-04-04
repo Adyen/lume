@@ -74,4 +74,3 @@ function getOverlayBarAttributes(index: number) {
     };
 }
 </script>
-@/types/types

@@ -103,4 +103,3 @@ watchEffect(() => {
 <style lang="scss" scoped>
 @use './styles';
 </style>
-@/types/types
