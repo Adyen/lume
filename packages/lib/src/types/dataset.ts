@@ -1,10 +1,4 @@
-import type { Color } from '@/types/utils';
-
-export type BarLineChartType =
-  | 'grouped-bar'
-  | 'line'
-  | 'single-bar'
-  | 'stacked-bar';
+import type { BarLineChartType, Color } from '@/types/utils';
 
 type DatasetValueType = number | string | Array<number>;
 

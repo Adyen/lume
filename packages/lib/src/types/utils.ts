@@ -124,4 +124,10 @@ export type Orientation = 'horizontal' | 'vertical';
 
 export type BarType = 'single' | 'grouped' | 'stacked';
 
-export type ChartType = 'bar' | 'line' | 'alluvial' | 'sparkline';
+export type BarChartVariant = `${BarType}-bar`;
+
+export type BarLineChartType = BarChartVariant | 'line';
+
+export type AllChartType = 'bar' | BarLineChartType | 'alluvial' | 'sparkline';
+
+export type ChartTypeWithoutVariant = Exclude<AllChartType, BarChartVariant>;

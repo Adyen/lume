@@ -10,12 +10,12 @@ import {
 } from '@test/unit/mock-data';
 import { flushPromises } from '@test/unit/flush-promises';
 
-import type { ChartType } from '@/types/utils';
+import type { ChartTypeWithoutVariant } from '@/types/utils';
 
 const numberOfSets = 2;
 const numberOfBars = singleSetData[0].values.length;
 const multiSetData = generateData(numberOfSets, singleSetData[0].values.length);
-const chartType: ChartType = 'bar';
+const chartType: ChartTypeWithoutVariant = 'bar';
 
 const barChartTestSuiteFactory = (props) => new BaseTestSuite(BarChart, props);
 
