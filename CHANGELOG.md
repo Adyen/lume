@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.9.5](https://github.com/Adyen/lume/compare/1.9.4...1.9.5)
+
+- 🏷️ Exported utils types for better DX [`eef5e4a`](https://github.com/Adyen/lume/commit/eef5e4a25119c5e772867229eebdb8da3ff9594c)
+- 🏷️ Reusing different bar variants from all bar types [`64dd24d`](https://github.com/Adyen/lume/commit/64dd24de2ca9d87fd0079d99ddd8d94b6d32aea8)
+- 🔥 Removed CHART_TYPES in favor of the existing enum [`fd819b1`](https://github.com/Adyen/lume/commit/fd819b1086250e6d37ada01094dc289d11944bda)
+
 #### [1.9.4](https://github.com/Adyen/lume/compare/1.9.3...1.9.4)
+
+> 3 April 2024
 
 - 🏷️ Improve DX of exported types and add the missing types. [`387774a`](https://github.com/Adyen/lume/commit/387774a1ff1ce2cabcc61afc508bd398c9f8c357)
 - 🏷️ Updated type import for few shared types [`4426731`](https://github.com/Adyen/lume/commit/44267311eb749c8e5fd6a127db2646bc5b480d3a)
