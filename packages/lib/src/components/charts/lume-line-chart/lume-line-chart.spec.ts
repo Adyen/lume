@@ -9,11 +9,11 @@ import {
   xScale,
   yScale,
 } from '@test/unit/mock-data';
-import { CHART_TYPES } from '@/utils/constants';
+
 import type { ChartType } from '@/types/utils';
 
 const numberOfLines = data[0].values.length;
-const chartType: ChartType = CHART_TYPES.LINE;
+const chartType: ChartType = 'line';
 const lineChartTestSuiteFactory = (props) =>
   new BaseTestSuite(LumeLineChart, props);
 

@@ -9,11 +9,10 @@ import {
   xScale,
 } from '@test/unit/mock-data';
 
-import { CHART_TYPES } from '@/utils/constants';
 import type { ChartType, Orientation } from '@/types/utils';
 
 const orientation: Orientation = 'horizontal';
-const chartType: ChartType = CHART_TYPES.BAR;
+const chartType: ChartType = 'bar';
 const numberOfBars = data[0].values.length;
 
 const stackedBarChartTestSuiteFactory = (props) =>
