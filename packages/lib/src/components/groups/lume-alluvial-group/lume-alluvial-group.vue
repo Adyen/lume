@@ -462,4 +462,3 @@ watch(() => props.hoveredElementId, handleExternalHover);
 <style lang="scss" scoped>
 @use './styles';
 </style>
-@/types/types

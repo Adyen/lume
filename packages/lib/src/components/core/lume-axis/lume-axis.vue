@@ -336,4 +336,3 @@ watch(props.containerSize, updateGridlines);
 
 onMounted(() => svgCheck(root.value));
 </script>
-@/types/types
