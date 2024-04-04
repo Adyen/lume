@@ -4,7 +4,6 @@ import { mount, Wrapper } from '@vue/test-utils';
 import { LumeChart } from '@/components/core';
 
 import { generateData } from './mock-data';
-import { CHART_TYPES } from '@/utils/constants';
 
 type ComponentInstance = VueConstructor;
 type props = Record<string, unknown>;
@@ -58,7 +57,7 @@ export class BaseTestSuite {
   }
 
   private getNumberOfRecords(chartType, numberOfLabels, numberOfRecords) {
-    if (chartType === CHART_TYPES.BAR) return numberOfLabels;
+    if (chartType === 'bar') return numberOfLabels;
     return numberOfRecords;
   }
 

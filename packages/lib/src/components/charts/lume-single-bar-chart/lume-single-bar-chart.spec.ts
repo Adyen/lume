@@ -2,13 +2,13 @@ import SingleBarChart from './lume-single-bar-chart.vue';
 
 import { BaseTestSuite } from '@test/unit/reusable.test';
 import { data, labels, xScale, yScale } from '@test/unit/mock-data';
-import { CHART_TYPES } from '@/utils/constants';
+
 import type { ChartType } from '@/types/utils';
 
 const numberOfPositiveBars = 5;
 const numberOfNegativeBars = 2;
 const totalNumberOfBars = data[0].values.length;
-const chartType: ChartType = CHART_TYPES.BAR;
+const chartType: ChartType = 'bar';
 
 const singleBarChartTestSuiteFactory = (props) =>
   new BaseTestSuite(SingleBarChart, props);

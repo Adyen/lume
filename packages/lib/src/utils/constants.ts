@@ -1,4 +1,4 @@
-import type { BarType, ChartType, Orientation } from '../types/utils';
+import type { BarType, Orientation } from '../types/utils';
 
 export const ORIENTATIONS: Record<string, Orientation> = {
   HORIZONTAL: 'horizontal',
@@ -9,13 +9,6 @@ export const BAR_TYPES: Record<string, BarType> = {
   SINGLE: 'single',
   GROUPED: 'grouped',
   STACKED: 'stacked',
-};
-
-export const CHART_TYPES: Record<string, ChartType> = {
-  BAR: 'bar',
-  LINE: 'line',
-  ALLUVIAL: 'alluvial',
-  SPARKLINE: 'sparkline',
 };
 
 export const NO_DATA = 'No data';

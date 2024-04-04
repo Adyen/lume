@@ -9,13 +9,13 @@ import {
   yScale,
 } from '@test/unit/mock-data';
 import { flushPromises } from '@test/unit/flush-promises';
-import { CHART_TYPES } from '@/utils/constants';
+
 import type { ChartType } from '@/types/utils';
 
 const numberOfSets = 2;
 const numberOfBars = singleSetData[0].values.length;
 const multiSetData = generateData(numberOfSets, singleSetData[0].values.length);
-const chartType: ChartType = CHART_TYPES.BAR;
+const chartType: ChartType = 'bar';
 
 const barChartTestSuiteFactory = (props) => new BaseTestSuite(BarChart, props);
 
