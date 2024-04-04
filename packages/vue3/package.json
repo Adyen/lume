@@ -1,6 +1,6 @@
 {
   "name": "@adyen/lume-vue3",
-  "version": "1.9.4",
+  "version": "1.9.5",
   "description": "Lume is a Vue data visualization component library, built with Typescript and D3.",
   "type": "module",
   "module": "dist/index.js",
