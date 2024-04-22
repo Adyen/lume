@@ -7,31 +7,30 @@ export default {
     options: {
       control: 'object',
     },
+    barWidth: { control: { type: 'number' } },
+    gap: { control: { type: 'number' } },
+    height: { control: { type: 'number' } },
   },
   args: {
-    options: {
-      margins: { top: 0, right: 0, bottom: 0, left: 0 },
-      withAxes: false,
-      withHover: false,
-      withLegend: false,
-      noMinSize: true,
-    },
     data: [
       {
         values: [
           20,
           50,
           30,
-          35,
-          { value: 70, color: '09' },
+          60,
           { value: 80, color: '09' },
           { value: 75, color: '09' },
         ],
-        label: 'Emojis',
+        label: 'Abandoned pets',
         type: 'line',
+        color: 'green',
       },
     ],
-    labels: ['Cops', 'Frits!', 'Beer', '8 ball', 'Bear', 'Dogger', 'Barber'],
+    labels: [0, 1, 2, 3, 4, 5],
+    barWidth: 12,
+    gap: 2,
+    height: 20,
   },
 };
 
@@ -42,9 +41,9 @@ export const Basic = ({ args }) => {
       return { args };
     },
     template: `
-    <div style="width: 160px; height: 40px">
-      <bar-sparkline v-bind="args" />
-    </div>
+      <div :style="{ height: args.height + 'px' }">
+        <bar-sparkline v-bind="args" />
+      </div>
     `,
   };
 };
