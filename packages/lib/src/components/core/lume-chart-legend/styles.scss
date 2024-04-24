@@ -1,6 +1,6 @@
 @use '@/styles/variables' as *;
 
-$legend-symbol-size: $lume-spacing-10 !default;
+$legend-symbol-size: $lume-spacing-8 !default;
 
 .lume-chart-legend {
   display: flex;
@@ -11,9 +11,9 @@ $legend-symbol-size: $lume-spacing-10 !default;
     align-items: center;
 
     padding: 0.25rem 0.5rem;
-    gap: 0.25rem;
+    gap: 0.5rem;
 
-    color: $lume-color-grey-80;
+    color: $lume-color-neutral-100;
 
     cursor: default;
   }

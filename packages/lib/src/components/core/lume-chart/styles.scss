@@ -3,7 +3,7 @@
 .lume-chart {
   &__header {
     &-section {
-      display: flex;
+      display: grid;
       align-items: center;
       grid-template-columns: auto auto;
       grid-template-areas: 'left right';

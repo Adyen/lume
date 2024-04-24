@@ -1,9 +1,9 @@
 @use '@/styles/variables' as *;
 
-$axis-label-color: $lume-color-grey-50;
-$axis-label-hover-color: $lume-color-grey-70;
+$axis-label-color: $lume-color-neutral-80;
+$axis-label-hover-color: $lume-color-neutral-100;
 
-$axis-line-color: $lume-color-grey-20;
+$axis-line-color: $lume-color-neutral-20;
 
 .axis {
   &__grid-line {

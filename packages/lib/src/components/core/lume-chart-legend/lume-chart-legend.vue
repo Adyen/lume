@@ -7,7 +7,7 @@
     <div
       v-for="(dataset, index) in data"
       :key="`legend-item-${index}`"
-      class="lume-chart-legend__item lume-typography--body"
+      class="lume-chart-legend__item lume-typography--caption"
       tabindex="0"
       data-j-chart-legend__symbol-wrapper
       @click="emit('click', { index, dataset, event: $event })"
