@@ -33,7 +33,7 @@
           <!-- y axis title -->
           <h3
             v-if="showYAxisTitle"
-            class="lume-chart__axis-title lume-axis-title lume-typography--body"
+            class="lume-chart__axis-title lume-axis-title lume-typography--caption"
           >
             {{ yAxisTitle }}
           </h3>
@@ -423,12 +423,14 @@ const shouldHideTooltip = computed(() => {
 });
 
 function handleInternalHover(index: number) {
+  if (allOptions.value.withHover === false) return;
+
   // Skip the rest if the index didn't change
   if (index === internalHoveredIndex.value) return;
 
   // Update hoveredIndex
   const oldIndex = internalHoveredIndex.value;
-  allOptions.value.withHover !== false && (internalHoveredIndex.value = index);
+  internalHoveredIndex.value = index;
 
   if (allOptions.value.withTooltip !== false) {
     // Show/update tooltip

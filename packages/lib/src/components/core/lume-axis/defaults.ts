@@ -15,7 +15,7 @@ const options: AxisOptions = {
   /** Formatting string/function for the tick label. */
   tickFormat: null,
   /** Space between the tick label and the axis line. */
-  tickPadding: 8,
+  tickPadding: 12,
 };
 
 export const xOptions: AxisOptions = {

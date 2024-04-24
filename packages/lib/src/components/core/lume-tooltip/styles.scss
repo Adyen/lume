@@ -8,17 +8,16 @@ $lume-tooltip-border-radius: $lume-border-radius-8 !default;
 $lume-tooltip-box-shadow: $lume-box-shadow !default;
 $lume-tooltip-max-width: 288px !default;
 
-$lume-tooltip-content-padding: $lume-spacing-10 !default;
+$lume-tooltip-content-padding: $lume-spacing-8 $lume-spacing-12 !default;
 $lume-tooltip-z-index: 500 !default;
 
-$lume-tooltip-title-color: $lume-color-grey-100 !default;
+$lume-tooltip-title-color: $lume-color-neutral-100 !default;
 
-$lume-tooltip-item-color: $lume-color-grey-90 !default;
-$lume-tooltip-value-color: $lume-color-grey-100 !default;
+$lume-tooltip-item-color: $lume-color-neutral-100 !default;
+$lume-tooltip-value-color: $lume-color-neutral-100 !default;
 
-$lume-tooltip-item-line-height: $lume-line-height-sm !default;
 $lume-tooltip-item-min-width: 112px !default;
-$lume-tooltip-symbol-size: $lume-spacing-10 !default;
+$lume-tooltip-symbol-size: $lume-spacing-8 !default;
 
 .lume-tooltip {
   position: absolute;
@@ -45,13 +44,15 @@ $lume-tooltip-symbol-size: $lume-spacing-10 !default;
       margin-top: $lume-spacing-4;
       margin-bottom: $lume-spacing-4;
       border: 0;
-      border-top: 1px solid $lume-color-grey-30;
+      border-top: 1px solid $lume-color-neutral-40;
     }
   }
 
   &__title {
-    margin-bottom: $lume-spacing-4;
-    font-weight: $lume-font-weight-medium;
+    margin-bottom: $lume-spacing-6;
+    font-size: $lume-font-size-sm;
+    line-height: $lume-line-height-sm;
+    font-weight: $lume-font-weight-semi-bold;
     color: $lume-tooltip-title-color;
   }
 
@@ -65,6 +66,8 @@ $lume-tooltip-symbol-size: $lume-spacing-10 !default;
     display: flex;
     min-width: $lume-tooltip-item-min-width;
     margin-bottom: $lume-spacing-4;
+    font-size: $lume-font-size-sm;
+    line-height: $lume-line-height-sm;
     color: $lume-tooltip-item-color;
 
     &:last-child {
@@ -74,7 +77,7 @@ $lume-tooltip-symbol-size: $lume-spacing-10 !default;
 
   &__symbol {
     margin-top: math.div(
-      $lume-tooltip-item-line-height - $lume-tooltip-symbol-size,
+      $lume-line-height-sm - $lume-tooltip-symbol-size,
       2
     ); // default: 3px
     margin-right: $lume-spacing-8;

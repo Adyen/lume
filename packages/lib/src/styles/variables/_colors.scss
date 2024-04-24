@@ -152,6 +152,13 @@ $lume-color-gold-map: (
 $lume-color-white: #ffffff !default;
 $lume-color-black: #00112c !default;
 
+$lume-color-neutral-10: #f7f7f8 !default;
+$lume-color-neutral-20: #eeeff1 !default;
+$lume-color-neutral-40: #dbdee2 !default;
+$lume-color-neutral-60: #8d95a3 !default;
+$lume-color-neutral-80: #5c687c !default;
+$lume-color-neutral-100: #00112c !default;
+
 // Greys
 
 $lume-color-grey-10: #f7f8f9 !default;
@@ -186,6 +193,13 @@ $lume-other-colors: (
   'grey-90': $lume-color-grey-90,
   'grey-100': $lume-color-grey-100,
   'grey': $lume-color-grey-50,
+
+  'neutral-10': $lume-color-neutral-10,
+  'neutral-20': $lume-color-neutral-20,
+  'neutral-40': $lume-color-neutral-40,
+  'neutral-60': $lume-color-neutral-60,
+  'neutral-80': $lume-color-neutral-80,
+  'neutral-100': $lume-color-neutral-100,
 
   'green': $lume-color-green,
   'orange': $lume-color-orange,
