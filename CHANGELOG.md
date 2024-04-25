@@ -2,18 +2,17 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [1.9.5](https://github.com/Adyen/lume/compare/1.9.4...1.9.5)
+#### [1.10.0](https://github.com/Adyen/lume/compare/1.9.5...1.10.0)
 
-- 🏷️ Exported utils types for better DX [`eef5e4a`](https://github.com/Adyen/lume/commit/eef5e4a25119c5e772867229eebdb8da3ff9594c)
-- 🏷️ Reusing different bar variants from all bar types [`64dd24d`](https://github.com/Adyen/lume/commit/64dd24de2ca9d87fd0079d99ddd8d94b6d32aea8)
-- 🔥 Removed CHART_TYPES in favor of the existing enum [`fd819b1`](https://github.com/Adyen/lume/commit/fd819b1086250e6d37ada01094dc289d11944bda)
+- 💄 Update various Lume styles [`268fcfb`](https://github.com/Adyen/lume/commit/268fcfb1186f44802fc147f679914269d614b8c8)
 
-#### [1.9.4](https://github.com/Adyen/lume/compare/1.9.3...1.9.4)
+#### [1.9.5](https://github.com/Adyen/lume/compare/1.9.3...1.9.5)
 
-> 3 April 2024
+> 4 April 2024
 
 - 🏷️ Improve DX of exported types and add the missing types. [`387774a`](https://github.com/Adyen/lume/commit/387774a1ff1ce2cabcc61afc508bd398c9f8c357)
-- 🏷️ Updated type import for few shared types [`4426731`](https://github.com/Adyen/lume/commit/44267311eb749c8e5fd6a127db2646bc5b480d3a)
+- 🏷️ Exported utils types for better DX [`eef5e4a`](https://github.com/Adyen/lume/commit/eef5e4a25119c5e772867229eebdb8da3ff9594c)
+- 🏷️ Reusing different bar variants from all bar types [`64dd24d`](https://github.com/Adyen/lume/commit/64dd24de2ca9d87fd0079d99ddd8d94b6d32aea8)
 
 #### [1.9.3](https://github.com/Adyen/lume/compare/1.9.2...1.9.3)
 
@@ -52,35 +51,21 @@ All notable changes to this project will be documented in this file. Dates are d
 - 🔧 Add triage label to issue templates [`c4e9771`](https://github.com/Adyen/lume/commit/c4e97713c57d43f17a88dec4783fb3a99f7b2342)
 - 🩹 Fix the horizontal stacked bar chart default options [`6f32ccf`](https://github.com/Adyen/lume/commit/6f32ccfb0a3434569897cccb31e3f8950de9fb87)
 
-#### [1.7.0](https://github.com/Adyen/lume/compare/1.6.6...1.7.0)
+#### [1.7.0](https://github.com/Adyen/lume/compare/1.6.5...1.7.0)
 
 > 11 January 2024
 
-- ✨ Introduce inverse property/option in lume-tooltip [`f510005`](https://github.com/Adyen/lume/commit/f5100056a33808b30a6368f064901dda746a8a14)
-- 🐛 Fix handling datasets with empty values [`0a06efe`](https://github.com/Adyen/lume/commit/0a06efe33ff2e40ba38083dc5b5ccbc93bfbc7e8)
-- 🐛 Update gridlines on container size change [`294a473`](https://github.com/Adyen/lume/commit/294a4734d1dab4074fc6d2e26b273b3ecfbd4d1b)
-
-#### [1.6.6](https://github.com/Adyen/lume/compare/1.6.5...1.6.6)
-
-> 5 January 2024
-
 - 🐛 Fix empty data/labels handling [`d5dca98`](https://github.com/Adyen/lume/commit/d5dca9899ea03a433672df32537bc107ccc23492)
 - 🐛 Fix wrong assumption on external hover [`ca3f936`](https://github.com/Adyen/lume/commit/ca3f936e238467c7583a66242cf59fa3b714ed79)
-- 🐛 Fix scale override in stacked bar chart [`a6ba301`](https://github.com/Adyen/lume/commit/a6ba3018e9299484f7349fcd0e384e85676c73df)
+- ✨ Introduce inverse property/option in lume-tooltip [`f510005`](https://github.com/Adyen/lume/commit/f5100056a33808b30a6368f064901dda746a8a14)
 
-#### [1.6.5](https://github.com/Adyen/lume/compare/1.6.4...1.6.5)
+#### [1.6.5](https://github.com/Adyen/lume/compare/1.6.3...1.6.5)
 
 > 11 December 2023
 
+- 🐛 Fix alluvial node min. height in derived nodes [`d71b702`](https://github.com/Adyen/lume/commit/d71b702651a3b2ac1eee9cd581e148d1c1b961a4)
 - 🐛 Fix unhandled line-group null value cases [`909b672`](https://github.com/Adyen/lume/commit/909b672addf3f11dd91769b2feb69512ef2f43e3)
 - 🐛 Make skip option reactive [`eefa96e`](https://github.com/Adyen/lume/commit/eefa96e033137ba350abbed8fcd3d472c24751ed)
-
-#### [1.6.4](https://github.com/Adyen/lume/compare/1.6.3...1.6.4)
-
-> 8 December 2023
-
-- 🐛 Fix alluvial node min. height in derived nodes [`d71b702`](https://github.com/Adyen/lume/commit/d71b702651a3b2ac1eee9cd581e148d1c1b961a4)
-- 💄 Update tooltip value spacing [`568ae4f`](https://github.com/Adyen/lume/commit/568ae4f6cd8ab3a426a4c7a30c70e13e38e3dca4)
 
 #### [1.6.3](https://github.com/Adyen/lume/compare/1.6.2...1.6.3)
 
