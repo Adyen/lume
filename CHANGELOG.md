@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.10.1](https://github.com/Adyen/lume/compare/1.10.0...1.10.1)
+
+- ⬆️ Update dependency sass to v1.76.0 [`214cd83`](https://github.com/Adyen/lume/commit/214cd83c338a1d3de61679a24cd1734723fa3e14)
+- 📝 Update bar-sparkline playground example [`38e4fb9`](https://github.com/Adyen/lume/commit/38e4fb93af07aa89b3210a449c19043b636d031d)
+- 🐛 Convert bar transform-origin to rem [`810ffb3`](https://github.com/Adyen/lume/commit/810ffb3e365ec2b4918ae63c2944b7f830b75827)
+
 #### [1.10.0](https://github.com/Adyen/lume/compare/1.9.5...1.10.0)
+
+> 25 April 2024
 
 - 💄 Update various Lume styles [`268fcfb`](https://github.com/Adyen/lume/commit/268fcfb1186f44802fc147f679914269d614b8c8)
 
