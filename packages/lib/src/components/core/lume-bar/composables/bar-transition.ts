@@ -11,8 +11,17 @@ export function useBarTransition(
   const computedHeight = ref(0);
 
   const transformOrigin = computed(() => {
+    const remFontSize = parseFloat(
+      getComputedStyle(document.documentElement).fontSize
+    );
+
+    // Convert to REM so that it behaves correctly in Safari browsers
+    // https://github.com/Adyen/lume/issues/430
+    const originX = (x.value + width.value / 2) / remFontSize;
+    const originY = (y.value + height.value / 2) / remFontSize;
+
     // Calculates the middle point of a bar so that it can be rotated 180 deg
-    return `${x.value + width.value / 2}px ${y.value + height.value / 2}px`;
+    return `${originX}rem ${originY}rem`;
   });
 
   onMounted(() => {
