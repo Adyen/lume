@@ -39,8 +39,10 @@
 <script setup lang="ts">
 import { computed, PropType, ref, toRefs, watchEffect } from 'vue';
 
+import { orientationValidator } from '@/composables/props';
 import { useResizeObserver } from '@/composables/resize';
-import type { InternalMargins } from '@/types/utils';
+import { ORIENTATIONS } from '@/utils/constants';
+import type { InternalMargins, Orientation } from '@/types/utils';
 import type { ContainerSize } from '@/types/size';
 
 const props = defineProps({
@@ -59,6 +61,11 @@ const props = defineProps({
   noMinSize: {
     type: Boolean,
     default: false,
+  },
+  orientation: {
+    type: String as PropType<Orientation>,
+    default: ORIENTATIONS.VERTICAL,
+    validator: orientationValidator,
   },
 });
 
@@ -84,7 +91,9 @@ watchEffect(() => {
   const { width } = resizeState.dimensions;
   const { height } = root.value.getBoundingClientRect();
 
-  if (!width || !height) return;
+  if (!width || (props.orientation === ORIENTATIONS.VERTICAL && !height)) {
+    return;
+  }
 
   const contentWidth = width - margins.value.left - margins.value.right;
   const contentHeight = height - margins.value.top - margins.value.bottom;
