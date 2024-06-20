@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.10.2](https://github.com/Adyen/lume/compare/1.10.1...1.10.2)
+
+- 🐛 Horizontal bar charts without minimum size not calculating height on initial render [`b9818ca`](https://github.com/Adyen/lume/commit/b9818cab1f76e721d5f6835934f264568e0ff878)
+
 #### [1.10.1](https://github.com/Adyen/lume/compare/1.10.0...1.10.1)
+
+> 24 May 2024
 
 - ⬆️ Update dependency sass to v1.76.0 [`214cd83`](https://github.com/Adyen/lume/commit/214cd83c338a1d3de61679a24cd1734723fa3e14)
 - 📝 Update bar-sparkline playground example [`38e4fb9`](https://github.com/Adyen/lume/commit/38e4fb93af07aa89b3210a449c19043b636d031d)
