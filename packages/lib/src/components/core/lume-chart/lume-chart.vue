@@ -6,6 +6,7 @@
     :container-size="containerSize"
     :no-min-size="allOptions.noMinSize"
     :transparent-background="allOptions.transparentBackground"
+    :orientation="orientation"
     data-j-lume-chart
     @resize="handleResize"
     @click="emit('chart-click', $event)"

@@ -69,12 +69,13 @@ You can set up your chart with `lume-chart-container` like so:
 
 ### Props
 
-| Name                    | Type            | Default | Description                                                 |
-| ----------------------- | --------------- | ------- | ----------------------------------------------------------- |
-| `margins`               | `Margins`       | `{}`    | Space around the chart.                                     |
-| `containerSize`         | `ContainerSize` | `{}`    | The calculated container size.                              |
-| `transparentBackground` | `boolean`       | `false` | Controls if the chart should have a transparent background. |
-| `noMinSize`             | `boolean`       | `false` | Controls if the chart shouldn't have minimum width/height.  |
+| Name                    | Type                         | Default      | Description                                                 |
+| ----------------------- | ---------------------------- | ------------ | ----------------------------------------------------------- |
+| `margins`               | `Margins`                    | `{}`         | Space around the chart.                                     |
+| `containerSize`         | `ContainerSize`              | `{}`         | The calculated container size.                              |
+| `transparentBackground` | `boolean`                    | `false`      | Controls if the chart should have a transparent background. |
+| `noMinSize`             | `boolean`                    | `false`      | Controls if the chart shouldn't have minimum width/height.  |
+| `orientation`           | `'vertical' \| 'horizontal'` | `'vertical'` | The chart's orientation.                                    |
 
 ### Events
 
