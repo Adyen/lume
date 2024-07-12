@@ -8,7 +8,10 @@
     "dist/"
   ],
   "exports": {
-    ".": "./dist/index.js",
+    ".": {
+      "types": "./dist/@types/index.d.ts",
+      "default": "./dist/index.js"
+    },
     "./plugin": "./dist/plugin.js",
     "./styles": "./dist/styles/main.css",
     "./font": "./dist/styles/font.css",
