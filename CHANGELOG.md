@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.10.3](https://github.com/Adyen/lume/compare/1.10.2...1.10.3)
+
+- 🐛 Fix type declaration exports [`0781e5a`](https://github.com/Adyen/lume/commit/0781e5a3e1e8285a8e3ecb097913f5d83032b5f9)
+
 #### [1.10.2](https://github.com/Adyen/lume/compare/1.10.1...1.10.2)
+
+> 20 June 2024
 
 - 🐛 Horizontal bar charts without minimum size not calculating height on initial render [`b9818ca`](https://github.com/Adyen/lume/commit/b9818cab1f76e721d5f6835934f264568e0ff878)
 
