@@ -4,9 +4,9 @@
   "description": "A set of utilities for Storybook",
   "private": true,
   "devDependencies": {
-    "@storybook/manager-api": "7.5.2",
-    "@storybook/preview-api": "7.5.2",
-    "@storybook/theming": "7.5.2",
+    "@storybook/manager-api": "7.6.20",
+    "@storybook/preview-api": "7.6.20",
+    "@storybook/theming": "7.6.20",
     "vue-tsc": "^1.8.22"
   }
 }
