@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.11.0](https://github.com/Adyen/lume/compare/1.10.3...1.11.0)
+
+- 🩹 Export composables [`b06d25c`](https://github.com/Adyen/lume/commit/b06d25c786f6ee1bc06776df4b316b34f766cfc4)
+
 #### [1.10.3](https://github.com/Adyen/lume/compare/1.10.2...1.10.3)
+
+> 12 July 2024
 
 - 🐛 Fix type declaration exports [`0781e5a`](https://github.com/Adyen/lume/commit/0781e5a3e1e8285a8e3ecb097913f5d83032b5f9)
 
