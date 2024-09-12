@@ -24,6 +24,27 @@ describe('lume-chart.vue', () => {
     expect(el.find('[data-j-lume-chart__tooltip]').exists()).toBe(false);
   });
 
+  test('mounts component with empty (null) data', () => {
+    const wrapper = mount(LumeChart, {
+      slots: {
+        groups: 'Mock groups',
+      },
+      props: {
+        ...defaultProps,
+        data: [
+          {
+            values: [null, null, null, null, null, null, null],
+            label: 'mock data',
+          },
+        ],
+      },
+    });
+
+    const el = wrapper.find('[data-j-lume-chart]');
+    expect(el.exists()).toBeTruthy();
+    expect(el.find('[data-j-lume-chart__tooltip]').exists()).toBe(false);
+  });
+
   test('mounts component with tooltip disabled', () => {
     const wrapper = mount(LumeChart, {
       slots: {

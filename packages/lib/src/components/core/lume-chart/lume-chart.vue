@@ -370,8 +370,10 @@ const showYAxisTitle = computed(() => {
   return allOptions.value.yAxisOptions?.withTitle !== false && yAxisTitle.value;
 });
 
-const isEmpty = computed(() =>
-  data.value.every((dataset) => !dataset.values.length)
+const isEmpty = computed(
+  () =>
+    data.value.every((dataset) => !dataset.values.length) ||
+    data.value.every((dataset) => dataset.values.every((v) => v === null))
 );
 
 const isReady = computed(() => {
@@ -379,7 +381,7 @@ const isReady = computed(() => {
 
   const { noBaseScales } = allOptions.value;
 
-  if (!noBaseScales && !isEmpty.value) {
+  if (!noBaseScales) {
     conditions.push(() => !!(computedXScale.value && computedYScale.value));
   }
 
