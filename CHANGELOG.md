@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.11.1](https://github.com/Adyen/lume/compare/1.11.0...1.11.1)
+
+- 🐛 Assume null data as empty [`f92ba7e`](https://github.com/Adyen/lume/commit/f92ba7e5670f80169aa7e562d20a2962bfabd580)
+
 #### [1.11.0](https://github.com/Adyen/lume/compare/1.10.3...1.11.0)
+
+> 2 September 2024
 
 - 🩹 Export composables [`b06d25c`](https://github.com/Adyen/lume/commit/b06d25c786f6ee1bc06776df4b316b34f766cfc4)
 
