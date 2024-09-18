@@ -20,10 +20,11 @@
   },
   "types": "./dist/@types/index.d.ts",
   "scripts": {
-    "build": "NODE_ENV=production pnpm run build:vite && pnpm run build:font && pnpm run build:types",
+    "build": "NODE_ENV=production pnpm run build:vite && pnpm run build:font && pnpm run build:types && pnpm run build:copy-components-defs",
     "build:vite": "vite build",
     "build:font": "webpack",
     "build:types": "vue-tsc -p ./tsconfig.d.json",
+    "build:copy-components-defs": "cp ../lib/src/global-components.d.ts dist/@types/components.d.ts",
     "pack": "pnpm pack --pack-destination ../../",
     "postbuild": "node ../../build/postbuild.js",
     "storybook": "sb dev -p 9002 -c .storybook"
