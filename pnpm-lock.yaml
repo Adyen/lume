@@ -12,8 +12,8 @@ importers:
         specifier: 3.2.0
         version: 3.2.0(release-it@15.6.0)
       '@types/node':
-        specifier: 18.19.13
-        version: 18.19.13
+        specifier: 18.19.47
+        version: 18.19.47
       '@typescript-eslint/eslint-plugin':
         specifier: 5.62.0
         version: 5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.0)(typescript@4.9.5))(eslint@8.57.0)(typescript@4.9.5)
@@ -150,19 +150,19 @@ importers:
         version: 7.6.17(@babel/core@7.23.3)(css-loader@6.7.2(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))))(vue@2.7.15)
       '@storybook/vue-vite':
         specifier: 7.6.17
-        version: 7.6.17(@babel/core@7.23.3)(css-loader@6.7.2(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))))(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2))(vue@2.7.15)
+        version: 7.6.17(@babel/core@7.23.3)(css-loader@6.7.2(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))))(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2))(vue@2.7.15)
       '@vitejs/plugin-vue2':
         specifier: 2.3.1
-        version: 2.3.1(vite@4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2))(vue@2.7.15)
+        version: 2.3.1(vite@4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2))(vue@2.7.15)
       storybook-utils:
         specifier: workspace:storybook-utils@*
         version: link:../storybook-utils
       vite:
         specifier: 4.5.5
-        version: 4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2)
+        version: 4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2)
       vite-plugin-static-copy:
         specifier: 0.17.1
-        version: 0.17.1(vite@4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2))
+        version: 0.17.1(vite@4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2))
       vue:
         specifier: 2.7.15
         version: 2.7.15
@@ -208,10 +208,10 @@ importers:
         version: 7.6.20(vue@3.3.7(typescript@4.9.5))
       '@storybook/vue3-vite':
         specifier: 7.6.20
-        version: 7.6.20(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2))(vue@3.3.7(typescript@4.9.5))
+        version: 7.6.20(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2))(vue@3.3.7(typescript@4.9.5))
       '@vitejs/plugin-vue':
         specifier: 4.6.2
-        version: 4.6.2(vite@4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2))(vue@3.3.7(typescript@4.9.5))
+        version: 4.6.2(vite@4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2))(vue@3.3.7(typescript@4.9.5))
       '@vitest/coverage-istanbul':
         specifier: 0.34.6
         version: 0.34.6(vitest@0.34.6(jsdom@22.1.0)(sass@1.76.0)(terser@5.27.2))
@@ -226,10 +226,10 @@ importers:
         version: link:../storybook-utils
       vite:
         specifier: 4.5.5
-        version: 4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2)
+        version: 4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2)
       vite-plugin-static-copy:
         specifier: 0.17.1
-        version: 0.17.1(vite@4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2))
+        version: 0.17.1(vite@4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2))
       vitest:
         specifier: 0.34.6
         version: 0.34.6(jsdom@22.1.0)(sass@1.76.0)(terser@5.27.2)
@@ -2000,8 +2000,8 @@ packages:
   '@types/node@18.11.5':
     resolution: {integrity: sha512-3JRwhbjI+cHLAkUorhf8RnqUbFXajvzX4q6fMn5JwkgtuwfYtRQYI3u4V92vI6NJuTsbBQWWh3RZjFsuevyMGQ==}
 
-  '@types/node@18.19.13':
-    resolution: {integrity: sha512-kgnbRDj8ioDyGxoiaXsiu1Ybm/K14ajCgMOkwiqpHrnF7d7QiYRoRqHIpglMMs3DwXinlK4qJ8TZGlj4hfleJg==}
+  '@types/node@18.19.47':
+    resolution: {integrity: sha512-1f7dB3BL/bpd9tnDJrrHb66Y+cVrhxSOTGorRNdHwYTUlTay3HuTDPKo9a/4vX9pMQkhYBcAbL4jQdNlhCFP9A==}
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
@@ -7108,7 +7108,7 @@ snapshots:
       '@jest/schemas': 29.6.3
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 18.19.13
+      '@types/node': 18.19.47
       '@types/yargs': 17.0.31
       chalk: 4.1.2
 
@@ -7753,7 +7753,7 @@ snapshots:
       - encoding
       - supports-color
 
-  '@storybook/builder-vite@7.6.17(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2))':
+  '@storybook/builder-vite@7.6.17(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2))':
     dependencies:
       '@storybook/channels': 7.6.17
       '@storybook/client-logger': 7.6.17
@@ -7771,14 +7771,14 @@ snapshots:
       fs-extra: 11.1.1
       magic-string: 0.30.5
       rollup: 3.29.4
-      vite: 4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2)
+      vite: 4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2)
     optionalDependencies:
       typescript: 4.9.5
     transitivePeerDependencies:
       - encoding
       - supports-color
 
-  '@storybook/builder-vite@7.6.20(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2))':
+  '@storybook/builder-vite@7.6.20(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2))':
     dependencies:
       '@storybook/channels': 7.6.20
       '@storybook/client-logger': 7.6.20
@@ -7796,7 +7796,7 @@ snapshots:
       fs-extra: 11.1.1
       magic-string: 0.30.5
       rollup: 3.29.4
-      vite: 4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2)
+      vite: 4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2)
     optionalDependencies:
       typescript: 4.9.5
     transitivePeerDependencies:
@@ -7930,7 +7930,7 @@ snapshots:
       '@storybook/node-logger': 7.6.17
       '@storybook/types': 7.6.17
       '@types/find-cache-dir': 3.2.1
-      '@types/node': 18.19.13
+      '@types/node': 18.19.47
       '@types/node-fetch': 2.6.9
       '@types/pretty-hrtime': 1.0.3
       chalk: 4.1.2
@@ -7959,7 +7959,7 @@ snapshots:
       '@storybook/node-logger': 7.6.20
       '@storybook/types': 7.6.20
       '@types/find-cache-dir': 3.2.1
-      '@types/node': 18.19.13
+      '@types/node': 18.19.47
       '@types/node-fetch': 2.6.9
       '@types/pretty-hrtime': 1.0.3
       chalk: 4.1.2
@@ -8008,7 +8008,7 @@ snapshots:
       '@storybook/telemetry': 7.6.17
       '@storybook/types': 7.6.17
       '@types/detect-port': 1.3.5
-      '@types/node': 18.19.13
+      '@types/node': 18.19.47
       '@types/pretty-hrtime': 1.0.3
       '@types/semver': 7.5.5
       better-opn: 3.0.2
@@ -8057,7 +8057,7 @@ snapshots:
       '@storybook/telemetry': 7.6.20
       '@storybook/types': 7.6.20
       '@types/detect-port': 1.3.5
-      '@types/node': 18.19.13
+      '@types/node': 18.19.47
       '@types/pretty-hrtime': 1.0.3
       '@types/semver': 7.5.5
       better-opn: 3.0.2
@@ -8295,14 +8295,14 @@ snapshots:
       '@types/express': 4.17.21
       file-system-cache: 2.3.0
 
-  '@storybook/vue-vite@7.6.17(@babel/core@7.23.3)(css-loader@6.7.2(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))))(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2))(vue@2.7.15)':
+  '@storybook/vue-vite@7.6.17(@babel/core@7.23.3)(css-loader@6.7.2(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))))(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2))(vue@2.7.15)':
     dependencies:
-      '@storybook/builder-vite': 7.6.17(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2))
+      '@storybook/builder-vite': 7.6.17(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2))
       '@storybook/core-common': 7.6.17
       '@storybook/core-server': 7.6.17
       '@storybook/vue': 7.6.17(@babel/core@7.23.3)(css-loader@6.7.2(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))))(vue@2.7.15)
       magic-string: 0.30.5
-      vite: 4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2)
+      vite: 4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2)
       vue: 2.7.15
       vue-docgen-api: 4.75.0(vue@2.7.15)
     transitivePeerDependencies:
@@ -8317,14 +8317,14 @@ snapshots:
       - utf-8-validate
       - vite-plugin-glimmerx
 
-  '@storybook/vue3-vite@7.6.20(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2))(vue@3.3.7(typescript@4.9.5))':
+  '@storybook/vue3-vite@7.6.20(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2))(vue@3.3.7(typescript@4.9.5))':
     dependencies:
-      '@storybook/builder-vite': 7.6.20(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2))
+      '@storybook/builder-vite': 7.6.20(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2))
       '@storybook/core-server': 7.6.20
       '@storybook/vue3': 7.6.20(vue@3.3.7(typescript@4.9.5))
-      '@vitejs/plugin-vue': 4.6.2(vite@4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2))(vue@3.3.7(typescript@4.9.5))
+      '@vitejs/plugin-vue': 4.6.2(vite@4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2))(vue@3.3.7(typescript@4.9.5))
       magic-string: 0.30.5
-      vite: 4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2)
+      vite: 4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2)
       vue-docgen-api: 4.75.0(vue@3.3.7(typescript@4.9.5))
     transitivePeerDependencies:
       - '@preact/preset-vite'
@@ -8402,7 +8402,7 @@ snapshots:
   '@types/body-parser@1.19.5':
     dependencies:
       '@types/connect': 3.4.38
-      '@types/node': 18.19.13
+      '@types/node': 18.19.47
 
   '@types/chai-subset@1.3.5':
     dependencies:
@@ -8412,11 +8412,11 @@ snapshots:
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 18.19.13
+      '@types/node': 18.19.47
 
   '@types/cross-spawn@6.0.5':
     dependencies:
-      '@types/node': 18.19.13
+      '@types/node': 18.19.47
 
   '@types/d3-array@3.2.1': {}
 
@@ -8557,7 +8557,7 @@ snapshots:
 
   '@types/express-serve-static-core@4.17.41':
     dependencies:
-      '@types/node': 18.19.13
+      '@types/node': 18.19.47
       '@types/qs': 6.9.10
       '@types/range-parser': 1.2.7
       '@types/send': 0.17.4
@@ -8575,7 +8575,7 @@ snapshots:
 
   '@types/graceful-fs@4.1.9':
     dependencies:
-      '@types/node': 18.19.13
+      '@types/node': 18.19.47
 
   '@types/http-cache-semantics@4.0.4': {}
 
@@ -8607,12 +8607,12 @@ snapshots:
 
   '@types/node-fetch@2.6.9':
     dependencies:
-      '@types/node': 18.19.13
+      '@types/node': 18.19.47
       form-data: 4.0.0
 
   '@types/node@18.11.5': {}
 
-  '@types/node@18.19.13':
+  '@types/node@18.19.47':
     dependencies:
       undici-types: 5.26.5
 
@@ -8639,13 +8639,13 @@ snapshots:
   '@types/send@0.17.4':
     dependencies:
       '@types/mime': 1.3.5
-      '@types/node': 18.19.13
+      '@types/node': 18.19.47
 
   '@types/serve-static@1.15.5':
     dependencies:
       '@types/http-errors': 2.0.4
       '@types/mime': 3.0.4
-      '@types/node': 18.19.13
+      '@types/node': 18.19.47
 
   '@types/unist@2.0.10': {}
 
@@ -8743,14 +8743,14 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@vitejs/plugin-vue2@2.3.1(vite@4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2))(vue@2.7.15)':
+  '@vitejs/plugin-vue2@2.3.1(vite@4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2))(vue@2.7.15)':
     dependencies:
-      vite: 4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2)
+      vite: 4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2)
       vue: 2.7.15
 
-  '@vitejs/plugin-vue@4.6.2(vite@4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2))(vue@3.3.7(typescript@4.9.5))':
+  '@vitejs/plugin-vue@4.6.2(vite@4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2))(vue@3.3.7(typescript@4.9.5))':
     dependencies:
-      vite: 4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2)
+      vite: 4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2)
       vue: 3.3.7(typescript@4.9.5)
 
   '@vitest/coverage-istanbul@0.34.6(vitest@0.34.6(jsdom@22.1.0)(sass@1.76.0)(terser@5.27.2))':
@@ -11066,7 +11066,7 @@ snapshots:
     dependencies:
       '@jest/types': 29.6.3
       '@types/graceful-fs': 4.1.9
-      '@types/node': 18.19.13
+      '@types/node': 18.19.47
       anymatch: 3.1.3
       fb-watchman: 2.0.2
       graceful-fs: 4.2.11
@@ -11083,7 +11083,7 @@ snapshots:
   jest-util@29.7.0:
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 18.19.13
+      '@types/node': 18.19.47
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -11091,13 +11091,13 @@ snapshots:
 
   jest-worker@27.5.1:
     dependencies:
-      '@types/node': 18.19.13
+      '@types/node': 18.19.47
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
   jest-worker@29.7.0:
     dependencies:
-      '@types/node': 18.19.13
+      '@types/node': 18.19.47
       jest-util: 29.7.0
       merge-stream: 2.0.0
       supports-color: 8.1.1
@@ -12927,13 +12927,13 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-static-copy@0.17.1(vite@4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2)):
+  vite-plugin-static-copy@0.17.1(vite@4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2)):
     dependencies:
       chokidar: 3.5.3
       fast-glob: 3.3.2
       fs-extra: 11.1.1
       picocolors: 1.0.0
-      vite: 4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2)
+      vite: 4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2)
 
   vite@4.5.2(@types/node@18.11.5)(sass@1.76.0)(terser@5.27.2):
     dependencies:
@@ -12957,13 +12957,13 @@ snapshots:
       sass: 1.76.0
       terser: 5.27.2
 
-  vite@4.5.5(@types/node@18.19.13)(sass@1.76.0)(terser@5.27.2):
+  vite@4.5.5(@types/node@18.19.47)(sass@1.76.0)(terser@5.27.2):
     dependencies:
       esbuild: 0.18.20
       postcss: 8.4.31
       rollup: 3.29.4
     optionalDependencies:
-      '@types/node': 18.19.13
+      '@types/node': 18.19.47
       fsevents: 2.3.3
       sass: 1.76.0
       terser: 5.27.2
