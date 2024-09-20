@@ -1,6 +1,7 @@
 # Lume
 
 [![PR workflow](https://github.com/Adyen/lume/actions/workflows/pr.yml/badge.svg)](https://github.com/Adyen/lume/actions/workflows/pr.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Adyen_lume&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Adyen_lume)
 [![MIT License](https://img.shields.io/badge/license-MIT)](https://github.com/Adyen/lume/blob/main/LICENSE)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a6c48bc7-b4d2-4be4-ad36-cbd353ab4f07/deploy-status)](https://app.netlify.com/sites/adyen-lume/deploys)
 
