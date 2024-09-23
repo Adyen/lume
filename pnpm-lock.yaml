@@ -24,8 +24,8 @@ importers:
         specifier: 2.4.0
         version: 2.4.0
       css-loader:
-        specifier: 6.7.2
-        version: 6.7.2(webpack@5.94.0(webpack-cli@5.1.4))
+        specifier: 6.11.0
+        version: 6.11.0(webpack@5.94.0(webpack-cli@5.1.4))
       eslint:
         specifier: 8.57.0
         version: 8.57.0
@@ -147,10 +147,10 @@ importers:
         version: 7.6.20(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@storybook/vue':
         specifier: 7.6.17
-        version: 7.6.17(@babel/core@7.23.3)(css-loader@6.7.2(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))))(vue@2.7.15)
+        version: 7.6.17(@babel/core@7.23.3)(css-loader@6.11.0(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))))(vue@2.7.15)
       '@storybook/vue-vite':
         specifier: 7.6.17
-        version: 7.6.17(@babel/core@7.23.3)(css-loader@6.7.2(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))))(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@2.7.15)
+        version: 7.6.17(@babel/core@7.23.3)(css-loader@6.11.0(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))))(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@2.7.15)
       '@vitejs/plugin-vue2':
         specifier: 2.3.1
         version: 2.3.1(vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@2.7.15)
@@ -2828,11 +2828,17 @@ packages:
     resolution: {integrity: sha512-x8dy3RnvYdlUcPOjkEHqozhiwzKNSq7GcPuXFbnyMOCHxX8V3OgIg/pYuabl2sbUPfIJaeAQB7PMOK8DFIdoRA==}
     engines: {node: '>=12'}
 
-  css-loader@6.7.2:
-    resolution: {integrity: sha512-oqGbbVcBJkm8QwmnNzrFrWTnudnRZC+1eXikLJl0n4ljcfotgRifpg2a1lKy8jTrc4/d9A/ap1GFq1jDKG7J+Q==}
+  css-loader@6.11.0:
+    resolution: {integrity: sha512-CTJ+AEQJjq5NzLga5pE39qdiSV56F8ywCIsqNIRF0r7BDgWsN25aazToqAFg7ZrtA/U016xudB3ffgweORxX7g==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
+      '@rspack/core': 0.x || 1.x
       webpack: ^5.0.0
+    peerDependenciesMeta:
+      '@rspack/core':
+        optional: true
+      webpack:
+        optional: true
 
   cssesc@3.0.0:
     resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
@@ -4731,6 +4737,9 @@ packages:
   picocolors@1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
 
+  picocolors@1.1.0:
+    resolution: {integrity: sha512-TQ92mBOW0l3LeMeyLV6mzy/kWr8lkd/hp3mTg7wYK7zJhuBStmGMBG0BdeDZS/dZx1IukaX6Bk11zcln25o1Aw==}
+
   picomatch@2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
@@ -4762,20 +4771,20 @@ packages:
     resolution: {integrity: sha512-Sz2Lkdxz6F2Pgnpi9U5Ng/WdWAUZxmHrNPoVlm3aAemxoy2Qy7LGjQg4uf8qKelDAUW94F4np3iH2YPf2qefcQ==}
     engines: {node: '>=10'}
 
-  postcss-modules-extract-imports@3.0.0:
-    resolution: {integrity: sha512-bdHleFnP3kZ4NYDhuGlVK+CMrQ/pqUm8bx/oGL93K6gVwiclvX5x0n76fYMKuIGKzlABOy13zsvqjb0f92TEXw==}
+  postcss-modules-extract-imports@3.1.0:
+    resolution: {integrity: sha512-k3kNe0aNFQDAZGbin48pL2VNidTF0w4/eASDsxlyspobzU3wZQLOGj7L9gfRe0Jo9/4uud09DsjFNH7winGv8Q==}
     engines: {node: ^10 || ^12 || >= 14}
     peerDependencies:
       postcss: ^8.1.0
 
-  postcss-modules-local-by-default@4.0.3:
-    resolution: {integrity: sha512-2/u2zraspoACtrbFRnTijMiQtb4GW4BvatjaG/bCjYQo8kLTdevCUlwuBHx2sCnSyrI3x3qj4ZK1j5LQBgzmwA==}
+  postcss-modules-local-by-default@4.0.5:
+    resolution: {integrity: sha512-6MieY7sIfTK0hYfafw1OMEG+2bg8Q1ocHCpoWLqOKj3JXlKu4G7btkmM/B7lFubYkYWmRSPLZi5chid63ZaZYw==}
     engines: {node: ^10 || ^12 || >= 14}
     peerDependencies:
       postcss: ^8.1.0
 
-  postcss-modules-scope@3.0.0:
-    resolution: {integrity: sha512-hncihwFA2yPath8oZ15PZqvWGkWf+XUfQgUGamS4LqoP1anQLOsOJw0vr7J7IwLpoY9fatA2qiGUGmuZL0Iqlg==}
+  postcss-modules-scope@3.2.0:
+    resolution: {integrity: sha512-oq+g1ssrsZOsx9M96c5w8laRmvEu9C3adDSjI8oTcbfkrTE8hx/zfyobUoWIxaKPO8bt6S62kxpw5GqypEw1QQ==}
     engines: {node: ^10 || ^12 || >= 14}
     peerDependencies:
       postcss: ^8.1.0
@@ -4795,6 +4804,10 @@ packages:
 
   postcss@8.4.31:
     resolution: {integrity: sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ==}
+    engines: {node: ^10 || ^12 || >=14}
+
+  postcss@8.4.47:
+    resolution: {integrity: sha512-56rxCq7G/XfB4EkXq9Egn5GCqugWvDFjafDOThIdMBsI15iqPqR5r15TfSr1YPYeEI19YeaXMCbY6u88Y76GLQ==}
     engines: {node: ^10 || ^12 || >=14}
 
   prelude-ls@1.1.2:
@@ -5329,6 +5342,10 @@ packages:
 
   source-map-js@1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}
+    engines: {node: '>=0.10.0'}
+
+  source-map-js@1.2.1:
+    resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
 
   source-map-support@0.5.21:
@@ -8295,12 +8312,12 @@ snapshots:
       '@types/express': 4.17.21
       file-system-cache: 2.3.0
 
-  '@storybook/vue-vite@7.6.17(@babel/core@7.23.3)(css-loader@6.7.2(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))))(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@2.7.15)':
+  '@storybook/vue-vite@7.6.17(@babel/core@7.23.3)(css-loader@6.11.0(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))))(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@2.7.15)':
     dependencies:
       '@storybook/builder-vite': 7.6.17(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))
       '@storybook/core-common': 7.6.17
       '@storybook/core-server': 7.6.17
-      '@storybook/vue': 7.6.17(@babel/core@7.23.3)(css-loader@6.7.2(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))))(vue@2.7.15)
+      '@storybook/vue': 7.6.17(@babel/core@7.23.3)(css-loader@6.11.0(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))))(vue@2.7.15)
       magic-string: 0.30.5
       vite: 4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2)
       vue: 2.7.15
@@ -8353,7 +8370,7 @@ snapshots:
       - encoding
       - supports-color
 
-  '@storybook/vue@7.6.17(@babel/core@7.23.3)(css-loader@6.7.2(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))))(vue@2.7.15)':
+  '@storybook/vue@7.6.17(@babel/core@7.23.3)(css-loader@6.11.0(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))))(vue@2.7.15)':
     dependencies:
       '@babel/core': 7.23.3
       '@storybook/client-logger': 7.6.17
@@ -8362,7 +8379,7 @@ snapshots:
       '@storybook/global': 5.0.0
       '@storybook/preview-api': 7.6.17
       '@storybook/types': 7.6.17
-      css-loader: 6.7.2(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0)))
+      css-loader: 6.11.0(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0)))
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 2.7.15
@@ -9600,28 +9617,30 @@ snapshots:
     dependencies:
       type-fest: 1.4.0
 
-  css-loader@6.7.2(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))):
+  css-loader@6.11.0(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))):
     dependencies:
-      icss-utils: 5.1.0(postcss@8.4.31)
-      postcss: 8.4.31
-      postcss-modules-extract-imports: 3.0.0(postcss@8.4.31)
-      postcss-modules-local-by-default: 4.0.3(postcss@8.4.31)
-      postcss-modules-scope: 3.0.0(postcss@8.4.31)
-      postcss-modules-values: 4.0.0(postcss@8.4.31)
+      icss-utils: 5.1.0(postcss@8.4.47)
+      postcss: 8.4.47
+      postcss-modules-extract-imports: 3.1.0(postcss@8.4.47)
+      postcss-modules-local-by-default: 4.0.5(postcss@8.4.47)
+      postcss-modules-scope: 3.2.0(postcss@8.4.47)
+      postcss-modules-values: 4.0.0(postcss@8.4.47)
       postcss-value-parser: 4.2.0
       semver: 7.5.4
+    optionalDependencies:
       webpack: 5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))
 
-  css-loader@6.7.2(webpack@5.94.0(webpack-cli@5.1.4)):
+  css-loader@6.11.0(webpack@5.94.0(webpack-cli@5.1.4)):
     dependencies:
-      icss-utils: 5.1.0(postcss@8.4.31)
-      postcss: 8.4.31
-      postcss-modules-extract-imports: 3.0.0(postcss@8.4.31)
-      postcss-modules-local-by-default: 4.0.3(postcss@8.4.31)
-      postcss-modules-scope: 3.0.0(postcss@8.4.31)
-      postcss-modules-values: 4.0.0(postcss@8.4.31)
+      icss-utils: 5.1.0(postcss@8.4.47)
+      postcss: 8.4.47
+      postcss-modules-extract-imports: 3.1.0(postcss@8.4.47)
+      postcss-modules-local-by-default: 4.0.5(postcss@8.4.47)
+      postcss-modules-scope: 3.2.0(postcss@8.4.47)
+      postcss-modules-values: 4.0.0(postcss@8.4.47)
       postcss-value-parser: 4.2.0
       semver: 7.5.4
+    optionalDependencies:
       webpack: 5.94.0(webpack-cli@5.1.4)
 
   cssesc@3.0.0: {}
@@ -10756,9 +10775,9 @@ snapshots:
     dependencies:
       safer-buffer: 2.1.2
 
-  icss-utils@5.1.0(postcss@8.4.31):
+  icss-utils@5.1.0(postcss@8.4.47):
     dependencies:
-      postcss: 8.4.31
+      postcss: 8.4.47
 
   ieee754@1.2.1: {}
 
@@ -11738,6 +11757,8 @@ snapshots:
 
   picocolors@1.0.0: {}
 
+  picocolors@1.1.0: {}
+
   picomatch@2.3.1: {}
 
   pify@4.0.1: {}
@@ -11766,26 +11787,26 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.23.2
 
-  postcss-modules-extract-imports@3.0.0(postcss@8.4.31):
+  postcss-modules-extract-imports@3.1.0(postcss@8.4.47):
     dependencies:
-      postcss: 8.4.31
+      postcss: 8.4.47
 
-  postcss-modules-local-by-default@4.0.3(postcss@8.4.31):
+  postcss-modules-local-by-default@4.0.5(postcss@8.4.47):
     dependencies:
-      icss-utils: 5.1.0(postcss@8.4.31)
-      postcss: 8.4.31
+      icss-utils: 5.1.0(postcss@8.4.47)
+      postcss: 8.4.47
       postcss-selector-parser: 6.0.13
       postcss-value-parser: 4.2.0
 
-  postcss-modules-scope@3.0.0(postcss@8.4.31):
+  postcss-modules-scope@3.2.0(postcss@8.4.47):
     dependencies:
-      postcss: 8.4.31
+      postcss: 8.4.47
       postcss-selector-parser: 6.0.13
 
-  postcss-modules-values@4.0.0(postcss@8.4.31):
+  postcss-modules-values@4.0.0(postcss@8.4.47):
     dependencies:
-      icss-utils: 5.1.0(postcss@8.4.31)
-      postcss: 8.4.31
+      icss-utils: 5.1.0(postcss@8.4.47)
+      postcss: 8.4.47
 
   postcss-selector-parser@6.0.13:
     dependencies:
@@ -11799,6 +11820,12 @@ snapshots:
       nanoid: 3.3.7
       picocolors: 1.0.0
       source-map-js: 1.0.2
+
+  postcss@8.4.47:
+    dependencies:
+      nanoid: 3.3.7
+      picocolors: 1.1.0
+      source-map-js: 1.2.1
 
   prelude-ls@1.1.2: {}
 
@@ -12442,6 +12469,8 @@ snapshots:
 
   source-map-js@1.0.2: {}
 
+  source-map-js@1.2.1: {}
+
   source-map-support@0.5.21:
     dependencies:
       buffer-from: 1.1.2
@@ -12613,6 +12642,7 @@ snapshots:
       webpack: 5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))
     optionalDependencies:
       esbuild: 0.18.20
+    optional: true
 
   terser-webpack-plugin@5.3.10(webpack@5.94.0(webpack-cli@5.1.4)):
     dependencies:
@@ -13180,6 +13210,7 @@ snapshots:
       - '@swc/core'
       - esbuild
       - uglify-js
+    optional: true
 
   webpack@5.94.0(webpack-cli@5.1.4):
     dependencies:
