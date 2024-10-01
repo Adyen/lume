@@ -27,7 +27,7 @@
     "@typescript-eslint/parser": "5.62.0",
     "auto-changelog": "2.4.0",
     "css-loader": "6.7.2",
-    "eslint": "8.57.0",
+    "eslint": "8.57.1",
     "eslint-plugin-vue": "9.21.1",
     "glob": "8.0.3",
     "mini-css-extract-plugin": "2.8.0",
