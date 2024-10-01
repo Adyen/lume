@@ -8,3 +8,6 @@ updates:
       interval: 'weekly'
     commit-message:
       prefix: '⬆️ '
+    ignore:
+      - dependency-name: 'vue'
+      - dependency-name: 'd3'
