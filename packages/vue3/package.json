@@ -36,7 +36,7 @@
     "d3-sankey": "0.12.3"
   },
   "peerDependencies": {
-    "vue": "3.3.x"
+    "vue": "3.3.x || 3.5.x"
   },
   "devDependencies": {
     "@adyen/lume-core": "workspace:@adyen/lume-core@*",
@@ -55,7 +55,7 @@
     "vite": "4.5.5",
     "vite-plugin-static-copy": "0.17.1",
     "vitest": "0.34.6",
-    "vue": "3.3.7",
+    "vue": "3.5.4",
     "vue-tsc": "^1.8.22"
   },
   "keywords": [
