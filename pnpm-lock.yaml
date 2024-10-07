@@ -150,19 +150,19 @@ importers:
         version: 7.6.17(@babel/core@7.23.3)(css-loader@6.7.2(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))))(vue@2.7.15)
       '@storybook/vue-vite':
         specifier: 7.6.17
-        version: 7.6.17(@babel/core@7.23.3)(css-loader@6.7.2(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))))(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@2.7.15)
+        version: 7.6.17(@babel/core@7.23.3)(css-loader@6.7.2(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))))(typescript@4.9.5)(vite@5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@2.7.15)
       '@vitejs/plugin-vue2':
         specifier: 2.3.1
-        version: 2.3.1(vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@2.7.15)
+        version: 2.3.1(vite@5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@2.7.15)
       storybook-utils:
         specifier: workspace:storybook-utils@*
         version: link:../storybook-utils
       vite:
-        specifier: 4.5.5
-        version: 4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2)
+        specifier: 5.4.8
+        version: 5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2)
       vite-plugin-static-copy:
         specifier: 0.17.1
-        version: 0.17.1(vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))
+        version: 0.17.1(vite@5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))
       vue:
         specifier: 2.7.15
         version: 2.7.15
@@ -208,10 +208,10 @@ importers:
         version: 7.6.20(vue@3.3.7(typescript@4.9.5))
       '@storybook/vue3-vite':
         specifier: 7.6.20
-        version: 7.6.20(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@3.3.7(typescript@4.9.5))
+        version: 7.6.20(typescript@4.9.5)(vite@5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@3.3.7(typescript@4.9.5))
       '@vitejs/plugin-vue':
         specifier: 4.6.2
-        version: 4.6.2(vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@3.3.7(typescript@4.9.5))
+        version: 4.6.2(vite@5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@3.3.7(typescript@4.9.5))
       '@vitest/coverage-istanbul':
         specifier: 0.34.6
         version: 0.34.6(vitest@2.1.1(@types/node@18.19.47)(jsdom@22.1.0)(sass@1.77.8)(terser@5.27.2))
@@ -225,11 +225,11 @@ importers:
         specifier: workspace:storybook-utils@*
         version: link:../storybook-utils
       vite:
-        specifier: 4.5.5
-        version: 4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2)
+        specifier: 5.4.8
+        version: 5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2)
       vite-plugin-static-copy:
         specifier: 0.17.1
-        version: 0.17.1(vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))
+        version: 0.17.1(vite@5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))
       vitest:
         specifier: 2.1.1
         version: 2.1.1(@types/node@18.19.47)(jsdom@22.1.0)(sass@1.77.8)(terser@5.27.2)
@@ -3524,6 +3524,7 @@ packages:
   eslint@8.57.1:
     resolution: {integrity: sha512-ypowyDxpVSYpkXr9WPv2PAZCtNip1Mv5KTW0SCurXv/9iOpcrH9PaqUElksqEB6pChqHGDRCFTyrZlGhnLNGiA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
 
   espree@9.6.1:
@@ -6046,34 +6047,6 @@ packages:
     peerDependencies:
       vite: ^3.0.0 || ^4.0.0 || ^5.0.0
 
-  vite@4.5.5:
-    resolution: {integrity: sha512-ifW3Lb2sMdX+WU91s3R0FyQlAyLxOzCSCP37ujw0+r5POeHPwe6udWVIElKQq8gk3t7b8rkmvqC6IHBpCff4GQ==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    hasBin: true
-    peerDependencies:
-      '@types/node': '>= 14'
-      less: '*'
-      lightningcss: ^1.21.0
-      sass: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.4.0
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-      less:
-        optional: true
-      lightningcss:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-
   vite@5.4.8:
     resolution: {integrity: sha512-FqrItQ4DT1NC4zCUqMB4c4AZORMKIa0m8/URVCZ77OZ/QSNeJ54bU1vrFADbDsuwfIPcgknRkmqakQcgnL4GiQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
@@ -8099,7 +8072,7 @@ snapshots:
       - encoding
       - supports-color
 
-  '@storybook/builder-vite@7.6.17(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))':
+  '@storybook/builder-vite@7.6.17(typescript@4.9.5)(vite@5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))':
     dependencies:
       '@storybook/channels': 7.6.17
       '@storybook/client-logger': 7.6.17
@@ -8117,14 +8090,14 @@ snapshots:
       fs-extra: 11.1.1
       magic-string: 0.30.11
       rollup: 3.29.4
-      vite: 4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2)
+      vite: 5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2)
     optionalDependencies:
       typescript: 4.9.5
     transitivePeerDependencies:
       - encoding
       - supports-color
 
-  '@storybook/builder-vite@7.6.20(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))':
+  '@storybook/builder-vite@7.6.20(typescript@4.9.5)(vite@5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))':
     dependencies:
       '@storybook/channels': 7.6.20
       '@storybook/client-logger': 7.6.20
@@ -8142,7 +8115,7 @@ snapshots:
       fs-extra: 11.1.1
       magic-string: 0.30.11
       rollup: 3.29.4
-      vite: 4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2)
+      vite: 5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2)
     optionalDependencies:
       typescript: 4.9.5
     transitivePeerDependencies:
@@ -8641,14 +8614,14 @@ snapshots:
       '@types/express': 4.17.21
       file-system-cache: 2.3.0
 
-  '@storybook/vue-vite@7.6.17(@babel/core@7.23.3)(css-loader@6.7.2(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))))(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@2.7.15)':
+  '@storybook/vue-vite@7.6.17(@babel/core@7.23.3)(css-loader@6.7.2(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))))(typescript@4.9.5)(vite@5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@2.7.15)':
     dependencies:
-      '@storybook/builder-vite': 7.6.17(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))
+      '@storybook/builder-vite': 7.6.17(typescript@4.9.5)(vite@5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))
       '@storybook/core-common': 7.6.17
       '@storybook/core-server': 7.6.17
       '@storybook/vue': 7.6.17(@babel/core@7.23.3)(css-loader@6.7.2(webpack@5.94.0(esbuild@0.18.20)(webpack-cli@5.1.4(webpack@5.94.0))))(vue@2.7.15)
       magic-string: 0.30.5
-      vite: 4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2)
+      vite: 5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2)
       vue: 2.7.15
       vue-docgen-api: 4.75.0(vue@2.7.15)
     transitivePeerDependencies:
@@ -8663,14 +8636,14 @@ snapshots:
       - utf-8-validate
       - vite-plugin-glimmerx
 
-  '@storybook/vue3-vite@7.6.20(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@3.3.7(typescript@4.9.5))':
+  '@storybook/vue3-vite@7.6.20(typescript@4.9.5)(vite@5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@3.3.7(typescript@4.9.5))':
     dependencies:
-      '@storybook/builder-vite': 7.6.20(typescript@4.9.5)(vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))
+      '@storybook/builder-vite': 7.6.20(typescript@4.9.5)(vite@5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))
       '@storybook/core-server': 7.6.20
       '@storybook/vue3': 7.6.20(vue@3.3.7(typescript@4.9.5))
-      '@vitejs/plugin-vue': 4.6.2(vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@3.3.7(typescript@4.9.5))
+      '@vitejs/plugin-vue': 4.6.2(vite@5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@3.3.7(typescript@4.9.5))
       magic-string: 0.30.5
-      vite: 4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2)
+      vite: 5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2)
       vue-docgen-api: 4.75.0(vue@3.3.7(typescript@4.9.5))
     transitivePeerDependencies:
       - '@preact/preset-vite'
@@ -9083,14 +9056,14 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@vitejs/plugin-vue2@2.3.1(vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@2.7.15)':
+  '@vitejs/plugin-vue2@2.3.1(vite@5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@2.7.15)':
     dependencies:
-      vite: 4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2)
+      vite: 5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2)
       vue: 2.7.15
 
-  '@vitejs/plugin-vue@4.6.2(vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@3.3.7(typescript@4.9.5))':
+  '@vitejs/plugin-vue@4.6.2(vite@5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2))(vue@3.3.7(typescript@4.9.5))':
     dependencies:
-      vite: 4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2)
+      vite: 5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2)
       vue: 3.3.7(typescript@4.9.5)
 
   '@vitest/coverage-istanbul@0.34.6(vitest@2.1.1(@types/node@18.19.47)(jsdom@22.1.0)(sass@1.77.8)(terser@5.27.2))':
@@ -9164,7 +9137,7 @@ snapshots:
       '@babel/parser': 7.23.3
       '@vue/shared': 3.3.7
       estree-walker: 2.0.2
-      source-map-js: 1.0.2
+      source-map-js: 1.2.1
 
   '@vue/compiler-core@3.3.8':
     dependencies:
@@ -9186,7 +9159,7 @@ snapshots:
   '@vue/compiler-sfc@2.7.15':
     dependencies:
       '@babel/parser': 7.23.3
-      postcss: 8.4.31
+      postcss: 8.4.47
       source-map: 0.6.1
 
   '@vue/compiler-sfc@3.3.7':
@@ -9199,7 +9172,7 @@ snapshots:
       '@vue/shared': 3.3.7
       estree-walker: 2.0.2
       magic-string: 0.30.5
-      postcss: 8.4.31
+      postcss: 8.4.47
       source-map-js: 1.0.2
 
   '@vue/compiler-sfc@3.3.8':
@@ -9213,7 +9186,7 @@ snapshots:
       estree-walker: 2.0.2
       magic-string: 0.30.11
       postcss: 8.4.47
-      source-map-js: 1.0.2
+      source-map-js: 1.2.1
 
   '@vue/compiler-ssr@3.3.7':
     dependencies:
@@ -13209,7 +13182,7 @@ snapshots:
     dependencies:
       browserslist: 4.22.1
       escalade: 3.1.1
-      picocolors: 1.0.0
+      picocolors: 1.1.0
 
   update-notifier@6.0.2:
     dependencies:
@@ -13305,24 +13278,13 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-static-copy@0.17.1(vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2)):
+  vite-plugin-static-copy@0.17.1(vite@5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2)):
     dependencies:
       chokidar: 3.5.3
       fast-glob: 3.3.2
       fs-extra: 11.1.1
       picocolors: 1.0.0
-      vite: 4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2)
-
-  vite@4.5.5(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2):
-    dependencies:
-      esbuild: 0.18.20
-      postcss: 8.4.31
-      rollup: 3.29.4
-    optionalDependencies:
-      '@types/node': 18.19.47
-      fsevents: 2.3.3
-      sass: 1.77.8
-      terser: 5.27.2
+      vite: 5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2)
 
   vite@5.4.8(@types/node@18.19.47)(sass@1.77.8)(terser@5.27.2):
     dependencies:
