@@ -179,22 +179,18 @@ const { allOptions } = useOptions<AxisOptions>(
 
 const { showTick } = useSkip(scale, tickRefs, allOptions);
 
+const alignAxisBaseline = computed(
+  () => isEmpty.value || !scale.value || isScaleEmpty(scale.value)
+);
+
 const axisTransform = computed(() => {
   // if empty, aligns baseline to the bottom
-  if (
-    computedType.value === 'y' &&
-    isEmpty.value &&
-    (!scale.value || isScaleEmpty(scale.value))
-  ) {
+  if (computedType.value === 'y' && alignAxisBaseline.value) {
     return `translate(0, ${containerSize.value?.height / 2})`;
   }
 
   // if empty, aligns baseline to the left
-  if (
-    computedType.value === 'x' &&
-    isEmpty.value &&
-    (!scale.value || isScaleEmpty(scale.value))
-  ) {
+  if (computedType.value === 'x' && alignAxisBaseline.value) {
     return `translate(-${containerSize.value?.width / 2}, ${
       containerSize.value?.height
     })`;
