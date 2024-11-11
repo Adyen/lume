@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.11.2](https://github.com/Adyen/lume/compare/1.11.1...1.11.2)
+
+- Bump vite from 4.5.2 to 4.5.5 [`48d68c9`](https://github.com/Adyen/lume/commit/48d68c96d52f1ce9c746e315f32a2b72c79efe9a)
+- ⬆️ Update storybook monorepo [`1d381b3`](https://github.com/Adyen/lume/commit/1d381b3e30b1a2172f53502f9ff090bc7bc8ce42)
+- :arrow_up: Bump vitest from 0.34.6 to 2.1.1 [`f62a5ba`](https://github.com/Adyen/lume/commit/f62a5ba1a891426239a263b1abda4926a43649a2)
+
 #### [1.11.1](https://github.com/Adyen/lume/compare/1.11.0...1.11.1)
+
+> 12 September 2024
 
 - 🐛 Assume null data as empty [`f92ba7e`](https://github.com/Adyen/lume/commit/f92ba7e5670f80169aa7e562d20a2962bfabd580)
 
