@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@storybook/addon-actions": "7.6.20",
-    "@storybook/vue3": "7.6.20",
+    "@storybook/vue3": "8.6.11",
     "@types/d3": "^7.4.3",
     "@types/d3-sankey": "^0.12.4",
     "@vue/test-utils": "2.4.6",
