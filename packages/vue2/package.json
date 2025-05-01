@@ -47,7 +47,7 @@
     "@storybook/vue-vite": "7.6.17",
     "@vitejs/plugin-vue2": "2.3.1",
     "storybook-utils": "workspace:storybook-utils@*",
-    "vite": "5.4.9",
+    "vite": "5.4.12",
     "vite-plugin-static-copy": "0.17.1",
     "vue": "2.7.15",
     "vue-template-compiler": "2.7.15",
