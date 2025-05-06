@@ -21,7 +21,7 @@
     "test": "pnpm --filter='./packages/vue3' run test"
   },
   "devDependencies": {
-    "@release-it-plugins/workspaces": "3.2.0",
+    "@release-it-plugins/workspaces": "4.2.0",
     "@types/node": "18.19.47",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
@@ -32,7 +32,7 @@
     "glob": "8.0.3",
     "mini-css-extract-plugin": "2.9.1",
     "prettier": "2.8.8",
-    "release-it": "15.6.0",
+    "release-it": "19.0.2",
     "resize-observer-polyfill": "1.5.1",
     "sass": "1.77.8",
     "sass-loader": "13.3.3",
