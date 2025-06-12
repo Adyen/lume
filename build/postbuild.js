@@ -1,6 +1,6 @@
 import { existsSync } from 'fs';
 import { appendFile, mkdir, readFile, rm, writeFile } from 'fs/promises';
-import glob from 'glob';
+import { globSync } from 'glob';
 import * as sass from 'sass';
 
 const COMPONENT_STYLE_COMMENT = '\n/** Lume component styles */\n';
@@ -13,7 +13,7 @@ const sassCompilerOptions = {
 };
 
 const getComponentSassFiles = () =>
-  glob.sync('**/*.scss', {
+  globSync('**/*.scss', {
     cwd: '../lib/src/components',
   });
 
