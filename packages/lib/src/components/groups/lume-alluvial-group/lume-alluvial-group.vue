@@ -333,7 +333,6 @@ const nodesDerivingColorFromIncomingLinks = computed(() => {
           linkHeightOfSourceInTarget =
             linkRatioOfSourceInTarget * targetNodeHeight;
         } else {
-          targetNodeHeight = NODE_MINIMUM_HEIGHT;
           linkHeightOfSourceInTarget = NODE_MINIMUM_HEIGHT / linksArray.length; // Get ratio from # of links targetting this node
         }
 
