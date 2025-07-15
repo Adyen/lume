@@ -5,6 +5,8 @@
 #   4. Scan push/PRs for leaked credentials using TruffleHog
 
 name: PR workflow
+permissions:
+  contents: read
 
 on:
   pull_request:

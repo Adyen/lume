@@ -1,4 +1,6 @@
 name: Publish Lume for Vue 3
+permissions:
+  contents: read
 
 on: workflow_dispatch
 
