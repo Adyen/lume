@@ -50,7 +50,7 @@
     "@vitejs/plugin-vue": "4.6.2",
     "@vitest/coverage-istanbul": "0.34.6",
     "@vue/test-utils": "2.4.6",
-    "jsdom": "25.0.1",
+    "jsdom": "26.1.0",
     "storybook-utils": "workspace:storybook-utils@*",
     "vite": "6.3.5",
     "vite-plugin-static-copy": "0.17.1",
