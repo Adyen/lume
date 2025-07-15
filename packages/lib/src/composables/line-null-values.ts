@@ -14,9 +14,8 @@ export function useLineNullValues(data: Ref<InternalData>) {
     return values?.reduce((intervals: Array<Array<number>>, value, index) => {
       // check for `null` or { value: null }
       if (value == null || value.value == null) {
-        currentInterval
-          ? currentInterval.push(index)
-          : (currentInterval = [index]);
+        if (currentInterval) currentInterval.push(index);
+        else currentInterval = [index];
 
         // If last value is `null`
         if (index === values?.length - 1) {
