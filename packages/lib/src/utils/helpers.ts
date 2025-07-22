@@ -254,28 +254,6 @@ export function excludeChartSlots(slots: Slots) {
 }
 
 /**
- * Generates a random string.
- * https://github.com/ai/nanoid/blob/main/nanoid.js
- *
- * @param t String length.
- * @returns Random string of characters.
- */
-export const nanoid = (n = 21) =>
-  crypto
-    .getRandomValues(new Uint8Array(n))
-    .reduce(
-      (n, e) =>
-        (n +=
-          (e &= 63) < 36
-            ? e.toString(36)
-            : e < 62
-              ? (e - 26).toString(36).toUpperCase()
-              : e > 62
-                ? '-'
-                : '_'),
-      ''
-    );
-/**
  * Fills the rest of the array with null values if the input array is less than the passed length
  * @param inputArray The array to be processed
  * @param minimumOutputArrayLength Minimum length of the returned array

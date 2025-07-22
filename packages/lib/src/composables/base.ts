@@ -3,11 +3,7 @@ import { computed, ComputedRef, PropType, reactive, Ref } from 'vue';
 import { BAR_HEIGHT, ORIENTATIONS } from '@/utils/constants';
 
 import { computeColor } from '@/utils/colors';
-import {
-  getEmptyArrayFromData,
-  isDatasetValueObject,
-  nanoid,
-} from '@/utils/helpers';
+import { getEmptyArrayFromData, isDatasetValueObject } from '@/utils/helpers';
 
 import { Colors, type DivergentColors, type Orientation } from '@/types/utils';
 import type {
@@ -73,7 +69,7 @@ export function useBase(
     height: 0,
   });
 
-  const chartID = nanoid(12);
+  const chartID = crypto.randomUUID();
 
   const internalData: ComputedRef<InternalData> = computed(() => {
     if (data.value.length > 5) warn(Warnings.DatasetLength);
