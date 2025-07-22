@@ -89,6 +89,7 @@
       "store2": "2.14.4",
       "tar-fs": "2.1.3",
       "tar": "6.2.1",
+      "vite": "6.3.5",
       "ws": "8.17.1"
     },
     "onlyBuiltDependencies": [
