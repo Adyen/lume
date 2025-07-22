@@ -67,5 +67,10 @@
   "contributors": [
     "Lucas van Heerikhuizen <lucas.vanheerikhuizen@adyen.com>",
     "Vivian Joseph <vivian.joseph@adyen.com>"
-  ]
+  ],
+  "pnpm": {
+    "overrides": {
+      "form-data": "4.0.4"
+    }
+  }
 }
