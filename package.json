@@ -70,9 +70,11 @@
   ],
   "pnpm": {
     "overrides": {
+      "@babel/helpers": "7.26.10",
       "@babel/runtime": "7.26.10",
       "brace-expansion": "1.1.12",
       "braces": "3.0.3",
+      "cookie": "0.7.0",
       "ejs": "3.1.10",
       "esbuild": "0.25.0",
       "express": "4.20.0",
@@ -84,6 +86,7 @@
       "path-to-regexp": "0.1.10",
       "pug-code-gen": "3.0.3",
       "pug": "3.0.3",
+      "send": "0.19.0",
       "serialize-javascript": "6.0.2",
       "serve-static": "1.16.0",
       "store2": "2.14.4",
