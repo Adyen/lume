@@ -51,7 +51,7 @@
     "vite-plugin-static-copy": "0.17.1",
     "vue": "2.7.15",
     "vue-template-compiler": "2.7.15",
-    "vue-tsc": "^1.8.22"
+    "vue-tsc": "^3.0.5"
   },
   "keywords": [
     "Lume",
