@@ -27,6 +27,7 @@ overrides:
   store2: 2.14.4
   tar-fs: 2.1.3
   tar: 6.2.1
+  tmp: 0.2.4
   vite: 6.3.5
   ws: 8.17.1
 
@@ -8126,13 +8127,6 @@ packages:
       }
     engines: { node: '>=18' }
 
-  os-tmpdir@1.0.2:
-    resolution:
-      {
-        integrity: sha512-D2FR03Vir7FIu45XBY20mTb+/ZSWB00sjU9jdQXt83gDrI4Ztz5Fs7/yy74g2N5SVQY4xY1qDr4rNddwYRVX0g==,
-      }
-    engines: { node: '>=0.10.0' }
-
   p-limit@2.3.0:
     resolution:
       {
@@ -9790,12 +9784,12 @@ packages:
       }
     hasBin: true
 
-  tmp@0.0.33:
+  tmp@0.2.4:
     resolution:
       {
-        integrity: sha512-jRCJlojKnZ3addtTOjdIqoRuPEKBvNXcGYqzO6zWZX8KfKEpnGY5jfggJQ3EjKuu8D4bJRr0y+cYJFmYbImXGw==,
+        integrity: sha512-UdiSoX6ypifLmrfQ/XfiawN6hkjSBpCjhKxxZcWlUUmoXLaCKQU0bx4HF/tdDK2uzRuchf1txGvrWBzYREssoQ==,
       }
-    engines: { node: '>=0.6.0' }
+    engines: { node: '>=14.14' }
 
   tmpl@1.0.5:
     resolution:
@@ -10282,10 +10276,10 @@ packages:
         integrity: sha512-ng11B8B/ZADUMMOsRbqv0arc442q7lifSubD0v8oDXIFoMg/mXwAPUunrroIDkY+mcD0dHKccdaznSVp8EoX3w==,
       }
 
-  vue-component-type-helpers@3.0.4:
+  vue-component-type-helpers@3.0.5:
     resolution:
       {
-        integrity: sha512-WtR3kPk8vqKYfCK/HGyT47lK/T3FaVyWxaCNuosaHYE8h9/k0lYRZ/PI/+T/z2wP+uuNKmL6z30rOcBboOu/YA==,
+        integrity: sha512-uoNZaJ+a1/zppa/Vgmi8zIOP2PHXDN2rT8NyF+zQRK6ZG94lNB9prcV0GdLJbY9i9lrD47JOVIH92SaiA7oJ1A==,
       }
 
   vue-docgen-api@4.75.0:
@@ -12929,7 +12923,7 @@ snapshots:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.3.7(typescript@4.9.5)
-      vue-component-type-helpers: 3.0.4
+      vue-component-type-helpers: 3.0.5
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -12946,7 +12940,7 @@ snapshots:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.3.7(typescript@4.9.5)
-      vue-component-type-helpers: 3.0.4
+      vue-component-type-helpers: 3.0.5
 
   '@storybook/vue@7.6.20(@babel/core@7.23.3)(css-loader@6.7.2(webpack@5.94.0(esbuild@0.25.0)(webpack-cli@5.1.4)))(vue@2.7.15)':
     dependencies:
@@ -14853,7 +14847,7 @@ snapshots:
     dependencies:
       chardet: 0.7.0
       iconv-lite: 0.4.24
-      tmp: 0.0.33
+      tmp: 0.2.4
 
   extract-zip@1.7.0:
     dependencies:
@@ -16049,8 +16043,6 @@ snapshots:
       macos-release: 3.2.0
       windows-release: 6.0.1
 
-  os-tmpdir@1.0.2: {}
-
   p-limit@2.3.0:
     dependencies:
       p-try: 2.2.0
@@ -17098,9 +17090,7 @@ snapshots:
     dependencies:
       tldts-core: 6.1.86
 
-  tmp@0.0.33:
-    dependencies:
-      os-tmpdir: 1.0.2
+  tmp@0.2.4: {}
 
   tmpl@1.0.5: {}
 
@@ -17364,7 +17354,7 @@ snapshots:
 
   vue-component-type-helpers@2.1.6: {}
 
-  vue-component-type-helpers@3.0.4: {}
+  vue-component-type-helpers@3.0.5: {}
 
   vue-docgen-api@4.75.0(vue@2.7.15):
     dependencies:
