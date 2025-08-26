@@ -7,6 +7,17 @@ import vueEslintParser from 'vue-eslint-parser';
 import globals from 'globals';
 
 export default [
+  {
+    ignores: [
+      '**/.cache/',
+      '**/coverage/',
+      '**/dist/',
+      '**/node_modules/',
+      '**/node-compile-cache/',
+      '**/pnpm-lock.json',
+      '**/@types/',
+    ],
+  },
   js.configs.recommended,
   ...tsPlugin.configs['flat/recommended'],
   ...pluginVue.configs['flat/recommended'],
