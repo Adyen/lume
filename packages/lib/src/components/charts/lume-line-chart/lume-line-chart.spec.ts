@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest';
 import LumeLineChart from '@/components/charts/lume-line-chart/lume-line-chart.vue';
 
 import { BaseTestSuite } from '@test/unit/reusable.test';

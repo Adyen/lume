@@ -15,7 +15,7 @@ export const useFormat = (format: Format) => {
   case 'string':
     try {
       formatter = d3Format(format) as FormatFunction;
-    } catch (error) {
+    } catch {
       warn(Warnings.InvalidFormat);
       formatter = null;
     }

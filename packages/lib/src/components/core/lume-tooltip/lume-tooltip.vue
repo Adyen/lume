@@ -218,7 +218,7 @@ function destroyPopper() {
     popper.value.destroy();
     emit('closed');
 
-    root.value && root.value.classList.remove('lume-tooltip--animated'); // Remove transition class
+    if (root.value) root.value.classList.remove('lume-tooltip--animated'); // Remove transition class
   }
 }
 
@@ -229,13 +229,15 @@ function updatePopper() {
     root.value.classList.add('lume-tooltip--animated'); // Add transition class
   }
 
-  props.targetElement
-    ? (function () {
+  if (props.targetElement) {
+    (function () {
       popper.value.state.elements.reference = props.targetElement;
       popper.value.update();
       emit('moved', props.targetElement);
-    })()
-    : destroyPopper();
+    })();
+  } else {
+    destroyPopper();
+  }
 }
 
 // Watchers

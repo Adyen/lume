@@ -1,3 +1,4 @@
+import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
 import { nextTick } from 'vue';
 import { mount } from '@vue/test-utils';
 
@@ -8,7 +9,7 @@ import { generateData } from '@test/unit/utils/data-generator';
 
 import DATASETS from '@/docs/storybook-data/alluvial-data';
 
-const AlluvialDiagramTestSuiteFactory = (data: any = DATASETS.Basic.data) =>
+const AlluvialDiagramTestSuiteFactory = (data = DATASETS.Basic.data) =>
   new BaseTestSuite(LumeAlluvialDiagram, { data });
 const [baseData] = generateData();
 

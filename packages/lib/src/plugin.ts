@@ -2,6 +2,7 @@ import { App, Plugin } from 'vue';
 
 import * as components from './components';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type PluginFunction = (app: App) => any;
 
 interface LumePluginFunction extends PluginFunction {
@@ -26,6 +27,7 @@ const plugin: Plugin = { install };
 // Auto-install when vue is found (eg. in browser via <script> tag)
 let GlobalVue = null;
 if (typeof window !== 'undefined') {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   GlobalVue = (window as any).Vue;
 } else if (typeof global !== 'undefined') {
   GlobalVue = global.Vue;

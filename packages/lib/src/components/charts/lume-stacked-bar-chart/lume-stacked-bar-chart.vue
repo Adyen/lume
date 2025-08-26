@@ -52,7 +52,7 @@ const props = defineProps({
 });
 
 // https://github.com/vuejs/core/issues/4294#issuecomment-1480392140
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface Emits extends ChartEmits {}
 const emit = defineEmits<Emits>();
 

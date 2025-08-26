@@ -1,4 +1,4 @@
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import LumeLineChart from '../components/charts/lume-line-chart';
