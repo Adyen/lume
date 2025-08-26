@@ -1,3 +1,4 @@
+import { describe, expect, it, test } from 'vitest';
 import { mount } from '@vue/test-utils';
 
 import LumeLegend from './lume-chart-legend.vue';
@@ -19,6 +20,7 @@ describe('lume-chart-legend.vue', () => {
   test('validation fails when color is not specified', () => {
     const data = generateData(1, 7, 1000, false, false, false);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     expect((LumeLegend as any).props.data.validator(data)).toBe(false);
   });
 

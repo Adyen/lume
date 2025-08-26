@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest';
 import GroupedBarChart from './lume-grouped-bar-chart.vue';
 
 import { BaseTestSuite } from '@test/unit/reusable.test';

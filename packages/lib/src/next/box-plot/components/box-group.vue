@@ -18,8 +18,8 @@
       v-bind="overlay"
       :class-list="isHovered ? 'lume-fill--overlay' : 'lume-fill--transparent'"
       :transition="true"
-      @mouseover.native="$emit('mouseover', $event)"
-      @mouseout.native="$emit('mouseout')"
+      @mouseover="$emit('mouseover', $event)"
+      @mouseout="$emit('mouseout')"
     />
   </g>
 </template>

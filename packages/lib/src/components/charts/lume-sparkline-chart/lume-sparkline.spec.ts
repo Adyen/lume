@@ -1,4 +1,5 @@
 import { nextTick } from 'vue';
+import { describe, expect, test } from 'vitest';
 
 import LumeSparkline from './lume-sparkline-chart.vue';
 
@@ -7,7 +8,7 @@ import {
   useCustomBoundingRectClient,
   useCustomResizeObserver,
 } from '@test/unit/reusable.test';
-import { data, labels, xScale, yScale } from '@test/unit/mock-data';
+import { data, labels, xScale } from '@test/unit/mock-data';
 
 import { options as defaultOptions } from './defaults';
 

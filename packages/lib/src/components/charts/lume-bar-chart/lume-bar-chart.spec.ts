@@ -1,3 +1,4 @@
+import { describe, expect, test, vi } from 'vitest';
 import BarChart from './lume-bar-chart.vue';
 
 import { BaseTestSuite } from '@test/unit/reusable.test';

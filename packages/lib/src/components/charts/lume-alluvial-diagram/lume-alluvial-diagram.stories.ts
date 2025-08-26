@@ -85,7 +85,7 @@ export const MultipleLevels: Story = {
     ...withSizeArgs(720),
     ...DATASETS.MultipleLevels,
     options: {
-      valueFormat: (part, _) => `USD ${part}`,
+      valueFormat: (part) => `USD ${part}`,
       gradient: true,
     },
     title: 'Yearly average pet expenses in USA',
@@ -123,7 +123,7 @@ export const CustomCurveFunction: Story = {
     ...withSizeArgs(540, 220),
     ...DATASETS.CustomCurveFunction,
     options: {
-      valueFormat: (part, _) => `USD ${part}`,
+      valueFormat: (part) => `USD ${part}`,
     },
     title: 'November expenses on my cats',
   },
@@ -183,7 +183,7 @@ export const NodeOffset: Story = {
     ...withSizeArgs(720),
     ...DATASETS.Offset,
     options: {
-      valueFormat: (part, _) => `USD ${part}`,
+      valueFormat: (part) => `USD ${part}`,
       gradient: true,
     },
     title: 'Yearly average pet expenses in USA',
