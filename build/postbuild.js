@@ -33,9 +33,15 @@ async function run() {
     );
     await writeFile('dist/styles/main.css', mainCompileResult.css);
 
+    // eslint-disable-next-line no-undef
+    const lumeStyleName = process.env.npm_package_name.split('/')[1];
+
     // Append component styles to main.css
     await appendFile('dist/styles/main.css', COMPONENT_STYLE_COMMENT);
-    await appendFile('dist/styles/main.css', await readFile('dist/style.css'));
+    await appendFile(
+      'dist/styles/main.css',
+      await readFile(`dist/${lumeStyleName}.css`)
+    );
 
     // Copy component styles into dist/scss/components and add @forward rules to main.scss
     // Make sure components directory is there
@@ -72,7 +78,7 @@ async function run() {
     await rm('dist/styles/font.js', { force: true });
 
     // Remove style.css (no use)
-    await rm('dist/style.css', { force: true });
+    await rm(`dist/${lumeStyleName}.css`, { force: true });
   } catch (error) {
     console.error('[lume]', error);
   }
