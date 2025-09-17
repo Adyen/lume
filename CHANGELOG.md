@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.11.5](https://github.com/Adyen/lume/compare/1.11.4...1.11.5)
+
+- 🐛 Fix linear yScale for an all-negative domain [`6bf5fd7`](https://github.com/Adyen/lume/commit/6bf5fd7982318fa3965e106e21869a2ad47ca21e)
+
 #### [1.11.4](https://github.com/Adyen/lume/compare/1.11.3...1.11.4)
 
 - ⏪️ Revert "Convert bar transform-origin to rem" [`0eb3300`](https://github.com/Adyen/lume/commit/0eb33004e3551ac19fa49d6411dc715e2c5a1c65)
