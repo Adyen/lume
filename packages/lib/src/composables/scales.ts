@@ -148,7 +148,8 @@ function generateLinearScale(
 
   const minAvailableValue = Math.min(...allValues);
   const minValue = startOnZero && minAvailableValue > 0 ? 0 : minAvailableValue;
-  const maxValue = Math.max(...allValues);
+  let maxValue = Math.max(...allValues);
+  if (startOnZero && maxValue < 0) maxValue = 0; // Prevent scale break when all values are negative
   const domain =
     orientation === ORIENTATIONS.HORIZONTAL
       ? [minValue, maxValue]
