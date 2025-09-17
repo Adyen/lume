@@ -7,6 +7,6 @@
     "@storybook/manager-api": "7.6.20",
     "@storybook/preview-api": "7.6.20",
     "@storybook/theming": "7.6.20",
-    "vue-tsc": "^1.8.22"
+    "vue-tsc": "^3.0.7"
   }
 }
