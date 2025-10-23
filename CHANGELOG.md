@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.12.0](https://github.com/Adyen/lume/compare/1.11.5...1.12.0)
+
+- ✨ Add option to always display line chart points [`c91a35d`](https://github.com/Adyen/lume/commit/c91a35d3dd96b1d4c10b56ed1c5e9619c8c900b5)
+
 #### [1.11.5](https://github.com/Adyen/lume/compare/1.11.4...1.11.5)
 
 - 🐛 Fix linear yScale for an all-negative domain [`6bf5fd7`](https://github.com/Adyen/lume/commit/6bf5fd7982318fa3965e106e21869a2ad47ca21e)
