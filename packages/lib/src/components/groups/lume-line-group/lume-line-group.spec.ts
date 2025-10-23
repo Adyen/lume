@@ -86,6 +86,29 @@ describe('lume-line-group.vue', () => {
     expect(el.exists()).toBeFalsy();
   });
 
+  test('mounts with visible points (via options)', () => {
+    const wrapper = mount(LumeLineGroup, {
+      attachTo: svg,
+      props: { ...defaultProps, options: { withPoints: 'visible' } },
+      provide: {
+        tooltipAnchorAttributes() {
+          return ref([]);
+        },
+      },
+    });
+
+    const pointsGroup = wrapper.find('[data-j-lume-line-group__points]');
+    expect(pointsGroup.exists()).toBeTruthy();
+
+    const points = wrapper.findAll('.lume-point');
+    expect(points.length).toBeGreaterThan(0);
+
+    // When withPoints is "visible", points should be rendered with a radius > 0
+    points.forEach((p) => {
+      expect(Number(p.attributes('r'))).toBeGreaterThan(0);
+    });
+  });
+
   describe('Events API', () => {
     it('should dispatch `line-click` if user clicks a line', async () => {
       const wrapper = mount(LumeLineGroup, {

@@ -66,7 +66,7 @@ export interface BarChartOptions extends ChartOptions {
 
 export interface LineChartOptions extends ChartOptions {
   lineWidth?: number;
-  withPoints?: boolean;
+  withPoints?: boolean | 'visible';
 }
 
 export interface AlluvialDiagramOptions extends ChartOptions {

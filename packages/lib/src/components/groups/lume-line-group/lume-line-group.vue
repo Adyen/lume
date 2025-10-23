@@ -34,16 +34,21 @@
         class="lume-line-group__points"
         data-j-lume-line-group__points
       >
-        <lume-point
-          v-for="(_, index) in dataset.values"
-          v-bind="getPointPosition(index, datasetIndex)"
+        <template
+          v-for="(value, index) in dataset.values"
           :key="`point-${index}`"
-          :active="isPointActive(index)"
-          :color="dataset.color"
-          :index="index"
-          :radius="pointRadius"
-          @click="emit('point-click', { index, datasetIndex, event: $event })"
-        />
+        >
+          <lume-point
+            v-if="!value.isNull"
+            v-bind="getPointPosition(index, datasetIndex)"
+            :active="isPointActive(index)"
+            :color="dataset.color"
+            :index="index"
+            :radius="pointRadius"
+            :visible="computedVisiblePoints"
+            @click="emit('point-click', { index, datasetIndex, event: $event })"
+          />
+        </template>
       </g>
     </g>
   </g>
@@ -72,7 +77,7 @@ import type { LineChartOptions } from '@/types/options';
 const props = defineProps({
   ...withGroupProps<LineChartOptions>(),
   withPoints: {
-    type: Boolean,
+    type: [Boolean, String],
     default: true,
   },
   transition: {
@@ -152,6 +157,9 @@ const domain = computed(() => xScale.value.domain() as Array<number>);
 const computedWithPoints = computed(
   () => options.value.withPoints ?? props.withPoints
 );
+const computedVisiblePoints = computed(
+  () => options.value.withPoints === 'visible' || props.withPoints === 'visible'
+);
 
 function getValuesFromDataset(datasetIndex: number) {
   return computedGroupData.value[datasetIndex].values;
@@ -162,9 +170,9 @@ function getPathDefinition(lineIndex: number, datasetIndex: number) {
     lineIndex === 0
       ? []
       : [
-        getValuesFromDataset(datasetIndex)[lineIndex - 1]?.value,
-        getValuesFromDataset(datasetIndex)[lineIndex]?.value,
-      ];
+          getValuesFromDataset(datasetIndex)[lineIndex - 1]?.value,
+          getValuesFromDataset(datasetIndex)[lineIndex]?.value,
+        ];
 
   return (
     getLinePathDefinition(

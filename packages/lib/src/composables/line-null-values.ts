@@ -69,43 +69,46 @@ export function useLineNullValues(data: Ref<InternalData>) {
     };
   }
 
-  const computedLineData = computed(() => {
-    return data.value.map((dataset) => {
-      const nullIntervals = getNullIntervals(dataset.values);
+  const computedLineData = computed<InternalData<DatasetValueObject<number>>>(
+    () => {
+      return data.value.map((dataset) => {
+        const nullIntervals = getNullIntervals(dataset.values);
 
-      return {
-        ...dataset,
-        isDashed: generateIsDashed(nullIntervals),
-        values: dataset.values.map((value, index) => {
-          const nullInterval = nullIntervals.find((interval) =>
-            interval.includes(index)
-          );
-          if (nullInterval) {
-            const startIndex = nullInterval[0] - 1; // dataset value of index before the null interval starts
-            const endIndex = nullInterval[nullInterval.length - 1] + 1; // dataset value of index after the null interval ends
+        return {
+          ...dataset,
+          isDashed: generateIsDashed(nullIntervals),
+          values: dataset.values.map((value, index) => {
+            const nullInterval = nullIntervals.find((interval) =>
+              interval.includes(index)
+            );
+            if (nullInterval) {
+              const startIndex = nullInterval[0] - 1; // dataset value of index before the null interval starts
+              const endIndex = nullInterval[nullInterval.length - 1] + 1; // dataset value of index after the null interval ends
 
-            let start = dataset.values[startIndex]?.value;
-            let end = dataset.values[endIndex]?.value;
+              let start = dataset.values[startIndex]?.value;
+              let end = dataset.values[endIndex]?.value;
 
-            // If first/last value is `null`, use the first/last non-null value
-            if (start == null) start = end;
-            if (end == null) end = start;
+              // If first/last value is `null`, use the first/last non-null value
+              if (start == null) start = end;
+              if (end == null) end = start;
 
-            return {
-              value: getMidValue(
-                start,
-                end,
-                nullInterval.length,
-                nullInterval.indexOf(index)
-              ),
-              label: NO_DATA,
-            };
-          }
-          return value;
-        }),
-      };
-    });
-  });
+              return {
+                value: getMidValue(
+                  start,
+                  end,
+                  nullInterval.length,
+                  nullInterval.indexOf(index)
+                ),
+                label: NO_DATA,
+                isNull: true,
+              };
+            }
+            return value;
+          }),
+        };
+      });
+    }
+  );
 
   return { computedLineData };
 }
