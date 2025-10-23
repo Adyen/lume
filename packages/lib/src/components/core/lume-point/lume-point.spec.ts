@@ -28,6 +28,17 @@ describe('chart-container.vue', () => {
     expect(el.attributes()['r']).toEqual(defaultRadius);
   });
 
+  test('mounts component with visible set to true', () => {
+    const visibleRadius = '3';
+    const wrapper = mount(LumePoint, {
+      attachTo: svg,
+      props: { ...props, visible: true },
+    });
+
+    const el = wrapper.find('[data-j-point]');
+    expect(el.attributes()['r']).toEqual(visibleRadius);
+  });
+
   test('mounts component with active set to true and default radius', () => {
     const radius = 10;
     const active = true;

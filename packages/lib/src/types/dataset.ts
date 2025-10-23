@@ -6,6 +6,7 @@ export interface DatasetValueObject<T extends DatasetValueType = number> {
   value: T;
   color?: Color;
   label?: string;
+  isNull?: boolean; // used in line chart to hide null mid points
 }
 
 export type DatasetValue<T extends DatasetValueType = number> =
