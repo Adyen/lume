@@ -4,7 +4,7 @@
   transition: all $lume-transition-time-long ease;
   pointer-events: visible;
 
-  :not(&--visible),
+  &:not(&--visible),
   &--active {
     fill: $lume-color-white;
   }
