@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.12.0](https://github.com/Adyen/lume/compare/1.12.0...1.12.1)
+
+- 🐛 Fix missing SCSS selector in lume-point [`999f8f7`](https://github.com/Adyen/lume/commit/999f8f7edf7a82cc1059ce8365b8e6e68e494b9e)
+
 #### [1.12.0](https://github.com/Adyen/lume/compare/1.11.5...1.12.0)
 
 - ✨ Add option to always display line chart points [`c91a35d`](https://github.com/Adyen/lume/commit/c91a35d3dd96b1d4c10b56ed1c5e9619c8c900b5)
