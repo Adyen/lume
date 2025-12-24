@@ -95,6 +95,7 @@
       "serialize-javascript": "6.0.2",
       "serve-static": "1.16.0",
       "store2": "2.14.4",
+      "storybook": "8.6.15",
       "tar-fs": "2.1.4",
       "tar": "6.2.1",
       "tmp": "0.2.4",
