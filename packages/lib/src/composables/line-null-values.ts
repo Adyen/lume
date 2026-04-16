@@ -89,8 +89,10 @@ export function useLineNullValues(data: Ref<InternalData>) {
               let end = dataset.values[endIndex]?.value;
 
               // If first/last value is `null`, use the first/last non-null value
-              if (start == null) start = end;
-              if (end == null) end = start;
+              if (start == null) {
+                start = 0; // Start along the x-axis
+                end = 0;
+              } else if (end == null) end = start;
 
               return {
                 value: getMidValue(
