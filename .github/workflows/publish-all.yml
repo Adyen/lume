@@ -1,5 +1,6 @@
 name: Publish both Lume packages
 permissions:
+  id-token: write
   contents: read
 
 on:
@@ -14,12 +15,13 @@ jobs:
 
     steps:
       - name: Checkout the repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Use Node version from .nvmrc
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version-file: '.nvmrc'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
         uses: pnpm/action-setup@v2
@@ -31,11 +33,7 @@ jobs:
         run: pnpm run build
 
       - name: Publish Vue 2 package to npm registry
-        run: |
-          pnpm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_ADYEN_LUME_TOKEN }}
-          pnpm publish --filter='./packages/vue2' --no-git-checks
+        run: pnpm publish --filter='./packages/vue2' --no-git-checks
 
       - name: Publish Vue 3 package to npm registry
-        run: |
-          pnpm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_ADYEN_LUME_VUE3_TOKEN }}
-          pnpm publish --filter='./packages/vue3' --no-git-checks
+        run: pnpm publish --filter='./packages/vue3' --no-git-checks
