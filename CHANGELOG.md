@@ -2,19 +2,37 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [1.12.0](https://github.com/Adyen/lume/compare/1.12.0...1.12.1)
+#### [1.12.2](https://github.com/Adyen/lume/compare/1.12.1...1.12.2)
+
+- ⬆️ Upgrade vulnerable dependencies [`ef5872c`](https://github.com/Adyen/lume/commit/ef5872cf0c79ceba961c885765bbf29a8a4edcd0)
+- ⬆️ Upgrade vulnerable dependencies [`aaa3593`](https://github.com/Adyen/lume/commit/aaa3593a3fe0a850aa514314407aa685f423bfe5)
+- ⬆️ Upgrade vulnerable dependencies [`77b300f`](https://github.com/Adyen/lume/commit/77b300ffea03571945d4f411545c93b4d057fb56)
+
+#### [1.12.1](https://github.com/Adyen/lume/compare/1.12.0...1.12.1)
+
+> 3 November 2025
 
 - 🐛 Fix missing SCSS selector in lume-point [`999f8f7`](https://github.com/Adyen/lume/commit/999f8f7edf7a82cc1059ce8365b8e6e68e494b9e)
 
 #### [1.12.0](https://github.com/Adyen/lume/compare/1.11.5...1.12.0)
 
+> 23 October 2025
+
+- ⬆️ Upgrade dependency versions to fix security issues [`c9495d8`](https://github.com/Adyen/lume/commit/c9495d8b8226552b2f2813aabfe08522a0583c6b)
 - ✨ Add option to always display line chart points [`c91a35d`](https://github.com/Adyen/lume/commit/c91a35d3dd96b1d4c10b56ed1c5e9619c8c900b5)
+- ⬆️ Upgrade Vite version to fix security issues [`e701a89`](https://github.com/Adyen/lume/commit/e701a8922599c24e29fda1c4a00658a54e0489ae)
 
 #### [1.11.5](https://github.com/Adyen/lume/compare/1.11.4...1.11.5)
 
-- 🐛 Fix linear yScale for an all-negative domain [`6bf5fd7`](https://github.com/Adyen/lume/commit/6bf5fd7982318fa3965e106e21869a2ad47ca21e)
+> 17 September 2025
+
+- ⬆️ Upgrade release-it dependencies [`69f4f86`](https://github.com/Adyen/lume/commit/69f4f860a7a2d55aebf579b85456420906ae01fd)
+- ⬆️ Update vulnerable sub-dependencies [`fa34805`](https://github.com/Adyen/lume/commit/fa34805e42e2a9d3be1d29797a708ce6b488ac6c)
+- :arrow_up: Bump vitest from 2.1.3 to 2.1.9 [`4be38c5`](https://github.com/Adyen/lume/commit/4be38c5a6b2d3aa8a522a47b1d758a94a07979be)
 
 #### [1.11.4](https://github.com/Adyen/lume/compare/1.11.3...1.11.4)
+
+> 27 January 2025
 
 - ⏪️ Revert "Convert bar transform-origin to rem" [`0eb3300`](https://github.com/Adyen/lume/commit/0eb33004e3551ac19fa49d6411dc715e2c5a1c65)
 
@@ -70,13 +88,20 @@ All notable changes to this project will be documented in this file. Dates are d
 
 - 💄 Update various Lume styles [`268fcfb`](https://github.com/Adyen/lume/commit/268fcfb1186f44802fc147f679914269d614b8c8)
 
-#### [1.9.5](https://github.com/Adyen/lume/compare/1.9.3...1.9.5)
+#### [1.9.5](https://github.com/Adyen/lume/compare/1.9.4...1.9.5)
 
 > 4 April 2024
 
-- 🏷️ Improve DX of exported types and add the missing types. [`387774a`](https://github.com/Adyen/lume/commit/387774a1ff1ce2cabcc61afc508bd398c9f8c357)
 - 🏷️ Exported utils types for better DX [`eef5e4a`](https://github.com/Adyen/lume/commit/eef5e4a25119c5e772867229eebdb8da3ff9594c)
 - 🏷️ Reusing different bar variants from all bar types [`64dd24d`](https://github.com/Adyen/lume/commit/64dd24de2ca9d87fd0079d99ddd8d94b6d32aea8)
+- 🔥 Removed CHART_TYPES in favor of the existing enum [`fd819b1`](https://github.com/Adyen/lume/commit/fd819b1086250e6d37ada01094dc289d11944bda)
+
+#### [1.9.4](https://github.com/Adyen/lume/compare/1.9.3...1.9.4)
+
+> 3 April 2024
+
+- 🏷️ Improve DX of exported types and add the missing types. [`387774a`](https://github.com/Adyen/lume/commit/387774a1ff1ce2cabcc61afc508bd398c9f8c357)
+- 🏷️ Updated type import for few shared types [`4426731`](https://github.com/Adyen/lume/commit/44267311eb749c8e5fd6a127db2646bc5b480d3a)
 
 #### [1.9.3](https://github.com/Adyen/lume/compare/1.9.2...1.9.3)
 
