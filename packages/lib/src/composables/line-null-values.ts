@@ -1,8 +1,12 @@
 import { computed, Ref } from 'vue';
+import type { ScaleLinear } from 'd3';
 import { NO_DATA } from '@/utils/constants';
 import type { DatasetValueObject, InternalData } from '@/types/dataset';
 
-export function useLineNullValues(data: Ref<InternalData>) {
+export function useLineNullValues(
+  data: Ref<InternalData>,
+  yScale?: Ref<ScaleLinear<number, number>>
+) {
   /**
    * Returns an array of intervals where the data is null.
    * Each interval is an array containing the indexes of null values
@@ -88,10 +92,11 @@ export function useLineNullValues(data: Ref<InternalData>) {
               let start = dataset.values[startIndex]?.value;
               let end = dataset.values[endIndex]?.value;
 
-              // If first/last value is `null`, use the first/last non-null value
+              // If first/last value is `null`, use the y scale minimum
               if (start == null) {
-                start = 0; // Start along the x-axis
-                end = 0;
+                const domain = yScale?.value?.domain?.();
+                start = domain?.[1] ?? 0;
+                end = start;
               } else if (end == null) end = start;
 
               return {
