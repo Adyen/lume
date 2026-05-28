@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.12.3](https://github.com/Adyen/lume/compare/1.12.2...1.12.3)
+
+- 🔧 Update pnpm config [`c824fda`](https://github.com/Adyen/lume/commit/c824fda7c3a4340426baf8110be2367bc0151aac)
+- 🐛 Fix line null value start to be lower end of domain [`c7dd4aa8`](https://github.com/Adyen/lume/commit/c7dd4aa8d8c566571218b539b220cf927f7adf57)
+
 #### [1.12.2](https://github.com/Adyen/lume/compare/1.12.1...1.12.2)
 
 - ⬆️ Upgrade vulnerable dependencies [`ef5872c`](https://github.com/Adyen/lume/commit/ef5872cf0c79ceba961c885765bbf29a8a4edcd0)
