@@ -115,7 +115,10 @@ const computedGroupData = computed(() => {
   }
 
   // Compute line null values and return it
-  const { computedLineData } = useLineNullValues(data);
+  const { computedLineData } = useLineNullValues(
+    data,
+    yScale as Ref<ScaleLinear<number, number>>
+  );
 
   if (options.value.withTooltip !== false && tooltipAnchorAttributes?.value) {
     updateTooltipAnchorAttributes(computedLineData.value); // Updates tooltip anchors for null values
@@ -170,9 +173,9 @@ function getPathDefinition(lineIndex: number, datasetIndex: number) {
     lineIndex === 0
       ? []
       : [
-          getValuesFromDataset(datasetIndex)[lineIndex - 1]?.value,
-          getValuesFromDataset(datasetIndex)[lineIndex]?.value,
-        ];
+        getValuesFromDataset(datasetIndex)[lineIndex - 1]?.value,
+        getValuesFromDataset(datasetIndex)[lineIndex]?.value,
+      ];
 
   return (
     getLinePathDefinition(
