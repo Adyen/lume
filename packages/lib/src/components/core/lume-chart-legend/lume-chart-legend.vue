@@ -18,7 +18,13 @@
         :class="`lume-background-color--${dataset.color}`"
         data-j-chart-legend__symbol
       />
-      {{ dataset.label || index }}
+      <slot
+        :name="`label-${index}`"
+        :label="dataset.label"
+        :index="index"
+      >
+        {{ dataset.label || index }}
+      </slot>
     </div>
   </div>
 </template>
