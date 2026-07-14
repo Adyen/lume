@@ -28,7 +28,7 @@
     "pack": "pnpm pack --pack-destination ../../",
     "postbuild": "node ../../build/postbuild.js",
     "storybook": "sb dev -p 9003 -c .storybook",
-    "test": "vitest --config=vitest.config.ts"
+    "test": "vitest run --config=vitest.config.ts --coverage"
   },
   "dependencies": {
     "@popperjs/core": "2.11.8",
@@ -48,7 +48,7 @@
     "@storybook/vue3": "8.6.15",
     "@storybook/vue3-vite": "7.6.21",
     "@vitejs/plugin-vue": "4.6.2",
-    "@vitest/coverage-istanbul": "0.34.6",
+    "@vitest/coverage-v8": "2.1.9",
     "@vue/test-utils": "2.4.6",
     "jsdom": "26.1.0",
     "storybook-utils": "workspace:storybook-utils@*",

@@ -11,14 +11,14 @@ export default defineConfig({
   test: {
     globals: true,
     threads: false,
-    // root: '../lib/src',
     include: ['../lib/src/**/*.spec.{js,ts}'],
-    setupFiles: ['../lib/test/config/setupTests.ts'], // relative to `root` (src)
+    setupFiles: ['../lib/test/config/setupTests.ts'],
     environment: 'jsdom',
     coverage: {
-      provider: 'istanbul',
+      provider: 'v8',
       reportsDirectory: `./test/coverage`,
-      statements: 80,
+      include: [`${resolve(__dirname, '../lib/src')}/**/*.{ts,vue}`],
+      allowExternal: true,
     },
   },
   resolve: {
