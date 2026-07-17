@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.12.4](https://github.com/Adyen/lume/compare/1.12.3...1.12.4)
+
+> 17 July 2026
+
+- ⬆️ Upgrade Sass tooling and remove deprecation warnings
+
 #### [1.12.3](https://github.com/Adyen/lume/compare/1.12.2...1.12.3)
 
 - 🔧 Update pnpm config [`c824fda`](https://github.com/Adyen/lume/commit/c824fda7c3a4340426baf8110be2367bc0151aac)

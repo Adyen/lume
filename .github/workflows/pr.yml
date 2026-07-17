@@ -35,17 +35,14 @@ jobs:
       contents: read
 
   run-unit-tests:
-    name: Test on Node ${{ matrix.node_version }}
+    name: Test on latest LTS Node
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18, 20] # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node version from .nvmrc
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version-file: '.nvmrc'
 
       - name: Install dependencies
         uses: pnpm/action-setup@v2
