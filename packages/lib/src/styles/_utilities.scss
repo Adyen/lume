@@ -37,7 +37,7 @@
 .lume-background-color {
   @each $name, $map in $lume-categorical-colors {
     &--#{$name} {
-      background-color: nth($map, 1);
+      background-color: list.nth($map, 1);
     }
   }
 
@@ -92,7 +92,7 @@
 
   @each $name, $map in $lume-categorical-colors {
     &--#{$name} {
-      fill: nth($map, 1);
+      fill: list.nth($map, 1);
     }
   }
 
