@@ -23,7 +23,7 @@ const EMPTY_GRAPH = {
 } as SankeyGraph;
 
 function getColumnByNode(node: SankeyNode, columns: Array<Array<SankeyNode>>) {
-  return columns.find((column) => column.every((n) => n.x0 === node.x0));
+  return columns.find((column) => column.every((n) => n.depth === node.depth));
 }
 
 export function useAlluvialGraph(
@@ -78,8 +78,8 @@ export function useAlluvialGraph(
   });
 
   const columns = computed<Array<Array<SankeyNode>>>(() => {
-    return sankeyGraph.value?.nodes.reduce(
-      (cols: Array<Array<SankeyNode>>, node: SankeyNode) => {
+    return sankeyGraph.value?.nodes
+      .reduce((cols: Array<Array<SankeyNode>>, node: SankeyNode) => {
         const existingColumn = getColumnByNode(node, cols);
         if (existingColumn) {
           existingColumn.push(node);
@@ -88,9 +88,8 @@ export function useAlluvialGraph(
           cols.push([node]);
         }
         return cols;
-      },
-      []
-    );
+      }, [])
+      .sort((a, b) => a[0].depth - b[0].depth);
   });
 
   function computeStaticNodePosition(node: SankeyNode) {
