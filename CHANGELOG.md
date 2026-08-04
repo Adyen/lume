@@ -2,18 +2,23 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [1.12.4](https://github.com/Adyen/lume/compare/1.12.3...1.12.4)
+#### [1.13.0](https://github.com/Adyen/lume/compare/1.12.3...1.13.0)
 
-> 17 July 2026
-
-- ⬆️ Upgrade Sass tooling and remove deprecation warnings
+- ⬆️ Upgrade dependency versions and set pnpm as the package manager [`f07c0d6`](https://github.com/Adyen/lume/commit/f07c0d6a3b4c48425cdb65f05032fbf9288a924d)
+- ⬆️ Upgrade vulnerable dependencies [`dd6bb0f`](https://github.com/Adyen/lume/commit/dd6bb0fbe5584ebd9e809d705a1f7a46ee9fa15a)
+- ✨ Add expandable nodes to alluvial diagram [`1278cef`](https://github.com/Adyen/lume/commit/1278cef23472fd2ea07e11a4dcfdb7b093986d74)
 
 #### [1.12.3](https://github.com/Adyen/lume/compare/1.12.2...1.12.3)
 
+> 28 May 2026
+
 - 🔧 Update pnpm config [`c824fda`](https://github.com/Adyen/lume/commit/c824fda7c3a4340426baf8110be2367bc0151aac)
-- 🐛 Fix line null value start to be lower end of domain [`c7dd4aa8`](https://github.com/Adyen/lume/commit/c7dd4aa8d8c566571218b539b220cf927f7adf57)
+- 🔧 Update publish workflows to support trusted publishing [`ded4eea`](https://github.com/Adyen/lume/commit/ded4eeaaebafa9bf85eef95903ecd21d7ba18adc)
+- 🐛 Fix line null value start to be lower end of domain [`c7dd4aa`](https://github.com/Adyen/lume/commit/c7dd4aa8d8c566571218b539b220cf927f7adf57)
 
 #### [1.12.2](https://github.com/Adyen/lume/compare/1.12.1...1.12.2)
+
+> 16 April 2026
 
 - ⬆️ Upgrade vulnerable dependencies [`ef5872c`](https://github.com/Adyen/lume/commit/ef5872cf0c79ceba961c885765bbf29a8a4edcd0)
 - ⬆️ Upgrade vulnerable dependencies [`aaa3593`](https://github.com/Adyen/lume/commit/aaa3593a3fe0a850aa514314407aa685f423bfe5)
