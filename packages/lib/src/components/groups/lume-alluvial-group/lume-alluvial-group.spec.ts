@@ -1,4 +1,12 @@
-import { afterAll, beforeAll, describe, expect, test } from 'vitest';
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  test,
+} from 'vitest';
 import { nextTick, reactive } from 'vue';
 import { mount } from '@vue/test-utils';
 
@@ -6,9 +14,18 @@ import LumeAlluvialGroup from './lume-alluvial-group.vue';
 
 import { options as defaultOptions } from '@/components/charts/lume-alluvial-diagram/defaults';
 import { alluvialData } from '@test/unit/alluvial-mock-data';
+import { NODE_LABEL_PADDING } from './constants';
 
 const CONTAINER_SIZE = { width: 1000, height: 480 };
 const NODE_HEADERS = ['first', 'second', 'third', 'fourth'];
+
+const FIRST_COLUMN_NODE_ID = 'sourceA';
+const MIDDLE_COLUMN_NODE_ID = 'flowA';
+const LAST_COLUMN_NODE_ID = 'resultA';
+
+const LEFT_LABEL_CLASS = 'lume-alluvial-group__node-text--left';
+const LEFT_HEADER_CLASS = 'lume-alluvial-group__node-header--left';
+const RIGHT_HEADER_CLASS = 'lume-alluvial-group__node-header--right';
 
 const PARENT_NODE_ID = 'flowB';
 const SUB_NODE_IDS = ['subA', 'subB', 'subC'];
@@ -87,19 +104,63 @@ async function expandParentNode(wrapper) {
   await wrapper.find(`[data-id="${PARENT_NODE_ID}"]`).trigger('click');
 }
 
-function getNodeClasses(wrapper, id: string) {
-  const nodeText = wrapper.find(
-    `.lume-alluvial-group__node-text[data-id="${id}"]`
+function getColumnPositions(wrapper) {
+  const positions = Object.values(getNodeGeometry(wrapper)).map(
+    ({ x }: { x: number }) => x
   );
 
-  return nodeText.element.parentElement.parentElement.getAttribute('class');
+  return [...new Set(positions)].sort((a, b) => a - b);
+}
+
+function getNodeLabel(wrapper, id: string) {
+  return wrapper.find(`.lume-alluvial-group__node-text[data-id="${id}"]`);
+}
+
+function getNodeClasses(wrapper, id: string) {
+  return getNodeLabel(
+    wrapper,
+    id
+  ).element.parentElement.parentElement.getAttribute('class');
+}
+
+function getNodeHeader(wrapper, index: number) {
+  const header = wrapper.findAll('text.lume-alluvial-group__node-header')[
+    index
+  ];
+  const [, x] = header.element.parentElement
+    .getAttribute('transform')
+    .match(/translate\((-?[\d.]+)/);
+
+  return { x: Number(x), classes: header.classes() };
+}
+
+function getNodeLabelX(wrapper, id: string) {
+  const [, x] = getNodeLabel(wrapper, id)
+    .attributes('transform')
+    .match(/translate\((-?[\d.]+)/);
+
+  return Number(x);
+}
+
+function expectLabelBeforeNode(wrapper, id: string, geometry) {
+  expect(getNodeLabelX(wrapper, id)).toBe(geometry[id].x - NODE_LABEL_PADDING);
+  expect(getNodeLabel(wrapper, id).classes()).toContain(LEFT_LABEL_CLASS);
+}
+
+function expectLabelAfterNode(wrapper, id: string, geometry) {
+  expect(getNodeLabelX(wrapper, id)).toBe(
+    geometry[id].x + geometry[id].width + NODE_LABEL_PADDING
+  );
+  expect(getNodeLabel(wrapper, id).classes()).not.toContain(LEFT_LABEL_CLASS);
 }
 
 describe('lume-alluvial-group.vue', () => {
+  let labelWidth = 0;
+
   // jsdom doesn't implement SVG measurement, used for the diagram's label margins
   beforeAll(() => {
     Object.assign(Element.prototype, {
-      getBBox: () => ({ x: 0, y: 0, width: 0, height: 0 }),
+      getBBox: () => ({ x: 0, y: 0, width: labelWidth, height: 0 }),
     });
   });
 
@@ -286,6 +347,114 @@ describe('lume-alluvial-group.vue', () => {
           true
         )
       );
+    });
+  });
+
+  describe('node label alignment', () => {
+    const LABEL_WIDTH = 40;
+
+    beforeEach(() => {
+      labelWidth = LABEL_WIDTH;
+    });
+
+    afterEach(() => {
+      labelWidth = 0;
+    });
+
+    test('should render the first column labels before and the last column ones after their node by default', async () => {
+      const wrapper = await mountGroup();
+      const geometry = getNodeGeometry(wrapper);
+
+      expectLabelBeforeNode(wrapper, FIRST_COLUMN_NODE_ID, geometry);
+      expectLabelAfterNode(wrapper, LAST_COLUMN_NODE_ID, geometry);
+    });
+
+    test('should render the first column labels after their node when aligned right', async () => {
+      const wrapper = await mountGroup(alluvialData, {
+        alignFirstNodeLabels: 'right',
+      });
+      const geometry = getNodeGeometry(wrapper);
+
+      expectLabelAfterNode(wrapper, FIRST_COLUMN_NODE_ID, geometry);
+      expectLabelAfterNode(wrapper, LAST_COLUMN_NODE_ID, geometry);
+    });
+
+    test('should render the last column labels before their node when aligned left', async () => {
+      const wrapper = await mountGroup(alluvialData, {
+        alignLastNodeLabels: 'left',
+      });
+      const geometry = getNodeGeometry(wrapper);
+
+      expectLabelBeforeNode(wrapper, FIRST_COLUMN_NODE_ID, geometry);
+      expectLabelBeforeNode(wrapper, LAST_COLUMN_NODE_ID, geometry);
+    });
+
+    test('should keep the middle column labels after their node', async () => {
+      const wrapper = await mountGroup(alluvialData, {
+        alignFirstNodeLabels: 'right',
+        alignLastNodeLabels: 'left',
+      });
+
+      expectLabelAfterNode(
+        wrapper,
+        MIDDLE_COLUMN_NODE_ID,
+        getNodeGeometry(wrapper)
+      );
+    });
+
+    test('should only reserve horizontal space for the labels rendered outside the columns', async () => {
+      const defaultColumns = getColumnPositions(await mountGroup());
+      const innerColumns = getColumnPositions(
+        await mountGroup(alluvialData, {
+          alignFirstNodeLabels: 'right',
+          alignLastNodeLabels: 'left',
+        })
+      );
+      const lastColumnEnd = (positions: Array<number>) =>
+        positions[positions.length - 1] + defaultOptions.nodeWidth;
+
+      expect(defaultColumns[0]).toBe(LABEL_WIDTH);
+      expect(lastColumnEnd(defaultColumns)).toBe(
+        CONTAINER_SIZE.width - LABEL_WIDTH
+      );
+
+      expect(innerColumns[0]).toBe(0);
+      expect(lastColumnEnd(innerColumns)).toBe(CONTAINER_SIZE.width);
+    });
+
+    test('should center the node headers on their column by default', async () => {
+      const wrapper = await mountGroup();
+      const columns = getColumnPositions(wrapper);
+      const center = (x: number) => x + defaultOptions.nodeWidth / 2;
+
+      expect(getNodeHeader(wrapper, 0)).toEqual({
+        x: center(columns[0]),
+        classes: expect.not.arrayContaining([
+          LEFT_HEADER_CLASS,
+          RIGHT_HEADER_CLASS,
+        ]),
+      });
+      expect(getNodeHeader(wrapper, NODE_HEADERS.length - 1).x).toBe(
+        center(columns[columns.length - 1])
+      );
+    });
+
+    test('should align the node headers to the outer edge of the columns rendering their labels inwards', async () => {
+      const wrapper = await mountGroup(alluvialData, {
+        alignFirstNodeLabels: 'right',
+        alignLastNodeLabels: 'left',
+      });
+      const columns = getColumnPositions(wrapper);
+      const firstHeader = getNodeHeader(wrapper, 0);
+      const lastHeader = getNodeHeader(wrapper, NODE_HEADERS.length - 1);
+
+      expect(firstHeader.x).toBe(columns[0]);
+      expect(firstHeader.classes).toContain(LEFT_HEADER_CLASS);
+
+      expect(lastHeader.x).toBe(
+        columns[columns.length - 1] + defaultOptions.nodeWidth
+      );
+      expect(lastHeader.classes).toContain(RIGHT_HEADER_CLASS);
     });
   });
 });
