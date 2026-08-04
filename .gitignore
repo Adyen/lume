@@ -9,5 +9,6 @@ dist/
 node_modules/
 storybook/
 test/coverage
+packages/vue3/test/
 
 package-lock.json
