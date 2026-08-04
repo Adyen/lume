@@ -199,7 +199,7 @@ To run the app inside a Docker container:
    ```
 4. Install `pnpm`:
    ```shell
-     $ npm i -g pnpm
+     $ npm i -g pnpm@11
    ```
 5. (Optional, depends on your Docker image) Add the npm global directory to the `PATH` variable:
    ```shell
