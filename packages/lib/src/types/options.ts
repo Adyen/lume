@@ -1,4 +1,5 @@
 import type {
+  AlluvialNodeLabelAlignment,
   GetHighlightedElementsFunction,
   SankeyLink,
   SankeyLinkProps,
@@ -70,6 +71,8 @@ export interface LineChartOptions extends ChartOptions {
 }
 
 export interface AlluvialDiagramOptions extends ChartOptions {
+  alignFirstNodeLabels?: AlluvialNodeLabelAlignment; // Side where the first column's node labels are rendered
+  alignLastNodeLabels?: AlluvialNodeLabelAlignment; // Side where the last column's node labels are rendered
   gradient?: boolean;
   highlightedElements?: 'full' | 'closest' | GetHighlightedElementsFunction;
   nodeAlign?: (node: SankeyNode<unknown, unknown>, n: number) => number;

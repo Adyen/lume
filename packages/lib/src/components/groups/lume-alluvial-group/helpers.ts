@@ -14,6 +14,7 @@ import type {
   SankeyLinkProps,
   SankeyNodeProps,
 } from '@/types/alluvial';
+import type { AlluvialDiagramOptions } from '@/types/options';
 
 const TRANSITION_DURATION = 200;
 
@@ -46,17 +47,67 @@ export function isSankeyNode(
   );
 }
 
+/**
+ * Gets the layer (column index) of the diagram's last node column.
+ *
+ * @param nodes The graph nodes.
+ * @returns The last layer index.
+ */
+export function getLastNodeLayer(
+  nodes: Array<SankeyNode<SankeyNodeProps, SankeyLinkProps>>
+) {
+  return Math.max(
+    ...nodes
+      .filter((node) => node.parentNodeId == null) // Sub-nodes sit between columns
+      .map(({ layer }) => layer)
+  );
+}
+
+function isFirstColumnNode(node: SankeyNode<SankeyNodeProps, SankeyLinkProps>) {
+  return node.layer === 0;
+}
+
+function isLastColumnNode(
+  node: SankeyNode<SankeyNodeProps, SankeyLinkProps>,
+  lastNodeLayer: number
+) {
+  return node.parentNodeId == null && node.layer === lastNodeLayer;
+}
+
+/**
+ * Whether a node's label is rendered before (to the left of) its block. Only
+ * the first and last columns are configurable; all others are rendered after.
+ *
+ * @param node A sankey node.
+ * @param options The chart options, holding the configured label alignments.
+ * @param lastNodeLayer The layer of the diagram's last node column.
+ * @returns `true` if the label should be rendered to the left of the node.
+ */
+export function isNodeLabelBeforeNode(
+  node: SankeyNode<SankeyNodeProps, SankeyLinkProps>,
+  options: AlluvialDiagramOptions,
+  lastNodeLayer: number
+) {
+  if (isFirstColumnNode(node)) return options.alignFirstNodeLabels !== 'right';
+  if (isLastColumnNode(node, lastNodeLayer))
+    return options.alignLastNodeLabels === 'left';
+  return false;
+}
+
 export function getLabelSizes(
   graph: SankeyGraph<SankeyNodeProps, SankeyLinkProps>,
-  nodeTextElements: Array<SVGTextElement>
+  nodeTextElements: Array<SVGTextElement>,
+  options: AlluvialDiagramOptions
 ) {
   if (!nodeTextElements) return;
 
+  const lastNodeLayer = getLastNodeLayer(graph.nodes);
+
   const startNodeIDs = graph.nodes
-    .filter((node) => node.targetLinks.length === 0)
+    .filter((node) => isFirstColumnNode(node))
     .map((n) => `${n.id}`);
   const endNodeIDs = graph.nodes
-    .filter((node) => node.sourceLinks.length === 0)
+    .filter((node) => isLastColumnNode(node, lastNodeLayer))
     .map((n) => `${n.id}`);
 
   const maxStartNodeWidth = nodeTextElements
@@ -72,17 +123,21 @@ export function getLabelSizes(
       -Infinity
     );
 
+  // Labels rendered towards the inside of the diagram are drawn over the links, so they don't need a margin
   return {
-    left: maxStartNodeWidth,
+    left: options.alignFirstNodeLabels === 'right' ? 0 : maxStartNodeWidth,
     top: 0,
-    right: maxEndNodeWidth,
+    right: options.alignLastNodeLabels === 'left' ? 0 : maxEndNodeWidth,
     bottom: 0,
   };
 }
 
 export function getNodeBlockAttributes(
-  nodes: Array<SankeyNode<SankeyNodeProps, SankeyLinkProps>>
+  nodes: Array<SankeyNode<SankeyNodeProps, SankeyLinkProps>>,
+  options: AlluvialDiagramOptions
 ): Array<NodeBlock> {
+  const lastNodeLayer = getLastNodeLayer(nodes);
+
   return nodes.map((node) => {
     const isMinimumHeight = node.y1 - node.y0 < NODE_MINIMUM_HEIGHT;
     return {
@@ -91,10 +146,9 @@ export function getNodeBlockAttributes(
       width: node.x1 - node.x0,
       height: isMinimumHeight ? NODE_MINIMUM_HEIGHT : node.y1 - node.y0,
       textTransform: {
-        x:
-          node.depth > 0
-            ? node.x1 + NODE_LABEL_PADDING
-            : node.x0 - NODE_LABEL_PADDING,
+        x: isNodeLabelBeforeNode(node, options, lastNodeLayer)
+          ? node.x0 - NODE_LABEL_PADDING
+          : node.x1 + NODE_LABEL_PADDING,
         y: (node.y1 + node.y0) / 2,
       },
       node,

@@ -8,11 +8,13 @@
       <template v-for="(header, index) in nodeHeaders">
         <slot
           :name="`node-header-${index}`"
+          :align="header.align"
           :x="header.x"
           :y="-computedNodeHeaderPadding"
         >
           <lume-alluvial-node-header
             :key="`header_${header.x}`"
+            :align="header.align"
             :x="header.x"
             :y="-computedNodeHeaderPadding"
           >
@@ -154,7 +156,9 @@
           ref="nodeTextRefs"
           class="lume-alluvial-group__node-text lume-typography--caption"
           :class="{
-            'lume-alluvial-group__node-text--left': block.node.depth === 0,
+            'lume-alluvial-group__node-text--left': isLabelBeforeNode(
+              block.node
+            ),
           }"
           :transform="`translate(${block.textTransform.x},${block.textTransform.y})`"
           :data-id="block.node.id"
@@ -172,7 +176,7 @@
           >
             <lume-alluvial-node-label
               :bottom="options.switchText"
-              :left="block.node.depth === 0"
+              :left="isLabelBeforeNode(block.node)"
               :max-width="options.nodeLabelMaxWidth"
               @lume__internal--node-resize="updateMargins"
             >
@@ -218,15 +222,18 @@ import {
 } from './constants';
 import {
   getLabelSizes,
+  getLastNodeLayer,
   getLinkById,
   getLinkPathAttributes,
   getNodeBlockAttributes,
   getNodeById,
+  isNodeLabelBeforeNode,
 } from './helpers';
 
 import type { AlluvialDiagramOptions } from '@/types/options';
 import type {
   AlluvialNode,
+  AlluvialNodeHeaderAlignment,
   LinkPath,
   NodeBlock,
   SankeyLink,
@@ -283,11 +290,33 @@ const hoveredNodeIds = computed(() =>
   Object.keys(highlightedElements.value.nodes)
 );
 
-const nodeColumnPositions = computed<Array<number>>(() => {
+const lastNodeLayer = computed(() =>
+  graph.value?.nodes?.length ? getLastNodeLayer(graph.value.nodes) : 0
+);
+
+// Headers are centered on their column, except when the column's labels are
+// rendered inwards, where they follow the column's outer edge to stay in bounds
+const nodeColumnPositions = computed<
+  Array<{ x: number; align: AlluvialNodeHeaderAlignment }>
+>(() => {
   if (!columns.value) return [];
-  return columns.value.map(
-    (column) => column[0].x0 + options.value.nodeWidth / 2
-  );
+
+  const lastColumnIndex = columns.value.length - 1;
+
+  return columns.value.map(([{ x0, x1 }], index) => {
+    if (index === 0 && options.value.alignFirstNodeLabels === 'right') {
+      return { x: x0, align: 'left' };
+    }
+
+    if (
+      index === lastColumnIndex &&
+      options.value.alignLastNodeLabels === 'left'
+    ) {
+      return { x: x1, align: 'right' };
+    }
+
+    return { x: (x0 + x1) / 2, align: 'center' };
+  });
 });
 
 const nodeHeaders = computed(() => {
@@ -297,7 +326,7 @@ const nodeHeaders = computed(() => {
     .slice(0, nodeColumnPositions.value.length) // Match column/header array lengths
     .map((header, index) => ({
       label: header,
-      x: nodeColumnPositions.value[index],
+      ...nodeColumnPositions.value[index],
     }));
 });
 
@@ -418,6 +447,10 @@ function isLinkFocused(id: string) {
   );
 }
 
+function isLabelBeforeNode(node: NodeBlock['node']) {
+  return isNodeLabelBeforeNode(node, options.value, lastNodeLayer.value);
+}
+
 function shouldDeriveNodeColorFromIncomingLinks(block: NodeBlock) {
   return !block.node.color && block.node.deriveColorFromIncomingLinks;
 }
@@ -468,13 +501,17 @@ function getSubNodesDerivingColorFromIncomingLinks(nodeId: number | string) {
 }
 
 function updateMargins() {
-  const labelSizes = getLabelSizes(graph.value, nodeTextRefs.value);
+  const labelSizes = getLabelSizes(
+    graph.value,
+    nodeTextRefs.value,
+    options.value
+  );
   updateExtents(labelSizes);
 }
 
 // Render nodes/paths whenever the SankeyGraph changes
 watch(graph, (newGraph) => {
-  nodeBlocks.value = getNodeBlockAttributes(newGraph.nodes);
+  nodeBlocks.value = getNodeBlockAttributes(newGraph.nodes, options.value);
   linkPaths.value = getLinkPathAttributes(newGraph.links).reverse(); // Reverse order of link rendering so that the furthermost links are renderd on top
 
   // Handle initial hoveredElement from props
@@ -494,6 +531,12 @@ watch([props.containerSize, nodeTextRefs], () => {
     updateMargins();
   }
 });
+
+// The label alignment changes both the label offsets and the diagram's horizontal margins
+watch(
+  () => [options.value.alignFirstNodeLabels, options.value.alignLastNodeLabels],
+  updateMargins
+);
 
 watch(() => props.hoveredElementId, handleExternalHover);
 </script>

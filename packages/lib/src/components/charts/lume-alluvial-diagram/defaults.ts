@@ -15,6 +15,8 @@ export const options: AlluvialDiagramOptions = {
   withLegend: false,
 
   // Alluvial options
+  alignFirstNodeLabels: 'left',
+  alignLastNodeLabels: 'right',
   gradient: false,
   highlightedElements: 'closest',
   nodePadding: 16,
