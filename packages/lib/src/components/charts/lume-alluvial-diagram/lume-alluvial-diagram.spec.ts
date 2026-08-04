@@ -5,6 +5,7 @@ import { mount } from '@vue/test-utils';
 import LumeAlluvialDiagram from './lume-alluvial-diagram.vue';
 
 import { BaseTestSuite } from '@test/unit/reusable.test';
+import { alluvialData } from '@test/unit/alluvial-mock-data';
 import { generateData } from '@test/unit/utils/data-generator';
 
 import DATASETS from '@/docs/storybook-data/alluvial-data';
@@ -175,6 +176,29 @@ describe('lume-alluvial-diagram.vue', () => {
     await nextTick();
 
     expect(console.error).toHaveBeenCalled();
+  });
+
+  test('should toggle the sub-nodes of an expandable node on click', async () => {
+    const nodeCount = alluvialData[0].values.length;
+    const subNodeCount = 3; // Sub-nodes of `flowB`
+    const getNodeBlocks = () =>
+      wrapper.findAll('rect.lume-alluvial-group__node-block');
+
+    const wrapper = mount(LumeAlluvialDiagram, {
+      props: { data: alluvialData },
+    });
+
+    await wrapper.setProps({ containerSize: { width: 720, height: 480 } }); // Trigger graph calculation
+
+    expect(getNodeBlocks()).toHaveLength(nodeCount - subNodeCount);
+
+    await wrapper.find('[data-id="flowB"]').trigger('click');
+
+    expect(getNodeBlocks()).toHaveLength(nodeCount);
+
+    await wrapper.find('[data-id="flowB"]').trigger('click');
+
+    expect(getNodeBlocks()).toHaveLength(nodeCount - subNodeCount);
   });
 
   test('should calculate node offset based on provided value', async () => {

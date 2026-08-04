@@ -5,6 +5,11 @@ import { DEFAULT_COLOR } from '@/utils/colors';
 import { OtherColors } from '@/types/utils';
 import { Errors, error as logError } from '@/utils/errors';
 import { getAlluvialNodeId } from '../helpers';
+import {
+  applyNodeExpansion,
+  getCollapsedGraphInput,
+  useExpandableNodes,
+} from './alluvial-expandable-nodes';
 
 import type {
   AlluvialExtents,
@@ -23,7 +28,7 @@ const EMPTY_GRAPH = {
 } as SankeyGraph;
 
 function getColumnByNode(node: SankeyNode, columns: Array<Array<SankeyNode>>) {
-  return columns.find((column) => column.every((n) => n.depth === node.depth));
+  return columns.find((column) => column.every((n) => n.layer === node.layer));
 }
 
 export function useAlluvialGraph(
@@ -33,14 +38,31 @@ export function useAlluvialGraph(
 ) {
   const sankeyGraph = ref<SankeyGraph>(null);
 
+  const {
+    childIdsByParentId,
+    expandedNodeIds,
+    isExpandableNode,
+    isSubNode,
+    parentIdByChildId,
+    toggleNodeExpansion,
+  } = useExpandableNodes(data);
+
   const nodes: ComputedRef<Array<SankeyNode>> = computed(() => {
     return data.value?.[0]?.values.map(
-      ({ label, color, value, deriveColorFromIncomingLinks, offset }) => ({
+      ({
+        label,
+        color,
+        value,
+        deriveColorFromIncomingLinks,
+        expandableNodes,
+        offset,
+      }) => ({
         label: label || value.toString(),
         color,
         fallbackColor: color || DEFAULT_COLOR,
         id: value,
         deriveColorFromIncomingLinks,
+        expandableNodes,
         offset,
       })
     );
@@ -79,6 +101,7 @@ export function useAlluvialGraph(
 
   const columns = computed<Array<Array<SankeyNode>>>(() => {
     return sankeyGraph.value?.nodes
+      .filter((node) => node.parentNodeId == null) // Sub-nodes don't belong to any column
       .reduce((cols: Array<Array<SankeyNode>>, node: SankeyNode) => {
         const existingColumn = getColumnByNode(node, cols);
         if (existingColumn) {
@@ -89,7 +112,7 @@ export function useAlluvialGraph(
         }
         return cols;
       }, [])
-      .sort((a, b) => a[0].depth - b[0].depth);
+      .sort((a, b) => a[0].layer - b[0].layer);
   });
 
   function computeStaticNodePosition(node: SankeyNode) {
@@ -134,7 +157,8 @@ export function useAlluvialGraph(
           node.fallbackColor = OtherColors.Grey;
         }
 
-        if (typeof node.offset === 'number') {
+        // Sub-nodes are statically positioned within their parent's stack
+        if (typeof node.offset === 'number' && !isSubNode(node.id)) {
           computeStaticNodePosition(node);
           computeLinksPositionForStaticNode(node, sankeyGraph.value);
         }
@@ -143,18 +167,37 @@ export function useAlluvialGraph(
     return sankeyGraph.value;
   });
 
-  watch([layout, extents], () => {
+  watch([layout, extents, expandedNodeIds], () => {
     try {
       const { x0, y0, x1, y1 } = extents.value;
-      sankeyGraph.value = layout.value.extent([
+      const graphObject = layout.value.extent([
         [x0, y0],
         [x1, y1],
-      ])({ nodes: nodes.value, links: links.value }) as SankeyGraph;
+      ])(
+        getCollapsedGraphInput(
+          nodes.value,
+          links.value,
+          childIdsByParentId.value,
+          parentIdByChildId.value
+        )
+      ) as SankeyGraph;
+
+      applyNodeExpansion({
+        graph: graphObject,
+        nodes: nodes.value,
+        linkDefinitions: links.value,
+        expandedNodeIds: expandedNodeIds.value,
+        childIdsByParentId: childIdsByParentId.value,
+        options: options.value,
+        extents: extents.value,
+      });
+
+      sankeyGraph.value = graphObject;
     } catch (error) {
       logError(Errors.GraphProblem, error);
       sankeyGraph.value = EMPTY_GRAPH;
     }
   });
 
-  return { columns, graph };
+  return { columns, graph, isExpandableNode, toggleNodeExpansion };
 }
