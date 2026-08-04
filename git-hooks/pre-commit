@@ -11,10 +11,17 @@ echo "\n Formatting files with prettier: \n"
 ./node_modules/.bin/prettier --write --ignore-unknown $staged_files_prettier
 
 # Run ESLint
-echo "\n Linting files with ESLint: \n"
-./node_modules/.bin/eslint $staged_files_lint --fix
+if [ -n "$staged_files_lint" ]
+then
+    echo "\n Linting files with ESLint: \n"
+    ./node_modules/.bin/eslint $staged_files_lint --fix
 
-linter_exit_code=$?
+    linter_exit_code=$?
+else
+    echo "\n No files to lint with ESLint \n"
+
+    linter_exit_code=0
+fi
 
 if [ ! -z "${staged_files_prettier} ${staged_files_lint}" ]
 then
