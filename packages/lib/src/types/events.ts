@@ -6,7 +6,7 @@ import type { ContainerSize } from './size';
 
 export interface AlluvialNodeEventPayload {
   node: SankeyNode<SankeyNodeProps, SankeyLinkProps>;
-  event: MouseEvent | PointerEvent;
+  event: MouseEvent | PointerEvent | KeyboardEvent;
 }
 export interface AlluvialLinkEventPayload {
   link: SankeyLink<SankeyNodeProps, SankeyLinkProps>;

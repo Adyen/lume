@@ -93,6 +93,9 @@
       :key="`node-block_${index}`"
       class="lume-alluvial-group__node"
       :class="{
+        'lume-alluvial-group__node--expandable': isExpandableNode(
+          block.node.id
+        ),
         'lume-alluvial-group__node--faded': isNodeFaded(block.node.id),
         'lume-alluvial-group__node--focused': isNodeFocused(block.node.id),
       }"
@@ -100,15 +103,20 @@
     >
       <!-- Wrapper for catching mouse events when hovering both the block and text -->
       <g
-        @click="emit('node-click', { node: block.node, event: $event })"
+        :tabindex="isExpandableNode(block.node.id) ? '0' : null"
+        @click="handleNodeClick(block.node, $event)"
+        @keydown.enter.prevent="handleNodeClick(block.node, $event)"
+        @keydown.space.prevent="handleNodeClick(block.node, $event)"
         @mouseenter="
           emit('node-mouseenter', { node: block.node, event: $event })
         "
         @mouseleave="
           emit('node-mouseleave', { node: block.node, event: $event })
         "
-        @mouseover="hoveredElement = block.node"
-        @mouseout="hoveredElement = null"
+        @mouseover="pointedNode = block.node"
+        @mouseout="pointedNode = null"
+        @focus="focusedNode = block.node"
+        @blur="focusedNode = null"
       >
         <template v-if="shouldDeriveNodeColorFromIncomingLinks(block)">
           <rect
@@ -128,6 +136,19 @@
           :y="block.y"
           :height="block.height"
           :width="block.width"
+        />
+        <rect
+          v-if="isExpandableNode(block.node.id)"
+          class="lume-alluvial-group__node-outline"
+          :class="`lume-stroke--${
+            block.node.color || block.node.fallbackColor
+          }`"
+          :x="block.x - NODE_OUTLINE_PADDING"
+          :y="block.y - NODE_OUTLINE_PADDING"
+          :height="block.height + NODE_OUTLINE_PADDING * 2"
+          :width="block.width + NODE_OUTLINE_PADDING * 2"
+          :rx="NODE_OUTLINE_RADIUS"
+          data-j-alluvial-node-outline
         />
         <g
           ref="nodeTextRefs"
@@ -192,6 +213,8 @@ import {
   GHOST_STROKE_WIDTH_OFFSET,
   NODE_HEADER_PADDING,
   NODE_MINIMUM_HEIGHT,
+  NODE_OUTLINE_PADDING,
+  NODE_OUTLINE_RADIUS,
 } from './constants';
 import {
   getLabelSizes,
@@ -242,8 +265,12 @@ const linkPaths = ref<Array<LinkPath>>([]);
 
 const nodeTextRefs = ref<Array<SVGTextElement>>(null);
 
+const pointedNode = ref<NodeBlock['node']>(null);
+const focusedNode = ref<NodeBlock['node']>(null);
+
 const { extents, updateExtents } = useAlluvialExtents(props.containerSize);
-const { columns, graph } = useAlluvialGraph(data, options, extents);
+const { columns, graph, isExpandableNode, toggleNodeExpansion } =
+  useAlluvialGraph(data, options, extents);
 const { hoveredElement, highlightedElements } = useAlluvialHover(
   nodeBlocks,
   options,
@@ -395,6 +422,14 @@ function shouldDeriveNodeColorFromIncomingLinks(block: NodeBlock) {
   return !block.node.color && block.node.deriveColorFromIncomingLinks;
 }
 
+function handleNodeClick(
+  node: NodeBlock['node'],
+  event: MouseEvent | KeyboardEvent
+) {
+  if (isExpandableNode(node.id)) toggleNodeExpansion(node.id);
+  emit('node-click', { node, event });
+}
+
 function handleLinkMouseover(link: SankeyLink, event: MouseEvent) {
   if (link === hoveredElement.value) return;
 
@@ -446,6 +481,11 @@ watch(graph, (newGraph) => {
   if (hoveredElement.value == null && props.hoveredElementId != null) {
     handleExternalHover(props.hoveredElementId);
   }
+});
+
+// Keep a node highlighted for as long as either the pointer or the focus is on it
+watch([pointedNode, focusedNode], () => {
+  hoveredElement.value = pointedNode.value ?? focusedNode.value;
 });
 
 // Update extents whenever 1. container size changes or 2. node labels are rendered (hence defining new margins)

@@ -2,6 +2,8 @@
 
 $lume-alluvial-text-color: $lume-color-neutral-100;
 
+$lume-alluvial-node-outline-width: 2px !default;
+
 $lume-alluvial-node-opacity: 0.7 !default;
 $lume-alluvial-node-opacity-faded: 0.3 !default;
 $lume-alluvial-node-opacity-focused: 1 !default;
@@ -14,21 +16,42 @@ $lume-alluvial-link-opacity-focused: 0.5 !default;
   $b: &;
 
   &__node {
+    :focus {
+      outline: none;
+    }
+
+    &--expandable {
+      cursor: pointer;
+
+      #{$b}__node-text {
+        cursor: pointer;
+      }
+    }
+
     &--faded {
       #{$b}__node-block,
+      #{$b}__node-outline,
       #{$b}__node-text {
         opacity: $lume-alluvial-node-opacity-faded;
       }
     }
 
     &--focused {
-      #{$b}__node-block {
+      #{$b}__node-block,
+      #{$b}__node-outline {
         opacity: $lume-alluvial-node-opacity-focused;
       }
     }
   }
 
   &__node-block {
+    transition: opacity $lume-transition-time-long;
+    opacity: $lume-alluvial-node-opacity;
+  }
+
+  &__node-outline {
+    fill: none;
+    stroke-width: $lume-alluvial-node-outline-width;
     transition: opacity $lume-transition-time-long;
     opacity: $lume-alluvial-node-opacity;
   }

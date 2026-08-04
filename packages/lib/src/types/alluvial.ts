@@ -8,6 +8,8 @@ import {
 import type { Dataset, DatasetValueObject } from '@/types/dataset';
 import type { Color } from '@/types/utils';
 
+export type AlluvialNodeId = number | string;
+
 interface AlluvialNodeTarget {
   node: string;
   value: number;
@@ -19,6 +21,7 @@ export interface AlluvialNode extends DatasetValueObject {
   targets?: Array<AlluvialNodeTarget>;
   deriveColorFromIncomingLinks?: boolean;
   offset?: number;
+  expandableNodes?: Array<AlluvialNodeId>;
 }
 export interface SankeyNodeProps extends SankeyExtraProperties {
   id: number | string;
@@ -28,6 +31,8 @@ export interface SankeyNodeProps extends SankeyExtraProperties {
   transitionValue?: number;
   deriveColorFromIncomingLinks?: boolean;
   offset?: number;
+  expandableNodes?: Array<AlluvialNodeId>;
+  parentNodeId?: AlluvialNodeId;
 }
 
 export interface SankeyLinkProps extends SankeyExtraProperties {
