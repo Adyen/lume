@@ -117,6 +117,16 @@ $lume-alluvial-link-opacity-focused: 0.5 !default;
     text-anchor: middle;
     text-align: center;
     cursor: default;
+
+    &--left {
+      text-anchor: start;
+      text-align: left;
+    }
+
+    &--right {
+      text-anchor: end;
+      text-align: right;
+    }
   }
 }
 

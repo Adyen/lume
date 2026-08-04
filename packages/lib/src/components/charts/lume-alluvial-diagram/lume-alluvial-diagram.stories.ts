@@ -92,6 +92,27 @@ export const MultipleLevels: Story = {
   },
 };
 
+export const InnerAlignedNodeLabels: Story = {
+  render: ({ args }) => ({
+    components: { LumeAlluvialDiagram },
+    setup() {
+      return { args, captureAction };
+    },
+    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    <lume-alluvial-diagram v-bind="args" ${actionEventHandlerTemplate} />
+  </div>`,
+  }),
+  args: {
+    ...DATASETS.Basic,
+    title: 'Students performance in science exam',
+    options: {
+      alignFirstNodeLabels: 'right',
+      alignLastNodeLabels: 'left',
+      nodeLabelMaxWidth: 100,
+    },
+  },
+};
+
 export const MultipleLevelsWithColorDerivationFromIncomingLinks: Story = {
   render: ({ args }) => ({
     components: { LumeAlluvialDiagram },

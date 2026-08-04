@@ -36,7 +36,8 @@ To overwrite the default node header, add your content to the respective `node-h
 
 ### Props
 
-| Name | Type     | Default  | Description                            |
-| ---- | -------- | -------- | -------------------------------------- |
-| `x`  | `number` | Required | The horizontal position of the header. |
-| `y`  | `number` | Required | The vertical position of the header.   |
+| Name    | Type                            | Default    | Description                                                   |
+| ------- | ------------------------------- | ---------- | ------------------------------------------------------------- |
+| `align` | `'left' \| 'center' \| 'right'` | `'center'` | The horizontal alignment of the header text, relative to `x`. |
+| `x`     | `number`                        | Required   | The horizontal position of the header.                        |
+| `y`     | `number`                        | Required   | The vertical position of the header.                          |

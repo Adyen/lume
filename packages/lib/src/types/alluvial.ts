@@ -10,6 +10,10 @@ import type { Color } from '@/types/utils';
 
 export type AlluvialNodeId = number | string;
 
+export type AlluvialNodeLabelAlignment = 'left' | 'right';
+
+export type AlluvialNodeHeaderAlignment = AlluvialNodeLabelAlignment | 'center';
+
 interface AlluvialNodeTarget {
   node: string;
   value: number;
