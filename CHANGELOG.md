@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.14.0](https://github.com/Adyen/lume/compare/1.13.0...1.14.0)
+
+- ✨ Add alluvial node label and header alignment [`160fc54`](https://github.com/Adyen/lume/commit/160fc54bed98aaa41f4b7347d982e72c7304f232)
+
 #### [1.13.0](https://github.com/Adyen/lume/compare/1.12.3...1.13.0)
+
+> 4 August 2026
 
 - ⬆️ Upgrade dependency versions and set pnpm as the package manager [`f07c0d6`](https://github.com/Adyen/lume/commit/f07c0d6a3b4c48425cdb65f05032fbf9288a924d)
 - ⬆️ Upgrade vulnerable dependencies [`dd6bb0f`](https://github.com/Adyen/lume/commit/dd6bb0fbe5584ebd9e809d705a1f7a46ee9fa15a)
