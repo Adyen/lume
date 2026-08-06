@@ -1,4 +1,5 @@
 import type {
+  AlluvialNodeExpansionTrigger,
   AlluvialNodeLabelAlignment,
   GetHighlightedElementsFunction,
   SankeyLink,
@@ -76,6 +77,7 @@ export interface AlluvialDiagramOptions extends ChartOptions {
   gradient?: boolean;
   highlightedElements?: 'full' | 'closest' | GetHighlightedElementsFunction;
   nodeAlign?: (node: SankeyNode<unknown, unknown>, n: number) => number;
+  nodeExpansionTrigger?: AlluvialNodeExpansionTrigger; // Area of an expandable node that toggles its expansion on click
   nodeHeaders?: Array<string>;
   nodeHeaderPadding?: number;
   nodeLabelMaxWidth?: number;

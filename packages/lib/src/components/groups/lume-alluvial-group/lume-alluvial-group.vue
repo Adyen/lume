@@ -98,6 +98,8 @@
         'lume-alluvial-group__node--expandable': isExpandableNode(
           block.node.id
         ),
+        'lume-alluvial-group__node--expandable-block':
+          isExpandableNode(block.node.id) && isBlockExpansionTrigger,
         'lume-alluvial-group__node--faded': isNodeFaded(block.node.id),
         'lume-alluvial-group__node--focused': isNodeFocused(block.node.id),
       }"
@@ -107,8 +109,8 @@
       <g
         :tabindex="isExpandableNode(block.node.id) ? '0' : null"
         @click="handleNodeClick(block.node, $event)"
-        @keydown.enter.prevent="handleNodeClick(block.node, $event)"
-        @keydown.space.prevent="handleNodeClick(block.node, $event)"
+        @keydown.enter.prevent="handleNodeKeydown(block.node, $event)"
+        @keydown.space.prevent="handleNodeKeydown(block.node, $event)"
         @mouseenter="
           emit('node-mouseenter', { node: block.node, event: $event })
         "
@@ -128,6 +130,7 @@
             v-bind="nodeBlock"
             :key="nodeBlock.key"
             data-j-alluvial-sub-nodes
+            @click="handleNodeBlockClick(block.node)"
           />
         </template>
         <rect
@@ -138,6 +141,7 @@
           :y="block.y"
           :height="block.height"
           :width="block.width"
+          @click="handleNodeBlockClick(block.node)"
         />
         <rect
           v-if="isExpandableNode(block.node.id)"
@@ -151,6 +155,7 @@
           :width="block.width + NODE_OUTLINE_PADDING * 2"
           :rx="NODE_OUTLINE_RADIUS"
           data-j-alluvial-node-outline
+          @click="handleNodeBlockClick(block.node)"
         />
         <g
           ref="nodeTextRefs"
@@ -285,6 +290,10 @@ const { hoveredElement, highlightedElements } = useAlluvialHover(
 );
 
 const formatValue = computed(() => useFormat(options.value.valueFormat));
+
+const isBlockExpansionTrigger = computed(
+  () => options.value.nodeExpansionTrigger === 'block'
+);
 
 const hoveredNodeIds = computed(() =>
   Object.keys(highlightedElements.value.nodes)
@@ -455,12 +464,24 @@ function shouldDeriveNodeColorFromIncomingLinks(block: NodeBlock) {
   return !block.node.color && block.node.deriveColorFromIncomingLinks;
 }
 
-function handleNodeClick(
-  node: NodeBlock['node'],
-  event: MouseEvent | KeyboardEvent
-) {
+function toggleExpansion(node: NodeBlock['node']) {
   if (isExpandableNode(node.id)) toggleNodeExpansion(node.id);
+}
+
+function handleNodeClick(node: NodeBlock['node'], event: MouseEvent) {
+  // With a `block` expansion trigger, expansion is handled by the node block itself
+  if (!isBlockExpansionTrigger.value) toggleExpansion(node);
   emit('node-click', { node, event });
+}
+
+// Keyboard interaction targets the whole node, regardless of `nodeExpansionTrigger`
+function handleNodeKeydown(node: NodeBlock['node'], event: KeyboardEvent) {
+  toggleExpansion(node);
+  emit('node-click', { node, event });
+}
+
+function handleNodeBlockClick(node: NodeBlock['node']) {
+  if (isBlockExpansionTrigger.value) toggleExpansion(node);
 }
 
 function handleLinkMouseover(link: SankeyLink, event: MouseEvent) {

@@ -14,6 +14,8 @@ export type AlluvialNodeLabelAlignment = 'left' | 'right';
 
 export type AlluvialNodeHeaderAlignment = AlluvialNodeLabelAlignment | 'center';
 
+export type AlluvialNodeExpansionTrigger = 'node' | 'block';
+
 interface AlluvialNodeTarget {
   node: string;
   value: number;

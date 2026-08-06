@@ -104,6 +104,14 @@ async function expandParentNode(wrapper) {
   await wrapper.find(`[data-id="${PARENT_NODE_ID}"]`).trigger('click');
 }
 
+function getNodeBlock(wrapper, id: string) {
+  const index = wrapper
+    .findAll('.lume-alluvial-group__node-text')
+    .findIndex((text) => text.attributes()['data-id'] === id);
+
+  return getNodeBlocks(wrapper)[index];
+}
+
 function getColumnPositions(wrapper) {
   const positions = Object.values(getNodeGeometry(wrapper)).map(
     ({ x }: { x: number }) => x
@@ -223,6 +231,36 @@ describe('lume-alluvial-group.vue', () => {
       expect(getNodeBlocks(wrapper)).toHaveLength(
         nodeCount - SUB_NODE_IDS.length
       );
+    });
+
+    test("should only toggle sub-nodes from the node block with a 'block' expansion trigger", async () => {
+      const wrapper = await mountGroup(alluvialData, {
+        nodeExpansionTrigger: 'block',
+      });
+      const nodeCount = alluvialData[0].values.length;
+      const collapsedNodeCount = nodeCount - SUB_NODE_IDS.length;
+
+      expect(getNodeClasses(wrapper, PARENT_NODE_ID)).toContain(
+        'lume-alluvial-group__node--expandable-block'
+      );
+
+      await wrapper.find(`[data-id="${PARENT_NODE_ID}"]`).trigger('click'); // Node label
+
+      expect(getNodeBlocks(wrapper)).toHaveLength(collapsedNodeCount);
+
+      await getNodeBlock(wrapper, PARENT_NODE_ID).trigger('click');
+
+      expect(getNodeBlocks(wrapper)).toHaveLength(nodeCount);
+
+      await getNodeBlock(wrapper, PARENT_NODE_ID).trigger('click');
+
+      expect(getNodeBlocks(wrapper)).toHaveLength(collapsedNodeCount);
+
+      await wrapper
+        .find(`[data-id="${PARENT_NODE_ID}"]`)
+        .trigger('keydown.enter');
+
+      expect(getNodeBlocks(wrapper)).toHaveLength(nodeCount);
     });
 
     test('should highlight an expandable node while it is focused', async () => {
