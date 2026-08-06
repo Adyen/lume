@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.15.0](https://github.com/Adyen/lume/compare/1.14.0...1.15.0)
+
+- ✨ Add alluvial node expansion trigger option [`dac7869`](https://github.com/Adyen/lume/commit/dac78693ca130eeaadfadc2c01465961ccdfce64)
+
 #### [1.14.0](https://github.com/Adyen/lume/compare/1.13.0...1.14.0)
+
+> 4 August 2026
 
 - ✨ Add alluvial node label and header alignment [`160fc54`](https://github.com/Adyen/lume/commit/160fc54bed98aaa41f4b7347d982e72c7304f232)
 
