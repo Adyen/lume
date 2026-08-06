@@ -28,6 +28,19 @@ $lume-alluvial-link-opacity-focused: 0.5 !default;
       }
     }
 
+    &--expandable-block {
+      cursor: default;
+
+      #{$b}__node-text {
+        cursor: default;
+      }
+
+      #{$b}__node-block,
+      #{$b}__node-outline {
+        cursor: pointer;
+      }
+    }
+
     &--faded {
       #{$b}__node-block,
       #{$b}__node-outline,

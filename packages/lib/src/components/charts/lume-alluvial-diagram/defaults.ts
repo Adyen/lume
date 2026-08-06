@@ -22,6 +22,7 @@ export const options: AlluvialDiagramOptions = {
   nodePadding: 16,
   nodeWidth: 16,
   nodeAlign: sankeyJustify,
+  nodeExpansionTrigger: 'node',
   valueFormat: (value: number) => String(value),
   iterations: 6,
 };
