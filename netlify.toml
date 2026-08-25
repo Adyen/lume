@@ -1,3 +1,8 @@
+# 'unsafe-eval' is required by Storybook: the preview compiles story templates
+# through Vue's runtime compiler (`new Function`) and the manager deserializes
+# channel payloads with telejson (`eval`). Since those two are the only
+# documents served, and CSP is enforced per document, scoping the directive to
+# individual paths would exempt nothing.
 [[headers]]
   for = "/*"
 
@@ -6,16 +11,24 @@
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "no-referrer"
-    Content-Security-Policy = "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data: blob:; font-src 'self'; frame-src 'self'; frame-ancestors 'self'; form-action 'self'; base-uri 'none'; object-src 'none'"
+    Content-Security-Policy = """\
+      default-src 'none'; \
+      script-src 'self' 'unsafe-inline' 'unsafe-eval'; \
+      style-src 'self' 'unsafe-inline'; \
+      connect-src 'self'; \
+      img-src 'self' data: blob:; \
+      font-src 'self'; \
+      frame-src 'self'; \
+      frame-ancestors 'self'; \
+      form-action 'self'; \
+      base-uri 'none'; \
+      object-src 'none'"""
 
 # Storybook's manager embeds iframe.html as the story preview, so this one path
-# must stay same-origin framable, and it needs 'unsafe-eval' because Vue's
-# runtime compiler builds story templates with `new Function`. Must remain after
-# the "/*" rule: for a given path, the later rule's value overrides the earlier
-# one, so the policy below is repeated in full.
+# must stay same-origin framable. Must remain after the "/*" rule: for a given
+# path, the later rule's value overrides the earlier one.
 [[headers]]
   for = "/iframe.html"
 
   [headers.values]
     X-Frame-Options = "SAMEORIGIN"
-    Content-Security-Policy = "default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data: blob:; font-src 'self'; frame-src 'self'; frame-ancestors 'self'; form-action 'self'; base-uri 'none'; object-src 'none'"
