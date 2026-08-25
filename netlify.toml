@@ -1,0 +1,18 @@
+[[headers]]
+  for = "/*"
+
+  [headers.values]
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer"
+    Content-Security-Policy = "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data: blob:; font-src 'self'; frame-src 'self'; frame-ancestors 'self'; form-action 'self'; base-uri 'none'; object-src 'none'"
+
+# Storybook's manager embeds iframe.html as the story preview, so this one path
+# must stay same-origin framable. Must remain after the "/*" rule: for a given
+# path, the later rule's value overrides the earlier one.
+[[headers]]
+  for = "/iframe.html"
+
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
