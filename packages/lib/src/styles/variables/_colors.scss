@@ -175,6 +175,7 @@ $lume-color-grey-100: #00112c !default;
 $lume-color-grey-transparent: rgba(210, 218, 225, 0.7) !default;
 
 $lume-color-green: #0abf53 !default;
+$lume-color-yellow: #ffc226 !default;
 $lume-color-orange: #ff9000 !default;
 $lume-color-red: #f33030 !default;
 
@@ -202,6 +203,7 @@ $lume-other-colors: (
   'neutral-100': $lume-color-neutral-100,
 
   'green': $lume-color-green,
+  'yellow': $lume-color-yellow,
   'orange': $lume-color-orange,
   'red': $lume-color-red,
 ) !default;

@@ -75,6 +75,7 @@ export enum OtherColors {
   White = 'white',
   Black = 'black',
   Green = 'green',
+  Yellow = 'yellow',
   Orange = 'orange',
   Red = 'red',
   Grey = 'grey',
