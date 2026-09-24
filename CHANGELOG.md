@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.16.0](https://github.com/Adyen/lume/compare/1.15.0...1.16.0)
+
+- 🔧 Edit Netlify config [`bdce9c2`](https://github.com/Adyen/lume/commit/bdce9c27464cd45cb5666ec2ce117906753a9e23)
+- 🔧 Add Netlify headers config [`2e2ac13`](https://github.com/Adyen/lume/commit/2e2ac1391cdfb09bd0ca156a836c3e53943d35ab)
+- ✨ Add yellow color [`ca3244b`](https://github.com/Adyen/lume/commit/ca3244bec57a67f91e0e79950c473f5bf3d8b84c)
+
 #### [1.15.0](https://github.com/Adyen/lume/compare/1.14.0...1.15.0)
+
+> 6 August 2026
 
 - ✨ Add alluvial node expansion trigger option [`dac7869`](https://github.com/Adyen/lume/commit/dac78693ca130eeaadfadc2c01465961ccdfce64)
 
