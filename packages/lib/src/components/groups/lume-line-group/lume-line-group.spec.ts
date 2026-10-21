@@ -109,6 +109,35 @@ describe('lume-line-group.vue', () => {
     });
   });
 
+  test('uses per-value colors for lines and points', () => {
+    const coloredData = [
+      {
+        values: [
+          { value: 1, color: 'yellow' },
+          { value: 5 },
+          { value: 8, color: 'red' },
+        ],
+        color: 'skyblue',
+        label: 'Severity',
+      },
+    ];
+
+    const wrapper = mount(LumeLineGroup, {
+      attachTo: svg,
+      props: { ...defaultProps, data: coloredData },
+    });
+
+    const lineClasses = wrapper.findAll('.lume-line').map((l) => l.classes());
+    expect(lineClasses[0]).toContain('lume-stroke--yellow');
+    expect(lineClasses[1]).toContain('lume-stroke--skyblue');
+    expect(lineClasses[2]).toContain('lume-stroke--red');
+
+    const pointClasses = wrapper.findAll('.lume-point').map((p) => p.classes());
+    expect(pointClasses[0]).toContain('lume-stroke--yellow');
+    expect(pointClasses[1]).toContain('lume-stroke--skyblue');
+    expect(pointClasses[2]).toContain('lume-stroke--red');
+  });
+
   describe('Events API', () => {
     it('should dispatch `line-click` if user clicks a line', async () => {
       const wrapper = mount(LumeLineGroup, {
