@@ -21,7 +21,7 @@
           v-for="(_, index) in dataset.values"
           v-bind="getLineTransitionParams(index)"
           :key="`line-${index}`"
-          :color="dataset.color"
+          :color="getColor(index, datasetIndex)"
           :dashed="dataset.isDashed(index)"
           :path-definition="getPathDefinition(index, datasetIndex)"
           :transition="transition"
@@ -34,21 +34,17 @@
         class="lume-line-group__points"
         data-j-lume-line-group__points
       >
-        <template
-          v-for="(value, index) in dataset.values"
+        <lume-point
+          v-for="index in getNonNullIndexes(datasetIndex)"
+          v-bind="getPointPosition(index, datasetIndex)"
           :key="`point-${index}`"
-        >
-          <lume-point
-            v-if="!value.isNull"
-            v-bind="getPointPosition(index, datasetIndex)"
-            :active="isPointActive(index)"
-            :color="dataset.color"
-            :index="index"
-            :radius="pointRadius"
-            :visible="computedVisiblePoints"
-            @click="emit('point-click', { index, datasetIndex, event: $event })"
-          />
-        </template>
+          :active="isPointActive(index)"
+          :color="getColor(index, datasetIndex)"
+          :index="index"
+          :radius="pointRadius"
+          :visible="computedVisiblePoints"
+          @click="emit('point-click', { index, datasetIndex, event: $event })"
+        />
       </g>
     </g>
   </g>
@@ -166,6 +162,19 @@ const computedVisiblePoints = computed(
 
 function getValuesFromDataset(datasetIndex: number) {
   return computedGroupData.value[datasetIndex].values;
+}
+
+function getNonNullIndexes(datasetIndex: number) {
+  return getValuesFromDataset(datasetIndex).flatMap((value, index) =>
+    value.isNull ? [] : [index]
+  );
+}
+
+function getColor(index: number, datasetIndex: number) {
+  return (
+    getValuesFromDataset(datasetIndex)[index]?.color ??
+    computedGroupData.value[datasetIndex].color
+  );
 }
 
 function getPathDefinition(lineIndex: number, datasetIndex: number) {
