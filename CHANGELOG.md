@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.16.1](https://github.com/Adyen/lume/compare/1.16.0...1.16.1)
+
+- 🐛 Fix line group color by individual data point [`cbb05a7`](https://github.com/Adyen/lume/commit/cbb05a7cd4f11b8b540987ad6ee426564bc3f1da)
+
 #### [1.16.0](https://github.com/Adyen/lume/compare/1.15.0...1.16.0)
+
+> 24 September 2026
 
 - 🔧 Edit Netlify config [`bdce9c2`](https://github.com/Adyen/lume/commit/bdce9c27464cd45cb5666ec2ce117906753a9e23)
 - 🔧 Add Netlify headers config [`2e2ac13`](https://github.com/Adyen/lume/commit/2e2ac1391cdfb09bd0ca156a836c3e53943d35ab)
