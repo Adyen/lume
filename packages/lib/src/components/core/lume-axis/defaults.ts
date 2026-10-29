@@ -16,6 +16,8 @@ const options: AxisOptions = {
   tickFormat: null,
   /** Space between the tick label and the axis line. */
   tickPadding: 12,
+  /** Horizontal alignment of the tick labels. Only applies to y axes. */
+  tickAlign: 'end',
 };
 
 export const xOptions: AxisOptions = {

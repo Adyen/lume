@@ -275,13 +275,23 @@ function getTextNode(index: number) {
   return tickRefs.value[index]?.ref;
 }
 
+function getMaxLabelWidth() {
+  const widths = (tickRefs.value || [])
+    .map((tick) => tick.ref?.getComputedTextLength?.())
+    .filter((width) => width != null);
+
+  return widths.length ? Math.max(...widths) : undefined;
+}
+
 function setTicks() {
+  const maxLabelWidth = getMaxLabelWidth();
+
   ticksWithAttributes.value = ticks.value.map(
     (tick: string | number, index: number) => ({
       value: formatTick(tick),
       group: mixins.getTickGroupAttributes(tick, index),
-      ghost: mixins.getTickGhostAttributes(getTextNode(index)),
-      label: mixins.getTickLabelAttributes(),
+      ghost: mixins.getTickGhostAttributes(getTextNode(index), maxLabelWidth),
+      label: mixins.getTickLabelAttributes(maxLabelWidth),
       gridline: mixins.getGridLinesAttributes(),
     })
   );

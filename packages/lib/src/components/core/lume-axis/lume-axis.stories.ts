@@ -107,6 +107,16 @@ export const yAxis: Story = {
   },
 };
 
+export const yAxisTickAlignStart: Story = {
+  ...yAxis,
+  name: 'Y Axis (left-aligned tick labels)',
+  args: {
+    ...yAxis.args,
+    scale: scaleLinear().domain([0, 10000]),
+    options: { ...yOptions, tickAlign: 'start' },
+  },
+};
+
 export const bothAxes: Story = {
   name: 'Y Axis (linear scale)',
   render: ({ args }) => ({
