@@ -7,7 +7,7 @@ import type { ContainerSize } from '@/types/size';
 
 export type AxisMixinFunction = (
   value?: string | number | SVGTextElement,
-  index?: number
+  indexOrMaxLabelWidth?: number
 ) => Record<string, string | number>;
 
 export type AxisMixin = (

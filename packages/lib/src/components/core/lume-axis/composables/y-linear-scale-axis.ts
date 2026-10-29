@@ -3,6 +3,7 @@ import { ScaleLinear } from 'd3';
 
 import type { AxisOptions } from '@/types/options';
 import { AxisMixin } from '../types';
+import { isTickStartAligned } from '../helpers';
 import { AXIS_GHOST_PADDING } from '@/utils/constants';
 
 const useLinearScaleAxis: AxisMixin = function (
@@ -21,11 +22,14 @@ const useLinearScaleAxis: AxisMixin = function (
     };
   }
 
-  function getTickGhostAttributes(textRef: SVGTextElement) {
-    const width =
-      (textRef?.getComputedTextLength?.() || 0) +
-      options.value.tickPadding +
-      AXIS_GHOST_PADDING;
+  function getTickGhostAttributes(
+    textElement: SVGTextElement,
+    maxLabelWidth?: number
+  ) {
+    const labelWidth = isTickStartAligned(options.value, maxLabelWidth)
+      ? maxLabelWidth
+      : textElement?.getComputedTextLength?.() || 0;
+    const width = labelWidth + options.value.tickPadding + AXIS_GHOST_PADDING;
     return {
       width,
       height: tickHeight.value,
@@ -40,11 +44,12 @@ const useLinearScaleAxis: AxisMixin = function (
     };
   }
 
-  function getTickLabelAttributes() {
+  function getTickLabelAttributes(maxLabelWidth?: number) {
+    const isStart = isTickStartAligned(options.value, maxLabelWidth);
     return {
-      x: -options.value.tickPadding,
+      x: -(options.value.tickPadding + (isStart ? maxLabelWidth : 0)),
       dy: '0.4em',
-      'text-anchor': 'end',
+      'text-anchor': isStart ? 'start' : 'end',
     };
   }
 

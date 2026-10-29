@@ -49,6 +49,7 @@ Interface: `AxisOptions`
 | tickCount   | `number`                                                 | An approximate amount of ticks to draw. [Read more](https://github.com/d3/d3-array#ticks)                                                  |
 | tickFormat  | `string \| (tick: number \| string) => number \| string` | A format specifier string for [d3-format](https://github.com/d3/d3-format) or a formatting function                                        |
 | tickPadding | `number`                                                 | The padding between an axis label and the axis line.                                                                                       |
+| tickAlign   | `'start' \| 'end'`                                       | The alignment of the tick labels. `'end'` aligns them to the axis line; `'start'` aligns them on a shared left edge. Y axis only.          |
 | skip        | `true \| number`                                         | A number of ticks to visually skip. If set to `true`, the axis will auto-skip the minimum amount of ticks to guarantee a balanced display. |
 
 #### Default options for X axis
@@ -75,6 +76,7 @@ Interface: `AxisOptions`
   tickCount: 10,
   tickFormat: null,
   tickPadding: 8,
+  tickAlign: 'end',
 }
 ```
 

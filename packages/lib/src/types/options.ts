@@ -22,6 +22,7 @@ export interface AxisOptions extends Options {
   tickCount?: number;
   tickFormat?: Format;
   tickPadding?: number;
+  tickAlign?: 'start' | 'end'; // Only applies to y axes
   skip?: true | number; // `true` will enable auto-skip, number will be used as amount of ticks to skip
 }
 

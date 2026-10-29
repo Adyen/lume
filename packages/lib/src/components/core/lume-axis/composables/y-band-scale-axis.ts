@@ -4,6 +4,7 @@ import { ScaleBand } from 'd3';
 import type { AxisOptions } from '@/types/options';
 import { AXIS_GHOST_PADDING } from '@/utils/constants';
 import { AxisMixin } from '../types';
+import { isTickStartAligned } from '../helpers';
 
 const useBandScaleAxis: AxisMixin = function (
   scale: Ref<ScaleBand<number | string>>,
@@ -22,12 +23,16 @@ const useBandScaleAxis: AxisMixin = function (
     };
   }
 
-  function getTickGhostAttributes(textRef: SVGTextElement) {
+  function getTickGhostAttributes(
+    textElement: SVGTextElement,
+    maxLabelWidth?: number
+  ) {
     // If label element not yet rendered, assume one scale step, otherwise get its width.
-    const width =
-      (textRef ? textRef.getComputedTextLength?.() : 42) +
-      options.value.tickPadding +
-      AXIS_GHOST_PADDING;
+    const ownWidth = textElement ? textElement.getComputedTextLength?.() : 42;
+    const labelWidth = isTickStartAligned(options.value, maxLabelWidth)
+      ? maxLabelWidth
+      : ownWidth;
+    const width = labelWidth + options.value.tickPadding + AXIS_GHOST_PADDING;
     return {
       x: -width,
       width,
@@ -45,11 +50,12 @@ const useBandScaleAxis: AxisMixin = function (
     };
   }
 
-  function getTickLabelAttributes() {
+  function getTickLabelAttributes(maxLabelWidth?: number) {
+    const isStart = isTickStartAligned(options.value, maxLabelWidth);
     return {
-      x: -options.value.tickPadding,
+      x: -(options.value.tickPadding + (isStart ? maxLabelWidth : 0)),
       y: scale.value.step() / 2,
-      'text-anchor': 'end',
+      'text-anchor': isStart ? 'start' : 'end',
       'alignment-baseline': 'middle',
     };
   }
