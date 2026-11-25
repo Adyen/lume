@@ -5,7 +5,7 @@
     &-section {
       display: grid;
       align-items: center;
-      grid-template-columns: auto auto;
+      grid-template-columns: auto minmax(0, auto);
       grid-template-areas: 'left right';
     }
   }
@@ -29,6 +29,7 @@
   &__legend {
     grid-area: right;
     margin-left: auto;
+    max-width: 100%;
 
     &--bottom {
       margin-left: unset;
