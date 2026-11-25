@@ -32,14 +32,17 @@ export function calculateMarginTop(baseMargins?: Margins) {
   return baseMargins.top;
 }
 
-export function calculateMarginRight(baseMargins?: Margins) {
+export function calculateMarginRight(
+  baseMargins?: Margins,
+  axisOverflow?: number
+) {
   if (
     !baseMargins ||
     baseMargins === 'auto' ||
     baseMargins.right == undefined ||
     baseMargins.right === 'auto'
   ) {
-    return DEFAULT_MARGIN_RIGHT;
+    return Math.max(DEFAULT_MARGIN_RIGHT, axisOverflow || 0);
   }
   return baseMargins.right;
 }
