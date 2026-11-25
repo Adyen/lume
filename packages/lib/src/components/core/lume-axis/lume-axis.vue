@@ -106,6 +106,7 @@ import { xOptions, yOptions } from './defaults';
 import mixinTypes from './composables/';
 
 const AXIS_LABEL_OFFSET = 16; // 8px + 8px on each side
+const AXIS_LABEL_RIGHT_LEEWAY = 2; // Measured label width can be slightly below the rendered one
 
 const props = defineProps({
   scale: {
@@ -144,6 +145,7 @@ const emit = defineEmits<{
   ): void;
   (e: 'mouseleave', p: MouseEvent): void;
   (e: 'lume__internal--axis-size', p: number);
+  (e: 'lume__internal--axis-overflow', p: number);
 }>();
 
 const { scale, containerSize, hoveredIndex, options, orientation } =
@@ -245,6 +247,29 @@ const axisSize = computed(() => {
     );
 });
 
+// X axis labels are centered on their tick (linear) or band (band scale), so the last one can overflow the plot
+const rightOverflow = computed(() => {
+  if (computedType.value !== 'x' || !scale.value || !ticks.value.length) {
+    return 0;
+  }
+
+  const lastIndex = ticks.value.length - 1;
+  const width = tickRefs.value?.[lastIndex]?.ref?.getBBox?.().width;
+  if (!width) return 0;
+
+  const center = isBandScale(scale.value)
+    ? (scale.value(lastIndex) ?? scale.value(ticks.value[lastIndex])) +
+      scale.value.bandwidth() / 2
+    : scale.value(ticks.value[lastIndex] as number);
+
+  return Math.max(
+    0,
+    Math.ceil(
+      center + width / 2 + AXIS_LABEL_RIGHT_LEEWAY - containerSize.value.width
+    )
+  );
+});
+
 function formatTick(tick: number | string) {
   const { showTicks } = allOptions.value;
 
@@ -334,6 +359,8 @@ watch(scale, setTicks, { immediate: true });
 watch(tickRefs, setTicks);
 
 watch(axisSize, (size) => emit('lume__internal--axis-size', size));
+
+watch(rightOverflow, (size) => emit('lume__internal--axis-overflow', size));
 
 // Re-calculate gridlines when container size changes
 // This is needed for cases where the container width changes, so the Y gridlines need to update,

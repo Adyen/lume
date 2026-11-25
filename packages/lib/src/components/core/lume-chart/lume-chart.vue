@@ -93,6 +93,7 @@
           @mouseenter="handleAxisMouseenter"
           @mouseleave="emit('axis-mouseleave')"
           @lume__internal--axis-size="xAxisHeight = $event"
+          @lume__internal--axis-overflow="xAxisOverflowRight = $event"
         />
         <lume-axis
           type="y"
@@ -307,6 +308,7 @@ const isHoveringTooltip = ref<boolean | null>(null);
 
 const xAxisHeight = ref<number>(0);
 const yAxisWidth = ref<number>(0);
+const xAxisOverflowRight = ref<number>(0);
 
 const { allOptions } = useOptions<ChartOptions>(options);
 
@@ -325,7 +327,10 @@ const { xScale, yScale } = useBaseScales(
 
 const computedMargins = computed(() => ({
   top: calculateMarginTop(allOptions.value.margins),
-  right: calculateMarginRight(allOptions.value.margins),
+  right: calculateMarginRight(
+    allOptions.value.margins,
+    xAxisOverflowRight.value
+  ),
   bottom: calculateMarginBottom(allOptions.value.margins, xAxisHeight.value),
   left: calculateMarginLeft(allOptions.value.margins, yAxisWidth.value),
 }));
