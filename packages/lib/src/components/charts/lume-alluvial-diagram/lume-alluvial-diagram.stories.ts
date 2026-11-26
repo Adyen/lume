@@ -1,12 +1,7 @@
 import { ref } from 'vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import {
-  actionEventHandlerTemplate,
-  captureAction,
-  withSizeArgs,
-  withSizeArgTypes,
-} from '@/docs/storybook-helpers';
+import { actionEventHandlerTemplate, captureAction, withSizeArgs, withSizeArgTypes } from '@/docs/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/alluvial-data';
 
 import LumeAlluvialDiagram from './lume-alluvial-diagram.vue';
@@ -16,36 +11,34 @@ import LumeTooltip from '../../core/lume-tooltip';
 import { options as defaultOptions } from './defaults';
 
 const meta: Meta<typeof LumeAlluvialDiagram> = {
-  title: 'Charts/Alluvial diagram',
-  component: LumeAlluvialDiagram,
-  argTypes: {
-    ...withSizeArgTypes(),
-    data: {
-      control: 'object',
-      description: 'Chart data.',
+    title: 'Charts/Alluvial diagram',
+    component: LumeAlluvialDiagram,
+    argTypes: {
+        ...withSizeArgTypes(),
+        data: {
+            control: 'object',
+            description: 'Chart data.',
+        },
+        options: {
+            control: 'object',
+            description: 'Chart/axes options.',
+        },
+        title: {
+            control: 'text',
+            description: 'Chart title.',
+        },
+        hoveredElement: {
+            control: 'text',
+            description: 'Hovered node or link (ID)',
+        },
     },
-    options: {
-      control: 'object',
-      description: 'Chart/axes options.',
+    args: {
+        ...withSizeArgs(),
+        options: Object.fromEntries(
+            Object.entries(defaultOptions).filter(([key]) => !key.includes('nodeAlign') && !key.includes('valueFormat'))
+        ),
+        title: 'Alluvial diagram',
     },
-    title: {
-      control: 'text',
-      description: 'Chart title.',
-    },
-    hoveredElement: {
-      control: 'text',
-      description: 'Hovered node or link (ID)',
-    },
-  },
-  args: {
-    ...withSizeArgs(),
-    options: Object.fromEntries(
-      Object.entries(defaultOptions).filter(
-        ([key]) => !key.includes('nodeAlign') && !key.includes('valueFormat')
-      )
-    ),
-    title: 'Alluvial diagram',
-  },
 };
 
 export default meta;
@@ -53,116 +46,116 @@ export default meta;
 type Story = StoryObj<typeof LumeAlluvialDiagram>;
 
 export const Basic: Story = {
-  render: ({ args }) => ({
-    components: { LumeAlluvialDiagram },
-    setup() {
-      return { args, captureAction };
-    },
-    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    render: ({ args }) => ({
+        components: { LumeAlluvialDiagram },
+        setup() {
+            return { args, captureAction };
+        },
+        template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
     <lume-alluvial-diagram v-bind="args" ${actionEventHandlerTemplate} />
   </div>`,
-  }),
-  args: {
-    ...DATASETS.Basic,
-    title: 'Students performance in science exam',
-    options: {
-      nodeLabelMaxWidth: 100,
+    }),
+    args: {
+        ...DATASETS.Basic,
+        title: 'Students performance in science exam',
+        options: {
+            nodeLabelMaxWidth: 100,
+        },
     },
-  },
 };
 
 export const MultipleLevels: Story = {
-  render: ({ args }) => ({
-    components: { LumeAlluvialDiagram },
-    setup() {
-      return { args, captureAction };
-    },
-    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    render: ({ args }) => ({
+        components: { LumeAlluvialDiagram },
+        setup() {
+            return { args, captureAction };
+        },
+        template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
     <lume-alluvial-diagram v-bind="args" ${actionEventHandlerTemplate} />
   </div>`,
-  }),
-  args: {
-    ...withSizeArgs(720),
-    ...DATASETS.MultipleLevels,
-    options: {
-      valueFormat: (part) => `USD ${part}`,
-      gradient: true,
+    }),
+    args: {
+        ...withSizeArgs(720),
+        ...DATASETS.MultipleLevels,
+        options: {
+            valueFormat: part => `USD ${part}`,
+            gradient: true,
+        },
+        title: 'Yearly average pet expenses in USA',
     },
-    title: 'Yearly average pet expenses in USA',
-  },
 };
 
 export const InnerAlignedNodeLabels: Story = {
-  render: ({ args }) => ({
-    components: { LumeAlluvialDiagram },
-    setup() {
-      return { args, captureAction };
-    },
-    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    render: ({ args }) => ({
+        components: { LumeAlluvialDiagram },
+        setup() {
+            return { args, captureAction };
+        },
+        template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
     <lume-alluvial-diagram v-bind="args" ${actionEventHandlerTemplate} />
   </div>`,
-  }),
-  args: {
-    ...DATASETS.Basic,
-    title: 'Students performance in science exam',
-    options: {
-      alignFirstNodeLabels: 'right',
-      alignLastNodeLabels: 'left',
-      nodeLabelMaxWidth: 100,
+    }),
+    args: {
+        ...DATASETS.Basic,
+        title: 'Students performance in science exam',
+        options: {
+            alignFirstNodeLabels: 'right',
+            alignLastNodeLabels: 'left',
+            nodeLabelMaxWidth: 100,
+        },
     },
-  },
 };
 
 export const MultipleLevelsWithColorDerivationFromIncomingLinks: Story = {
-  render: ({ args }) => ({
-    components: { LumeAlluvialDiagram },
-    setup() {
-      return { args, captureAction };
-    },
-    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    render: ({ args }) => ({
+        components: { LumeAlluvialDiagram },
+        setup() {
+            return { args, captureAction };
+        },
+        template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
     <lume-alluvial-diagram v-bind="args" ${actionEventHandlerTemplate} />
   </div>`,
-  }),
-  args: {
-    ...DATASETS.MultipleLevelsWithColorDerivationFromIncomingLinks,
-    options: { gradient: true },
-    title: 'Color derivation from incoming links',
-  },
+    }),
+    args: {
+        ...DATASETS.MultipleLevelsWithColorDerivationFromIncomingLinks,
+        options: { gradient: true },
+        title: 'Color derivation from incoming links',
+    },
 };
 
 export const CustomCurveFunction: Story = {
-  render: ({ args }) => ({
-    components: { LumeAlluvialDiagram },
-    setup() {
-      return { args, captureAction };
-    },
-    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    render: ({ args }) => ({
+        components: { LumeAlluvialDiagram },
+        setup() {
+            return { args, captureAction };
+        },
+        template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
     <lume-alluvial-diagram v-bind="args" ${actionEventHandlerTemplate} />
   </div>`,
-  }),
-  args: {
-    ...withSizeArgs(540, 220),
-    ...DATASETS.CustomCurveFunction,
-    options: {
-      valueFormat: (part) => `USD ${part}`,
+    }),
+    args: {
+        ...withSizeArgs(540, 220),
+        ...DATASETS.CustomCurveFunction,
+        options: {
+            valueFormat: part => `USD ${part}`,
+        },
+        title: 'November expenses on my cats',
     },
-    title: 'November expenses on my cats',
-  },
 };
 
 export const CustomNodeSlots: Story = {
-  render: ({ args }) => ({
-    components: {
-      LumeTooltip,
-      LumeAlluvialDiagram,
-      LumeAlluvialNodeLabel,
-      LumeAlluvialNodeValue,
-    },
-    setup() {
-      const targetElement = ref(null);
-      return { args, targetElement };
-    },
-    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    render: ({ args }) => ({
+        components: {
+            LumeTooltip,
+            LumeAlluvialDiagram,
+            LumeAlluvialNodeLabel,
+            LumeAlluvialNodeValue,
+        },
+        setup() {
+            const targetElement = ref(null);
+            return { args, targetElement };
+        },
+        template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
     <lume-alluvial-diagram v-bind="args">
       <template #node-text-students="{ node }">
         <tspan
@@ -183,45 +176,45 @@ export const CustomNodeSlots: Story = {
       </template>
     </lume-alluvial-diagram>
   </div>`,
-  }),
-  args: {
-    ...DATASETS.Basic,
-    title: 'Students performance in science exam',
-  },
+    }),
+    args: {
+        ...DATASETS.Basic,
+        title: 'Students performance in science exam',
+    },
 };
 
 export const NodeOffset: Story = {
-  render: ({ args }) => ({
-    components: { LumeAlluvialDiagram },
-    setup() {
-      return { args, captureAction };
-    },
-    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    render: ({ args }) => ({
+        components: { LumeAlluvialDiagram },
+        setup() {
+            return { args, captureAction };
+        },
+        template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
     <lume-alluvial-diagram v-bind="args" ${actionEventHandlerTemplate} />
   </div>`,
-  }),
-  args: {
-    ...withSizeArgs(720),
-    ...DATASETS.Offset,
-    options: {
-      valueFormat: (part) => `USD ${part}`,
-      gradient: true,
+    }),
+    args: {
+        ...withSizeArgs(720),
+        ...DATASETS.Offset,
+        options: {
+            valueFormat: part => `USD ${part}`,
+            gradient: true,
+        },
+        title: 'Yearly average pet expenses in USA',
     },
-    title: 'Yearly average pet expenses in USA',
-  },
 };
 
 export const Empty: Story = {
-  render: ({ args }) => ({
-    components: { LumeAlluvialDiagram },
-    setup() {
-      return { args, captureAction };
-    },
-    template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+    render: ({ args }) => ({
+        components: { LumeAlluvialDiagram },
+        setup() {
+            return { args, captureAction };
+        },
+        template: `<div :style="{ width: args.width + 'px', height: args.height + 'px' }">
     <lume-alluvial-diagram v-bind="args" ${actionEventHandlerTemplate} />
   </div>`,
-  }),
-  args: {
-    ...DATASETS.Empty,
-  },
+    }),
+    args: {
+        ...DATASETS.Empty,
+    },
 };

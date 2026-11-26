@@ -1,4 +1,5 @@
-Bar groups orchestrate all the bars that a bar chart needs to show. This can vary from a list of single bars shown in a single bar chart, to a list of a group of charts, like with the stacked or grouped bar charts.
+Bar groups orchestrate all the bars that a bar chart needs to show. This can vary from a list of single bars shown in a
+single bar chart, to a list of a group of charts, like with the stacked or grouped bar charts.
 
 ## Usage
 
@@ -14,21 +15,18 @@ To generate a simple bar group with default settings, simply pass the `data` pro
 
 ```html
 <template>
-  <lume-bar-group :data="data" />
+    <lume-bar-group :data="data" />
 </template>
 
-<script
-  lang="ts"
-  setup
->
-  import { LumeBarGroup } from '@adyen/lume';
-  import { ref } from 'vue';
+<script lang="ts" setup>
+    import { LumeBarGroup } from '@adyen/lume';
+    import { ref } from 'vue';
 
-  const data = ref([
-    {
-      values: [10, 30, 20, 50, 40],
-    },
-  ]);
+    const data = ref([
+        {
+            values: [10, 30, 20, 50, 40],
+        },
+    ]);
 </script>
 ```
 
@@ -59,8 +57,8 @@ Fired upon clicking a bar in a Bar chart.
 
 ```ts
 p: {
-  index: number; // Index of the bar that was clicked.
-  datasetIndex: number; // Index of the dataset of which the bar that was clicked belongs.
-  event: PointerEvent; // Native `click` event data.
+    index: number; // Index of the bar that was clicked.
+    datasetIndex: number; // Index of the dataset of which the bar that was clicked belongs.
+    event: PointerEvent; // Native `click` event data.
 }
 ```

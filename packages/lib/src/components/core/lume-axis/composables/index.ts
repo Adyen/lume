@@ -4,8 +4,8 @@ import XLinearScaleAxis from '@/components/core/lume-axis/composables/x-linear-s
 import YLinearScaleAxis from '@/components/core/lume-axis/composables/y-linear-scale-axis';
 
 export default {
-  'x-band-scale-axis': XBandScaleAxis,
-  'y-band-scale-axis': YBandScaleAxis,
-  'x-linear-scale-axis': XLinearScaleAxis,
-  'y-linear-scale-axis': YLinearScaleAxis,
+    'x-band-scale-axis': XBandScaleAxis,
+    'y-band-scale-axis': YBandScaleAxis,
+    'x-linear-scale-axis': XLinearScaleAxis,
+    'y-linear-scale-axis': YLinearScaleAxis,
 };

@@ -28,10 +28,10 @@ To show a the legend, provide a `data` property.
 
 ```ts
 [
-  {
-    color: 'skyblue', // String with value 'skyblue', 'royalblue', 'violet', 'darkteal' or 'gold'
-    label: 'Monday', // String
-  },
+    {
+        color: 'skyblue', // String with value 'skyblue', 'royalblue', 'violet', 'darkteal' or 'gold'
+        label: 'Monday', // String
+    },
 ];
 ```
 
@@ -45,9 +45,9 @@ Fired upon clicking on a legend item.
 
 ```ts
 p: {
-  index: number; // Index of the clicked item dataset.
-  dataset: InternalDataset<DatasetValueObject>; // The dataset of the item clicked.
-  event: PointerEvent; // Native `click` event data.
+    index: number; // Index of the clicked item dataset.
+    dataset: InternalDataset<DatasetValueObject>; // The dataset of the item clicked.
+    event: PointerEvent; // Native `click` event data.
 }
 ```
 
@@ -59,9 +59,9 @@ Fired upon a legend item [mouseenter](https://developer.mozilla.org/en-US/docs/W
 
 ```ts
 p: {
-  index: number; // Index of the clicked item dataset.
-  dataset: InternalDataset<DatasetValueObject>; // The dataset of the item clicked.
-  event: MouseEvent; // Native `mouseenter` event data.
+    index: number; // Index of the clicked item dataset.
+    dataset: InternalDataset<DatasetValueObject>; // The dataset of the item clicked.
+    event: MouseEvent; // Native `mouseenter` event data.
 }
 ```
 

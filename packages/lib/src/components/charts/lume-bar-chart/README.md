@@ -1,4 +1,6 @@
-Bar charts plot data at regular intervals represented by bars from either left to right or top to bottom to demonstrate changes in value. The `LumeBarChart` component can be regarded as a broker component for the different types of bar chart - single, stacked and grouped.
+Bar charts plot data at regular intervals represented by bars from either left to right or top to bottom to demonstrate
+changes in value. The `LumeBarChart` component can be regarded as a broker component for the different types of bar
+chart - single, stacked and grouped.
 
 ## Usage
 
@@ -10,31 +12,26 @@ import { LumeBarChart } from '@adyen/lume';
 
 ### Basic use
 
-To generate a simple bar chart with default settings, simply pass the `data` and `labels` props. If you have more than one dataset, be sure to pass `type` as well, with either `'grouped'` or `'stacked'` as a value.
+To generate a simple bar chart with default settings, simply pass the `data` and `labels` props. If you have more than
+one dataset, be sure to pass `type` as well, with either `'grouped'` or `'stacked'` as a value.
 
 ```html
 <template>
-  <lume-bar-chart
-    :data="data"
-    :labels="labels"
-  />
+    <lume-bar-chart :data="data" :labels="labels" />
 </template>
 
-<script
-  lang="ts"
-  setup
->
-  import { ref } from 'vue';
+<script lang="ts" setup>
+    import { ref } from 'vue';
 
-  const data = ref([
-    {
-      label: 'My dataset',
-      color: 'royalblue',
-      values: [10, 30, 20, 50, 40],
-    },
-  ]);
+    const data = ref([
+        {
+            label: 'My dataset',
+            color: 'royalblue',
+            values: [10, 30, 20, 50, 40],
+        },
+    ]);
 
-  const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'May']);
+    const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'May']);
 </script>
 ```
 

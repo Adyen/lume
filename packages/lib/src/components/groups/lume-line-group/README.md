@@ -1,4 +1,5 @@
-The Line group component is in charge of transforming data into a line/point representation. It's the component that actually renders each line of each data point.
+The Line group component is in charge of transforming data into a line/point representation. It's the component that
+actually renders each line of each data point.
 
 ## Usage
 
@@ -14,21 +15,18 @@ To generate a simple line group with default settings, simply pass the `data` pr
 
 ```html
 <template>
-  <lume-line-group :data="data" />
+    <lume-line-group :data="data" />
 </template>
 
-<script
-  lang="ts"
-  setup
->
-  import { LumeLineGroup } from '@adyen/lume';
-  import { ref } from 'vue';
+<script lang="ts" setup>
+    import { LumeLineGroup } from '@adyen/lume';
+    import { ref } from 'vue';
 
-  const data = ref([
-    {
-      values: [10, 30, 20, 50, 40],
-    },
-  ]);
+    const data = ref([
+        {
+            values: [10, 30, 20, 50, 40],
+        },
+    ]);
 </script>
 ```
 
@@ -57,9 +55,9 @@ Fired upon clicking a line.
 
 ```ts
 p: {
-  index: number; // Index of the line that was clicked.
-  datasetIndex: number; // Index of the dataset of which the line that was clicked belongs.
-  event: PointerEvent; // Native `click` event data.
+    index: number; // Index of the line that was clicked.
+    datasetIndex: number; // Index of the dataset of which the line that was clicked belongs.
+    event: PointerEvent; // Native `click` event data.
 }
 ```
 
@@ -71,8 +69,8 @@ Fired upon clicking a point.
 
 ```ts
 p: {
-  index: number; // Index of the point that was clicked.
-  datasetIndex: number; // Index of the dataset of which the point that was clicked belongs.
-  event: PointerEvent; // Native `click` event data.
+    index: number; // Index of the point that was clicked.
+    datasetIndex: number; // Index of the dataset of which the point that was clicked belongs.
+    event: PointerEvent; // Native `click` event data.
 }
 ```

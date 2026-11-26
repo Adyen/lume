@@ -1,4 +1,5 @@
-This component is meant to render bar-like elements. It is used mainly by Bar charts, but also to draw rectangle shapes, such as the gray area in a negative domain chart.
+This component is meant to render bar-like elements. It is used mainly by Bar charts, but also to draw rectangle shapes,
+such as the gray area in a negative domain chart.
 
 ## Usage
 
@@ -13,10 +14,7 @@ import { LumeBar } from '@adyen/lume';
 This component essentially renders an SVG `<rect>` element. To do so, it requires a `width` and `height` value.
 
 ```html
-<lume-bar
-  :width="20"
-  :height="80"
-/>
+<lume-bar :width="20" :height="80" />
 ```
 
 ## API

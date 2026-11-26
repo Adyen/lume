@@ -6,8 +6,8 @@ import LumeLineChart from '../components/charts/lume-line-chart';
 import DATASETS from '@/docs/storybook-data/base-data';
 
 const meta: Meta<typeof LumeLineChart> = {
-  title: 'Playground/hovered-index two-way binding',
-  component: LumeLineChart,
+    title: 'Playground/hovered-index two-way binding',
+    component: LumeLineChart,
 };
 
 export default meta;
@@ -15,13 +15,13 @@ export default meta;
 type Story = StoryObj<typeof LumeLineChart>;
 
 export const Basic: Story = {
-  render: () => ({
-    components: { LumeLineChart },
-    setup() {
-      const index = ref(-1);
-      return { DATASETS, index };
-    },
-    template: `
+    render: () => ({
+        components: { LumeLineChart },
+        setup() {
+            const index = ref(-1);
+            return { DATASETS, index };
+        },
+        template: `
     <div>
       <div style="width: 480px; height: 320px; margin-bottom: 16px">
           <lume-line-chart v-if="__VUE_VERSION__ === 2" v-bind="DATASETS.AdoptedAnimals" v-bind:hoveredIndex.sync="index" />
@@ -40,5 +40,5 @@ export const Basic: Story = {
       </div>
     </div>
     `,
-  }),
+    }),
 };

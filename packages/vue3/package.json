@@ -1,88 +1,88 @@
 {
-  "name": "@adyen/lume-vue3",
-  "version": "1.16.2",
-  "description": "Lume is a Vue data visualization component library, built with Typescript and D3.",
-  "type": "module",
-  "module": "dist/index.js",
-  "files": [
-    "dist/"
-  ],
-  "exports": {
-    ".": {
-      "types": "./dist/@types/index.d.ts",
-      "default": "./dist/index.js"
+    "name": "@adyen/lume-vue3",
+    "version": "1.16.2",
+    "description": "Lume is a Vue data visualization component library, built with Typescript and D3.",
+    "type": "module",
+    "module": "dist/index.js",
+    "files": [
+        "dist/"
+    ],
+    "exports": {
+        ".": {
+            "types": "./dist/@types/index.d.ts",
+            "default": "./dist/index.js"
+        },
+        "./plugin": "./dist/plugin.js",
+        "./styles": "./dist/styles/main.css",
+        "./font": "./dist/styles/font.css",
+        "./scss": "./dist/scss/main.scss",
+        "./package.json": "./package.json"
     },
-    "./plugin": "./dist/plugin.js",
-    "./styles": "./dist/styles/main.css",
-    "./font": "./dist/styles/font.css",
-    "./scss": "./dist/scss/main.scss",
-    "./package.json": "./package.json"
-  },
-  "types": "./dist/@types/index.d.ts",
-  "scripts": {
-    "build": "NODE_ENV=production pnpm run build:vite && pnpm run build:font && pnpm run build:types",
-    "build:vite": "vite build",
-    "build:font": "webpack",
-    "build:storybook": "sb build -c .storybook",
-    "build:types": "vue-tsc -p ./tsconfig.d.json",
-    "pack": "pnpm pack --pack-destination ../../",
-    "postbuild": "node ../../build/postbuild.js",
-    "storybook": "sb dev -p 9003 -c .storybook",
-    "test": "vitest run --config=vitest.config.ts --coverage"
-  },
-  "dependencies": {
-    "@popperjs/core": "2.11.8",
-    "d3": "7.8.5",
-    "d3-sankey": "0.12.3"
-  },
-  "peerDependencies": {
-    "vue": ">=3.x"
-  },
-  "devDependencies": {
-    "@adyen/lume-core": "workspace:@adyen/lume-core@*",
-    "@storybook/addon-a11y": "7.6.21",
-    "@storybook/addon-essentials": "7.6.21",
-    "@storybook/cli": "7.6.21",
-    "@storybook/manager-api": "7.6.21",
-    "@storybook/theming": "7.6.21",
-    "@storybook/vue3": "8.6.15",
-    "@storybook/vue3-vite": "7.6.21",
-    "@vitejs/plugin-vue": "5.1.4",
-    "@vitest/coverage-v8": "4.1.12",
-    "@vue/test-utils": "2.4.6",
-    "jsdom": "26.1.0",
-    "storybook-utils": "workspace:storybook-utils@*",
-    "vite": "7.3.7",
-    "vite-plugin-static-copy": "3.2.0",
-    "vitest": "4.1.12",
-    "vue": "3.3.7",
-    "vue-tsc": "2.2.0"
-  },
-  "keywords": [
-    "Lume",
-    "LumeJS",
-    "Lume Design System",
-    "Data Visualization",
-    "Charts",
-    "d3.js",
-    "SVG charts",
-    "Bar charts",
-    "Single bar chart",
-    "Grouped bar chart",
-    "Stacked bar chart",
-    "Sparkline chart",
-    "Line chart",
-    "Alluvial charts",
-    "Sankey diagrams",
-    "Vue chart library",
-    "Vue",
-    "Vue 2.7"
-  ],
-  "license": "MIT",
-  "homepage": "https://lumedataviz.com",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Adyen/lume.git",
-    "directory": "packages/vue3"
-  }
+    "types": "./dist/@types/index.d.ts",
+    "scripts": {
+        "build": "NODE_ENV=production pnpm run build:vite && pnpm run build:font && pnpm run build:types",
+        "build:vite": "vite build",
+        "build:font": "webpack",
+        "build:storybook": "sb build -c .storybook",
+        "build:types": "vue-tsc -p ./tsconfig.d.json",
+        "pack": "pnpm pack --pack-destination ../../",
+        "postbuild": "node ../../build/postbuild.js",
+        "storybook": "sb dev -p 9003 -c .storybook",
+        "test": "vitest run --config=vitest.config.ts --coverage"
+    },
+    "dependencies": {
+        "@popperjs/core": "2.11.8",
+        "d3": "7.8.5",
+        "d3-sankey": "0.12.3"
+    },
+    "peerDependencies": {
+        "vue": ">=3.x"
+    },
+    "devDependencies": {
+        "@adyen/lume-core": "workspace:@adyen/lume-core@*",
+        "@storybook/addon-a11y": "7.6.21",
+        "@storybook/addon-essentials": "7.6.21",
+        "@storybook/cli": "7.6.21",
+        "@storybook/manager-api": "7.6.21",
+        "@storybook/theming": "7.6.21",
+        "@storybook/vue3": "8.6.15",
+        "@storybook/vue3-vite": "7.6.21",
+        "@vitejs/plugin-vue": "5.1.4",
+        "@vitest/coverage-v8": "4.1.12",
+        "@vue/test-utils": "2.4.6",
+        "jsdom": "26.1.0",
+        "storybook-utils": "workspace:storybook-utils@*",
+        "vite": "7.3.7",
+        "vite-plugin-static-copy": "3.2.0",
+        "vitest": "4.1.12",
+        "vue": "3.3.7",
+        "vue-tsc": "2.2.0"
+    },
+    "keywords": [
+        "Lume",
+        "LumeJS",
+        "Lume Design System",
+        "Data Visualization",
+        "Charts",
+        "d3.js",
+        "SVG charts",
+        "Bar charts",
+        "Single bar chart",
+        "Grouped bar chart",
+        "Stacked bar chart",
+        "Sparkline chart",
+        "Line chart",
+        "Alluvial charts",
+        "Sankey diagrams",
+        "Vue chart library",
+        "Vue",
+        "Vue 2.7"
+    ],
+    "license": "MIT",
+    "homepage": "https://lumedataviz.com",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Adyen/lume.git",
+        "directory": "packages/vue3"
+    }
 }

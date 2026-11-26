@@ -16,12 +16,12 @@ To overwrite the default item list, add your own list of tooltip items to the `i
 
 ```html
 <lume-tooltip>
-  <template #items>
-    <lume-tooltip-item color="violet">
-      <template #label> My custom item </template>
-      <template #value> 123 </template>
-    </lume-tooltip-item>
-  </template>
+    <template #items>
+        <lume-tooltip-item color="violet">
+            <template #label> My custom item </template>
+            <template #value> 123 </template>
+        </lume-tooltip-item>
+    </template>
 </lume-tooltip>
 ```
 

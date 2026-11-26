@@ -5,11 +5,11 @@ import themeObject from 'storybook-utils/theme';
 import brandImage from 'storybook-utils/assets/logo.svg';
 
 const theme = create({
-  ...themeObject,
-  brandImage,
+    ...themeObject,
+    brandImage,
 });
 
 addons.setConfig({
-  enableShortcuts: true,
-  theme,
+    enableShortcuts: true,
+    theme,
 });

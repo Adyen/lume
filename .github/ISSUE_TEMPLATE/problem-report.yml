@@ -80,9 +80,9 @@ body:
       label: Packages
       description: What packages are you seeing the problem in?
       options:
-        - label: 'Vue 2 (@adyen/lume)'
+        - label: "Vue 2 (@adyen/lume)"
           required: false
-        - label: 'Vue 3 (@adyen/lume-vue3)'
+        - label: "Vue 3 (@adyen/lume-vue3)"
           required: false
   - type: input
     id: versions

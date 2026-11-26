@@ -1,12 +1,12 @@
 {
-  "name": "storybook-utils",
-  "version": "0.8.0",
-  "description": "A set of utilities for Storybook",
-  "private": true,
-  "devDependencies": {
-    "@storybook/manager-api": "7.6.21",
-    "@storybook/preview-api": "7.6.21",
-    "@storybook/theming": "7.6.21",
-    "vue-tsc": "^1.8.22"
-  }
+    "name": "storybook-utils",
+    "version": "0.8.0",
+    "description": "A set of utilities for Storybook",
+    "private": true,
+    "devDependencies": {
+        "@storybook/manager-api": "7.6.21",
+        "@storybook/preview-api": "7.6.21",
+        "@storybook/theming": "7.6.21",
+        "vue-tsc": "^1.8.22"
+    }
 }

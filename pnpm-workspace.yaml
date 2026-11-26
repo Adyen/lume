@@ -1,10 +1,10 @@
-packages:
-  - 'packages/*'
-
+allowBuilds:
+  "@parcel/watcher": false
+  esbuild: true
 overrides:
-  '@babel/helpers': 7.26.10
-  '@babel/plugin-transform-modules-systemjs': 7.29.4
-  '@babel/runtime': 7.26.10
+  "@babel/helpers": 7.26.10
+  "@babel/plugin-transform-modules-systemjs": 7.29.4
+  "@babel/runtime": 7.26.10
   basic-ftp: 5.2.2
   brace-expansion: 5.0.7
   braces: 3.0.3
@@ -31,8 +31,8 @@ overrides:
   path-to-regexp: 0.1.13
   picomatch: 2.3.2
   postcss: 8.5.18
-  pug-code-gen: 3.0.3
   pug: 3.0.3
+  pug-code-gen: 3.0.3
   qs: 6.15.2
   rollup: 4.59.0
   semver: 7.7.3
@@ -41,17 +41,16 @@ overrides:
   serve-static: 1.16.0
   store2: 2.14.4
   storybook: 8.6.17
-  tar-fs: 2.1.4
   tar: 7.5.19
+  tar-fs: 2.1.4
   tmp: 0.2.4
   undici: 6.27.0
   uuid: 11.1.1
   ws: 8.21.0
   yaml: 2.8.3
 
-trustPolicyExclude:
-  - 'detect-port@1.6.1'
+packages:
+  - "packages/*"
 
-allowBuilds:
-  '@parcel/watcher': false
-  esbuild: true
+trustPolicyExclude:
+  - "detect-port@1.6.1"

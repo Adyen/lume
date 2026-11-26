@@ -1,14 +1,14 @@
 import type { BarType, Orientation } from '../types/utils';
 
 export const ORIENTATIONS: Record<string, Orientation> = {
-  HORIZONTAL: 'horizontal',
-  VERTICAL: 'vertical',
+    HORIZONTAL: 'horizontal',
+    VERTICAL: 'vertical',
 };
 
 export const BAR_TYPES: Record<string, BarType> = {
-  SINGLE: 'single',
-  GROUPED: 'grouped',
-  STACKED: 'stacked',
+    SINGLE: 'single',
+    GROUPED: 'grouped',
+    STACKED: 'stacked',
 };
 
 export const NO_DATA = 'No data';
@@ -26,19 +26,19 @@ export const AXIS_GHOST_PADDING = 8;
 export const TOOLTIP_ANCHOR_RADIUS = 1;
 
 export const TOOLTIP_POSITIONS = [
-  'auto',
-  'auto-start',
-  'auto-end',
-  'top',
-  'top-start',
-  'top-end',
-  'right',
-  'right-start',
-  'right-end',
-  'bottom',
-  'bottom-start',
-  'bottom-end',
-  'left',
-  'left-start',
-  'left-end',
+    'auto',
+    'auto-start',
+    'auto-end',
+    'top',
+    'top-start',
+    'top-end',
+    'right',
+    'right-start',
+    'right-end',
+    'bottom',
+    'bottom-start',
+    'bottom-end',
+    'left',
+    'left-start',
+    'left-end',
 ] as const; // so that type is not string[]
