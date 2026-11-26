@@ -11,239 +11,242 @@ import { generateData } from '@test/unit/utils/data-generator';
 import DATASETS from '@/docs/storybook-data/alluvial-data';
 
 const AlluvialDiagramTestSuiteFactory = (data = DATASETS.Basic.data) =>
-  new BaseTestSuite(LumeAlluvialDiagram, { data });
+    new BaseTestSuite(LumeAlluvialDiagram, { data });
 const [baseData] = generateData();
 
 describe('lume-alluvial-diagram.vue', () => {
-  let originalError = null;
-  const stageWithData = (values) => {
-    const data = [
-      {
-        ...baseData,
-        values,
-      },
-    ];
+    let originalError = null;
+    const stageWithData = values => {
+        const data = [
+            {
+                ...baseData,
+                values,
+            },
+        ];
 
-    const testSuite = AlluvialDiagramTestSuiteFactory(data);
+        const testSuite = AlluvialDiagramTestSuiteFactory(data);
 
-    const wrapper = testSuite.run().wrapper;
-    const el = wrapper.find('[data-j-alluvial-diagram]');
-    expect(el.exists()).toBeTruthy();
-  };
+        const wrapper = testSuite.run().wrapper;
+        const el = wrapper.find('[data-j-alluvial-diagram]');
+        expect(el.exists()).toBeTruthy();
+    };
 
-  beforeAll(() => {
-    // Suppress error output to the console
-    originalError = console.error;
-    console.error = vi.fn();
-  });
-
-  afterAll(() => {
-    // Restore default error output setting
-    console.error = originalError;
-  });
-
-  test('mounts component and sets prop values', async () => {
-    const testSuite = AlluvialDiagramTestSuiteFactory();
-
-    const wrapper = testSuite.run().wrapper;
-    const el = wrapper.findComponent('[data-j-alluvial-diagram]');
-    const props = el.props();
-
-    expect(props.data).toBeDefined();
-    expect(props.color).toBe('skyblue');
-    expect(props.options).toBeDefined();
-
-    expect(el.exists()).toBeTruthy();
-  });
-
-  test('mounts component and sets prop values using random data', async () => {
-    const data = generateData();
-    const testSuite = AlluvialDiagramTestSuiteFactory(data);
-
-    const wrapper = testSuite.run().wrapper;
-    const el = wrapper.find('[data-j-alluvial-diagram]');
-
-    expect(el.exists()).toBeTruthy();
-  });
-
-  test('mounts with gradient definitions', async () => {
-    const wrapper = mount(LumeAlluvialDiagram, {
-      props: {
-        data: DATASETS.Basic.data,
-        options: { gradient: true },
-      },
+    beforeAll(() => {
+        // Suppress error output to the console
+        // eslint-disable-next-line no-console
+        originalError = console.error;
+        // eslint-disable-next-line no-console
+        console.error = vi.fn();
     });
 
-    expect(wrapper.find('defs').exists()).toBe(true);
-  });
-
-  test('mounts with color derivation from incoming links', async () => {
-    const wrapper = mount(LumeAlluvialDiagram, {
-      props: {
-        data: DATASETS.MultipleLevelsWithColorDerivationFromIncomingLinks.data,
-        options: {
-          nodePadding: 100,
-        },
-      },
+    afterAll(() => {
+        // Restore default error output setting
+        // eslint-disable-next-line no-console
+        console.error = originalError;
     });
 
-    await wrapper.setProps({
-      options: {
-        nodePadding: 200,
-      },
+    test('mounts component and sets prop values', async () => {
+        const testSuite = AlluvialDiagramTestSuiteFactory();
+
+        const wrapper = testSuite.run().wrapper;
+        const el = wrapper.findComponent('[data-j-alluvial-diagram]');
+        const props = el.props();
+
+        expect(props.data).toBeDefined();
+        expect(props.color).toBe('skyblue');
+        expect(props.options).toBeDefined();
+
+        expect(el.exists()).toBeTruthy();
     });
 
-    expect(wrapper.findAll('[data-j-alluvial-sub-nodes]')).toHaveLength(2);
-  });
+    test('mounts component and sets prop values using random data', async () => {
+        const data = generateData();
+        const testSuite = AlluvialDiagramTestSuiteFactory(data);
 
-  // should be tested in the scope of alluvial-graph
-  test.skip('should throw error in case of a dataset with circular links', async () => {
-    const values = [
-      {
-        label: 'A',
-        color: '01',
-        value: 'A',
-        targets: [{ node: 'B', value: 50 }],
-      },
-      {
-        label: 'B',
-        color: '02',
-        value: 'B',
-        targets: [{ node: 'A', value: 50 }],
-      },
-    ];
+        const wrapper = testSuite.run().wrapper;
+        const el = wrapper.find('[data-j-alluvial-diagram]');
 
-    const data = [{ values }];
-
-    mount(LumeAlluvialDiagram, { props: { data } });
-
-    await nextTick();
-
-    expect(console.error).toHaveBeenCalled();
-  });
-
-  // should be tested in the scope of alluvial-graph
-  test.skip('should be able to handle an empty dataset', async () => {
-    const values = [];
-
-    const data = [
-      {
-        ...baseData,
-        values,
-      },
-    ];
-
-    mount(LumeAlluvialDiagram, { props: { data } });
-
-    await nextTick();
-
-    expect(console.error).toHaveBeenCalled();
-  });
-
-  test('should be able to handle an dataset with a single node', async () => {
-    const values = [{ label: 'A', color: '01', value: 'A', targets: [] }];
-    stageWithData(values);
-  });
-
-  test('should be able to handle an dataset with only nodes but no edges', async () => {
-    const values = [
-      { label: 'A', color: '01', value: 'A', targets: [] },
-      { label: 'B', color: '02', value: 'B', targets: [] },
-    ];
-    stageWithData(values);
-  });
-
-  // should be tested in the scope of alluvial-graph
-  test.skip('should be able to handle an dataset with links to non-existing nodes', async () => {
-    const values = [
-      { label: 'A', color: '01', value: 'A', targets: [] },
-      {
-        label: 'B',
-        color: '02',
-        value: 'B',
-        targets: [{ node: 'C', value: 50 }],
-      },
-    ];
-    const data = [
-      {
-        ...baseData,
-        values,
-      },
-    ];
-
-    mount(LumeAlluvialDiagram, { props: { data } });
-
-    await nextTick();
-
-    expect(console.error).toHaveBeenCalled();
-  });
-
-  test('should toggle the sub-nodes of an expandable node on click', async () => {
-    const nodeCount = alluvialData[0].values.length;
-    const subNodeCount = 3; // Sub-nodes of `flowB`
-    const getNodeBlocks = () =>
-      wrapper.findAll('rect.lume-alluvial-group__node-block');
-
-    const wrapper = mount(LumeAlluvialDiagram, {
-      props: { data: alluvialData },
+        expect(el.exists()).toBeTruthy();
     });
 
-    await wrapper.setProps({ containerSize: { width: 720, height: 480 } }); // Trigger graph calculation
+    test('mounts with gradient definitions', async () => {
+        const wrapper = mount(LumeAlluvialDiagram, {
+            props: {
+                data: DATASETS.Basic.data,
+                options: { gradient: true },
+            },
+        });
 
-    expect(getNodeBlocks()).toHaveLength(nodeCount - subNodeCount);
+        expect(wrapper.find('defs').exists()).toBe(true);
+    });
 
-    await wrapper.find('[data-id="flowB"]').trigger('click');
+    test('mounts with color derivation from incoming links', async () => {
+        const wrapper = mount(LumeAlluvialDiagram, {
+            props: {
+                data: DATASETS.MultipleLevelsWithColorDerivationFromIncomingLinks.data,
+                options: {
+                    nodePadding: 100,
+                },
+            },
+        });
 
-    expect(getNodeBlocks()).toHaveLength(nodeCount);
+        await wrapper.setProps({
+            options: {
+                nodePadding: 200,
+            },
+        });
 
-    await wrapper.find('[data-id="flowB"]').trigger('click');
+        expect(wrapper.findAll('[data-j-alluvial-sub-nodes]')).toHaveLength(2);
+    });
 
-    expect(getNodeBlocks()).toHaveLength(nodeCount - subNodeCount);
-  });
+    // should be tested in the scope of alluvial-graph
+    test.skip('should throw error in case of a dataset with circular links', async () => {
+        const values = [
+            {
+                label: 'A',
+                color: '01',
+                value: 'A',
+                targets: [{ node: 'B', value: 50 }],
+            },
+            {
+                label: 'B',
+                color: '02',
+                value: 'B',
+                targets: [{ node: 'A', value: 50 }],
+            },
+        ];
 
-  test('should calculate node offset based on provided value', async () => {
-    const data = [
-      {
-        values: [
-          {
-            label: 'Students',
-            color: 'skyblue',
-            value: 'students',
-            targets: [
-              { node: 'passed', value: 60 },
-              { node: 'retriedExam', value: 50 },
-            ],
-            offset: 40,
-          },
-          {
-            label: 'Retried exam',
-            color: 'skyblue',
-            value: 'retriedExam',
-            targets: [
-              { node: 'failed', value: 10, color: 'red' },
-              { node: 'passed', value: 40 },
-            ],
-          },
-          {
-            label: 'Passed',
-            color: 'skyblue',
-            value: 'passed',
-          },
-          {
-            label: 'Failed',
-            color: 'red',
-            value: 'failed',
-          },
-        ],
-      },
-    ];
+        const data = [{ values }];
 
-    const diagram = mount(LumeAlluvialDiagram, { props: { data } });
+        mount(LumeAlluvialDiagram, { props: { data } });
 
-    await diagram.setProps({ containerSize: { width: 720, height: 480 } }); // Trigger graph calculation
+        await nextTick();
 
-    expect(
-      diagram.find('.lume-alluvial-group__node-block').attributes().y
-    ).toBe('39');
-  });
+        // eslint-disable-next-line no-console
+        expect(console.error).toHaveBeenCalled();
+    });
+
+    // should be tested in the scope of alluvial-graph
+    test.skip('should be able to handle an empty dataset', async () => {
+        const values = [];
+
+        const data = [
+            {
+                ...baseData,
+                values,
+            },
+        ];
+
+        mount(LumeAlluvialDiagram, { props: { data } });
+
+        await nextTick();
+
+        // eslint-disable-next-line no-console
+        expect(console.error).toHaveBeenCalled();
+    });
+
+    test('should be able to handle an dataset with a single node', async () => {
+        const values = [{ label: 'A', color: '01', value: 'A', targets: [] }];
+        stageWithData(values);
+    });
+
+    test('should be able to handle an dataset with only nodes but no edges', async () => {
+        const values = [
+            { label: 'A', color: '01', value: 'A', targets: [] },
+            { label: 'B', color: '02', value: 'B', targets: [] },
+        ];
+        stageWithData(values);
+    });
+
+    // should be tested in the scope of alluvial-graph
+    test.skip('should be able to handle an dataset with links to non-existing nodes', async () => {
+        const values = [
+            { label: 'A', color: '01', value: 'A', targets: [] },
+            {
+                label: 'B',
+                color: '02',
+                value: 'B',
+                targets: [{ node: 'C', value: 50 }],
+            },
+        ];
+        const data = [
+            {
+                ...baseData,
+                values,
+            },
+        ];
+
+        mount(LumeAlluvialDiagram, { props: { data } });
+
+        await nextTick();
+
+        // eslint-disable-next-line no-console
+        expect(console.error).toHaveBeenCalled();
+    });
+
+    test('should toggle the sub-nodes of an expandable node on click', async () => {
+        const nodeCount = alluvialData[0].values.length;
+        const subNodeCount = 3; // Sub-nodes of `flowB`
+        const getNodeBlocks = () => wrapper.findAll('rect.lume-alluvial-group__node-block');
+
+        const wrapper = mount(LumeAlluvialDiagram, {
+            props: { data: alluvialData },
+        });
+
+        await wrapper.setProps({ containerSize: { width: 720, height: 480 } }); // Trigger graph calculation
+
+        expect(getNodeBlocks()).toHaveLength(nodeCount - subNodeCount);
+
+        await wrapper.find('[data-id="flowB"]').trigger('click');
+
+        expect(getNodeBlocks()).toHaveLength(nodeCount);
+
+        await wrapper.find('[data-id="flowB"]').trigger('click');
+
+        expect(getNodeBlocks()).toHaveLength(nodeCount - subNodeCount);
+    });
+
+    test('should calculate node offset based on provided value', async () => {
+        const data = [
+            {
+                values: [
+                    {
+                        label: 'Students',
+                        color: 'skyblue',
+                        value: 'students',
+                        targets: [
+                            { node: 'passed', value: 60 },
+                            { node: 'retriedExam', value: 50 },
+                        ],
+                        offset: 40,
+                    },
+                    {
+                        label: 'Retried exam',
+                        color: 'skyblue',
+                        value: 'retriedExam',
+                        targets: [
+                            { node: 'failed', value: 10, color: 'red' },
+                            { node: 'passed', value: 40 },
+                        ],
+                    },
+                    {
+                        label: 'Passed',
+                        color: 'skyblue',
+                        value: 'passed',
+                    },
+                    {
+                        label: 'Failed',
+                        color: 'red',
+                        value: 'failed',
+                    },
+                ],
+            },
+        ];
+
+        const diagram = mount(LumeAlluvialDiagram, { props: { data } });
+
+        await diagram.setProps({ containerSize: { width: 720, height: 480 } }); // Trigger graph calculation
+
+        expect(diagram.find('.lume-alluvial-group__node-block').attributes().y).toBe('39');
+    });
 });
