@@ -1,6 +1,6 @@
 @use '@/styles/variables' as *;
 
-$lume-alluvial-text-color: $lume-color-neutral-100;
+$lume-alluvial-text-color: $lume-color-neutral-100 !default;
 
 $lume-alluvial-node-outline-width: 2px !default;
 
@@ -13,138 +13,137 @@ $lume-alluvial-link-opacity-faded: 0.1 !default;
 $lume-alluvial-link-opacity-focused: 0.5 !default;
 
 .lume-alluvial-group {
-  $b: &;
+    $b: &;
 
-  &__node {
-    :focus {
-      outline: none;
+    &__node {
+        :focus {
+            outline: none;
+        }
+
+        &--expandable {
+            cursor: pointer;
+
+            #{$b}__node-text {
+                cursor: pointer;
+            }
+        }
+
+        &--expandable-block {
+            cursor: default;
+
+            #{$b}__node-text {
+                cursor: default;
+            }
+
+            #{$b}__node-block,
+            #{$b}__node-outline {
+                cursor: pointer;
+            }
+        }
+
+        &--faded {
+            #{$b}__node-block,
+            #{$b}__node-outline,
+            #{$b}__node-text {
+                opacity: $lume-alluvial-node-opacity-faded;
+            }
+        }
+
+        &--focused {
+            #{$b}__node-block,
+            #{$b}__node-outline {
+                opacity: $lume-alluvial-node-opacity-focused;
+            }
+        }
     }
 
-    &--expandable {
-      cursor: pointer;
-
-      #{$b}__node-text {
-        cursor: pointer;
-      }
+    &__node-block {
+        opacity: $lume-alluvial-node-opacity;
+        transition: opacity $lume-transition-time-long;
     }
 
-    &--expandable-block {
-      cursor: default;
+    &__node-outline {
+        fill: none;
+        opacity: $lume-alluvial-node-opacity;
+        stroke-width: $lume-alluvial-node-outline-width;
+        transition: opacity $lume-transition-time-long;
+    }
 
-      #{$b}__node-text {
+    &__node-text {
         cursor: default;
-      }
+        fill: $lume-alluvial-text-color;
+        line-height: $lume-line-height-xs;
+        transition: opacity $lume-transition-time-long;
 
-      #{$b}__node-block,
-      #{$b}__node-outline {
-        cursor: pointer;
-      }
+        &--left {
+            text-anchor: end;
+
+            #{$b}__node-foreign {
+                text-align: right;
+            }
+        }
     }
 
-    &--faded {
-      #{$b}__node-block,
-      #{$b}__node-outline,
-      #{$b}__node-text {
-        opacity: $lume-alluvial-node-opacity-faded;
-      }
+    &__label-wrapper {
+        align-self: flex-start;
+        display: flex;
     }
 
-    &--focused {
-      #{$b}__node-block,
-      #{$b}__node-outline {
-        opacity: $lume-alluvial-node-opacity-focused;
-      }
-    }
-  }
-
-  &__node-block {
-    transition: opacity $lume-transition-time-long;
-    opacity: $lume-alluvial-node-opacity;
-  }
-
-  &__node-outline {
-    fill: none;
-    stroke-width: $lume-alluvial-node-outline-width;
-    transition: opacity $lume-transition-time-long;
-    opacity: $lume-alluvial-node-opacity;
-  }
-
-  &__node-text {
-    cursor: default;
-    fill: $lume-alluvial-text-color;
-    transition: opacity $lume-transition-time-long;
-    line-height: $lume-line-height-xs;
-
-    &--left {
-      text-anchor: end;
-
-      #{$b}__node-foreign {
-        text-align: right;
-      }
-    }
-  }
-
-  &__label-wrapper {
-    display: flex;
-    align-self: flex-start;
-  }
-
-  &__node-label {
-    max-width: 100%;
-    overflow-wrap: break-word;
-    color: $lume-alluvial-text-color;
-  }
-
-  &__node-value {
-    font-weight: $lume-font-weight-medium;
-  }
-
-  .lume-alluvial-link-group {
-    fill: none;
-    mix-blend-mode: multiply;
-  }
-
-  &__link {
-    stroke-opacity: $lume-alluvial-link-opacity;
-    transition: stroke-opacity $lume-transition-time-long;
-
-    animation: strokeReset $lume-transition-time-full linear forwards;
-
-    &--faded {
-      stroke-opacity: $lume-alluvial-link-opacity-faded;
+    &__node-label {
+        color: $lume-alluvial-text-color;
+        max-width: 100%;
+        overflow-wrap: break-word;
     }
 
-    &--focused {
-      stroke-opacity: $lume-alluvial-link-opacity-focused;
+    &__node-value {
+        font-weight: $lume-font-weight-medium;
     }
 
-    &--ghost {
-      stroke-opacity: 0;
-      animation: unset;
-      transition: unset;
-    }
-  }
+    &__link {
+        animation: stroke-reset $lume-transition-time-full linear forwards;
+        stroke-opacity: $lume-alluvial-link-opacity;
+        transition: stroke-opacity $lume-transition-time-long;
 
-  &__node-header {
-    font-weight: $lume-font-weight-medium;
-    text-anchor: middle;
-    text-align: center;
-    cursor: default;
+        &--faded {
+            stroke-opacity: $lume-alluvial-link-opacity-faded;
+        }
 
-    &--left {
-      text-anchor: start;
-      text-align: left;
+        &--focused {
+            stroke-opacity: $lume-alluvial-link-opacity-focused;
+        }
+
+        &--ghost {
+            animation: unset;
+            stroke-opacity: 0;
+            transition: unset;
+        }
     }
 
-    &--right {
-      text-anchor: end;
-      text-align: right;
+    &__node-header {
+        cursor: default;
+        font-weight: $lume-font-weight-medium;
+        text-align: center;
+        text-anchor: middle;
+
+        &--left {
+            text-align: left;
+            text-anchor: start;
+        }
+
+        &--right {
+            text-align: right;
+            text-anchor: end;
+        }
     }
-  }
 }
 
-@keyframes strokeReset {
-  to {
-    stroke-dashoffset: 0;
-  }
+.lume-alluvial-group .lume-alluvial-link-group {
+    fill: none;
+    mix-blend-mode: multiply;
+}
+
+@keyframes stroke-reset {
+    to {
+        stroke-dashoffset: 0;
+    }
 }

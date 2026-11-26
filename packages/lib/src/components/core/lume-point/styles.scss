@@ -1,11 +1,11 @@
 @use '@/styles/variables' as *;
 
 .lume-point {
-  transition: all $lume-transition-time-long ease;
-  pointer-events: visible;
+    pointer-events: visible;
+    transition: all $lume-transition-time-long ease;
 
-  &:not(&--visible),
-  &--active {
-    fill: $lume-color-white;
-  }
+    &:not(&--visible),
+    &--active {
+        fill: $lume-color-white;
+    }
 }

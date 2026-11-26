@@ -1,5 +1,4 @@
 @use 'sass:math';
-
 @use '@/styles/variables' as *;
 
 // Tooltip box -----------------------------------------------------------------
@@ -20,78 +19,72 @@ $lume-tooltip-item-min-width: 112px !default;
 $lume-tooltip-symbol-size: $lume-spacing-8 !default;
 
 .lume-tooltip {
-  position: absolute;
-  max-width: $lume-tooltip-max-width;
-  padding: $lume-tooltip-content-padding;
+    background: $lume-tooltip-background-color;
+    border: $lume-border;
+    border-radius: $lume-tooltip-border-radius;
+    box-shadow: $lume-tooltip-box-shadow;
+    max-width: $lume-tooltip-max-width;
+    padding: $lume-tooltip-content-padding;
+    pointer-events: none; /* prevent jitter when tooltip gets in the way of the cursor during transitions */
+    position: absolute;
+    z-index: $lume-tooltip-z-index;
 
-  background: $lume-tooltip-background-color;
-  border: $lume-border;
-  border-radius: $lume-tooltip-border-radius;
-  box-shadow: $lume-tooltip-box-shadow;
-  z-index: $lume-tooltip-z-index;
-  pointer-events: none; /* prevent jitter when tooltip gets in the way of the cursor during transitions */
-
-  &--animated {
-    transition: transform $lume-transition-time-long ease-out;
-  }
-
-  &--pointer-events {
-    pointer-events: auto;
-  }
-
-  &__break {
-    hr {
-      margin-top: $lume-spacing-4;
-      margin-bottom: $lume-spacing-4;
-      border: 0;
-      border-top: 1px solid $lume-color-neutral-40;
+    &--animated {
+        transition: transform $lume-transition-time-long ease-out;
     }
-  }
 
-  &__title {
-    margin-bottom: $lume-spacing-6;
-    font-size: $lume-font-size-sm;
-    line-height: $lume-line-height-sm;
-    font-weight: $lume-font-weight-semi-bold;
-    color: $lume-tooltip-title-color;
-  }
+    &--pointer-events {
+        pointer-events: auto;
+    }
 
-  &__items {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
+    &__title {
+        color: $lume-tooltip-title-color;
+        font-size: $lume-font-size-sm;
+        font-weight: $lume-font-weight-semi-bold;
+        line-height: $lume-line-height-sm;
+        margin-bottom: $lume-spacing-6;
+    }
 
-  &__item {
-    display: flex;
-    min-width: $lume-tooltip-item-min-width;
+    &__items {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    &__item {
+        color: $lume-tooltip-item-color;
+        display: flex;
+        font-size: $lume-font-size-sm;
+        line-height: $lume-line-height-sm;
+        margin-bottom: $lume-spacing-4;
+        min-width: $lume-tooltip-item-min-width;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__symbol {
+        border-radius: 50%;
+        flex-shrink: 0;
+        height: $lume-tooltip-symbol-size;
+        margin-right: $lume-spacing-8;
+        margin-top: math.div($lume-line-height-sm - $lume-tooltip-symbol-size, 2); // default: 3px
+        width: $lume-tooltip-symbol-size;
+    }
+
+    &__value {
+        color: $lume-tooltip-value-color;
+        flex-shrink: 0;
+        font-weight: $lume-font-weight-medium;
+        margin-left: auto;
+        padding-left: $lume-spacing-12;
+    }
+}
+
+.lume-tooltip__break hr {
+    border: 0;
+    border-top: 1px solid $lume-color-neutral-40;
     margin-bottom: $lume-spacing-4;
-    font-size: $lume-font-size-sm;
-    line-height: $lume-line-height-sm;
-    color: $lume-tooltip-item-color;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  &__symbol {
-    margin-top: math.div(
-      $lume-line-height-sm - $lume-tooltip-symbol-size,
-      2
-    ); // default: 3px
-    margin-right: $lume-spacing-8;
-    width: $lume-tooltip-symbol-size;
-    height: $lume-tooltip-symbol-size;
-    flex-shrink: 0;
-    border-radius: 50%;
-  }
-
-  &__value {
-    flex-shrink: 0;
-    font-weight: $lume-font-weight-medium;
-    margin-left: auto;
-    padding-left: $lume-spacing-12;
-    color: $lume-tooltip-value-color;
-  }
+    margin-top: $lume-spacing-4;
 }

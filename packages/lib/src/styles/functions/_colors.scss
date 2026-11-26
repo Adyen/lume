@@ -47,23 +47,23 @@
 //// skyblue-darkteal-{ 10 - 50 }
 //
 @function generate-divergent-map($name, $color1, $color2) {
-  $map: ();
+    $map: ();
 
-  @for $i from 0 through 4 {
-    $percent: math.percentage(math.div((4 - $i), 4));
-    $colorName: '#{$name}-#{$i + 1}0';
+    @for $i from 0 through 4 {
+        $percent: math.percentage(math.div((4 - $i), 4));
+        $color-name: '#{$name}-#{$i + 1}0';
 
-    $map: map.set($map, $colorName, color.mix($color1, $color2, $percent));
-  }
+        $map: map.set($map, $color-name, color.mix($color1, $color2, $percent));
+    }
 
-  @return $map;
+    @return $map;
 }
 
 //
 //// Returns a faded version of the provided color
 //
 @function fade-color($color) {
-  @return color.scale($color, $whiteness: 33.333%);
+    @return color.scale($color, $whiteness: 33.333%);
 }
 
 //
@@ -71,22 +71,22 @@
 //// from a $map of colors.
 //
 @mixin generate-color-classes($property, $map) {
-  @each $name, $value in $map {
-    .lume-#{$property}--#{$name} {
-      #{$property}: $value;
+    @each $name, $value in $map {
+        .lume-#{$property}--#{$name} {
+            #{$property}: $value;
 
-      &.lume-#{$property}--faded {
-        #{$property}: fade-color($value);
-      }
+            &.lume-#{$property}--faded {
+                #{$property}: fade-color($value);
+            }
+        }
     }
-  }
 }
 
 //
 //// Generates CSS variables from a $map of colors.
 //
 @mixin generate-color-variables($map) {
-  @each $name, $value in $map {
-    --lume-color--#{$name}: #{$value};
-  }
+    @each $name, $value in $map {
+        --lume-color--#{$name}: #{$value};
+    }
 }

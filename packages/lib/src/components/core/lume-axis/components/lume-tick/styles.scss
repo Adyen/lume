@@ -1,37 +1,37 @@
 @use '@/styles/variables' as *;
 
-$axis-label-color: $lume-color-neutral-80;
-$axis-label-hover-color: $lume-color-neutral-100;
+$axis-label-color: $lume-color-neutral-80 !default;
+$axis-label-hover-color: $lume-color-neutral-100 !default;
 
-$axis-line-color: $lume-color-neutral-20;
+$axis-line-color: $lume-color-neutral-20 !default;
 
 .axis {
-  &__grid-line {
-    fill: none;
-    stroke: $axis-line-color;
-    shape-rendering: crispEdges;
-    pointer-events: none;
-  }
-
-  &__label {
-    fill: $axis-label-color;
-    cursor: default;
-    transition: all $lume-transition-time-short ease-in-out;
-  }
-
-  &__tick {
-    transition: opacity $lume-transition-time-short ease-in-out;
-
-    &--hidden {
-      opacity: 0;
+    &__grid-line {
+        fill: none;
+        pointer-events: none;
+        shape-rendering: crispEdges;
+        stroke: $axis-line-color;
     }
 
-    &--hovered {
-      opacity: 1;
-
-      .axis__label {
-        fill: $axis-label-hover-color;
-      }
+    &__label {
+        cursor: default;
+        fill: $axis-label-color;
+        transition: all $lume-transition-time-short ease-in-out;
     }
-  }
+
+    &__tick {
+        transition: opacity $lume-transition-time-short ease-in-out;
+
+        &--hidden {
+            opacity: 0;
+        }
+
+        &--hovered {
+            opacity: 1;
+        }
+    }
+}
+
+.axis__tick--hovered .axis__label {
+    fill: $axis-label-hover-color;
 }

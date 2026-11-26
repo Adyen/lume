@@ -1,28 +1,33 @@
 @use '@/styles/variables' as *;
 
 .lume-bar {
-  $b: &;
-  pointer-events: visible;
+    $b: &;
 
-  &--transition-width {
-    transition: width $lume-transition-time-medium ease,
-      fill $lume-transition-time-medium ease;
-    -moz-transition: width $lume-transition-time-medium ease,
-      fill $lume-transition-time-medium ease;
+    pointer-events: visible;
 
-    &#{$b}--negative {
-      transform: rotate(180deg);
+    &--transition-width {
+        -moz-transition:
+            width $lume-transition-time-medium ease,
+            fill $lume-transition-time-medium ease;
+        transition:
+            width $lume-transition-time-medium ease,
+            fill $lume-transition-time-medium ease;
+
+        &#{$b}--negative {
+            transform: rotate(180deg);
+        }
     }
-  }
 
-  &--transition-height {
-    transition: height $lume-transition-time-medium ease,
-      fill $lume-transition-time-medium ease;
-    -moz-transition: height $lume-transition-time-medium ease,
-      fill $lume-transition-time-medium ease;
+    &--transition-height {
+        -moz-transition:
+            height $lume-transition-time-medium ease,
+            fill $lume-transition-time-medium ease;
+        transition:
+            height $lume-transition-time-medium ease,
+            fill $lume-transition-time-medium ease;
 
-    &:not(#{$b}--negative) {
-      transform: rotate(180deg);
+        &:not(#{$b}--negative) {
+            transform: rotate(180deg);
+        }
     }
-  }
 }

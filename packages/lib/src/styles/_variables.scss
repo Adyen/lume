@@ -1,7 +1,6 @@
 @forward 'variables/colors';
 @forward 'variables/spacing';
 @forward 'variables/typography';
-
 @use 'variables/colors' as *;
 @use 'variables/spacing' as *;
 @use 'variables/typography' as *;
@@ -17,8 +16,7 @@ $lume-border: $lume-border-width $lume-border-style $lume-border-color !default;
 
 // Box-shadow
 
-$lume-box-shadow: 0 $lume-spacing-8 $lume-spacing-16
-  rgba($lume-color-black, 0.1) !default;
+$lume-box-shadow: 0 $lume-spacing-8 $lume-spacing-16 rgba($lume-color-black, 0.1) !default;
 
 // Transition
 

@@ -3,11 +3,12 @@
 $lume-sparkline-area-opacity: 0.3333 !default;
 
 .sparkline-chart {
-  &__area {
-    pointer-events: none;
-    opacity: $lume-sparkline-area-opacity;
-    &--transition {
-      transition: all $lume-transition-time-long ease;
+    &__area {
+        opacity: $lume-sparkline-area-opacity;
+        pointer-events: none;
+
+        &--transition {
+            transition: all $lume-transition-time-long ease;
+        }
     }
-  }
 }
