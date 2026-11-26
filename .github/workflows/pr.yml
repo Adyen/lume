@@ -8,7 +8,7 @@ name: PR workflow
 
 on:
   pull_request:
-    branches: ['main']
+    branches: ["main"]
 
 jobs:
   build:
@@ -21,7 +21,7 @@ jobs:
       - name: Use Node version from .nvmrc
         uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
@@ -42,7 +42,7 @@ jobs:
       - name: Use Node version from .nvmrc
         uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
@@ -52,6 +52,29 @@ jobs:
 
       - name: Run unit tests (with experimental VM modules)
         run: pnpm run test
+    permissions:
+      contents: read
+
+  lint:
+    name: Lint & format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v3
+
+      - name: Use Node version from .nvmrc
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run lint, stylelint, and format checks
+        run: pnpm run lint
     permissions:
       contents: read
 
