@@ -1,6 +1,6 @@
-import { computed, ref, Ref, watch } from 'vue';
+import { computed, ref, type Ref, watch } from 'vue';
 
-import { Scale } from '@/composables/scales';
+import { type Scale } from '@/composables/scales';
 import type { AxisOptions } from '@/types/options';
 
 const SAFETY_MARGIN = 0.2; // 20% of the average width
@@ -12,45 +12,44 @@ const SAFETY_MARGIN = 0.2; // 20% of the average width
  * @param tickRefs Template reference to the tick text elements
  * @param options The axis options.
  */
-export function useSkip(
-  scale: Ref<Scale>,
-  tickRefs: Ref<Array<{ ref: SVGTextElement }>>,
-  options: Ref<AxisOptions>
-) {
-  const avgLabelWidth = ref<number>();
+export function useSkip(scale: Ref<Scale>, tickRefs: Ref<Array<{ ref: SVGTextElement }>>, options: Ref<AxisOptions>) {
+    const avgLabelWidth = ref<number>();
 
-  const scaleWidth = computed(() => Math.max(...scale.value.range()));
-  const tickCount = computed(() => tickRefs.value.length);
+    const scaleWidth = computed(() => Math.max(...scale.value.range()));
+    const tickCount = computed(() => tickRefs.value.length);
 
-  function setAvgLabelWidth() {
-    if (!tickRefs.value) return;
-    const labelWidthSum = tickRefs.value.reduce(
-      (sum, label) => sum + label.ref.getBoundingClientRect().width,
-      0
-    );
-    const averageValue = Math.ceil(labelWidthSum / tickCount.value);
+    function setAvgLabelWidth() {
+        if (!tickRefs.value) {
+            return;
+        }
+        const labelWidthSum = tickRefs.value.reduce((sum, label) => sum + label.ref.getBoundingClientRect().width, 0);
+        const averageValue = Math.ceil(labelWidthSum / tickCount.value);
 
-    // Add safety margin to make sure the bigger labels don't overlap
-    avgLabelWidth.value = averageValue + averageValue * SAFETY_MARGIN;
-  }
+        // Add safety margin to make sure the bigger labels don't overlap
+        avgLabelWidth.value = averageValue + averageValue * SAFETY_MARGIN;
+    }
 
-  function showTick(index: number) {
-    if (!tickRefs.value) return true;
+    function showTick(index: number) {
+        if (!tickRefs.value) {
+            return true;
+        }
 
-    const skipNumber = options.value.skip;
-    const tickCount = tickRefs.value.length;
+        const skipNumber = options.value.skip;
+        const currentTickCount = tickRefs.value.length;
 
-    if (index === 0) return true;
+        if (index === 0) {
+            return true;
+        }
 
-    const step = scaleWidth.value / tickCount;
-    const skip =
-      (typeof skipNumber === 'number' && skipNumber > 0 && skipNumber + 1) ||
-      Math.ceil(avgLabelWidth.value / step);
+        const step = scaleWidth.value / currentTickCount;
+        const skip =
+            (typeof skipNumber === 'number' && skipNumber > 0 && skipNumber + 1) ||
+            Math.ceil(avgLabelWidth.value / step);
 
-    return index % skip === 0;
-  }
+        return index % skip === 0;
+    }
 
-  watch(tickRefs, setAvgLabelWidth);
+    watch(tickRefs, setAvgLabelWidth);
 
-  return { showTick };
+    return { showTick };
 }

@@ -1,7 +1,7 @@
-import { computed, ComputedRef, PropType, Ref } from 'vue';
-import { ScaleLinear } from 'd3';
+import { computed, type ComputedRef, type PropType, type Ref } from 'vue';
+import { type ScaleLinear } from 'd3';
 
-import { Scale } from '@/composables/scales';
+import { type Scale } from '@/composables/scales';
 
 import { BAR_TYPES, ORIENTATIONS } from '@/utils/constants';
 
@@ -11,112 +11,103 @@ import type { DatasetValueObject, InternalData } from '@/types/dataset';
 import type { BarType, Orientation } from '@/types/utils';
 
 function typeValidator(type: string): boolean {
-  return Object.values(BAR_TYPES).includes(type as BarType) || type == null;
+    return Object.values(BAR_TYPES).includes(type as BarType) || type == null;
 }
 
 export function orientationValidator(orientation: string): boolean {
-  return Object.values(ORIENTATIONS).includes(orientation as Orientation);
+    return Object.values(ORIENTATIONS).includes(orientation as Orientation);
 }
 
 export const withBarProps = (useOrientation = false) => ({
-  type: {
-    type: String,
-    default: null,
-    validator: typeValidator,
-  },
-  ...(useOrientation
-    ? {
-      orientation: {
-        type: String as PropType<Orientation>,
-        default: ORIENTATIONS.VERTICAL,
-        validator: orientationValidator,
-      },
-    }
-    : {}),
+    type: {
+        type: String,
+        default: null,
+        validator: typeValidator,
+    },
+    ...(useOrientation
+        ? {
+              orientation: {
+                  type: String as PropType<Orientation>,
+                  default: ORIENTATIONS.VERTICAL,
+                  validator: orientationValidator,
+              },
+          }
+        : {}),
 });
 
-export function useBarMixin(
-  data: Ref<InternalData>,
-  labels: Ref<Array<string | number>>
-) {
-  /** Array of padded (null = 0) number values */
-  const multiBarData: ComputedRef<InternalData> = computed(() => {
-    return data.value.map((dataset) => ({
-      ...dataset,
-      values: fillArrayWithNullValues(
-        dataset.values,
-        labels?.value?.length ?? 0
-      ).map((datasetValue) => ({
-        ...datasetValue,
-        value: datasetValue?.value || 0,
-      })),
-    }));
-  });
+export function useBarMixin(data: Ref<InternalData>, labels: Ref<Array<string | number>>) {
+    /** Array of padded (null = 0) number values */
+    const multiBarData: ComputedRef<InternalData> = computed(() => {
+        return data.value.map(dataset => ({
+            ...dataset,
+            values: fillArrayWithNullValues(dataset.values, labels?.value?.length ?? 0).map(datasetValue => ({
+                ...datasetValue,
+                value: datasetValue?.value || 0,
+            })),
+        }));
+    });
 
-  /**
-   * Data points grouped by index. This is used for grouped/stacked bar charts.
-   * Example: for datasets `{ values: [ 10, 20 ] }` and `{ values: [ 30, 40 ] }`,
-   * `groupedData` will return `[[ 10, 30 ], [ 20, 40 ]]`.
-   */
-  const groupedData: ComputedRef<DatasetValueObject[][]> = computed(() => {
-    return multiBarData.value?.reduce((accumulator, dataset) => {
-      dataset.values.forEach((value, i) => {
-        if (!accumulator[i]) accumulator[i] = [value];
-        else accumulator[i].push(value);
-      });
-      return accumulator;
-    }, []);
-  });
+    /**
+     * Data points grouped by index. This is used for grouped/stacked bar charts.
+     * Example: for datasets `{ values: [ 10, 20 ] }` and `{ values: [ 30, 40 ] }`,
+     * `groupedData` will return `[[ 10, 30 ], [ 20, 40 ]]`.
+     */
+    const groupedData: ComputedRef<Array<Array<DatasetValueObject>>> = computed(() => {
+        return multiBarData.value?.reduce((acc, dataset) => {
+            dataset.values.forEach((value, i) => {
+                if (!acc[i]) {
+                    acc[i] = [value];
+                } else {
+                    acc[i].push(value);
+                }
+            });
+            return acc;
+        }, []);
+    });
 
-  return { multiBarData, groupedData };
+    return { multiBarData, groupedData };
 }
 
 export function getBarChartType(data: Ref<InternalData>, type: Ref<string>) {
-  return data.value.length === 1 ? 'single' : type.value;
+    return data.value.length === 1 ? 'single' : type.value;
 }
 
-export function useBarScales(
-  xScale: Ref<Scale>,
-  yScale: Ref<Scale>,
-  orientation?: Ref<Orientation>
-) {
-  const isHorizontal = computed(
-    () => orientation.value === ORIENTATIONS.HORIZONTAL
-  );
+export function useBarScales(xScale: Ref<Scale>, yScale: Ref<Scale>, orientation?: Ref<Orientation>) {
+    const isHorizontal = computed(() => orientation.value === ORIENTATIONS.HORIZONTAL);
 
-  function checkValidDomain(scale: ScaleLinear<number, number>) {
-    if (!scale) {
-      error(Errors.BarScaleNull);
+    function checkValidDomain(scale: ScaleLinear<number, number>) {
+        if (!scale) {
+            error(Errors.BarScaleNull);
+        }
+
+        if (Math.min(...scale.domain()) > 0) {
+            error(Errors.BarScaleDomainAbove0);
+        }
     }
 
-    if (Math.min(...scale.domain()) > 0) {
-      error(Errors.BarScaleDomainAbove0);
-    }
-  }
+    const barXScale = computed(() => {
+        const scale = isHorizontal.value
+            ? (() => {
+                  checkValidDomain(xScale.value as ScaleLinear<number, number>);
 
-  const barXScale = computed(() => {
-    const scale = isHorizontal.value
-      ? (() => {
-        checkValidDomain(xScale.value as ScaleLinear<number, number>);
+                  return xScale.value;
+              })()
+            : xScale.value;
 
-        return xScale.value;
-      })()
-      : xScale.value;
+        return scale;
+    });
 
-    return scale;
-  });
+    const barYScale = computed(() => {
+        const scale = isHorizontal.value
+            ? yScale.value
+            : (() => {
+                  checkValidDomain(yScale.value as ScaleLinear<number, number>);
 
-  const barYScale = computed(() => {
-    const scale = isHorizontal.value
-      ? yScale.value
-      : (() => {
-        checkValidDomain(yScale.value as ScaleLinear<number, number>);
+                  return yScale.value;
+              })();
 
-        return yScale.value;
-      })();
+        return scale;
+    });
 
-    return scale;
-  });
-
-  return { barXScale, barYScale };
+    return { barXScale, barYScale };
 }

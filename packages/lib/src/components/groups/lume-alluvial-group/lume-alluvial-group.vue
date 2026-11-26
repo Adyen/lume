@@ -1,567 +1,478 @@
 <template>
-  <g
-    class="lume-alluvial-group"
-    data-j-alluvial-group
-  >
-    <!-- Level titles -->
-    <g v-if="nodeHeaders">
-      <template v-for="(header, index) in nodeHeaders">
-        <slot
-          :name="`node-header-${index}`"
-          :align="header.align"
-          :x="header.x"
-          :y="-computedNodeHeaderPadding"
-        >
-          <lume-alluvial-node-header
-            :key="`header_${header.x}`"
-            :align="header.align"
-            :x="header.x"
-            :y="-computedNodeHeaderPadding"
-          >
-            {{ header.label }}
-          </lume-alluvial-node-header>
-        </slot>
-      </template>
-    </g>
-
-    <!-- Links -->
-    <g
-      class="lume-alluvial-link-group"
-      @mouseleave="handleLinkMouseleave"
-    >
-      <!-- Gradient defs -->
-      <defs v-if="options.gradient">
-        <linearGradient
-          v-for="(gradient, id) in gradients"
-          :id="`${chartID}_${id}`"
-          :key="id"
-          gradientUnits="userSpaceOnUse"
-          :x1="gradient.x1"
-          :x2="gradient.x2"
-        >
-          <stop
-            offset="0%"
-            :stop-color="`var(--lume-color--${gradient.source})`"
-          />
-          <stop
-            offset="100%"
-            :stop-color="`var(--lume-color--${gradient.target})`"
-          />
-        </linearGradient>
-      </defs>
-
-      <!-- Ghost paths -->
-      <path
-        v-for="linkPath in linkPaths"
-        :key="`link-ghost_${linkPath.id}`"
-        class="lume-alluvial-group__link"
-        :class="[
-          'lume-stroke--transparent',
-          'lume-alluvial-group__link--ghost',
-        ]"
-        :d="linkPath.d"
-        :stroke-width="linkPath.strokeWidth + GHOST_STROKE_WIDTH_OFFSET"
-        data-j-alluvial-ghost
-        @click="emit('link-click', { link: linkPath.link, event: $event })"
-        @mouseover="handleLinkMouseover(linkPath.link, $event)"
-      />
-
-      <!-- Link paths -->
-      <path
-        v-for="linkPath in linkPaths"
-        :key="`link_${linkPath.id}`"
-        class="lume-alluvial-group__link"
-        :class="{
-          [`lume-stroke--${linkPath.color}`]:
-            !options.gradient && linkPath.color,
-          'lume-alluvial-group__link--faded': isLinkFaded(linkPath.id),
-          'lume-alluvial-group__link--focused': isLinkFocused(linkPath.id),
-        }"
-        :d="linkPath.d"
-        :stroke="getLinkStroke(linkPath.link)"
-        :stroke-dasharray="containerSize.width"
-        :stroke-dashoffset="containerSize.width"
-        :stroke-width="linkPath.strokeWidth"
-        data-j-alluvial-path
-        :data-id="linkPath.id"
-        @click="emit('link-click', { link: linkPath.link, event: $event })"
-        @mouseover="handleLinkMouseover(linkPath.link, $event)"
-      />
-    </g>
-
-    <!-- Nodes -->
-    <g
-      v-for="(block, index) in nodeBlocks"
-      :key="`node-block_${index}`"
-      class="lume-alluvial-group__node"
-      :class="{
-        'lume-alluvial-group__node--expandable': isExpandableNode(
-          block.node.id
-        ),
-        'lume-alluvial-group__node--expandable-block':
-          isExpandableNode(block.node.id) && isBlockExpansionTrigger,
-        'lume-alluvial-group__node--faded': isNodeFaded(block.node.id),
-        'lume-alluvial-group__node--focused': isNodeFocused(block.node.id),
-      }"
-      data-j-alluvial-group__node-block
-    >
-      <!-- Wrapper for catching mouse events when hovering both the block and text -->
-      <g
-        :tabindex="isExpandableNode(block.node.id) ? '0' : null"
-        @click="handleNodeClick(block.node, $event)"
-        @keydown.enter.prevent="handleNodeKeydown(block.node, $event)"
-        @keydown.space.prevent="handleNodeKeydown(block.node, $event)"
-        @mouseenter="
-          emit('node-mouseenter', { node: block.node, event: $event })
-        "
-        @mouseleave="
-          emit('node-mouseleave', { node: block.node, event: $event })
-        "
-        @mouseover="pointedNode = block.node"
-        @mouseout="pointedNode = null"
-        @focus="focusedNode = block.node"
-        @blur="focusedNode = null"
-      >
-        <template v-if="shouldDeriveNodeColorFromIncomingLinks(block)">
-          <rect
-            v-for="nodeBlock in getSubNodesDerivingColorFromIncomingLinks(
-              block.node.id
-            )"
-            v-bind="nodeBlock"
-            :key="nodeBlock.key"
-            data-j-alluvial-sub-nodes
-            @click="handleNodeBlockClick(block.node)"
-          />
-        </template>
-        <rect
-          v-else
-          class="lume-alluvial-group__node-block"
-          :class="`lume-fill--${block.node.color || block.node.fallbackColor}`"
-          :x="block.x"
-          :y="block.y"
-          :height="block.height"
-          :width="block.width"
-          @click="handleNodeBlockClick(block.node)"
-        />
-        <rect
-          v-if="isExpandableNode(block.node.id)"
-          class="lume-alluvial-group__node-outline"
-          :class="`lume-stroke--${
-            block.node.color || block.node.fallbackColor
-          }`"
-          :x="block.x - NODE_OUTLINE_PADDING"
-          :y="block.y - NODE_OUTLINE_PADDING"
-          :height="block.height + NODE_OUTLINE_PADDING * 2"
-          :width="block.width + NODE_OUTLINE_PADDING * 2"
-          :rx="NODE_OUTLINE_RADIUS"
-          data-j-alluvial-node-outline
-          @click="handleNodeBlockClick(block.node)"
-        />
-        <g
-          ref="nodeTextRefs"
-          class="lume-alluvial-group__node-text lume-typography--caption"
-          :class="{
-            'lume-alluvial-group__node-text--left': isLabelBeforeNode(
-              block.node
-            ),
-          }"
-          :transform="`translate(${block.textTransform.x},${block.textTransform.y})`"
-          :data-id="block.node.id"
-          :width="options.nodeLabelMaxWidth"
-        >
-          <slot
-            :name="`node-text-${block.node.id}`"
-            :node="block.node"
-            :value="
-              formatValue(
-                block.node.transitionValue || block.node.value,
-                block.node.value
-              )
-            "
-          >
-            <lume-alluvial-node-label
-              :bottom="options.switchText"
-              :left="isLabelBeforeNode(block.node)"
-              :max-width="options.nodeLabelMaxWidth"
-              @lume__internal--node-resize="updateMargins"
-            >
-              {{ block.node.label }}
-            </lume-alluvial-node-label>
-            <lume-alluvial-node-value :bottom="!options.switchText">
-              {{
-                formatValue(
-                  block.node.transitionValue || block.node.value,
-                  block.node.value
-                )
-              }}
-            </lume-alluvial-node-value>
-          </slot>
+    <g class="lume-alluvial-group" data-j-alluvial-group>
+        <!-- Level titles -->
+        <g v-if="nodeHeaders">
+            <template v-for="(header, index) in nodeHeaders">
+                <slot
+                    :name="`node-header-${index}`"
+                    :align="header.align"
+                    :x="header.x"
+                    :y="-computedNodeHeaderPadding"
+                >
+                    <lume-alluvial-node-header
+                        :key="`header_${header.x}`"
+                        :align="header.align"
+                        :x="header.x"
+                        :y="-computedNodeHeaderPadding"
+                    >
+                        {{ header.label }}
+                    </lume-alluvial-node-header>
+                </slot>
+            </template>
         </g>
-      </g>
+
+        <!-- Links -->
+        <g class="lume-alluvial-link-group" @mouseleave="handleLinkMouseleave">
+            <!-- Gradient defs -->
+            <defs v-if="options.gradient">
+                <linearGradient
+                    v-for="(gradient, id) in gradients"
+                    :id="`${chartID}_${id}`"
+                    :key="id"
+                    gradientUnits="userSpaceOnUse"
+                    :x1="gradient.x1"
+                    :x2="gradient.x2"
+                >
+                    <stop offset="0%" :stop-color="`var(--lume-color--${gradient.source})`" />
+                    <stop offset="100%" :stop-color="`var(--lume-color--${gradient.target})`" />
+                </linearGradient>
+            </defs>
+
+            <!-- Ghost paths -->
+            <path
+                v-for="linkPath in linkPaths"
+                :key="`link-ghost_${linkPath.id}`"
+                class="lume-alluvial-group__link"
+                :class="['lume-stroke--transparent', 'lume-alluvial-group__link--ghost']"
+                :d="linkPath.d"
+                :stroke-width="linkPath.strokeWidth + GHOST_STROKE_WIDTH_OFFSET"
+                data-j-alluvial-ghost
+                @click="emit('link-click', { link: linkPath.link, event: $event })"
+                @mouseover="handleLinkMouseover(linkPath.link, $event)"
+            />
+
+            <!-- Link paths -->
+            <path
+                v-for="linkPath in linkPaths"
+                :key="`link_${linkPath.id}`"
+                class="lume-alluvial-group__link"
+                :class="{
+                    [`lume-stroke--${linkPath.color}`]: !options.gradient && linkPath.color,
+                    'lume-alluvial-group__link--faded': isLinkFaded(linkPath.id),
+                    'lume-alluvial-group__link--focused': isLinkFocused(linkPath.id),
+                }"
+                :d="linkPath.d"
+                :stroke="getLinkStroke(linkPath.link)"
+                :stroke-dasharray="containerSize.width"
+                :stroke-dashoffset="containerSize.width"
+                :stroke-width="linkPath.strokeWidth"
+                data-j-alluvial-path
+                :data-id="linkPath.id"
+                @click="emit('link-click', { link: linkPath.link, event: $event })"
+                @mouseover="handleLinkMouseover(linkPath.link, $event)"
+            />
+        </g>
+
+        <!-- Nodes -->
+        <g
+            v-for="(block, index) in nodeBlocks"
+            :key="`node-block_${index}`"
+            class="lume-alluvial-group__node"
+            :class="{
+                'lume-alluvial-group__node--expandable': isExpandableNode(block.node.id),
+                'lume-alluvial-group__node--expandable-block':
+                    isExpandableNode(block.node.id) && isBlockExpansionTrigger,
+                'lume-alluvial-group__node--faded': isNodeFaded(block.node.id),
+                'lume-alluvial-group__node--focused': isNodeFocused(block.node.id),
+            }"
+            data-j-alluvial-group__node-block
+        >
+            <!-- Wrapper for catching mouse events when hovering both the block and text -->
+            <g
+                :tabindex="isExpandableNode(block.node.id) ? '0' : null"
+                @click="handleNodeClick(block.node, $event)"
+                @keydown.enter.prevent="handleNodeKeydown(block.node, $event)"
+                @keydown.space.prevent="handleNodeKeydown(block.node, $event)"
+                @mouseenter="emit('node-mouseenter', { node: block.node, event: $event })"
+                @mouseleave="emit('node-mouseleave', { node: block.node, event: $event })"
+                @mouseover="pointedNode = block.node"
+                @mouseout="pointedNode = null"
+                @focus="focusedNode = block.node"
+                @blur="focusedNode = null"
+            >
+                <template v-if="shouldDeriveNodeColorFromIncomingLinks(block)">
+                    <rect
+                        v-for="nodeBlock in getSubNodesDerivingColorFromIncomingLinks(block.node.id)"
+                        v-bind="nodeBlock"
+                        :key="nodeBlock.key"
+                        data-j-alluvial-sub-nodes
+                        @click="handleNodeBlockClick(block.node)"
+                    />
+                </template>
+                <rect
+                    v-else
+                    class="lume-alluvial-group__node-block"
+                    :class="`lume-fill--${block.node.color || block.node.fallbackColor}`"
+                    :x="block.x"
+                    :y="block.y"
+                    :height="block.height"
+                    :width="block.width"
+                    @click="handleNodeBlockClick(block.node)"
+                />
+                <rect
+                    v-if="isExpandableNode(block.node.id)"
+                    class="lume-alluvial-group__node-outline"
+                    :class="`lume-stroke--${block.node.color || block.node.fallbackColor}`"
+                    :x="block.x - NODE_OUTLINE_PADDING"
+                    :y="block.y - NODE_OUTLINE_PADDING"
+                    :height="block.height + NODE_OUTLINE_PADDING * 2"
+                    :width="block.width + NODE_OUTLINE_PADDING * 2"
+                    :rx="NODE_OUTLINE_RADIUS"
+                    data-j-alluvial-node-outline
+                    @click="handleNodeBlockClick(block.node)"
+                />
+                <g
+                    ref="nodeTextRefs"
+                    class="lume-alluvial-group__node-text lume-typography--caption"
+                    :class="{
+                        'lume-alluvial-group__node-text--left': isLabelBeforeNode(block.node),
+                    }"
+                    :transform="`translate(${block.textTransform.x},${block.textTransform.y})`"
+                    :data-id="block.node.id"
+                    :width="options.nodeLabelMaxWidth"
+                >
+                    <slot
+                        :name="`node-text-${block.node.id}`"
+                        :node="block.node"
+                        :value="formatValue(block.node.transitionValue || block.node.value, block.node.value)"
+                    >
+                        <lume-alluvial-node-label
+                            :bottom="options.switchText"
+                            :left="isLabelBeforeNode(block.node)"
+                            :max-width="options.nodeLabelMaxWidth"
+                            @lume__internal--node-resize="updateMargins"
+                        >
+                            {{ block.node.label }}
+                        </lume-alluvial-node-label>
+                        <lume-alluvial-node-value :bottom="!options.switchText">
+                            {{ formatValue(block.node.transitionValue || block.node.value, block.node.value) }}
+                        </lume-alluvial-node-value>
+                    </slot>
+                </g>
+            </g>
+        </g>
     </g>
-  </g>
 </template>
 
 <script setup lang="ts">
-import { computed, inject, PropType, ref, toRefs, watch } from 'vue';
+    import { computed, inject, type PropType, ref, toRefs, watch } from 'vue';
 
-import LumeAlluvialNodeLabel from './components/lume-alluvial-node-label';
-import LumeAlluvialNodeValue from './components/lume-alluvial-node-value';
-import LumeAlluvialNodeHeader from './components/lume-alluvial-node-header';
+    import LumeAlluvialNodeLabel from './components/lume-alluvial-node-label';
+    import LumeAlluvialNodeValue from './components/lume-alluvial-node-value';
+    import LumeAlluvialNodeHeader from './components/lume-alluvial-node-header';
 
-import { useFormat } from '@/composables/format';
-import { withGroupProps } from '@/composables/group-props';
+    import { useFormat } from '@/composables/format';
+    import { withGroupProps } from '@/composables/group-props';
 
-import { useAlluvialExtents } from './composables/alluvial-extents';
-import { useAlluvialGraph } from './composables/alluvial-graph';
-import { useAlluvialHover } from './composables/alluvial-hover';
+    import { useAlluvialExtents } from './composables/alluvial-extents';
+    import { useAlluvialGraph } from './composables/alluvial-graph';
+    import { useAlluvialHover } from './composables/alluvial-hover';
 
-import { DEFAULT_COLOR } from '@/utils/colors';
-import { warn, Warnings } from '@/utils/warnings';
-import {
-  GHOST_STROKE_WIDTH_OFFSET,
-  NODE_HEADER_PADDING,
-  NODE_MINIMUM_HEIGHT,
-  NODE_OUTLINE_PADDING,
-  NODE_OUTLINE_RADIUS,
-} from './constants';
-import {
-  getLabelSizes,
-  getLastNodeLayer,
-  getLinkById,
-  getLinkPathAttributes,
-  getNodeBlockAttributes,
-  getNodeById,
-  isNodeLabelBeforeNode,
-} from './helpers';
+    import { DEFAULT_COLOR } from '@/utils/colors';
+    import { warn, Warnings } from '@/utils/warnings';
+    import {
+        GHOST_STROKE_WIDTH_OFFSET,
+        NODE_HEADER_PADDING,
+        NODE_MINIMUM_HEIGHT,
+        NODE_OUTLINE_PADDING,
+        NODE_OUTLINE_RADIUS,
+    } from './constants';
+    import {
+        getLabelSizes,
+        getLastNodeLayer,
+        getLinkById,
+        getLinkPathAttributes,
+        getNodeBlockAttributes,
+        getNodeById,
+        isNodeLabelBeforeNode,
+    } from './helpers';
 
-import type { AlluvialDiagramOptions } from '@/types/options';
-import type {
-  AlluvialNode,
-  AlluvialNodeHeaderAlignment,
-  LinkPath,
-  NodeBlock,
-  SankeyLink,
-} from '@/types/alluvial';
-import type {
-  AlluvialLinkEventPayload,
-  AlluvialNodeEventPayload,
-} from '@/types/events';
-import type { Color } from '@/types/utils';
+    import type { AlluvialDiagramOptions } from '@/types/options';
+    import type { AlluvialNode, AlluvialNodeHeaderAlignment, LinkPath, NodeBlock, SankeyLink } from '@/types/alluvial';
+    import type { AlluvialLinkEventPayload, AlluvialNodeEventPayload } from '@/types/events';
+    import type { Color } from '@/types/utils';
 
-const props = defineProps({
-  ...withGroupProps<AlluvialDiagramOptions, AlluvialNode>(),
-  hoveredElementId: {
-    type: [Number, String] as PropType<number | string>,
-    default: null,
-  },
-});
+    const props = defineProps({
+        ...withGroupProps<AlluvialDiagramOptions, AlluvialNode>(),
+        hoveredElementId: {
+            type: [Number, String] as PropType<number | string>,
+            default: null,
+        },
+    });
 
-const emit = defineEmits<{
-  (
-    e: 'node-click' | 'node-mouseenter' | 'node-mouseleave',
-    p: AlluvialNodeEventPayload
-  ): void;
-  (
-    e: 'link-click' | 'link-mouseenter' | 'link-mouseleave',
-    p: AlluvialLinkEventPayload
-  ): void;
-}>();
+    const emit = defineEmits<{
+        (e: 'node-click' | 'node-mouseenter' | 'node-mouseleave', p: AlluvialNodeEventPayload): void;
+        (e: 'link-click' | 'link-mouseenter' | 'link-mouseleave', p: AlluvialLinkEventPayload): void;
+    }>();
 
-const chartID = inject<string>('chartID');
+    const chartID = inject<string>('chartID');
 
-const { data, options } = toRefs(props);
+    const { data, options } = toRefs(props);
 
-const nodeBlocks = ref<Array<NodeBlock>>([]);
-const linkPaths = ref<Array<LinkPath>>([]);
+    const nodeBlocks = ref<Array<NodeBlock>>([]);
+    const linkPaths = ref<Array<LinkPath>>([]);
 
-const nodeTextRefs = ref<Array<SVGTextElement>>(null);
+    const nodeTextRefs = ref<Array<SVGTextElement>>(null);
 
-const pointedNode = ref<NodeBlock['node']>(null);
-const focusedNode = ref<NodeBlock['node']>(null);
+    const pointedNode = ref<NodeBlock['node']>(null);
+    const focusedNode = ref<NodeBlock['node']>(null);
 
-const { extents, updateExtents } = useAlluvialExtents(props.containerSize);
-const { columns, graph, isExpandableNode, toggleNodeExpansion } =
-  useAlluvialGraph(data, options, extents);
-const { hoveredElement, highlightedElements } = useAlluvialHover(
-  nodeBlocks,
-  options,
-  graph
-);
+    const { extents, updateExtents } = useAlluvialExtents(props.containerSize);
+    const { columns, graph, isExpandableNode, toggleNodeExpansion } = useAlluvialGraph(data, options, extents);
+    const { hoveredElement, highlightedElements } = useAlluvialHover(nodeBlocks, options, graph);
 
-const formatValue = computed(() => useFormat(options.value.valueFormat));
+    const formatValue = computed(() => useFormat(options.value.valueFormat));
 
-const isBlockExpansionTrigger = computed(
-  () => options.value.nodeExpansionTrigger === 'block'
-);
+    const isBlockExpansionTrigger = computed(() => options.value.nodeExpansionTrigger === 'block');
 
-const hoveredNodeIds = computed(() =>
-  Object.keys(highlightedElements.value.nodes)
-);
+    const hoveredNodeIds = computed(() => Object.keys(highlightedElements.value.nodes));
 
-const lastNodeLayer = computed(() =>
-  graph.value?.nodes?.length ? getLastNodeLayer(graph.value.nodes) : 0
-);
+    const lastNodeLayer = computed(() => (graph.value?.nodes?.length ? getLastNodeLayer(graph.value.nodes) : 0));
 
-// Headers are centered on their column, except when the column's labels are
-// rendered inwards, where they follow the column's outer edge to stay in bounds
-const nodeColumnPositions = computed<
-  Array<{ x: number; align: AlluvialNodeHeaderAlignment }>
->(() => {
-  if (!columns.value) return [];
-
-  const lastColumnIndex = columns.value.length - 1;
-
-  return columns.value.map(([{ x0, x1 }], index) => {
-    if (index === 0 && options.value.alignFirstNodeLabels === 'right') {
-      return { x: x0, align: 'left' };
-    }
-
-    if (
-      index === lastColumnIndex &&
-      options.value.alignLastNodeLabels === 'left'
-    ) {
-      return { x: x1, align: 'right' };
-    }
-
-    return { x: (x0 + x1) / 2, align: 'center' };
-  });
-});
-
-const nodeHeaders = computed(() => {
-  if (!options.value.nodeHeaders || !options.value.nodeHeaders.length) return;
-
-  return options.value.nodeHeaders
-    .slice(0, nodeColumnPositions.value.length) // Match column/header array lengths
-    .map((header, index) => ({
-      label: header,
-      ...nodeColumnPositions.value[index],
-    }));
-});
-
-const computedNodeHeaderPadding = computed(
-  () => options.value.nodeHeaderPadding ?? NODE_HEADER_PADDING
-);
-
-const gradients = computed(() => {
-  if (!options.value.gradient || !graph.value) return;
-
-  return graph.value.links.reduce((acc, link) => {
-    const { source, target } = link;
-
-    const sourceColor = source.color || source.fallbackColor;
-
-    // If `deriveColorFromIncomingLinks`, use the source's color for the gradient
-    const targetColor = target.deriveColorFromIncomingLinks
-      ? sourceColor
-      : target.color || target.fallbackColor;
-
-    acc[link.id] = {
-      source: sourceColor,
-      target: targetColor,
-      x1: source.x1,
-      x2: target.x0,
-    };
-    return acc;
-  }, {}) as Record<
-    string,
-    { source: Color; target: Color; x1: number; x2: number }
-  >;
-});
-
-const nodesDerivingColorFromIncomingLinks = computed(() => {
-  const nodeBlocksExpectingColorDerivation = nodeBlocks.value.filter((block) =>
-    shouldDeriveNodeColorFromIncomingLinks(block)
-  );
-  const subNodeDetails = [];
-
-  nodeBlocksExpectingColorDerivation.forEach((nodeBlock) => {
-    const nodesBasedOnIncomingLinks = [];
-    // Link ordering was reversed so that furthermost links are rendered on the top. Have to reverse it back to compute heights of node segments for appropriate links
-    linkPaths.value
-      .filter(({ link }) => link.target.id === nodeBlock.node.id)
-      .reverse()
-      .reduce((accumulatedHeight, currentLinkPath, _i, linksArray) => {
-        const isMinimumHeight =
-          currentLinkPath.link.target.y1 - currentLinkPath.link.target.y0 >
-          NODE_MINIMUM_HEIGHT;
-
-        let targetNodeHeight: number,
-          linkRatioOfSourceInTarget: number,
-          linkHeightOfSourceInTarget: number;
-
-        if (isMinimumHeight) {
-          targetNodeHeight =
-            currentLinkPath.link.target.y1 - currentLinkPath.link.target.y0;
-          linkRatioOfSourceInTarget =
-            currentLinkPath.link.value / nodeBlock.node.value;
-          linkHeightOfSourceInTarget =
-            linkRatioOfSourceInTarget * targetNodeHeight;
-        } else {
-          linkHeightOfSourceInTarget = NODE_MINIMUM_HEIGHT / linksArray.length; // Get ratio from # of links targetting this node
+    // Headers are centered on their column, except when the column's labels are
+    // rendered inwards, where they follow the column's outer edge to stay in bounds
+    const nodeColumnPositions = computed<Array<{ x: number; align: AlluvialNodeHeaderAlignment }>>(() => {
+        if (!columns.value) {
+            return [];
         }
 
-        nodesBasedOnIncomingLinks.push({
-          x: nodeBlock.x,
-          y: nodeBlock.y + accumulatedHeight,
-          height: linkHeightOfSourceInTarget,
-          width: nodeBlock.width,
-          key: `node-block-${nodeBlock.node.id}-source-link-${currentLinkPath.link.source.id}`,
-          class: `lume-alluvial-group__node-block lume-fill--${
-            currentLinkPath.link.source.color || DEFAULT_COLOR
-          }`,
+        const lastColumnIndex = columns.value.length - 1;
+
+        return columns.value.map(([{ x0, x1 }], index) => {
+            if (index === 0 && options.value.alignFirstNodeLabels === 'right') {
+                return { x: x0, align: 'left' };
+            }
+
+            if (index === lastColumnIndex && options.value.alignLastNodeLabels === 'left') {
+                return { x: x1, align: 'right' };
+            }
+
+            return { x: (x0 + x1) / 2, align: 'center' };
+        });
+    });
+
+    const nodeHeaders = computed(() => {
+        if (!options.value.nodeHeaders || !options.value.nodeHeaders.length) {
+            return undefined;
+        }
+
+        return options.value.nodeHeaders
+            .slice(0, nodeColumnPositions.value.length) // Match column/header array lengths
+            .map((header, index) => ({
+                label: header,
+                ...nodeColumnPositions.value[index],
+            }));
+    });
+
+    const computedNodeHeaderPadding = computed(() => options.value.nodeHeaderPadding ?? NODE_HEADER_PADDING);
+
+    const gradients = computed(() => {
+        if (!options.value.gradient || !graph.value) {
+            return undefined;
+        }
+
+        return graph.value.links.reduce((acc, link) => {
+            const { source, target } = link;
+
+            const sourceColor = source.color || source.fallbackColor;
+
+            // If `deriveColorFromIncomingLinks`, use the source's color for the gradient
+            const targetColor = target.deriveColorFromIncomingLinks
+                ? sourceColor
+                : target.color || target.fallbackColor;
+
+            acc[link.id] = {
+                source: sourceColor,
+                target: targetColor,
+                x1: source.x1,
+                x2: target.x0,
+            };
+            return acc;
+        }, {}) as Record<string, { source: Color; target: Color; x1: number; x2: number }>;
+    });
+
+    const nodesDerivingColorFromIncomingLinks = computed(() => {
+        const nodeBlocksExpectingColorDerivation = nodeBlocks.value.filter(block =>
+            shouldDeriveNodeColorFromIncomingLinks(block)
+        );
+        const subNodeDetails = [];
+
+        nodeBlocksExpectingColorDerivation.forEach(nodeBlock => {
+            const nodesBasedOnIncomingLinks = [];
+            // Link ordering was reversed so that furthermost links are rendered on the top. Have to reverse it back to compute heights of node segments for appropriate links
+            linkPaths.value
+                .filter(({ link }) => link.target.id === nodeBlock.node.id)
+                .reverse()
+                .reduce((accumulatedHeight, currentLinkPath, _i, linksArray) => {
+                    const isMinimumHeight =
+                        currentLinkPath.link.target.y1 - currentLinkPath.link.target.y0 > NODE_MINIMUM_HEIGHT;
+
+                    let targetNodeHeight: number, linkRatioOfSourceInTarget: number, linkHeightOfSourceInTarget: number;
+
+                    if (isMinimumHeight) {
+                        targetNodeHeight = currentLinkPath.link.target.y1 - currentLinkPath.link.target.y0;
+                        linkRatioOfSourceInTarget = currentLinkPath.link.value / nodeBlock.node.value;
+                        linkHeightOfSourceInTarget = linkRatioOfSourceInTarget * targetNodeHeight;
+                    } else {
+                        linkHeightOfSourceInTarget = NODE_MINIMUM_HEIGHT / linksArray.length; // Get ratio from # of links targetting this node
+                    }
+
+                    nodesBasedOnIncomingLinks.push({
+                        x: nodeBlock.x,
+                        y: nodeBlock.y + accumulatedHeight,
+                        height: linkHeightOfSourceInTarget,
+                        width: nodeBlock.width,
+                        key: `node-block-${nodeBlock.node.id}-source-link-${currentLinkPath.link.source.id}`,
+                        class: `lume-alluvial-group__node-block lume-fill--${
+                            currentLinkPath.link.source.color || DEFAULT_COLOR
+                        }`,
+                    });
+
+                    return accumulatedHeight + linkHeightOfSourceInTarget;
+                }, 0);
+
+            subNodeDetails.push({
+                id: nodeBlock.node.id,
+                subNodes: nodesBasedOnIncomingLinks,
+            });
         });
 
-        return accumulatedHeight + linkHeightOfSourceInTarget;
-      }, 0);
-
-    subNodeDetails.push({
-      id: nodeBlock.node.id,
-      subNodes: nodesBasedOnIncomingLinks,
+        return subNodeDetails;
     });
-  });
 
-  return subNodeDetails;
-});
+    function getLinkStroke(link: SankeyLink) {
+        return options.value.gradient && `url('#${chartID}_${link.id}')`;
+    }
 
-function getLinkStroke(link: SankeyLink) {
-  return options.value.gradient && `url('#${chartID}_${link.id}')`;
-}
+    function isNodeFaded(id: string | number) {
+        return hoveredNodeIds.value.length > 0 && !hoveredNodeIds.value.includes(id.toString());
+    }
 
-function isNodeFaded(id: string | number) {
-  return (
-    hoveredNodeIds.value.length > 0 &&
-    !hoveredNodeIds.value.includes(id.toString())
-  );
-}
+    function isNodeFocused(id: string | number) {
+        return hoveredNodeIds.value.length > 0 && hoveredNodeIds.value.includes(id.toString());
+    }
 
-function isNodeFocused(id: string | number) {
-  return (
-    hoveredNodeIds.value.length > 0 &&
-    hoveredNodeIds.value.includes(id.toString())
-  );
-}
+    function isLinkFaded(id: string) {
+        return highlightedElements.value.links.length > 0 && !highlightedElements.value.links.includes(id);
+    }
 
-function isLinkFaded(id: string) {
-  return (
-    highlightedElements.value.links.length > 0 &&
-    !highlightedElements.value.links.includes(id)
-  );
-}
+    function isLinkFocused(id: string) {
+        return highlightedElements.value.links.length > 0 && highlightedElements.value.links.includes(id);
+    }
 
-function isLinkFocused(id: string) {
-  return (
-    highlightedElements.value.links.length > 0 &&
-    highlightedElements.value.links.includes(id)
-  );
-}
+    function isLabelBeforeNode(node: NodeBlock['node']) {
+        return isNodeLabelBeforeNode(node, options.value, lastNodeLayer.value);
+    }
 
-function isLabelBeforeNode(node: NodeBlock['node']) {
-  return isNodeLabelBeforeNode(node, options.value, lastNodeLayer.value);
-}
+    function shouldDeriveNodeColorFromIncomingLinks(block: NodeBlock) {
+        return !block.node.color && block.node.deriveColorFromIncomingLinks;
+    }
 
-function shouldDeriveNodeColorFromIncomingLinks(block: NodeBlock) {
-  return !block.node.color && block.node.deriveColorFromIncomingLinks;
-}
+    function toggleExpansion(node: NodeBlock['node']) {
+        if (isExpandableNode(node.id)) {
+            toggleNodeExpansion(node.id);
+        }
+    }
 
-function toggleExpansion(node: NodeBlock['node']) {
-  if (isExpandableNode(node.id)) toggleNodeExpansion(node.id);
-}
+    function handleNodeClick(node: NodeBlock['node'], event: MouseEvent) {
+        // With a `block` expansion trigger, expansion is handled by the node block itself
+        if (!isBlockExpansionTrigger.value) {
+            toggleExpansion(node);
+        }
+        emit('node-click', { node, event });
+    }
 
-function handleNodeClick(node: NodeBlock['node'], event: MouseEvent) {
-  // With a `block` expansion trigger, expansion is handled by the node block itself
-  if (!isBlockExpansionTrigger.value) toggleExpansion(node);
-  emit('node-click', { node, event });
-}
+    // Keyboard interaction targets the whole node, regardless of `nodeExpansionTrigger`
+    function handleNodeKeydown(node: NodeBlock['node'], event: KeyboardEvent) {
+        toggleExpansion(node);
+        emit('node-click', { node, event });
+    }
 
-// Keyboard interaction targets the whole node, regardless of `nodeExpansionTrigger`
-function handleNodeKeydown(node: NodeBlock['node'], event: KeyboardEvent) {
-  toggleExpansion(node);
-  emit('node-click', { node, event });
-}
+    function handleNodeBlockClick(node: NodeBlock['node']) {
+        if (isBlockExpansionTrigger.value) {
+            toggleExpansion(node);
+        }
+    }
 
-function handleNodeBlockClick(node: NodeBlock['node']) {
-  if (isBlockExpansionTrigger.value) toggleExpansion(node);
-}
+    function handleLinkMouseover(link: SankeyLink, event: MouseEvent) {
+        if (link === hoveredElement.value) {
+            return;
+        }
 
-function handleLinkMouseover(link: SankeyLink, event: MouseEvent) {
-  if (link === hoveredElement.value) return;
+        hoveredElement.value = link;
+        emit('link-mouseenter', { link, event });
+    }
 
-  hoveredElement.value = link;
-  emit('link-mouseenter', { link, event });
-}
+    function handleLinkMouseleave(event: MouseEvent) {
+        const link = hoveredElement.value as SankeyLink;
+        hoveredElement.value = null;
+        emit('link-mouseleave', { link, event });
+    }
 
-function handleLinkMouseleave(event: MouseEvent) {
-  const link = hoveredElement.value as SankeyLink;
-  hoveredElement.value = null;
-  emit('link-mouseleave', { link, event });
-}
+    function handleExternalHover(id: number | string) {
+        if (id == null) {
+            hoveredElement.value = null;
+            return;
+        }
 
-function handleExternalHover(id: number | string) {
-  if (id == null) {
-    hoveredElement.value = null;
-    return;
-  }
+        const element = getNodeById(id, graph.value) || getLinkById(id as string, graph.value);
 
-  const element =
-    getNodeById(id, graph.value) || getLinkById(id as string, graph.value);
+        if (!element) {
+            warn(Warnings.InvalidHoveredElement);
+            return;
+        }
 
-  if (!element) {
-    warn(Warnings.InvalidHoveredElement);
-    return;
-  }
+        hoveredElement.value = element;
+    }
 
-  hoveredElement.value = element;
-}
+    function getSubNodesDerivingColorFromIncomingLinks(nodeId: number | string) {
+        return nodesDerivingColorFromIncomingLinks.value.find(({ id }) => nodeId === id)?.subNodes ?? [];
+    }
 
-function getSubNodesDerivingColorFromIncomingLinks(nodeId: number | string) {
-  return (
-    nodesDerivingColorFromIncomingLinks.value.find(({ id }) => nodeId === id)
-      ?.subNodes ?? []
-  );
-}
+    function updateMargins() {
+        const labelSizes = getLabelSizes(graph.value, nodeTextRefs.value, options.value);
+        updateExtents(labelSizes);
+    }
 
-function updateMargins() {
-  const labelSizes = getLabelSizes(
-    graph.value,
-    nodeTextRefs.value,
-    options.value
-  );
-  updateExtents(labelSizes);
-}
+    // Render nodes/paths whenever the SankeyGraph changes
+    watch(graph, newGraph => {
+        nodeBlocks.value = getNodeBlockAttributes(newGraph.nodes, options.value);
+        linkPaths.value = getLinkPathAttributes(newGraph.links).reverse(); // Reverse order of link rendering so that the furthermost links are renderd on top
 
-// Render nodes/paths whenever the SankeyGraph changes
-watch(graph, (newGraph) => {
-  nodeBlocks.value = getNodeBlockAttributes(newGraph.nodes, options.value);
-  linkPaths.value = getLinkPathAttributes(newGraph.links).reverse(); // Reverse order of link rendering so that the furthermost links are renderd on top
+        // Handle initial hoveredElement from props
+        if (hoveredElement.value == null && props.hoveredElementId != null) {
+            handleExternalHover(props.hoveredElementId);
+        }
+    });
 
-  // Handle initial hoveredElement from props
-  if (hoveredElement.value == null && props.hoveredElementId != null) {
-    handleExternalHover(props.hoveredElementId);
-  }
-});
+    // Keep a node highlighted for as long as either the pointer or the focus is on it
+    watch([pointedNode, focusedNode], () => {
+        hoveredElement.value = pointedNode.value ?? focusedNode.value;
+    });
 
-// Keep a node highlighted for as long as either the pointer or the focus is on it
-watch([pointedNode, focusedNode], () => {
-  hoveredElement.value = pointedNode.value ?? focusedNode.value;
-});
+    // Update extents whenever 1. container size changes or 2. node labels are rendered (hence defining new margins)
+    watch([props.containerSize, nodeTextRefs], () => {
+        if (props.containerSize.width && props.containerSize.height) {
+            updateMargins();
+        }
+    });
 
-// Update extents whenever 1. container size changes or 2. node labels are rendered (hence defining new margins)
-watch([props.containerSize, nodeTextRefs], () => {
-  if (props.containerSize.width && props.containerSize.height) {
-    updateMargins();
-  }
-});
+    // The label alignment changes both the label offsets and the diagram's horizontal margins
+    watch(() => [options.value.alignFirstNodeLabels, options.value.alignLastNodeLabels], updateMargins);
 
-// The label alignment changes both the label offsets and the diagram's horizontal margins
-watch(
-  () => [options.value.alignFirstNodeLabels, options.value.alignLastNodeLabels],
-  updateMargins
-);
-
-watch(() => props.hoveredElementId, handleExternalHover);
+    watch(() => props.hoveredElementId, handleExternalHover);
 </script>
 
 <style lang="scss" scoped>
-@use './styles';
+    @use './styles';
 </style>

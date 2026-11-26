@@ -1,69 +1,56 @@
 <template>
-  <lume-chart
-    v-bind="{ ...props, ...$attrs }"
-    chart-type="grouped-bar"
-    :options="allOptions"
-    data-j-grouped-bar-chart
-    v-on="componentEventPropagator"
-  >
-    <template #groups="groupProps">
-      <lume-bar-group
-        v-bind="groupProps"
-        type="grouped"
+    <lume-chart
+        v-bind="{ ...props, ...$attrs }"
+        chart-type="grouped-bar"
+        :options="allOptions"
+        data-j-grouped-bar-chart
         v-on="componentEventPropagator"
-      />
-    </template>
-    <template
-      v-for="(_, name) in slots"
-      #[name]="slotData"
     >
-      <slot
-        :name="name"
-        v-bind="slotData || {}"
-      />
-    </template>
-  </lume-chart>
+        <template #groups="groupProps">
+            <lume-bar-group v-bind="groupProps" type="grouped" v-on="componentEventPropagator" />
+        </template>
+        <template v-for="(_, name) in slots" #[name]="slotData">
+            <slot :name="name" v-bind="slotData || {}" />
+        </template>
+    </lume-chart>
 </template>
 
 <script setup lang="ts">
-import { computed, ComputedRef, toRefs, useSlots } from 'vue';
+    import { computed, type ComputedRef, toRefs, useSlots } from 'vue';
 
-import LumeChart from '@/components/core/lume-chart';
-import LumeBarGroup from '@/components/groups/lume-bar-group';
+    import LumeChart from '@/components/core/lume-chart';
+    import LumeBarGroup from '@/components/groups/lume-bar-group';
 
-import { useEvents } from '@/composables/events';
-import { useOptions } from '@/composables/options';
-import { withChartProps } from '@/composables/props';
+    import { useEvents } from '@/composables/events';
+    import { useOptions } from '@/composables/options';
+    import { withChartProps } from '@/composables/props';
 
-import type { BarChartOptions } from '@/types/options';
-import type { ChartEmits } from '@/types/events';
+    import type { BarChartOptions } from '@/types/options';
+    import type { ChartEmits } from '@/types/events';
 
-import { ORIENTATIONS } from '@/utils/constants';
-import { excludeGroups } from '@/utils/helpers';
+    import { ORIENTATIONS } from '@/utils/constants';
+    import { excludeGroups } from '@/utils/helpers';
 
-import { options as defaultOptions } from './defaults';
+    import { options as defaultOptions } from './defaults';
 
-const props = defineProps({
-  ...withChartProps<BarChartOptions>(),
-});
+    const props = defineProps({
+        ...withChartProps<BarChartOptions>(),
+    });
 
-// https://github.com/vuejs/core/issues/4294#issuecomment-1480392140
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-interface Emits extends ChartEmits {}
-const emit = defineEmits<Emits>();
+    // https://github.com/vuejs/core/issues/4294#issuecomment-1480392140
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+    interface Emits extends ChartEmits {}
+    const emit = defineEmits<Emits>();
 
-const { componentEventPropagator } = useEvents(emit);
+    const { componentEventPropagator } = useEvents(emit);
 
-const slots = excludeGroups(useSlots());
+    const slots = excludeGroups(useSlots());
 
-const { orientation, options } = toRefs(props);
+    const { orientation, options } = toRefs(props);
 
-const baseOptions = computed(
-  () => defaultOptions[orientation.value || ORIENTATIONS.VERTICAL] // needs to be computed so that default options are reactive
-);
+    const baseOptions = computed(
+        () => defaultOptions[orientation.value || ORIENTATIONS.VERTICAL] // needs to be computed so that default options are reactive
+    );
 
-const { allOptions } = useOptions(
-  options,
-  baseOptions as ComputedRef<BarChartOptions>
-);
+    const { allOptions } = useOptions(options, baseOptions as ComputedRef<BarChartOptions>);
 </script>

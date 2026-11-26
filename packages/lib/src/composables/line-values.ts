@@ -1,7 +1,7 @@
-import { line, ScaleBand, ScaleLinear } from 'd3';
+import { line, type ScaleBand, type ScaleLinear } from 'd3';
 
 import { isBandScale } from '@/utils/helpers';
-import { Scale } from './scales';
+import { type Scale } from './scales';
 
 /**
  * Returns the X acessor function for a `ScaleBand`.
@@ -11,9 +11,8 @@ import { Scale } from './scales';
  * @returns The X acessor function to provide to d3 `line` method.
  */
 function getFindBandX(scale: ScaleBand<string | number>, lineIndex: number) {
-  const xAxisOffset = scale.bandwidth() / 2;
-  return (_: unknown, index: number) =>
-    scale(scale.domain()[lineIndex + (index - 1)]) + xAxisOffset;
+    const xAxisOffset = scale.bandwidth() / 2;
+    return (_: unknown, index: number) => scale(scale.domain()[lineIndex + (index - 1)]) + xAxisOffset;
 }
 
 /**
@@ -24,7 +23,7 @@ function getFindBandX(scale: ScaleBand<string | number>, lineIndex: number) {
  * @returns The X acessor function to provide to d3 `line` method.
  */
 function getFindLinearX(scale: ScaleLinear<number, number>, lineIndex: number) {
-  return (_: unknown, index: number) => scale(lineIndex + (index - 1));
+    return (_: unknown, index: number) => scale(lineIndex + (index - 1));
 }
 
 /**
@@ -38,21 +37,19 @@ function getFindLinearX(scale: ScaleLinear<number, number>, lineIndex: number) {
  * @returns A path definition string to provide to the `d` attribute of `<path>`.
  */
 export function getLinePathDefinition(
-  lineIndex: number,
-  values: Array<number>,
-  xScale: Scale,
-  yScale: ScaleLinear<number, number>
+    lineIndex: number,
+    values: Array<number>,
+    xScale: Scale,
+    yScale: ScaleLinear<number, number>
 ) {
-  const lineFn = line<number>()
-    .x(
-      isBandScale(xScale)
-        ? getFindBandX(xScale, lineIndex)
-        : getFindLinearX(xScale, lineIndex)
-    )
-    .y((d) => yScale(d));
+    const lineFn = line<number>()
+        .x(isBandScale(xScale) ? getFindBandX(xScale, lineIndex) : getFindLinearX(xScale, lineIndex))
+        .y(d => yScale(d));
 
-  // Do not calculate path definition if all values are null
-  if (values.every((v) => v == null)) return null;
+    // Do not calculate path definition if all values are null
+    if (values.every(v => v == null)) {
+        return null;
+    }
 
-  return lineFn(values);
+    return lineFn(values);
 }

@@ -1,56 +1,55 @@
-import { computed, Ref } from 'vue';
-import { ScaleLinear } from 'd3';
+import { computed, type Ref } from 'vue';
+import { type ScaleLinear } from 'd3';
 
 import type { AxisOptions } from '@/types/options';
 import { AXIS_GHOST_PADDING, AXIS_TEXT_HEIGHT } from '@/utils/constants';
-import { AxisMixin } from '../types';
+import { type AxisMixin } from '../types';
 
 const useLinearScaleAxis: AxisMixin = function (
-  scale: Ref<ScaleLinear<number, number>>,
-  containerSize: Ref<{ width: number; height: number }>,
-  options: Ref<AxisOptions>
+    scale: Ref<ScaleLinear<number, number>>,
+    containerSize: Ref<{ width: number; height: number }>,
+    options: Ref<AxisOptions>
 ) {
-  const tickWidth = computed(() => {
-    const ticks = scale.value.ticks();
-    return ticks.length > 1 ? scale.value(ticks[1]) - scale.value(ticks[0]) : 0;
-  });
+    const tickWidth = computed(() => {
+        const ticks = scale.value.ticks();
+        return ticks.length > 1 ? scale.value(ticks[1]) - scale.value(ticks[0]) : 0;
+    });
 
-  function getTickGroupAttributes(value: number) {
+    function getTickGroupAttributes(value: number) {
+        return {
+            transform: `translate(${scale.value(value)}, 0)`,
+        };
+    }
+
+    function getTickGhostAttributes() {
+        const height = options.value.tickPadding + AXIS_TEXT_HEIGHT + AXIS_GHOST_PADDING;
+        return {
+            height,
+            width: tickWidth.value,
+            x: -(tickWidth.value / 2),
+        };
+    }
+
+    function getGridLinesAttributes() {
+        return {
+            y1: -containerSize.value.height,
+        };
+    }
+
+    function getTickLabelAttributes() {
+        return {
+            y: options.value.tickPadding,
+            dy: '0.8em',
+            'text-anchor': 'middle',
+        };
+    }
+
     return {
-      transform: `translate(${scale.value(value)}, 0)`,
+        getGridLinesAttributes,
+        getTickGhostAttributes,
+        getTickGroupAttributes,
+        getTickLabelAttributes,
     };
-  }
-
-  function getTickGhostAttributes() {
-    const height =
-      options.value.tickPadding + AXIS_TEXT_HEIGHT + AXIS_GHOST_PADDING;
-    return {
-      height,
-      width: tickWidth.value,
-      x: -(tickWidth.value / 2),
-    };
-  }
-
-  function getGridLinesAttributes() {
-    return {
-      y1: -containerSize.value.height,
-    };
-  }
-
-  function getTickLabelAttributes() {
-    return {
-      y: options.value.tickPadding,
-      dy: '0.8em',
-      'text-anchor': 'middle',
-    };
-  }
-
-  return {
-    getGridLinesAttributes,
-    getTickGhostAttributes,
-    getTickGroupAttributes,
-    getTickLabelAttributes,
-  };
 };
 
 export default useLinearScaleAxis;

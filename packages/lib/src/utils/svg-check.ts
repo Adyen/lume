@@ -6,5 +6,7 @@ import { warn, Warnings } from './warnings';
  * @returns True if it is wrapped by an <svg> element.
  */
 export function svgCheck(el: Element) {
-  if (!el?.closest('svg')) warn(Warnings.NotContainedInSvg);
+    if (!el?.closest('svg')) {
+        warn(Warnings.NotContainedInSvg);
+    }
 }
