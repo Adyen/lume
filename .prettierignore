@@ -1,6 +1,14 @@
+*.log
+**/dist
+**/coverage
+**/.cache/
 node_modules/
+node-compile-cache/
+pnpm-lock.yaml
+CHANGELOG.md
+storybook/
+public/js/dist/
 .DS_Store
 .idea/
-public/js/dist/
-test/coverage
 release-log-template.hbs
+lume-bento-migration.md

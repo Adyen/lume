@@ -1,35 +1,35 @@
 {
-  "name": "@adyen/lume-core",
-  "version": "0.8.0",
-  "description": "",
-  "private": true,
-  "main": "index.js",
-  "exports": {
-    ".": "./src/index.ts",
-    "./plugin": "./src/plugin.ts",
-    "./font": "./src/styles/font.scss"
-  },
-  "scripts": {
-    "lint:fix": "npm run lint -- --fix",
-    "lint:pretty": "prettier --write --ignore-unknown .",
-    "lint": "eslint ./src ./test --ext .js,.ts,.vue"
-  },
-  "dependencies": {
-    "@popperjs/core": "2.11.8",
-    "d3": "7.8.0",
-    "d3-sankey": "0.12.3"
-  },
-  "devDependencies": {
-    "@storybook/addon-actions": "7.6.21",
-    "@storybook/vue3": "8.6.15",
-    "@types/d3": "^7.4.3",
-    "@types/d3-sankey": "^0.12.4",
-    "@vue/test-utils": "2.4.6",
-    "vitest": "4.1.12",
-    "vue": "3.3.7",
-    "vue-tsc": "^1.8.22"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+    "name": "@adyen/lume-core",
+    "version": "0.8.0",
+    "description": "",
+    "private": true,
+    "main": "index.js",
+    "exports": {
+        ".": "./src/index.ts",
+        "./plugin": "./src/plugin.ts",
+        "./font": "./src/styles/font.scss"
+    },
+    "scripts": {
+        "lint:fix": "npm run lint -- --fix",
+        "lint:pretty": "prettier --write --ignore-unknown .",
+        "lint": "eslint ./src ./test --ext .js,.ts,.vue"
+    },
+    "dependencies": {
+        "@popperjs/core": "2.11.8",
+        "d3": "7.8.0",
+        "d3-sankey": "0.12.3"
+    },
+    "devDependencies": {
+        "@storybook/addon-actions": "7.6.21",
+        "@storybook/vue3": "8.6.15",
+        "@types/d3": "^7.4.3",
+        "@types/d3-sankey": "^0.12.4",
+        "@vue/test-utils": "2.4.6",
+        "vitest": "4.1.12",
+        "vue": "3.3.7",
+        "vue-tsc": "^1.8.22"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
 }

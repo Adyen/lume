@@ -14,64 +14,58 @@ To generate a simple alluvial diagram with default settings, simply pass the `da
 
 ```html
 <template>
-  <lume-alluvial-diagram
-    :data="data"
-    :labels="labels"
-  />
+    <lume-alluvial-diagram :data="data" :labels="labels" />
 </template>
 
-<script
-  lang="ts"
-  setup
->
-  import { ref } from 'vue';
+<script lang="ts" setup>
+    import { ref } from 'vue';
 
-  const data = ref([
-    {
-      values: [
+    const data = ref([
         {
-          label: 'A',
-          color: 'skyblue',
-          value: 'A',
-          targets: [
-            { node: 'D', value: 15 },
-            { node: 'E', value: 42 },
-            { node: 'G', value: 1 },
-          ],
+            values: [
+                {
+                    label: 'A',
+                    color: 'skyblue',
+                    value: 'A',
+                    targets: [
+                        { node: 'D', value: 15 },
+                        { node: 'E', value: 42 },
+                        { node: 'G', value: 1 },
+                    ],
+                },
+                {
+                    label: 'B',
+                    color: 'royalblue',
+                    value: 'B',
+                    targets: [
+                        { node: 'D', value: 45 },
+                        { node: 'E', value: 42 },
+                    ],
+                },
+                {
+                    label: 'C',
+                    color: 'violet',
+                    value: 'C',
+                    targets: [{ node: 'D', value: 20 }],
+                },
+                {
+                    label: 'D',
+                    value: 'D',
+                    color: 'darkteal',
+                },
+                {
+                    label: 'E',
+                    value: 'E',
+                    color: 'gold',
+                },
+                { label: 'G', value: 'G', color: 'skyblue' },
+            ],
+            nodePadding: 20,
+            nodeWidth: 16,
         },
-        {
-          label: 'B',
-          color: 'royalblue',
-          value: 'B',
-          targets: [
-            { node: 'D', value: 45 },
-            { node: 'E', value: 42 },
-          ],
-        },
-        {
-          label: 'C',
-          color: 'violet',
-          value: 'C',
-          targets: [{ node: 'D', value: 20 }],
-        },
-        {
-          label: 'D',
-          value: 'D',
-          color: 'darkteal',
-        },
-        {
-          label: 'E',
-          value: 'E',
-          color: 'gold',
-        },
-        { label: 'G', value: 'G', color: 'skyblue' },
-      ],
-      nodePadding: 20,
-      nodeWidth: 16,
-    },
-  ]);
+    ]);
 
-  const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'May']);
+    const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'May']);
 </script>
 ```
 
@@ -89,23 +83,24 @@ To generate a simple alluvial diagram with default settings, simply pass the `da
 
 ### Alluvial dataset
 
-The data provided to an Alluvial should be a single item array, and the values should be the alluvial nodes, and have a `targets` array, e.g.:
+The data provided to an Alluvial should be a single item array, and the values should be the alluvial nodes, and have a
+`targets` array, e.g.:
 
 ```ts
 [
-  {
-    values: [
-      {
-        label: 'Dogs',
-        color: 'skyblue',
-        value: 'dogs', // value is treated as the node ID
-        targets: [
-          { node: 'Lisbon shelter', value: 15 },
-          { node: 'Porto shelter', value: 42 },
+    {
+        values: [
+            {
+                label: 'Dogs',
+                color: 'skyblue',
+                value: 'dogs', // value is treated as the node ID
+                targets: [
+                    { node: 'Lisbon shelter', value: 15 },
+                    { node: 'Porto shelter', value: 42 },
+                ],
+            } as AlluvialNode,
         ],
-      } as AlluvialNode,
-    ],
-  },
+    },
 ];
 ```
 
@@ -152,7 +147,8 @@ Interface: `AlluvialDiagramOptions`
 
 #### Highlighted elements
 
-In the alluvial diagram, there are multiple possible behaviors for when you hover a node or a link. Lume provides two different behaviors, plus a way to add your own custom one.
+In the alluvial diagram, there are multiple possible behaviors for when you hover a node or a link. Lume provides two
+different behaviors, plus a way to add your own custom one.
 
 ##### `full`
 
@@ -168,22 +164,23 @@ When a node or link is hovered, highlight only the closest nodes/links.
 
 ##### Custom function
 
-You can customize which nodes/links to highlight upon hovering by passing a `GetHighlightedElementsFunction` function in the `highlightedElements` option.
+You can customize which nodes/links to highlight upon hovering by passing a `GetHighlightedElementsFunction` function in
+the `highlightedElements` option.
 
-This function has two arguments: the node/link being hovered and a [graph](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/d3-sankey/index.d.ts#L172) representing the sankey layout.
-It must return an object with a `nodes` map of node IDs and the value they should display, and a `links` array of link IDs. These are the nodes/links that will be highlighted when hovered.
+This function has two arguments: the node/link being hovered and a
+[graph](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/d3-sankey/index.d.ts#L172) representing the
+sankey layout. It must return an object with a `nodes` map of node IDs and the value they should display, and a `links`
+array of link IDs. These are the nodes/links that will be highlighted when hovered.
 
 ```ts
 type GetHighlightedElementsFunction = (
-  element:
-    | SankeyNode<SankeyNodeProps, SankeyLinkProps>
-    | SankeyLink<SankeyNodeProps, SankeyLinkProps>,
-  graph: SankeyGraph<SankeyNodeProps, SankeyLinkProps>
+    element: SankeyNode<SankeyNodeProps, SankeyLinkProps> | SankeyLink<SankeyNodeProps, SankeyLinkProps>,
+    graph: SankeyGraph<SankeyNodeProps, SankeyLinkProps>
 ) => HighlightedElements;
 
 interface HighlightedElements {
-  nodes: { [id: string]: string | number };
-  links: Array<string>;
+    nodes: { [id: string]: string | number };
+    links: Array<string>;
 }
 ```
 

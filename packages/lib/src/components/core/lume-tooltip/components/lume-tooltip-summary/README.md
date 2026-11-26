@@ -16,9 +16,9 @@ To overwrite the default summary item, add your content to the `summary` slot of
 
 ```html
 <lume-tooltip>
-  <template #summary>
-    <lume-tooltip-summary> My custom summary </lume-tooltip-summary>
-  </template>
+    <template #summary>
+        <lume-tooltip-summary> My custom summary </lume-tooltip-summary>
+    </template>
 </lume-tooltip>
 ```
 

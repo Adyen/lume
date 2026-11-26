@@ -14,27 +14,21 @@ To generate a simple line chart with default settings, simply pass the `data` an
 
 ```html
 <template>
-  <lume-line-chart
-    :data="data"
-    :labels="labels"
-  />
+    <lume-line-chart :data="data" :labels="labels" />
 </template>
 
-<script
-  lang="ts"
-  setup
->
-  import { ref } from 'vue';
+<script lang="ts" setup>
+    import { ref } from 'vue';
 
-  const data = ref([
-    {
-      label: 'My dataset',
-      color: 'skyblue',
-      values: [10, 30, 20, 50, 40],
-    },
-  ]);
+    const data = ref([
+        {
+            label: 'My dataset',
+            color: 'skyblue',
+            values: [10, 30, 20, 50, 40],
+        },
+    ]);
 
-  const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'May']);
+    const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'May']);
 </script>
 ```
 

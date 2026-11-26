@@ -1,26 +1,29 @@
 import { isProd } from './helpers';
 
 export enum Warnings {
-  // Datasets
-  DatasetLength = 'Our guidelines highly recommend not having more than 5 datasets in one chart.\nLearn more: https://lume.design/guidelines/datasets',
-  ColorLoop = 'Colors will loop around after the 5th dataset. You can prevent this by setting specific colors for your datasets.',
-  Empty = 'The dataset(s) provided are empty.',
+    // Datasets
+    DatasetLength = 'Our guidelines highly recommend not having more than 5 datasets in one chart.\nLearn more: https://lume.design/guidelines/datasets',
+    ColorLoop = 'Colors will loop around after the 5th dataset. You can prevent this by setting specific colors for your datasets.',
+    Empty = 'The dataset(s) provided are empty.',
 
-  // Format
-  InvalidFormat = 'The string provided to format is invalid. Please refer to https://github.com/d3/d3-format for valid arguments.',
+    // Format
+    InvalidFormat = 'The string provided to format is invalid. Please refer to https://github.com/d3/d3-format for valid arguments.',
 
-  // SVG rules
-  NotContainedInSvg = 'This component is an `SVGElement`, thus it is required to be inside an `<svg>` container.',
+    // SVG rules
+    NotContainedInSvg = 'This component is an `SVGElement`, thus it is required to be inside an `<svg>` container.',
 
-  // Hovered index
-  InvalidHoveredIndex = 'The provided hovered index is not valid for the data of this chart.',
-  InvalidHoveredElement = 'The provided hovered element is not valid for the data of this diagram.',
-  IndexExceedsLengthOfDataSets = 'Index exceeds length of all of the datasets',
+    // Hovered index
+    InvalidHoveredIndex = 'The provided hovered index is not valid for the data of this chart.',
+    InvalidHoveredElement = 'The provided hovered element is not valid for the data of this diagram.',
+    IndexExceedsLengthOfDataSets = 'Index exceeds length of all of the datasets',
 }
 
 const PREFIX = '[lume] ';
 
 export function warn(warning: Warnings, devOnly = true) {
-  if (devOnly && isProd()) return;
-  console.warn(PREFIX + 'Warning: ' + warning);
+    if (devOnly && isProd()) {
+        return;
+    }
+    // eslint-disable-next-line no-console
+    console.warn(PREFIX + 'Warning: ' + warning);
 }

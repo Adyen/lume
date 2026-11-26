@@ -16,9 +16,9 @@ To overwrite the default tooltip title, add your own content to the `title` slot
 
 ```html
 <lume-tooltip>
-  <template #title>
-    <lume-tooltip-title> My custom title </lume-tooltip-title>
-  </template>
+    <template #title>
+        <lume-tooltip-title> My custom title </lume-tooltip-title>
+    </template>
 </lume-tooltip>
 ```
 

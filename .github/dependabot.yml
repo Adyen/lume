@@ -1,13 +1,13 @@
 version: 2
 updates:
-  - package-ecosystem: 'npm'
+  - package-ecosystem: "npm"
     directories:
-      - '/'
-      - '/packages/*'
+      - "/"
+      - "/packages/*"
     schedule:
-      interval: 'weekly'
+      interval: "weekly"
     commit-message:
-      prefix: '⬆️ '
+      prefix: "⬆️ "
     ignore:
-      - dependency-name: 'vue'
-      - dependency-name: 'd3'
+      - dependency-name: "vue"
+      - dependency-name: "d3"

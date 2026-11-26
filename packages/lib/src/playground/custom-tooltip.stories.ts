@@ -11,39 +11,31 @@ import { withSizeArgs, withSizeArgTypes } from '@/docs/storybook-helpers';
 import { options as defaultOptions } from '@/components/charts/lume-line-chart/defaults';
 
 export default {
-  title: 'Playground/Custom tooltip',
-  component: CustomTooltip,
-  argTypes: {
-    ...withSizeArgTypes(),
-  },
-  args: {
-    ...withSizeArgs(),
-    options: defaultOptions,
-    data: [
-      {
-        values: [20, 50, 30, 35, 10, 50, 30],
-        color: 'violet',
-        label: 'Purchases',
-      },
-    ],
-    labels: [
-      'Mar 2022',
-      'Apr 2022',
-      'May 2022',
-      'Jun 2022',
-      'Jul 2022',
-      'Aug 2022',
-      'Sep 2022',
-    ],
-  },
+    title: 'Playground/Custom tooltip',
+    component: CustomTooltip,
+    argTypes: {
+        ...withSizeArgTypes(),
+    },
+    args: {
+        ...withSizeArgs(),
+        options: defaultOptions,
+        data: [
+            {
+                values: [20, 50, 30, 35, 10, 50, 30],
+                color: 'violet',
+                label: 'Purchases',
+            },
+        ],
+        labels: ['Mar 2022', 'Apr 2022', 'May 2022', 'Jun 2022', 'Jul 2022', 'Aug 2022', 'Sep 2022'],
+    },
 };
 
 export const CustomTooltipElement = ({ args }) => ({
-  components: { LumeChart, LumeLineGroup, CustomTooltip },
-  setup() {
-    return { args };
-  },
-  template: `
+    components: { LumeChart, LumeLineGroup, CustomTooltip },
+    setup() {
+        return { args };
+    },
+    template: `
   <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
     <lume-chart v-bind="args">
       <template #groups="props">
@@ -58,11 +50,11 @@ export const CustomTooltipElement = ({ args }) => ({
 });
 
 export const CustomTooltipContent = ({ args }) => ({
-  components: { LumeChart, LumeLineGroup, CustomTooltip },
-  setup() {
-    return { args };
-  },
-  template: `
+    components: { LumeChart, LumeLineGroup, CustomTooltip },
+    setup() {
+        return { args };
+    },
+    template: `
   <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
     <lume-chart v-bind="args">
       <template #groups="props">
@@ -76,28 +68,27 @@ export const CustomTooltipContent = ({ args }) => ({
   `,
 });
 CustomTooltipContent.args = {
-  options: {
-    ...defaultOptions,
-    tooltipOptions: { position: 'right-end' },
-  },
+    options: {
+        ...defaultOptions,
+        tooltipOptions: { position: 'right-end' },
+    },
 };
 
 export const CustomTooltipContentWithSlots = ({ args }) => ({
-  components: {
-    LumeChart,
-    LumeLineGroup,
-    LumeTooltip,
-    LumeTooltipTitle,
-    LumeTooltipSummary,
-    LumeTooltipItem,
-  },
-  setup() {
-    const isPositive = (value: number) => value > 25;
-    const getPercentage = (value: number) =>
-      `${Math.round((25 / value + Number.EPSILON) * 100) / 100} %`;
-    return { args, getPercentage, isPositive };
-  },
-  template: `
+    components: {
+        LumeChart,
+        LumeLineGroup,
+        LumeTooltip,
+        LumeTooltipTitle,
+        LumeTooltipSummary,
+        LumeTooltipItem,
+    },
+    setup() {
+        const isPositive = (value: number) => value > 25;
+        const getPercentage = (value: number) => `${Math.round((25 / value + Number.EPSILON) * 100) / 100} %`;
+        return { args, getPercentage, isPositive };
+    },
+    template: `
   <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
     <lume-chart v-bind="args">
       <template #groups="props">
@@ -132,7 +123,7 @@ export const CustomTooltipContentWithSlots = ({ args }) => ({
   `,
 });
 CustomTooltipContentWithSlots.args = {
-  options: {
-    ...defaultOptions,
-  },
+    options: {
+        ...defaultOptions,
+    },
 };

@@ -1,8 +1,10 @@
 A chart tooltip displays contextual extra information upon user interaction.
 
-This component provides an implementation of the chart tooltip guidelines, along with a set of options and `<slot>`s to customize it.
+This component provides an implementation of the chart tooltip guidelines, along with a set of options and `<slot>`s to
+customize it.
 
-Visualizations wrapped by an `LumeChart` component come with the default tooltip implementation, which shows the exact data value for each dataset in a hovered data point.
+Visualizations wrapped by an `LumeChart` component come with the default tooltip implementation, which shows the exact
+data value for each dataset in a hovered data point.
 
 This component relies on the positioning logic from [Popper](https://popper.js.org/).
 
@@ -19,31 +21,25 @@ import { LumeTooltip } from '@adyen/lume';
 To show a tooltip, provide a `targetElement`, an `opened` boolean and an array of `items`.
 
 ```html
-<lume-tooltip
-  :opened="true"
-  :targetElement="myElementRef"
-  :items="myItems"
-/>
+<lume-tooltip :opened="true" :targetElement="myElementRef" :items="myItems" />
 ```
 
 ### Default override
 
-If you're using `lume-tooltip` to override the default implementation present in `lume-chart`, you'll have access to several slot properties you can use to define how you want the tooltip to behave.
+If you're using `lume-tooltip` to override the default implementation present in `lume-chart`, you'll have access to
+several slot properties you can use to define how you want the tooltip to behave.
 
 Here's an example of overriding the default tooltip in a `lume-line-chart`:
 
 ```html
-<lume-line-chart
-  :data="myData"
-  :labels="myLabels"
->
-  <template #tooltip="{ opened, data, hoveredIndex, targetElement }">
-    <lume-tooltip
-      :opened="opened"
-      :items="myCustomItemsFunction(data, hoveredIndex)"
-      :target-element="targetElement"
-    />
-  </template>
+<lume-line-chart :data="myData" :labels="myLabels">
+    <template #tooltip="{ opened, data, hoveredIndex, targetElement }">
+        <lume-tooltip
+            :opened="opened"
+            :items="myCustomItemsFunction(data, hoveredIndex)"
+            :target-element="targetElement"
+        />
+    </template>
 </lume-line-chart>
 ```
 
@@ -62,8 +58,9 @@ Here's an example of overriding the default tooltip in a `lume-line-chart`:
 | `title`            | `string`             | `null`   | The tooltip title.                                             |
 | `inverse`          | `boolean`            | `false`  | If true, the tooltip items will be in inverse order.           |
 
-**Note**: the `position` prop only accepts valid placements. These are specified [here](https://popper.js.org/docs/v2/constructors/#options).
-**Note**: You can find more information about modifiers [here](https://popper.js.org/docs/v2/modifiers/).
+**Note**: the `position` prop only accepts valid placements. These are specified
+[here](https://popper.js.org/docs/v2/constructors/#options). **Note**: You can find more information about modifiers
+[here](https://popper.js.org/docs/v2/modifiers/).
 
 ### Tooltip options
 
@@ -81,7 +78,8 @@ Interface: `TooltipOptions`
 | withPointerEvents | `boolean`                                                | If true, it will listen to the attached events on elements in the tooltip content.                                                      |
 | inverse           | `boolean`                                                | If true, the tooltip items will be in inverse order.                                                                                    |
 
-**Note**: Component properties have precedence over options. For instance, if you set the `targetElement` prop and the `targetElement` tooltip option, the first will be used. They're both there to cover different use cases.
+**Note**: Component properties have precedence over options. For instance, if you set the `targetElement` prop and the
+`targetElement` tooltip option, the first will be used. They're both there to cover different use cases.
 
 ### Slot props
 

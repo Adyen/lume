@@ -1,7 +1,7 @@
-import { PropType } from 'vue';
+import { type PropType } from 'vue';
 
 import { orientationValidator } from '@/composables/props';
-import { Scale } from '@/composables/scales';
+import { type Scale } from '@/composables/scales';
 
 import { ORIENTATIONS } from '@/utils/constants';
 import type { DatasetValueObject, InternalData } from '@/types/dataset';
@@ -9,49 +9,46 @@ import type { ContainerSize } from '@/types/size';
 import type { Options } from '@/types/options';
 import type { Orientation } from '@/types/utils';
 
-export const withGroupProps = <
-  T extends Options = Options,
-  K extends DatasetValueObject = DatasetValueObject
->() => ({
+export const withGroupProps = <T extends Options = Options, K extends DatasetValueObject = DatasetValueObject>() => ({
     data: {
-      type: Array as PropType<InternalData<K>>,
-      required: true,
+        type: Array as PropType<InternalData<K>>,
+        required: true,
     },
     labels: {
-      type: Array as PropType<Array<string | number>>,
-      default: () => [],
+        type: Array as PropType<Array<string | number>>,
+        default: () => [],
     },
     options: {
-      type: Object as PropType<T>,
-      default: () => ({}),
+        type: Object as PropType<T>,
+        default: () => ({}),
     },
     orientation: {
-      type: String as PropType<Orientation>,
-      default: ORIENTATIONS.VERTICAL,
-      validator: orientationValidator,
+        type: String as PropType<Orientation>,
+        default: ORIENTATIONS.VERTICAL,
+        validator: orientationValidator,
     },
     xScale: {
-      type: Function as PropType<Scale>,
-      default: () => null,
+        type: Function as PropType<Scale>,
+        default: () => null,
     },
     yScale: {
-      type: Function as PropType<Scale>,
-      default: () => null,
+        type: Function as PropType<Scale>,
+        default: () => null,
     },
     hoveredIndex: {
-      type: Number,
-      default: -1,
+        type: Number,
+        default: -1,
     },
     containerSize: {
-      type: Object as PropType<ContainerSize>,
-      default: () => ({ width: 0, height: 0 }),
+        type: Object as PropType<ContainerSize>,
+        default: () => ({ width: 0, height: 0 }),
     },
     transition: {
-      type: Boolean,
-      default: true,
+        type: Boolean,
+        default: true,
     },
     classList: {
-      type: [String, Array] as PropType<string | Array<string>>,
-      default: () => [],
+        type: [String, Array] as PropType<string | Array<string>>,
+        default: () => [],
     },
-  });
+});

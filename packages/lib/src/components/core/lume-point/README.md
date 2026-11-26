@@ -13,12 +13,7 @@ import { LumePoint } from '@adyen/lume';
 To show a point, provide `x`, `y`, `color` and `active` properties
 
 ```html
-<lume-point
-  :x="100"
-  :y="200"
-  :color="dataset.color"
-  :active="isPointActive(index)"
-/>
+<lume-point :x="100" :y="200" :color="dataset.color" :active="isPointActive(index)" />
 ```
 
 ## API

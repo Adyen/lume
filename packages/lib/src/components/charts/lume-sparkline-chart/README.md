@@ -15,25 +15,19 @@ To generate a simple sparkline chart with default settings, simply pass the `dat
 
 ```html
 <template>
-  <lume-sparkline-chart
-    :data="data"
-    :labels="labels"
-  />
+    <lume-sparkline-chart :data="data" :labels="labels" />
 </template>
 
-<script
-  lang="ts"
-  setup
->
-  import { ref } from 'vue';
+<script lang="ts" setup>
+    import { ref } from 'vue';
 
-  const data = ref([
-    {
-      label: 'My dataset',
-      color: 'violet',
-      values: [10, 30, 20, 50, 40],
-    },
-  ]);
+    const data = ref([
+        {
+            label: 'My dataset',
+            color: 'violet',
+            values: [10, 30, 20, 50, 40],
+        },
+    ]);
 </script>
 ```
 

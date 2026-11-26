@@ -1,27 +1,15 @@
-import { isRef, Ref, Slots } from 'vue';
-import { ScaleBand } from 'd3';
+import { isRef, type Ref, type Slots } from 'vue';
+import { type ScaleBand } from 'd3';
 
-import {
-  Data,
-  DatasetValueObject,
-  InternalData,
-  InternalDataset,
-} from '@/types/dataset';
-import { Scale } from '@/composables/scales';
+import { type Data, type DatasetValueObject, type InternalData, type InternalDataset } from '@/types/dataset';
+import { type Scale } from '@/composables/scales';
 import { warn, Warnings } from '@/utils/warnings';
 
 // Slots from <lume-chart>
-const CHART_SLOTS = [
-  'controls',
-  'legend',
-  'axes',
-  'groups',
-  'tooltip',
-  'tooltip-content',
-];
+const CHART_SLOTS = ['controls', 'legend', 'axes', 'groups', 'tooltip', 'tooltip-content'];
 
 export function isProd() {
-  return process.env.NODE_ENV === 'production';
+    return process.env.NODE_ENV === 'production';
 }
 
 /**
@@ -30,13 +18,7 @@ export function isProd() {
  * @returns {Array<number>} An array of all numeric values.
  */
 export function flatValues(data: InternalData): Array<number> {
-  return (
-    data
-      ?.map((dataset) =>
-        dataset.values.map((datasetValue) => datasetValue?.value).flat()
-      )
-      .flat() || []
-  );
+    return data?.map(dataset => dataset.values.map(datasetValue => datasetValue?.value).flat()).flat() || [];
 }
 
 /**
@@ -45,7 +27,7 @@ export function flatValues(data: InternalData): Array<number> {
  * @returns {boolean} True if valid single dataset data
  */
 export function singleDatasetValidator(data: Data): boolean {
-  return data.length === 1;
+    return data.length === 1;
 }
 
 /**
@@ -54,12 +36,7 @@ export function singleDatasetValidator(data: Data): boolean {
  * @returns {boolean} True if valid data.
  */
 export function dataValidator(data: InternalData): boolean {
-  return (
-    !!data &&
-    data.every(
-      (dataset: InternalDataset<DatasetValueObject>) => 'color' in dataset
-    )
-  );
+    return !!data && data.every((dataset: InternalDataset<DatasetValueObject>) => 'color' in dataset);
 }
 
 /**
@@ -68,7 +45,7 @@ export function dataValidator(data: InternalData): boolean {
  * @returns {boolean} True if item is an object.
  */
 export function isObject(item: unknown): item is Record<string, unknown> {
-  return !!item && typeof item === 'object' && !Array.isArray(item);
+    return !!item && typeof item === 'object' && !Array.isArray(item);
 }
 
 /**
@@ -78,20 +55,15 @@ export function isObject(item: unknown): item is Record<string, unknown> {
  * @param {Record<string, unknown>} target Object to merge to.
  * @param {Array<Record<string, unknown>>} source Object(s) to merge into target.
  */
-export function mergeDeep(
-  target: Record<string, unknown>,
-  source: Record<string, unknown>
-) {
-  const object = { ...target }; // structuredClone doesn't work for objects that have functions
+export function mergeDeep(target: Record<string, unknown>, source: Record<string, unknown>) {
+    const object = { ...target }; // structuredClone doesn't work for objects that have functions
 
-  Object.entries(source).forEach(([key, value]) => {
-    object[key] =
-      isObject(target[key]) && isObject(value)
-        ? mergeDeep(target[key] as Record<string, unknown>, value)
-        : value;
-  });
+    Object.entries(source).forEach(([key, value]) => {
+        object[key] =
+            isObject(target[key]) && isObject(value) ? mergeDeep(target[key] as Record<string, unknown>, value) : value;
+    });
 
-  return object;
+    return object;
 }
 
 /**
@@ -99,48 +71,39 @@ export function mergeDeep(
  * @param {unknown} object
  * @returns {boolean} True if item is a DatasetValueObject.
  */
-export function isDatasetValueObject(
-  object: unknown
-): object is DatasetValueObject {
-  return (
-    object != null &&
-    isObject(object) &&
-    'value' in (object as unknown as DatasetValueObject)
-  );
+export function isDatasetValueObject(object: unknown): object is DatasetValueObject {
+    return object != null && isObject(object) && 'value' in (object as unknown as DatasetValueObject);
 }
 
 export function isBandScale(scale: Scale): scale is ScaleBand<string | number> {
-  return (scale as ScaleBand<string | number>)?.bandwidth !== undefined;
+    return (scale as ScaleBand<string | number>)?.bandwidth !== undefined;
 }
 
 export function getScaleStep(scale: Scale) {
-  if (isBandScale(scale)) return scale.step();
-  return Math.max(...scale.range()) / Math.max(...scale.domain());
+    if (isBandScale(scale)) {
+        return scale.step();
+    }
+    return Math.max(...scale.range()) / Math.max(...scale.domain());
 }
 
 export function isScaleEmpty(scale: Scale) {
-  const [min, max] = scale.domain();
-  return min == null || max == null || (min === 0 && max === 0);
+    const [min, max] = scale.domain();
+    return min == null || max == null || (min === 0 && max === 0);
 }
 
-const validateGetHighestValueArguments = (
-  data: InternalData,
-  index: number
-) => {
-  if (!data) {
-    throw new Error('Data is not a valid array');
-  }
+const validateGetHighestValueArguments = (data: InternalData, index: number) => {
+    if (!data) {
+        throw new Error('Data is not a valid array');
+    }
 
-  if (data.length === 0) {
-    throw new Error('Cannot get highest value from empty array');
-  }
+    if (data.length === 0) {
+        throw new Error('Cannot get highest value from empty array');
+    }
 
-  const isIndexPresentInGroup = data.some(
-    ({ values }) => values.length - 1 >= index
-  );
-  if (!isIndexPresentInGroup) {
-    warn(Warnings.IndexExceedsLengthOfDataSets);
-  }
+    const isIndexPresentInGroup = data.some(({ values }) => values.length - 1 >= index);
+    if (!isIndexPresentInGroup) {
+        warn(Warnings.IndexExceedsLengthOfDataSets);
+    }
 };
 
 /**
@@ -151,15 +114,12 @@ const validateGetHighestValueArguments = (
  * @returns {number} The highest value.
  */
 export function getHighestValue(data: InternalData, index: number): number {
-  validateGetHighestValueArguments(data, index);
+    validateGetHighestValueArguments(data, index);
 
-  return (
-    data.reduce((max, point) =>
-      (max.values[index]?.value ?? 0) > (point.values[index]?.value ?? 0)
-        ? max
-        : point
-    ).values[index]?.value || 0
-  );
+    return (
+        data.reduce((max, point) => ((max.values[index]?.value ?? 0) > (point.values[index]?.value ?? 0) ? max : point))
+            .values[index]?.value || 0
+    );
 }
 
 /**
@@ -168,21 +128,16 @@ export function getHighestValue(data: InternalData, index: number): number {
  * @param data A data group.
  * @returns An empty array.
  */
-export function getEmptyArrayFromData(
-  data: (Data | InternalData) | Ref<Data | InternalData>
-) {
-  const dataArray = isRef(data) ? data.value : data;
-  if (!dataArray) {
-    throw new Error('No empty array can be created from specified data value');
-  }
+export function getEmptyArrayFromData(data: (Data | InternalData) | Ref<Data | InternalData>) {
+    const dataArray = isRef(data) ? data.value : data;
+    if (!dataArray) {
+        throw new Error('No empty array can be created from specified data value');
+    }
 
-  // Use max length in case datasets have different lengths
-  const maxLength = Math.max(
-    ...dataArray.map((dataset) => dataset.values.length),
-    0
-  );
+    // Use max length in case datasets have different lengths
+    const maxLength = Math.max(...dataArray.map(dataset => dataset.values.length), 0);
 
-  return Array(maxLength).fill(null);
+    return Array(maxLength).fill(null);
 }
 
 /**
@@ -192,9 +147,7 @@ export function getEmptyArrayFromData(
  * @returns The domain length.
  */
 export function getDomainLength(scale: Scale): number {
-  return isBandScale(scale)
-    ? scale.domain().length
-    : Math.max(...scale.domain());
+    return isBandScale(scale) ? scale.domain().length : Math.max(...scale.domain());
 }
 
 /**
@@ -203,7 +156,7 @@ export function getDomainLength(scale: Scale): number {
  * @param end {number}
  */
 export function interpolateRound(start: number, end: number) {
-  return (t: number) => Math.round(start * (1 - t) + end * t);
+    return (t: number) => Math.round(start * (1 - t) + end * t);
 }
 
 /**
@@ -214,15 +167,11 @@ export function interpolateRound(start: number, end: number) {
  * @param toRight If true, moves items to the right instead.
  * @returns A same length array with its items moved.
  */
-export function shiftItems(
-  array: Array<unknown>,
-  amount: number,
-  toRight?: boolean
-) {
-  const N = toRight ? array.length - amount : amount;
-  const front = array.slice(0, N);
-  const back = array.slice(N);
-  return back.concat(front);
+export function shiftItems(array: Array<unknown>, amount: number, toRight?: boolean) {
+    const N = toRight ? array.length - amount : amount;
+    const front = array.slice(0, N);
+    const back = array.slice(N);
+    return back.concat(front);
 }
 
 /**
@@ -230,14 +179,11 @@ export function shiftItems(
  * @returns all slots except the groups
  */
 export function excludeGroups(slots: Slots) {
-  if (slots.groups) {
-    const keys = Object.keys(slots);
-    return Object.assign(
-      {},
-      ...keys.map((key) => (key !== 'groups' ? { [key]: slots[key] } : {}))
-    );
-  }
-  return slots;
+    if (slots.groups) {
+        const keys = Object.keys(slots);
+        return Object.assign({}, ...keys.map(key => (key !== 'groups' ? { [key]: slots[key] } : {})));
+    }
+    return slots;
 }
 
 /**
@@ -245,12 +191,10 @@ export function excludeGroups(slots: Slots) {
  * @returns all slots except the ones present in LumeChart
  */
 export function excludeChartSlots(slots: Slots) {
-  return Object.assign(
-    {},
-    ...Object.keys(slots).map((key) =>
-      CHART_SLOTS.includes(key) ? {} : { [key]: slots[key] }
-    )
-  );
+    return Object.assign(
+        {},
+        ...Object.keys(slots).map(key => (CHART_SLOTS.includes(key) ? {} : { [key]: slots[key] }))
+    );
 }
 
 /**
@@ -261,11 +205,9 @@ export function excludeChartSlots(slots: Slots) {
  * Otherwise returns the input array as it is.
  */
 export function fillArrayWithNullValues(
-  inputArray: Array<number | DatasetValueObject>,
-  minimumOutputArrayLength: number
+    inputArray: Array<number | DatasetValueObject>,
+    minimumOutputArrayLength: number
 ) {
-  const difference = minimumOutputArrayLength - inputArray.length;
-  return difference > 0
-    ? [...inputArray, ...Array(difference).fill({ value: null })]
-    : inputArray;
+    const difference = minimumOutputArrayLength - inputArray.length;
+    return difference > 0 ? [...inputArray, ...Array(difference).fill({ value: null })] : inputArray;
 }

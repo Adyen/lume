@@ -26,5 +26,6 @@ Add a brief description
 
 - [ ] Read the [Contributing Guidelines](https://github.com/Adyen/lume/blob/main/CONTRIBUTING.md).
 - [ ] Check that there isn't already a PR that solves the problem the same way to avoid creating a duplicate.
-- [ ] Provide a description in this PR that addresses **what** the PR is solving, or reference the issue that it solves (e.g. `fixes #123`).
+- [ ] Provide a description in this PR that addresses **what** the PR is solving, or reference the issue that it solves
+      (e.g. `fixes #123`).
 - [ ] Ideally, include relevant tests that fail without this PR but pass with it.

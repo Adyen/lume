@@ -4,11 +4,11 @@ $lume-chart-title-color: $lume-color-neutral-100 !default;
 $lume-axis-title-color: $lume-color-neutral-100 !default;
 
 .lume-chart-title {
-  color: $lume-chart-title-color;
-  margin: 0 0 1rem;
+    color: $lume-chart-title-color;
+    margin: 0 0 $lume-spacing-16;
 }
 
 .lume-axis-title {
-  color: $lume-axis-title-color;
-  margin: 0;
+    color: $lume-axis-title-color;
+    margin: 0;
 }

@@ -1,8 +1,10 @@
-An axis is a visual representation of a scale, usually a line with reference marks called ticks. Axes can be vertical or horizontal.
+An axis is a visual representation of a scale, usually a line with reference marks called ticks. Axes can be vertical or
+horizontal.
 
 This component provides an implementation of the axis guidelines, along with a set of options to customize it.
 
-Visualizations wrapped by an `LumeChart` component come with two default axes, one for the `x` scale and another for the `y`. This can be overriden using the `"axes"` slot.
+Visualizations wrapped by an `LumeChart` component come with two default axes, one for the `x` scale and another for the
+`y`. This can be overriden using the `"axes"` slot.
 
 ## Usage
 
@@ -17,10 +19,7 @@ import { LumeAxis } from '@adyen/lume';
 To generate an axis, you will need to pass in a d3 scale. It's also recommended to provide a value for `type`.
 
 ```html
-<lume-axis
-  type="x"
-  :scale="myScale"
-/>
+<lume-axis type="x" :scale="myScale" />
 ```
 
 ## API
@@ -90,9 +89,9 @@ Fired upon axis click.
 
 ```ts
 p: {
-  index: number | null; // Index of the axis tick that was moused over.
-  value: number | string; // Value of the tick label that was moused over.
-  event: PointerEvent; // Native `click` event data.
+    index: number | null; // Index of the axis tick that was moused over.
+    value: number | string; // Value of the tick label that was moused over.
+    event: PointerEvent; // Native `click` event data.
 }
 ```
 
@@ -104,9 +103,9 @@ Fired upon axis tick [mouseenter](https://developer.mozilla.org/en-US/docs/Web/A
 
 ```ts
 p: {
-  index: number | null; // Index of the axis tick that was moused over.
-  value: number | string; // Value of the tick label that was moused over.
-  event: MouseEvent; // Native `mouseenter` event data.
+    index: number | null; // Index of the axis tick that was moused over.
+    value: number | string; // Value of the tick label that was moused over.
+    event: MouseEvent; // Native `mouseenter` event data.
 }
 ```
 

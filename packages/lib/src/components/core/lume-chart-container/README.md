@@ -1,23 +1,24 @@
-This component is a wrapper for charts, providing sizing/dimension utilities and the bridge between HTML and SVG contexts.
+This component is a wrapper for charts, providing sizing/dimension utilities and the bridge between HTML and SVG
+contexts.
 
 By detecting resizes, it alerts all other components so that the chart can smoothly re-render.
 
 - [Usage](#usage)
-  - [Importing](#importing)
-  - [Structure](#structure)
-  - [Slots](#slots)
-  - [Basic use](#basic-use)
+    - [Importing](#importing)
+    - [Structure](#structure)
+    - [Slots](#slots)
+    - [Basic use](#basic-use)
 - [API](#api)
-  - [Props](#props)
-  - [Events](#events)
-    - [`click`](#click)
-      - [Payload](#payload)
-    - [`mouseenter`](#mouseenter)
-      - [Payload](#payload-1)
-    - [`mouseleave`](#mouseleave)
-      - [Payload](#payload-2)
-    - [`resize`](#resize)
-      - [Payload](#payload-3)
+    - [Props](#props)
+    - [Events](#events)
+        - [`click`](#click)
+            - [Payload](#payload)
+        - [`mouseenter`](#mouseenter)
+            - [Payload](#payload-1)
+        - [`mouseleave`](#mouseleave)
+            - [Payload](#payload-2)
+        - [`resize`](#resize)
+            - [Payload](#payload-3)
 
 ## Usage
 
@@ -29,7 +30,8 @@ import { LumeChartContainer } from '@adyen/lume';
 
 ### Structure
 
-The chart container is composed by an HTML wrapper - containing structural [slots](#slots) - and an SVG element where the default slotted content goes.
+The chart container is composed by an HTML wrapper - containing structural [slots](#slots) - and an SVG element where
+the default slotted content goes.
 
 ### Slots
 

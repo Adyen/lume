@@ -12,23 +12,24 @@ import { LumeAlluvialNodeHeader } from '@adyen/lume';
 
 ### Basic use
 
-To overwrite the default node header, add your content to the respective `node-header-{INDEX}` slot of LumeAlluvialDiagram:
+To overwrite the default node header, add your content to the respective `node-header-{INDEX}` slot of
+LumeAlluvialDiagram:
 
 ```html
 <lume-alluvial-diagram>
-  <template #node-header-0>
-    <lume-alluvial-node-header>
-      <template #before>
-        <my-custom-icon />
-      </template>
+    <template #node-header-0>
+        <lume-alluvial-node-header>
+            <template #before>
+                <my-custom-icon />
+            </template>
 
-      Custom header
+            Custom header
 
-      <template #after>
-        <my-custom-icon />
-      </template>
-    </lume-alluvial-node-header>
-  </template>
+            <template #after>
+                <my-custom-icon />
+            </template>
+        </lume-alluvial-node-header>
+    </template>
 </lume-alluvial-diagram>
 ```
 

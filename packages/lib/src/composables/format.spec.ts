@@ -2,53 +2,53 @@ import { afterEach, describe, expect, test, vi } from 'vitest';
 import { useFormat } from './format';
 
 describe('format.ts', () => {
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
-  describe('d3 formatter', () => {
-    test('should format with d3Format', () => {
-      const formatValue = useFormat('~p'); // percentage
-
-      expect(formatValue(0.1)).toBe('10%');
+    afterEach(() => {
+        vi.restoreAllMocks();
     });
 
-    test('should warn if invalid value and not format', () => {
-      const spy = vi.spyOn(console, 'warn');
+    describe('d3 formatter', () => {
+        test('should format with d3Format', () => {
+            const formatValue = useFormat('~p'); // percentage
 
-      const formatValue = useFormat('d293nc df'); // invalid
+            expect(formatValue(0.1)).toBe('10%');
+        });
 
-      expect(spy).toHaveBeenCalledTimes(1);
-      expect(formatValue(0.1)).toBe(0.1);
-    });
-  });
+        test('should warn if invalid value and not format', () => {
+            const spy = vi.spyOn(console, 'warn');
 
-  describe('custom formatter', () => {
-    const customFormatter = vi.fn((v) => 'test ' + v);
+            const formatValue = useFormat('d293nc df'); // invalid
 
-    test('should use custom formatter', () => {
-      const formatValue = useFormat(customFormatter);
-
-      expect(formatValue(1)).toBe('test 1');
-      expect(customFormatter).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('invalid formatter', () => {
-    test('should not format if null', () => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      const formatValue = useFormat(null);
-
-      expect(formatValue(1)).toBe(1);
+            expect(spy).toHaveBeenCalledTimes(1);
+            expect(formatValue(0.1)).toBe(0.1);
+        });
     });
 
-    test('should not format if undefined', () => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      const formatValue = useFormat();
+    describe('custom formatter', () => {
+        const customFormatter = vi.fn(v => 'test ' + v);
 
-      expect(formatValue(1)).toBe(1);
+        test('should use custom formatter', () => {
+            const formatValue = useFormat(customFormatter);
+
+            expect(formatValue(1)).toBe('test 1');
+            expect(customFormatter).toHaveBeenCalledTimes(1);
+        });
     });
-  });
+
+    describe('invalid formatter', () => {
+        test('should not format if null', () => {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            const formatValue = useFormat(null);
+
+            expect(formatValue(1)).toBe(1);
+        });
+
+        test('should not format if undefined', () => {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            const formatValue = useFormat();
+
+            expect(formatValue(1)).toBe(1);
+        });
+    });
 });

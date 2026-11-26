@@ -1,4 +1,4 @@
-import { App, Plugin } from 'vue';
+import { type App, type Plugin } from 'vue';
 
 import * as components from './components';
 
@@ -6,20 +6,22 @@ import * as components from './components';
 type PluginFunction = (app: App) => any;
 
 interface LumePluginFunction extends PluginFunction {
-  installed?: boolean;
+    installed?: boolean;
 }
 
 const install: LumePluginFunction = (app: App) => {
-  if (install.installed) return;
-  install.installed = true;
-
-  // Register components
-  for (const prop in components) {
-    if (Object.prototype.hasOwnProperty.call(components, prop)) {
-      const component = components[prop];
-      app.component(prop, component);
+    if (install.installed) {
+        return;
     }
-  }
+    install.installed = true;
+
+    // Register components
+    for (const prop in components) {
+        if (Object.prototype.hasOwnProperty.call(components, prop)) {
+            const component = components[prop];
+            app.component(prop, component);
+        }
+    }
 };
 
 const plugin: Plugin = { install };
@@ -27,13 +29,13 @@ const plugin: Plugin = { install };
 // Auto-install when vue is found (eg. in browser via <script> tag)
 let GlobalVue = null;
 if (typeof window !== 'undefined') {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  GlobalVue = (window as any).Vue;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    GlobalVue = (window as any).Vue;
 } else if (typeof global !== 'undefined') {
-  GlobalVue = global.Vue;
+    GlobalVue = global.Vue;
 }
 if (GlobalVue) {
-  GlobalVue.use(plugin);
+    GlobalVue.use(plugin);
 }
 
 export default plugin;

@@ -7,42 +7,42 @@ import { data } from './story-datasets';
 import { options as defaultOptions } from './defaults';
 
 const DATASETS = {
-  Simple: data,
+    Simple: data,
 };
 
 export default {
-  title: 'Charts/Box plot',
-  component: BoxPlot,
-  argTypes: {
-    ...withSizeArgTypes(),
-    dataset: {
-      control: 'select',
-      options: Object.keys(DATASETS),
-      description: 'Sets the data/labels properties.',
+    title: 'Charts/Box plot',
+    component: BoxPlot,
+    argTypes: {
+        ...withSizeArgTypes(),
+        dataset: {
+            control: 'select',
+            options: Object.keys(DATASETS),
+            description: 'Sets the data/labels properties.',
+        },
+        options: {
+            control: 'object',
+            description: 'Chart/axes options.',
+        },
     },
-    options: {
-      control: 'object',
-      description: 'Chart/axes options.',
+    args: {
+        ...withSizeArgs(),
+        dataset: Object.keys(DATASETS)[0],
+        options: defaultOptions,
+        startOnZero: true,
     },
-  },
-  args: {
-    ...withSizeArgs(),
-    dataset: Object.keys(DATASETS)[0],
-    options: defaultOptions,
-    startOnZero: true,
-  },
 };
 
 export const Basic = ({ args, argTypes }) => {
-  return {
-    components: { BoxPlot },
-    props: Object.keys(argTypes),
-    setup(props) {
-      const data = computed(() => DATASETS[props.dataset]);
+    return {
+        components: { BoxPlot },
+        props: Object.keys(argTypes),
+        setup(props) {
+            const chartData = computed(() => DATASETS[props.dataset]);
 
-      return { args, data };
-    },
-    template: `
+            return { args, data: chartData };
+        },
+        template: `
          <div :style="{ width: width + 'px', height: height + 'px' }">
                 <box-plot
                     :data="data"
@@ -50,5 +50,5 @@ export const Basic = ({ args, argTypes }) => {
                 />
             </div>
   `,
-  };
+    };
 };

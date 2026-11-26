@@ -1,6 +1,5 @@
 @use 'sass:color';
 @use 'sass:list';
-
 @use 'variables' as *;
 @use 'functions/colors' as *;
 
@@ -13,21 +12,21 @@
 //// .lume-stroke--{color}-{value}
 //
 @each $property in (background-color, fill, stroke) {
-  // categorical colors
-  @include generate-color-classes($property, $lume-categorical-colors);
+    // categorical colors
+    @include generate-color-classes($property, $lume-categorical-colors);
 
-  // sequential colors
-  @each $map in $lume-sequential-colors {
-    @include generate-color-classes($property, $map);
-  }
+    // sequential colors
+    @each $map in $lume-sequential-colors {
+        @include generate-color-classes($property, $map);
+    }
 
-  // divergent pairs
-  @each $map in $lume-divergent-colors {
-    @include generate-color-classes($property, $map);
-  }
+    // divergent pairs
+    @each $map in $lume-divergent-colors {
+        @include generate-color-classes($property, $map);
+    }
 
-  // other colors
-  @include generate-color-classes($property, $lume-other-colors);
+    // other colors
+    @include generate-color-classes($property, $lume-other-colors);
 }
 
 //
@@ -35,17 +34,17 @@
 //// (e.g. .lume-background-color--skyblue, .lume-background-color--02)
 //
 .lume-background-color {
-  @each $name, $map in $lume-categorical-colors {
-    &--#{$name} {
-      background-color: list.nth($map, 1);
+    @each $name, $map in $lume-categorical-colors {
+        &--#{$name} {
+            background-color: list.nth($map, 1);
+        }
     }
-  }
 
-  @each $color, $value in $lume-legacy-colors {
-    &--#{$color} {
-      background-color: $value;
+    @each $color, $value in $lume-legacy-colors {
+        &--#{$color} {
+            background-color: $value;
+        }
     }
-  }
 }
 
 //
@@ -53,16 +52,16 @@
 //// (e.g. .lume-stroke--skyblue, .lume-stroke--02)
 //
 .lume-stroke {
-  &--transparent {
-    stroke: $lume-color-grey-transparent;
-    opacity: 0;
-  }
-
-  @each $color, $value in $lume-legacy-colors {
-    &--#{$color} {
-      stroke: $value;
+    &--transparent {
+        opacity: 0;
+        stroke: $lume-color-grey-transparent;
     }
-  }
+
+    @each $color, $value in $lume-legacy-colors {
+        &--#{$color} {
+            stroke: $value;
+        }
+    }
 }
 
 //
@@ -70,39 +69,39 @@
 //// (e.g. .lume-fill--skyblue, .lume-fill--02)
 //
 .lume-fill {
-  $b: &;
+    $b: &;
 
-  &--overlay {
-    fill: $lume-color-grey-transparent;
-  }
-
-  &--negative {
-    fill: $lume-color-neutral-10;
-    pointer-events: none;
-  }
-
-  &--none {
-    fill: none;
-  }
-
-  &--transparent {
-    fill: $lume-color-grey-transparent;
-    opacity: 0;
-  }
-
-  @each $name, $map in $lume-categorical-colors {
-    &--#{$name} {
-      fill: list.nth($map, 1);
+    &--overlay {
+        fill: $lume-color-grey-transparent;
     }
-  }
 
-  @each $color, $value in $lume-legacy-colors {
-    &--#{$color} {
-      fill: $value;
-
-      &#{$b}--faded {
-        fill: fade-color($value);
-      }
+    &--negative {
+        fill: $lume-color-neutral-10;
+        pointer-events: none;
     }
-  }
+
+    &--none {
+        fill: none;
+    }
+
+    &--transparent {
+        fill: $lume-color-grey-transparent;
+        opacity: 0;
+    }
+
+    @each $name, $map in $lume-categorical-colors {
+        &--#{$name} {
+            fill: list.nth($map, 1);
+        }
+    }
+
+    @each $color, $value in $lume-legacy-colors {
+        &--#{$color} {
+            fill: $value;
+
+            &#{$b}--faded {
+                fill: fade-color($value);
+            }
+        }
+    }
 }

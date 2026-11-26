@@ -1,4 +1,5 @@
-Overlay groups orchestrate all the overlay rectangles that a chart needs to show. These will be the hoverable surfaces that will highlight individual values or value sets in the chart.
+Overlay groups orchestrate all the overlay rectangles that a chart needs to show. These will be the hoverable surfaces
+that will highlight individual values or value sets in the chart.
 
 ## Usage
 
@@ -14,21 +15,18 @@ To generate a simple overlay group with default settings, simply pass the `data`
 
 ```html
 <template>
-  <lume-overlay-group :data="data" />
+    <lume-overlay-group :data="data" />
 </template>
 
-<script
-  lang="ts"
-  setup
->
-  import { LumeOverlayGroup } from '@adyen/lume';
-  import { ref } from 'vue';
+<script lang="ts" setup>
+    import { LumeOverlayGroup } from '@adyen/lume';
+    import { ref } from 'vue';
 
-  const data = ref([
-    {
-      values: [10, 30, 20, 50, 40],
-    },
-  ]);
+    const data = ref([
+        {
+            values: [10, 30, 20, 50, 40],
+        },
+    ]);
 </script>
 ```
 
@@ -53,7 +51,7 @@ Fired upon clicking an overlay bar.
 
 ```ts
 p: {
-  index: number; // Index of the bar that was clicked.
-  event: PointerEvent; // Native `click` event data.
+    index: number; // Index of the bar that was clicked.
+    event: PointerEvent; // Native `click` event data.
 }
 ```

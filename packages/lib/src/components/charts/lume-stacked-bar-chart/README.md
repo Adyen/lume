@@ -14,32 +14,26 @@ To generate a simple bar chart with default settings, simply pass the `data` and
 
 ```html
 <template>
-  <lume-stacked-bar-chart
-    :data="data"
-    :labels="labels"
-  />
+    <lume-stacked-bar-chart :data="data" :labels="labels" />
 </template>
 
-<script
-  lang="ts"
-  setup
->
-  import { ref } from 'vue';
+<script lang="ts" setup>
+    import { ref } from 'vue';
 
-  const data = ref([
-    {
-      label: 'My first dataset',
-      color: 'royalblue',
-      values: [10, 30, 20, 50, 40],
-    },
-    {
-      label: 'My second dataset',
-      color: 'violet',
-      values: [40, 50, 20, 30, 10],
-    },
-  ]);
+    const data = ref([
+        {
+            label: 'My first dataset',
+            color: 'royalblue',
+            values: [10, 30, 20, 50, 40],
+        },
+        {
+            label: 'My second dataset',
+            color: 'violet',
+            values: [40, 50, 20, 30, 10],
+        },
+    ]);
 
-  const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'May']);
+    const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'May']);
 </script>
 ```
 

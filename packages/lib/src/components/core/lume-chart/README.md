@@ -1,78 +1,80 @@
-The `lume-chart` component is the base component of all charts of this data visualization library. It implements all generic chart features.
+The `lume-chart` component is the base component of all charts of this data visualization library. It implements all
+generic chart features.
 
-It is used internally to build all Lume charts but it can also be used to create new, customized charts, by using `<slot>`s.
+It is used internally to build all Lume charts but it can also be used to create new, customized charts, by using
+`<slot>`s.
 
 - [Usage](#usage)
-  - [Importing](#importing)
-  - [Slots](#slots)
-  - [Basic use](#basic-use)
+    - [Importing](#importing)
+    - [Slots](#slots)
+    - [Basic use](#basic-use)
 - [API](#api)
-  - [Props](#props)
-  - [Chart options](#chart-options)
-  - [Margins](#margins)
-  - [Slot props](#slot-props)
-    - [`controls`](#controls)
-    - [`legend`](#legend)
-    - [`axes`](#axes)
-    - [`groups`](#groups)
-    - [`tooltip`](#tooltip)
-    - [`tooltip-content`](#tooltip-content)
-  - [Events](#events)
-    - [`axis-click`](#axis-click)
-      - [Payload](#payload)
-    - [`axis-mouseenter`](#axis-mouseenter)
-      - [Payload](#payload-1)
-    - [`axis-mouseleave`](#axis-mouseleave)
-      - [Payload](#payload-2)
-    - [`bar-click`](#bar-click)
-      - [Payload](#payload-3)
-    - [`chart-click`](#chart-click)
-      - [Payload](#payload-4)
-    - [`chart-mouseenter`](#chart-mouseenter)
-      - [Payload](#payload-5)
-    - [`chart-mouseleave`](#chart-mouseleave)
-      - [Payload](#payload-6)
-    - [`data-changed`](#data-changed)
-      - [Payload](#payload-7)
-    - [`labels-changed`](#labels-changed)
-      - [Payload](#payload-8)
-    - [`legend-click`](#legend-click)
-      - [Payload](#payload-9)
-    - [`legend-mouseenter`](#legend-mouseenter)
-      - [Payload](#payload-10)
-    - [`mouseleave`](#mouseleave)
-      - [Payload](#payload-11)
-    - [`line-click`](#line-click)
-      - [Payload](#payload-12)
-    - [`point-click`](#point-click)
-      - [Payload](#payload-13)
-    - [`rendered`](#rendered)
-      - [Payload](#payload-14)
-    - [`resize`](#resize)
-      - [Payload](#payload-15)
-    - [`tooltip-opened`](#tooltip-opened)
-      - [Payload](#payload-16)
-    - [`tooltip-moved`](#tooltip-moved)
-      - [Payload](#payload-17)
-    - [`tooltip-closed`](#tooltip-closed)
-      - [Payload](#payload-18)
-    - [`node-click`](#node-click)
-      - [Payload](#payload-19)
-    - [`node-mouseenter`](#node-mouseenter)
-      - [Payload](#payload-20)
-    - [`node-mouseleave`](#node-mouseleave)
-      - [Payload](#payload-21)
-    - [`link-click`](#link-click)
-      - [Payload](#payload-22)
-    - [`link-mouseenter`](#link-mouseenter)
-      - [Payload](#payload-23)
-    - [`link-mouseleave`](#link-mouseleave)
-      - [Payload](#payload-24)
-    - [`hovered-index-changed`](#hovered-index-changed)
-      - [Payload](#payload-25)
+    - [Props](#props)
+    - [Chart options](#chart-options)
+    - [Margins](#margins)
+    - [Slot props](#slot-props)
+        - [`controls`](#controls)
+        - [`legend`](#legend)
+        - [`axes`](#axes)
+        - [`groups`](#groups)
+        - [`tooltip`](#tooltip)
+        - [`tooltip-content`](#tooltip-content)
+    - [Events](#events)
+        - [`axis-click`](#axis-click)
+            - [Payload](#payload)
+        - [`axis-mouseenter`](#axis-mouseenter)
+            - [Payload](#payload-1)
+        - [`axis-mouseleave`](#axis-mouseleave)
+            - [Payload](#payload-2)
+        - [`bar-click`](#bar-click)
+            - [Payload](#payload-3)
+        - [`chart-click`](#chart-click)
+            - [Payload](#payload-4)
+        - [`chart-mouseenter`](#chart-mouseenter)
+            - [Payload](#payload-5)
+        - [`chart-mouseleave`](#chart-mouseleave)
+            - [Payload](#payload-6)
+        - [`data-changed`](#data-changed)
+            - [Payload](#payload-7)
+        - [`labels-changed`](#labels-changed)
+            - [Payload](#payload-8)
+        - [`legend-click`](#legend-click)
+            - [Payload](#payload-9)
+        - [`legend-mouseenter`](#legend-mouseenter)
+            - [Payload](#payload-10)
+        - [`mouseleave`](#mouseleave)
+            - [Payload](#payload-11)
+        - [`line-click`](#line-click)
+            - [Payload](#payload-12)
+        - [`point-click`](#point-click)
+            - [Payload](#payload-13)
+        - [`rendered`](#rendered)
+            - [Payload](#payload-14)
+        - [`resize`](#resize)
+            - [Payload](#payload-15)
+        - [`tooltip-opened`](#tooltip-opened)
+            - [Payload](#payload-16)
+        - [`tooltip-moved`](#tooltip-moved)
+            - [Payload](#payload-17)
+        - [`tooltip-closed`](#tooltip-closed)
+            - [Payload](#payload-18)
+        - [`node-click`](#node-click)
+            - [Payload](#payload-19)
+        - [`node-mouseenter`](#node-mouseenter)
+            - [Payload](#payload-20)
+        - [`node-mouseleave`](#node-mouseleave)
+            - [Payload](#payload-21)
+        - [`link-click`](#link-click)
+            - [Payload](#payload-22)
+        - [`link-mouseenter`](#link-mouseenter)
+            - [Payload](#payload-23)
+        - [`link-mouseleave`](#link-mouseleave)
+            - [Payload](#payload-24)
+        - [`hovered-index-changed`](#hovered-index-changed)
+            - [Payload](#payload-25)
 - [Examples](#examples)
-  - [Custom data group](#custom-data-group)
-  - [Custom tooltip element](#custom-tooltip-element)
+    - [Custom data group](#custom-data-group)
+    - [Custom tooltip element](#custom-tooltip-element)
 
 ## Usage
 
@@ -97,7 +99,8 @@ The available slots are:
 
 These slots allow for full customization of how the data is being shown.
 
-All slots except `groups` have fallback content to default to. The `groups` slot **must** have at least 1 element to display data.
+All slots except `groups` have fallback content to default to. The `groups` slot **must** have at least 1 element to
+display data.
 
 ### Basic use
 
@@ -105,31 +108,25 @@ The simplest use for `lume-chart` is by providing `data` and `labels` props and 
 
 ```html
 <template>
-  <lume-chart
-    :data="data"
-    :labels="labels"
-  >
-    <template #groups="props">
-      <lume-line-group v-bind="props" />
-    </template>
-  </lume-chart>
+    <lume-chart :data="data" :labels="labels">
+        <template #groups="props">
+            <lume-line-group v-bind="props" />
+        </template>
+    </lume-chart>
 </template>
 
-<script
-  lang="ts"
-  setup
->
-  import { ref } from 'vue';
+<script lang="ts" setup>
+    import { ref } from 'vue';
 
-  const data = ref([
-    {
-      label: 'My dataset',
-      color: 'darkteal',
-      values: [10, 30, 20, 50, 40],
-    },
-  ]);
+    const data = ref([
+        {
+            label: 'My dataset',
+            color: 'darkteal',
+            values: [10, 30, 20, 50, 40],
+        },
+    ]);
 
-  const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'May']);
+    const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'May']);
 </script>
 ```
 
@@ -232,29 +229,29 @@ No props.
 | `hoveredIndex`  | `number`                  | Index of the data point being hovered.                                                                                             |
 | `options`       | `TooltipOptions`          | Set of options for the tooltip component.                                                                                          |
 
-**Note**: Whenever a consumer overrides the `tooltip` slot in the chart and renders tooltip by themselves - then they have to intimate us when the tooltip is hovered in/out. This has to be done only when the consumer has enabled the pointer events in the tooltip.
+**Note**: Whenever a consumer overrides the `tooltip` slot in the chart and renders tooltip by themselves - then they
+have to intimate us when the tooltip is hovered in/out. This has to be done only when the consumer has enabled the
+pointer events in the tooltip.
 
 This is necessary so that the lume chart is aware when the user has moved inside the tooltip and when was it exited.
 
 `tooltip` slot exposes the props - `handleMouseEnter` and `handleMouseLeave`.
 
-`handleMouseLeave` to be called when the tooltip is hovered in
-`handleMouseLeave` to be called when the tooltip is hovered out
+`handleMouseLeave` to be called when the tooltip is hovered in `handleMouseLeave` to be called when the tooltip is
+hovered out
 
 ```html
 <lume-line-chart v-bind="args">
-  <template
-    #tooltip="{ opened, data, hoveredIndex, targetElement, handleMouseEnter, handleMouseLeave }"
-  >
-    <lume-tooltip
-      :opened="opened"
-      ...
-      :options="{ withPointerEvents: true }"
-      @tooltip-mouseenter="handleMouseEnter"
-      @tooltip-mouseleave="handleMouseLeave"
-    />
-  </template>
-  ...
+    <template #tooltip="{ opened, data, hoveredIndex, targetElement, handleMouseEnter, handleMouseLeave }">
+        <lume-tooltip
+            :opened="opened"
+            ...
+            :options="{ withPointerEvents: true }"
+            @tooltip-mouseenter="handleMouseEnter"
+            @tooltip-mouseleave="handleMouseLeave"
+        />
+    </template>
+    ...
 </lume-line-chart>
 ```
 
@@ -312,9 +309,9 @@ Fired upon clicking a bar in a Bar chart.
 
 ```ts
 p: {
-  index: number; // Index of the bar that was clicked.
-  datasetIndex: number; // Index of the dataset of which the bar that was clicked belongs.
-  event: PointerEvent; // Native `click` event data.
+    index: number; // Index of the bar that was clicked.
+    datasetIndex: number; // Index of the dataset of which the bar that was clicked belongs.
+    event: PointerEvent; // Native `click` event data.
 }
 ```
 
@@ -354,8 +351,8 @@ Fired upon a chart receiving new data.
 
 ```ts
 p: {
-  newValue: Data; // The new chart data.
-  oldValue: Data | null; // The previous chart data.
+    newValue: Data; // The new chart data.
+    oldValue: Data | null; // The previous chart data.
 }
 ```
 
@@ -367,8 +364,8 @@ Fired upon a chart receiving new labels.
 
 ```ts
 p: {
-  newValue: Array<string>; // The new chart labels.
-  oldValue: Array<string> | null; // The previous chart labels.
+    newValue: Array<string>; // The new chart labels.
+    oldValue: Array<string> | null; // The previous chart labels.
 }
 ```
 
@@ -380,9 +377,9 @@ Fired upon a chart legend item click.
 
 ```ts
 p: {
-  index: number; // Index of the clicked item dataset.
-  dataset: InternalDataset<DatasetValueObject>; // The dataset of the item clicked.
-  event: PointerEvent; // Native `click` event data.
+    index: number; // Index of the clicked item dataset.
+    dataset: InternalDataset<DatasetValueObject>; // The dataset of the item clicked.
+    event: PointerEvent; // Native `click` event data.
 }
 ```
 
@@ -394,9 +391,9 @@ Fired upon a chart legend item [mouseenter](https://developer.mozilla.org/en-US/
 
 ```ts
 p: {
-  index: number; // Index of the clicked item dataset.
-  dataset: InternalDataset<DatasetValueObject>; // The dataset of the item clicked.
-  event: MouseEvent; // Native `mouseenter` event data.
+    index: number; // Index of the clicked item dataset.
+    dataset: InternalDataset<DatasetValueObject>; // The dataset of the item clicked.
+    event: MouseEvent; // Native `mouseenter` event data.
 }
 ```
 
@@ -416,9 +413,9 @@ Fired upon clicking a line in a Line chart.
 
 ```ts
 p: {
-  index: number; // Index of the line that was clicked.
-  datasetIndex: number; // Index of the dataset of which the line that was clicked belongs.
-  event: PointerEvent; // Native `click` event data.
+    index: number; // Index of the line that was clicked.
+    datasetIndex: number; // Index of the dataset of which the line that was clicked belongs.
+    event: PointerEvent; // Native `click` event data.
 }
 ```
 
@@ -430,9 +427,9 @@ Fired upon clicking a point in a Line chart.
 
 ```ts
 p: {
-  index: number; // Index of the point that was clicked.
-  datasetIndex: number; // Index of the dataset of which the point that was clicked belongs.
-  event: PointerEvent; // Native `click` event data.
+    index: number; // Index of the point that was clicked.
+    datasetIndex: number; // Index of the dataset of which the point that was clicked belongs.
+    event: PointerEvent; // Native `click` event data.
 }
 ```
 
@@ -467,8 +464,8 @@ Fired upon a chart tooltip's initial render.
 
 ```ts
 p: {
-  index: number; // Index of the data the tooltip is attached to.
-  targetElement: Element; // The tooltip's `targetElement` prop value.
+    index: number; // Index of the data the tooltip is attached to.
+    targetElement: Element; // The tooltip's `targetElement` prop value.
 }
 ```
 
@@ -480,8 +477,8 @@ Fired upon a chart tooltip;s `targetElement` change.
 
 ```ts
 p: {
-  index: number; // Index of the data the tooltip is attached to.
-  targetElement: Element; // The tooltip's new `targetElement` prop value.
+    index: number; // Index of the data the tooltip is attached to.
+    targetElement: Element; // The tooltip's new `targetElement` prop value.
 }
 ```
 
@@ -501,34 +498,36 @@ Fired upon clicking a node in an Alluvial diagram.
 
 ```ts
 p: {
-  node: SankeyNode<SankeyNodeProps, SankeyLinkProps>; // The clicked node.
-  event: PointerEvent; // Native `click` event data.
+    node: SankeyNode<SankeyNodeProps, SankeyLinkProps>; // The clicked node.
+    event: PointerEvent; // Native `click` event data.
 }
 ```
 
 #### `node-mouseenter`
 
-Fired upon an Alluvial diagram node [mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event).
+Fired upon an Alluvial diagram node
+[mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event).
 
 ##### Payload
 
 ```ts
 p: {
-  node: SankeyNode<SankeyNodeProps, SankeyLinkProps>; // The node moused over.
-  event: MouseEvent; // Native `mouseenter` event data.
+    node: SankeyNode<SankeyNodeProps, SankeyLinkProps>; // The node moused over.
+    event: MouseEvent; // Native `mouseenter` event data.
 }
 ```
 
 #### `node-mouseleave`
 
-Fired upon an Alluvial diagram node [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event).
+Fired upon an Alluvial diagram node
+[mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event).
 
 ##### Payload
 
 ```ts
 p: {
-  node: SankeyNode<SankeyNodeProps, SankeyLinkProps>; // The node previously hovered.
-  event: MouseEvent; // Native `mouseleave` event data.
+    node: SankeyNode<SankeyNodeProps, SankeyLinkProps>; // The node previously hovered.
+    event: MouseEvent; // Native `mouseleave` event data.
 }
 ```
 
@@ -540,47 +539,50 @@ Fired upon clicking a link in an Alluvial diagram.
 
 ```ts
 p: {
-  link: SankeyLink<SankeyNodeProps, SankeyLinkProps>; // The clicked link.
-  event: PointerEvent; // Native `click` event data.
+    link: SankeyLink<SankeyNodeProps, SankeyLinkProps>; // The clicked link.
+    event: PointerEvent; // Native `click` event data.
 }
 ```
 
 #### `link-mouseenter`
 
-Fired upon an Alluvial diagram link [mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event).
+Fired upon an Alluvial diagram link
+[mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event).
 
 ##### Payload
 
 ```ts
 p: {
-  link: SankeyLink<SankeyNodeProps, SankeyLinkProps>; // The link moused over.
-  event: MouseEvent; // Native `mouseenter` event data.
+    link: SankeyLink<SankeyNodeProps, SankeyLinkProps>; // The link moused over.
+    event: MouseEvent; // Native `mouseenter` event data.
 }
 ```
 
 #### `link-mouseleave`
 
-Fired upon an Alluvial diagram link [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event).
+Fired upon an Alluvial diagram link
+[mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event).
 
 ##### Payload
 
 ```ts
 p: {
-  link: SankeyLink<SankeyNodeProps, SankeyLinkProps>; // The link previously hovered.
-  event: MouseEvent; // Native `mouseleave` event data.
+    link: SankeyLink<SankeyNodeProps, SankeyLinkProps>; // The link previously hovered.
+    event: MouseEvent; // Native `mouseleave` event data.
 }
 ```
 
 #### `hovered-index-changed`
 
-Fired whenever the hovered index changes. This occurs when the cursor is moved between the groups or as the user moves the cursor over the ticks on the line of chart axis.
+Fired whenever the hovered index changes. This occurs when the cursor is moved between the groups or as the user moves
+the cursor over the ticks on the line of chart axis.
 
 ##### Payload
 
 ```ts
 p: {
-  oldIndex: number; // The index of the previously hovered.
-  newIndex: number; // The index of the currently hovered.
+    oldIndex: number; // The index of the previously hovered.
+    newIndex: number; // The index of the currently hovered.
 }
 ```
 
@@ -590,11 +592,11 @@ p: {
 
 ```html
 <template>
-  <lume-chart v-bind="$props">
-    <template #groups="props">
-      <my-custom-data-group v-bind="props" />
-    </template>
-  </lume-chart>
+    <lume-chart v-bind="$props">
+        <template #groups="props">
+            <my-custom-data-group v-bind="props" />
+        </template>
+    </lume-chart>
 </template>
 ```
 
@@ -602,13 +604,13 @@ p: {
 
 ```html
 <template>
-  <lume-chart v-bind="$props">
-    <template #groups="props">
-      <lume-bar-group v-bind="props" />
-    </template>
-    <template #tooltip>
-      <my-custom-tooltip />
-    </template>
-  </lume-chart>
+    <lume-chart v-bind="$props">
+        <template #groups="props">
+            <lume-bar-group v-bind="props" />
+        </template>
+        <template #tooltip>
+            <my-custom-tooltip />
+        </template>
+    </lume-chart>
 </template>
 ```

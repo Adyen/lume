@@ -1,4 +1,5 @@
-Draws a line based on a provided SVG path definition. The component also provides properties to customize the line drawn.
+Draws a line based on a provided SVG path definition. The component also provides properties to customize the line
+drawn.
 
 ## Usage
 
@@ -30,7 +31,8 @@ To show a line, provide a `pathDefinition` property.
 | `animationDelay`    | `number`           | `0`      | A value in seconds for the transition delay. Useful when animating a line composed of many `path`s. |
 | `animationDuration` | `number`           | `0.2`    | A value in seconds for the transition duration.                                                     |
 
-NOTE: A composable `useLineValues` exists to convert indices and values along with their scales to path definitions. For an example of how to use this, see `LumeLineGroup`.
+NOTE: A composable `useLineValues` exists to convert indices and values along with their scales to path definitions. For
+an example of how to use this, see `LumeLineGroup`.
 
 ### Events
 

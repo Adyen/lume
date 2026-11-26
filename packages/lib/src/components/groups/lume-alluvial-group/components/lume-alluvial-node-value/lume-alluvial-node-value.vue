@@ -1,19 +1,19 @@
 <template>
-  <text
-    class="lume-alluvial-group__node-value"
-    :y="bottom ? '.2em' : '-.2em'"
-    :dominant-baseline="bottom ? 'hanging' : 'auto'"
-  >
-    <slot />
-  </text>
+    <text
+        class="lume-alluvial-group__node-value"
+        :y="bottom ? '.2em' : '-.2em'"
+        :dominant-baseline="bottom ? 'hanging' : 'auto'"
+    >
+        <slot />
+    </text>
 </template>
 
 <script lang="ts" setup>
-defineProps({
-  bottom: { type: Boolean, default: true },
-});
+    defineProps({
+        bottom: { type: Boolean, default: true },
+    });
 </script>
 
 <style lang="scss" scoped>
-@use '../../styles';
+    @use '../../styles';
 </style>

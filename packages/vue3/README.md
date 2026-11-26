@@ -4,9 +4,12 @@
 [![MIT License](https://img.shields.io/badge/license-MIT)](https://github.com/Adyen/lume/blob/main/LICENSE)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a6c48bc7-b4d2-4be4-ad36-cbd353ab4f07/deploy-status)](https://app.netlify.com/sites/adyen-lume/deploys)
 
-Lume is a combination of a set of design guidelines for creating data visualizations that tell stories, and a component library that implements them, built for Vue applications.
+Lume is a combination of a set of design guidelines for creating data visualizations that tell stories, and a component
+library that implements them, built for Vue applications.
 
-> **Note:** Lume ships **two** packages - one that is compatible with Vue 2.7, and another, with Vue 3. The second is published as **`@adyen/lume-vue3`**. Our examples import the Vue 2.7-compatible version, but if you're using Vue 3, just update the import name.
+> **Note:** Lume ships **two** packages - one that is compatible with Vue 2.7, and another, with Vue 3. The second is
+> published as **`@adyen/lume-vue3`**. Our examples import the Vue 2.7-compatible version, but if you're using Vue 3,
+> just update the import name.
 
 **[Design guidelines (Website)](https://lumedataviz.com/)**
 
@@ -37,7 +40,8 @@ Lume is a combination of a set of design guidelines for creating data visualizat
 - [Vite](https://vitejs.dev/) and [Webpack](https://webpack.js.org/) for bundling
 - [Sass](https://sass-lang.com/) for complex/reusable styling
 - [TypeScript](https://www.typescriptlang.org/) for type checking
-- [TypeScript ESLint](https://typescript-eslint.io/) for linting _(with the help of [eslint-plugin-vue](https://eslint.vuejs.org/))_
+- [TypeScript ESLint](https://typescript-eslint.io/) for linting _(with the help of
+  [eslint-plugin-vue](https://eslint.vuejs.org/))_
 - [Storybook](https://storybook.js.org/) for developing/showcasing components
 - [Vitest](https://vitest.dev/) for unit testing
 
@@ -136,7 +140,7 @@ const app = new Vue(App).$mount('#root');
 <template>...</template>
 
 <script>
-...
+    ...
 </script>
 
 <!-- Main styles -->
@@ -151,7 +155,7 @@ const app = new Vue(App).$mount('#root');
 <template>...</template>
 
 <script>
-...
+    ...
 </script>
 
 <!-- Main styles -->
@@ -166,14 +170,14 @@ const app = new Vue(App).$mount('#root');
 <template>...</template>
 
 <script>
-...
+    ...
 </script>
 
 <!-- Main styles -->
 <style lang="scss">
-@use '@adyen/lume/scss' with (
-  $lume-font-family: 'Times New Roman'
-);
+    @use '@adyen/lume/scss' with (
+        $lume-font-family: 'Times New Roman'
+    );
 </style>
 ```
 
@@ -186,31 +190,32 @@ You can clone this repo and use `pnpm` to install dependencies. We use Storybook
 To run the app inside a Docker container:
 
 1. Create a `.env` file with your Docker image URL:
-   ```shell
-     $ echo DOCKER_IMAGE={YOUR_IMAGE_HERE} >> .env
-   ```
+    ```shell
+      $ echo DOCKER_IMAGE={YOUR_IMAGE_HERE} >> .env
+    ```
 2. Start your container:
-   ```shell
-     $ docker compose up -d
-   ```
+    ```shell
+      $ docker compose up -d
+    ```
 3. Attach to it in your terminal:
-   ```shell
-     $ docker attach lume
-   ```
+    ```shell
+      $ docker attach lume
+    ```
 4. Install `pnpm`:
-   ```shell
-     $ npm i -g pnpm@11
-   ```
+    ```shell
+      $ npm i -g pnpm@11
+    ```
 5. (Optional, depends on your Docker image) Add the npm global directory to the `PATH` variable:
-   ```shell
-     $ export PATH="${PATH}:/root/local/bin"
-   ```
+    ```shell
+      $ export PATH="${PATH}:/root/local/bin"
+    ```
 
 ### About Vue versions
 
 Lume ships two packages, one for each Vue version (2 and 3).
 
-Development is done in Vue 3, keeping in mind that the same source code must work the same way on both Vue versions, so some of the new Vue 3 APIs are restricted, unless provided with a fallback.
+Development is done in Vue 3, keeping in mind that the same source code must work the same way on both Vue versions, so
+some of the new Vue 3 APIs are restricted, unless provided with a fallback.
 
 #### Storybook
 
@@ -220,7 +225,8 @@ Storybook is available by running the following command:
 $ pnpm run storybook
 ```
 
-Every chart component should have its own `.stories` file, and it will be automatically loaded onto the Storybook manager.
+Every chart component should have its own `.stories` file, and it will be automatically loaded onto the Storybook
+manager.
 
 ##### Available addons
 
@@ -233,13 +239,13 @@ Every chart component should have its own `.stories` file, and it will be automa
 To generate a release:
 
 1. Create a release branch and push it as upstream:
-   ```shell
-     $ git checkout -b release-[VERSION] && git push -u origin release-[VERSION]
-   ```
+    ```shell
+      $ git checkout -b release-[VERSION] && git push -u origin release-[VERSION]
+    ```
 2. Run the release command:
-   ```shell
-     $ npm run release
-   ```
+    ```shell
+      $ npm run release
+    ```
 3. Create a PR for the release branch.
 4. After it's merged, publish the GitHub release. This will then publish the new release in NPM.
 
