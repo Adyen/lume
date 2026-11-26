@@ -20,11 +20,11 @@ jobs:
           node-version-file: '.nvmrc'
           registry-url: 'https://registry.npmjs.org'
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
       - name: Install dependencies
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-          run_install: true
+        run: pnpm install --frozen-lockfile
 
       - name: Build the package
         run: pnpm run build
