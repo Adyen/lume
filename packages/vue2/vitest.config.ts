@@ -1,13 +1,10 @@
-/// <reference types="vitest" />
-
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 import { resolve } from 'path';
 import vue from '@vitejs/plugin-vue2';
 
 export default defineConfig({
   test: {
     globals: true,
-    threads: false,
     // root: '../lib/src',
     include: ['../lib/src/**/*.spec.{js,ts}'],
     setupFiles: ['../lib/test/config/setupTests.ts'], // relative to `root` (src)
