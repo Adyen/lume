@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [1.16.2](https://github.com/Adyen/lume/compare/1.16.1...1.16.2)
+
+- ✨ Add tickAlign option to y axis [`51fd642`](https://github.com/Adyen/lume/commit/51fd642618b332b69f5c5b5259ad43dfcbed7b2f)
+- 🐛 Scroll chart legend horizontally when it overflows [`647b3a5`](https://github.com/Adyen/lume/commit/647b3a5cfe50b5ae5b901a50aed8b35e0eb8c37a)
+- 🐛 Fix x axis label overflow with auto right margin [`578b4dc`](https://github.com/Adyen/lume/commit/578b4dc74f013c306aa63eba24283efb58372907)
+
 #### [1.16.1](https://github.com/Adyen/lume/compare/1.16.0...1.16.1)
+
+> 21 October 2026
 
 - 🐛 Fix line group color by individual data point [`cbb05a7`](https://github.com/Adyen/lume/commit/cbb05a7cd4f11b8b540987ad6ee426564bc3f1da)
 
