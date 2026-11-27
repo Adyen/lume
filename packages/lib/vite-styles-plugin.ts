@@ -6,12 +6,7 @@ import type { Plugin, ResolvedConfig } from 'vite';
 const COMPONENT_STYLE_COMMENT = '\n/** Lume component styles */\n';
 const VARIABLES_IMPORT_REGEX = /@use '@\/styles\/variables'/g;
 const VARIABLES_RELATIVE_IMPORT = `@use '../variables'`;
-const FONT_URL_REGEX = /url\((['"]?)([^)'"]+\.(woff2?))\1\)/g;
-
-const FONT_MIME_TYPES: Record<string, string> = {
-  woff: 'font/woff',
-  woff2: 'font/woff2',
-};
+const FONT_URL_REGEX = /url\((['"]?)([^)'"]+\.woff2)\1\)/g;
 
 async function collectFiles(
   dir: string,
@@ -47,14 +42,10 @@ async function inlineFontUrls(
   let result = css;
 
   for (const match of matches) {
-    const [fullMatch, , relativeUrl, ext] = match;
+    const [fullMatch, , relativeUrl] = match;
     const fontPath = resolve(fontScssDir, relativeUrl);
     const base64 = (await readFile(fontPath)).toString('base64');
-    const mimeType = FONT_MIME_TYPES[ext];
-    result = result.replace(
-      fullMatch,
-      `url(data:${mimeType};base64,${base64})`
-    );
+    result = result.replace(fullMatch, `url(data:font/woff2;base64,${base64})`);
   }
 
   return result;

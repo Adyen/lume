@@ -1,5 +1,5 @@
-/* 
-  Inter font face 
+/*
+  Inter font face
 
   This is a Sass file so that the assets get encoded by Vite
   into Base64 to be included in the bundled package. It is excluded
@@ -11,8 +11,8 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
-  src: url('../fonts/inter-400.woff2') format('woff2'),
-    url('../fonts/inter-400.woff') format('woff');
+  font-display: swap;
+  src: url('../fonts/inter-400.woff2') format('woff2');
 }
 
 /* inter-500 */
@@ -20,8 +20,8 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
-  src: url('../fonts/inter-500.woff2') format('woff2'),
-    url('../fonts/inter-500.woff') format('woff');
+  font-display: swap;
+  src: url('../fonts/inter-500.woff2') format('woff2');
 }
 
 /* inter-600 */
@@ -29,6 +29,6 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 600;
-  src: url('../fonts/inter-600.woff2') format('woff2'),
-    url('../fonts/inter-600.woff') format('woff');
+  font-display: swap;
+  src: url('../fonts/inter-600.woff2') format('woff2');
 }
