@@ -1,7 +1,10 @@
 import { join } from 'path';
 import { defineConfig } from 'vite';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
 import vue from '@vitejs/plugin-vue2';
+
+import { lumeStylesPlugin } from '../lib/vite-styles-plugin';
+
+const libSrcDir = join(__dirname, './node_modules/@adyen/lume-core/src');
 
 export default defineConfig({
   define: {
@@ -26,21 +29,10 @@ export default defineConfig({
       },
     },
   },
-  plugins: [
-    vue(),
-    viteStaticCopy({
-      targets: [
-        {
-          src: './node_modules/@adyen/lume-core/src/styles/',
-          dest: './',
-          rename: 'scss',
-        },
-      ],
-    }),
-  ],
+  plugins: [vue(), lumeStylesPlugin(libSrcDir)],
   resolve: {
     alias: {
-      '@': join(__dirname, './node_modules/@adyen/lume-core/src'),
+      '@': libSrcDir,
     },
   },
 });
