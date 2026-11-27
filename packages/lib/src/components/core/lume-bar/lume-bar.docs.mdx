@@ -1,38 +1,15 @@
-import { Canvas, Meta, Story } from '@storybook/blocks';
+import { Canvas, Meta } from '@storybook/blocks';
 import * as LumeBarStories from './lume-bar.stories';
 
 <Meta of={LumeBarStories} />
 
 # Lume bar
 
-<Canvas>
-  <Story of={LumeBarStories.Basic} />
-</Canvas>
+<Canvas of={LumeBarStories.Basic} />
 
-This component is meant to render bar-like elements. It is used mainly by Bar charts, but also to draw rectangle shapes, such as the gray area in a negative domain chart.
+Renders bar-like SVG `<rect>` elements. Used mainly by bar charts, and also to draw rectangle shapes such as the gray area in a negative domain chart.
 
-## Usage
-
-### Importing
-
-```ts
-import { LumeBar } from '@adyen/lume';
-```
-
-### Basic use
-
-This component essentially renders an SVG `<rect>` element. To do so, it requires a `width` and `height` value.
-
-```html
-<lume-bar
-  :width="20"
-  :height="80"
-/>
-```
-
-## API
-
-### Props
+## Properties
 
 | Name         | Type                           | Default  | Description                                           |
 | ------------ | ------------------------------ | -------- | ----------------------------------------------------- |
@@ -45,34 +22,10 @@ This component essentially renders an SVG `<rect>` element. To do so, it require
 | `isNegative` | `boolean`                      | `false`  | True if the bar is representing a negative value.     |
 | `transition` | `"width" \| "height" \| false` | `false`  | Indicates which property is going to be transitioned. |
 
-### Events
+## Events
 
-#### `click`
-
-Fired upon bar rectangle click.
-
-##### Payload
-
-```ts
-p: PointerEvent;
-```
-
-#### `mouseover`
-
-Fired upon bar rectangle [mouseover](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseover_event).
-
-##### Payload
-
-```ts
-p: MouseEvent;
-```
-
-#### `mouseleave`
-
-Fired upon bar rectangle [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event).
-
-##### Payload
-
-```ts
-p: MouseEvent; // Native `mouseleave` event data.
-```
+| Event        | Payload        | Description                                                                                                       |
+| ------------ | -------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `click`      | `PointerEvent` | Fired upon bar rectangle click.                                                                                   |
+| `mouseover`  | `MouseEvent`   | Fired upon bar rectangle [mouseover](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseover_event).   |
+| `mouseleave` | `MouseEvent`   | Fired upon bar rectangle [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event). |

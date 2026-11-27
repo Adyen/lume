@@ -1,57 +1,33 @@
-import { Canvas, Meta, Story } from '@storybook/blocks';
+import { Canvas, Meta } from '@storybook/blocks';
 import * as LumeLineChartStories from './lume-line-chart.stories';
 
 <Meta of={LumeLineChartStories} />
 
 # Lume line chart
 
-<Canvas>
-  <Story of={LumeLineChartStories.Basic} />
-</Canvas>
+<Canvas of={LumeLineChartStories.Basic} />
 
-Line charts plot data at regular intervals connected by lines from left to right to demonstrate changes in value.
+Line charts plot data at regular intervals connected by lines from left to right to demonstrate changes in value. Pass `data` and `labels` to render a line chart with default settings.
 
-## Usage
+## Variations
 
-### Importing
+### Multiple datasets
 
-```ts
-import { LumeLineChart } from '@adyen/lume';
-```
+Plot multiple series together with shared axes and legend.
 
-### Basic use
+<Canvas of={LumeLineChartStories.MultipleDatasets} />
 
-To generate a simple line chart with default settings, simply pass the `data` and `labels` props.
+### Custom tooltip
 
-```html
-<template>
-  <lume-line-chart
-    :data="data"
-    :labels="labels"
-  />
-</template>
+Override the `tooltip` slot to customize tooltip rendering.
 
-<script
-  lang="ts"
-  setup
->
-  import { ref } from 'vue';
+<Canvas of={LumeLineChartStories.CustomTooltip} />
 
-  const data = ref([
-    {
-      label: 'My dataset',
-      color: 'skyblue',
-      values: [10, 30, 20, 50, 40],
-    },
-  ]);
+### Empty state
 
-  const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'May']);
-</script>
-```
+<Canvas of={LumeLineChartStories.Empty} />
 
-## API
-
-### Props
+## Properties
 
 | Name           | Type                                            | Default     | Description                                                                                            |
 | -------------- | ----------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------ |
@@ -65,6 +41,6 @@ To generate a simple line chart with default settings, simply pass the `data` an
 | `lineWidth`    | `Number`                                        | `undefined` | The width of lines drawn.                                                                              |
 | `withPoints`   | `Boolean`                                       | `true`      | Indicator if the chart should render point circles or just lines.                                      |
 
-### Events
+## Events
 
 This chart extends the Events API from the `LumeChart` core component.

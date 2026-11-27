@@ -1,56 +1,33 @@
-import { Canvas, Meta, Story } from '@storybook/blocks';
+import { Canvas, Meta } from '@storybook/blocks';
 import * as LumeSparklineChartStories from './lume-sparkline-chart.stories';
 
 <Meta of={LumeSparklineChartStories} />
 
 # Lume sparkline chart
 
-<Canvas>
-  <Story of={LumeSparklineChartStories.Basic} />
-</Canvas>
+<Canvas of={LumeSparklineChartStories.Basic} />
 
-Sparkline charts plot data at regular intervals connected by lines from left to right to demonstrate changes in value.
-It is meant as an alternative to the regular line chart where it can be displayed in a smaller format without axes.
+Sparkline charts plot data at regular intervals connected by lines from left to right to demonstrate changes in value. It is meant as an alternative to the regular line chart where it can be displayed in a smaller format without axes.
 
-## Usage
+## Variations
 
-### Importing
+### Negative values
 
-```ts
-import { LumeSparklineChart } from '@adyen/lume';
-```
+Displays positive and negative values around a baseline.
 
-### Basic use
+<Canvas of={LumeSparklineChartStories.NegativeValues} />
 
-To generate a simple sparkline chart with default settings, simply pass the `data` and `labels` props.
+### Null values
 
-```html
-<template>
-  <lume-sparkline-chart
-    :data="data"
-    :labels="labels"
-  />
-</template>
+Handles gaps where data points are `null`.
 
-<script
-  lang="ts"
-  setup
->
-  import { ref } from 'vue';
+<Canvas of={LumeSparklineChartStories.NullValues} />
 
-  const data = ref([
-    {
-      label: 'My dataset',
-      color: 'violet',
-      values: [10, 30, 20, 50, 40],
-    },
-  ]);
-</script>
-```
+### Empty state
 
-## API
+<Canvas of={LumeSparklineChartStories.Empty} />
 
-### Props
+## Properties
 
 | Name           | Type      | Default     | Description                                                                                            |
 | -------------- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ |
@@ -58,6 +35,6 @@ To generate a simple sparkline chart with default settings, simply pass the `dat
 | `options`      | `Options` | `undefined` | A set of chart options.                                                                                |
 | `hoveredIndex` | `number`  | `undefined` | The hovered data point index. Can be used to hover programmatically. Set to `-1` to reset hover state. |
 
-### Events
+## Events
 
 This chart extends the Events API from the `LumeChart` core component.

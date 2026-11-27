@@ -79,6 +79,15 @@ export const captureAction =
     (...args) =>
       action(key)(...args);
 
+export const storybookDocsParameter = (
+  codeSource: string,
+  language?: string
+) => ({
+  docs: {
+    source: { code: codeSource, language: language ?? 'html' },
+  },
+});
+
 export const actionEventHandlerTemplate = CHART_EVENTS.map(
   (key) =>
     `@${key}="(...args) => captureAction('${key.replace(/-/g, ' ')}')(...args)"`

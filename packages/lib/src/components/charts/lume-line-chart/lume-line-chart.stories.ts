@@ -4,10 +4,18 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import {
   actionEventHandlerTemplate,
   captureAction,
+  storybookDocsParameter,
   withSizeArgs,
   withSizeArgTypes,
 } from '@/docs/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/base-data';
+
+import basicExample from './__tests__/lume-line-chart-basic-example.vue?raw';
+import multipleDatasetsExample from './__tests__/lume-line-chart-multiple-datasets-example.vue?raw';
+import multipleDatasetsWithEmptyLabelsExample from './__tests__/lume-line-chart-multiple-datasets-with-empty-labels-example.vue?raw';
+import multipleDatasetsWithCustomTooltipExample from './__tests__/lume-line-chart-multiple-datasets-with-custom-tooltip-example.vue?raw';
+import customTooltipExample from './__tests__/lume-line-chart-custom-tooltip-example.vue?raw';
+import emptyExample from './__tests__/lume-line-chart-empty-example.vue?raw';
 
 import LumeLineChart from './lume-line-chart.vue';
 import LumeTooltip from '../../core/lume-tooltip/index';
@@ -51,6 +59,7 @@ export default meta;
 type Story = StoryObj<typeof LumeLineChart>;
 
 export const Basic: Story = {
+  parameters: storybookDocsParameter(basicExample),
   render: (args) => ({
     components: { LumeLineChart },
     setup() {
@@ -67,6 +76,7 @@ export const Basic: Story = {
 };
 
 export const MultipleDatasets: Story = {
+  parameters: storybookDocsParameter(multipleDatasetsExample),
   render: (args) => ({
     components: { LumeLineChart },
     setup() {
@@ -83,6 +93,7 @@ export const MultipleDatasets: Story = {
 };
 
 export const MultipleDatasetsWithEmptyLabels: Story = {
+  parameters: storybookDocsParameter(multipleDatasetsWithEmptyLabelsExample),
   render: (args) => ({
     components: { LumeLineChart },
     setup() {
@@ -99,6 +110,7 @@ export const MultipleDatasetsWithEmptyLabels: Story = {
 };
 
 export const MultipleDatasetsWithCustomTooltip: Story = {
+  parameters: storybookDocsParameter(multipleDatasetsWithCustomTooltipExample),
   render: (args) => ({
     components: { LumeLineChart, LumeTooltip, LumeTooltipSummary },
     setup() {
@@ -167,6 +179,7 @@ export const MultipleDatasetsWithCustomTooltip: Story = {
 };
 
 export const CustomTooltip: Story = {
+  parameters: storybookDocsParameter(customTooltipExample),
   render: (args) => ({
     components: { LumeLineChart, LumeTooltip },
     setup() {
@@ -208,6 +221,7 @@ export const CustomTooltip: Story = {
 };
 
 export const Empty: Story = {
+  parameters: storybookDocsParameter(emptyExample),
   render: (args) => ({
     components: { LumeLineChart },
     setup() {

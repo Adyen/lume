@@ -1,57 +1,26 @@
-import { Canvas, Meta, Story } from '@storybook/blocks';
+import { Canvas, Meta } from '@storybook/blocks';
 import * as LumePointStories from './lume-point.stories';
 
 <Meta of={LumePointStories} />
 
 # Lume point
 
-<Canvas>
-  <Story of={LumePointStories.Basic} />
-</Canvas>
+<Canvas of={LumePointStories.Basic} />
 
-A point draws a circle to highlight data, like when a user hover their mouse over a point on a line graph.
+Draws an SVG circle to highlight a data point, such as when hovering over a point on a line chart.
 
-## Usage
-
-### Importing
-
-```ts
-import { LumePoint } from '@adyen/lume';
-```
-
-### Basic use
-
-To show a point, provide `x`, `y`, `color` and `active` properties
-
-```html
-<lume-point
-  :x="100"
-  :y="200"
-  :color="dataset.color"
-  :active="isPointActive(index)"
-/>
-```
-
-## API
-
-### Props
+## Properties
 
 | Name     | Type      | Default  | Description                                                                                 |
 | -------- | --------- | -------- | ------------------------------------------------------------------------------------------- |
 | `x`      | `number`  | Required | The horizontal coordinate to position the point.                                            |
-| `y`      | `number`  | Required | The bertical coordinate to position the point.                                              |
-| `color`  | `string`  | `01`     | Indicating what color to use, representing an index to one of the available Lume colors.    |
+| `y`      | `number`  | Required | The vertical coordinate to position the point.                                              |
+| `color`  | `string`  | `'01'`   | Color to use, representing an index to one of the available Lume colors.                    |
 | `radius` | `number`  | `4`      | The radius (in pixels) of the point. If accompanying a line, should double its width value. |
-| `active` | `boolean` | `false`  | Indicating whether or not this point is active or not.                                      |
+| `active` | `boolean` | `false`  | Whether the point is active.                                                                |
 
-### Events
+## Events
 
-#### `click`
-
-Fired upon point circle click.
-
-##### Payload
-
-```ts
-p: PointerEvent;
-```
+| Event   | Payload        | Description                    |
+| ------- | -------------- | ------------------------------ |
+| `click` | `PointerEvent` | Fired upon point circle click. |

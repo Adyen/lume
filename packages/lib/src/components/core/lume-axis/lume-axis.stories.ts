@@ -2,9 +2,17 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import { computed } from 'vue';
 import { scaleBand, scaleLinear } from 'd3';
 
-import { withSizeArgs, withSizeArgTypes } from '@/docs/storybook-helpers';
+import {
+  storybookDocsParameter,
+  withSizeArgs,
+  withSizeArgTypes,
+} from '@/docs/storybook-helpers';
 
 import LumeAxis from './lume-axis.vue';
+import xAxisExample from './__tests__/lume-axis-x-axis-example.vue?raw';
+import yAxisExample from './__tests__/lume-axis-y-axis-example.vue?raw';
+import yAxisTickAlignStartExample from './__tests__/lume-axis-y-axis-tick-align-start-example.vue?raw';
+import bothAxesExample from './__tests__/lume-axis-both-axes-example.vue?raw';
 import { xOptions, yOptions } from './defaults';
 
 const SCALES = {
@@ -32,32 +40,24 @@ export default meta;
 type Story = StoryObj<typeof LumeAxis>;
 
 export const xAxis: Story = {
+  parameters: storybookDocsParameter(xAxisExample),
   name: 'X Axis (band scale)',
   render: (args) => ({
     components: { LumeAxis },
     setup() {
+      const bottomMargin = 32;
+
       const computedContainerSize = computed(() => ({
         width: args.width,
-        height: args.height,
+        height: args.height - bottomMargin,
       }));
 
-      const computedScale = computed(() =>
-        args.scale.range(
-          args.type === 'x' ? [0, args.width] : [args.height - 28, 0]
-        )
-      );
+      const computedScale = computed(() => args.scale.range([0, args.width]));
 
-      const transform = computed(
-        () =>
-          `translate(${args.type === 'x' ? 0 : 28}, ${
-            args.type === 'x' ? -28 : 14
-          })`
-      );
-
-      return { args, computedContainerSize, computedScale, transform };
+      return { args, computedContainerSize, computedScale };
     },
     template: `<svg :width="args.width" :height="args.height">
-    <g :transform="transform">
+    <g>
       <lume-axis v-bind="args" :scale="computedScale" :container-size="computedContainerSize" />
     </g>
   </svg>`,
@@ -70,27 +70,24 @@ export const xAxis: Story = {
 };
 
 export const yAxis: Story = {
+  parameters: storybookDocsParameter(yAxisExample),
   name: 'Y Axis (linear scale)',
   render: (args) => ({
     components: { LumeAxis },
     setup() {
+      const leftMargin = 36;
+      const verticalMargin = 14;
+
       const computedContainerSize = computed(() => ({
-        width: args.width,
-        height: args.height,
+        width: args.width - leftMargin,
+        height: args.height - verticalMargin * 2,
       }));
 
       const computedScale = computed(() =>
-        args.scale.range(
-          args.type === 'x' ? [0, args.width] : [args.height - 28, 0]
-        )
+        args.scale.range([args.height - verticalMargin * 2, 0])
       );
 
-      const transform = computed(
-        () =>
-          `translate(${args.type === 'x' ? 0 : 28}, ${
-            args.type === 'x' ? -28 : 14
-          })`
-      );
+      const transform = `translate(${leftMargin}, ${verticalMargin})`;
 
       return { args, computedContainerSize, computedScale, transform };
     },
@@ -108,8 +105,33 @@ export const yAxis: Story = {
 };
 
 export const yAxisTickAlignStart: Story = {
-  ...yAxis,
+  parameters: storybookDocsParameter(yAxisTickAlignStartExample),
   name: 'Y Axis (left-aligned tick labels)',
+  render: (args) => ({
+    components: { LumeAxis },
+    setup() {
+      const leftMargin = 52;
+      const verticalMargin = 14;
+
+      const computedContainerSize = computed(() => ({
+        width: args.width - leftMargin,
+        height: args.height - verticalMargin * 2,
+      }));
+
+      const computedScale = computed(() =>
+        args.scale.range([args.height - verticalMargin * 2, 0])
+      );
+
+      const transform = `translate(${leftMargin}, ${verticalMargin})`;
+
+      return { args, computedContainerSize, computedScale, transform };
+    },
+    template: `<svg :width="args.width" :height="args.height">
+    <g :transform="transform">
+      <lume-axis v-bind="args" :scale="computedScale" :container-size="computedContainerSize" />
+    </g>
+  </svg>`,
+  }),
   args: {
     ...yAxis.args,
     scale: scaleLinear().domain([0, 10000]),
@@ -118,24 +140,29 @@ export const yAxisTickAlignStart: Story = {
 };
 
 export const bothAxes: Story = {
+  parameters: storybookDocsParameter(bothAxesExample),
   name: 'Both Axes (band + linear)',
   render: (args) => ({
     components: { LumeAxis },
     setup() {
+      const leftMargin = 36;
+      const topMargin = 14;
+      const bottomMargin = 32;
+
       const computedContainerSize = computed(() => ({
-        width: args.width - 28,
-        height: args.height - 32,
+        width: args.width - leftMargin,
+        height: args.height - topMargin - bottomMargin,
       }));
 
       const computedXScale = computed(() =>
-        SCALES.band.range([0, args.width - 28])
+        SCALES.band.range([0, args.width - leftMargin])
       );
 
       const computedYScale = computed(() =>
-        SCALES.linear.range([args.height - 32, 0])
+        SCALES.linear.range([args.height - topMargin - bottomMargin, 0])
       );
 
-      const transform = computed(() => `translate(28, 14)`);
+      const transform = `translate(${leftMargin}, ${topMargin})`;
 
       return {
         args,

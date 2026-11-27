@@ -4,12 +4,21 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import {
   actionEventHandlerTemplate,
   captureAction,
+  storybookDocsParameter,
   withSizeArgs,
   withSizeArgTypes,
 } from '@/docs/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/alluvial-data';
 
 import LumeAlluvialDiagram from './lume-alluvial-diagram.vue';
+import basicExample from './__tests__/lume-alluvial-diagram-basic-example.vue?raw';
+import multipleLevelsExample from './__tests__/lume-alluvial-diagram-multiple-levels-example.vue?raw';
+import innerAlignedNodeLabelsExample from './__tests__/lume-alluvial-diagram-inner-aligned-node-labels-example.vue?raw';
+import multipleLevelsWithColorDerivationFromIncomingLinksExample from './__tests__/lume-alluvial-diagram-color-derivation-example.vue?raw';
+import customCurveFunctionExample from './__tests__/lume-alluvial-diagram-custom-curve-function-example.vue?raw';
+import customNodeSlotsExample from './__tests__/lume-alluvial-diagram-custom-node-slots-example.vue?raw';
+import nodeOffsetExample from './__tests__/lume-alluvial-diagram-node-offset-example.vue?raw';
+import emptyExample from './__tests__/lume-alluvial-diagram-empty-example.vue?raw';
 import LumeAlluvialNodeLabel from '../../groups/lume-alluvial-group/components/lume-alluvial-node-label';
 import LumeAlluvialNodeValue from '../../groups/lume-alluvial-group/components/lume-alluvial-node-value';
 import LumeTooltip from '../../core/lume-tooltip';
@@ -53,6 +62,7 @@ export default meta;
 type Story = StoryObj<typeof LumeAlluvialDiagram>;
 
 export const Basic: Story = {
+  parameters: storybookDocsParameter(basicExample),
   render: (args) => ({
     components: { LumeAlluvialDiagram },
     setup() {
@@ -72,6 +82,7 @@ export const Basic: Story = {
 };
 
 export const MultipleLevels: Story = {
+  parameters: storybookDocsParameter(multipleLevelsExample),
   render: (args) => ({
     components: { LumeAlluvialDiagram },
     setup() {
@@ -93,6 +104,7 @@ export const MultipleLevels: Story = {
 };
 
 export const InnerAlignedNodeLabels: Story = {
+  parameters: storybookDocsParameter(innerAlignedNodeLabelsExample),
   render: (args) => ({
     components: { LumeAlluvialDiagram },
     setup() {
@@ -114,6 +126,9 @@ export const InnerAlignedNodeLabels: Story = {
 };
 
 export const MultipleLevelsWithColorDerivationFromIncomingLinks: Story = {
+  parameters: storybookDocsParameter(
+    multipleLevelsWithColorDerivationFromIncomingLinksExample
+  ),
   render: (args) => ({
     components: { LumeAlluvialDiagram },
     setup() {
@@ -131,6 +146,7 @@ export const MultipleLevelsWithColorDerivationFromIncomingLinks: Story = {
 };
 
 export const CustomCurveFunction: Story = {
+  parameters: storybookDocsParameter(customCurveFunctionExample),
   render: (args) => ({
     components: { LumeAlluvialDiagram },
     setup() {
@@ -151,6 +167,7 @@ export const CustomCurveFunction: Story = {
 };
 
 export const CustomNodeSlots: Story = {
+  parameters: storybookDocsParameter(customNodeSlotsExample),
   render: (args) => ({
     components: {
       LumeTooltip,
@@ -191,6 +208,7 @@ export const CustomNodeSlots: Story = {
 };
 
 export const NodeOffset: Story = {
+  parameters: storybookDocsParameter(nodeOffsetExample),
   render: (args) => ({
     components: { LumeAlluvialDiagram },
     setup() {
@@ -212,6 +230,7 @@ export const NodeOffset: Story = {
 };
 
 export const Empty: Story = {
+  parameters: storybookDocsParameter(emptyExample),
   render: (args) => ({
     components: { LumeAlluvialDiagram },
     setup() {

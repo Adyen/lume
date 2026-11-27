@@ -19,6 +19,7 @@ export default defineConfig({
         ...coverageConfigDefaults.exclude,
         '**/*.spec.{js,ts}',
         '**/*.stories.{js,ts}',
+        '**/__tests__/**',
         '**/docs/**',
         '**/playground/**',
         '**/next/**',

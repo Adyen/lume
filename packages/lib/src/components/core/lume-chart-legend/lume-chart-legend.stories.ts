@@ -2,8 +2,11 @@ import { reactive, toRefs } from 'vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import DATASETS from '@/docs/storybook-data/base-data';
+import { storybookDocsParameter } from '@/docs/storybook-helpers';
 
 import LumeChartLegend from './lume-chart-legend.vue';
+import basicExample from './__tests__/lume-chart-legend-basic-example.vue?raw';
+import multipleDatasetsExample from './__tests__/lume-chart-legend-multiple-datasets-example.vue?raw';
 
 import { useBase } from '../../../composables/base';
 
@@ -24,6 +27,7 @@ export default meta;
 type Story = StoryObj<typeof LumeChartLegend>;
 
 export const Basic: Story = {
+  parameters: storybookDocsParameter(basicExample),
   render: (args) => ({
     components: { LumeChartLegend },
     setup() {
@@ -39,6 +43,7 @@ export const Basic: Story = {
 };
 
 export const MultipleDatasets: Story = {
+  parameters: storybookDocsParameter(multipleDatasetsExample),
   render: (args) => ({
     components: { LumeChartLegend },
     setup() {
