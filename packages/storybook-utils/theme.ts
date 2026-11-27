@@ -1,7 +1,5 @@
-import { create } from '@storybook/theming';
-
-export default create({
-  base: 'light',
+export default {
+  base: 'light' as const,
   brandTitle: 'Lume Storybook',
 
   // Storybook-specific color palette
@@ -28,4 +26,4 @@ export default create({
   inputBorder: '#e3e6eb',
   inputTextColor: '#00112c',
   inputBorderRadius: 4,
-});
+};

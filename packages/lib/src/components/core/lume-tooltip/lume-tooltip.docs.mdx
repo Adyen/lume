@@ -1,0 +1,80 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Core/Tooltip" />
+
+# Lume tooltip
+
+Displays contextual extra information upon user interaction, powered by [Popper](https://popper.js.org/).
+
+Visualizations wrapped by `LumeChart` include a default tooltip showing the data value for each dataset at the hovered data point. You can override it via the chart's `tooltip` slot (see the [Bar chart](?path=/docs/charts-bar-chart--docs) and [Line chart](?path=/docs/charts-line-chart--docs) custom tooltip examples).
+
+## Properties
+
+| Name               | Type                 | Default  | Description                                                    |
+| ------------------ | -------------------- | -------- | -------------------------------------------------------------- |
+| `items`            | `Array<TooltipItem>` | Required | An array of items to display.                                  |
+| `opened`           | `boolean`            | `false`  | If the tooltip is visible or not.                              |
+| `targetElement`    | `Element`            | `null`   | A DOM element to attach to.                                    |
+| `position`         | `string`             | `"auto"` | Where the tooltip should be positioned relative to its target. |
+| `fixedPositioning` | `boolean`            | `false`  | If true, it will use fixed positioning instead of absolute.    |
+| `modifiers`        | `Array<Modifier>`    | `null`   | A list of modifiers for Popper.                                |
+| `title`            | `string`             | `null`   | The tooltip title.                                             |
+| `inverse`          | `boolean`            | `false`  | If true, the tooltip items will be in inverse order.           |
+
+> **Note:** `position` accepts valid [Popper placements](https://popper.js.org/docs/v2/constructors/#options), and `modifiers` accepts [Popper modifiers](https://popper.js.org/docs/v2/modifiers/).
+
+## Options
+
+Interface: `TooltipOptions`
+
+| Name                | Type                                                     | Description                                                                                                                             |
+| ------------------- | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `offset`            | `number`                                                 | Distance between the tooltip and its target element.                                                                                    |
+| `position`          | `string`                                                 | Where the tooltip should be positioned relative to its target.                                                                          |
+| `showTitle`         | `boolean`                                                | Controls if the tooltip title should be displayed.                                                                                      |
+| `targetElement`     | `Element`                                                | A DOM element to attach to.                                                                                                             |
+| `fixedPositioning`  | `boolean`                                                | If true, it will use fixed positioning instead of absolute.                                                                             |
+| `valueFormat`       | `string \| (tick: number \| string) => number \| string` | A format specifier string for [d3-format](https://github.com/d3/d3-format) or a formatting function.                                    |
+| `summary`           | `string`                                                 | Descriptive text shown above the tooltip items. If a tooltip item is marked with `isSummary`, it will have precedence over this option. |
+| `withPointerEvents` | `boolean`                                                | If true, it will listen to the attached events on elements in the tooltip content.                                                      |
+| `inverse`           | `boolean`                                                | If true, the tooltip items will be in inverse order.                                                                                    |
+
+> **Note:** Component props take precedence over `options` when both are provided.
+
+## Slots
+
+| Slot      | Props | Description                                                                          |
+| --------- | ----- | ------------------------------------------------------------------------------------ |
+| `title`   | None  | Slot for the tooltip header section.                                                 |
+| `summary` | None  | Slot for the tooltip summary item. Content should have a `<li>` element at its root. |
+| `items`   | None  | Slot for the tooltip items. Content should be one or more `<li>` elements.           |
+
+## Events
+
+| Event                | Payload   | Description                                          |
+| -------------------- | --------- | ---------------------------------------------------- |
+| `opened`             | `Element` | Fired upon tooltip initial render (`targetElement`). |
+| `moved`              | `Element` | Fired upon tooltip `targetElement` change.           |
+| `closed`             | None      | Fired upon tooltip unmount.                          |
+| `tooltip-mouseenter` | None      | Fired upon mouse entering the tooltip.               |
+| `tooltip-mouseleave` | None      | Fired upon mouse leaving the tooltip.                |
+
+## Subcomponents
+
+### Lume tooltip item
+
+Wrapper component for tooltip list items rendered inside the `items` slot of `LumeTooltip`.
+
+| Prop    | Type     | Default | Description                                                                          |
+| ------- | -------- | ------- | ------------------------------------------------------------------------------------ |
+| `color` | `string` | `null`  | The color for the item symbol. If not provided, the item will not render the symbol. |
+
+Slots: `label` (item label) and `value` (item value), neither with slot props.
+
+### Lume tooltip summary
+
+Wrapper component for the tooltip summary item rendered inside the `summary` slot of `LumeTooltip`. Has no props.
+
+### Lume tooltip title
+
+Wrapper component for the tooltip header rendered inside the `title` slot of `LumeTooltip`. Has no props.

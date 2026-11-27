@@ -85,11 +85,17 @@ export default defineComponent({
     const scale = computed(() =>
       scaleTime()
         .rangeRound([0, containerSize.width])
-        .domain([startDate.value, endDate.value])
+        .domain([new Date(startDate.value), new Date(endDate.value)])
         .nice()
     );
 
-    const { showTick } = useSkip(scale, ghostLabels, props.skipNumber);
+    const tickRefs = computed(
+      () =>
+        ghostLabels.value?.map((el: SVGTextElement) => ({ ref: el })) ?? null
+    );
+    const skipOptions = computed(() => ({ skip: props.skipNumber }));
+
+    const { showTick } = useSkip(scale, tickRefs, skipOptions);
 
     function handleMouseover(index: number) {
       hoveredIndex.value = index;

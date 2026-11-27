@@ -2,8 +2,10 @@ import { computed } from 'vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import { Colors } from '@/types/utils';
+import { storybookDocsParameter } from '@/docs/storybook-helpers';
 
 import LumeLine from './lume-line.vue';
+import basicExample from './__tests__/lume-line-basic-example.vue?raw';
 
 const meta: Meta<typeof LumeLine> = {
   title: 'Core/Line',
@@ -30,7 +32,8 @@ export default meta;
 type Story = StoryObj<typeof LumeLine>;
 
 export const Basic: Story = {
-  render: ({ args }) => ({
+  parameters: storybookDocsParameter(basicExample),
+  render: (args) => ({
     components: { LumeLine },
     setup() {
       const computedColor = computed(() => Colors[args.color]);

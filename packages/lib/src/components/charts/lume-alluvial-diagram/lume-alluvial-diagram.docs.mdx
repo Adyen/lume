@@ -1,0 +1,124 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as LumeAlluvialDiagramStories from './lume-alluvial-diagram.stories';
+
+<Meta of={LumeAlluvialDiagramStories} />
+
+# Lume alluvial diagram
+
+<Canvas of={LumeAlluvialDiagramStories.Basic} />
+
+Alluvial diagram shows the flow of aggregated units from one group to the next. Pass the `data` and `labels` props to render a diagram with default settings.
+
+## Variations
+
+### Multiple levels
+
+Supports multi-column flows across three or more levels, with optional column headers configured via `options.nodeHeaders`.
+
+<Canvas of={LumeAlluvialDiagramStories.MultipleLevels} />
+
+### Color derivation from incoming links
+
+Set `deriveColorFromIncomingLinks: true` on a node to color it based on the incoming links connected to it.
+
+<Canvas
+  of={
+    LumeAlluvialDiagramStories.MultipleLevelsWithColorDerivationFromIncomingLinks
+  }
+/>
+
+### Custom curve function
+
+Pass a d3 `curveFunction` on any target link to customize the link path shape.
+
+<Canvas of={LumeAlluvialDiagramStories.CustomCurveFunction} />
+
+### Custom node slots
+
+Use `node-text-{NODE_ID}` slots to customize individual node labels and values.
+
+<Canvas of={LumeAlluvialDiagramStories.CustomNodeSlots} />
+
+### Node offset
+
+Use `offset` on a node to position it relative to the previous node in the same column.
+
+<Canvas of={LumeAlluvialDiagramStories.NodeOffset} />
+
+### Empty state
+
+<Canvas of={LumeAlluvialDiagramStories.Empty} />
+
+## Properties
+
+| Name             | Type                               | Default     | Description                                                                                                       |
+| ---------------- | ---------------------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------- |
+| `data`           | `Data`                             | Required    | The data to plot.                                                                                                 |
+| `labels`         | `Array<string>` or `Array<number>` | Required    | The group of labels to plot the data to.                                                                          |
+| `title`          | `String`                           | `undefined` | The chart title.                                                                                                  |
+| `options`        | `Options`                          | `undefined` | A set of chart options.                                                                                           |
+| `hoveredElement` | `number \| string`                 | `undefined` | The index of the hovered node or link. Can be used to hover programmatically. Set to `null` to reset hover state. |
+
+## Dataset
+
+The data provided to an Alluvial diagram should be a single-item array whose `values` are `AlluvialNode` entries, each optionally specifying a `targets` array of `AlluvialNodeTarget` links.
+
+### `AlluvialNode`
+
+| Name                           | Type                        | Default     | Description                                                                                                         |
+| ------------------------------ | --------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------- |
+| `value`                        | `string`                    | Required    | The node ID.                                                                                                        |
+| `color`                        | `Color`                     | `skyblue`   | Color of node.                                                                                                      |
+| `label`                        | `string`                    | `undefined` | The node display label.                                                                                             |
+| `targets`                      | `Array<AlluvialNodeTarget>` | `undefined` | The targets of this node - a link will be formed between them. If not specified, it will be treated as an end node. |
+| `deriveColorFromIncomingLinks` | `boolean`                   | `false`     | If `true`, the color(s) of this node will be defined by the incoming links' colors.                                 |
+| `offset`                       | `number`                    | `undefined` | Defines a static node position relative to the previous node (from the same column).                                |
+
+### `AlluvialNodeTarget`
+
+| Name            | Type           | Default     | Description                                                                                                                 |
+| --------------- | -------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `node`          | `string`       | Required    | The node ID (`value`) that this node is targeting.                                                                          |
+| `value`         | `number`       | Required    | The value coming from this node to its target.                                                                              |
+| `color`         | `Color`        | `undefined` | Color of the link to this target node.                                                                                      |
+| `curveFunction` | `CurveFactory` | `undefined` | A custom curve function for the link to this node. More information [here](https://github.com/d3/d3-shape/tree/main#curves) |
+
+## Options
+
+Interface: `AlluvialDiagramOptions`
+
+| Name                   | Type                                                                      | Description                                                                                                                                                                                                                   |
+| ---------------------- | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `gradient`             | `boolean`                                                                 | Controls whether links should have a solid color or a gradient between source and target node colors.                                                                                                                         |
+| `highlightedElements`  | `'full' \| 'closest' \| GetHighlightedElementsFunction`                   | Defines the diagram's hover behavior. More info below.                                                                                                                                                                        |
+| `nodeAlign`            | `(node: SankeyNode, n: number) => number`                                 | Defines the node alignment method. [Read more](https://github.com/d3/d3-sankey#sankey_nodeAlign)                                                                                                                              |
+| `nodeExpansionTrigger` | `'node' \| 'block'`                                                       | Defines which area of an expandable node toggles its expansion on click: the whole node, including its label (`'node'`, the default), or only the node block (`'block'`). Keyboard interaction always targets the whole node. |
+| `nodeHeaders`          | `Array<string>`                                                           | If present, renders the provided headers on top of each node column.                                                                                                                                                          |
+| `nodeHeaderPadding`    | `number`                                                                  | Sets the space between the node headers and the top-most node(s).                                                                                                                                                             |
+| `nodeLabelMaxWidth`    | `number`                                                                  | Sets a maximum width for the alluvial node label text.                                                                                                                                                                        |
+| `nodePadding`          | `number`                                                                  | Sets the vertical space between nodes at each column.                                                                                                                                                                         |
+| `nodeSort`             | `(a: SankeyNode, b: SankeyNode) => number`                                | Defines the node sort method. [Read more](https://github.com/d3/d3-sankey#sankey_nodeSort)                                                                                                                                    |
+| `nodeWidth`            | `number`                                                                  | Sets the node block width.                                                                                                                                                                                                    |
+| `linkSort`             | `(a: SankeyLink, b: SankeyLink) => number`                                | Defines the link sort method. [Read more](https://github.com/d3/d3-sankey#sankey_linkSort)                                                                                                                                    |
+| `iterations`           | `number`                                                                  | Defines the number of relaxation iterations. [Read more](https://github.com/d3/d3-sankey#sankey_iterations)                                                                                                                   |
+| `switchText`           | `boolean`                                                                 | Controls whether the node label/value order should be switched (`true` makes the value be displayed first.)                                                                                                                   |
+| `valueFormat`          | `string \| (currentValue: number, baseValue: number) => number \| string` | A format specifier string for [d3-format](https://github.com/d3/d3-format) or a formatting function. The function receives the contextual node value and the base node value.                                                 |
+
+### Highlighted elements
+
+The `highlightedElements` option controls hover highlighting behavior:
+
+- **`'full'`** (default): Highlights all connected nodes and links across the full path.
+- **`'closest'`**: Highlights only the immediately connected nodes and links.
+- **Custom function (`GetHighlightedElementsFunction`)**: Receives `(element, graph)` where `element` is the hovered `SankeyNode` or `SankeyLink` and `graph` is the [SankeyGraph](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/d3-sankey/index.d.ts#L172). Returns `{ nodes: Record<string, string | number>, links: string[] }`, where link IDs use the format `{SOURCE_NODE_ID}:{TARGET_NODE_ID}`.
+
+## Slots
+
+### `node-text-{NODE_ID}`
+
+Available for every node in the diagram, where `NODE_ID` is the `value` provided in the dataset.
+
+| Name    | Type                                           | Description                 |
+| ------- | ---------------------------------------------- | --------------------------- |
+| `node`  | `SankeyNode<SankeyNodeProps, SankeyLinkProps>` | The node data.              |
+| `value` | `number \| string`                             | The node's formatted value. |

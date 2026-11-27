@@ -1,0 +1,40 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as LumeSparklineChartStories from './lume-sparkline-chart.stories';
+
+<Meta of={LumeSparklineChartStories} />
+
+# Lume sparkline chart
+
+<Canvas of={LumeSparklineChartStories.Basic} />
+
+Sparkline charts plot data at regular intervals connected by lines from left to right to demonstrate changes in value. It is meant as an alternative to the regular line chart where it can be displayed in a smaller format without axes.
+
+## Variations
+
+### Negative values
+
+Displays positive and negative values around a baseline.
+
+<Canvas of={LumeSparklineChartStories.NegativeValues} />
+
+### Null values
+
+Handles gaps where data points are `null`.
+
+<Canvas of={LumeSparklineChartStories.NullValues} />
+
+### Empty state
+
+<Canvas of={LumeSparklineChartStories.Empty} />
+
+## Properties
+
+| Name           | Type      | Default     | Description                                                                                            |
+| -------------- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ |
+| `data`         | `Data`    | Required    | The data to plot.                                                                                      |
+| `options`      | `Options` | `undefined` | A set of chart options.                                                                                |
+| `hoveredIndex` | `number`  | `undefined` | The hovered data point index. Can be used to hover programmatically. Set to `-1` to reset hover state. |
+
+## Events
+
+This chart extends the Events API from the `LumeChart` core component.

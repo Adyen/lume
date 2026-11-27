@@ -19,12 +19,13 @@ export const Basic: Story = {
     components: { LumeLineChart },
     setup() {
       const index = ref(-1);
-      return { DATASETS, index };
+      const isVue2 = __VUE_VERSION__ === 2;
+      return { DATASETS, index, isVue2 };
     },
     template: `
     <div>
       <div style="width: 480px; height: 320px; margin-bottom: 16px">
-          <lume-line-chart v-if="__VUE_VERSION__ === 2" v-bind="DATASETS.AdoptedAnimals" v-bind:hoveredIndex.sync="index" />
+          <lume-line-chart v-if="isVue2" v-bind="DATASETS.AdoptedAnimals" v-bind:hoveredIndex.sync="index" />
           <lume-line-chart v-else v-bind="DATASETS.AdoptedAnimals" v-model:hovered-index="index" />
       </div>
       <div>

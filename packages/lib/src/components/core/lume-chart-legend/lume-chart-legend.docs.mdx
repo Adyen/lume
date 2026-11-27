@@ -1,0 +1,30 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as LumeChartLegendStories from './lume-chart-legend.stories';
+
+<Meta of={LumeChartLegendStories} />
+
+# Lume chart legend
+
+<Canvas of={LumeChartLegendStories.Basic} />
+
+Displays a legend corresponding to the datasets plotted in a chart.
+
+## Variations
+
+### Multiple datasets
+
+<Canvas of={LumeChartLegendStories.MultipleDatasets} />
+
+## Properties
+
+| Name   | Type                       | Default  | Description                                                                                                                  |
+| ------ | -------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `data` | `Data<DatasetValueObject>` | Required | An array of records, each containing a `color` (`'skyblue'`, `'royalblue'`, `'violet'`, `'darkteal'`, `'gold'`) and `label`. |
+
+## Events
+
+| Event        | Payload                                                                                | Description                                                                                                          |
+| ------------ | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `click`      | `{ index: number, dataset: InternalDataset<DatasetValueObject>, event: PointerEvent }` | Fired upon clicking a legend item.                                                                                   |
+| `mouseenter` | `{ index: number, dataset: InternalDataset<DatasetValueObject>, event: MouseEvent }`   | Fired upon a legend item [mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event).    |
+| `mouseleave` | `MouseEvent`                                                                           | Fired upon the legend group [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event). |

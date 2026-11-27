@@ -4,10 +4,18 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import {
   actionEventHandlerTemplate,
   captureAction,
+  storybookDocsParameter,
   withSizeArgs,
   withSizeArgTypes,
 } from '@/docs/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/base-data';
+
+import basicExample from './__tests__/lume-line-chart-basic-example.vue?raw';
+import multipleDatasetsExample from './__tests__/lume-line-chart-multiple-datasets-example.vue?raw';
+import multipleDatasetsWithEmptyLabelsExample from './__tests__/lume-line-chart-multiple-datasets-with-empty-labels-example.vue?raw';
+import multipleDatasetsWithCustomTooltipExample from './__tests__/lume-line-chart-multiple-datasets-with-custom-tooltip-example.vue?raw';
+import customTooltipExample from './__tests__/lume-line-chart-custom-tooltip-example.vue?raw';
+import emptyExample from './__tests__/lume-line-chart-empty-example.vue?raw';
 
 import LumeLineChart from './lume-line-chart.vue';
 import LumeTooltip from '../../core/lume-tooltip/index';
@@ -51,7 +59,8 @@ export default meta;
 type Story = StoryObj<typeof LumeLineChart>;
 
 export const Basic: Story = {
-  render: ({ args }) => ({
+  parameters: storybookDocsParameter(basicExample),
+  render: (args) => ({
     components: { LumeLineChart },
     setup() {
       return { args, captureAction };
@@ -67,7 +76,8 @@ export const Basic: Story = {
 };
 
 export const MultipleDatasets: Story = {
-  render: ({ args }) => ({
+  parameters: storybookDocsParameter(multipleDatasetsExample),
+  render: (args) => ({
     components: { LumeLineChart },
     setup() {
       return { args, captureAction };
@@ -83,7 +93,8 @@ export const MultipleDatasets: Story = {
 };
 
 export const MultipleDatasetsWithEmptyLabels: Story = {
-  render: ({ args }) => ({
+  parameters: storybookDocsParameter(multipleDatasetsWithEmptyLabelsExample),
+  render: (args) => ({
     components: { LumeLineChart },
     setup() {
       return { args, captureAction };
@@ -99,7 +110,8 @@ export const MultipleDatasetsWithEmptyLabels: Story = {
 };
 
 export const MultipleDatasetsWithCustomTooltip: Story = {
-  render: ({ args }) => ({
+  parameters: storybookDocsParameter(multipleDatasetsWithCustomTooltipExample),
+  render: (args) => ({
     components: { LumeLineChart, LumeTooltip, LumeTooltipSummary },
     setup() {
       const showSummary = ref(false);
@@ -167,7 +179,8 @@ export const MultipleDatasetsWithCustomTooltip: Story = {
 };
 
 export const CustomTooltip: Story = {
-  render: ({ args }) => ({
+  parameters: storybookDocsParameter(customTooltipExample),
+  render: (args) => ({
     components: { LumeLineChart, LumeTooltip },
     setup() {
       const computedColor = computed(() => Colors[args.color]);
@@ -208,7 +221,8 @@ export const CustomTooltip: Story = {
 };
 
 export const Empty: Story = {
-  render: ({ args }) => ({
+  parameters: storybookDocsParameter(emptyExample),
+  render: (args) => ({
     components: { LumeLineChart },
     setup() {
       return { args, captureAction };

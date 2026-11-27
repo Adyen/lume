@@ -1,0 +1,31 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as LumeBarStories from './lume-bar.stories';
+
+<Meta of={LumeBarStories} />
+
+# Lume bar
+
+<Canvas of={LumeBarStories.Basic} />
+
+Renders bar-like SVG `<rect>` elements. Used mainly by bar charts, and also to draw rectangle shapes such as the gray area in a negative domain chart.
+
+## Properties
+
+| Name         | Type                           | Default  | Description                                           |
+| ------------ | ------------------------------ | -------- | ----------------------------------------------------- |
+| `width`      | `number`                       | Required | Width of the bar.                                     |
+| `height`     | `number`                       | Required | Height of the bar.                                    |
+| `x`          | `number`                       | `0`      | Horizontal position of the bar.                       |
+| `y`          | `number`                       | `0`      | Vertical position of the bar.                         |
+| `classList`  | `string \| Array<string>`      | `""`     | A CSS class or array of classes to add to the bar.    |
+| `isFaded`    | `boolean`                      | `false`  | Controls the opacity of the bar.                      |
+| `isNegative` | `boolean`                      | `false`  | True if the bar is representing a negative value.     |
+| `transition` | `"width" \| "height" \| false` | `false`  | Indicates which property is going to be transitioned. |
+
+## Events
+
+| Event        | Payload        | Description                                                                                                       |
+| ------------ | -------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `click`      | `PointerEvent` | Fired upon bar rectangle click.                                                                                   |
+| `mouseover`  | `MouseEvent`   | Fired upon bar rectangle [mouseover](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseover_event).   |
+| `mouseleave` | `MouseEvent`   | Fired upon bar rectangle [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event). |

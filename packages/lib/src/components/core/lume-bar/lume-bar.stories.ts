@@ -1,9 +1,14 @@
 import { computed } from 'vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
-import { withSizeArgs, withSizeArgTypes } from '@/docs/storybook-helpers';
+import {
+  storybookDocsParameter,
+  withSizeArgs,
+  withSizeArgTypes,
+} from '@/docs/storybook-helpers';
 
 import LumeBar from './lume-bar.vue';
+import basicExample from './__tests__/lume-bar-basic-example.vue?raw';
 
 import { Colors } from '@/types/utils';
 
@@ -29,7 +34,8 @@ export default meta;
 type Story = StoryObj<typeof LumeBar>;
 
 export const Basic: Story = {
-  render: ({ args }) => ({
+  parameters: storybookDocsParameter(basicExample),
+  render: (args) => ({
     components: { LumeBar },
     setup() {
       const computedFillClass = computed(

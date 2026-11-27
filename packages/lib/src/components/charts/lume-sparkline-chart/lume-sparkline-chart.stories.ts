@@ -5,12 +5,17 @@ import {
   actionEventHandlerTemplate,
   captureAction,
   COLOR_CLASS_MAP,
+  storybookDocsParameter,
   withSizeArgs,
   withSizeArgTypes,
 } from '@/docs/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/sparkline-data';
 
 import LumeSparklineChart from './lume-sparkline-chart.vue';
+import basicExample from './__tests__/lume-sparkline-chart-basic-example.vue?raw';
+import negativeValuesExample from './__tests__/lume-sparkline-chart-negative-values-example.vue?raw';
+import nullValuesExample from './__tests__/lume-sparkline-chart-null-values-example.vue?raw';
+import emptyExample from './__tests__/lume-sparkline-chart-empty-example.vue?raw';
 
 const meta: Meta<typeof LumeSparklineChart> = {
   title: 'Charts/Sparkline chart',
@@ -58,7 +63,8 @@ export default meta;
 type Story = StoryObj<typeof LumeSparklineChart>;
 
 export const Basic: Story = {
-  render: ({ args }) => ({
+  parameters: storybookDocsParameter(basicExample),
+  render: (args) => ({
     components: { LumeSparklineChart },
     setup() {
       const computedData = computed(() => {
@@ -81,7 +87,8 @@ export const Basic: Story = {
 };
 
 export const NegativeValues: Story = {
-  render: ({ args }) => ({
+  parameters: storybookDocsParameter(negativeValuesExample),
+  render: (args) => ({
     components: { LumeSparklineChart },
     setup() {
       const computedData = computed(() => {
@@ -104,7 +111,8 @@ export const NegativeValues: Story = {
 };
 
 export const NullValues: Story = {
-  render: ({ args }) => ({
+  parameters: storybookDocsParameter(nullValuesExample),
+  render: (args) => ({
     components: { LumeSparklineChart },
     setup() {
       const computedData = computed(() => {
@@ -127,7 +135,8 @@ export const NullValues: Story = {
 };
 
 export const Empty: Story = {
-  render: ({ args }) => ({
+  parameters: storybookDocsParameter(emptyExample),
+  render: (args) => ({
     components: { LumeSparklineChart },
     setup() {
       return { args, captureAction };

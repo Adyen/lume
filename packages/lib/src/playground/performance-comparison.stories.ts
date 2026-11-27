@@ -15,8 +15,8 @@ export default {
   },
 };
 
-export const Basic = ({ args }) => {
-  return {
+export const Basic = {
+  render: (args) => ({
     components: { LumeChart, PerformanceComparison },
     setup() {
       return { args };
@@ -48,31 +48,31 @@ export const Basic = ({ args }) => {
           </lume-chart>
       </div>
     `,
-  };
-};
-Basic.args = {
-  data: [
-    {
-      label: 'Shoppers count',
-      values: [
-        { value: 111973, color: '03' },
-        { value: 76252, percentage: -32, color: '04' },
-      ],
+  }),
+  args: {
+    data: [
+      {
+        label: 'Shoppers count',
+        values: [
+          { value: 111973, color: '03' },
+          { value: 76252, percentage: -32, color: '04' },
+        ],
+      },
+      {
+        label: 'Average transaction value',
+        values: [
+          { value: 4002, color: '03' },
+          { value: 5654, percentage: 41, color: '04' },
+        ],
+      },
+    ],
+    labels: ['Aug 29 - Oct 2, 2022', 'Oct 3 - Nov 6, 2022'],
+    options: {
+      withAxes: false,
+      withLegend: false,
+      withHover: false,
+      noMinSize: true,
+      startOnZero: true,
     },
-    {
-      label: 'Average transaction value',
-      values: [
-        { value: 4002, color: '03' },
-        { value: 5654, percentage: 41, color: '04' },
-      ],
-    },
-  ],
-  labels: ['Aug 29 - Oct 2, 2022', 'Oct 3 - Nov 6, 2022'],
-  options: {
-    withAxes: false,
-    withLegend: false,
-    withHover: false,
-    noMinSize: true,
-    startOnZero: true,
   },
 };

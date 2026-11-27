@@ -1,0 +1,30 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as LumeLineStories from './lume-line.stories';
+
+<Meta of={LumeLineStories} />
+
+# Lume line
+
+<Canvas of={LumeLineStories.Basic} />
+
+Draws a line based on a provided SVG path definition, with properties to customize stroke width, color, dash style, and transitions.
+
+> **Note:** Use the `useLineValues` composable to convert indices, values, and scales into path definitions (see `LumeLineGroup`).
+
+## Properties
+
+| Name                | Type               | Default  | Description                                                                                   |
+| ------------------- | ------------------ | -------- | --------------------------------------------------------------------------------------------- |
+| `pathDefinition`    | `Computed<string>` | Required | A string representing a path that can be fed into the `d` attribute of an SVG `path` element. |
+| `width`             | `number`           | `2`      | Stroke width of the line.                                                                     |
+| `color`             | `string`           | `'01'`   | Color to use, representing an index to one of the available Lume colors.                      |
+| `dashed`            | `boolean`          | `false`  | Whether the line should be displayed as dashed or solid.                                      |
+| `transition`        | `boolean`          | `true`   | Whether the line should animate.                                                              |
+| `animationDelay`    | `number`           | `0`      | Transition delay in seconds. Useful when animating a line composed of many `path`s.           |
+| `animationDuration` | `number`           | `0.2`    | Transition duration in seconds.                                                               |
+
+## Events
+
+| Event   | Payload        | Description                 |
+| ------- | -------------- | --------------------------- |
+| `click` | `PointerEvent` | Fired upon line path click. |

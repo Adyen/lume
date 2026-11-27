@@ -1,0 +1,22 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Groups/Overlay group" />
+
+# Lume overlay group
+
+Orchestrates hoverable overlay rectangles that highlight individual values or value sets in a chart.
+
+## Properties
+
+| Name          | Type                                                           | Default      | Description                                                               |
+| ------------- | -------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------- |
+| `data`        | `Data`                                                         | Required     | The data to plot.                                                         |
+| `orientation` | `String`                                                       | `'vertical'` | Must be either `'horizontal'` or `'vertical'`.                            |
+| `xScale`      | `ScaleGenerator` or `ScaleBand<string>` or `ScaleBand<number>` | `null`       | A d3 scale or a scale generator function to override the default X scale. |
+| `yScale`      | `ScaleGenerator` or `ScaleLinear<number, number>`              | `null`       | A d3 scale or a scale generator function to override the default Y scale. |
+
+## Events
+
+| Event   | Payload                                  | Description                         |
+| ------- | ---------------------------------------- | ----------------------------------- |
+| `click` | `{ index: number, event: PointerEvent }` | Fired upon clicking an overlay bar. |

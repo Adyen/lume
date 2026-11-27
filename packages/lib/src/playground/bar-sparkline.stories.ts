@@ -34,8 +34,8 @@ export default {
   },
 };
 
-export const Basic = ({ args }) => {
-  return {
+export const Basic = {
+  render: (args) => ({
     components: { BarSparkline },
     setup() {
       return { args };
@@ -45,5 +45,5 @@ export const Basic = ({ args }) => {
         <bar-sparkline v-bind="args" />
       </div>
     `,
-  };
+  }),
 };

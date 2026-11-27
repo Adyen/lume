@@ -1,0 +1,35 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Core/Chart container" />
+
+# Lume chart container
+
+Wrapper component for charts that provides sizing/dimension utilities and bridges HTML and SVG contexts. By detecting resizes, it alerts child components so the chart can smoothly re-render.
+
+## Structure & Slots
+
+The chart container is composed of an HTML wrapper containing structural slots and an SVG element where the default slotted content renders:
+
+- `default` - chart SVG elements, such as axes and data groups
+- `header` - chart titles, legend, and controls
+- `footer` - contextual information
+- `extra` - external HTML elements, such as a tooltip
+
+## Properties
+
+| Name                    | Type                         | Default      | Description                                                    |
+| ----------------------- | ---------------------------- | ------------ | -------------------------------------------------------------- |
+| `margins`               | `Margins`                    | `{}`         | Space around the chart.                                        |
+| `containerSize`         | `ContainerSize`              | `{}`         | The calculated container size.                                 |
+| `transparentBackground` | `boolean`                    | `false`      | Controls if the chart should have a transparent background.    |
+| `noMinSize`             | `boolean`                    | `false`      | Controls if the chart shouldn't have a 320x224px minimum size. |
+| `orientation`           | `'vertical' \| 'horizontal'` | `'vertical'` | The chart's orientation.                                       |
+
+## Events
+
+| Event        | Payload                                                                                          | Description                                                                                                           |
+| ------------ | ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| `click`      | `PointerEvent`                                                                                   | Fired upon clicking the SVG container.                                                                                |
+| `mouseenter` | `MouseEvent`                                                                                     | Fired upon the SVG container [mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event). |
+| `mouseleave` | `MouseEvent`                                                                                     | Fired upon the SVG container [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event). |
+| `resize`     | `{ width: number, height: number, outerWidth?: number, outerHeight?: number }` (`ContainerSize`) | Fired when the SVG container receives new dimensions.                                                                 |

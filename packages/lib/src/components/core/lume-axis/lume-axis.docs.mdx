@@ -1,0 +1,61 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as LumeAxisStories from './lume-axis.stories';
+
+<Meta of={LumeAxisStories} />
+
+# Lume axis
+
+<Canvas of={LumeAxisStories.xAxis} />
+
+An axis is a visual representation of a scale, usually a line with reference marks called ticks. Axes can be vertical or horizontal.
+
+Visualizations wrapped by a `LumeChart` component come with two default axes, one for the `x` scale and another for the `y` scale. These can be overridden using the `axes` slot.
+
+## Variations
+
+### Y axis
+
+<Canvas of={LumeAxisStories.yAxis} />
+
+### Y axis with start-aligned ticks
+
+<Canvas of={LumeAxisStories.yAxisTickAlignStart} />
+
+### Both axes
+
+<Canvas of={LumeAxisStories.bothAxes} />
+
+## Properties
+
+| Name            | Type                 | Default                   | Description                                                                    |
+| --------------- | -------------------- | ------------------------- | ------------------------------------------------------------------------------ |
+| `scale`         | `Scale`              | Required                  | The scale to represent.                                                        |
+| `type`          | `"x" \| "y"`         | `undefined`               | The type of the axis.                                                          |
+| `position`      | `"bottom" \| "left"` | `undefined`               | Where to position the axis.                                                    |
+| `containerSize` | `ContainerSize`      | `{ width: 0, height: 0 }` | An object with the chart dimensions.                                           |
+| `hoveredIndex`  | `number`             | `-1`                      | The index being hovered. Required if you want to enable hovering in the index. |
+| `options`       | `AxisOptions`        | `{}`                      | The axis options.                                                              |
+
+## Options
+
+Interface: `AxisOptions`
+
+| Name          | Type                                                     | Default (X) | Default (Y) | Description                                                                                                                                |
+| ------------- | -------------------------------------------------------- | ----------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `gridLines`   | `boolean`                                                | `false`     | `true`      | Draws the grid lines on every tick.                                                                                                        |
+| `withTitle`   | `boolean`                                                | `false`     | `true`      | Renders the axis title.                                                                                                                    |
+| `title`       | `string`                                                 | `undefined` | `undefined` | The axis title.                                                                                                                            |
+| `showTicks`   | `boolean`                                                | `true`      | `true`      | Renders the tick text.                                                                                                                     |
+| `tickCount`   | `number`                                                 | `10`        | `10`        | An approximate amount of ticks to draw. [Read more](https://github.com/d3/d3-array#ticks)                                                  |
+| `tickFormat`  | `string \| (tick: number \| string) => number \| string` | `null`      | `null`      | A format specifier string for [d3-format](https://github.com/d3/d3-format) or a formatting function.                                       |
+| `tickPadding` | `number`                                                 | `8`         | `8`         | The padding between an axis label and the axis line.                                                                                       |
+| `tickAlign`   | `'start' \| 'end'`                                       | `undefined` | `'end'`     | The alignment of the tick labels. `'end'` aligns them to the axis line; `'start'` aligns them on a shared left edge. Y axis only.          |
+| `skip`        | `true \| number`                                         | `true`      | `undefined` | A number of ticks to visually skip. If set to `true`, the axis will auto-skip the minimum amount of ticks to guarantee a balanced display. |
+
+## Events
+
+| Event        | Payload                                                                   | Description                                                                                                   |
+| ------------ | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `click`      | `{ index: number \| null, value: number \| string, event: PointerEvent }` | Fired upon axis click.                                                                                        |
+| `mouseenter` | `{ index: number \| null, value: number \| string, event: MouseEvent }`   | Fired upon axis tick [mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event). |
+| `mouseleave` | `MouseEvent`                                                              | Fired upon axis tick [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event). |

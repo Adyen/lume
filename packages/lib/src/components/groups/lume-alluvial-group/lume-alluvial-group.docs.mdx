@@ -1,0 +1,46 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Groups/Alluvial group" />
+
+# Lume alluvial group
+
+Transforms alluvial dataset entries into nodes and connecting links inside a `LumeChart`.
+
+## Properties
+
+| Name               | Type               | Default     | Description                                                                                                           |
+| ------------------ | ------------------ | ----------- | --------------------------------------------------------------------------------------------------------------------- |
+| `data`             | `Data`             | Required    | The data to plot.                                                                                                     |
+| `options`          | `Options`          | `undefined` | A set of chart options. Refer to `ChartOptions` in `LumeChart` and `AlluvialDiagramOptions` in `LumeAlluvialDiagram`. |
+| `hoveredElementId` | `number \| string` | `-1`        | ID of the link or node element that is hovered.                                                                       |
+
+## Events
+
+| Event             | Payload                                                                       | Description                                                                                                                  |
+| ----------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `node-click`      | `{ node: SankeyNode<SankeyNodeProps, SankeyLinkProps>, event: PointerEvent }` | Fired upon clicking a node in an alluvial diagram.                                                                           |
+| `node-mouseenter` | `{ node: SankeyNode<SankeyNodeProps, SankeyLinkProps>, event: MouseEvent }`   | Fired upon an alluvial diagram node [mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event). |
+| `node-mouseleave` | `{ node: SankeyNode<SankeyNodeProps, SankeyLinkProps>, event: MouseEvent }`   | Fired upon an alluvial diagram node [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event). |
+| `link-click`      | `{ link: SankeyLink<SankeyNodeProps, SankeyLinkProps>, event: PointerEvent }` | Fired upon clicking a link in an alluvial diagram.                                                                           |
+| `link-mouseenter` | `{ link: SankeyLink<SankeyNodeProps, SankeyLinkProps>, event: MouseEvent }`   | Fired upon an alluvial diagram link [mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event). |
+| `link-mouseleave` | `{ link: SankeyLink<SankeyNodeProps, SankeyLinkProps>, event: MouseEvent }`   | Fired upon an alluvial diagram link [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event). |
+
+## Subcomponents
+
+### Lume alluvial node header
+
+Wrapper component for column headers rendered inside the `node-header-{INDEX}` slot of `LumeAlluvialDiagram`. Supports `before`, `default`, and `after` slots.
+
+| Prop    | Type                            | Default    | Description                                                   |
+| ------- | ------------------------------- | ---------- | ------------------------------------------------------------- |
+| `align` | `'left' \| 'center' \| 'right'` | `'center'` | The horizontal alignment of the header text, relative to `x`. |
+| `x`     | `number`                        | Required   | The horizontal position of the header.                        |
+| `y`     | `number`                        | Required   | The vertical position of the header.                          |
+
+### Lume alluvial node label
+
+Wrapper component for custom node labels rendered inside the `node-text-{NODE_ID}` slot of `LumeAlluvialDiagram`. Has no props.
+
+### Lume alluvial node value
+
+Wrapper component for custom node values rendered inside the `node-text-{NODE_ID}` slot of `LumeAlluvialDiagram`. Has no props.

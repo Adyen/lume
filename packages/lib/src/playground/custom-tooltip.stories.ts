@@ -38,101 +38,107 @@ export default {
   },
 };
 
-export const CustomTooltipElement = ({ args }) => ({
-  components: { LumeChart, LumeLineGroup, CustomTooltip },
-  setup() {
-    return { args };
-  },
-  template: `
-  <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
-    <lume-chart v-bind="args">
-      <template #groups="props">
-        <lume-line-group v-bind="props" />
-      </template>
-      <template #tooltip="props">
-        <custom-tooltip v-bind="props" />
-      </template>
-    </lume-chart>
-  </div>
-  `,
-});
+export const CustomTooltipElement = {
+  render: (args) => ({
+    components: { LumeChart, LumeLineGroup, CustomTooltip },
+    setup() {
+      return { args };
+    },
+    template: `
+    <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+      <lume-chart v-bind="args">
+        <template #groups="props">
+          <lume-line-group v-bind="props" />
+        </template>
+        <template #tooltip="props">
+          <custom-tooltip v-bind="props" />
+        </template>
+      </lume-chart>
+    </div>
+    `,
+  }),
+};
 
-export const CustomTooltipContent = ({ args }) => ({
-  components: { LumeChart, LumeLineGroup, CustomTooltip },
-  setup() {
-    return { args };
-  },
-  template: `
-  <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
-    <lume-chart v-bind="args">
-      <template #groups="props">
-        <lume-line-group v-bind="props" />
-      </template>
-      <template #tooltip-content="{ data, labels, hoveredIndex }">
-        On {{ labels[hoveredIndex] }}, the value was <strong>{{ data[0].values[hoveredIndex]?.value }}</strong>
-      </template>
-    </lume-chart>
-  </div>
-  `,
-});
-CustomTooltipContent.args = {
-  options: {
-    ...defaultOptions,
-    tooltipOptions: { position: 'right-end' },
+export const CustomTooltipContent = {
+  render: (args) => ({
+    components: { LumeChart, LumeLineGroup, CustomTooltip },
+    setup() {
+      return { args };
+    },
+    template: `
+    <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+      <lume-chart v-bind="args">
+        <template #groups="props">
+          <lume-line-group v-bind="props" />
+        </template>
+        <template #tooltip-content="{ data, labels, hoveredIndex }">
+          On {{ labels[hoveredIndex] }}, the value was <strong>{{ data[0].values[hoveredIndex]?.value }}</strong>
+        </template>
+      </lume-chart>
+    </div>
+    `,
+  }),
+  args: {
+    options: {
+      ...defaultOptions,
+      tooltipOptions: { position: 'right-end' },
+    },
   },
 };
 
-export const CustomTooltipContentWithSlots = ({ args }) => ({
-  components: {
-    LumeChart,
-    LumeLineGroup,
-    LumeTooltip,
-    LumeTooltipTitle,
-    LumeTooltipSummary,
-    LumeTooltipItem,
-  },
-  setup() {
-    const isPositive = (value: number) => value > 25;
-    const getPercentage = (value: number) =>
-      `${Math.round((25 / value + Number.EPSILON) * 100) / 100} %`;
-    return { args, getPercentage, isPositive };
-  },
-  template: `
-  <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
-    <lume-chart v-bind="args">
-      <template #groups="props">
-        <lume-line-group v-bind="props" />
-      </template>
-      <template #tooltip="props">
-        <lume-tooltip v-bind="props">
-          <template #title>
-            <lume-tooltip-title>Purchases of items in 2022</lume-tooltip-title>
-          </template>
-          <template #summary>
-            <lume-tooltip-summary>These amounts are subject to change.</lume-tooltip-summary>
-          </template>
-          <template #items>
-            <lume-tooltip-item color="violet">
-              <template #label>Purchase #</template>
-              <template #value>{{ props.items[0].value }}</template>
-            </lume-tooltip-item>
-            <lume-tooltip-item>
-              <template #label>Growth</template>
-              <template #value>
-                <span :style="{ color: isPositive(props.items[0].value) ? '#0abf53' : '#f33030' }">
-                  {{ isPositive(props.items[0].value) ? '↑' : '↓' }} {{ getPercentage(props.items[0].value) }}
-                </span>
-              </template>
-            </lume-tooltip-item>
-          </template>
-        </lume-tooltip>
-      </template>
-    </lume-chart>
-  </div>
-  `,
-});
-CustomTooltipContentWithSlots.args = {
-  options: {
-    ...defaultOptions,
+export const CustomTooltipContentWithSlots = {
+  render: (args) => ({
+    components: {
+      LumeChart,
+      LumeLineGroup,
+      LumeTooltip,
+      LumeTooltipTitle,
+      LumeTooltipSummary,
+      LumeTooltipItem,
+    },
+    setup() {
+      const isPositive = (value: number) => value > 25;
+      const getPercentage = (value: number) =>
+        `${Math.round((25 / value + Number.EPSILON) * 100) / 100} %`;
+      return { args, getPercentage, isPositive };
+    },
+    template: `
+    <div :style="{ width: args.width + 'px', height: args.height + 'px' }">
+      <lume-chart v-bind="args">
+        <template #groups="props">
+          <lume-line-group v-bind="props" />
+        </template>
+        <template #tooltip="props">
+          <lume-tooltip v-bind="props">
+            <template #title>
+              <lume-tooltip-title>Purchases of items in 2022</lume-tooltip-title>
+            </template>
+            <template #summary>
+              <lume-tooltip-summary>These amounts are subject to change.</lume-tooltip-summary>
+            </template>
+            <template #items>
+              <lume-tooltip-item color="violet">
+                <template #label>Purchase #</template>
+                <template #value>{{ props.items[0].value }}</template>
+              </lume-tooltip-item>
+              <lume-tooltip-item>
+                <template #label>Growth</template>
+                <template #value>
+                  <span :style="{ color: isPositive(props.items[0].value) ? '#0abf53' : '#f33030' }">
+                    {{ isPositive(props.items[0].value) ? '↑' : '↓' }} {{ getPercentage(props.items[0].value) }}
+                  </span>
+                </template>
+              </lume-tooltip-item>
+            </template>
+          </lume-tooltip>
+        </template>
+      </lume-chart>
+    </div>
+    `,
+  }),
+  args: {
+    options: {
+      ...defaultOptions,
+    },
   },
 };

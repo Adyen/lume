@@ -2,8 +2,10 @@ import { computed } from 'vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import { Colors } from '@/types/utils';
+import { storybookDocsParameter } from '@/docs/storybook-helpers';
 
 import LumePoint from './lume-point.vue';
+import basicExample from './__tests__/lume-point-basic-example.vue?raw';
 
 const meta: Meta<typeof LumePoint> = {
   title: 'Core/Point',
@@ -25,7 +27,8 @@ export default meta;
 type Story = StoryObj<typeof LumePoint>;
 
 export const Basic: Story = {
-  render: ({ args }) => ({
+  parameters: storybookDocsParameter(basicExample),
+  render: (args) => ({
     components: { LumePoint },
     setup() {
       const computedColor = computed(() => Colors[args.color]);

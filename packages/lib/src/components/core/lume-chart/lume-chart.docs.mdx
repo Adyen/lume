@@ -1,0 +1,156 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Core/Chart" />
+
+# Lume chart
+
+The `lume-chart` component is the base component for all charts in Lume. It implements generic chart layout, sizing, axes, legend, and tooltip features, and exposes slots so you can compose custom visualizations.
+
+## Slots
+
+All slots except `groups` have fallback content. The `groups` slot **must** contain at least one element (such as `lume-bar-group` or `lume-line-group`) to display data.
+
+- `controls` - chart controls on the top-right of the header
+- `legend` - chart legend on the top-right of the header, below `controls`
+- `axes` - chart axes
+- `groups` - data groups
+- `tooltip` - custom tooltip element (replaces default tooltip)
+- `tooltip-content` - custom tooltip inner content
+
+### Slot props
+
+#### `controls`
+
+No props.
+
+#### `legend`
+
+| Name   | Type   | Description       |
+| ------ | ------ | ----------------- |
+| `data` | `Data` | The data to plot. |
+
+#### `axes`
+
+| Name            | Type                                | Description                            |
+| --------------- | ----------------------------------- | -------------------------------------- |
+| `xScale`        | `Scale`                             | The base X scale.                      |
+| `yScale`        | `Scale`                             | The base Y scale.                      |
+| `containerSize` | `{ width: number, height: number }` | The chart container size.              |
+| `options`       | `Options`                           | A set of chart options.                |
+| `hoveredIndex`  | `number`                            | Index of the data point being hovered. |
+
+#### `groups`
+
+| Name           | Type                         | Description                                                                                 |
+| -------------- | ---------------------------- | ------------------------------------------------------------------------------------------- |
+| `data`         | `Data`                       | The data to plot.                                                                           |
+| `labels`       | `Array<string \| number>`    | The group of labels to plot the data to.                                                    |
+| `options`      | `Options`                    | A set of chart options.                                                                     |
+| `orientation`  | `'vertical' \| 'horizontal'` | The chart's orientation.                                                                    |
+| `xScale`       | `Scale`                      | The base X scale.                                                                           |
+| `yScale`       | `Scale`                      | The base Y scale.                                                                           |
+| `hoveredIndex` | `number`                     | Index of the data point being hovered.                                                      |
+| `classList`    | `string \| Array<string>`    | A class or array of classes to apply to the chart group elements, such as bars, lines, etc. |
+
+#### `tooltip`
+
+| Name               | Type                      | Description                                                                                                                        |
+| ------------------ | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `opened`           | `boolean`                 | If the tooltip is displayed.                                                                                                       |
+| `targetElement`    | `Element`                 | The element that the tooltip will latch on to.                                                                                     |
+| `data`             | `Data`                    | The chart data.                                                                                                                    |
+| `labels`           | `Array<string \| number>` | The chart labels.                                                                                                                  |
+| `title`            | `string`                  | The tooltip title.                                                                                                                 |
+| `items`            | `Array<TooltipItem>`      | List of items to render in the tooltip.                                                                                            |
+| `position`         | `string`                  | The tooltip placement relative to the data point. Full list of options [here](https://popper.js.org/docs/v2/constructors/#options) |
+| `withTooltip`      | `boolean`                 | Displays the chart tooltip.                                                                                                        |
+| `hoveredIndex`     | `number`                  | Index of the data point being hovered.                                                                                             |
+| `options`          | `TooltipOptions`          | Set of options for the tooltip component.                                                                                          |
+| `handleMouseEnter` | `() => void`              | Call when the cursor enters a custom tooltip with `withPointerEvents: true`.                                                       |
+| `handleMouseLeave` | `() => void`              | Call when the cursor leaves a custom tooltip with `withPointerEvents: true`.                                                       |
+
+> **Note:** When overriding the `tooltip` slot with `withPointerEvents: true`, forward `@tooltip-mouseenter` to `handleMouseEnter` and `@tooltip-mouseleave` to `handleMouseLeave` so `lume-chart` tracks hover state inside the tooltip.
+
+#### `tooltip-content`
+
+| Name           | Type                      | Description                            |
+| -------------- | ------------------------- | -------------------------------------- |
+| `data`         | `Data`                    | The chart data.                        |
+| `labels`       | `Array<string \| number>` | The chart labels.                      |
+| `hoveredIndex` | `number`                  | Index of the data point being hovered. |
+
+## Properties
+
+| Name          | Type                                            | Default      | Description                                                               |
+| ------------- | ----------------------------------------------- | ------------ | ------------------------------------------------------------------------- |
+| `data`        | `Data`                                          | Required     | The data to plot.                                                         |
+| `labels`      | `Array<string \| number>`                       | `undefined`  | The group of labels to plot the data to.                                  |
+| `xScale`      | `ScaleGenerator \| ScaleBand<string \| number>` | `undefined`  | A d3 scale or a scale generator function to override the default X scale. |
+| `yScale`      | `ScaleGenerator \| ScaleLinear<number, number>` | `undefined`  | A d3 scale or a scale generator function to override the default Y scale. |
+| `options`     | `Options`                                       | `undefined`  | A set of chart options.                                                   |
+| `orientation` | `'vertical' \| 'horizontal'`                    | `'vertical'` | The chart's orientation.                                                  |
+| `title`       | `String`                                        | `undefined`  | The chart title.                                                          |
+
+## Options
+
+### `ChartOptions`
+
+| Name                    | Type                      | Description                                                                                               |
+| ----------------------- | ------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `margins`               | `Margins \| "auto"`       | Space around the chart. If provided with `"auto"`, calculates margins according to the axis labels' size. |
+| `xAxisOptions`          | `AxisOptions`             | Set of options for the X axis.                                                                            |
+| `yAxisOptions`          | `AxisOptions`             | Set of options for the Y axis.                                                                            |
+| `tooltipOptions`        | `TooltipOptions`          | Set of options for the tooltip component.                                                                 |
+| `colorPalette`          | `ColorPalette`            | Which color sequence to use for rendering the datasets.                                                   |
+| `startOnZero`           | `boolean`                 | Controls if the Y scale should start on `0`. Always `true` for Bar charts.                                |
+| `withAxes`              | `boolean`                 | Displays chart axes.                                                                                      |
+| `withTooltip`           | `boolean`                 | Displays the chart tooltip.                                                                               |
+| `withLegend`            | `boolean`                 | Displays the chart legend in the header.                                                                  |
+| `legendPosition`        | `'top' \| 'bottom'`       | Where to display the chart legend.                                                                        |
+| `withTransition`        | `boolean`                 | Toggles the chart transition animations.                                                                  |
+| `noBaseScales`          | `boolean`                 | Controls if `LumeChart` should generate general-purpose scales or not.                                    |
+| `noMinSize`             | `boolean`                 | If true, the chart container will not have minimum width/height.                                          |
+| `transparentBackground` | `boolean`                 | If true, the `<svg>` container will not have a solid background.                                          |
+| `classList`             | `string \| Array<string>` | A class or array of classes to apply to the chart group elements, such as bars, lines, etc.               |
+
+### `Margins`
+
+| Name     | Type               | Description         |
+| -------- | ------------------ | ------------------- |
+| `top`    | `number \| "auto"` | Top margin size.    |
+| `right`  | `number \| "auto"` | Right margin size.  |
+| `bottom` | `number \| "auto"` | Bottom margin size. |
+| `left`   | `number \| "auto"` | Left margin size.   |
+
+> **Note:** If any value is `"auto"`, it is calculated according to the axis labels' size.
+
+## Events
+
+| Event                   | Payload                                                                                          | Description                                                                                                                  |
+| ----------------------- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| `axis-click`            | `{ index: number \| null, value?: number \| string, event?: PointerEvent }`                      | Fired upon clicking a chart axis.                                                                                            |
+| `axis-mouseenter`       | `{ index: number \| null, value?: number \| string, event?: MouseEvent }`                        | Fired upon a chart axis tick [mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event).        |
+| `axis-mouseleave`       | None                                                                                             | Fired upon a chart axis tick [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event).        |
+| `bar-click`             | `{ index: number, datasetIndex: number, event: PointerEvent }`                                   | Fired upon clicking a bar in a bar chart.                                                                                    |
+| `chart-click`           | `PointerEvent`                                                                                   | Fired upon clicking the chart.                                                                                               |
+| `chart-mouseenter`      | `PointerEvent`                                                                                   | Fired upon a chart [mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event).                  |
+| `chart-mouseleave`      | None                                                                                             | Fired upon a chart [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event).                  |
+| `data-changed`          | `{ newValue: Data, oldValue: Data \| null }`                                                     | Fired upon a chart receiving new data.                                                                                       |
+| `labels-changed`        | `{ newValue: Array<string>, oldValue: Array<string> \| null }`                                   | Fired upon a chart receiving new labels.                                                                                     |
+| `legend-click`          | `{ index: number, dataset: InternalDataset<DatasetValueObject>, event: PointerEvent }`           | Fired upon clicking a chart legend item.                                                                                     |
+| `legend-mouseenter`     | `{ index: number, dataset: InternalDataset<DatasetValueObject>, event: MouseEvent }`             | Fired upon a chart legend item [mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event).      |
+| `mouseleave`            | None                                                                                             | Fired upon a chart legend group [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event).     |
+| `line-click`            | `{ index: number, datasetIndex: number, event: PointerEvent }`                                   | Fired upon clicking a line in a line chart.                                                                                  |
+| `point-click`           | `{ index: number, datasetIndex: number, event: PointerEvent }`                                   | Fired upon clicking a point in a line chart.                                                                                 |
+| `rendered`              | None                                                                                             | Fired upon chart initial render.                                                                                             |
+| `resize`                | `{ width: number, height: number, outerWidth?: number, outerHeight?: number }` (`ContainerSize`) | Fired when the chart container receives new dimensions.                                                                      |
+| `tooltip-opened`        | `{ index: number, targetElement: Element }`                                                      | Fired upon a chart tooltip's initial render.                                                                                 |
+| `tooltip-moved`         | `{ index: number, targetElement: Element }`                                                      | Fired upon a chart tooltip's `targetElement` change.                                                                         |
+| `tooltip-closed`        | None                                                                                             | Fired upon a chart tooltip's unmount.                                                                                        |
+| `node-click`            | `{ node: SankeyNode<SankeyNodeProps, SankeyLinkProps>, event: PointerEvent }`                    | Fired upon clicking a node in an alluvial diagram.                                                                           |
+| `node-mouseenter`       | `{ node: SankeyNode<SankeyNodeProps, SankeyLinkProps>, event: MouseEvent }`                      | Fired upon an alluvial diagram node [mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event). |
+| `node-mouseleave`       | `{ node: SankeyNode<SankeyNodeProps, SankeyLinkProps>, event: MouseEvent }`                      | Fired upon an alluvial diagram node [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event). |
+| `link-click`            | `{ link: SankeyLink<SankeyNodeProps, SankeyLinkProps>, event: PointerEvent }`                    | Fired upon clicking a link in an alluvial diagram.                                                                           |
+| `link-mouseenter`       | `{ link: SankeyLink<SankeyNodeProps, SankeyLinkProps>, event: MouseEvent }`                      | Fired upon an alluvial diagram link [mouseenter](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event). |
+| `link-mouseleave`       | `{ link: SankeyLink<SankeyNodeProps, SankeyLinkProps>, event: MouseEvent }`                      | Fired upon an alluvial diagram link [mouseleave](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event). |
+| `hovered-index-changed` | `{ oldIndex: number, newIndex: number }`                                                         | Fired whenever the hovered index changes.                                                                                    |

@@ -38,7 +38,7 @@ export default meta;
 type Story = StoryObj<typeof LumeBarChart>;
 
 export const Basic: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeBarChart },
     setup() {
       const containerStyle = {

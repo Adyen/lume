@@ -1,5 +1,14 @@
-import { getDecorators } from 'storybook-utils/preview';
+import { parameters as baseParameters } from 'storybook-utils/preview';
 
-export { parameters } from 'storybook-utils/preview';
+export { decorators } from 'storybook-utils/preview';
 
-export const decorators = getDecorators(3);
+export const parameters = {
+  ...baseParameters,
+  docs: {
+    ...baseParameters.docs,
+    codePanel: true,
+    source: {
+      format: true,
+    },
+  },
+};

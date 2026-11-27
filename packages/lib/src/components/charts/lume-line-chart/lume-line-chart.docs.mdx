@@ -1,0 +1,46 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as LumeLineChartStories from './lume-line-chart.stories';
+
+<Meta of={LumeLineChartStories} />
+
+# Lume line chart
+
+<Canvas of={LumeLineChartStories.Basic} />
+
+Line charts plot data at regular intervals connected by lines from left to right to demonstrate changes in value. Pass `data` and `labels` to render a line chart with default settings.
+
+## Variations
+
+### Multiple datasets
+
+Plot multiple series together with shared axes and legend.
+
+<Canvas of={LumeLineChartStories.MultipleDatasets} />
+
+### Custom tooltip
+
+Override the `tooltip` slot to customize tooltip rendering.
+
+<Canvas of={LumeLineChartStories.CustomTooltip} />
+
+### Empty state
+
+<Canvas of={LumeLineChartStories.Empty} />
+
+## Properties
+
+| Name           | Type                                            | Default     | Description                                                                                            |
+| -------------- | ----------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------ |
+| `data`         | `Data`                                          | Required    | The data to plot.                                                                                      |
+| `labels`       | `Array<string \| number>`                       | Required    | The group of labels to plot the data to.                                                               |
+| `xScale`       | `ScaleGenerator \| ScaleBand<string \| number>` | `undefined` | A d3 scale or a scale generator function to override the default X scale.                              |
+| `yScale`       | `ScaleGenerator \| ScaleLinear<number, number>` | `undefined` | A d3 scale or a scale generator function to override the default Y scale.                              |
+| `options`      | `Options`                                       | `undefined` | A set of chart options.                                                                                |
+| `title`        | `String`                                        | `undefined` | The chart title.                                                                                       |
+| `hoveredIndex` | `number`                                        | `undefined` | The hovered data point index. Can be used to hover programmatically. Set to `-1` to reset hover state. |
+| `lineWidth`    | `Number`                                        | `undefined` | The width of lines drawn.                                                                              |
+| `withPoints`   | `Boolean`                                       | `true`      | Indicator if the chart should render point circles or just lines.                                      |
+
+## Events
+
+This chart extends the Events API from the `LumeChart` core component.

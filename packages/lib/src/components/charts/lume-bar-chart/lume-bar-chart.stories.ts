@@ -4,10 +4,19 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import {
   actionEventHandlerTemplate,
   captureAction,
+  storybookDocsParameter,
   withSizeArgs,
   withSizeArgTypes,
 } from '@/docs/storybook-helpers';
 import DATASETS from '@/docs/storybook-data/base-data';
+
+import verticalBarChartExample from './__tests__/lume-bar-chart-vertical-example.vue?raw';
+import horizontalBarChartExample from './__tests__/lume-bar-chart-horizontal-example.vue?raw';
+import missingDataPointsExample from './__tests__/lume-bar-chart-missing-data-points-example.vue?raw';
+import groupedBarChartExample from './__tests__/lume-bar-chart-grouped-example.vue?raw';
+import stackedBarChartExample from './__tests__/lume-bar-chart-stacked-example.vue?raw';
+import customTooltipExample from './__tests__/lume-bar-chart-custom-tooltip-example.vue?raw';
+import emptyExample from './__tests__/lume-bar-chart-empty-example.vue?raw';
 
 import LumeBarChart from './index';
 import LumeTooltip from '../../core/lume-tooltip/index';
@@ -60,7 +69,8 @@ export default meta;
 type Story = StoryObj<typeof LumeBarChart>;
 
 export const VerticalBarChart: Story = {
-  render: ({ args }) => ({
+  parameters: storybookDocsParameter(verticalBarChartExample),
+  render: (args) => ({
     components: { LumeBarChart },
     setup() {
       const computedColor = computed(() => Colors[args.color]);
@@ -82,7 +92,8 @@ export const VerticalBarChart: Story = {
 };
 
 export const HorizontalBarChart: Story = {
-  render: ({ args }) => ({
+  parameters: storybookDocsParameter(horizontalBarChartExample),
+  render: (args) => ({
     components: { LumeBarChart },
     setup() {
       const computedColor = computed(() => Colors[args.color]);
@@ -99,7 +110,8 @@ export const HorizontalBarChart: Story = {
 };
 
 export const MissingDataPoints: Story = {
-  render: ({ args }) => ({
+  parameters: storybookDocsParameter(missingDataPointsExample),
+  render: (args) => ({
     components: { LumeBarChart },
     setup() {
       const computedColor = computed(() => Colors[args.color]);
@@ -123,7 +135,8 @@ export const MissingDataPoints: Story = {
 };
 
 export const GroupedBarChart: Story = {
-  render: ({ args }) => ({
+  parameters: storybookDocsParameter(groupedBarChartExample),
+  render: (args) => ({
     components: { LumeBarChart },
     setup() {
       const computedColor = computed(() => Colors[args.color]);
@@ -141,7 +154,8 @@ export const GroupedBarChart: Story = {
 };
 
 export const StackedBarChart: Story = {
-  render: ({ args }) => ({
+  parameters: storybookDocsParameter(stackedBarChartExample),
+  render: (args) => ({
     components: { LumeBarChart },
     setup() {
       const computedColor = computed(() => Colors[args.color]);
@@ -159,7 +173,8 @@ export const StackedBarChart: Story = {
 };
 
 export const CustomTooltip: Story = {
-  render: ({ args }) => ({
+  parameters: storybookDocsParameter(customTooltipExample),
+  render: (args) => ({
     components: { LumeBarChart, LumeTooltip },
     setup() {
       const computedColor = computed(() => Colors[args.color]);
@@ -195,7 +210,8 @@ export const CustomTooltip: Story = {
 };
 
 export const Empty: Story = {
-  render: ({ args }) => ({
+  parameters: storybookDocsParameter(emptyExample),
+  render: (args) => ({
     components: { LumeBarChart },
     setup() {
       return { args, captureAction };
@@ -206,5 +222,6 @@ export const Empty: Story = {
   }),
   args: {
     ...DATASETS.Empty,
+    type: 'grouped',
   },
 };
