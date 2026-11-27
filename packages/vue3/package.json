@@ -20,13 +20,11 @@
   },
   "types": "./dist/@types/index.d.ts",
   "scripts": {
-    "build": "NODE_ENV=production pnpm run build:vite && pnpm run build:font && pnpm run build:types",
+    "build": "NODE_ENV=production pnpm run build:vite && pnpm run build:types",
     "build:vite": "vite build",
-    "build:font": "webpack",
     "build:storybook": "sb build -c .storybook",
     "build:types": "vue-tsc -p ./tsconfig.d.json",
     "pack": "pnpm pack --pack-destination ../../",
-    "postbuild": "node ../../build/postbuild.js",
     "storybook": "sb dev -p 9003 -c .storybook",
     "test": "vitest run --config=vitest.config.ts --coverage"
   },
@@ -53,7 +51,6 @@
     "jsdom": "26.1.0",
     "storybook-utils": "workspace:storybook-utils@*",
     "vite": "7.3.7",
-    "vite-plugin-static-copy": "3.2.0",
     "vitest": "4.1.12",
     "vue": "3.3.7",
     "vue-tsc": "2.2.0"

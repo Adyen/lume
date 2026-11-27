@@ -1,8 +1,8 @@
 /* 
   Inter font face 
 
-  This is a Sass file so that the assets get encoded by Webpack
-  into Base64 to be included in the bundled package. It is removed
+  This is a Sass file so that the assets get encoded by Vite
+  into Base64 to be included in the bundled package. It is excluded
   from dist/scss in the final package to avoid confusion.
 */
 

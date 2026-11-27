@@ -34,7 +34,7 @@ Lume is a combination of a set of design guidelines for creating data visualizat
 #### Dev stack
 
 - [pnpm](https://pnpm.io/) for package management
-- [Vite](https://vitejs.dev/) and [Webpack](https://webpack.js.org/) for bundling
+- [Vite](https://vitejs.dev/) for bundling
 - [Sass](https://sass-lang.com/) for complex/reusable styling
 - [TypeScript](https://www.typescriptlang.org/) for type checking
 - [TypeScript ESLint](https://typescript-eslint.io/) for linting _(with the help of [eslint-plugin-vue](https://eslint.vuejs.org/))_
