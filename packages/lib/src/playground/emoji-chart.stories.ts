@@ -29,8 +29,8 @@ export default {
   },
 };
 
-export const Basic = ({ args }) => {
-  return {
+export const Basic = {
+  render: (args) => ({
     components: { LumeChart, EmojiGroup },
     setup() {
       return { args };
@@ -44,5 +44,5 @@ export const Basic = ({ args }) => {
       </lume-chart>
     </div>
     `,
-  };
+  }),
 };

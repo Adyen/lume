@@ -33,8 +33,8 @@ export default {
   },
 };
 
-export const Basic = ({ args }) => {
-  return {
+export const Basic = {
+  render: (args) => ({
     components: { LinkedBarChart },
     setup() {
       return { args };
@@ -44,5 +44,5 @@ export const Basic = ({ args }) => {
       <linked-bar-chart v-bind="args" />
     </div>
     `,
-  };
+  }),
 };

@@ -53,7 +53,7 @@ export default meta;
 type Story = StoryObj<typeof LumeAlluvialDiagram>;
 
 export const Basic: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeAlluvialDiagram },
     setup() {
       return { args, captureAction };
@@ -72,7 +72,7 @@ export const Basic: Story = {
 };
 
 export const MultipleLevels: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeAlluvialDiagram },
     setup() {
       return { args, captureAction };
@@ -93,7 +93,7 @@ export const MultipleLevels: Story = {
 };
 
 export const InnerAlignedNodeLabels: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeAlluvialDiagram },
     setup() {
       return { args, captureAction };
@@ -114,7 +114,7 @@ export const InnerAlignedNodeLabels: Story = {
 };
 
 export const MultipleLevelsWithColorDerivationFromIncomingLinks: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeAlluvialDiagram },
     setup() {
       return { args, captureAction };
@@ -131,7 +131,7 @@ export const MultipleLevelsWithColorDerivationFromIncomingLinks: Story = {
 };
 
 export const CustomCurveFunction: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeAlluvialDiagram },
     setup() {
       return { args, captureAction };
@@ -151,7 +151,7 @@ export const CustomCurveFunction: Story = {
 };
 
 export const CustomNodeSlots: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: {
       LumeTooltip,
       LumeAlluvialDiagram,
@@ -167,8 +167,8 @@ export const CustomNodeSlots: Story = {
       <template #node-text-students="{ node }">
         <tspan
           style="cursor: pointer;"
-          @mouseenter.native="targetElement = $event.target"
-          @mouseleave.native="targetElement = null"
+          @mouseenter="targetElement = $event.target"
+          @mouseleave="targetElement = null"
         >ℹ️</tspan>
         <lume-alluvial-node-label dx="4">Custom label</lume-alluvial-node-label>
         <lume-alluvial-node-value>
@@ -191,7 +191,7 @@ export const CustomNodeSlots: Story = {
 };
 
 export const NodeOffset: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeAlluvialDiagram },
     setup() {
       return { args, captureAction };
@@ -212,7 +212,7 @@ export const NodeOffset: Story = {
 };
 
 export const Empty: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeAlluvialDiagram },
     setup() {
       return { args, captureAction };

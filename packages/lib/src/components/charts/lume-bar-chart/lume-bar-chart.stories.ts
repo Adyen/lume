@@ -60,7 +60,7 @@ export default meta;
 type Story = StoryObj<typeof LumeBarChart>;
 
 export const VerticalBarChart: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeBarChart },
     setup() {
       const computedColor = computed(() => Colors[args.color]);
@@ -82,7 +82,7 @@ export const VerticalBarChart: Story = {
 };
 
 export const HorizontalBarChart: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeBarChart },
     setup() {
       const computedColor = computed(() => Colors[args.color]);
@@ -99,7 +99,7 @@ export const HorizontalBarChart: Story = {
 };
 
 export const MissingDataPoints: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeBarChart },
     setup() {
       const computedColor = computed(() => Colors[args.color]);
@@ -123,7 +123,7 @@ export const MissingDataPoints: Story = {
 };
 
 export const GroupedBarChart: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeBarChart },
     setup() {
       const computedColor = computed(() => Colors[args.color]);
@@ -141,7 +141,7 @@ export const GroupedBarChart: Story = {
 };
 
 export const StackedBarChart: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeBarChart },
     setup() {
       const computedColor = computed(() => Colors[args.color]);
@@ -159,7 +159,7 @@ export const StackedBarChart: Story = {
 };
 
 export const CustomTooltip: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeBarChart, LumeTooltip },
     setup() {
       const computedColor = computed(() => Colors[args.color]);
@@ -195,7 +195,7 @@ export const CustomTooltip: Story = {
 };
 
 export const Empty: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeBarChart },
     setup() {
       return { args, captureAction };
@@ -206,5 +206,6 @@ export const Empty: Story = {
   }),
   args: {
     ...DATASETS.Empty,
+    type: 'grouped',
   },
 };

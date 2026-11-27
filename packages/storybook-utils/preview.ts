@@ -1,5 +1,3 @@
-import { useArgs } from '@storybook/preview-api';
-
 import iFrameResizer from './decorators/iframe-resizer';
 
 import '../lib/src/styles/font.scss';
@@ -8,7 +6,6 @@ import '../lib/src/styles/main.scss';
 import './preview-styles.scss';
 
 export const parameters = {
-  passArgsFirst: false,
   backgrounds: {
     default: 'light',
     values: [
@@ -30,10 +27,6 @@ export const parameters = {
 
 export function getDecorators(version: 2 | 3) {
   return [
-    (story, context) => {
-      const [_, updateArgs] = useArgs();
-      return story({ ...context, updateArgs });
-    },
     iFrameResizer(),
     () => ({
       template: `

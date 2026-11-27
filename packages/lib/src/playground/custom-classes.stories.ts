@@ -27,8 +27,8 @@ export default {
   },
 };
 
-export const Basic = ({ args }) => {
-  return {
+export const Basic = {
+  render: (args) => ({
     components: { CustomClasses },
     setup() {
       return { args };
@@ -38,5 +38,5 @@ export const Basic = ({ args }) => {
       <custom-classes v-bind="args" />
     </div>
     `,
-  };
+  }),
 };

@@ -25,7 +25,7 @@ export default meta;
 type Story = StoryObj<typeof LumePoint>;
 
 export const Basic: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumePoint },
     setup() {
       const computedColor = computed(() => Colors[args.color]);

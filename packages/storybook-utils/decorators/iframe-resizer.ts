@@ -111,7 +111,7 @@ function IframeResizer() {
   };
 }
 
-export default () => (Story, context) => {
+export default () => (Story) => {
   IframeResizer().create();
-  return Story({ ...context });
+  return Story();
 };

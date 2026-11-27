@@ -1,4 +1,4 @@
-import { toRefs } from 'vue';
+import { reactive, toRefs } from 'vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 
 import DATASETS from '@/docs/storybook-data/base-data';
@@ -24,10 +24,10 @@ export default meta;
 type Story = StoryObj<typeof LumeChartLegend>;
 
 export const Basic: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeChartLegend },
     setup() {
-      const { data, labels } = toRefs(args);
+      const { data, labels } = toRefs(reactive(args));
       const { internalData } = useBase(data, labels);
       return { args, internalData };
     },
@@ -39,10 +39,10 @@ export const Basic: Story = {
 };
 
 export const MultipleDatasets: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeChartLegend },
     setup() {
-      const { data, labels } = toRefs(args);
+      const { data, labels } = toRefs(reactive(args));
       const { internalData } = useBase(data, labels);
       return { args, internalData };
     },

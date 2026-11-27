@@ -54,12 +54,12 @@ export default {
   },
 };
 
-export const Basic = ({ args }) => {
-  return {
+export const Basic = {
+  render: (args) => ({
     components: { LineBarChart },
     setup() {
       return { args };
     },
     template: `<line-bar-chart v-bind="args" />`,
-  };
+  }),
 };

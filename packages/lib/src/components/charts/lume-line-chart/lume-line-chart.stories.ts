@@ -51,7 +51,7 @@ export default meta;
 type Story = StoryObj<typeof LumeLineChart>;
 
 export const Basic: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeLineChart },
     setup() {
       return { args, captureAction };
@@ -67,7 +67,7 @@ export const Basic: Story = {
 };
 
 export const MultipleDatasets: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeLineChart },
     setup() {
       return { args, captureAction };
@@ -83,7 +83,7 @@ export const MultipleDatasets: Story = {
 };
 
 export const MultipleDatasetsWithEmptyLabels: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeLineChart },
     setup() {
       return { args, captureAction };
@@ -99,7 +99,7 @@ export const MultipleDatasetsWithEmptyLabels: Story = {
 };
 
 export const MultipleDatasetsWithCustomTooltip: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeLineChart, LumeTooltip, LumeTooltipSummary },
     setup() {
       const showSummary = ref(false);
@@ -167,7 +167,7 @@ export const MultipleDatasetsWithCustomTooltip: Story = {
 };
 
 export const CustomTooltip: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeLineChart, LumeTooltip },
     setup() {
       const computedColor = computed(() => Colors[args.color]);
@@ -208,7 +208,7 @@ export const CustomTooltip: Story = {
 };
 
 export const Empty: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeLineChart },
     setup() {
       return { args, captureAction };

@@ -29,7 +29,7 @@ export default meta;
 type Story = StoryObj<typeof LumeBar>;
 
 export const Basic: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeBar },
     setup() {
       const computedFillClass = computed(

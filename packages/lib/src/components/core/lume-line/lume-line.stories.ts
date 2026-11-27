@@ -30,7 +30,7 @@ export default meta;
 type Story = StoryObj<typeof LumeLine>;
 
 export const Basic: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeLine },
     setup() {
       const computedColor = computed(() => Colors[args.color]);

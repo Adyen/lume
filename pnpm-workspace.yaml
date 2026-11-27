@@ -40,7 +40,6 @@ overrides:
   serialize-javascript: 7.0.5
   serve-static: 1.16.0
   store2: 2.14.4
-  storybook: 8.6.17
   tar-fs: 2.1.4
   tar: 7.5.19
   tmp: 0.2.4

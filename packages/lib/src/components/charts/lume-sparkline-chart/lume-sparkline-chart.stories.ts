@@ -58,7 +58,7 @@ export default meta;
 type Story = StoryObj<typeof LumeSparklineChart>;
 
 export const Basic: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeSparklineChart },
     setup() {
       const computedData = computed(() => {
@@ -81,7 +81,7 @@ export const Basic: Story = {
 };
 
 export const NegativeValues: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeSparklineChart },
     setup() {
       const computedData = computed(() => {
@@ -104,7 +104,7 @@ export const NegativeValues: Story = {
 };
 
 export const NullValues: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeSparklineChart },
     setup() {
       const computedData = computed(() => {
@@ -127,7 +127,7 @@ export const NullValues: Story = {
 };
 
 export const Empty: Story = {
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeSparklineChart },
     setup() {
       return { args, captureAction };

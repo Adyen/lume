@@ -33,7 +33,7 @@ type Story = StoryObj<typeof LumeAxis>;
 
 export const xAxis: Story = {
   name: 'X Axis (band scale)',
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeAxis },
     setup() {
       const computedContainerSize = computed(() => ({
@@ -71,7 +71,7 @@ export const xAxis: Story = {
 
 export const yAxis: Story = {
   name: 'Y Axis (linear scale)',
-  render: ({ args }) => ({
+  render: (args) => ({
     components: { LumeAxis },
     setup() {
       const computedContainerSize = computed(() => ({
@@ -118,8 +118,8 @@ export const yAxisTickAlignStart: Story = {
 };
 
 export const bothAxes: Story = {
-  name: 'Y Axis (linear scale)',
-  render: ({ args }) => ({
+  name: 'Both Axes (band + linear)',
+  render: (args) => ({
     components: { LumeAxis },
     setup() {
       const computedContainerSize = computed(() => ({
