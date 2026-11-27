@@ -1,11 +1,17 @@
-Single bar chart show a single set of data represented by discrete bars at regular intervals.
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Charts/Grouped bar chart" />
+
+# Lume grouped bar chart
+
+Grouped bar chart shows one or more sets of data represented by discrete groups of bars at regular intervals.
 
 ## Usage
 
 ### Importing
 
 ```ts
-import { LumeSingleBarChart } from '@adyen/lume';
+import { LumeGroupedBarChart } from '@adyen/lume';
 ```
 
 ### Basic use
@@ -14,7 +20,7 @@ To generate a simple bar chart with default settings, simply pass the `data` and
 
 ```html
 <template>
-  <lume-single-bar-chart
+  <lume-grouped-bar-chart
     :data="data"
     :labels="labels"
   />
@@ -28,9 +34,14 @@ To generate a simple bar chart with default settings, simply pass the `data` and
 
   const data = ref([
     {
-      label: 'My dataset',
-      color: 'violet',
+      label: 'My first dataset',
+      color: 'skyblue',
       values: [10, 30, 20, 50, 40],
+    },
+    {
+      label: 'My second dataset',
+      color: 'royalblue',
+      values: [40, 50, 20, 30, 10],
     },
   ]);
 
@@ -44,9 +55,9 @@ To generate a simple bar chart with default settings, simply pass the `data` and
 
 | Name           | Type                                            | Default      | Description                                                                                            |
 | -------------- | ----------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------ |
-| `data`         | `Data`                                          | Required     | The data to plot. Must contain only one dataset                                                        |
+| `data`         | `Data`                                          | Required     | The data to plot.                                                                                      |
 | `labels`       | `Array<string \| number>`                       | Required     | The group of labels to plot the data to.                                                               |
-| `orientation   | `String`                                        | `'vertical'` | Must be either 'horizontal' or 'vertical'                                                              |
+| `orientation`  | `String`                                        | `'vertical'` | Must be either 'horizontal' or 'vertical'                                                              |
 | `xScale`       | `ScaleGenerator \| ScaleBand<string \| number>` | `undefined`  | A d3 scale or a scale generator function to override the default X scale.                              |
 | `yScale`       | `ScaleGenerator \| ScaleLinear<number, number>` | `undefined`  | A d3 scale or a scale generator function to override the default Y scale.                              |
 | `options`      | `Options`                                       | `undefined`  | A set of chart options.                                                                                |

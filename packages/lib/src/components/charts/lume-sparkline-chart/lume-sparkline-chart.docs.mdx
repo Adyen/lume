@@ -1,3 +1,14 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as LumeSparklineChartStories from './lume-sparkline-chart.stories';
+
+<Meta of={LumeSparklineChartStories} />
+
+# Lume sparkline chart
+
+<Canvas>
+  <Story of={LumeSparklineChartStories.Basic} />
+</Canvas>
+
 Sparkline charts plot data at regular intervals connected by lines from left to right to demonstrate changes in value.
 It is meant as an alternative to the regular line chart where it can be displayed in a smaller format without axes.
 

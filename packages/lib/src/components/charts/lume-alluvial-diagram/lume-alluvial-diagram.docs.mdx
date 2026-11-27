@@ -1,3 +1,14 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as LumeAlluvialDiagramStories from './lume-alluvial-diagram.stories';
+
+<Meta of={LumeAlluvialDiagramStories} />
+
+# Lume alluvial diagram
+
+<Canvas>
+  <Story of={LumeAlluvialDiagramStories.Basic} />
+</Canvas>
+
 Alluvial diagram shows you the flow of aggregated units from one group to the next.
 
 ## Usage
@@ -158,13 +169,13 @@ In the alluvial diagram, there are multiple possible behaviors for when you hove
 
 When a node or link is hovered, highlight the full connecting nodes/links. This is the default behavior.
 
-<!-- TODO: Add example image -->
+{/* TODO: Add example image */}
 
 ##### `closest`
 
 When a node or link is hovered, highlight only the closest nodes/links.
 
-<!-- TODO: Add example image -->
+{/* TODO: Add example image */}
 
 ##### Custom function
 

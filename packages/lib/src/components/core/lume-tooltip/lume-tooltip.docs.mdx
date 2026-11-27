@@ -1,3 +1,9 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Core/Tooltip" />
+
+# Lume tooltip
+
 A chart tooltip displays contextual extra information upon user interaction.
 
 This component provides an implementation of the chart tooltip guidelines, along with a set of options and `<slot>`s to customize it.
@@ -140,3 +146,114 @@ Fired upon mouse leaving the lume tooltip.
 ##### Payload
 
 None.
+
+## Subcomponents
+
+### Lume tooltip item
+
+A simple, wrapper component for tooltip list items.
+
+### Usage
+
+#### Importing
+
+```ts
+import { LumeTooltipItem } from '@adyen/lume';
+```
+
+#### Basic use
+
+To overwrite the default item list, add your own list of tooltip items to the `items` slot of LumeTooltip:
+
+```html
+<lume-tooltip>
+  <template #items>
+    <lume-tooltip-item color="violet">
+      <template #label> My custom item </template>
+      <template #value> 123 </template>
+    </lume-tooltip-item>
+  </template>
+</lume-tooltip>
+```
+
+### API
+
+#### Props
+
+| Name    | Type     | Default | Description                                                                          |
+| ------- | -------- | ------- | ------------------------------------------------------------------------------------ |
+| `color` | `string` | `null`  | The color for the item symbol. If not provided, the item will not render the symbol. |
+
+#### Slot props
+
+##### `label`
+
+Slot for the label part of the item.
+
+No props.
+
+##### `value`
+
+Slot for the value part of the item.
+
+No props.
+
+### Lume tooltip summary
+
+A simple, wrapper component for the tooltip summary item.
+
+### Usage
+
+#### Importing
+
+```ts
+import { LumeTooltipSummary } from '@adyen/lume';
+```
+
+#### Basic use
+
+To overwrite the default summary item, add your content to the `summary` slot of LumeTooltip:
+
+```html
+<lume-tooltip>
+  <template #summary>
+    <lume-tooltip-summary> My custom summary </lume-tooltip-summary>
+  </template>
+</lume-tooltip>
+```
+
+### API
+
+#### Props
+
+No props.
+
+### Lume tooltip title
+
+A simple, wrapper component for tooltip title.
+
+### Usage
+
+#### Importing
+
+```ts
+import { LumeTooltipTitle } from '@adyen/lume';
+```
+
+#### Basic use
+
+To overwrite the default tooltip title, add your own content to the `title` slot of LumeTooltip:
+
+```html
+<lume-tooltip>
+  <template #title>
+    <lume-tooltip-title> My custom title </lume-tooltip-title>
+  </template>
+</lume-tooltip>
+```
+
+### API
+
+#### Props
+
+No props.

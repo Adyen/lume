@@ -2,7 +2,11 @@ import { resolve } from 'path';
 import type { StorybookConfig } from '@storybook/vue-vite';
 
 const config: StorybookConfig = {
-  addons: ['@storybook/addon-essentials', '@storybook/addon-a11y'],
+  addons: [
+    '@storybook/addon-essentials',
+    '@storybook/addon-a11y',
+    './remark-gfm-addon.ts',
+  ],
   core: {
     disableTelemetry: true,
   },

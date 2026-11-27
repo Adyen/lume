@@ -1,3 +1,14 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as LumeLineStories from './lume-line.stories';
+
+<Meta of={LumeLineStories} />
+
+# Lume line
+
+<Canvas>
+  <Story of={LumeLineStories.Basic} />
+</Canvas>
+
 Draws a line based on a provided SVG path definition. The component also provides properties to customize the line drawn.
 
 ## Usage

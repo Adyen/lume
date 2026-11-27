@@ -1,3 +1,14 @@
+import { Canvas, Meta, Story } from '@storybook/blocks';
+import * as LumePointStories from './lume-point.stories';
+
+<Meta of={LumePointStories} />
+
+# Lume point
+
+<Canvas>
+  <Story of={LumePointStories.Basic} />
+</Canvas>
+
 A point draws a circle to highlight data, like when a user hover their mouse over a point on a line graph.
 
 ## Usage
