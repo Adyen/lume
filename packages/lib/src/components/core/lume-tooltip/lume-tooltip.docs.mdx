@@ -135,11 +135,11 @@ p: Element; // The tooltip's new `targetElement` prop value.
 
 Fired upon tooltip unmount.
 
-### `tooltip-mouseenter`
+#### `tooltip-mouseenter`
 
 Fired upon mouse entering the lume tooltip.
 
-### `tooltip-mouseleave`
+#### `tooltip-mouseleave`
 
 Fired upon mouse leaving the lume tooltip.
 
@@ -153,15 +153,15 @@ None.
 
 A simple, wrapper component for tooltip list items.
 
-### Usage
+#### Usage
 
-#### Importing
+##### Importing
 
 ```ts
 import { LumeTooltipItem } from '@adyen/lume';
 ```
 
-#### Basic use
+##### Basic use
 
 To overwrite the default item list, add your own list of tooltip items to the `items` slot of LumeTooltip:
 
@@ -176,23 +176,23 @@ To overwrite the default item list, add your own list of tooltip items to the `i
 </lume-tooltip>
 ```
 
-### API
+#### API
 
-#### Props
+##### Props
 
 | Name    | Type     | Default | Description                                                                          |
 | ------- | -------- | ------- | ------------------------------------------------------------------------------------ |
 | `color` | `string` | `null`  | The color for the item symbol. If not provided, the item will not render the symbol. |
 
-#### Slot props
+##### Slot props
 
-##### `label`
+###### `label`
 
 Slot for the label part of the item.
 
 No props.
 
-##### `value`
+###### `value`
 
 Slot for the value part of the item.
 
@@ -202,15 +202,15 @@ No props.
 
 A simple, wrapper component for the tooltip summary item.
 
-### Usage
+#### Usage
 
-#### Importing
+##### Importing
 
 ```ts
 import { LumeTooltipSummary } from '@adyen/lume';
 ```
 
-#### Basic use
+##### Basic use
 
 To overwrite the default summary item, add your content to the `summary` slot of LumeTooltip:
 
@@ -222,9 +222,9 @@ To overwrite the default summary item, add your content to the `summary` slot of
 </lume-tooltip>
 ```
 
-### API
+#### API
 
-#### Props
+##### Props
 
 No props.
 
@@ -232,15 +232,15 @@ No props.
 
 A simple, wrapper component for tooltip title.
 
-### Usage
+#### Usage
 
-#### Importing
+##### Importing
 
 ```ts
 import { LumeTooltipTitle } from '@adyen/lume';
 ```
 
-#### Basic use
+##### Basic use
 
 To overwrite the default tooltip title, add your own content to the `title` slot of LumeTooltip:
 
@@ -252,8 +252,8 @@ To overwrite the default tooltip title, add your own content to the `title` slot
 </lume-tooltip>
 ```
 
-### API
+#### API
 
-#### Props
+##### Props
 
 No props.
